@@ -10,26 +10,24 @@ using System.Threading.Tasks;
 using AngleSharp.Dom;
 using ConcernsCaseWork.Service.Base;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public class GetProjectsByUserService : IGetProjectsByUserService
+    public class GetProjectByIdService : IGetProjectByIdService
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public GetProjectsByUserService(IHttpClientFactory clientFactory)
+		public GetProjectByIdService(IHttpClientFactory clientFactory)
         { //(ILogger<CreateProjectService> logger, IHttpClientFactory clientFactory) { 
           //  _logger = logger;
             _clientFactory = clientFactory;
         }
 
-        public async Task<ProjectResponse[]> GetProjects(string user)
+        public async Task<ProjectResponse> GetProject(string ProjectId)
         {
-            var Url = "https://localhost:3001/api/Project";
+            var Url = "https://localhost:3001/api/Project/Id";
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"{Url}?user={user}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"{Url}?projectId={ProjectId}");
                 var client = _clientFactory.CreateClient();
                 try
                 {
@@ -38,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
                     var wrapper = JsonSerializer.Deserialize<ApiListWrapper<ProjectResponse>>(content);
 
-                    return wrapper.Data.ToArray();
+                return wrapper.Data.First();
                 }
                 catch (Exception ex)
                 {

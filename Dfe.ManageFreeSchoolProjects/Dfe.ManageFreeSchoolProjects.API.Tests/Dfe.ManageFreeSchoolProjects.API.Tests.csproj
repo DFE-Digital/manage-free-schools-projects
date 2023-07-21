@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API\Dfe.ManageFreeSchoolProjects.API.csproj" />
+      <ProjectReference Include="..\OpenFreeSchools.API\OpenFreeSchools.API.csproj" />
     </ItemGroup>
 
     <ItemGroup>

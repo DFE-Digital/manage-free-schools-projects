@@ -14,7 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects
 	{
 		Task<Project> CreateProject(Project request);
 		Project[] GetProjectsByUser(string user);
-
+        Project GetProjectById(string projectId);
+        Task<Project> DeleteProject(Project request);
+        Task<Project> EditProject(Project request);
     }
 
 	public class ProjectGateway : IProjectGateway
@@ -47,6 +49,25 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects
             }
         }
 
+        public Project GetProjectById(string projectId)
+        {
+            try
+            {
+                var project = _ManageFreeSchoolProjectsDbContext.Projects.Where(x => x.ProjectId == projectId).ToArray();
+                return project.First();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Failed to get Project with Id {Id}, {ex}", projectId, ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An application exception has occurred whilst creating Project with Id {Id}, {ex}", projectId, ex);
+                throw;
+            }
+        }
+
         public async Task<Project> CreateProject(Project request)
 		{
 			try
@@ -67,5 +88,51 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects
 				throw;
 			}
 		}
-	}
+
+        public async Task<Project> DeleteProject(Project request)
+        {
+            try
+            {
+                request.UpdatedAt = request.CreatedAt;
+                _ManageFreeSchoolProjectsDbContext.Projects.Where(p => p.ProjectId == request.ProjectId).ExecuteDelete();
+                await _ManageFreeSchoolProjectsDbContext.SaveChangesAsync();
+                return request;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Failed to delete Project with Id {Id}, {ex}", request.Id, ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An application exception has occurred whilst deleting Project with Id {Id}, {ex}", request.Id, ex);
+                throw;
+            }
+        }
+
+        public async Task<Project> EditProject(Project request)
+        {
+            try
+            {
+                request.UpdatedAt = request.CreatedAt;
+
+                Project project = _ManageFreeSchoolProjectsDbContext.Projects.Where(p => p.ProjectId == request.ProjectId).SingleOrDefault();
+                project.SchoolName = request.SchoolName;
+                project.ApplicationNumber = request.ApplicationNumber;
+                project.ApplicationWave = request.ApplicationWave;
+                await _ManageFreeSchoolProjectsDbContext.SaveChangesAsync();
+                return request;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Failed to edit Project with Id {Id}, {ex}", request.Id, ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An application exception has occurred whilst editing Project with Id {Id}, {ex}", request.Id, ex);
+                throw;
+            }
+        }
+    }
 }

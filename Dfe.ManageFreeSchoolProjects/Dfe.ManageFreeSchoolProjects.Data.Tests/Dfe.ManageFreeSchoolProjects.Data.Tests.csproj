@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Data\Dfe.ManageFreeSchoolProjects.Data.csproj" />
+      <ProjectReference Include="..\OpenFreeSchools.Data\OpenFreeSchools.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
