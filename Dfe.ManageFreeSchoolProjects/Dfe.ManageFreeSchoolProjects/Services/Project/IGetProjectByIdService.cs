@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface IGetProjectsByUserService
+    public interface IGetProjectByIdService
     {
-        public Task<ProjectResponse[]> GetProjects(string user);
+        public Task<ProjectResponse> GetProject(string ProjectID);
     }
 }

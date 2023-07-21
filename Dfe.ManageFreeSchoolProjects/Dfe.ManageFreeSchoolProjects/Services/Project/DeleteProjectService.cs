@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
 using System;
@@ -11,37 +10,35 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public class CreateProjectService : ICreateProjectService
+    public class DeleteProjectService : IDeleteProjectService
     {
-        //   public ILogger<CreateProjectService> _logger;
+        //   public ILogger<DeleteProjectService> _logger;
         private readonly IHttpClientFactory _clientFactory;
 
-        public CreateProjectService(IHttpClientFactory clientFactory)
-        { //(ILogger<CreateProjectService> logger, IHttpClientFactory clientFactory) { 
+        public DeleteProjectService(IHttpClientFactory clientFactory)
+        { //(ILogger<DeleteProjectService> logger, IHttpClientFactory clientFactory) { 
           //  _logger = logger;
             _clientFactory = clientFactory;
         }
 
-        public async Task<long> CreateProject(string ProjectID, string SchoolName, string ApplicationNumber, string ApplicationWave, string CreatedBy)
+        public async Task<long> DeleteProject(string ProjectID)
         {
-            //   _logger.LogInformation("CreateProjectService::CreateProject execution");
+            //   _logger.LogInformation("DeleteProjectService::DeleteProject execution");
             try
             {
                 //        _logger.LogInformation("CaseService::PostCase");
 
                 // Create a request
                 var request = new StringContent(
-                    JsonSerializer.Serialize(new CreateProjectRequest() { ApplicationNumber = ApplicationNumber, ApplicationWave = ApplicationWave, ProjectId = ProjectID, SchoolName = SchoolName, CreatedBy = CreatedBy }),
+                    JsonSerializer.Serialize(new DeleteProjectRequest() { ProjectId = ProjectID}),
                     Encoding.UTF8,
                     MediaTypeNames.Application.Json);
 
                 // Create http client
                 var client = _clientFactory.CreateClient();
 
-                
-
                 // Execute request
-                var response = await client.PostAsync($"https://localhost:3001/api/Project", request);
+                var response = await client.DeleteAsync($"https://localhost:3001/api/Project?projectId={ProjectID}");
 
                 // Check status code
                 response.EnsureSuccessStatusCode();
