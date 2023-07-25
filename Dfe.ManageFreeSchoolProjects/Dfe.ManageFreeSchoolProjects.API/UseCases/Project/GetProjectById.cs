@@ -7,11 +7,13 @@ using Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects;
 
 namespace ConcernsCaseWork.API.UseCases.Project
 {
-    public class getProjectById : IUseCase<GetProjectRequest, ProjectResponse>
+	public interface IGetProjectByIdCase : IUseCase<GetProjectRequest, ProjectResponse> { }
+
+    public class GetProjectById : IGetProjectByIdCase
 	{
 		private readonly IProjectGateway _gateway;
 
-		public getProjectById(IProjectGateway gateway)
+		public GetProjectById(IProjectGateway gateway)
 		{
 			_gateway = gateway;
 		}

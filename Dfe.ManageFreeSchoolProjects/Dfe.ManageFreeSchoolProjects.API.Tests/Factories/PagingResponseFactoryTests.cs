@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Moq;
 using Xunit;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Factories
 {

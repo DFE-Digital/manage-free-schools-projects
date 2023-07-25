@@ -2,7 +2,7 @@
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
 {
-    public class GetAllProjectsRequest
+    public class GetProjectsByUserRequest
     {
         [Required]
         public string User { get; set; }

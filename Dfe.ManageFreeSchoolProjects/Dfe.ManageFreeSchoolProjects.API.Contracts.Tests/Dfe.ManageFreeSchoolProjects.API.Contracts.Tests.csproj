@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -29,6 +29,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API.Contracts\Dfe.ManageFreeSchoolProjects.API.Contracts.csproj" />
     <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ResponseModels\" />
   </ItemGroup>
 
 </Project>

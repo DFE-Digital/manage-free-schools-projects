@@ -7,21 +7,22 @@ using Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects;
 
 namespace ConcernsCaseWork.API.UseCases.Project
 {
-    public class GetAllProjects : IUseCase<GetAllProjectsRequest, ProjectResponse[]>
+    public interface IGetProjectsByUser : IUseCase<GetProjectsByUserRequest, ProjectResponse[]> { }
+
+	public class GetProjectsByUser : IGetProjectsByUser
 	{
 		private readonly IProjectGateway _gateway;
 
-		public GetAllProjects(IProjectGateway gateway)
+		public GetProjectsByUser(IProjectGateway gateway)
 		{
 			_gateway = gateway;
 		}
 
-		public ProjectResponse[] Execute(GetAllProjectsRequest request)
+		public ProjectResponse[] Execute(GetProjectsByUserRequest request)
 		{
 			return _gateway.GetProjectsByUser(request.User)
 						   .Select(x => ProjectFactory.CreateResponse(x))
 						   .ToArray();
 		}
-
 	}
 }

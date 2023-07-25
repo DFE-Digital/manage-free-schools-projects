@@ -1,4 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Json;

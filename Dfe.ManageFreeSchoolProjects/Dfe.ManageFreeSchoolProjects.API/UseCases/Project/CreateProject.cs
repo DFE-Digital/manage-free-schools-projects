@@ -2,13 +2,14 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
 using Dfe.ManageFreeSchoolProjects.API.Factories.Projects;
 using Dfe.ManageFreeSchoolProjects.API.UseCases;
-using Dfe.ManageFreeSchoolProjects.Data.Gateways;
 using Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects;
 
 namespace ConcernsCaseWork.API.UseCases.Project
 {
-    public class CreateProject : IUseCase<CreateProjectRequest, ProjectResponse>
-	{
+	public interface ICreateProjectCase : IUseCase<CreateProjectRequest, ProjectResponse> { }
+
+	public class CreateProject : ICreateProjectCase
+    {
 		private readonly IProjectGateway _gateway;
 
 		public CreateProject(IProjectGateway gateway)
