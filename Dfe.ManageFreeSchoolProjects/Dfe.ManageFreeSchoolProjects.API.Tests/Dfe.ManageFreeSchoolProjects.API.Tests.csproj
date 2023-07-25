@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OpenFreeSchools.API\OpenFreeSchools.API.csproj" />
+      <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API\Dfe.ManageFreeSchoolProjects.API.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -42,6 +42,13 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DatabaseModels\" />
+      <Folder Include="Integration\" />
+      <Folder Include="UseCases\" />
+      <Folder Include="Validators\" />
     </ItemGroup>
 
 </Project>

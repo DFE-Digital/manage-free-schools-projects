@@ -7,6 +7,8 @@ using Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects;
 
 namespace ConcernsCaseWork.API.UseCases.Project
 {
+    public interface IEditProjectCase : IUseCase<EditProjectRequest, ProjectResponse> { }
+
     public class EditProject : IUseCase<EditProjectRequest, ProjectResponse>
     {
         private readonly IProjectGateway _gateway;

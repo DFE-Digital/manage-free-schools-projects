@@ -1,6 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Service.Base;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
@@ -91,7 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			var correlationContext = new CorrelationContext();
 			correlationContext.SetContext(Guid.NewGuid().ToString());
 
-			AbstractService.AddDefaultRequestHeaders(client, correlationContext, clientUserInfoService, null);
+			//AbstractService.AddDefaultRequestHeaders(client, correlationContext, clientUserInfoService, null);
 
 			return client;
 		}
