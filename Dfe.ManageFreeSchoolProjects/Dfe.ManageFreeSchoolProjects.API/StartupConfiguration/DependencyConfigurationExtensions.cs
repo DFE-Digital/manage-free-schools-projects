@@ -17,8 +17,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 				{
 					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IUseCase<,>))
 					{
-						services.AddScoped(@interface, type);
+						if (!type.IsInterface)
+						{
+							services.AddScoped(@interface, type);
+						}
 					}
+
+					if (@interface.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IUseCase<,>)))
+					{
+                        services.AddScoped(@interface, type);
+                    }
 				}
 			}
 

@@ -10,7 +10,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
-    [DbContext(typeof(ManageFreeSchoolProjectsDbContext))]
+    [DbContext(typeof(ProjectsDbContext))]
     partial class ManageFreeSchoolProjectsDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

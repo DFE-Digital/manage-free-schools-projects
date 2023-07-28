@@ -9,7 +9,7 @@ namespace ConcernsCaseWork.API.UseCases.Project
 {
     public interface IEditProjectCase : IUseCase<EditProjectRequest, ProjectResponse> { }
 
-    public class EditProject : IUseCase<EditProjectRequest, ProjectResponse>
+    public class EditProject : IEditProjectCase
     {
         private readonly IProjectGateway _gateway;
 

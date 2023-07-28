@@ -9,6 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Validators\**" />
+      <EmbeddedResource Remove="Validators\**" />
+      <None Remove="Validators\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoFixture.AutoMoq" Version="4.17.0" />
         <PackageReference Include="AutoFixture.Idioms" Version="4.17.0" />
         <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
@@ -46,9 +52,6 @@
 
     <ItemGroup>
       <Folder Include="DatabaseModels\" />
-      <Folder Include="Integration\" />
-      <Folder Include="UseCases\" />
-      <Folder Include="Validators\" />
     </ItemGroup>
 
 </Project>
