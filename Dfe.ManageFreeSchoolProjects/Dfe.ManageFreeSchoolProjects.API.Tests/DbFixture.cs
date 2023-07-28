@@ -30,10 +30,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests
 
 			ConnString = config.GetConnectionString("DefaultConnection");
 
-			var contextBuilder = new DbContextOptionsBuilder<ManageFreeSchoolProjectsDbContext>();
+			var contextBuilder = new DbContextOptionsBuilder<ProjectsDbContext>();
 
 			contextBuilder.UseSqlServer(ConnString);
-			ManageFreeSchoolProjectsDbContext concernsDbContext = new(contextBuilder.Options, userInfoService);
+			ProjectsDbContext concernsDbContext = new(contextBuilder.Options, userInfoService);
 			concernsDbContext.Database.Migrate();
 
 			_concernsTransaction = concernsDbContext.Database.BeginTransaction();

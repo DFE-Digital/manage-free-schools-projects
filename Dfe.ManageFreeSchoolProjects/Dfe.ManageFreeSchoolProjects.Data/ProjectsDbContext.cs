@@ -12,15 +12,15 @@ using Dfe.ManageFreeSchoolProjects.Data.Models.Projects;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
 {
-	public partial class ManageFreeSchoolProjectsDbContext : DbContext
+	public partial class ProjectsDbContext : DbContext
 	{
 		private readonly IServerUserInfoService _userInfoService;
 
-		public ManageFreeSchoolProjectsDbContext()
+		public ProjectsDbContext()
 		{
 		}
 
-		public ManageFreeSchoolProjectsDbContext(DbContextOptions<ManageFreeSchoolProjectsDbContext> options, IServerUserInfoService userInfoService)
+		public ProjectsDbContext(DbContextOptions<ProjectsDbContext> options, IServerUserInfoService userInfoService)
 			: base(options)
 		{
 			Guard.Against.Null(userInfoService);

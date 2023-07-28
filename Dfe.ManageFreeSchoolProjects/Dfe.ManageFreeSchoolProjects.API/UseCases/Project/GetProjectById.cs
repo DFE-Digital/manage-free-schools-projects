@@ -20,11 +20,9 @@ namespace ConcernsCaseWork.API.UseCases.Project
 
 		public ProjectResponse Execute(GetProjectRequest request)
 		{
-
             var project = _gateway.GetProjectById(request.ProjectId);
 
             return ProjectFactory.CreateResponse(project);
-
 		}
 
 	}

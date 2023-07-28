@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 		public HttpClient Client { get; init; }
 
-		private DbContextOptions<ManageFreeSchoolProjectsDbContext> _dbContextOptions { get; init; }
+		private DbContextOptions<ProjectsDbContext> _dbContextOptions { get; init; }
 
 		private ServerUserInfoService _serverUserInfoService { get; init; }
 
@@ -64,7 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 					Client = CreateHttpClient(fakeUserInfo);
 
-					_dbContextOptions = new DbContextOptionsBuilder<ManageFreeSchoolProjectsDbContext>()
+					_dbContextOptions = new DbContextOptionsBuilder<ProjectsDbContext>()
 						.UseSqlServer(connectionString)
 						.Options;
 
@@ -107,7 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			return result;
 		}
 
-		public ManageFreeSchoolProjectsDbContext GetContext() => new ManageFreeSchoolProjectsDbContext(_dbContextOptions, _serverUserInfoService);
+		public ProjectsDbContext GetContext() => new ProjectsDbContext(_dbContextOptions, _serverUserInfoService);
 
 		public void Dispose()
 		{
