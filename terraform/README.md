@@ -124,9 +124,10 @@ If everything looks good, answer `yes` and wait for the new infrastructure to be
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4.5 |
-| <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | >= 1.5.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.52.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.4 |
+| <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | >= 1.8.0 |
+| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >= 2.41.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.67.0 |
 
 ## Providers
 
