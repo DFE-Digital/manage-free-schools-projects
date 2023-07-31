@@ -59,11 +59,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln
 
-      # - name: Build solution, test and run SonarCloud scanner
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build solution, test and run SonarCloud scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   run: |
-      #     dotnet build Dfe.ManageFreeSchoolProjects\Dfe.ManageFreeSchoolProjects.sln --no-restore
-      #     dotnet test Dfe.ManageFreeSchoolProjects\Dfe.ManageFreeSchoolProjects.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --environment "${{env.CONNECTION_STRING_KEY}}"="${{env.CONNECTION_STRING}}" --filter "FullyQualifiedName!~ConcernsCaseWork.Integration.Tests"
+        run: |
+          dotnet build Dfe.ManageFreeSchoolProjects\Dfe.ManageFreeSchoolProjects.sln --no-restore
+          dotnet test Dfe.ManageFreeSchoolProjects\Dfe.ManageFreeSchoolProjects.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --environment "${{env.CONNECTION_STRING_KEY}}"="${{env.CONNECTION_STRING}}" --filter "FullyQualifiedName!~ConcernsCaseWork.Integration.Tests"
       #     dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
