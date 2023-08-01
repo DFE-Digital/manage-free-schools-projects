@@ -53,13 +53,13 @@ public class DatabaseTestFixture
 		return result;
 	}
 
-	protected ConcernsDbContext CreateContext()
+	protected ProjectsDbContext CreateContext()
 	{
 		var userInfoService = new ServerUserInfoService()
 		{
 			UserInfo = new UserInfo() { Name = "Data.Tests@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } }
 		};
 
-		return new ConcernsDbContext(new DbContextOptionsBuilder<ConcernsDbContext>().UseSqlServer(_connectionString).Options, userInfoService);
+		return new ProjectsDbContext(new DbContextOptionsBuilder<ProjectsDbContext>().UseSqlServer(_connectionString).Options, userInfoService);
 	}
 }
