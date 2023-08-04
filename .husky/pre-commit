@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-cd Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests
-npm run pre-commit:check
