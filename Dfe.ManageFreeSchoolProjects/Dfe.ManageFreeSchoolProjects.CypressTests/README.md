@@ -8,7 +8,6 @@ The Cypress tests are designed to run against the front-end of the application. 
 {
     "url": "<enter frontend URL>",
     "username": "<enter the user you want to run the tests with>",
-    "password": "<enter the user's password>",
     "api": "<enter backend URL>",
     "apiKey": "<enter API key for backend>",
     "authKey": "<enter key set for the CypressTestSecret>"
@@ -19,12 +18,7 @@ While it is possible to pass these configurations through commands, it is easier
 
 #### Authentication
 
-There are two mechanisms of authentication supported:
-
-1. Logging in using the Azure UI (Deprecated)
-2. Using the `authKey` setting (Current method)
-
-Both methods are included in the tests in case any problems arise. The authentication is invoked in every test using the `login` command:
+The authentication is invoked in every test using the `login` command:
 
 ```javascript
 beforeEach(() => {
@@ -32,16 +26,16 @@ beforeEach(() => {
 });
 ```
 
-The current method intercepts all browser requests and adds a special auth header using the `authKey`. Make sure you set the `CypressTestSecret` in your app, and it matches the `authKey` in the `cypress.env.json` file.
+Intercepts all browser requests and adds a special auth header using the `authKey`. Make sure you set the `CypressTestSecret` in your app, and it matches the `authKey` in the `cypress.env.json` file.
 
 ### Test Execution
 
 If you have a `cypress.env.json` file, the `cy:open` and `cy:run` commands will automatically pick up the configuration.
 
-Navigate to the `ConcernsCaseWork/ConcernsCaseWork.CypressTests/` directory:
+Navigate to the `Dfe.ManageFreeSchoolProjects.CypressTests` directory:
 
 ```
-cd ConcernsCaseWork/ConcernsCaseWork.CypressTests/
+cd Dfe.ManageFreeSchoolProjects.CypressTests/
 ```
 
 To open the Cypress Test Runner, run the following command:
@@ -58,9 +52,12 @@ npm run cy:run
 
 ### Test linting
 
-We have set up [eslint](https://eslint.org) on the Cypress tests to encourage code quality. This can be run by using the script `npm run lint`
+We have set up [eslint](https://eslint.org) and [prettier](https://prettier.io/) on the Cypress tests to encourage code quality. This can be run by using the script `npm run lint`
 
-Currently, all rules are set to warnings rather than errors. We will be looking to move these to errors long-term.
+-   Prettier will format all code files
+-   Eslint checks will run
+
+All the default rules have been setup
 
 ### Security testing with ZAP
 
@@ -133,28 +130,6 @@ it("should perform accessibility tests", () => {
 
 #### Command Details
 
-The `executeAccessibilityTests` command under "support/commands.ts" performs the following steps:
+The `executeAccessibilityTests` command under "support/commands.ts"
 
-1. Logs a message to indicate that the command is being executed.
-2. Sets the WCAG standards to be checked. In this case, it uses the WCAG 2.2 AA standard.
-3. Defines the impact levels to include in the accessibility tests. The impact levels can be "critical", "minor", "moderate", or "serious".
-4. Logs a message to indicate that the Axe accessibility library is being injected.
-5. Injects the Axe library into the web application under test.
-6. Logs a message to indicate that the accessibility check is being performed.
-7. Executes the accessibility check using the `checkA11y` command provided by Cypress. It configures the test to run only for the specified WCAG standards and included impact levels.
-8. Optionally, you can choose to continue running the tests even if there are failures by setting `continueOnFail` to `true`. By default, it is set to `false`.
-9. Logs a message to indicate that the command has finished.
-
-#### Note
-
-Make sure you have the necessary dependencies and configurations set up to use Cypress and the Axe accessibility library before using the `executeAccessibilityTests` command.
-
-It is recommended to customise the command based on your specific accessibility testing needs. You can add additional parameters or modify the WCAG standards and impact levels as required by your project.
-
-Remember to interpret and handle the test results appropriately based on your project requirements. The accessibility check will provide feedback on any accessibility issues found in your web application.
-
-Ensure that you have a thorough understanding of the WCAG standards and impact levels to effectively assess the accessibility of your application. Consider addressing any accessibility issues identified during the testing process to improve the overall accessibility and user experience.
-
-Documentation and resources on Cypress and the Axe accessibility library can be found in their respective official documentation, which should be referenced for detailed information and guidance.
-
-By incorporating accessibility testing into your Cypress tests, you can help ensure that your web application is accessible to a wide range of users, including those with disabilities.
+This will run all accessibility rules provided by the framework
