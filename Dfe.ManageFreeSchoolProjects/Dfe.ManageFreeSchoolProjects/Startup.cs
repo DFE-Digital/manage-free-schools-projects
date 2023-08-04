@@ -118,7 +118,7 @@ public class Startup
       services.AddScoped<ErrorService>();
       services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();
       services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
-   }
+    }
 
    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
    {

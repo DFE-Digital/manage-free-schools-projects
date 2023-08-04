@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import { AuthenticationInterceptorParams } from 'cypress/auth/authenticationInterceptor';
 import './commands'
-import { EnvUrl, EnvUsername } from 'cypress/constants/cypressConstants';
 
 declare global {
     namespace Cypress {
@@ -30,5 +29,3 @@ declare global {
         }
     }
 }
-
-Cypress.config().baseUrl = Cypress.env(EnvUrl);
