@@ -16,7 +16,7 @@ services:
       - dev
 
   db:
-    container_name: amsd-casework-sql-server
+    container_name: mfsp-sql-server
     image: mcr.microsoft.com/azure-sql-edge:latest
     env_file: .env.database
     ports:
