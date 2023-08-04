@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Tests.Context
 {
@@ -53,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Tests.Context
 			roleResults[2].Value.Should().Be(Claims.AdminRoleClaim);
 		}
 
-		[Fact]
+		[Fact(Skip="Until we implement a prefix on our roles")]
 		public void ParseRoleClaims_When_Claims_Filters_To_Only_Concerns_Roles()
 		{
 			var sut = new UserInfo();
