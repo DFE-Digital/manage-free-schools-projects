@@ -34,8 +34,17 @@ export default defineConfig({
         }
       })
 
-      /* eslint-disable @typescript-eslint/no-var-requires */
-      return require('./cypress/plugins/index.js')(on, config)
+      on('task', {
+        log(message) {
+          console.log(message)
+
+          return null
+        },
+      })
+
+      config.baseUrl = config.env.url;
+
+      return config;
     },
   },
 })
