@@ -1,8 +1,5 @@
 export class ProjectRow {
-    constructor(private element: Element)
-    {
-
-    }
+    constructor(private element: Element) {}
 
     public hasProjectId(value: string): this {
         this.containsText("project-id", value);
@@ -29,11 +26,8 @@ export class ProjectRow {
     }
 
     private containsText(id: string, value: string) {
-        cy.wrap(this.element)
-        .within(() => 
-        {
+        cy.wrap(this.element).within(() => {
             cy.getByTestId(id).should("contain.text", value);
-        })
-
+        });
     }
 }

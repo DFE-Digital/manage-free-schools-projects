@@ -70,9 +70,9 @@ These can be run using the configured `docker-compose.yml`, which will spin up c
 
 Create a `.env` file for docker, this file needs to include
 
-- all of your required cypress configuration
-- HTTP_PROXY e.g. http://zap:8080
-- ZAP_API_KEY, can be any random guid
+-   all of your required cypress configuration
+-   HTTP_PROXY e.g. http://zap:8080
+-   ZAP_API_KEY, can be any random guid
 
 Example env:
 
@@ -120,14 +120,14 @@ To use this command, simply call `executeAccessibilityTests()` in your Cypress t
 
 ```javascript
 it("should perform accessibility tests", () => {
-  // Perform actions and assertions on your web application
-  // ...
+    // Perform actions and assertions on your web application
+    // ...
 
-  // Execute accessibility tests
-  cy.executeAccessibilityTests();
+    // Execute accessibility tests
+    cy.executeAccessibilityTests();
 
-  // Continue with other test logic
-  // ...
+    // Continue with other test logic
+    // ...
 });
 ```
 

@@ -14,8 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import { AuthenticationInterceptorParams } from 'cypress/auth/authenticationInterceptor';
-import './commands'
+import { AuthenticationInterceptorParams } from "cypress/auth/authenticationInterceptor";
+import "./commands";
 
 declare global {
     namespace Cypress {
@@ -25,7 +25,7 @@ declare global {
             getById(id: string): Chainable<Element>;
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
-			excuteAccessibilityTests(): Chainable<Element>;
+            excuteAccessibilityTests(): Chainable<Element>;
         }
     }
 }

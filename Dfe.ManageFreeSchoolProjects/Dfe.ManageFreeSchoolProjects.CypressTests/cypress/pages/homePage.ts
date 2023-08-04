@@ -1,6 +1,5 @@
 class HomePage {
     public createProject(): this {
-
         cy.getByTestId("create-project-button").click();
 
         return this;
