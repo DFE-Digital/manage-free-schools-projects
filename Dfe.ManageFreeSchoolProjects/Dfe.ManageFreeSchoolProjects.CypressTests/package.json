@@ -12,8 +12,11 @@
         "combine:reports": "mochawesome-merge  cypress/reports/mocha/*.json> mochareports/report.json",
         "create:html:report": "marge  mochareports/report.json -f report -o mochareports",
         "generate:html:report": "npm run combine:reports && npm run create:html:report",
-        "lint": "npm run prettier:write && eslint . --ext .cy.js,.jsx,.ts,.tsx --ignore-path .gitignore",
-        "prettier:write": "prettier . --write"
+        "pre-commit:check": "npm run prettier:check && npm run lint",
+        "lint": "eslint . --ext .cy.js,.jsx,.ts,.tsx --ignore-path .gitignore",
+        "prettier:check": "prettier . --check",
+        "prettier:write": "prettier . --write",
+        "format": "npm run prettier:write && eslint . --ext .cy.js,.jsx,.ts,.tsx --ignore-path .gitignore"
     },
     "keywords": [
         "e2e",
