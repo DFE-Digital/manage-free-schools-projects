@@ -23,11 +23,6 @@ Cypress.Commands.add("login", (params) => {
 	// Means we don't have to use azure to authenticate 
 	new AuthenticationInterceptor().register(params);
 
-	// Old method of using azure to login
-	//const username = Cypress.env("username");
-	//const password = Cypress.env("password");
-	//new AuthenticationComponent().login(username, password);
-
 	cy.visit("/");
 });
 
