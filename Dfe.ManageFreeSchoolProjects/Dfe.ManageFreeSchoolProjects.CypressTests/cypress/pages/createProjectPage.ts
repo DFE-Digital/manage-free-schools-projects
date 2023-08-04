@@ -24,7 +24,7 @@ class CreateProjectPage {
     }
 
     public createProject() {
-        cy.getByTestId("create-project-button").click(); 
+        cy.getByTestId("create-project-button").click();
 
         return this;
     }

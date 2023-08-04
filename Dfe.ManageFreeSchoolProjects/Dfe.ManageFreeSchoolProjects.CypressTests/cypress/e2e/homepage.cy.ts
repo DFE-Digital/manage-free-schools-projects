@@ -34,5 +34,8 @@ describe("Testing the home page", () => {
         });
 
         // cy.excuteAccessibilityTests();
+
+        createProjectPage
+        .withProjectId(projectId)
     });
 });
