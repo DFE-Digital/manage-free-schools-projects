@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProject
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProjects.UserContext.Tests", "Dfe.ManageFreeSchoolProjects.UserContext.Tests\Dfe.ManageFreeSchoolProjects.UserContext.Tests.csproj", "{0563334D-3324-4686-A09D-B1C845A26DDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfe.ManageFreeSchoolProjects.Tests", "Dfe.ManageFreeSchoolProjects.Tests\Dfe.ManageFreeSchoolProjects.Tests.csproj", "{169507DC-02F7-43D0-805B-F729C2369696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{0563334D-3324-4686-A09D-B1C845A26DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0563334D-3324-4686-A09D-B1C845A26DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0563334D-3324-4686-A09D-B1C845A26DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{169507DC-02F7-43D0-805B-F729C2369696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{169507DC-02F7-43D0-805B-F729C2369696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{169507DC-02F7-43D0-805B-F729C2369696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{169507DC-02F7-43D0-805B-F729C2369696}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
