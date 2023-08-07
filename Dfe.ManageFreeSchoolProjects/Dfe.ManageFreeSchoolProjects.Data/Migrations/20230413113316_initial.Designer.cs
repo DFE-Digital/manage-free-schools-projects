@@ -11,7 +11,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
-    [DbContext(typeof(ManageFreeSchoolProjectsDbContext))]
+    [DbContext(typeof(ProjectsDbContext))]
     [Migration("20230413113316_initial")]
     partial class initial
     {

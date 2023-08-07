@@ -22,9 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects
 	public class ProjectGateway : IProjectGateway
 	{
 		private readonly ILogger<ProjectGateway> _logger;
-		private readonly ManageFreeSchoolProjectsDbContext _ManageFreeSchoolProjectsDbContext;
+		private readonly ProjectsDbContext _ManageFreeSchoolProjectsDbContext;
 
-		public ProjectGateway(ILogger<ProjectGateway> logger, ManageFreeSchoolProjectsDbContext ManageFreeSchoolProjectsDbContext)
+		public ProjectGateway(ILogger<ProjectGateway> logger, ProjectsDbContext ManageFreeSchoolProjectsDbContext)
 		{
 			_logger = logger;
 			_ManageFreeSchoolProjectsDbContext= ManageFreeSchoolProjectsDbContext;
