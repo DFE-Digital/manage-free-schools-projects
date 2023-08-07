@@ -1,6 +1,10 @@
 ﻿@page
 @using Dfe.ManageFreeSchoolProjects.Pages.Project;
-@model CreateProjectModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Demonstration.TagHelperModel
+
+@{
+    var values = new[] { "hello", "world" };
+}
 
 <div class="text-center">
     <div class="govuk-grid-row">
@@ -10,6 +14,32 @@
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Create Project</h2>
             <div class="app-task-list">
                 <form class="govuk-form-group" method="POST" id="create-project-form">
+
+                    <govuk-date-input id="project-date" name="project-date" asp-for="@Model.ProjectDate" data-testid="project-date-input" label="Project date" />
+
+                    <govuk-textarea-input id="project-description" name="project-description" asp-for="@Model.ProjectDescription" data-testid="project-description-input" label="Project description" />
+
+                    <govuk-decimal-input id="project-cost" name="project-cost" asp-for="@Model.ProjectCost" data-testid="project-cost-input" label="Project cost" />
+
+                    <govuk-radios-input 
+                        id="project-options" 
+                        name="project-options" 
+                        asp-for="@Model.ProjectOptions" 
+                        data-testid="project-options-input"
+                        label="Project options"
+                        values="@values"
+                        labels="@values"/>
+
+                    <div class="govuk-form-group">
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input asp-for="@Model.ProjectApproved" class="govuk-checkboxes__input" type="checkbox" id="project-approved" name="project-approved">
+                                <label asp-for="@Model.ProjectApproved" class="govuk-label govuk-checkboxes__label">
+                                    Project Approved?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
                     <govuk-text-input id="project-id" name="project-id" asp-for="@Model.ProjectID" data-testid="project-id-input" label="Project ID" />
 
