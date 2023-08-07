@@ -1,9 +1,6 @@
 ﻿@page
 @using Dfe.ManageFreeSchoolProjects.Pages.Project;
 @model CreateProjectModel
-@{
-}
-
 
 <div class="text-center">
     <div class="govuk-grid-row">
@@ -11,22 +8,14 @@
             <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Create Project</h2>
             <div class="app-task-list">
                 <form class="govuk-form-group" method="POST" id="create-project-form">
-                    <div class="govuk-form-group">
-                        <label asp-for="ProjectID" class="govuk-label">Project ID</label>
-                        <input asp-for="ProjectID" class="govuk-input" type="text" maxlength="100" required data-testid="project-id-input">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label asp-for="SchoolName" class="govuk-label">School Name</label>
-                        <input asp-for="SchoolName" class="govuk-input" type="text" maxlength="100" required data-testid="school-name-input">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label asp-for="ApplicationNumber" class="govuk-label">Application Number</label>
-                        <input asp-for="ApplicationNumber" class="govuk-input" type="text" maxlength="100" required data-testid="application-number-input">
-                    </div>
-                    <div class="govuk-form-group">
-                        <label asp-for="ApplicationWave" class="govuk-label">Application Wave</label>
-                        <input asp-for="ApplicationWave" class="govuk-input" type="text" maxlength="100" required data-testid="application-wave-input">
-                    </div>
+                    <govuk-text-input id="project-id" name="project-id" asp-for="@Model.ProjectID" data-testid="project-id-input" label="Project ID" />
+
+                    <govuk-text-input id="school-name" name="school-name" asp-for="@Model.SchoolName" data-testid="school-name-input" label="School name" />
+
+                    <govuk-text-input id="application-number" name="application-number" asp-for="@Model.ApplicationNumber" data-testid="application-number-input" label="Application number" />
+
+                    <govuk-text-input id="application-wave" name="application-wave" asp-for="@Model.ApplicationWave" data-testid="application-wave-input" label="Applicaton wave" />
+
                     <div class="govuk-button-group">
                         <button data-prevent-double-click="true"
                                 class="govuk-button govuk-!-margin-top-6"
@@ -43,3 +32,4 @@
             </div>
         </div>
     </div>
+</div>
