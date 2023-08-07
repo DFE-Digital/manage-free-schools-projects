@@ -7,6 +7,7 @@
       <UserSecretsId>d62d3434-4dd0-41eb-b548-ce55f1614767</UserSecretsId>
   </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'ManageFreeSchoolProjects.API' " />
     <ItemGroup>
       <Content Remove="appsettings.json" />
       <Content Remove="appsettings.tests.json" />

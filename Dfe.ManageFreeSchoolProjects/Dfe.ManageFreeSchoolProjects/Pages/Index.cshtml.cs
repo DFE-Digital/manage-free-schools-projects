@@ -16,6 +16,9 @@ namespace Dfe.BuildFreeSchools.Pages
         [BindProperty]
         public bool UserCanCreateProject { get; set; }
 
+        [BindProperty]
+        public string Username { get; set; }
+
         private IGetProjectsByUserService _getProjectsByUserService { get; set; }
 
         public IndexModel(IGetProjectsByUserService getProjectsByUserService)
@@ -36,6 +39,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			{
 				Projects = await _getProjectsByUserService.GetProjects(User.Identity.Name.ToString());
 				UserCanCreateProject = User.IsInRole("teamlead");
+				Username = User.Identity.Name.ToString();
 				return Page();
 			}
 			catch (Exception ex)

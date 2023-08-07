@@ -5,69 +5,92 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Project list</h2>
-            <p class="govuk-body">The project list will help you manage projects that are in flight.</p>
-            @if (Model.UserCanCreateProject == true)
+<div class="dfe-content-page--header">
+    <div class="dfe-width-container ">
+        <div class="govuk-grid-row ">
+            <div class="govuk-grid-column-three-quarters">
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-0">
+            <div class="govuk-grid-column-three-quarters">
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">Your free school projects</h1>
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-7">
+            <div class="govuk-grid-column-full">
+            </div>
+        </div>
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row tr__large">
+                    <th class="govuk-table__header govuk-table__cell__cases" scope="col">
+                        Project title
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Project ID
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Trust
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Region
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases" scope="col">
+                        Local authority
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Realistic opening date
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Status
+                    </th>
+                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                @if (Model.Projects == null || Model.Projects.Length == 0)
                 {
-                <a class="govuk-button" asp-page="/project/create" role="button" data-testid="create-project-button">
-                    Create Project
-                </a>
-                <a class="govuk-button govuk-button--warning" asp-page="/project/delete" role="button" data-testid="delete-project-button">
-                    Delete Project
-                </a>
-                }
-            <!-- List -->
-
-            <table class="govuk-table">
-                <thead class="govuk-table__head">
                     <tr class="govuk-table__row tr__large">
-                        <th class="govuk-table__header govuk-table__cell__cases" scope="col">
-                            Project ID
-                        </th>
-                        <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                            School Name
-                        </th>
-                        <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                            Application Number
-                        </th>
-                        <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                            Application Wave
-                        </th>
+                        <td class="govuk-table__cell__cases govuk-oneline-row">
+                            <span>There are no projects available.</span>
+                        </td>
                     </tr>
-                </thead>
-                <tbody class="govuk-table__body">
-                    @if (Model.Projects == null || Model.Projects.Length == 0)
+                }
+                else
+                {
+                    foreach (var activeCase in Model.Projects)
                     {
-                        <tr class="govuk-table__row tr__large">
-                            <td class="govuk-table__cell__cases govuk-oneline-row">
-                                <span>There are no projects available.</span>
+                        <tr class="govuk-table__row tr__large" data-testid="row-@activeCase.ProjectId">
+                            <td class="govuk-table__cell" data-testid="case-id">
+                                <a class="govuk-link" asp-page="/project/edit" asp-route-projectId="@activeCase.ProjectId">@activeCase.ProjectId</a>
+                            </td>
+                            <td class="govuk-table__cell" data-testid="updated-at">
+                                @activeCase.SchoolName
+                            </td>
+                            <td class="govuk-table__cell" data-testid="created-at">
+                                @activeCase.ApplicationNumber
+                            </td>
+                            <td class="govuk-table__cell" data-testid="trust-name">
+                                @activeCase.ApplicationWave
+                            </td>
+                            <td class="govuk-table__cell" data-testid="case-id">
+                                <a class="govuk-link" asp-page="/project/edit" asp-route-projectId="@activeCase.ProjectId">@activeCase.ProjectId</a>
+                            </td>
+                            <td class="govuk-table__cell" data-testid="updated-at">
+                                @activeCase.SchoolName
+                            </td>
+                            <td class="govuk-table__cell" data-testid="created-at">
+                                @activeCase.ApplicationNumber
+                            </td>
+                            <td class="govuk-table__cell" data-testid="trust-name">
+                                @activeCase.ApplicationWave
                             </td>
                         </tr>
                     }
-                    else
-                    {
-                        foreach (var activeCase in Model.Projects)
-                        {
-                            <tr class="govuk-table__row tr__large" data-testid="row-@activeCase.ProjectId">
-                                <td class="govuk-table__cell" data-testid="case-id">
-                                    <a class="govuk-link" asp-page="/project/edit" asp-route-projectId="@activeCase.ProjectId">@activeCase.ProjectId</a>
-                                </td>
-                                <td class="govuk-table__cell" data-testid="updated-at">
-                                    @activeCase.SchoolName
-                                </td>
-                                <td class="govuk-table__cell" data-testid="created-at">
-                                    @activeCase.ApplicationNumber
-                                </td>
-                                <td class="govuk-table__cell" data-testid="trust-name">
-                                    @activeCase.ApplicationWave
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
