@@ -61,11 +61,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Demonstration
 
         public TagHelperModel(
             ErrorService errorService
-            //   ILogger<CreateProjectModel> logger
             )
         {
             _errorService = errorService;
-            //_logger = logger;
         }
 
         public void OnGet()
