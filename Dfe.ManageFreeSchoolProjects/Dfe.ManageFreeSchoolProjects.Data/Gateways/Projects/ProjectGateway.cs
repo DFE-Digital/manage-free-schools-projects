@@ -1,16 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Models.Projects;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Dfe.ManageFreeSchoolProjects.Data.Models;
-using Dfe.ManageFreeSchoolProjects.Data.Models.Projects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects
 {
-	public interface IProjectGateway
+    public interface IProjectGateway
 	{
 		Task<Project> CreateProject(Project request);
 		Project[] GetProjectsByUser(string user);

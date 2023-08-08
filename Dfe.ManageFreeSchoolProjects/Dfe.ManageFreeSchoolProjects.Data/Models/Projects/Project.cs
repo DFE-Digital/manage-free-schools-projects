@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Models.Projects
 {
-	public class Project : IAuditable
+	public class Project
 	{
 		public int Id { get; set; }
         public string ProjectId { get; set; }
