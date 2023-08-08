@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 		public ProjectsDbContext(DbContextOptions<ProjectsDbContext> options, IServerUserInfoService userInfoService)
 			: base(options)
 		{
-			Guard.Against.Null(userInfoService);
+			Guard.Against.Null(userInfoService, nameof(userInfoService));
 			_userInfoService = userInfoService;
 		}
 

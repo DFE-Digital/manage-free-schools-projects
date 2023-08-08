@@ -16,8 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
 
 		public async Task InvokeAsync(HttpContext httpContext, IServerUserInfoService userInfoService, ILogger<UserContextReceiverMiddleware> logger)
 		{
-			Guard.Against.Null(userInfoService);
-			Guard.Against.Null(logger);
+			Guard.Against.Null(userInfoService, nameof(userInfoService));
+			Guard.Against.Null(logger, nameof(logger));
 
 			if (IsApiRequest(httpContext.Request.Path))
 			{
