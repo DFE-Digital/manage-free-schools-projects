@@ -7,20 +7,8 @@ export class ProjectRow {
         return this;
     }
 
-    public hasSchoolName(value: string): this {
-        this.containsText("school-name", value);
-
-        return this;
-    }
-
-    public hasApplicationName(value: string): this {
-        this.containsText("application-name", value);
-
-        return this;
-    }
-
-    public hasApplicationWave(value: string): this {
-        this.containsText("application-wave", value);
+    public hasProjectTitle(value: string): this {
+        this.containsText("project-title", value);
 
         return this;
     }

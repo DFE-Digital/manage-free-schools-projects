@@ -60,32 +60,32 @@
                 }
                 else
                 {
-                    foreach (var activeCase in Model.Projects)
+                    foreach (var project in Model.Projects)
                     {
-                        <tr class="govuk-table__row tr__large" data-testid="row-@activeCase.ProjectId">
-                            <td class="govuk-table__cell" data-testid="case-id">
-                                <a class="govuk-link" asp-page="/project/edit" asp-route-projectId="@activeCase.ProjectId">@activeCase.ProjectId</a>
+                        <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
+                            <td class="govuk-table__cell" data-testid="project-title">
+                                @project.SchoolName
                             </td>
-                            <td class="govuk-table__cell" data-testid="updated-at">
-                                @activeCase.SchoolName
-                            </td>
-                            <td class="govuk-table__cell" data-testid="created-at">
-                                @activeCase.ApplicationNumber
+                            <td class="govuk-table__cell" data-testid="project-id">
+                                @project.ProjectId
                             </td>
                             <td class="govuk-table__cell" data-testid="trust-name">
-                                @activeCase.ApplicationWave
+                                @($"{project.ProjectId} trust")
                             </td>
-                            <td class="govuk-table__cell" data-testid="case-id">
-                                <a class="govuk-link" asp-page="/project/edit" asp-route-projectId="@activeCase.ProjectId">@activeCase.ProjectId</a>
+                            <td class="govuk-table__cell" data-testid="region-name">
+                                @($"{project.ProjectId} region")
                             </td>
-                            <td class="govuk-table__cell" data-testid="updated-at">
-                                @activeCase.SchoolName
+                            <td class="govuk-table__cell" data-testid="local-authority">
+                                @($"{project.ProjectId} council")
                             </td>
-                            <td class="govuk-table__cell" data-testid="created-at">
-                                @activeCase.ApplicationNumber
+                            <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                                1 September 2024
                             </td>
-                            <td class="govuk-table__cell" data-testid="trust-name">
-                                @activeCase.ApplicationWave
+                            <td class="govuk-table__cell" data-testid="status">
+                                <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                            </td>
+                            <td class="govuk-table__cell" data-testid="action">
+                                View
                             </td>
                         </tr>
                     }

@@ -16,16 +16,13 @@ class CreateProjectPage {
 
         return this;
     }
-
     public withApplicationWave(value: string): this {
         cy.getByTestId("application-wave").clear().type(value);
-
         return this;
     }
 
     public createProject() {
         cy.getByTestId("create-project-button").click();
-
         return this;
     }
 }
