@@ -39,5 +39,6 @@
 	       name="@Model.Name"
 	       value="@Model.Value"
 	       type="text"
+		   data-testid="@Model.Id"
 	       @(showHint ? $"aria-describedby=\"{Model.Id}-hint\"" : "")>
 </div>
