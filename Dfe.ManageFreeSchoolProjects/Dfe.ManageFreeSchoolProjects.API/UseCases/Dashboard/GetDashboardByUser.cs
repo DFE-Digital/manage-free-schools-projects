@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
         public async Task<List<GetDashboardByUserResponse>> Execute(string userId)
         {
-            var projectRecords = await _context.Kpis.ToListAsync();
+            var projectRecords = await _context.Kpis.Take(10).ToListAsync();
 
             var result = projectRecords.Select(record =>
             {
@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                     ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
                     TrustName = record.TrustName,
                     LocalAuthority = record.LocalAuthority,
-                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust?.ToLongDateString(),
+                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust != null ? record.RatProvisionalOpeningDateAgreedWithTrust.Value.ToLongDateString() : null,
                     Region = record.SchoolDetailsGeographicalRegion,
                     Status = "1"
                 };
