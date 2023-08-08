@@ -42,9 +42,4 @@
       <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\" />
-      <Folder Include="UseCases\Dashboard\" />
-    </ItemGroup>
-
 </Project>
