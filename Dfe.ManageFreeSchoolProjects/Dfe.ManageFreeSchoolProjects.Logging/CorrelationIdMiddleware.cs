@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Middleware
 		public CorrelationIdMiddleware(RequestDelegate next, ILogger<CorrelationIdMiddleware> logger)
 		{
 			_next = next;
-			_logger = Guard.Against.Null(logger);
+			_logger = Guard.Against.Null(logger, nameof(logger));
 		}
 
 		// ReSharper disable once UnusedMember.Global
