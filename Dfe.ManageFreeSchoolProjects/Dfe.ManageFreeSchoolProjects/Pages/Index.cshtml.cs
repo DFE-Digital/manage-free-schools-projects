@@ -31,7 +31,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			try
 			{
                 Username = User.Identity.Name.ToString();
-                Projects = await _getDashboardByUserService.GetDashboardByUser(Username);
+                Projects = await _getDashboardByUserService.Execute(Username);
 				
 				return Page();
 			}

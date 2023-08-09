@@ -50,25 +50,19 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         {
             try
             {
-                // Create a request
                 var request = new StringContent(
                     JsonConvert.SerializeObject(dto),
                     Encoding.UTF8,
                     MediaTypeNames.Application.Json);
 
-                // Create http client
                 var client = CreateHttpClient();
 
-                // Execute request
                 var response = await client.PostAsync(endpoint, request);
 
-                // Check status code
                 response.EnsureSuccessStatusCode();
 
-                // Read response content
                 var content = await response.Content.ReadAsStringAsync();
 
-                // Deserialize content to POJO
                 var result = JsonConvert.DeserializeObject<TResult>(content);
 
                 return result;
@@ -84,25 +78,19 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         {
             try
             {
-                // Create a request
                 var request = new StringContent(
                     JsonConvert.SerializeObject(dto),
                     Encoding.UTF8,
                     MediaTypeNames.Application.Json);
 
-                // Create http client
                 var client = CreateHttpClient();
 
-                // Execute request
                 var response = await client.PatchAsync(endpoint, request);
 
-                // Check status code
                 response.EnsureSuccessStatusCode();
 
-                // Read response content
                 var content = await response.Content.ReadAsStringAsync();
 
-                // Deserialize content to POJO
                 var result = JsonConvert.DeserializeObject<TResult>(content);
 
                 return result;
@@ -118,25 +106,19 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         {
             try
             {
-                // Create a request
                 var request = new StringContent(
                     JsonConvert.SerializeObject(dto),
                     Encoding.UTF8,
                     MediaTypeNames.Application.Json);
 
-                // Create http client
                 var client = CreateHttpClient();
 
-                // Execute request
                 var response = await client.PutAsync(endpoint, request);
 
-                // Check status code
                 response.EnsureSuccessStatusCode();
 
-                // Read response content
                 var content = await response.Content.ReadAsStringAsync();
 
-                // Deserialize content to POJO
                 var result = JsonConvert.DeserializeObject<TResult>(content);
 
                 return result;
