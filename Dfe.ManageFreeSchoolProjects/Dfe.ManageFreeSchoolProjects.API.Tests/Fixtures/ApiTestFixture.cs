@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 {
 	public class ApiTestFixture : IDisposable
 	{
-		private readonly WebApplicationFactory<ManageFreeSchoolProjects.API.Startup> _application;
+		private readonly WebApplicationFactory<Startup> _application;
 
 		public HttpClient Client { get; init; }
 
@@ -59,7 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 						});
 
 					var fakeUserInfo = new UserInfo()
-						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
+						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.TeamLeaderRoleClaim } };
 					_serverUserInfoService = new ServerUserInfoService() { UserInfo = fakeUserInfo };
 
 					Client = CreateHttpClient(fakeUserInfo);
@@ -89,8 +89,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 			var correlationContext = new CorrelationContext();
 			correlationContext.SetContext(Guid.NewGuid().ToString());
-
-			//AbstractService.AddDefaultRequestHeaders(client, correlationContext, clientUserInfoService, null);
 
 			return client;
 		}

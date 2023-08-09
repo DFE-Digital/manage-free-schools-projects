@@ -1,13 +1,10 @@
-﻿using Azure.Core;
-using ConcernsCaseWork.API.UseCases.Project;
-using Microsoft.AspNetCore.Mvc;
+﻿using ConcernsCaseWork.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
 using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases;
-using System;
-using Dfe.ManageFreeSchoolProjects.Data.Models.Projects;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ManageFreeSchoolProjects.API.Controllers
 {
@@ -52,7 +49,7 @@ namespace ManageFreeSchoolProjects.API.Controllers
         [Route("id")]
         [HttpGet]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<ApiSingleResponseV2<ProjectResponse[]>>> GetProjectById(string projectId, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<ApiSingleResponseV2<ProjectResponse>>> GetProjectById(string projectId, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation($"GetProjectById called with Project ID: {projectId}");
             var project = _getProjectByIdUseCase.Execute(new GetProjectRequest() { ProjectId = projectId });
