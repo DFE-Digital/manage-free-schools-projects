@@ -5,18 +5,15 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Net.Http;
 using System.Net.Mime;
-using Xunit;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 {
-	public class ApiTestFixture : IDisposable
+    public class ApiTestFixture : IDisposable
 	{
 		private readonly WebApplicationFactory<Startup> _application;
 
