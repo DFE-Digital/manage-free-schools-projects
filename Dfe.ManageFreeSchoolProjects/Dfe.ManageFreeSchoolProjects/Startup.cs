@@ -2,6 +2,7 @@ using Dfe.ManageFreeSchoolProjects.Authorization;
 using Dfe.ManageFreeSchoolProjects.Configuration;
 using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +68,7 @@ public class Startup
       services.AddScoped<IGetProjectByIdService, GetProjectByIdService>();
       services.AddScoped<IDeleteProjectService, DeleteProjectService>();
       services.AddScoped<IEditProjectService, EditProjectService>();
+      services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
 
       services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
       services.AddSession(options =>
