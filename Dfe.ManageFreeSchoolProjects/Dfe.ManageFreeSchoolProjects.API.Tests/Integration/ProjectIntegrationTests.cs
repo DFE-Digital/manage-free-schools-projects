@@ -1,57 +1,54 @@
-﻿//using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Net.Http;
-//using System.Net;
-//using System.Threading.Tasks;
-//using Xunit;
-//using AutoFixture;
-//using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
-//using FizzWare.NBuilder;
-//using Dfe.ManageFreeSchoolProjects.Data.Models.Projects;
-//using Dfe.ManageFreeSchoolProjects.Data;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using FluentAssertions;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 
-//namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
-//{
-//    public class ProjectIntegrationTests
-//    {
-//        private readonly Fixture _autoFixture;
-//        private readonly HttpClient _client;
-//        private readonly RandomGenerator _randomGenerator;
-//        private readonly ApiTestFixture _testFixture;
+namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
+{
+    [Collection(ApiTestCollection.ApiTestCollectionName)]
+    public class ProjectIntegrationTests
+    {
+        private readonly Fixture _autoFixture;
+        private readonly HttpClient _client;
+        private readonly ApiTestFixture _testFixture;
 
-//        public ProjectIntegrationTests(ApiTestFixture fixture)
-//        {
-//            _autoFixture = new Fixture();
-//            _randomGenerator = new RandomGenerator();
-//            _testFixture = fixture;
-//            _client = fixture.Client;
-//        }
+        public ProjectIntegrationTests(ApiTestFixture fixture)
+        {
+            _autoFixture = new Fixture();
+            _testFixture = fixture;
+            _client = fixture.Client;
+        }
 
-//        private List<Project> ProjectsToBeDisposedAtEndOfTests { get; } = new();
+        [Fact]
+        public async void When_Post_Project_Returns_200() 
+        {
+            var projectId = DatabaseModelBuilder.GenerateProjectId();
 
-//        //[Fact]
-//        //public async Task CanGetConcernCaseById()
-//        //{
-//        //    await using ProjectsDbContext context = _testFixture.GetContext();
+            var request = new CreateProjectRequest()
+            {
+                ProjectId = projectId,
+                SchoolName = $"{projectId} school",
+                ApplicationNumber = _autoFixture.Create<int>().ToString(),
+                ApplicationWave = _autoFixture.Create<int>().ToString(),
+                CreatedBy = DatabaseModelBuilder.GenerateCreatedBy()
+            };
 
-//        //    SetupProjectTestData("FS2014");
-//        //    Project concernsCase = context.Projects.First();
+            var postResponse = await _client.PostAsync($"/api/project", request.ConvertToJson());
+            postResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-//        //    HttpRequestMessage httpRequestMessage = new() { Method = HttpMethod.Get, RequestUri = new Uri($"https://notarealdomain.com/v2/concerns-cases/urn/{concernsCase.ProjectId}") };
+            var getResponse = await _client.GetAsync($"/api/project/id?projectid={projectId}");
+            getResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-//        //    //ConcernsCaseResponse expectedConcernsCaseResponse = ConcernsCaseResponseFactory.Create(concernsCase);
+            var wrapper = await getResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectResponse>>();
+            var result = wrapper.Data;
 
-//        //    //ApiSingleResponseV2<ConcernsCaseResponse> expected = new(expectedConcernsCaseResponse);
-
-//        //    //HttpResponseMessage response = await _client.SendAsync(httpRequestMessage);
-
-//        //    //response.StatusCode.Should().Be(HttpStatusCode.OK);
-//        //    //ApiSingleResponseV2<ConcernsCaseResponse> result = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<ConcernsCaseResponse>>();
-
-//        //    //result.Should().BeEquivalentTo(expected);
-//        //    //result.Data.Urn.Should().Be(concernsCase.Urn);
-//        //}
-//    }
-//}
+            result.Should().BeEquivalentTo(request);
+        }
+    }
+}
