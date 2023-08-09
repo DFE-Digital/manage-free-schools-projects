@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Net.Http.Headers;
-
+using NSubstitute;
+using NSubstitute.Core;
 
 namespace Dfe.ManageFreeSchoolProjects.Tests.Authorization
 {
@@ -30,8 +31,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Authorization
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Headers.Add(HeaderNames.Authorization, "Bearer 123");
 
-            Mock<IHttpContextAccessor> mockHttpAccessor = new Mock<IHttpContextAccessor>();
-            mockHttpAccessor.Setup(m => m.HttpContext).Returns(httpContext);
+            var httpAccessor = Substitute.For<IHttpContextAccessor>();
+            httpAccessor.HttpContext = httpContext;
 
             var configurationSettings = new Dictionary<string, string>()
             {
@@ -42,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Authorization
                 .AddInMemoryCollection(configurationSettings)
                 .Build();
 
-            var result = AutomationHandler.ClientSecretHeaderValid(hostEnvironment, mockHttpAccessor.Object, configuration);
+            var result = AutomationHandler.ClientSecretHeaderValid(hostEnvironment, httpAccessor, configuration);
 
             result.Should().Be(expected);
         }
@@ -59,8 +60,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Authorization
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Headers.Add(HeaderNames.Authorization, $"Bearer {headerAuthKey}");
 
-            Mock<IHttpContextAccessor> mockHttpAccessor = new Mock<IHttpContextAccessor>();
-            mockHttpAccessor.Setup(m => m.HttpContext).Returns(httpContext);
+            var httpAccessor = Substitute.For<IHttpContextAccessor>();
+            httpAccessor.HttpContext = httpContext;
 
             var configurationSettings = new Dictionary<string, string>()
             {
@@ -71,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Authorization
                 .AddInMemoryCollection(configurationSettings)
                 .Build();
 
-            var result = AutomationHandler.ClientSecretHeaderValid(hostEnvironment, mockHttpAccessor.Object, configuration);
+            var result = AutomationHandler.ClientSecretHeaderValid(hostEnvironment, httpAccessor, configuration);
 
             result.Should().BeFalse();
         }
