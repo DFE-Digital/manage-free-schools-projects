@@ -25,8 +25,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
 
         public async Task<List<GetDashboardByUserResponse>> GetDashboardByUser(string userId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:3001/api/v1/client/dashboard/byuser/{userId}");
-            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/client/dashboard/byuser/{userId}");
+            var client = _httpClientFactory.CreateClient("MfspClient");
 
             try
             {

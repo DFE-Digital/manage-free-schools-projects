@@ -1,13 +1,10 @@
-﻿using Dfe.ManageFreeSchoolProjects.Services.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Dfe.BuildFreeSchools.Pages
 {
