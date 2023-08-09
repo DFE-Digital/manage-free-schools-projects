@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
-using Moq;
-using Xunit;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
+using NSubstitute;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Factories
 {
@@ -25,7 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Factories
                 NextPageUrl = null
             };
 
-            var result = PagingResponseFactory.Create(page, count, recordCount, It.IsAny<HttpRequest>());
+            var result = PagingResponseFactory.Create(page, count, recordCount, null);
             
             result.Should().BeEquivalentTo(expectedPagingResponse);
         }
@@ -45,16 +44,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Factories
                 NextPageUrl = expectedNextPageUrl
             };
 
-            var mockHttpRequest = new Mock<HttpRequest>();
-            mockHttpRequest.SetupGet(r => r.Scheme).Returns("https");
-            mockHttpRequest.SetupGet(r => r.Path).Returns("/controller-name/");
-            mockHttpRequest.SetupGet(r => r.Query).Returns(() => new QueryCollection());
+            var httpRequest = Substitute.For<HttpRequest>();
+            httpRequest.Scheme = "https";
+            httpRequest.Path = "/controller-name/";
+            httpRequest.Query = new QueryCollection();
 
-            var result = PagingResponseFactory.Create(page, count, recordCount, mockHttpRequest.Object);
+            var result = PagingResponseFactory.Create(page, count, recordCount, httpRequest);
             
             result.Should().BeEquivalentTo(expectedPagingResponse);
         }
-        
+
         [Fact]
         public void CreatingPagingResponse_WithRecordCountEqualToCountAndQueryParameters_Should_ReturnPagingResponseWithNextPageUrlPointingToNextPageIncludingQueryParameters()
         {
@@ -78,13 +77,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Factories
                 NextPageUrl = expectedNextPageUrl
             };
 
-            var mockHttpRequest = new Mock<HttpRequest>();
-            mockHttpRequest.SetupGet(r => r.Scheme).Returns("https");
-            mockHttpRequest.SetupGet(r => r.Path).Returns("/controller-name/");
-            mockHttpRequest.SetupGet(r => r.Query).Returns(queryCollection);
+            var httpRequest = Substitute.For<HttpRequest>();
+            httpRequest.Scheme = "https";
+            httpRequest.Path = "/controller-name/";
+            httpRequest.Query = queryCollection;
 
-            var result = PagingResponseFactory.Create(page, count, recordCount, mockHttpRequest.Object);
-            
+            var result = PagingResponseFactory.Create(page, count, recordCount, httpRequest);
+
             result.Should().BeEquivalentTo(expectedPagingResponse);
         }
     }
