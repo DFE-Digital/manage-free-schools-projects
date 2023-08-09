@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProject
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProjects.Data", "Dfe.ManageFreeSchoolProjects.Data\Dfe.ManageFreeSchoolProjects.Data.csproj", "{A521BFA8-FF4D-4744-8ACB-18AB3F392F3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProjects.Data.Tests", "Dfe.ManageFreeSchoolProjects.Data.Tests\Dfe.ManageFreeSchoolProjects.Data.Tests.csproj", "{2C9E7319-5B39-4185-98CD-11C159168BF5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProjects.Logging", "Dfe.ManageFreeSchoolProjects.Logging\Dfe.ManageFreeSchoolProjects.Logging.csproj", "{AF66486A-A738-4480-A59B-F7FB37B7D2D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfe.ManageFreeSchoolProjects.UserContext", "Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj", "{32993C34-DA43-4CBE-8090-C05084EB82E7}"
@@ -55,10 +53,6 @@ Global
 		{A521BFA8-FF4D-4744-8ACB-18AB3F392F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A521BFA8-FF4D-4744-8ACB-18AB3F392F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A521BFA8-FF4D-4744-8ACB-18AB3F392F3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C9E7319-5B39-4185-98CD-11C159168BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C9E7319-5B39-4185-98CD-11C159168BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C9E7319-5B39-4185-98CD-11C159168BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C9E7319-5B39-4185-98CD-11C159168BF5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AF66486A-A738-4480-A59B-F7FB37B7D2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF66486A-A738-4480-A59B-F7FB37B7D2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF66486A-A738-4480-A59B-F7FB37B7D2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU

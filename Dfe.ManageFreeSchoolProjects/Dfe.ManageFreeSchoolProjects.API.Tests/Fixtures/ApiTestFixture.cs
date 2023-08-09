@@ -22,9 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 		public HttpClient Client { get; init; }
 
-		private DbContextOptions<ProjectsDbContext> _dbContextOptions { get; init; }
-
-		private ServerUserInfoService _serverUserInfoService { get; init; }
+		private DbContextOptions<MfspContext> _dbContextOptions { get; init; }
 
 		private static readonly object _lock = new();
 		private static bool _isInitialised = false;
@@ -60,11 +58,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 					var fakeUserInfo = new UserInfo()
 						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
-					_serverUserInfoService = new ServerUserInfoService() { UserInfo = fakeUserInfo };
 
 					Client = CreateHttpClient(fakeUserInfo);
 
-					_dbContextOptions = new DbContextOptionsBuilder<ProjectsDbContext>()
+					_dbContextOptions = new DbContextOptionsBuilder<MfspContext>()
 						.UseSqlServer(connectionString)
 						.Options;
 
@@ -107,7 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			return result;
 		}
 
-		public ProjectsDbContext GetContext() => new ProjectsDbContext(_dbContextOptions, _serverUserInfoService);
+		public MfspContext GetContext() => new MfspContext(_dbContextOptions);
 
 		public void Dispose()
 		{
