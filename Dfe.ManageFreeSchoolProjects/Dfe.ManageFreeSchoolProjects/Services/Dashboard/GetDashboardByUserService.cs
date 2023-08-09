@@ -16,35 +16,20 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
 
     public class GetDashboardByUserService : IGetDashboardByUserService
     {
-        private IHttpClientFactory _httpClientFactory;
+        private MfspApiClient _apiClient;
 
-        public GetDashboardByUserService(IHttpClientFactory httpClientFactory)
+        public GetDashboardByUserService(MfspApiClient apiClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _apiClient = apiClient;
         }
 
         public async Task<List<GetDashboardByUserResponse>> GetDashboardByUser(string userId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/client/dashboard/byuser/{userId}");
-            var client = _httpClientFactory.CreateClient("MfspClient");
+            var endpoint = $"/api/v1/client/dashboard/byuser/{userId}";
 
-            try
-            {
-                var response = await client.SendAsync(request);
+            var result = await _apiClient.Get<ApiListWrapper<GetDashboardByUserResponse>>(endpoint);
 
-                response.EnsureSuccessStatusCode();
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                var wrapper = JsonConvert.DeserializeObject<ApiListWrapper<GetDashboardByUserResponse>>(content);
-
-                return wrapper.Data.ToList();
-            }
-            catch (Exception ex)
-            {
-                //  _logger.LogError(ex, $"Error occured while trying to GetSRMAById");
-                throw;
-            }
+            return result.Data.ToList();
         }
     }
 }

@@ -70,6 +70,7 @@ public class Startup
         services.AddScoped<IDeleteProjectService, DeleteProjectService>();
         services.AddScoped<IEditProjectService, EditProjectService>();
         services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
+        services.AddScoped<MfspApiClient, MfspApiClient>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
