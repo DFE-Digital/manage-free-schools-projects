@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task When_Post_UserDoesNotExist_CreatesUser_Returns_201()
         {
             var request = _autoFixture.Create<CreateUserRequest>();
-            request.Email = request.Email.ToUpper();
+            request.Email = request.Email.ToUpper() + " ";
 
             var result = await _client.PostAsync($"/api/v1/client/users", request.ConvertToJson());
 
@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var createdUser = context.Users.First(u => u.Email == request.Email);
 
-            createdUser.Email.Should().Be(request.Email.ToLower());
+            createdUser.Email.Should().Be(request.Email.ToLower().Trim());
         }
 
         [Fact]

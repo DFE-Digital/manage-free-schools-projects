@@ -1,9 +1,7 @@
-﻿using Azure;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {

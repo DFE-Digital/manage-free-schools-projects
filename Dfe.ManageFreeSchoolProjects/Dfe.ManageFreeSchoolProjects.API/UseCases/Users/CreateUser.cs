@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
         {
             var dbUser = new User()
             {
-                Email = request.Email.ToLower()
+                Email = request.Email.ToLower().Trim()
             };
 
             var existingUser = _context.Users.FirstOrDefault(u => u.Email == dbUser.Email);
