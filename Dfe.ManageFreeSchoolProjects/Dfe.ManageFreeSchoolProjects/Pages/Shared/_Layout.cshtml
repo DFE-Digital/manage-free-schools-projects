@@ -36,7 +36,8 @@
     @if (showAnalytics)
     {
         <!-- Google Tag Manager -->
-        <script asp-add-nonce>(function (w, d, s, l, i) {
+        <script asp-add-nonce>
+            (function (w, d, s, l, i) {
                 w[l] = w[l] || []; w[l].push({
                     'gtm.start':
                         new Date().getTime(), event: 'gtm.js'
@@ -59,7 +60,7 @@
     <script type="text/javascript" src="~/dist/accessible-autocomplete.min.js" asp-add-nonce></script>
 
 </head>
-<body class="govuk-template__body">
+<body class="govuk-template__body mfsp-wider-page">
 
     <script asp-add-nonce>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
@@ -67,17 +68,33 @@
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
     <partial name="_CookieBanner" />
-    <partial name="_Header" />
-
-    <div class="govuk-width-container">
-        @await RenderSectionAsync("BeforeMain", required: false)
-
-        <main class="govuk-main-wrapper gov-main-wrapper--auto-spacing" id="main-content" role="main">
-
-            <partial name="_NotificationSummary" />
-
-            @RenderBody()
-        </main>
+    <header class="dfe-header" role="banner">
+        <a href="#mainContent" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+        <div class="dfe-width-container dfe-header__container">
+            <div class="dfe-header__logo">
+                <a class="dfe-header__link dfe-header__link--service " href="/">
+                    <img src="~/assets/dfe-logo.png" class="dfe-logo" alt="Department for Education">
+                    <img src="~/assets/dfe-logo-alt.png" class="dfe-logo-hover" alt="Department for Education">
+                    <span class="dfe-header__service-name">
+                        Manage free school projects
+                    </span>
+                </a>
+            </div>
+        </div>
+        @await RenderSectionAsync("AfterHeader", required: false)
+    </header>
+    @await RenderSectionAsync("BeforeMain", required: false)
+    <div class="govuk-main-wrapper">
+        <div class="govuk-width-container msfp-wider-page">
+            <main id="main-content" role="main">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full">
+                        <partial name="_NotificationSummary" />
+                        @RenderBody()
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
     <footer class="govuk-footer " role="contentinfo">
         <div class="govuk-width-container ">
@@ -86,7 +103,7 @@
                     <h2 class="govuk-footer__heading govuk-heading-m">Get support</h2>
                     <ul class="govuk-footer__list govuk-footer__list--columns-1">
                         <li class="govuk-footer__list-item">
-                     Email <a class="govuk-footer__link" data-cy="get-support-email" href="mailto:@_configuration["SupportEmail"]?subject=Prepare%20conversions%20and%20transfers:%20support%20query">
+                            Email <a class="govuk-footer__link" data-cy="get-support-email" href="mailto:@_configuration["SupportEmail"]?subject=Prepare%20conversions%20and%20transfers:%20support%20query">
                                 @_configuration["SupportEmail"]
                             </a>
                     </ul>
@@ -96,7 +113,7 @@
                     <ul class="govuk-footer__list govuk-footer__list--columns-1">
                         <li class="govuk-footer__list-item">
                             <a class="govuk-footer__link" rel="noopener" href="@_configuration["FeedbackLink"]" target="_blank" id="footer-feedback-link">
-                                Give feedback on Open free schools (opens in a new tab)
+                                Give feedback on Manage Free School Projects (opens in a new tab)
                             </a>
                         </li>
                     </ul>
