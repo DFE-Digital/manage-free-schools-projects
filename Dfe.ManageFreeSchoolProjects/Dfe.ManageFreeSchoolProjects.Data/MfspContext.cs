@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data;
@@ -17,9 +18,7 @@ public partial class MfspContext : DbContext
 
     public virtual DbSet<Kpi> Kpis { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=mfsp;Trusted_Connection=True;TrustServerCertificate=True");
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -850,6 +849,13 @@ public partial class MfspContext : DbContext
                 .IsRequired()
                 .HasMaxLength(16)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("User", "mfsp");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Email).HasMaxLength(80);
         });
 
         OnModelCreatingPartial(modelBuilder);

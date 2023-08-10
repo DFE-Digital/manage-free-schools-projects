@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 
@@ -58,8 +59,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<ICorrelationContext, CorrelationContext>();
 
 			services.AddScoped<IGetDashboardByUser, GetDashboardByUser>();
+            services.AddScoped<ICreateUser, CreateUser>();
 
-			return services;
+            return services;
 		}
 	}
 }
