@@ -14,12 +14,15 @@ namespace Dfe.BuildFreeSchools.Pages
         public string Username { get; set; }
 
 		public IGetDashboardByUserService _getDashboardByUserService;
+        public IGetDashboardAllService _getDashboardAllService;
 
-		public List<GetDashboardByUserResponse> Projects { get; set; }
+        public List<GetDashboardResponse> Projects { get; set; }
+        public List<GetDashboardResponse> AllProjects { get; set; }
 
-        public IndexModel(IGetDashboardByUserService getDashboardByUserService)
+        public IndexModel(IGetDashboardByUserService getDashboardByUserService, IGetDashboardAllService getDashboardAllService)
         {
 			_getDashboardByUserService = getDashboardByUserService;
+			_getDashboardAllService = getDashboardAllService;
         }
 		public async Task OnGetAsync()
 		{
@@ -32,6 +35,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			{
                 Username = User.Identity.Name.ToString();
                 Projects = await _getDashboardByUserService.Execute(Username);
+				AllProjects = await _getDashboardAllService.Execute();
 				
 				return Page();
 			}
