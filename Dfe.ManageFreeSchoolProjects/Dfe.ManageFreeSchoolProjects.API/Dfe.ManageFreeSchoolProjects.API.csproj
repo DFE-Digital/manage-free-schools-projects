@@ -26,7 +26,7 @@
       <PackageReference Include="Ardalis.GuardClauses" Version="4.1.1" />
       <PackageReference Include="FluentValidation" Version="11.4.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
