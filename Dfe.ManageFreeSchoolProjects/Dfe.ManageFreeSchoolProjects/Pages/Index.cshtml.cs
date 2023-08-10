@@ -1,9 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.Services.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Dfe.BuildFreeSchools.Pages
@@ -11,25 +11,18 @@ namespace Dfe.BuildFreeSchools.Pages
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public ProjectResponse[] Projects { get; set; }
-
-        [BindProperty]
-        public bool UserCanCreateProject { get; set; }
-
-        [BindProperty]
         public string Username { get; set; }
 
-        private IGetProjectsByUserService _getProjectsByUserService { get; set; }
+		public IGetDashboardByUserService _getDashboardByUserService;
 
-        public IndexModel(IGetProjectsByUserService getProjectsByUserService)
+		public List<GetDashboardByUserResponse> Projects { get; set; }
+
+        public IndexModel(IGetDashboardByUserService getDashboardByUserService)
         {
-            _getProjectsByUserService = getProjectsByUserService;
+			_getDashboardByUserService = getDashboardByUserService;
         }
 		public async Task OnGetAsync()
 		{
-			//_logger.LogInformation("Case::DetailsPageModel::OnGetAsync");
-
-			// Fetch UI data
 			await LoadPage();
 		}
 
@@ -37,9 +30,9 @@ namespace Dfe.BuildFreeSchools.Pages
 		{
 			try
 			{
-				Projects = await _getProjectsByUserService.GetProjects(User.Identity.Name.ToString());
-				UserCanCreateProject = User.IsInRole("teamlead");
-				Username = User.Identity.Name.ToString();
+                Username = User.Identity.Name.ToString();
+                Projects = await _getDashboardByUserService.Execute(Username);
+				
 				return Page();
 			}
 			catch (Exception ex)

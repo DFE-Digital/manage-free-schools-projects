@@ -32,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.UserContext
 			var name = headers.FirstOrDefault(x => x.Key.Equals(NameHeaderKey, StringComparison.InvariantCultureIgnoreCase)).Value;
 
 			var roles = headers
-				.Where(x => x.Key.StartsWith(RoleHeaderKeyPrefix, StringComparison.InvariantCultureIgnoreCase) && x.Value.StartsWith(Claims.ClaimPrefix, StringComparison.InvariantCultureIgnoreCase))
+				.Where(x => x.Key.StartsWith(RoleHeaderKeyPrefix, StringComparison.InvariantCultureIgnoreCase))
 				.Select(x => x.Value)
 				.ToArray();
 

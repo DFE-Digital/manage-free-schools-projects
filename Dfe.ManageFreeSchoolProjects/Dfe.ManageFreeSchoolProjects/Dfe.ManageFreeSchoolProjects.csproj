@@ -29,11 +29,12 @@
 	  <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.25.9" />
 	  <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.17.0" />
 	  <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders.TagHelpers" Version="0.17.0" />
-	  <PackageReference Include="Scrutor" Version="4.2.0" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="Scrutor" Version="4.2.2" />
 	  <PackageReference Include="Sentry.AspNetCore" Version="3.24.0" />
 	  <PackageReference Include="Sentry.Serilog" Version="3.24.0" />
 	  <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
-	  <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+	  <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,6 +48,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API.Contracts\Dfe.ManageFreeSchoolProjects.API.Contracts.csproj" />
+	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

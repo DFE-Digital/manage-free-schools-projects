@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.UserContext
 
 		public bool AddUserInfoRequestHeaders(HttpClient client)
 		{
-			Guard.Against.Null(client);
+			Guard.Against.Null(client, nameof(client));
 
 			if (UserInfo == null)
 			{
@@ -60,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.UserContext
 
 		private string GetPrincipalName(IPrincipal principal)
 		{
-			Guard.Against.Null(principal);
+			Guard.Against.Null(principal, nameof(principal));
 
 			if (principal?.Identity?.Name is null)
 			{

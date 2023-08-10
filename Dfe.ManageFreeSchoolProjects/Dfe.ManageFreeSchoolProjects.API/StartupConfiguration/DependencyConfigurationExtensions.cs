@@ -1,5 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
-using Dfe.ManageFreeSchoolProjects.Data.Gateways.Projects;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 
@@ -17,8 +17,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 				{
 					if (@interface.IsGenericType && @interface.GetGenericTypeDefinition() == typeof(IUseCase<,>))
 					{
-						services.AddScoped(@interface, type);
+						if (!type.IsInterface)
+						{
+							services.AddScoped(@interface, type);
+						}
 					}
+
+					if (@interface.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IUseCase<,>)))
+					{
+                        services.AddScoped(@interface, type);
+                    }
 				}
 			}
 
@@ -45,11 +53,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 
 		public static IServiceCollection AddApiDependencies(this IServiceCollection services)
 		{
-			services.AddScoped<IProjectGateway, ProjectGateway>();
-
 			services.AddScoped<IServerUserInfoService, ServerUserInfoService>();
 			
 			services.AddScoped<ICorrelationContext, CorrelationContext>();
+
+			services.AddScoped<IGetDashboardByUser, GetDashboardByUser>();
 
 			return services;
 		}

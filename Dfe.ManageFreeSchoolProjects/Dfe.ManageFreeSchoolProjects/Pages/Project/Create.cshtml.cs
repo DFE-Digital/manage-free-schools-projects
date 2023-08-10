@@ -1,4 +1,7 @@
 
+using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,30 +13,43 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
 {
     public class CreateProjectModel : PageModel
     {
-        [BindProperty]
-        [MaxLength(10)]
+        [BindProperty(Name = "project-id")]
+        [Display(Name = "Project ID")]
+        [Required]
+        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectID { get; set; }
 
-        [BindProperty]
-        [MaxLength(20)]
+        [BindProperty(Name ="school-name")]
+        [Display(Name = "School name")]
+        [Required]
+        [StringLength(20, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string SchoolName { get; set; }
 
-        [BindProperty]
-        [MaxLength(10)]
+        [BindProperty(Name = "application-number")]
+        [Display(Name = "Application number")]
+        [Required]
+        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ApplicationNumber { get; set; }
 
-        [BindProperty]
-        [MaxLength(10)]
+        [BindProperty(Name = "application-wave")]
+        [Display(Name = "Application wave")]
+        [Required]
+        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ApplicationWave { get; set; }
+
         public ICreateProjectService _createProjectService { get; }
-    //    public ILogger<CreateProjectModel> _logger { get; }
+        //    public ILogger<CreateProjectModel> _logger { get; }
+
+        public ErrorService _errorService;
 
         public CreateProjectModel(
-            ICreateProjectService createProjectService
+            ICreateProjectService createProjectService,
+            ErrorService errorService
          //   ILogger<CreateProjectModel> logger
             )
         {
             _createProjectService = createProjectService;
+            _errorService = errorService;
             //_logger = logger;
         }
 
@@ -49,6 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
             {
                 if (!ModelState.IsValid)
                 {
+                    _errorService.AddErrors(ModelState.Keys, ModelState);
                     return Page();
                 }
 

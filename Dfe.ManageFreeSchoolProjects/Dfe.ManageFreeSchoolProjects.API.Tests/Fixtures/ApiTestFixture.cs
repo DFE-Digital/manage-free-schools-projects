@@ -5,26 +5,21 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Net.Http;
 using System.Net.Mime;
-using Xunit;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 {
-	public class ApiTestFixture : IDisposable
+    public class ApiTestFixture : IDisposable
 	{
-		private readonly WebApplicationFactory<ManageFreeSchoolProjects.API.Startup> _application;
+		private readonly WebApplicationFactory<Startup> _application;
 
 		public HttpClient Client { get; init; }
 
-		private DbContextOptions<ManageFreeSchoolProjectsDbContext> _dbContextOptions { get; init; }
-
-		private ServerUserInfoService _serverUserInfoService { get; init; }
+		private DbContextOptions<MfspContext> _dbContextOptions { get; init; }
 
 		private static readonly object _lock = new();
 		private static bool _isInitialised = false;
@@ -60,11 +55,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 					var fakeUserInfo = new UserInfo()
 						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
-					_serverUserInfoService = new ServerUserInfoService() { UserInfo = fakeUserInfo };
 
 					Client = CreateHttpClient(fakeUserInfo);
 
-					_dbContextOptions = new DbContextOptionsBuilder<ManageFreeSchoolProjectsDbContext>()
+					_dbContextOptions = new DbContextOptionsBuilder<MfspContext>()
 						.UseSqlServer(connectionString)
 						.Options;
 
@@ -90,8 +84,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			var correlationContext = new CorrelationContext();
 			correlationContext.SetContext(Guid.NewGuid().ToString());
 
-			//AbstractService.AddDefaultRequestHeaders(client, correlationContext, clientUserInfoService, null);
-
 			return client;
 		}
 
@@ -107,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			return result;
 		}
 
-		public ManageFreeSchoolProjectsDbContext GetContext() => new ManageFreeSchoolProjectsDbContext(_dbContextOptions, _serverUserInfoService);
+		public MfspContext GetContext() => new MfspContext(_dbContextOptions);
 
 		public void Dispose()
 		{
