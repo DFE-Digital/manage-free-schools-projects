@@ -234,10 +234,6 @@ h1.govuk-fieldset__heading {
     color: #0b0c0c;
 }
 
-.app-sub-navigation__link:focus {
-    color: #0b0c0c;
-}
-
 @media (min-width: 23.4375em) {
     .app-sub-navigation__link {
         padding-left: 0;
@@ -246,10 +242,6 @@ h1.govuk-fieldset__heading {
 
 .app-sub-navigation__link:link, .app-sub-navigation__link:visited {
     color: #1d70b8;
-}
-
-.app-sub-navigation__link:hover {
-    color: #0b0c0c;
 }
 
 .app-sub-navigation__link:focus {
