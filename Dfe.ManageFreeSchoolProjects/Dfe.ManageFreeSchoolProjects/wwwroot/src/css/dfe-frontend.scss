@@ -244,12 +244,6 @@ h1.govuk-fieldset__heading {
     color: #1d70b8;
 }
 
-.app-sub-navigation__link:focus {
-    color: #0b0c0c;
-    position: relative;
-    box-shadow: none;
-}
-
 .app-sub-navigation__link:focus:before {
     background-color: #0b0c0c;
     content: "";
