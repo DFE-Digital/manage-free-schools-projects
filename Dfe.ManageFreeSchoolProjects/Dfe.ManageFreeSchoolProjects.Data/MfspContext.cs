@@ -20,6 +20,14 @@ public partial class MfspContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer();
+        }
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Kpi>(entity =>
@@ -855,6 +863,7 @@ public partial class MfspContext : DbContext
         {
             entity.ToTable("User", "mfsp");
             entity.HasKey(e => e.Id);
+            entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.Email).HasMaxLength(80);
         });
 

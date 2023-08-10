@@ -1,34 +1,53 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
 {
+    public record CreateUserResult
+    {
+        public UserCreateState UserCreateState;
+    }
+
+    public enum UserCreateState
+    {
+        New = 1,
+        Exists = 2
+    }
+
     public interface ICreateUser
     {
-        public Task Execute(CreateUserRequest request);
+        public CreateUserResult Execute(CreateUserRequest request);
     }
 
     public class CreateUser : ICreateUser
     {
-        private DbContext _context;
+        private MfspContext _context;
 
         public CreateUser(MfspContext context)
         {
             _context = context;
         }
 
-        public async Task Execute(CreateUserRequest request)
+        public CreateUserResult Execute(CreateUserRequest request)
         {
             var dbUser = new User()
             {
                 Email = request.Email.ToLower()
             };
 
-            _context.Add(dbUser);
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == dbUser.Email);
 
-            await _context.SaveChangesAsync();
+            if (existingUser != null) 
+            {
+                return new CreateUserResult() { UserCreateState = UserCreateState.Exists };
+            }
+
+            _context.Users.Add(dbUser);
+
+            _context.SaveChanges();
+
+            return new CreateUserResult() { UserCreateState = UserCreateState.New };
         }
     }
 }
