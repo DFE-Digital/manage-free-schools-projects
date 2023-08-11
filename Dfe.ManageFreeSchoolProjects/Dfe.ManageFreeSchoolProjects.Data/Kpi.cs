@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.Data;
@@ -426,4 +427,6 @@ public partial class Kpi
     public string RyooWd { get; set; }
 
     public string UpperStatus { get; set; }
+
+    //public List<User> Users { get; set; } = new();
 }
