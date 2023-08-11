@@ -6,6 +6,6 @@
 
         public string Email { get; set; }
 
-        // public List<Kpi> Projects { get; set; } = new();
+         public List<Kpi> Projects { get; set; } = new();
     }
 }

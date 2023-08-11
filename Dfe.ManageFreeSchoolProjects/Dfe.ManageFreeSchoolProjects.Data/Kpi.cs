@@ -428,5 +428,5 @@ public partial class Kpi
 
     public string UpperStatus { get; set; }
 
-    //public List<User> Users { get; set; } = new();
+    public List<User> Users { get; set; } = new();
 }
