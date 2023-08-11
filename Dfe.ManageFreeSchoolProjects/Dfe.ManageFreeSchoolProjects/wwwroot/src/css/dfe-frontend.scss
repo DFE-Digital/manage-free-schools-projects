@@ -1,8 +1,18 @@
-﻿@import '~/dist/dfefrontend.css';
+﻿//
+// For guidance on how to add CSS and SCSS see:
+// https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+//
 
-.dfe-width-container {max-width: 960px;}
-.fss-wider-page .dfe-width-container,
-.fss-wider-page .govuk-width-container {
+// Add extra styles here
+
+@import '../../node_modules/dfe-frontend-alpha/packages/dfefrontend';
+
+.dfe-width-container {
+    max-width: 960px;
+}
+
+.mfsp-wider-page .dfe-width-container,
+.mfsp-wider-page .govuk-width-container {
     max-width: 1200px;
 }
 
@@ -24,16 +34,9 @@ blockquote,
 li,
 tr,
 label {
-    font-family:
-        BlinkMacSystemFont,
-        'Segoe UI',
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        'Helvetica Neue',
-        sans-serif !important;
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif !important;
 }
+
 h1.govuk-fieldset__heading {
     line-height: inherit !important;
 }
@@ -42,75 +45,88 @@ h1.govuk-fieldset__heading {
     background: #ebf2f6
 }
 
-.fss-index-card {
-    background-color: #d9f0ff; 
-    padding: 20px 30px 10px 30px; 
+.mfsp-index-card {
+    background-color: #d9f0ff;
+    padding: 20px 30px 10px 30px;
     margin-bottom: 30px;
+
     code {
         padding: 0 5px;
         color: #d13118;
     }
 }
 
-.fss-dashboard-table__col-1 {
-    width: 22% !important;    
+.mfsp-dashboard-table__col-1 {
+    width: 22% !important;
 }
-.fss-dashboard-table__col-2,
-.fss-dashboard-table__col-3,
-.fss-dashboard-table__col-4,
-.fss-dashboard-table__col-5,
-.fss-dashboard-table__col-6,
-.fss-dashboard-table__col-8 {
+
+.mfsp-dashboard-table__col-2,
+.mfsp-dashboard-table__col-3,
+.mfsp-dashboard-table__col-4,
+.mfsp-dashboard-table__col-5,
+.mfsp-dashboard-table__col-6,
+.mfsp-dashboard-table__col-8 {
     width: 10% !important;
 }
-.fss-dashboard-table__col-7 {
+
+.mfsp-dashboard-table__col-7 {
     width: 14% !important;
 }
-.fss-dashboard-table__col-9 {
+
+.mfsp-dashboard-table__col-9 {
     width: 4% !important;
 }
-.fss-project-overview .app-task-list__items {
+
+.mfsp-project-overview .app-task-list__items {
     padding-left: 0;
 }
-.fss-project-listing__filters-details {
+
+.mfsp-project-listing__filters-details {
     background-color: #f3f2f1;
     padding: 1rem;
     clear: both;
     margin-bottom: 2em;
     border-left: 0;
 }
-.fss-project-listing__fitlers-details-summary:before {
-    content:none;
+
+.mfsp-project-listing__fitlers-details-summary:before {
+    content: none;
 }
-.fss-project-listing__fitlers-details-summary {
+
+.mfsp-project-listing__fitlers-details-summary {
     padding-left: 0;
     margin-top: 1em;
 }
-.fss-project-listing__button--main {
+
+.mfsp-project-listing__button--main {
     margin-bottom: 1em;
     text-decoration: none;
 }
-.fss-project-listing__filter {
+
+.mfsp-project-listing__filter {
     background-color: govuk-colour("white");
     overflow-y: auto;
     height: 200px;
     padding: 0 0.5em;
 }
-.fss-project-listing__conditional {
+
+.mfsp-project-listing__conditional {
     border: 0;
     margin-left: 0 !important;
     margin-bottom: 0 !important;
     padding-left: 0 !important;
 }
-.fss-project-listing__button--apply {
+
+.mfsp-project-listing__button--apply {
     background-color: govuk-colour("black");
     color: govuk-colour("white");
 }
-.fss-project-listing__button--apply:hover {
+
+.mfsp-project-listing__button--apply:hover {
     background-color: govuk-colour("light-grey");
 }
 
-// For Project Overview v1 
+// For Project Overview v1
 .app-sub-navigation {
     margin-bottom: 40px;
 }
@@ -218,10 +234,6 @@ h1.govuk-fieldset__heading {
     color: #0b0c0c;
 }
 
-.app-sub-navigation__link:focus {
-    color: #0b0c0c;
-}
-
 @media (min-width: 23.4375em) {
     .app-sub-navigation__link {
         padding-left: 0;
@@ -230,16 +242,6 @@ h1.govuk-fieldset__heading {
 
 .app-sub-navigation__link:link, .app-sub-navigation__link:visited {
     color: #1d70b8;
-}
-
-.app-sub-navigation__link:hover {
-    color: #0b0c0c;
-}
-
-.app-sub-navigation__link:focus {
-    color: #0b0c0c;
-    position: relative;
-    box-shadow: none;
 }
 
 .app-sub-navigation__link:focus:before {
@@ -282,17 +284,17 @@ h1.govuk-fieldset__heading {
     background-color: #0b0c0c;
 }
 
-.fss-project-listing__filters-container {
+.mfsp-project-listing__filters-container {
     margin-bottom: 0;
 
-    .fss-project-listing__filters-details {
+    .mfsp-project-listing__filters-details {
         background-color: govuk-colour("light-grey");
         padding: 1rem;
         clear: both;
         margin-bottom: 2em;
         border-left: 0;
     }
-    
+
     .govuk-checkboxes__divider {
         width: inherit;
         text-align: left;
@@ -301,5 +303,27 @@ h1.govuk-fieldset__heading {
         font-size: 19px;
         margin: 0.3em 0;
     }
+}
 
+.empty {
+    display: inline-block;
+    border: 2px solid;
+    outline-offset: -2px;
+    color: #505a5f;
+    background-color: #fff;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: "GDS Transport",arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    font-size: 14px;
+    font-size: .875rem;
+    line-height: 1;
+    padding-top: 3px;
+    padding-right: 8px;
+    padding-bottom: 3px;
+    padding-left: 8px;
+    margin-right: 8px;
 }
