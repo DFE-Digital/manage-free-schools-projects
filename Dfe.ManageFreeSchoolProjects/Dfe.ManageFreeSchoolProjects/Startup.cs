@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -71,6 +72,7 @@ public class Startup
         services.AddScoped<IEditProjectService, EditProjectService>();
         services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
+        services.AddScoped<ICreateUserService, CreateUserService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

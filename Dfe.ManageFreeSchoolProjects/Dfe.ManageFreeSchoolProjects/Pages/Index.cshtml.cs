@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -13,13 +14,17 @@ namespace Dfe.BuildFreeSchools.Pages
         [BindProperty]
         public string Username { get; set; }
 
-		public IGetDashboardByUserService _getDashboardByUserService;
+		private readonly IGetDashboardByUserService _getDashboardByUserService;
+		private readonly ICreateUserService _createUserService;
 
 		public List<GetDashboardByUserResponse> Projects { get; set; }
 
-        public IndexModel(IGetDashboardByUserService getDashboardByUserService)
+        public IndexModel(
+			IGetDashboardByUserService getDashboardByUserService,
+			ICreateUserService createUserService)
         {
 			_getDashboardByUserService = getDashboardByUserService;
+			_createUserService = createUserService;
         }
 		public async Task OnGetAsync()
 		{
@@ -31,6 +36,8 @@ namespace Dfe.BuildFreeSchools.Pages
 			try
 			{
                 Username = User.Identity.Name.ToString();
+				await _createUserService.Execute(Username);
+
                 Projects = await _getDashboardByUserService.Execute(Username);
 				
 				return Page();

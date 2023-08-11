@@ -52,7 +52,6 @@
 
     <ItemGroup>
       <Folder Include="DatabaseModels\" />
-      <Folder Include="Integration\" />
     </ItemGroup>
 
 </Project>
