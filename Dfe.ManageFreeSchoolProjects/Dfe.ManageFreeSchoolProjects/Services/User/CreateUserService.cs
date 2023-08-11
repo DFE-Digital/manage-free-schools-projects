@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.User
 
     public class CreateUserService : ICreateUserService
     {
-        private MfspApiClient _apiClient;
+        private readonly MfspApiClient _apiClient;
 
         public CreateUserService(MfspApiClient apiClient)
         {

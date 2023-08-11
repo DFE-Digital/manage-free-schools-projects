@@ -14,8 +14,8 @@ namespace Dfe.BuildFreeSchools.Pages
         [BindProperty]
         public string Username { get; set; }
 
-		public IGetDashboardByUserService _getDashboardByUserService;
-		public ICreateUserService _createUserService;
+		private readonly IGetDashboardByUserService _getDashboardByUserService;
+		private readonly ICreateUserService _createUserService;
 
 		public List<GetDashboardByUserResponse> Projects { get; set; }
 

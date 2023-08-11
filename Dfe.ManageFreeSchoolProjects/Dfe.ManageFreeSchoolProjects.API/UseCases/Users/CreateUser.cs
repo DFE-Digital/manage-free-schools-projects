@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
 {
     public record CreateUserResult
     {
-        public UserCreateState UserCreateState;
+        public UserCreateState UserCreateState { get; set; }
     }
 
     public enum UserCreateState
@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
 
     public class CreateUser : ICreateUser
     {
-        private MfspContext _context;
+        private readonly MfspContext _context;
 
         public CreateUser(MfspContext context)
         {
