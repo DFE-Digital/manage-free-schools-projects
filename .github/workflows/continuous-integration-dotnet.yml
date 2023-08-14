@@ -12,7 +12,6 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    environment: dev
     env:
       # Note: The database name may be overridden by the tests
       CONNECTION_STRING: 'Server=localhost,1433;Database=integrationtests;User Id=sa;Password=P1swrd!$;TrustServerCertificate=True'
