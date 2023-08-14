@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
     public class GetDashboardByUserService : IGetDashboardByUserService
     {
-        private MfspContext _context;
+        private readonly MfspContext _context;
 
         public GetDashboardByUserService(MfspContext context)
         {
