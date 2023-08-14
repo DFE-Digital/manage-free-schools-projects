@@ -10,12 +10,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class UserController
     {
-        private readonly ICreateUser _createUser;
+        private readonly ICreateUserService _createUser;
         private readonly IValidator<CreateUserRequest> _createUserRequestValidator;
 
         public UserController(
             IValidator<CreateUserRequest> createUserRequestValidator,
-            ICreateUser createUser)
+            ICreateUserService createUser)
         {
             _createUser = createUser;
             _createUserRequestValidator = createUserRequestValidator;

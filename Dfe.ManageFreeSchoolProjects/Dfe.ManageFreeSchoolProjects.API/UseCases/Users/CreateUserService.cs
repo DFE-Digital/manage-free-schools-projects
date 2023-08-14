@@ -15,16 +15,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
         Exists = 2
     }
 
-    public interface ICreateUser
+    public interface ICreateUserService
     {
         public CreateUserResult Execute(CreateUserRequest request);
     }
 
-    public class CreateUser : ICreateUser
+    public class CreateUserService : ICreateUserService
     {
         private readonly MfspContext _context;
 
-        public CreateUser(MfspContext context)
+        public CreateUserService(MfspContext context)
         {
             _context = context;
         }

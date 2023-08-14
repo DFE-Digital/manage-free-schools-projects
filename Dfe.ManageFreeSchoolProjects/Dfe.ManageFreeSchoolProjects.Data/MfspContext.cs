@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Azure;
 using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,9 +33,8 @@ public partial class MfspContext : DbContext
     {
         modelBuilder.Entity<Kpi>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("KPI");
+            entity.HasKey(e => e.Rid);
+            entity.ToTable("KPI");
 
             entity.Property(e => e.AprilIndicator)
                 .IsRequired()
@@ -865,6 +865,14 @@ public partial class MfspContext : DbContext
             entity.HasKey(e => e.Id);
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.Email).HasMaxLength(80);
+            entity
+                .HasMany(e => e.Projects)
+                .WithMany(e => e.Users)
+                .UsingEntity<UserProject>(
+                    l => l.HasOne<Kpi>().WithMany().HasForeignKey(e => e.Rid),
+                    r => r.HasOne<User>().WithMany().HasForeignKey(e => e.UserId))
+                .ToTable("UserProject", "mfsp");
+
         });
 
         OnModelCreatingPartial(modelBuilder);

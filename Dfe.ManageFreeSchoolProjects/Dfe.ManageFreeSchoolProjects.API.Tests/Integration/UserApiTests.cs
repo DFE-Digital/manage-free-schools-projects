@@ -10,17 +10,10 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class UserApiTests
+    public class UserApiTests : ApiTestsBase
     {
-        private readonly HttpClient _client;
-        private readonly Fixture _autoFixture;
-        private readonly ApiTestFixture _testFixture;
-
-        public UserApiTests(ApiTestFixture apiTestFixture)
+        public UserApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
-            _client = apiTestFixture.Client;
-            _autoFixture = new();
-            _testFixture = apiTestFixture;
         }
 
         [Fact]

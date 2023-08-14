@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20230811120139_AddKpiRidPrimaryKey")]
+    partial class AddKpiRidPrimaryKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,21 +44,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("User", "mfsp");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.UserProject", b =>
-                {
-                    b.Property<string>("Rid")
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Rid", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserProject", "mfsp");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Kpi", b =>
@@ -1288,21 +1276,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.HasKey("Rid");
 
                     b.ToTable("KPI", (string)null);
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.UserProject", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Kpi", null)
-                        .WithMany()
-                        .HasForeignKey("Rid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
