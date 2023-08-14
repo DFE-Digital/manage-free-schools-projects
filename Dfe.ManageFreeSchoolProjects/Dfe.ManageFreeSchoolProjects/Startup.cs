@@ -113,6 +113,9 @@ public class Startup
         services.AddScoped<ErrorService>();
         services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
+
+        // For working with Excel Data Reader on .NET core
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
