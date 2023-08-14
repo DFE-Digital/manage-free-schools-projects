@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class DashboardController : ControllerBase
     {
-        private IGetDashboardByUser _getDashboardByUser;
+        private IGetDashboardByUserService _getDashboardByUser;
 
-        public DashboardController(IGetDashboardByUser getDashboardByUser)
+        public DashboardController(IGetDashboardByUserService getDashboardByUser)
         {
             _getDashboardByUser = getDashboardByUser;
         }

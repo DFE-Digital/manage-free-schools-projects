@@ -60,8 +60,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			
 			services.AddScoped<ICorrelationContext, CorrelationContext>();
 
-			services.AddScoped<IGetDashboardByUser, GetDashboardByUser>();
-            services.AddScoped<ICreateUser, CreateUser>();
+			services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
+            services.AddScoped<ICreateUserService, CreateUserService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
             return services;
 		}

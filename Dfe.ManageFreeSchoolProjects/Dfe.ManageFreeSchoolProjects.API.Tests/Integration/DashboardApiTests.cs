@@ -1,17 +1,13 @@
-﻿using Azure.Core;
-using ConcernsCaseWork.Service.Base;
+﻿using ConcernsCaseWork.Service.Base;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using Dfe.ManageFreeSchoolProjects.Data;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
@@ -21,6 +17,37 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
     {
         public DashboardApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
+        }
+
+        [Fact]
+        public async Task When_GetByUser_Returns_DashboardFields_200()
+        {
+            var user = await CreateUser();
+
+            using var context = _testFixture.GetContext();
+            var project = DatabaseModelBuilder.BuildProject();
+
+            var dbUser = context.Users.First(u => u.Email == user.Email);
+            dbUser.Projects.Add(project);
+
+            await context.SaveChangesAsync();
+
+            var userDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/{user.Email}");
+            userDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await userDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardByUserResponse>>();
+
+            result.Data.Should().HaveCount(1);
+
+            var dashboard = result.Data.First();
+
+            dashboard.ProjectId.Should().Be(project.ProjectStatusProjectId);
+            dashboard.ProjectTitle.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
+            dashboard.TrustName.Should().Be(project.TrustName);
+            dashboard.LocalAuthority.Should().Be(project.LocalAuthority);
+            dashboard.RealisticOpeningDate.Should().NotBeNullOrEmpty();
+            dashboard.Region.Should().Be(project.SchoolDetailsGeographicalRegion);
+            dashboard.Status.Should().Be("1");
         }
 
         [Fact]
@@ -55,14 +82,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var firstUserResult = await firstUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardByUserResponse>>();
 
             firstUserResult.Data.Should().HaveCount(2);
-            firstUserResult.Data.Should().Contain(r => r.ProjectId == projectOne.Rid);
-            firstUserResult.Data.Should().Contain(r => r.ProjectId == projectTwo.Rid);
+            firstUserResult.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            firstUserResult.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
 
             // Ensure project three belongs to the second user
             var secondUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/{secondUser.Email}");
             secondUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var secondUserResult = await firstUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardByUserResponse>>();
+            var secondUserResult = await secondUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardByUserResponse>>();
+
+            secondUserResult.Data.Should().HaveCount(1);
+            secondUserResult.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
+
+        [Fact]
+        public async Task When_GetByUser_UserDoesNotExist_Returns_EmptyDashboard_200()
+        {
+            var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/NotExist");
+            firstUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await firstUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardByUserResponse>>();
+
+            result.Data.Should().BeEmpty();
         }
 
         private async Task<CreateUserRequest> CreateUser()
