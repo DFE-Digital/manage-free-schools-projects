@@ -13,14 +13,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
 {
     public class BulkAddProjectModel : PageModel
     {
-        private IWebHostEnvironment _environment;
-        public BulkAddProjectModel(IWebHostEnvironment environment)
+        public BulkAddProjectModel()
         {
-            _environment = environment;
         }
 
         [BindProperty]
         public IFormFile Upload { get; set; }
+
+        public ProjectTable ProjectTable { get; set; }
 
         public async Task OnPostAsync()
         {
@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
 
             ProjectTable projectTable = new ProjectTable();
 
-            foreach (DataRow row in table.Rows) 
+            foreach (DataRow row in table.Rows)
             {
                 if (row.ItemArray.Length != 7)
                 {
@@ -51,8 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
 
                 var projectRow = new ProjectRow()
                 {
-                    ProjectId = ParseColumn<string>(row.ItemArray[0]),
-                    ProjectTitle = ParseColumn<string>(row.ItemArray[1]),
+                    ProjectTitle = ParseColumn<string>(row.ItemArray[0]),
+                    ProjectId = ParseColumn<string>(row.ItemArray[1]),
                     TrustName = ParseColumn<string>(row.ItemArray[2]),
                     Region = ParseColumn<string>(row.ItemArray[3]),
                     LocalAuthority = ParseColumn<string>(row.ItemArray[4]),
@@ -62,6 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
 
                 projectTable.Rows.Add(projectRow);
             }
+
+            ProjectTable = projectTable;
         }
 
         private static T ParseColumn<T>(object column)

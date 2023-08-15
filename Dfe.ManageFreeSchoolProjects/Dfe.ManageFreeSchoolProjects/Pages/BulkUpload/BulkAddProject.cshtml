@@ -15,9 +15,19 @@
     </div>
 </form>
 
-@*
-<form method="post" enctype="multipart/form-data">
-    <input type="file" asp-for="Upload" accept=".xlsx" />
-    <input type="submit" />
-</form>
-*@
+
+@if (Model.ProjectTable != null)
+{
+    <div>
+        @foreach (var row in Model.ProjectTable.Rows)
+        {
+            <h2>@row.ProjectTitle</h2>
+            <p>@row.ProjectId</p>
+            <p>@row.TrustName</p>
+            <p>@row.Region</p>
+            <p>@row.LocalAuthority</p>
+            <p>@row.RealisticOpeningDate</p>
+            <p>@row.Status</p>
+        }
+    </div>
+}
