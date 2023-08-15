@@ -55,6 +55,12 @@
 					<label class="govuk-label govuk-radios__label" for="@Id(Model.Id, i)">
 						@Model.Labels[i]
 					</label>
+					@if (Model.Hints != null)
+					{
+						<div class="govuk-hint govuk-radios__hint">
+							@Model.Hints[i]
+						</div>
+					}
 				</div>
 			}
 		</div>

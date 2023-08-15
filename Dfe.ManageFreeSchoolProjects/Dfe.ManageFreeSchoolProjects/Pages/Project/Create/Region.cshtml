@@ -1,0 +1,44 @@
+﻿@page "/project/create/region"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.RegionModel
+@{
+    var regions = Enum.GetValues(typeof(ProjectRegion));
+    var labels = new List<string>();
+    var values = new List<string>();
+
+    foreach (var region in regions)
+    {
+        labels.Add(region.ToDescription());
+        values.Add(region.ToString());
+    }
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <div class="govuk-form-group">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+
+                    <h1 class="govuk-fieldset__heading">
+                        <span class="govuk-caption-l">Creating a new free school project</span>
+                        What is the region of the school?
+                    </h1>
+
+                </legend>
+
+                <govuk-radios-input id="region"
+                                    name="region"
+                                    asp-for="@Model.Region"
+                                    data-testid="region"
+                                    labels="@labels.ToArray()"
+                                    values="@values.ToArray()" />
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+
+        </form>
+    </div>
+</div>

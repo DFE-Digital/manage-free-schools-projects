@@ -1,0 +1,39 @@
+﻿@page "/project/create/localauthority"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.LocalAuthorityModel
+@{
+    var regions = Enum.GetValues(typeof(ProjectLocalAuthority));
+    var labels = new List<string>();
+    var values = new List<string>();
+
+    foreach (var region in regions)
+    {
+        labels.Add(region.ToDescription());
+        values.Add(region.ToString());
+    }
+}
+
+<div class="govuk-form-group">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+
+        <h1 class="govuk-fieldset__heading">
+            <span class="govuk-caption-l">Creating a new free school project</span>
+            What is the local authority?
+        </h1>
+
+    </legend>
+
+    <form method="post">
+        <govuk-radios-input id="local-authority"
+                            name="local-authority"
+                            asp-for="@Model.LocalAuthority"
+                            data-testid="local-authority"
+                            labels="@labels.ToArray()"
+                            values="@values.ToArray()" />
+
+        <button class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+    </form>
+</div>
