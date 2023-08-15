@@ -4,21 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
-    public interface IGetDashboardByUser
+    public interface IGetDashboardAll
     {
-        Task<List<GetDashboardResponse>> Execute(string userId);
+        Task<List<GetDashboardResponse>> Execute();
     }
 
-    public class GetDashboardByUser : IGetDashboardByUser
+    public class GetDashboardAll : IGetDashboardAll
     {
         private MfspContext _context;
 
-        public GetDashboardByUser(MfspContext context)
+        public GetDashboardAll(MfspContext context)
         {
             _context = context;
         }
 
-        public async Task<List<GetDashboardResponse>> Execute(string userId)
+        public async Task<List<GetDashboardResponse>> Execute()
         {
             var projectRecords = await _context.Kpis.Take(10).ToListAsync();
 

@@ -59,7 +59,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 
 			services.AddScoped<IGetDashboardByUser, GetDashboardByUser>();
 
-			return services;
+            services.AddScoped<IGetDashboardAll, GetDashboardAll>();
+
+            return services;
 		}
 	}
 }

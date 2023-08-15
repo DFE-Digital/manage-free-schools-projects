@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
     public interface IGetDashboardByUser
     {
-        Task<List<GetDashboardByUserResponse>> Execute(string userId);
+        Task<List<GetDashboardResponse>> Execute(string userId);
     }
 
     public class GetDashboardByUser : IGetDashboardByUser
@@ -18,13 +18,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             _context = context;
         }
 
-        public async Task<List<GetDashboardByUserResponse>> Execute(string userId)
+        public async Task<List<GetDashboardResponse>> Execute(string userId)
         {
             var projectRecords = await _context.Kpis.Take(10).ToListAsync();
 
             var result = projectRecords.Select(record =>
             {
-                return new GetDashboardByUserResponse()
+                return new GetDashboardResponse()
                 {
                     ProjectId = record.ProjectStatusProjectId,
                     ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,

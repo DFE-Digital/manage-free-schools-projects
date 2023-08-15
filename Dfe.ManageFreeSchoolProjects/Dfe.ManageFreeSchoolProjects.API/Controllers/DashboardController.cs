@@ -11,19 +11,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     public class DashboardController : ControllerBase
     {
         private IGetDashboardByUser _getDashboardByUser;
+        private IGetDashboardAll _getDashboardAll;
 
-        public DashboardController(IGetDashboardByUser getDashboardByUser)
+        public DashboardController(IGetDashboardByUser getDashboardByUser, IGetDashboardAll getDashboardAll)
         {
             _getDashboardByUser = getDashboardByUser;
+            _getDashboardAll = getDashboardAll;
         }
 
         [HttpGet]
         [Route("byuser/{userId}")]
-        public async Task<ActionResult<ApiResponseV2<GetDashboardByUserResponse>>> GetProjectsByUser(string userId)
+        public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetProjectsByUser(string userId)
         {
             var projects = await _getDashboardByUser.Execute(userId);
 
-            var response = new ApiResponseV2<GetDashboardByUserResponse>(projects, null);
+            return GetResponse(projects);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects()
+        {
+            var projects = await _getDashboardAll.Execute();
+
+            return GetResponse(projects);
+        }
+
+        public ActionResult<ApiResponseV2<GetDashboardResponse>> GetResponse(List<GetDashboardResponse> projects)
+        {
+            var response = new ApiResponseV2<GetDashboardResponse>(projects, null);
 
             return Ok(response);
         }
