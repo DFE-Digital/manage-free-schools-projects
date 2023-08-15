@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
@@ -28,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
 
             await Upload.CopyToAsync(stream);
 
-            using var reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+            using var reader = CreateReader(stream, Upload.ContentType);
             var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
             {
                 ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
@@ -56,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
                     TrustName = ParseColumn<string>(row.ItemArray[2]),
                     Region = ParseColumn<string>(row.ItemArray[3]),
                     LocalAuthority = ParseColumn<string>(row.ItemArray[4]),
-                    RealisticOpeningDate = ParseColumn<DateTime>(row.ItemArray[5]),
+                    RealisticOpeningDate = ParseDateColumn(row.ItemArray[5]),
                     Status = ParseColumn<string>(row.ItemArray[6]),
                 };
 
@@ -64,6 +65,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
             }
 
             ProjectTable = projectTable;
+        }
+
+        private static IExcelDataReader CreateReader(MemoryStream stream, string contentType)
+        {
+            if (contentType == "text/csv")
+            {
+                return ExcelReaderFactory.CreateCsvReader(stream);
+            }
+
+            return ExcelReaderFactory.CreateOpenXmlReader(stream);
+        }
+
+        private static string ParseDateColumn(object column)
+        {
+            var result = column is string ? ParseColumn<string>(column) : ParseColumn<DateTime>(column).ToString();
+
+            return result;
         }
 
         private static T ParseColumn<T>(object column)
@@ -84,7 +102,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkUpload
         public string TrustName { get; set; }
         public string Region { get; set; }
         public string LocalAuthority { get; set; }
-        public DateTime RealisticOpeningDate { get; set; }
+        public string RealisticOpeningDate { get; set; }
         public string Status { get; set; }
     }
 }
