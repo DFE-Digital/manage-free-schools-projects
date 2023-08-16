@@ -1,28 +1,37 @@
 class CreateProjectPage {
-    public withProjectId(value: string): this {
-        cy.getByTestId("project-id").clear().type(value);
+    public withMethod(value: string): this {
+        cy.getByTestId(value).check();
 
         return this;
     }
 
-    public withSchoolName(value: string): this {
-        cy.getByTestId("school-name").clear().type(value);
+    public withSchool(value: string): this {
+        cy.getByTestId("school").clear().type(value);
 
         return this;
     }
 
-    public withApplicationNumber(value: string): this {
-        cy.getByTestId("application-number").clear().type(value);
+    public withSchoolExceedingLimit(): this {
+        cy.getByTestId("school").clear().invoke("val", "abcde".repeat(20));
 
         return this;
     }
-    public withApplicationWave(value: string): this {
-        cy.getByTestId("application-wave").clear().type(value);
+
+    public withRegion(value: string): this {
+        cy.getByTestId(value).check();
+
         return this;
     }
 
-    public createProject() {
-        cy.getByTestId("create-project-button").click();
+    public withLocalAuthority(value: string): this {
+        cy.getByTestId(value).check();
+
+        return this;
+    }
+
+    public continue(): this {
+        cy.getByTestId("continue").click();
+
         return this;
     }
 }

@@ -11,6 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class MethodModel : PageModel
     {
         [BindProperty(Name = "method")]
+        [Display(Name = "method")]
         [Required]
         public string? Method { get; set; }
 

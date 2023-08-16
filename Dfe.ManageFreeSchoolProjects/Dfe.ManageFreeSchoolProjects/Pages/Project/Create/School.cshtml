@@ -4,6 +4,7 @@
 }
 
 <div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
 
@@ -21,7 +22,7 @@
                 <govuk-text-input id="school" name="school" asp-for="@Model.School" data-testid="school" />
             </div>
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
         </form>

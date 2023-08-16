@@ -18,16 +18,15 @@
                 Which method do you want to use?
             </h1>
         </legend>
-        <form class="govuk-form-group" method="POST">
+        <form class="govuk-form-group" method="post">
 
             <govuk-radios-input id="method"
                                 name="method"
                                 asp-for="@Model.Method"
-                                data-testid="method"
                                 labels="@labels"
                                 values="@values"
                                 hints="@hints" />
-            <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">
+            <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
         </form>

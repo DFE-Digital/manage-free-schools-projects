@@ -8,6 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class RegionModel : PageModel
     {
         [BindProperty(Name = "region")]
+        [Display(Name = "region")]
         [Required]
         public string? Region { get; set; }
 

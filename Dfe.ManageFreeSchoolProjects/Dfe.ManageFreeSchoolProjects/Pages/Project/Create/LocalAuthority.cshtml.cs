@@ -8,6 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class LocalAuthorityModel : PageModel
     {
         [BindProperty(Name = "local-authority")]
+        [Display(Name = "local authority")]
         [Required]
         public string? LocalAuthority { get; set; }
 

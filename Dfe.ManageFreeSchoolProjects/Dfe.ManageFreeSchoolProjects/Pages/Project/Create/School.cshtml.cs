@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class SchoolModel : PageModel
     {
         [BindProperty(Name = "school")]
-        [Display(Name = "Free school name")]
+        [Display(Name = "free school name")]
         [Required]
         [StringLength(80, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string School { get; set; }

@@ -14,7 +14,7 @@
 }
 
 <div class="govuk-form-group">
-
+    <partial name="_ErrorSummary" />
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
 
         <h1 class="govuk-fieldset__heading">
@@ -32,7 +32,7 @@
                             labels="@labels.ToArray()"
                             values="@values.ToArray()" />
 
-        <button class="govuk-button" data-module="govuk-button">
+        <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
         </button>
     </form>
