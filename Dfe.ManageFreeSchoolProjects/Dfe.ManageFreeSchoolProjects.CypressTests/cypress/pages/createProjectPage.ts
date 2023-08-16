@@ -24,7 +24,7 @@ class CreateProjectPage {
     }
 
     public withRegion(value: string): this {
-        this.checkRadio(value);
+        cy.getByTestId(value).check();
 
         return this;
     }
@@ -36,7 +36,7 @@ class CreateProjectPage {
     }
 
     public withLocalAuthority(value: string): this {
-        this.checkRadio(value);
+        cy.getByTestId(value).check();
 
         return this;
     }
@@ -51,10 +51,6 @@ class CreateProjectPage {
         cy.getByTestId("continue").click();
 
         return this;
-    }
-
-    private checkRadio(value: string) {
-        cy.getByTestId(value).check();
     }
 }
 

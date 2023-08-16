@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 case ProjectCreateMethod.Bulk:
                     return Redirect("/project/create/bulk");
                 default:
-                    throw new Exception($"Unrecognised method {Method}");
+                    throw new InvalidOperationException($"Unrecognised method {Method}");
             }
         }
     }
