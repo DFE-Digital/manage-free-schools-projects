@@ -22,9 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _errorService = errorService;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return Page();
         }
 
         public IActionResult OnPost()

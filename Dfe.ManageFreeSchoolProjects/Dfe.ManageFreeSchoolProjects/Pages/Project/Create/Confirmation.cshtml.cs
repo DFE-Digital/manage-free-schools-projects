@@ -15,9 +15,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _createProjectCache = createProjectCache;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
             Project = _createProjectCache.Get();
+
+            return Page();
         }
     }
 }
