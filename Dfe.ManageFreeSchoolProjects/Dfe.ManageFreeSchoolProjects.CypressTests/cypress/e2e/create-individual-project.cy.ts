@@ -10,6 +10,8 @@ describe("Creating an individual project", () => {
     });
 
     it("Should allow the user to create a new project using the form", () => {
+        const school = `${v4()} school`;
+
         Logger.log("Selecting method");
         createProjectPage.continue();
         validationComponent.hasValidationError("The method field is required");
@@ -24,7 +26,7 @@ describe("Creating an individual project", () => {
         validationComponent.hasValidationError(
             "The free school name must be 80 characters or less",
         );
-        createProjectPage.withSchool(`${v4()} school`).continue();
+        createProjectPage.withSchool(school).continue();
 
         Logger.log("Selecting region");
         createProjectPage.continue();
@@ -37,5 +39,10 @@ describe("Creating an individual project", () => {
             "The local authority field is required",
         );
         createProjectPage.withLocalAuthority("Essex").continue();
+
+        createProjectPage
+            .hasSchool(school)
+            .hasRegion("South East")
+            .hasLocalAuthority("Essex");
     });
 });

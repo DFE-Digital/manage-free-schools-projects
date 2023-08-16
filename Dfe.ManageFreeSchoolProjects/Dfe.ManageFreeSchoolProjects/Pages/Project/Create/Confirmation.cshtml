@@ -16,8 +16,8 @@
                 <dt class="govuk-summary-list__key">
                     Current free school name
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    test
+                <dd class="govuk-summary-list__value" data-testid="school">
+                    @Model.Project.School
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -33,8 +33,8 @@
                 <dt class="govuk-summary-list__key">
                     Region
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    East of England
+                <dd class="govuk-summary-list__value" data-testid="region">
+                    @Model.Project.Region.ToDescription()
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -50,8 +50,8 @@
                 <dt class="govuk-summary-list__key">
                     Local authority
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    Hertfordshire
+                <dd class="govuk-summary-list__value" data-testid="local-authority">
+                    @Model.Project.LocalAuthority.ToDescription()
                 </dd>
 
                 <dd class="govuk-summary-list__actions">

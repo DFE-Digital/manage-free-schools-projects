@@ -11,6 +11,12 @@ class CreateProjectPage {
         return this;
     }
 
+    public hasSchool(value: string): this {
+        cy.getByTestId("school").should("contain.text", value);
+
+        return this;
+    }
+
     public withSchoolExceedingLimit(): this {
         cy.getByTestId("school").clear().invoke("val", "abcde".repeat(20));
 
@@ -23,8 +29,20 @@ class CreateProjectPage {
         return this;
     }
 
+    public hasRegion(value: string): this {
+        cy.getByTestId("region").should("contain.text", value);
+
+        return this;
+    }
+
     public withLocalAuthority(value: string): this {
         cy.getByTestId(value).check();
+
+        return this;
+    }
+
+    public hasLocalAuthority(value: string): this {
+        cy.getByTestId("local-authority").should("contain.text", value);
 
         return this;
     }

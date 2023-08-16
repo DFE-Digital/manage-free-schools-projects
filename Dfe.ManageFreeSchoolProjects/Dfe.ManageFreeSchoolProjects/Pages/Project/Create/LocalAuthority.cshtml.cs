@@ -1,7 +1,11 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -14,9 +18,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         private ErrorService _errorService;
 
-        public LocalAuthorityModel(ErrorService errorService)
+        private ICreateProjectCache _createProjectCache;
+
+        public LocalAuthorityModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {
             _errorService = errorService;
+            _createProjectCache = createProjectCache;
         }
 
         public void OnGet()
@@ -30,6 +37,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
+
+            var project = _createProjectCache.Get();
+            project.LocalAuthority = (ProjectLocalAuthority)Enum.Parse(typeof(ProjectLocalAuthority), LocalAuthority);
+            _createProjectCache.Update(project);
 
             return Redirect("/project/create/confirmation");
         }
