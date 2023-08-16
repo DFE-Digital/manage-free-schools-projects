@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public class CreateProjectCache : ICreateProjectCache
     {
         private const string Key = "CreateProject";
-        private ISession _session;
+        private readonly ISession _session;
 
         public CreateProjectCache(ISession session)
         {
