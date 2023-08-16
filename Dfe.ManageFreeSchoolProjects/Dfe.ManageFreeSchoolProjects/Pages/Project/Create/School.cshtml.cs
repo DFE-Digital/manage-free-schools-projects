@@ -16,8 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [StringLength(80, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string School { get; set; }
 
-        private ErrorService _errorService;
-        private ICreateProjectCache _createProjectCache;
+        private readonly ErrorService _errorService;
+        private readonly ICreateProjectCache _createProjectCache;
 
         public SchoolModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {

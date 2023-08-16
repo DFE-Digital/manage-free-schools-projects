@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         public CreateProjectCacheItem Project { get; set; }
 
-        private ICreateProjectCache _createProjectCache;
+        private readonly ICreateProjectCache _createProjectCache;
 
         public ConfirmationModel(ICreateProjectCache createProjectCache)
         {

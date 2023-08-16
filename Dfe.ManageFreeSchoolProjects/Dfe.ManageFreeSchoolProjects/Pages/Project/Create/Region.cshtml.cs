@@ -15,9 +15,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required]
         public string? Region { get; set; }
 
-        private ErrorService _errorService;
+        private readonly ErrorService _errorService;
 
-        private ICreateProjectCache _createProjectCache;
+        private readonly ICreateProjectCache _createProjectCache;
 
         public RegionModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {

@@ -2,14 +2,14 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.LocalAuthorityModel
 @{
-    var regions = Enum.GetValues(typeof(ProjectLocalAuthority));
+    var localAuthorities = Enum.GetValues(typeof(ProjectLocalAuthority));
     var labels = new List<string>();
     var values = new List<string>();
 
-    foreach (var region in regions)
+    foreach (var localAuthority in localAuthorities)
     {
-        labels.Add(region.ToDescription());
-        values.Add(region.ToString());
+        labels.Add(localAuthority.ToDescription());
+        values.Add(localAuthority.ToString());
     }
 }
 

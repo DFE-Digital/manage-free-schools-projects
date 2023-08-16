@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required]
         public string? Method { get; set; }
 
-        private ErrorService _errorService;
+        private readonly ErrorService _errorService;
 
         public MethodModel(ErrorService errorService)
         {

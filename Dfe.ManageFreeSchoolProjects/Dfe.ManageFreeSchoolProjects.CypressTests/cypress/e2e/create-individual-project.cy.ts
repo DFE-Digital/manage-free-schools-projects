@@ -40,6 +40,7 @@ describe("Creating an individual project", () => {
         );
         createProjectPage.withLocalAuthority("Essex").continue();
 
+        Logger.log("Checking the information on the confirmation page");
         createProjectPage
             .hasSchool(school)
             .hasRegion("South East")
