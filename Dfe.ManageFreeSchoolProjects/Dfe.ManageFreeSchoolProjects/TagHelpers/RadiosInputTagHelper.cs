@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("hints")]
 		public string[] Hints { get; set; }
 
-		private ErrorService _errorService;
+		private readonly ErrorService _errorService;
 
 		public RadiosInputTagHelper(IHtmlHelper htmlHelper, ErrorService errorService) : base(htmlHelper) 
 		{

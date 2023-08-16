@@ -1,6 +1,6 @@
 class CreateProjectPage {
-    public withMethod(value: string): this {
-        cy.getByTestId(value).check();
+    public withMethod(method: string): this {
+        cy.getByTestId(method).check();
 
         return this;
     }
@@ -23,8 +23,8 @@ class CreateProjectPage {
         return this;
     }
 
-    public withRegion(value: string): this {
-        cy.getByTestId(value).check();
+    public withRegion(region: string): this {
+        cy.getByTestId(region).check();
 
         return this;
     }
@@ -35,8 +35,8 @@ class CreateProjectPage {
         return this;
     }
 
-    public withLocalAuthority(value: string): this {
-        cy.getByTestId(value).check();
+    public withLocalAuthority(localAuthority: string): this {
+        cy.getByTestId(localAuthority).check();
 
         return this;
     }
