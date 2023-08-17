@@ -1,5 +1,5 @@
 {
-    "name": "concernscasework.cypresstests",
+    "name": "managefreeschoolsprojects.cypresstests",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -12,7 +12,7 @@
         "combine:reports": "mochawesome-merge  cypress/reports/mocha/*.json> mochareports/report.json",
         "create:html:report": "marge  mochareports/report.json -f report -o mochareports",
         "generate:html:report": "npm run combine:reports && npm run create:html:report",
-        "lint": "eslint . --ext .cy.js,.jsx,.ts,.tsx --ignore-path .gitignore",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
         "prettier:check": "prettier . --check",
         "prettier:write": "prettier . --write",
         "format": "npm run prettier:write && npm run lint",
@@ -44,6 +44,6 @@
         "prettier": "^3.0.1",
         "typescript": "^4.8.4",
         "uuid": "^9.0.0",
-        "zaproxy": "^1.0.1"
+        "zaproxy": "^2.0.0-rc.2"
     }
 }
