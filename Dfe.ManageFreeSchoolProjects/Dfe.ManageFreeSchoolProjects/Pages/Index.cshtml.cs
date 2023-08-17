@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -13,17 +14,20 @@ namespace Dfe.BuildFreeSchools.Pages
         [BindProperty]
         public string Username { get; set; }
 
-		public IGetDashboardByUserService _getDashboardByUserService;
-        public IGetDashboardAllService _getDashboardAllService;
+		private readonly IGetDashboardByUserService _getDashboardByUserService;
+        private readonly IGetDashboardAllService _getDashboardAllService;
+		private readonly ICreateUserService _createUserService;
 
         public List<GetDashboardResponse> Projects { get; set; }
         public List<GetDashboardResponse> AllProjects { get; set; }
 
-        public IndexModel(IGetDashboardByUserService getDashboardByUserService, IGetDashboardAllService getDashboardAllService)
+        public IndexModel(IGetDashboardByUserService getDashboardByUserService, IGetDashboardAllService getDashboardAllService, ICreateUserService createUserService)
         {
 			_getDashboardByUserService = getDashboardByUserService;
 			_getDashboardAllService = getDashboardAllService;
+			_createUserService = createUserService;
         }
+
 		public async Task OnGetAsync()
 		{
 			await LoadPage();
@@ -34,6 +38,8 @@ namespace Dfe.BuildFreeSchools.Pages
 			try
 			{
                 Username = User.Identity.Name.ToString();
+				await _createUserService.Execute(Username);
+
                 Projects = await _getDashboardByUserService.Execute(Username);
 				AllProjects = await _getDashboardAllService.Execute();
 				

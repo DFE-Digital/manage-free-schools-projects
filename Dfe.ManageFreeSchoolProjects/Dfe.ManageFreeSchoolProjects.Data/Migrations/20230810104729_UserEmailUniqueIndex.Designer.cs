@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20230810104729_UserEmailUniqueIndex")]
+    partial class UserEmailUniqueIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -43,29 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.ToTable("User", "mfsp");
                 });
 
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.UserProject", b =>
-                {
-                    b.Property<string>("Rid")
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Rid", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserProject", "mfsp");
-                });
-
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Kpi", b =>
                 {
-                    b.Property<string>("Rid")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("RID");
-
                     b.Property<string>("AprilIndicator")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -981,6 +963,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("RAT Provisional opening date agreed with trust");
 
+                    b.Property<string>("Rid")
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("RID");
+
                     b.Property<string>("RyooWd")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -1285,24 +1273,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(16)");
 
-                    b.HasKey("Rid");
-
                     b.ToTable("KPI", (string)null);
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.UserProject", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Kpi", null)
-                        .WithMany()
-                        .HasForeignKey("Rid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

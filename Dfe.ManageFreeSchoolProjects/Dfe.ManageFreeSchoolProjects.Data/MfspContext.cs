@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Azure;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data;
@@ -17,17 +19,22 @@ public partial class MfspContext : DbContext
 
     public virtual DbSet<Kpi> Kpis { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=mfsp;Trusted_Connection=True;TrustServerCertificate=True");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseMfspSqlServer("Server=localhost;Database=mfsp;Integrated Security=true;TrustServerCertificate=True");
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Kpi>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("KPI");
+            entity.HasKey(e => e.Rid);
+            entity.ToTable("KPI");
 
             entity.Property(e => e.AprilIndicator)
                 .IsRequired()
@@ -850,6 +857,22 @@ public partial class MfspContext : DbContext
                 .IsRequired()
                 .HasMaxLength(16)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("User", "mfsp");
+            entity.HasKey(e => e.Id);
+            entity.HasIndex(e => e.Email).IsUnique();
+            entity.Property(e => e.Email).HasMaxLength(80);
+            entity
+                .HasMany(e => e.Projects)
+                .WithMany(e => e.Users)
+                .UsingEntity<UserProject>(
+                    l => l.HasOne<Kpi>().WithMany().HasForeignKey(e => e.Rid),
+                    r => r.HasOne<User>().WithMany().HasForeignKey(e => e.UserId))
+                .ToTable("UserProject", "mfsp");
+
         });
 
         OnModelCreatingPartial(modelBuilder);

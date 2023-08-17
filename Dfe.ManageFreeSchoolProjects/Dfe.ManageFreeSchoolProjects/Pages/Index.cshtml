@@ -5,92 +5,137 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="dfe-content-page--header">
-    <div class="dfe-width-container ">
-        <div class="govuk-grid-row ">
-            <div class="govuk-grid-column-three-quarters">
+@section AfterHeader
+    {
+
+    <nav class="dfe-header__navigation" id="header-navigation" role="navigation" aria-label="Primary navigation" aria-labelledby="label-navigation">
+        <div class="dfe-width-container">
+            <p class="dfe-header__navigation-title">
+                <span id="label-navigation">Menu</span>
+                <button class="dfe-header__navigation-close" id="close-menu">
+                    <svg class="dfe-icon dfe-icon__close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="27" height="27">
+                        <path d="M13.41 12l5.3-5.29a1 1 0 1 0-1.42-1.42L12 10.59l-5.29-5.3a1 1 0 0 0-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l5.29-5.3 5.29 5.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"></path>
+                    </svg>
+                    <span class="govuk-visually-hidden">Close menu</span>
+                </button>
+            </p>
+            <ul class="dfe-header__navigation-list">
+                <li class="dfe-header__navigation-item dfe-header__navigation-item--current">
+                    <a class="dfe-header__navigation-link" href="#">
+                        Your projects
+                        <svg class="dfe-icon dfe-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
+                            <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z"></path>
+                        </svg>
+                    </a>
+                </li>
+                <li class="dfe-header__navigation-item ">
+                    <a class="dfe-header__navigation-link" href="#">
+                        All projects
+                        <svg class="dfe-icon dfe-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
+                            <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z"></path>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+}
+
+@section BeforeMain
+    {
+    <div class="dfe-content-page--header">
+        <div class="dfe-width-container ">
+            <div class="govuk-grid-row ">
+                <div class="govuk-grid-column-three-quarters">
+                </div>
+            </div>
+            <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-0">
+                <div class="govuk-grid-column-three-quarters">
+                    <span class="govuk-body-s"></span>
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">Your free school projects</h1>
+                    <p class="govuk-body-l"></p>
+                </div>
+            </div>
+            <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-7">
+                <div class="govuk-grid-column-full">
+                </div>
             </div>
         </div>
-        <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-0">
-            <div class="govuk-grid-column-three-quarters">
-                <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">Your free school projects</h1>
-            </div>
-        </div>
-        <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-7">
-            <div class="govuk-grid-column-full">
-            </div>
-        </div>
-        <table class="govuk-table">
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row tr__large">
-                    <th class="govuk-table__header govuk-table__cell__cases" scope="col">
-                        Project title
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Project ID
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Trust
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Region
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases" scope="col">
-                        Local authority
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Realistic opening date
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Status
-                    </th>
-                    <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                        Action
-                    </th>
+    </div>
+}
+
+
+<table class="govuk-table">
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row tr__large">
+            <th class="govuk-table__header govuk-table__cell__cases" scope="col">
+                Project title
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Project ID
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Trust
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Region
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases" scope="col">
+                Local authority
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Realistic opening date
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Status
+            </th>
+            <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        @if (Model.Projects == null || Model.Projects.Count == 0)
+        {
+            <tr class="govuk-table__row tr__large">
+                <td class="govuk-table__cell__cases govuk-oneline-row">
+                    <span>There are no projects available.</span>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var project in Model.Projects)
+            {
+                <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
+                    <td class="govuk-table__cell" data-testid="project-title">
+                        @project.ProjectTitle
+                    </td>
+                    <td class="govuk-table__cell" data-testid="project-id">
+                        @project.ProjectId
+                    </td>
+                    <td class="govuk-table__cell" data-testid="trust-name">
+                        @project.TrustName
+                    </td>
+                    <td class="govuk-table__cell" data-testid="region-name">
+                        @project.Region
+                    </td>
+                    <td class="govuk-table__cell" data-testid="local-authority">
+                        @project.LocalAuthority
+                    </td>
+                    <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                        @project.RealisticOpeningDate
+                    </td>
+                    <td class="govuk-table__cell" data-testid="status">
+                        <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                    </td>
+                    <td class="govuk-table__cell" data-testid="action">
+                        <a href="#">View</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-                @if (Model.Projects == null || Model.Projects.Count == 0)
-                {
-                    <tr class="govuk-table__row tr__large">
-                        <td class="govuk-table__cell__cases govuk-oneline-row">
-                            <span>There are no projects available.</span>
-                        </td>
-                    </tr>
-                }
-                else
-                {
-                    foreach (var project in Model.Projects)
-                    {
-                        <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
-                            <td class="govuk-table__cell" data-testid="project-title">
-                                @project.ProjectTitle
-                            </td>
-                            <td class="govuk-table__cell" data-testid="project-id">
-                                @project.ProjectId
-                            </td>
-                            <td class="govuk-table__cell" data-testid="trust-name">
-                                @project.TrustName
-                            </td>
-                            <td class="govuk-table__cell" data-testid="region-name">
-                                @project.Region
-                            </td>
-                            <td class="govuk-table__cell" data-testid="local-authority">
-                                @project.LocalAuthority
-                            </td>
-                            <td class="govuk-table__cell" data-testid="realistic-opening-date">
-                                @project.RealisticOpeningDate
-                            </td>
-                            <td class="govuk-table__cell" data-testid="status">
-                                <strong class="govuk-tag govuk-tag--grey">Not started</strong>
-                            </td>
-                            <td class="govuk-table__cell" data-testid="action">
-                                <a href="#">View</a>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+            }
+        }
+    </tbody>
+</table>
     </div>
 </div>

@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
-    public interface IGetDashboardAll
+    public interface IGetDashboardAllService
     {
         Task<List<GetDashboardResponse>> Execute();
     }
 
-    public class GetDashboardAll : IGetDashboardAll
+    public class GetDashboardAll : IGetDashboardAllService
     {
         private MfspContext _context;
 
