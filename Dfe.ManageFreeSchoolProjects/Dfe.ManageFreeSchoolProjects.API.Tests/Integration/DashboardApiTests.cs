@@ -113,5 +113,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             return result;
         }
+
+        [Fact]
+        public async Task When_GetAll_Returns_Dashboard_200()
+        {
+
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            var projectThree = DatabaseModelBuilder.BuildProject();
+
+            context.Kpis.AddRange(projectOne, projectTwo, projectThree);
+
+            await context.SaveChangesAsync();
+
+            // Ensure project one and two belong to the first user
+            var dashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/all");
+            dashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await dashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            result.Data.Should().HaveCount(3);
+            result.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            result.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+            result.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
     }
 }
