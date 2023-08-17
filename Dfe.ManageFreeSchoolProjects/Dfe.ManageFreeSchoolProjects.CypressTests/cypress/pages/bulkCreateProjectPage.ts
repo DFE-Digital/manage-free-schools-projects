@@ -1,8 +1,8 @@
 class BulkCreateProjectPage {
-    public uploadCsv(file): this {
+    public upload(file: Buffer, filename: string): this {
         cy.getByTestId("upload").selectFile({
-            contents: Cypress.Buffer.from(file),
-            fileName: "file.csv",
+            contents: file,
+            fileName: filename,
             lastModified: Date.now(),
         });
         return this;

@@ -1,9 +1,9 @@
-export type CsvTable<TRow> = {
+export type BulkProjectTable<TRow> = {
     headers: Array<string>;
     rows: Array<TRow>;
 };
 
-export type ProjectTableRow = {
+export type BulkProjectRow = {
     projectId?: string;
     projectTitle?: string;
     trustName?: string;
