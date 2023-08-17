@@ -16,13 +16,13 @@
             <p class="govuk-body govuk-!-margin-bottom-8">If you're not sure what format your file should be, <a href="/public/downloads/SPA Team - Bulk Upload Template.xlsx">download a template</a> and upload your filled-in version.</p>
 
             <div class="govuk-form-group">
-                <label class="govuk-label" for="file-upload-1">
+                <label class="govuk-label" for="upload">
                     Upload a file
                 </label>
-                <input class="govuk-file-upload" name="upload" type="file" accept=".xlsx,.csv">
+                <input id="upload" class="govuk-file-upload" name="upload" type="file" accept=".xlsx,.csv" data-testid="upload">
             </div>
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
         </form>
