@@ -68,6 +68,8 @@ public class Startup
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
+        services.AddScoped<IProjectTableReader, ProjectTableReader>();
+        services.AddScoped<ICreateBulkProjectValidator, CreateBulkProjectValidator>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
@@ -108,6 +110,8 @@ public class Startup
         services.AddScoped<ErrorService>();
         services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
+
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
