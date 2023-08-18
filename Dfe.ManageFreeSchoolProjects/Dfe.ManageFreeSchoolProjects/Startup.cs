@@ -19,7 +19,6 @@ using Microsoft.FeatureManagement;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
-using System.Net.Mime;
 using System.Security.Claims;
 
 namespace Dfe.ManageFreeSchoolProjects;
@@ -65,15 +64,11 @@ public class Startup
         services.AddControllersWithViews()
            .AddMicrosoftIdentityUI();
 
-        services.AddScoped<ICreateProjectService, CreateProjectService>();
-        services.AddScoped<IGetProjectsByUserService, GetProjectsByUserService>();
-        services.AddScoped<IGetProjectByIdService, GetProjectByIdService>();
-        services.AddScoped<IDeleteProjectService, DeleteProjectService>();
-        services.AddScoped<IEditProjectService, EditProjectService>();
         services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
         services.AddScoped<IGetDashboardAllService, GetDashboardAllService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
+        services.AddScoped<ICreateProjectCache, CreateProjectCache>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

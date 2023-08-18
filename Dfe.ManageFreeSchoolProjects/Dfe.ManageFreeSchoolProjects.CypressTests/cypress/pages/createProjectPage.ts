@@ -1,28 +1,55 @@
 class CreateProjectPage {
-    public withProjectId(value: string): this {
-        cy.getByTestId("project-id").clear().type(value);
+    public withMethod(method: string): this {
+        cy.getByTestId(method).check();
 
         return this;
     }
 
-    public withSchoolName(value: string): this {
-        cy.getByTestId("school-name").clear().type(value);
+    public withSchool(value: string): this {
+        cy.getByTestId("school").clear().type(value);
 
         return this;
     }
 
-    public withApplicationNumber(value: string): this {
-        cy.getByTestId("application-number").clear().type(value);
+    public hasSchool(value: string): this {
+        cy.getByTestId("school").should("contain.text", value);
 
         return this;
     }
-    public withApplicationWave(value: string): this {
-        cy.getByTestId("application-wave").clear().type(value);
+
+    public withSchoolExceedingLimit(): this {
+        cy.getByTestId("school").clear().invoke("val", "abcde".repeat(20));
+
         return this;
     }
 
-    public createProject() {
-        cy.getByTestId("create-project-button").click();
+    public withRegion(region: string): this {
+        cy.getByTestId(region).check();
+
+        return this;
+    }
+
+    public hasRegion(value: string): this {
+        cy.getByTestId("region").should("contain.text", value);
+
+        return this;
+    }
+
+    public withLocalAuthority(localAuthority: string): this {
+        cy.getByTestId(localAuthority).check();
+
+        return this;
+    }
+
+    public hasLocalAuthority(value: string): this {
+        cy.getByTestId("local-authority").should("contain.text", value);
+
+        return this;
+    }
+
+    public continue(): this {
+        cy.getByTestId("continue").click();
+
         return this;
     }
 }
