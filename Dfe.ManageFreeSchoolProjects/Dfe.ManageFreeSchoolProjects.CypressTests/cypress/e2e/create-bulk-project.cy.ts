@@ -2,6 +2,11 @@ import { BulkProjectTable, BulkProjectRow } from "cypress/api/domain";
 import bulkCreateProjectPage from "cypress/pages/bulkCreateProjectPage";
 import { v4 } from "uuid";
 import { stringify } from "csv-stringify/sync";
+
+// Problem with importing the xlsx with the latest cypress
+// if you want typings, just remove /xlsx, you will have to add it back in to work with cypress
+// This is a webpack 5 issue, but the library itself is incompatible
+// Tried to override the webpack config in cypress, but didn't have much luck
 import { utils, write } from "xlsx/xlsx";
 
 describe("Creating a bulk project", () => {
