@@ -1,0 +1,133 @@
+﻿@page "/project/create/confirmation"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.ConfirmationModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">Creating a new free school project</span>
+            Check your answers
+        </h1>
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Current free school name
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="school">
+                    @Model.Project.School
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="create-new-project-school-name">
+                        Change<span class="govuk-visually-hidden"> School name</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Region
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="region">
+                    @Model.Project.Region.ToDescription()
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="create-new-project-regions">
+                        Change<span class="govuk-visually-hidden"> Geographical region</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Local authority
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="local-authority">
+                    @Model.Project.LocalAuthority.ToDescription()
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="create-new-project-local-authority">
+                        Change<span class="govuk-visually-hidden"> Local authority</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Provisional opening date agreed with trust
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    5 August 2023
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="#">
+                        Change<span class="govuk-visually-hidden"> Provisional opening date agreed with trust</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of forms of entry
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    1
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="#">
+                        Change<span class="govuk-visually-hidden"> Number of forms of entry</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    School type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    AP
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="#">
+                        Change<span class="govuk-visually-hidden"> School type</span>
+                    </a>
+
+                </dd>
+
+            </div>
+        </dl>
+        <h2 class="govuk-heading-m">
+            Now create your project
+        </h2>
+
+        <p>
+            By selecting the Create project button, you are confirming that you have approval to create projects.
+        </p>
+
+        <form method="post" novalidate="">
+            <button class="govuk-button" data-module="govuk-button">
+                Create project
+            </button>
+
+
+        </form>
+    </div>
+</div>

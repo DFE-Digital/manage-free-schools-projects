@@ -1,0 +1,30 @@
+﻿@page "/project/create/school"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.SchoolModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--xl" for="create-new-project-school-name">
+                        <span class="govuk-caption-l">Creating a new free school project</span>
+                        What is the current free school name?
+                    </label>
+                </h1>
+
+                <div id="create-new-project-school-name-hint" class="govuk-hint">
+                    You can still edit it anytime.
+                </div>
+                <govuk-text-input id="school" name="school" asp-for="@Model.School" data-testid="school" />
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>
