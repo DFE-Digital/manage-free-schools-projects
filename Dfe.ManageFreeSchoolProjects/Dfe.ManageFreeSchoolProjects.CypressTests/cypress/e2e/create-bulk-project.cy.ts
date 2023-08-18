@@ -1,9 +1,8 @@
 import { BulkProjectTable, BulkProjectRow } from "cypress/api/domain";
 import bulkCreateProjectPage from "cypress/pages/bulkCreateProjectPage";
 import { v4 } from "uuid";
-import { stringify } from "csv-stringify/lib/sync";
-import { utils, write, writeFile } from "xlsx";
-import { join } from "path";
+import { stringify } from "csv-stringify/sync";
+import { utils, write } from "xlsx/xlsx";
 
 describe("Creating a bulk project", () => {
     beforeEach(() => {
