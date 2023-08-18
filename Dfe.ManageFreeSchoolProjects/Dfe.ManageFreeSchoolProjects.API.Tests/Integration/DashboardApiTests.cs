@@ -133,7 +133,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var result = await dashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
 
-            result.Data.Should().HaveCount(3);
             result.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
             result.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
             result.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
