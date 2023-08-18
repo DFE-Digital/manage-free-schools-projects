@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             return result;
         }
 
-        private class ProjectRowValidator : AbstractValidator<ProjectRow>
+        private sealed class ProjectRowValidator : AbstractValidator<ProjectRow>
         {
             public ProjectRowValidator()
             {
