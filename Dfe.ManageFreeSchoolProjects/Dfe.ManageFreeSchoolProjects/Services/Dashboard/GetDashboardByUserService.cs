@@ -11,14 +11,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public Task<List<GetDashboardResponse>> Execute(string userId);
     }
 
-    public interface IGetDashboardAllService
-    {
-        public Task<List<GetDashboardResponse>> Execute();
-    }
-
     public class GetDashboardByUserService : IGetDashboardByUserService
     {
-        private MfspApiClient _apiClient;
+        private readonly MfspApiClient _apiClient;
 
         public GetDashboardByUserService(MfspApiClient apiClient)
         {
@@ -28,26 +23,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public async Task<List<GetDashboardResponse>> Execute(string userId)
         {
             var endpoint = $"/api/v1/client/dashboard/byuser/{userId}";
-
-            var result = await _apiClient.Get<ApiListWrapper<GetDashboardResponse>>(endpoint);
-
-            return result.Data.ToList();
-        }
-
-    }
-
-    public class GetDashboardAllService : IGetDashboardAllService
-    {
-        private MfspApiClient _apiClient;
-
-        public GetDashboardAllService(MfspApiClient apiClient)
-        {
-            _apiClient = apiClient;
-        }
-
-        public async Task<List<GetDashboardResponse>> Execute()
-        {
-            var endpoint = $"/api/v1/client/dashboard/all";
 
             var result = await _apiClient.Get<ApiListWrapper<GetDashboardResponse>>(endpoint);
 

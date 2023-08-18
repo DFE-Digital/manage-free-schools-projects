@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
     public class GetDashboardAll : IGetDashboardAllService
     {
-        private MfspContext _context;
+        private readonly MfspContext _context;
 
         public GetDashboardAll(MfspContext context)
         {
@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
         public async Task<List<GetDashboardResponse>> Execute()
         {
-            var projectRecords = await _context.Kpis.Take(10).ToListAsync();
+            var projectRecords = await _context.Kpi.Take(10).ToListAsync();
 
             var result = projectRecords.Select(record =>
             {
