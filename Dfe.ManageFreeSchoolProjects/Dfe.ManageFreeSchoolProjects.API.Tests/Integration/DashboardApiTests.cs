@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectTwo = DatabaseModelBuilder.BuildProject();
             var projectThree = DatabaseModelBuilder.BuildProject();
 
-            context.Kpis.AddRange(projectOne, projectTwo, projectThree);
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
 
             await context.SaveChangesAsync();
 
