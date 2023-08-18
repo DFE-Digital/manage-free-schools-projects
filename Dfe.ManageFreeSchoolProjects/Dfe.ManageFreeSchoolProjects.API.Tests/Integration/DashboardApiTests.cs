@@ -4,7 +4,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using FluentAssertions;
-using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-    [Collection(ApiTestCollection.ApiTestCollectionName)]
+	[Collection(ApiTestCollection.ApiTestCollectionName)]
     public class DashboardApiTests : ApiTestsBase
     {
         public DashboardApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
