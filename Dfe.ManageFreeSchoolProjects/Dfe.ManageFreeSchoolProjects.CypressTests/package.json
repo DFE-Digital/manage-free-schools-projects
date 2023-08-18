@@ -42,7 +42,7 @@
         "mochawesome-merge": "^4.2.1",
         "mochawesome-report-generator": "^6.0.1",
         "prettier": "^3.0.1",
-        "typescript": "^4.8.4",
+        "typescript": "^5.0.0",
         "uuid": "^9.0.0",
         "zaproxy": "^2.0.0-rc.2"
     }
