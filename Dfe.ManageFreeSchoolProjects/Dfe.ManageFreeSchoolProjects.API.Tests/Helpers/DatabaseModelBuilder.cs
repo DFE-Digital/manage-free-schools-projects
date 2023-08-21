@@ -1,6 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.Data;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System;
-using System.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
