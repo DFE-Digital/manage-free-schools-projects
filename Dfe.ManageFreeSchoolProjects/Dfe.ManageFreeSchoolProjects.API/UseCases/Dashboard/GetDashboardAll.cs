@@ -4,32 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
-    public interface IGetDashboardByUserService
+    public interface IGetDashboardAllService
     {
-        Task<List<GetDashboardResponse>> Execute(string userId);
+        Task<List<GetDashboardResponse>> Execute();
     }
 
-    public class GetDashboardByUserService : IGetDashboardByUserService
+    public class GetDashboardAll : IGetDashboardAllService
     {
         private readonly MfspContext _context;
 
-        public GetDashboardByUserService(MfspContext context)
+        public GetDashboardAll(MfspContext context)
         {
             _context = context;
         }
 
-        public async Task<List<GetDashboardResponse>> Execute(string userId)
+        public async Task<List<GetDashboardResponse>> Execute()
         {
-            var matchingUser = await _context.Users
-                .Include(u => u.Projects)
-                .FirstOrDefaultAsync(u => u.Email == userId);
+            var projectRecords = await _context.Kpi.Take(10).ToListAsync();
 
-            if (matchingUser == null)
-            {
-                return new List<GetDashboardResponse>();
-            }
-
-            var result = matchingUser.Projects.Select(record =>
+            var result = projectRecords.Select(record =>
             {
                 return new GetDashboardResponse()
                 {
