@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
         public static Kpi BuildProject()
         {
-            var result = new Kpi();
+            var result = BuildProjectMandatoryFieldsOnly();
 
             // Fields we use
             result.Rid = _fixture.Create<string>().Substring(0, 10);
@@ -19,6 +19,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.LocalAuthority = _fixture.Create<string>();
             result.RatProvisionalOpeningDateAgreedWithTrust = _fixture.Create<DateTime>();
             result.SchoolDetailsGeographicalRegion = _fixture.Create<string>();
+
+            return result;
+        }
+
+        public static Kpi BuildProjectMandatoryFieldsOnly()
+        {
+            var result = new Kpi();
 
             // Fields that are mandatory
             result.AprilIndicator = _fixture.Create<string>().Substring(0, 9);
