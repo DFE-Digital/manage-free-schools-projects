@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using System.Reflection;
@@ -62,6 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 
             services.AddScoped<IGetDashboardAllService, GetDashboardAll>();
 			services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
+			services.AddScoped<ICreateProjectService, CreateProject>();
             services.AddScoped<ICreateUserService, CreateUserService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
