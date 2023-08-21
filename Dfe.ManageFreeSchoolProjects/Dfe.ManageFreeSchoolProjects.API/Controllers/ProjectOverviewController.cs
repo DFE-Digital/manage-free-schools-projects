@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         public ProjectOverviewController(
             IGetProjectOverviewService getProjectOverviewService,
-            ILogger<ProjectOverviewController> logger) 
+            ILogger<ProjectOverviewController> logger)
         {
             _getProjectOverviewService = getProjectOverviewService;
             _logger = logger;
@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var overview = await _getProjectOverviewService.Execute(projectId);
 
-            if (overview == null) 
+            if (overview == null)
             {
                 _logger.LogInformation($"No project overview found for ${projectId}");
 

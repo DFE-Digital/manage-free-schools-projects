@@ -38,8 +38,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 return new OkResult();
             }
 
-            return new ObjectResult(null) {
-                StatusCode = StatusCodes.Status201Created 
+            return new ObjectResult(null)
+            {
+                StatusCode = StatusCodes.Status201Created
             };
         }
     }
