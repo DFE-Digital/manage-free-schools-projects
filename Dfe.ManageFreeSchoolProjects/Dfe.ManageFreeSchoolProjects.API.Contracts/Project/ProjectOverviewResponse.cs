@@ -17,7 +17,7 @@
         public string FreeSchoolsApplicationNumber { get; set; }
         public string ProjectId { get; set; }
         public string Urn { get; set; }
-        public string AppicationWave { get; set; }
+        public string ApplicationWave { get; set; }
         public string RealisticYearOfOpening { get; set; }
         public string DateOfEntryIntoPreopening { get; set; }
         public string ProvisionalOpeningDateAgreedWithTrust { get; set; }
@@ -30,7 +30,7 @@
         public string LocalAuthority { get; set; }
         public string Region { get; set; }
         public string Constituency { get; set; }
-        public string constituencyMp { get; set; }
+        public string ConstituencyMp { get; set; }
         public string NumberOfEntryForms { get; set; }
         public string SchoolType { get; set; }
         public string SchoolPhase { get; set; }

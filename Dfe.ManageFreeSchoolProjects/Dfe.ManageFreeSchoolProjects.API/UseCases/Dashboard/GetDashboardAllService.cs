@@ -9,11 +9,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         Task<List<GetDashboardResponse>> Execute();
     }
 
-    public class GetDashboardAll : IGetDashboardAllService
+    public class GetDashboardAllService : IGetDashboardAllService
     {
         private readonly MfspContext _context;
 
-        public GetDashboardAll(MfspContext context)
+        public GetDashboardAllService(MfspContext context)
         {
             _context = context;
         }
