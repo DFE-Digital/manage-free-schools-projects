@@ -1,6 +1,6 @@
-﻿@page
-@using Dfe.BuildFreeSchools.Pages;
-@model IndexModel
+﻿@page "/my"
+@model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardGetByUserModel
+
 @{
     ViewData["Title"] = "Home page";
 }
@@ -20,7 +20,7 @@
                 </button>
             </p>
             <ul class="dfe-header__navigation-list">
-                <li class="dfe-header__navigation-item">
+                <li class="dfe-header__navigation-item dfe-header__navigation-item--current">
                     <a class="dfe-header__navigation-link" href="/my">
                         Your projects
                         <svg class="dfe-icon dfe-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
@@ -28,7 +28,7 @@
                         </svg>
                     </a>
                 </li>
-                <li class="dfe-header__navigation-item dfe-header__navigation-item--current">
+                <li class="dfe-header__navigation-item ">
                     <a class="dfe-header__navigation-link" href="/">
                         All projects
                         <svg class="dfe-icon dfe-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="34" height="34">
