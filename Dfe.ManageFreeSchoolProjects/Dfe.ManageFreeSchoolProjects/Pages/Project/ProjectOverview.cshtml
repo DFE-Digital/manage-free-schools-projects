@@ -15,8 +15,8 @@
         </div>
         <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
             <div class="govuk-grid-column-three-quarters">
-                <span class="govuk-body-s">Project ID: 140114</span>
-                <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">St Marys Catholic Academy</h1>
+                <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.Project.ProjectStatus.ProjectId</span>
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.Project.ProjectStatus.CurrentFreeSchoolName</h1>
                 <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <a class="app-sub-navigation__link" aria-current="page" href="#">Project overview</a>
                 </li>
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" href="project-task-list.html">Task list</a>
+                    <a class="app-sub-navigation__link" href="#">Task list</a>
                 </li>
                 <li class="app-sub-navigation__item">
                     <a class="app-sub-navigation__link" href="#">Project notes</a>
@@ -62,7 +62,7 @@
                 <dt class="govuk-summary-list__key">
                     Current free school name
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="free-school-name">
                     @{
                         RenderValue(@Model.Project.ProjectStatus.CurrentFreeSchoolName);
                     }
@@ -74,7 +74,7 @@
                 <dt class="govuk-summary-list__key">
                     Project status
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="project-status">
                     @{
                         RenderValue(Model.Project.ProjectStatus.ProjectStatus);
                     }
@@ -87,7 +87,7 @@
                 <dt class="govuk-summary-list__key">
                     Free schools application number
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="application-number">
                     @{
                         RenderValue(Model.Project.ProjectStatus.FreeSchoolsApplicationNumber);
                     }
@@ -99,7 +99,7 @@
                 <dt class="govuk-summary-list__key">
                     Project ID
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="project-id">
                     @{
                         RenderValue(Model.Project.ProjectStatus.ProjectId);
                     }
@@ -111,7 +111,7 @@
                 <dt class="govuk-summary-list__key">
                     URN
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="urn">
                     @{
                         RenderValue(Model.Project.ProjectStatus.Urn);
                     }
@@ -123,7 +123,7 @@
                 <dt class="govuk-summary-list__key">
                     Application wave
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="application-wave">
                     @{
                         RenderValue(Model.Project.ProjectStatus.ApplicationWave);
                     }
@@ -135,7 +135,7 @@
                 <dt class="govuk-summary-list__key">
                     Realistic year of opening
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="realistic-year-of-opening">
                     @{
                         RenderValue(Model.Project.ProjectStatus.RealisticYearOfOpening);
                     }
@@ -147,7 +147,7 @@
                 <dt class="govuk-summary-list__key">
                     Date of entry into pre-opening
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
                     @{
                         RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening);
                     }
@@ -159,7 +159,7 @@
                 <dt class="govuk-summary-list__key">
                     Provisional opening date agreed with trust
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="provisional-opening-date-agreed-with-trust">
                     @{
                         RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust);
                     }
@@ -171,7 +171,7 @@
                 <dt class="govuk-summary-list__key">
                     Actual opening date
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="actual-opening-date">
                     @{
                         RenderValue(Model.Project.ProjectStatus.ActualOpeningDate);
                     }
@@ -183,7 +183,7 @@
                 <dt class="govuk-summary-list__key">
                     Opening academic year
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="opening-academic-year">
                     @{
                         RenderValue(Model.Project.ProjectStatus.OpeningAcademicYear);
                     }
@@ -203,7 +203,7 @@
                 <dt class="govuk-summary-list__key">
                     Local authority
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="local-authority">
                     @{
                         RenderValue(Model.Project.SchoolDetails.LocalAuthority);
                     }
@@ -215,7 +215,7 @@
                 <dt class="govuk-summary-list__key">
                     Region
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="region">
                     @{
                         RenderValue(Model.Project.SchoolDetails.Region);
                     }
@@ -227,7 +227,7 @@
                 <dt class="govuk-summary-list__key">
                     Constituency
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="constituency">
                     @{
                         RenderValue(Model.Project.SchoolDetails.Constituency);
                     }
@@ -239,7 +239,7 @@
                 <dt class="govuk-summary-list__key">
                     Constituency MP
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="constituency-mp">
                     @{
                         RenderValue(Model.Project.SchoolDetails.ConstituencyMp);
                     }
@@ -251,7 +251,7 @@
                 <dt class="govuk-summary-list__key">
                     Number of forms of entry
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="number-of-forms-of-entry">
                     @{
                         RenderValue(Model.Project.SchoolDetails.NumberOfEntryForms);
                     }
@@ -263,7 +263,7 @@
                 <dt class="govuk-summary-list__key">
                     School type
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="school-type">
                     @{
                         RenderValue(Model.Project.SchoolDetails.SchoolType);
                     }
@@ -275,7 +275,7 @@
                 <dt class="govuk-summary-list__key">
                     School phase
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="school-phase">
                     @{
                         RenderValue(Model.Project.SchoolDetails.SchoolPhase);
                     }
@@ -287,7 +287,7 @@
                 <dt class="govuk-summary-list__key">
                     Age range
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="age-range">
                     @{
                         RenderValue(Model.Project.SchoolDetails.AgeRange);
                     }
@@ -299,7 +299,7 @@
                 <dt class="govuk-summary-list__key">
                     Gender
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="gender">
                     @{
                         RenderValue(Model.Project.SchoolDetails.Gender);
                     }
@@ -311,7 +311,7 @@
                 <dt class="govuk-summary-list__key">
                     Nursery
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="nursery">
                     @{
                         RenderValue(Model.Project.SchoolDetails.Nursery);
                     }
@@ -323,7 +323,7 @@
                 <dt class="govuk-summary-list__key">
                     Sixth form
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="sixth-form">
                     @{
                         RenderValue(Model.Project.SchoolDetails.SixthForm);
                     }
@@ -335,7 +335,7 @@
                 <dt class="govuk-summary-list__key">
                     Independent converter
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="independent-converter">
                     @{
                         RenderValue(Model.Project.SchoolDetails.IndependentConverter);
                     }
@@ -347,7 +347,7 @@
                 <dt class="govuk-summary-list__key">
                     Specialist Resource Provision
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="specalist-resource-provision">
                     @{
                         RenderValue(Model.Project.SchoolDetails.SpecialistResourceProvision);
                     }
@@ -359,7 +359,7 @@
                 <dt class="govuk-summary-list__key">
                     Faith Status
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="faith-status">
                     @{
                         RenderValue(Model.Project.SchoolDetails.FaithStatus);
                     }
@@ -371,7 +371,7 @@
                 <dt class="govuk-summary-list__key">
                     Faith type
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="faith-type">
                     @{
                         RenderValue(Model.Project.SchoolDetails.FaithType);
                     }
@@ -383,7 +383,7 @@
                 <dt class="govuk-summary-list__key">
                     Trust ID
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="trust-id">
                     @{
                         RenderValue(Model.Project.SchoolDetails.TrustId);
                     }
@@ -395,7 +395,7 @@
                 <dt class="govuk-summary-list__key">
                     Trust name
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="trust-name">
                     @{
                         RenderValue(Model.Project.SchoolDetails.TrustName);
                     }
@@ -407,7 +407,7 @@
                 <dt class="govuk-summary-list__key">
                     Trust type
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="trust-type">
                     @{
                         RenderValue(Model.Project.SchoolDetails.TrustType);
                     }
