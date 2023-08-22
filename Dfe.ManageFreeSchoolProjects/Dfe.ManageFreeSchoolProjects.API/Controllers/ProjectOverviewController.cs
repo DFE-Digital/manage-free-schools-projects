@@ -11,8 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class ProjectOverviewController : ControllerBase
     {
-        private IGetProjectOverviewService _getProjectOverviewService;
-        private ILogger<ProjectOverviewController> _logger;
+        private readonly IGetProjectOverviewService _getProjectOverviewService;
+        private readonly ILogger<ProjectOverviewController> _logger;
 
         public ProjectOverviewController(
             IGetProjectOverviewService getProjectOverviewService,
@@ -32,12 +32,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             if (overview == null)
             {
-                _logger.LogInformation($"No project overview found for ${projectId}");
+                _logger.LogInformation("No project overview found for {projectId}", projectId);
 
                 return new NotFoundResult();
             }
 
-            _logger.LogInformation($"Returning overview for project ${projectId}");
+            _logger.LogInformation("Returning overview for project {projectId}", projectId);
 
             var result = new ApiSingleResponseV2<ProjectOverviewResponse>(overview);
 

@@ -6,8 +6,6 @@
         public SchoolDetailsResponse SchoolDetails { get; set; }
         public KeyContactsResponse KeyContacts { get; set; }
         public SiteInformationResponse SiteInformation { get; set; }
-        public PupilInformationResponse PupilInformation { get; set; }
-        public RagRatingResponse RagRating { get; set; }
     }
 
     public record ProjectStatusResponse
@@ -59,13 +57,5 @@
     {
         public string Property { get; set; }
         public string Postcode { get; set; }
-    }
-
-    public record PupilInformationResponse
-    {
-    }
-
-    public record RagRatingResponse
-    {
     }
 }

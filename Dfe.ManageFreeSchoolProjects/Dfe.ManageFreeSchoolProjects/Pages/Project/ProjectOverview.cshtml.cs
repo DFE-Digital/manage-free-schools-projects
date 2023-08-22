@@ -11,8 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
 {
     public class ProjectOverviewModel : PageModel
     {
-        private IGetProjectOverviewService _getProjectOverviewService;
-        private ILogger<ProjectOverviewModel> _logger;
+        private readonly IGetProjectOverviewService _getProjectOverviewService;
+        private readonly ILogger<ProjectOverviewModel> _logger;
 
         public ProjectOverviewResponse Project { get; set; }
 
