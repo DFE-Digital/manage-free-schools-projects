@@ -1,0 +1,435 @@
+﻿@page "/projects/{projectId}/overview"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
+
+@{
+    ViewData["Title"] = "Project overview";
+}
+
+<div class="dfe-content-page--header">
+    <div class="dfe-width-container ">
+        <div class="govuk-grid-row ">
+            <div class="govuk-grid-column-three-quarters">
+                <a href="/" class="govuk-back-link">Back to all projects</a>
+
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
+            <div class="govuk-grid-column-three-quarters">
+                <span class="govuk-body-s">Project ID: 140114</span>
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">St Marys Catholic Academy</h1>
+                <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
+            <div class="govuk-grid-column-full">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <nav class="app-sub-navigation" aria-label="sub menu">
+
+            <ul class="app-sub-navigation__list govuk-!-margin-top-6">
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" aria-current="page" href="#">Project overview</a>
+                </li>
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" href="project-task-list.html">Task list</a>
+                </li>
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" href="#">Project notes</a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+        <h2 class="govuk-heading-l">Key project information</h2>
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+
+        <h3 class="govuk-heading-m">Project status</h3>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Current free school name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(@Model.Project.ProjectStatus.CurrentFreeSchoolName);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Project status
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.ProjectStatus);
+                    }
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Free schools application number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.FreeSchoolsApplicationNumber);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Project ID
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.ProjectId);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    URN
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.Urn);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Application wave
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.ApplicationWave);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Realistic year of opening
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.RealisticYearOfOpening);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Date of entry into pre-opening
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Provisional opening date agreed with trust
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Actual opening date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.ActualOpeningDate);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Opening academic year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProjectStatus.OpeningAcademicYear);
+                    }
+                </dd>
+
+            </div>
+        </dl>
+
+    </div>
+
+    <div class="govuk-grid-column-one-half">
+
+        <h3 class="govuk-heading-m">School details</h3>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Local authority
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.LocalAuthority);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Region
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.Region);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Constituency
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.Constituency);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Constituency MP
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.ConstituencyMp);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Number of forms of entry
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.NumberOfEntryForms);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    School type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.SchoolType);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    School phase
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.SchoolPhase);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Age range
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.AgeRange);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.Gender);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Nursery
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.Nursery);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Sixth form
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.SixthForm);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Independent converter
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.IndependentConverter);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Specialist Resource Provision
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.SpecialistResourceProvision);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Faith Status
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.FaithStatus);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Faith type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.FaithType);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust ID
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.TrustId);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.TrustName);
+                    }
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolDetails.TrustType);
+                    }
+                </dd>
+
+            </div>
+
+
+        </dl>
+    </div>
+</div>
+
+@functions{
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value;
+        }
+    }
+}

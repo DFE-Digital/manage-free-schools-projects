@@ -48,6 +48,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API.Contracts\Dfe.ManageFreeSchoolProjects.API.Contracts.csproj" />
+	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Logging\Dfe.ManageFreeSchoolProjects.Logging.csproj" />
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
 	</ItemGroup>
 
