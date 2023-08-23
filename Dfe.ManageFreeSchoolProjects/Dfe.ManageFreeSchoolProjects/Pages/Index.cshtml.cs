@@ -53,6 +53,7 @@ namespace Dfe.BuildFreeSchools.Pages
 
 			Dashboard = new DashboardModel()
 			{
+				Header = "All projects",
 				Projects = projects
 			};
 		}

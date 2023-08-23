@@ -51,7 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             var response = new ApiResponseV2<GetDashboardResponse>(projects, null);
 
-            _logger.LogInformation($"Found {projects.Count} projects");
+            _logger.LogInformation("Found {ProjectCount} projects", projects.Count);
 
             return Ok(response);
         }
