@@ -1,8 +1,8 @@
 ﻿@model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
 <table class="govuk-table">
+     <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">@Model.Header</caption>
     <thead class="govuk-table__head">
-        <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">@Model.Header</caption>
         <tr class="govuk-table__row tr__large">
             <th class="govuk-table__header govuk-table__cell__cases" scope="col">
                 Project title
@@ -33,42 +33,42 @@
     <tbody class="govuk-table__body">
         @if (Model.Projects == null || Model.Projects.Count == 0)
         {
-            <tr class="govuk-table__row tr__large">
-                <td class="govuk-table__cell__cases govuk-oneline-row">
-                    <span>There are no projects available.</span>
-                </td>
-            </tr>
+                <tr class="govuk-table__row tr__large">
+                    <td class="govuk-table__cell__cases govuk-oneline-row">
+                        <span>There are no projects available.</span>
+                    </td>
+                </tr>
         }
         else
         {
             foreach (var project in Model.Projects)
             {
-                <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
-                    <td class="govuk-table__cell" data-testid="project-title">
+                        <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
+                            <td class="govuk-table__cell" data-testid="project-title">
                         @project.ProjectTitle
-                    </td>
-                    <td class="govuk-table__cell" data-testid="project-id">
+                            </td>
+                            <td class="govuk-table__cell" data-testid="project-id">
                         @project.ProjectId
-                    </td>
-                    <td class="govuk-table__cell" data-testid="trust-name">
+                            </td>
+                            <td class="govuk-table__cell" data-testid="trust-name">
                         @project.TrustName
-                    </td>
-                    <td class="govuk-table__cell" data-testid="region-name">
+                            </td>
+                            <td class="govuk-table__cell" data-testid="region-name">
                         @project.Region
-                    </td>
-                    <td class="govuk-table__cell" data-testid="local-authority">
+                            </td>
+                            <td class="govuk-table__cell" data-testid="local-authority">
                         @project.LocalAuthority
-                    </td>
-                    <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                            </td>
+                            <td class="govuk-table__cell" data-testid="realistic-opening-date">
                         @project.RealisticOpeningDate
-                    </td>
-                    <td class="govuk-table__cell" data-testid="status">
-                        <strong class="govuk-tag govuk-tag--grey">Not started</strong>
-                    </td>
-                    <td class="govuk-table__cell">
-                        <a href="/projects/@project.ProjectId/overview" data-testid="action">View</a>
-                    </td>
-                </tr>
+                            </td>
+                            <td class="govuk-table__cell" data-testid="status">
+                                <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <a href="/projects/@project.ProjectId/overview" data-testid="action">View</a>
+                            </td>
+                        </tr>
             }
         }
     </tbody>
