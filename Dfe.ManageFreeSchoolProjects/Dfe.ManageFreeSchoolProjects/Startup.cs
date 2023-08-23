@@ -69,6 +69,7 @@ public class Startup
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
+        services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
         services.AddScoped<IProjectTableReader, ProjectTableReader>();
         services.AddScoped<ICreateBulkProjectValidator, CreateBulkProjectValidator>();
 

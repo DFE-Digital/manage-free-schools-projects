@@ -1,3 +1,4 @@
+import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import projectTable from "cypress/pages/projectTable";
 
 describe("Testing the home page", () => {
@@ -20,5 +21,13 @@ describe("Testing the home page", () => {
         });
 
         cy.excuteAccessibilityTests();
+
+        projectTable.getRowByProjectId(projectId).then((row) => {
+            row.view();
+
+            projectOverviewPage.hasProjectTitleHeader(
+                "Salmon’s Brook Special Free School",
+            );
+        });
     });
 });

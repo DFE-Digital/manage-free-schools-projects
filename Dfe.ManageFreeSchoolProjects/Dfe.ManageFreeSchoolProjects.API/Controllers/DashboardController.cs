@@ -47,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return GetResponse(projects);
         }
 
-        public ActionResult<ApiResponseV2<GetDashboardResponse>> GetResponse(List<GetDashboardResponse> projects)
+        private ActionResult<ApiResponseV2<GetDashboardResponse>> GetResponse(List<GetDashboardResponse> projects)
         {
             var response = new ApiResponseV2<GetDashboardResponse>(projects, null);
 
