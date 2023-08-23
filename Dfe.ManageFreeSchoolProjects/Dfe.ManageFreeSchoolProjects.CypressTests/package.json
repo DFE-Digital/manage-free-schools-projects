@@ -30,6 +30,7 @@
         "@types/uuid": "^9.0.2",
         "@typescript-eslint/eslint-plugin": "^6.2.1",
         "axe-core": "^4.6.3",
+        "csv-stringify": "^6.4.0",
         "cypress": "^12.17.1",
         "cypress-axe": "^1.4.0",
         "cypress-localstorage-commands": "^2.0.0",
@@ -44,6 +45,7 @@
         "prettier": "^3.0.1",
         "typescript": "^5.0.0",
         "uuid": "^9.0.0",
-        "zaproxy": "^2.0.0-rc.2"
+        "zaproxy": "^2.0.0-rc.2",
+        "xlsx": "^0.18.5"
     }
 }
