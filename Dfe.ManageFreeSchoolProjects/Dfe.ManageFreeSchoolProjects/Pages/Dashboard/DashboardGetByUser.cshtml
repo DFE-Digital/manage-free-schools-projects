@@ -1,20 +1,19 @@
-﻿@page
-@using Dfe.BuildFreeSchools.Pages;
+﻿@page "/my"
 @using Dfe.ManageFreeSchoolProjects.Pages.Dashboard;
-@model IndexModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardGetByUserModel
+
 @{
     ViewData["Title"] = "Home page";
 
     var dashboardLinksModel = new DashboardLinksModel()
     {
-        CurrentTab = DashboardLinksModel.AllProjectsTabName
+        CurrentTab = DashboardLinksModel.YourProjectsTabName
     };
 }
 
 @section AfterHeader
     {
-
-    <partial name="./Dashboard/_DashboardLinks" model="dashboardLinksModel" />
+    <partial name="_DashboardLinks" model="dashboardLinksModel" />
 }
 
 @section BeforeMain
@@ -28,7 +27,7 @@
             <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-0">
                 <div class="govuk-grid-column-three-quarters">
                     <span class="govuk-body-s"></span>
-                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">All free school projects</h1>
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">Your free school projects</h1>
                     <p class="govuk-body-l"></p>
                 </div>
             </div>
@@ -40,4 +39,4 @@
     </div>
 }
 
-<partial name="./Dashboard/_Dashboard" model="Model.Dashboard" />
+<partial name="_Dashboard" model="Model.Dashboard" />
