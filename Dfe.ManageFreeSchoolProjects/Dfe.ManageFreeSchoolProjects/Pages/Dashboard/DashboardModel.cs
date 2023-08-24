@@ -5,6 +5,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
     public class DashboardModel
     {
+        public string Header { get; set; }
         public List<GetDashboardResponse> Projects { get; set; }
     }
 }

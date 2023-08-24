@@ -43,6 +43,14 @@ export class ProjectRow {
         return this;
     }
 
+    public view(): this {
+        cy.wrap(this.element).within(() => {
+            cy.getByTestId("action").click();
+        });
+
+        return this;
+    }
+
     private containsText(id: string, value: string) {
         cy.wrap(this.element).within(() => {
             cy.getByTestId(id).should("contain.text", value);

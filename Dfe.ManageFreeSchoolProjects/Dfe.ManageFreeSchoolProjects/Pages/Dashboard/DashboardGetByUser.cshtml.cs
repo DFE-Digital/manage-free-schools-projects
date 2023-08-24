@@ -47,6 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             Dashboard = new DashboardModel()
             {
+                Header = "Your projects",
                 Projects = projects
             };
         }

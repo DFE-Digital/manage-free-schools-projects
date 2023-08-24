@@ -48,7 +48,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             _logger.LogInformation("User has been created");
 
-            return new ObjectResult(null) {
+            return new ObjectResult(null) 
+            {
                 StatusCode = StatusCodes.Status201Created 
             };
         }
