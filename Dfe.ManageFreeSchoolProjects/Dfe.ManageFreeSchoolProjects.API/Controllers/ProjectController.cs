@@ -28,15 +28,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("create/individual")]
-        public async Task<ActionResult<ApiResponseV2<ProjectResponse>>> CreateProject(CreateProjectRequest createProjectRequest)
+        public ActionResult CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();
 
-            var project = await _createProject.Execute(createProjectRequest);
+            var result = _createProject.Execute(createProjectRequest);
 
-            var response = new ApiResponseV2<ProjectResponse>(project);
-
-            return Ok(response);
+            return new ObjectResult(null)
+            {
+                StatusCode = StatusCodes.Status201Created
+            };
         }
 
     }
