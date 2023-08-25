@@ -10,9 +10,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Kai> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("KAI");
+            builder.HasKey(e => e.Rid);
+            builder.ToTable("KAI");
 
             builder.Property(e => e.ApplicationDetailsAnyOtherFreedomsTheSchoolIntendsToUse)
                 .IsUnicode(false)

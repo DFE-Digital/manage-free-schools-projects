@@ -20,11 +20,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             _logger = logger;
         }
 
-        public async Task<Action> Get(string projectId)
-        {
-            
-        }
-
         [HttpPatch]
         public async Task<ActionResult> PatchTask(string projectId, UpdateProjectTasksRequest request)
         {

@@ -1,10 +1,8 @@
-﻿using Azure.Core;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask;
-using Dfe.ManageFreeSchoolProjects.Data.Entities;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -19,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task Patch_DatesTask_Returns_201()
+        public async Task Patch_SchoolTask_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -41,12 +39,63 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         SixthForm = "Yes",
                         CompanyName = "School Builders Ltd",
                         NumberOfCompanyMembers = "100",
-                        ProposedChairOfTrustees = "Lemon Group LTD"
+                        ProposedChairOfTrustees = "Lemon Group Ltd"
                     }
                 }
             };
 
-            await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.SchoolType.Should().Be("Secondary");
+            projectResponse.AgeRange.Should().Be("11-18");
+            projectResponse.SchoolPhase.Should().Be("Opening");
+            projectResponse.Nursery.Should().Be("Yes");
+            projectResponse.SixthForm.Should().Be("Yes");
+            projectResponse.CompanyName.Should().Be("School Builders Ltd");
+            projectResponse.NumberOfCompanyMembers.Should().Be("100");
+            projectResponse.ProposedChairOfTrustees.Should().Be("Lemon Group Ltd");
+        }
+
+        [Fact]
+        public async Task Patch_ConstructionTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var request = new UpdateProjectTasksRequest()
+            {
+                Tasks = new ProjectTaskRequest()
+                {
+                    Construction = new ConstructionTaskRequest()
+                    {
+                        NameOfSite = "Lemon Site",
+                        AddressOfSite = "Fruitpickers Lane",
+                        PostcodeOfSite = "LF124YH",
+                        BuildingType = "Brick",
+                        TrustRef = "1234ABC",
+                        TrustLeadSponsor = "Aviva",
+                        TrustName = "Education First",
+                        SiteMinArea = "10000",
+                        TypeofWorksLocation = "Building site"
+                    }
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.NameOfSite.Should().Be("Lemon Site");
+            projectResponse.AddressOfSite.Should().Be("Fruitpickers Lane");
+            projectResponse.PostcodeOfSite.Should().Be("LF124YH");
+            projectResponse.BuildingType.Should().Be("Brick");
+            projectResponse.TrustRef.Should().Be("1234ABC");
+            projectResponse.TrustLeadSponsor.Should().Be("Aviva");
+            projectResponse.TrustName.Should().Be("Education First");
+            projectResponse.SiteMinArea.Should().Be("10000");
+            projectResponse.TypeofWorksLocation.Should().Be("Building site");
         }
 
         [Fact]
@@ -60,10 +109,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        private async Task UpdateProjectTask(string projectId, UpdateProjectTasksRequest request)
+        private async Task<GetProjectResponse> UpdateProjectTask(string projectId, UpdateProjectTasksRequest request)
         {
             var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getProjectResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}");
+            getProjectResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await getProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectResponse>>();
+
+            return result.Data;
         }
     }
 }

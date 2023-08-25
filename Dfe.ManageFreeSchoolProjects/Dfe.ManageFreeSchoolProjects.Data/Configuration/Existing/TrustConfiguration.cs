@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Trust> builder)
 		{
-            builder.HasNoKey();
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.LeadSponsor)
                 .HasMaxLength(7)

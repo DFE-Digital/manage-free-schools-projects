@@ -34,10 +34,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                 Rid = dbKpi.Rid,
             };
 
+            var dbProperty = new Property()
+            {
+                Rid = dbKpi.Rid,
+                Tos = "123"
+            };
+
+            var dbTrust = new Trust()
+            {
+                Rid = dbKpi.Rid
+            };
+
+            var dbConstruction = new Construction()
+            {
+                Rid = dbKpi.Rid
+            };
+
             _context.Kai.Add(dbKai);
+            _context.Property.Add(dbProperty);
+            _context.Trust.Add(dbTrust);
+            _context.Construction.Add(dbConstruction);
 
             // Updates here
             ApplySchoolTaskUpdates(request.Tasks.School, dbKpi, dbKai);
+            ApplyConstructionTaskUpdates(request.Tasks.Construction, dbProperty, dbTrust, dbConstruction);
 
             await _context.SaveChangesAsync();
         }
@@ -61,6 +81,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
             dbKai.ApplicationDetailsCompanyName = task.CompanyName;
             dbKai.ApplicationDetailsNumberOfCompanyMembers = task.NumberOfCompanyMembers;
             dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;  
+        }
+
+        private void ApplyConstructionTaskUpdates(
+            ConstructionTaskRequest task,
+            Property dbProperty,
+            Trust dbTrust,
+            Construction dbConstruction) 
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            dbProperty.SiteNameOfSite = task.NameOfSite;
+            dbProperty.SiteAddressOfSite = task.AddressOfSite;
+            dbProperty.SitePostcodeOfSite = task.PostcodeOfSite;
+            dbProperty.SiteBuildingType = task.BuildingType;
+
+            dbTrust.TrustRef = task.TrustRef;
+            dbTrust.LeadSponsor = task.TrustLeadSponsor;
+            dbTrust.TrustsTrustName = task.TrustName;
+
+            dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
+            dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
         }
     }
 }
