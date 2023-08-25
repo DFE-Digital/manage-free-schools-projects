@@ -30,13 +30,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var overview = await _getProjectOverviewService.Execute(projectId);
 
-            if (overview == null)
-            {
-                _logger.LogInformation("No project overview found for {projectId}", projectId);
-
-                return new NotFoundResult();
-            }
-
             _logger.LogInformation("Returning overview for project {projectId}", projectId);
 
             var result = new ApiSingleResponseV2<ProjectOverviewResponse>(overview);

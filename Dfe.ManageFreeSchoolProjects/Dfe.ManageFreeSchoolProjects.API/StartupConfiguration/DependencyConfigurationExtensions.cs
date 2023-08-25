@@ -6,6 +6,7 @@ using Dfe.ManageFreeSchoolProjects.UserContext;
 using System.Reflection;
 using FluentValidation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -65,6 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
             services.AddScoped<ICreateUserService, CreateUserService>();
 			services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
+			services.AddScoped<IUpdateProjectTaskService , UpdateProjectTaskService>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;
