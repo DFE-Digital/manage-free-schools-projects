@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
     public interface ICreateProjectService
 	{
-		CreateProjectRequest Execute(CreateProjectRequest createProjectRequest);
+		List<CreateProjectRequest> Execute(List<CreateProjectRequest> createProjectsRequest);
 	}
 
     public class CreateProject : ICreateProjectService
@@ -23,30 +23,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             _context = context;
         }
 
-        public CreateProjectRequest Execute(CreateProjectRequest createProjectRequest)
+        public List<CreateProjectRequest> Execute(List< CreateProjectRequest> createProjectsRequest)
         {
-            var project = new Kpi()
-            {
-                Rid = Guid.NewGuid().ToString().Substring(0, 10),
-                ProjectStatusProjectId = createProjectRequest.ProjectId,
-                ProjectStatusCurrentFreeSchoolName = createProjectRequest.SchoolName,
-                ProjectStatusFreeSchoolApplicationWave = createProjectRequest.ApplicationWave,
-                ProjectStatusFreeSchoolsApplicationNumber = createProjectRequest.ApplicationNumber,
-                AprilIndicator = Guid.NewGuid().ToString().Substring(0, 9),
-                Wave = Guid.NewGuid().ToString().Substring(0, 15),
-                UpperStatus = Guid.NewGuid().ToString().Substring(0, 10),
-                FsType = Guid.NewGuid().ToString().Substring(0, 13),
-                FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
-                MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
-                SponsorUnitProjects = Guid.NewGuid().ToString()
+            foreach (CreateProjectRequest proj in createProjectsRequest) {
 
-        };
+                var project = new Kpi()
+                {
+                    Rid = Guid.NewGuid().ToString().Substring(0, 10),
+                    ProjectStatusProjectId = proj.ProjectId,
+                    ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
+                    ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
+                    ProjectStatusFreeSchoolsApplicationNumber = proj.ApplicationNumber,
+                    AprilIndicator = Guid.NewGuid().ToString().Substring(0, 9),
+                    Wave = Guid.NewGuid().ToString().Substring(0, 15),
+                    UpperStatus = Guid.NewGuid().ToString().Substring(0, 10),
+                    FsType = Guid.NewGuid().ToString().Substring(0, 13),
+                    FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
+                    MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
+                    SponsorUnitProjects = Guid.NewGuid().ToString()
 
-            _context.Kpi.Add(project);
+                };
 
-            _context.SaveChanges();
+                _context.Kpi.Add(project);
 
-            return createProjectRequest;
+                _context.SaveChanges();
+            }
+
+            return createProjectsRequest;
         }
     }
 }

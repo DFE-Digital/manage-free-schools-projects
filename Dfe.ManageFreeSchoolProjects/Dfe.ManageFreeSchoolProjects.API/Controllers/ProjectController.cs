@@ -27,12 +27,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 		}
 
         [HttpPost]
-        [Route("create/individual")]
-        public ActionResult CreateProject(CreateProjectRequest createProjectRequest)
+        [Route("create")]
+        public ActionResult CreateProject(List<CreateProjectRequest> createProjectsRequest)
         {
             _logger.LogMethodEntered();
 
-            _createProject.Execute(createProjectRequest);
+            _createProject.Execute(createProjectsRequest);
 
             return new ObjectResult(null)
             {
