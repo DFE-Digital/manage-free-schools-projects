@@ -29,26 +29,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
-            var dbKai = new Kai()
-            {
-                Rid = dbKpi.Rid,
-            };
+            var dbKai = await GetKai(dbKpi.Rid);
+            var dbProperty = await GetProperty(dbKpi.Rid);
+            var dbTrust = await GetTrust(dbKpi.Rid);
 
-            var dbProperty = new Property()
-            {
-                Rid = dbKpi.Rid,
-                Tos = "123"
-            };
-
-            var dbTrust = new Trust()
-            {
-                Rid = dbKpi.Rid
-            };
-
-            var dbConstruction = new Construction()
-            {
-                Rid = dbKpi.Rid
-            };
+            var dbConstruction = await GetConstruction(dbKpi.Rid);
 
             _context.Kai.Add(dbKai);
             _context.Property.Add(dbProperty);
@@ -105,6 +90,67 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
 
             dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
+        }
+
+        private async Task<Kai> GetKai(string id)
+        {
+            var result = await _context.Kai.FirstOrDefaultAsync(e => e.Rid == id);
+
+            if (result == null)
+            {
+                result = new Kai()
+                {
+                    Rid = id,
+                };
+            }
+
+            return result;
+        }
+
+        private async Task<Property> GetProperty(string id)
+        {
+            var result = await _context.Property.FirstOrDefaultAsync(e => e.Rid == id);
+
+            if (result == null)
+            {
+                result = new Property()
+                {
+                    Rid = id,
+                    Tos = "123"
+                };
+            }
+
+            return result;
+        }
+
+        private async Task<Trust> GetTrust(string id)
+        {
+            var result = await _context.Trust.FirstOrDefaultAsync(e => e.Rid == id);
+
+            if (result == null)
+            {
+                result = new Trust()
+                {
+                    Rid = id
+                };
+            }
+
+            return result;
+        }
+
+        private async Task<Construction> GetConstruction(string id)
+        {
+            var result = await _context.Construction.FirstOrDefaultAsync(e => e.Rid == id);
+
+            if (result == null)
+            {
+                result = new Construction()
+                {
+                    Rid = id
+                };
+            }
+
+            return result;
         }
     }
 }

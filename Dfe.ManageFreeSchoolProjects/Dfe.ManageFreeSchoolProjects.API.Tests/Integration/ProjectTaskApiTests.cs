@@ -2,7 +2,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
