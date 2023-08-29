@@ -24,7 +24,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var request = _autoFixture.Create<CreateProjectRequest>();
 
             //Reduce these string lengths to avoid truncation errors
-            request.ApplicationNumber = request.ApplicationNumber.Substring(0, 9);
             request.ProjectId = request.ProjectId.Substring(0, 24);
 
             var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
