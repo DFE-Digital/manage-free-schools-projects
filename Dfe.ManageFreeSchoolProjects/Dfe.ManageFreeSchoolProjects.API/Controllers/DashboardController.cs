@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -12,17 +13,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     {
         private readonly IGetDashboardByUserService _getDashboardByUser;
         private readonly IGetDashboardAllService _getDashboardAll;
+        private readonly ILogger<DashboardController> _logger;
 
-        public DashboardController(IGetDashboardByUserService getDashboardByUser, IGetDashboardAllService getDashboardAll)
+        public DashboardController(
+            IGetDashboardByUserService getDashboardByUser, 
+            IGetDashboardAllService getDashboardAll,
+            ILogger<DashboardController> logger)
         {
             _getDashboardByUser = getDashboardByUser;
             _getDashboardAll = getDashboardAll;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("byuser/{userId}")]
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetProjectsByUser(string userId)
         {
+            _logger.LogMethodEntered();
+
             var projects = await _getDashboardByUser.Execute(userId);
 
             return GetResponse(projects);
@@ -32,6 +40,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         [Route("all")]
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects()
         {
+            _logger.LogMethodEntered();
+
             var projects = await _getDashboardAll.Execute();
 
             return GetResponse(projects);
@@ -40,6 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private ActionResult<ApiResponseV2<GetDashboardResponse>> GetResponse(List<GetDashboardResponse> projects)
         {
             var response = new ApiResponseV2<GetDashboardResponse>(projects, null);
+
+            _logger.LogInformation("Found {ProjectCount} projects", projects.Count);
 
             return Ok(response);
         }
