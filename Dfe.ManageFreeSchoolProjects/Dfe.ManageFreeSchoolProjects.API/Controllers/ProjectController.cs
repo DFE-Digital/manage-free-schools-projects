@@ -32,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            var result = _createProject.Execute(createProjectRequest);
+            _createProject.Execute(createProjectRequest);
 
             return new ObjectResult(null)
             {

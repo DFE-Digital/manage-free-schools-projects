@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -26,18 +27,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             var project = new Kpi()
             {
-                Rid = new Guid().ToString().Substring(0, 10),
+                Rid = Guid.NewGuid().ToString().Substring(0, 10),
                 ProjectStatusProjectId = createProjectRequest.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = createProjectRequest.SchoolName,
                 ProjectStatusFreeSchoolApplicationWave = createProjectRequest.ApplicationWave,
                 ProjectStatusFreeSchoolsApplicationNumber = createProjectRequest.ApplicationNumber,
-                AprilIndicator = new Guid().ToString().Substring(0, 9),
-                Wave = new Guid().ToString().Substring(0, 15),
-                UpperStatus = new Guid().ToString().Substring(0, 10),
-                FsType = new Guid().ToString().Substring(0, 13),
-                FsType1 = new Guid().ToString().Substring(0, 15),
-                MatUnitProjects = new Guid().ToString().Substring(0, 31),
-                SponsorUnitProjects = new Guid().ToString()
+                AprilIndicator = Guid.NewGuid().ToString().Substring(0, 9),
+                Wave = Guid.NewGuid().ToString().Substring(0, 15),
+                UpperStatus = Guid.NewGuid().ToString().Substring(0, 10),
+                FsType = Guid.NewGuid().ToString().Substring(0, 13),
+                FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
+                MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
+                SponsorUnitProjects = Guid.NewGuid().ToString()
 
         };
 

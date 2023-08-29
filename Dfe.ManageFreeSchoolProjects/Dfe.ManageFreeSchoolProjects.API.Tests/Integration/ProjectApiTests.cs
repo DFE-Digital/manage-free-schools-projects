@@ -35,7 +35,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var createdProject = context.Kpi.First(p => p.ProjectStatusProjectId == request.ProjectId);
 
+            createdProject.ProjectStatusProjectId.Should().Be(request.ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.SchoolName);
+            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().Be(request.ApplicationNumber);
+            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().Be(request.ApplicationWave);
 
         }
     }
