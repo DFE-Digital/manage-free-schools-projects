@@ -24,7 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Users
     {
         private readonly MfspContext _context;
 
-        public CreateUserService(MfspContext context)
+        public CreateUserService(MfspContext context, ILogger<CreateUserService> logger)
         {
             _context = context;
         }

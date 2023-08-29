@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities
 
         public string Email { get; set; }
 
-         public List<Kpi> Projects { get; set; } = new();
+        public List<Kpi> Projects { get; set; } = new();
     }
 }
 
