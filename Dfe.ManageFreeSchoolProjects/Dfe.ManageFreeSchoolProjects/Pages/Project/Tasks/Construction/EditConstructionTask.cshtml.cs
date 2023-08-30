@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -136,14 +137,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
 
-                return Redirect($"/projects/{ProjectId}/tasks/construction");
+                return Redirect(string.Format(RouteConstants.ViewConstructionTask, ProjectId));
             }
             catch (Exception ex)
             {
                 _logger.LogErrorMsg(ex);
+                throw;
             }
-
-            return Page();
         }
     }
 }

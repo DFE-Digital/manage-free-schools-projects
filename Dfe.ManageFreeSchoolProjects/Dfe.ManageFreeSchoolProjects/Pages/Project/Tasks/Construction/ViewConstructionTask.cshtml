@@ -1,7 +1,8 @@
 ﻿@page "/projects/{projectId}/tasks/construction"
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction.ViewPropertyTaskModel
 @{
-    var editLink = $"/projects/{Model.ProjectId}/tasks/construction/edit";
+    var editLink = string.Format(RouteConstants.EditConstructionTask, Model.ProjectId);
 }
 
 <div class="govuk-grid-row">

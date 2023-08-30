@@ -39,7 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
             catch (Exception ex)
             {
                 _logger.LogErrorMsg(ex);
-            }
+				throw;
+			}
 
             return Page();
         }

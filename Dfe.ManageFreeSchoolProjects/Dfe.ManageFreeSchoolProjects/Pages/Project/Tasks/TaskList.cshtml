@@ -1,0 +1,83 @@
+﻿@page "/projects/{projectId}/tasks"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
+@{
+    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var schoolTaskLink = string.Format(RouteConstants.ViewSchoolTask, Model.ProjectId);
+    var constructionTaskLink = string.Format(RouteConstants.ViewConstructionTask, Model.ProjectId);
+}
+
+<div class="dfe-content-page--header">
+    <div class="dfe-width-container ">
+        <div class="govuk-grid-row ">
+            <div class="govuk-grid-column-three-quarters">
+                <a href="/" class="govuk-back-link">Back to all projects</a>
+
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
+            <div class="govuk-grid-column-three-quarters">
+                <span class="govuk-body-s" data-testid="project-id-header">Project ID: 123</span>
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">My schools</h1>
+                <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
+            </div>
+        </div>
+        <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
+            <div class="govuk-grid-column-full">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <nav class="app-sub-navigation" aria-label="sub menu">
+
+            <ul class="app-sub-navigation__list govuk-!-margin-top-6">
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" href="@projectOverviewLink">Project overview</a>
+                </li>
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" aria-current="page" href="@taskListLink">Task list</a>
+                </li>
+                <li class="app-sub-navigation__item">
+                    <a class="app-sub-navigation__link" href="#">Project notes</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="govuk-grid-column-two-thirds">
+
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Project progress</h2>
+
+    <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 22 sections.</p>
+
+    <ol class="app-task-list">
+        <li>
+            <h2 class="app-task-list__section">
+                Setting-up
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@schoolTaskLink" aria-describedby="">
+                            School
+                        </a>
+                    </span>
+                    <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="eligibility-status">In progress</strong>
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@constructionTaskLink" aria-describedby="">
+                            Construction
+                        </a>
+                    </span>
+                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>
+                </li>
+            </ul>
+        </li>
+    </ol>
+</div>
