@@ -1,4 +1,5 @@
 ﻿@page "/projects/{projectId}/tasks"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
 @{
@@ -64,20 +65,44 @@
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@schoolTaskLink" aria-describedby="">
-                            School
+                            @Model.ProjectTaskListSummary.Tasks.School.Name
                         </a>
                     </span>
-                    <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="eligibility-status">In progress</strong>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.Tasks.School);
+                    }
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@constructionTaskLink" aria-describedby="">
-                            Construction
+                            @Model.ProjectTaskListSummary.Tasks.Construction.Name
                         </a>
                     </span>
-                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="eligibility-status">Not started</strong>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.Tasks.Construction);
+                    }
                 </li>
             </ul>
         </li>
     </ol>
 </div>
+
+@functions {
+    public void RenderStatus(TaskSummaryResponse task)
+    {
+        var testId = $"task-{task.Name}-status";
+
+        if (task.Status == ProjectTaskStatus.Completed)
+        {
+            <strong class="govuk-tag app-task-list__tag" data-testid="@testId">Completed</strong>
+        }
+        else if (task.Status == ProjectTaskStatus.InProgress)
+        {
+            <strong class="govuk-tag govuk-tag--blue app-task-list__tag" data-testid="@testId">In progress</strong>
+        }
+        else
+        {
+            <strong class="govuk-tag govuk-tag--grey app-task-list__tag" data-testid="@testId">Not started</strong>
+        }
+    }
+}

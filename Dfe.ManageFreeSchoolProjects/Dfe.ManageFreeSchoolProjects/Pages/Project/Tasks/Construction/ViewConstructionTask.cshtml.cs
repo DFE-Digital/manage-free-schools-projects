@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Task;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -43,6 +44,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 			}
 
             return Page();
+        }
+
+        public ActionResult OnPost()
+        {
+            return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
         }
     }
 }

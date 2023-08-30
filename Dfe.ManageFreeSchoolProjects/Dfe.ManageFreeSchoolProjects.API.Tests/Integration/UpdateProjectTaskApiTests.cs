@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class ProjectTaskApiTests : ApiTestsBase
+    public class UpdateProjectTaskApiTests : ApiTestsBase
     {
-        public ProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
+        public UpdateProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
         }
 
