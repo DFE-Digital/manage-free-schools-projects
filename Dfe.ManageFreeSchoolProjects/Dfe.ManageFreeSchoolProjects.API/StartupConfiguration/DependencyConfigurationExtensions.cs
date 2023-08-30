@@ -1,18 +1,17 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
-using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.UserContext;
-using System.Reflection;
-using FluentValidation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.UserContext;
+using FluentValidation;
+using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
-	public static class DependencyConfigurationExtensions
+    public static class DependencyConfigurationExtensions
 	{
 		public static IServiceCollection AddUseCases(this IServiceCollection services)
 		{

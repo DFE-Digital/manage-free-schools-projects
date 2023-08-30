@@ -1,0 +1,212 @@
+﻿@page "/projects/{projectId}/tasks/construction"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction.ViewPropertyTaskModel
+@{
+    var editLink = $"/projects/{Model.ProjectId}/tasks/construction/edit";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">St George's Primary super School</span>
+            Construction
+        </h1>
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Name of site
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.NameOfSite);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Name of site</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address of site
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.AddressOfSite);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Address of site</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Postcode of site
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.PostcodeOfSite);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Postcode of site</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Building type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.BuildingType);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Building type</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust ref
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.TrustRef);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Trust ref</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust lead sponsor
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.TrustLeadSponsor);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Trust lead sponsor</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.TrustName);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Trust name</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Site min area
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SiteMinArea);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Site min area</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Type of works location
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.TypeofWorksLocation);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Type of works location</span>
+                    </a>
+
+                </dd>
+            </div>
+        </dl>
+        <form action="task-school-details-confirmation" method="post">
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="task-school-details-status" name="task-school-details-status" type="checkbox" value="Complete">
+                        <label class="govuk-label govuk-checkboxes__label" for="task-school-details-status">
+                            Mark this section as complete, you can still make changes later
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Confirm and continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+@functions {
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+}

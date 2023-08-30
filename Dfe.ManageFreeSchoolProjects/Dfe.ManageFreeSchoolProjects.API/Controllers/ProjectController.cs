@@ -10,19 +10,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/client/project")]
+    [Route("api/v{version:apiVersion}/client/projects")]
     [ApiController]
     public class ProjectController : ControllerBase
 	{
-
-        private readonly ICreateProjectService _createProject;
+        private readonly IGetProjectService _getProjectService;
+        private readonly ICreateProjectService _createProjectService;
         private readonly ILogger<ProjectController> _logger;
 
         public ProjectController(
             ICreateProjectService createProject,
+            IGetProjectService getProjectService,
             ILogger<ProjectController> logger)
 		{
-            _createProject = createProject;
+            _createProjectService = createProject;
+            _getProjectService = getProjectService;
             _logger = logger;
 		}
 
@@ -32,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            _createProject.Execute(createProjectRequest);
+            _createProjectService.Execute(createProjectRequest);
 
             return new ObjectResult(null)
             {
@@ -40,7 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             };
         }
 
-                [HttpGet]
+        [HttpGet]
+        [Route("{projectId}")]
         public async Task<ActionResult> Get(string projectId)
         {
             _logger.LogMethodEntered();

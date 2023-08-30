@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 NameOfSite = property?.SiteNameOfSite,
                 AddressOfSite = property?.SiteAddressOfSite,
                 PostcodeOfSite = property?.SitePostcodeOfSite,
-                BuildingType = property.SiteBuildingType,
+                BuildingType = property?.SiteBuildingType,
                 TrustRef = trust?.TrustRef,
                 TrustLeadSponsor = trust?.LeadSponsor,
                 TrustName = trust?.TrustsTrustName,

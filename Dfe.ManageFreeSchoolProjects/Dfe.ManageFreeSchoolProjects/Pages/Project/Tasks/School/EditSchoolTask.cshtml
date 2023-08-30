@@ -1,0 +1,37 @@
+﻿@page "/projects/{projectId}/tasks/school/edit"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
+@{
+}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">St George's Primary School</span>
+            Edit school
+        </h1>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <form method="post">
+
+                    <govuk-text-input id="school-type" name="school-type" asp-for="@Model.SchoolType" data-testid="school-type" label="School type" />
+                    <govuk-text-input id="school-phase" name="school-phase" asp-for="@Model.SchoolPhase" data-testid="school-phase" label="School phase" />
+                    <govuk-text-input id="age-range" name="age-range" asp-for="@Model.AgeRange" data-testid="age-range" label="Age range" />
+                    <govuk-text-input id="nursery" name="nursery" asp-for="@Model.Nursery" data-testid="nursery" label="Nursery" />
+                    <govuk-text-input id="sixth-form" name="sixth-form" asp-for="@Model.SixthForm" data-testid="sixth-form" label="Sixth form" />
+                    <govuk-text-input id="company-name" name="company-name" asp-for="@Model.CompanyName" data-testid="company-name" label="Company name" />
+                    <govuk-text-input id="number-of-company-members" name="number-of-company-members" asp-for="@Model.NumberOfCompanyMembers" data-testid="number-of-company-members" label="Number of company members" />
+                    <govuk-text-input id="proposed-chair-of-trustees" name="proposed-chair-of-trustees" asp-for="@Model.ProposedChairOfTrustees" data-testid="proposed-chair-of-trustees" label="Proposed chair of trustees" />
+
+                    <button class="govuk-button" data-module="govuk-button">
+                        Save and continue
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

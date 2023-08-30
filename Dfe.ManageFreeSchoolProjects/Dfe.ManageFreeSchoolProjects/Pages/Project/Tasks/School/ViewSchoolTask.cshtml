@@ -1,0 +1,202 @@
+﻿@page "/projects/{projectId}/tasks/school"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.ViewSchoolTaskModel
+@{
+    var editLink = $"/projects/{Model.ProjectId}/tasks/school/edit";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">St George's Primary super School</span>
+            School
+        </h1>
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    School type
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolType);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> School type</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    School phase
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SchoolPhase);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden"> School phase</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Age range
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.AgeRange);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden"> Age range</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Nursery
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.Nursery);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden"> Nursery</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Sixth form
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.SixthForm);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden"> Sixth form</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Company name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.CompanyName);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden">Company name</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    number of company members
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.NumberOfCompanyMembers);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden">Number of company members</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Proposed chair of trustees
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.ProposedChairOfTrustees);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden">Proposed chair of trustees</span>
+                    </a>
+
+                </dd>
+            </div>
+        </dl>
+        <form action="task-school-details-confirmation" method="post">
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="task-school-details-status" name="task-school-details-status" type="checkbox" value="Complete">
+                        <label class="govuk-label govuk-checkboxes__label" for="task-school-details-status">
+                            Mark this section as complete, you can still make changes later
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Confirm and continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+@functions {
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+}

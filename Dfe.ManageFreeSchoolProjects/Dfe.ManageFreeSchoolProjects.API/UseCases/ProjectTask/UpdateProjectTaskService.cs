@@ -32,13 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
             var dbKai = await GetKai(dbKpi.Rid);
             var dbProperty = await GetProperty(dbKpi.Rid);
             var dbTrust = await GetTrust(dbKpi.Rid);
-
             var dbConstruction = await GetConstruction(dbKpi.Rid);
-
-            _context.Kai.Add(dbKai);
-            _context.Property.Add(dbProperty);
-            _context.Trust.Add(dbTrust);
-            _context.Construction.Add(dbConstruction);
 
             // Updates here
             ApplySchoolTaskUpdates(request.Tasks.School, dbKpi, dbKai);
@@ -102,6 +96,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                 {
                     Rid = id,
                 };
+
+                _context.Kai.Add(result);
             }
 
             return result;
@@ -118,6 +114,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                     Rid = id,
                     Tos = "123"
                 };
+
+                _context.Property.Add(result);
             }
 
             return result;
@@ -133,6 +131,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                 {
                     Rid = id
                 };
+
+                _context.Trust.Add(result);
             }
 
             return result;
@@ -148,6 +148,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
                 {
                     Rid = id
                 };
+
+                _context.Construction.Add(result);
             }
 
             return result;
