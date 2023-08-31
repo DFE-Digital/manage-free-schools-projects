@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School;
@@ -116,22 +117,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 
             try
             {
-                var request = new UpdateProjectTasksRequest()
+                var request = new UpdateProjectByTaskRequest()
                 {
-                    Tasks = new ProjectTaskRequest()
+                    Construction = new ConstructionTask()
                     {
-                        Construction = new ConstructionTaskRequest()
-                        {
-                            NameOfSite = NameOfSite,
-                            AddressOfSite = AddressOfSite,
-                            PostcodeOfSite = PostcodeOfSite,
-                            BuildingType = BuildingType,
-                            TrustRef = TrustRef,
-                            TrustLeadSponsor = TrustLeadSponsor,
-                            TrustName = TrustName,
-                            SiteMinArea = SiteMinArea,
-                            TypeofWorksLocation = TypeOfWorksLocation
-                        }
+                        NameOfSite = NameOfSite,
+                        AddressOfSite = AddressOfSite,
+                        PostcodeOfSite = PostcodeOfSite,
+                        BuildingType = BuildingType,
+                        TrustRef = TrustRef,
+                        TrustLeadSponsor = TrustLeadSponsor,
+                        TrustName = TrustName,
+                        SiteMinArea = SiteMinArea,
+                        TypeofWorksLocation = TypeOfWorksLocation
                     }
                 };
 

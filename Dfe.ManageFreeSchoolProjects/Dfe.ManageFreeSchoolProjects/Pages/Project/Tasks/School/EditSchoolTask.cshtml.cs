@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -108,21 +109,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
             try
             {
-                var request = new UpdateProjectTasksRequest()
+                var request = new UpdateProjectByTaskRequest()
                 {
-                    Tasks = new ProjectTaskRequest()
+                    School = new SchoolTask()
                     {
-                        School = new SchoolTaskRequest()
-                        {
-                            SchoolType = SchoolType,
-                            SchoolPhase = SchoolPhase,
-                            AgeRange = AgeRange,
-                            Nursery = Nursery,
-                            SixthForm = SixthForm,
-                            CompanyName = CompanyName,
-                            NumberOfCompanyMembers = NumberOfCompanyMembers,
-                            ProposedChairOfTrustees = ProposedChairOfTrustees
-                        }
+                        SchoolType = SchoolType,
+                        SchoolPhase = SchoolPhase,
+                        AgeRange = AgeRange,
+                        Nursery = Nursery,
+                        SixthForm = SixthForm,
+                        CompanyName = CompanyName,
+                        NumberOfCompanyMembers = NumberOfCompanyMembers,
+                        ProposedChairOfTrustees = ProposedChairOfTrustees
                     }
                 };
 

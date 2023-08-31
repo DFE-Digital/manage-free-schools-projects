@@ -1,4 +1,4 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class ProjectTaskListSummaryResponse
     {

@@ -1,14 +1,14 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
     public interface IUpdateProjectTaskService
     {
-        public Task Execute(string projectId, UpdateProjectTasksRequest request);
+        public Task Execute(string projectId, UpdateProjectByTaskRequest request);
     }
 
     public class UpdateProjectTaskService : IUpdateProjectTaskService
@@ -20,11 +20,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
             _context = context;
         }
 
-        public async Task Execute(string projectId, UpdateProjectTasksRequest request)
+        public async Task Execute(string projectId, UpdateProjectByTaskRequest request)
         {
             var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
 
-            if (dbKpi == null) 
+            if (dbKpi == null)
             {
                 throw new NotFoundException($"Project {projectId} not found");
             }
@@ -35,15 +35,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
             var dbConstruction = await GetConstruction(dbKpi.Rid);
 
             // Updates here
-            ApplySchoolTaskUpdates(request.Tasks.School, dbKpi, dbKai);
-            ApplyConstructionTaskUpdates(request.Tasks.Construction, dbProperty, dbTrust, dbConstruction);
+            ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
+            ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
 
             await _context.SaveChangesAsync();
         }
 
         private void ApplySchoolTaskUpdates(
-            SchoolTaskRequest task, 
-            Kpi dbKpi, 
+            SchoolTask task,
+            Kpi dbKpi,
             Kai dbKai)
         {
             if (task == null)
@@ -59,14 +59,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask
 
             dbKai.ApplicationDetailsCompanyName = task.CompanyName;
             dbKai.ApplicationDetailsNumberOfCompanyMembers = task.NumberOfCompanyMembers;
-            dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;  
+            dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;
         }
 
         private void ApplyConstructionTaskUpdates(
-            ConstructionTaskRequest task,
+            ConstructionTask task,
             Property dbProperty,
             Trust dbTrust,
-            Construction dbConstruction) 
+            Construction dbConstruction)
         {
             if (task == null)
             {

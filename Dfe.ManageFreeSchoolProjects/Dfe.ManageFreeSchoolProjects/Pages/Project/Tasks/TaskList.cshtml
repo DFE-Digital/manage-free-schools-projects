@@ -1,6 +1,7 @@
 ﻿@page "/projects/{projectId}/tasks"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
 @{
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);

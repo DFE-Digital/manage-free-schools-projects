@@ -1,19 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
-    public class UpdateProjectTasksRequest
-    {
-        public ProjectTaskRequest Tasks { get; set; }
-    }
-
-    public record ProjectTaskRequest
-    {
-        public RiskAppraisalTaskRequest RiskAppraisal { get; set; }
-        public DatesTaskRequest Dates { get; set; }
-        public SchoolTaskRequest School { get; set; }
-        public ConstructionTaskRequest Construction { get; set; }
-    }
-
-    public record SchoolTaskRequest
+    public record SchoolTask
     {
         public string SchoolType { get; set; }
         public string SchoolPhase { get; set; }
@@ -25,7 +12,7 @@
         public string ProposedChairOfTrustees { get; set; }
     }
 
-    public record ConstructionTaskRequest
+    public record ConstructionTask
     {
         public string NameOfSite { get; set; }
         public string AddressOfSite { get; set; }
@@ -38,7 +25,7 @@
         public string TypeofWorksLocation { get; set; }
     }
 
-    public record RiskAppraisalTaskRequest
+    public record RiskAppraisalTask
     {
         public string SharepointLink { get; set; }
         public string EducationRiskRating { get; set; }
@@ -47,7 +34,7 @@
         public bool MarkedAsComplete { get; set; }
     }
 
-    public record DatesTaskRequest
+    public record DatesTask
     {
         public string DateOfEntryIntoPreopening { get; set; }
 

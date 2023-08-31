@@ -54,7 +54,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }
-
     }
 }
 

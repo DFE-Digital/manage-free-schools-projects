@@ -1,8 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectTask;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
@@ -70,6 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
 			services.AddScoped<IUpdateProjectTaskService, UpdateProjectTaskService>();
 			services.AddScoped<IGetProjectService, GetProjectService>();
+            services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
