@@ -32,7 +32,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            _createProject.Execute(createProjectsRequest);
+            var result = _createProject.Execute(createProjectsRequest);
+
+            foreach(CreateProjectResponse proj in result.Result)
+            {
+                if (proj.ProjectCreateState == ProjectCreateState.Exists)
+                {
+                    return new ObjectResult(result.Result)
+                    {
+                        StatusCode = StatusCodes.Status422UnprocessableEntity
+                    };
+                }
+            }
 
             return new ObjectResult(null)
             {

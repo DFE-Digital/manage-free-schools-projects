@@ -3,14 +3,13 @@ using ConcernsCaseWork.Service.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface ICreateProjectService
     {
-        public Task Execute(List<CreateProjectRequest> createProjectsRequest);
+        public Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest);
     }
 
     public class CreateProjectService : ICreateProjectService
@@ -22,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task Execute(List<CreateProjectRequest> createProjectsRequest)
+        public async Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest)
         {
-            await _apiClient.Post<List<CreateProjectRequest>, object>($"/api/v1/client/project/create/", createProjectsRequest);
+            return await _apiClient.Post<List<CreateProjectRequest>, List<CreateProjectResponse>>($"/api/v1/client/project/create/", createProjectsRequest);
         }
     }
 }

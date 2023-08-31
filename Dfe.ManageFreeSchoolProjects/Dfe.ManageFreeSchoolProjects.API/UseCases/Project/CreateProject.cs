@@ -5,13 +5,15 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
 
     public interface ICreateProjectService
 	{
-		List<CreateProjectRequest> Execute(List<CreateProjectRequest> createProjectsRequest);
+		Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest);
 	}
 
     public class CreateProject : ICreateProjectService
@@ -23,11 +25,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             _context = context;
         }
 
-        public List<CreateProjectRequest> Execute(List< CreateProjectRequest> createProjectsRequest)
+        public async Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest)
         {
-            foreach (CreateProjectRequest proj in createProjectsRequest) {
+            List<CreateProjectResponse> result = new List<CreateProjectResponse>();
+            List<Kpi> checkedProjects = new List<Kpi>();
 
-                var project = new Kpi()
+            bool duplicatesFound = false;
+
+            foreach (CreateProjectRequest proj in createProjectsRequest)
+            {
+
+                var existingProject = await _context.Kpi
+                .FirstOrDefaultAsync(k => k.ProjectStatusCurrentFreeSchoolName == proj.SchoolName);
+
+                ProjectCreateState projectCreateState = ProjectCreateState.New;
+
+                if (existingProject != null)
+                {
+                    duplicatesFound = true;
+                    projectCreateState = ProjectCreateState.Exists;
+                }
+
+                result.Add(new CreateProjectResponse
+                {
+                    ProjectCreateState = projectCreateState,
+                    createProjectRequest = proj
+                });
+
+
+                checkedProjects.Add(new Kpi()
                 {
                     Rid = Guid.NewGuid().ToString().Substring(0, 10),
                     ProjectStatusProjectId = proj.ProjectId,
@@ -42,15 +68,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
                     SponsorUnitProjects = Guid.NewGuid().ToString()
 
-                };
+                });
 
-                _context.Kpi.Add(project);
-
-                _context.SaveChanges();
             }
 
-            return createProjectsRequest;
+            if (duplicatesFound == true)
+            {
+                return result;
+            }
+
+            foreach (Kpi proj in checkedProjects)
+            {
+                _context.Add(proj);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return result;
         }
+
     }
 }
 

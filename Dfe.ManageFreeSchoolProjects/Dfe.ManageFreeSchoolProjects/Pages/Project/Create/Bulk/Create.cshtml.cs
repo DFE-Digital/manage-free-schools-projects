@@ -74,6 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
                 };
 
                 await _createProjectService.Execute(createProjectsRequest);
+
             }
 
             catch (Exception ex)
@@ -81,7 +82,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
                 _logger.LogErrorMsg(ex);
             }
 
-            return Redirect("~/");
         }
     }
 }
