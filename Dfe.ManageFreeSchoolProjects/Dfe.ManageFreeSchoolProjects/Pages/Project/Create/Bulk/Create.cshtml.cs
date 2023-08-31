@@ -71,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
                     };
 
                     createProjectsRequest.Add(projReq);
-                };
+                }
 
                 await _createProjectService.Execute(createProjectsRequest);
 

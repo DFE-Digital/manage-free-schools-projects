@@ -72,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
             }
 
-            if (duplicatesFound == true)
+            if (duplicatesFound)
             {
                 return result;
             }
