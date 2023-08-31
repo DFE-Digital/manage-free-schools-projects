@@ -86,7 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_CreateProject_HasExistingProjectID_()
+        public async Task When_CreateProject_Returns_Duplicate_422()
         {
             var proj1 = _autoFixture.Create<CreateProjectRequest>();
 
@@ -121,17 +121,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 proj2,
             };
 
-            request2[0].ProjectId = request[0].ProjectId;
+            //Reduce these string lengths to avoid truncation errors
+            foreach (CreateProjectRequest p in request2)
+            {
+                p.ProjectId = DatabaseModelBuilder.CreateProjectId();
+            }
+
+            //Set the school name to an existing school name
+            request2[0].SchoolName = request[0].SchoolName;
 
             var result2 = await _client.PostAsync($"/api/v1/client/project/create", request2.ConvertToJson());
 
-            result2.StatusCode.Should().Be(HttpStatusCode.Created);
-
-            using var context2 = _testFixture.GetContext();
-
-            var createdProject2 = context2.Kpi.First(p => p.ProjectStatusProjectId == request2[0].ProjectId);
-
-            createdProject2.ProjectStatusProjectId.Should().Be(request2[0].ProjectId);
+            result2.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         }
     }
 }
