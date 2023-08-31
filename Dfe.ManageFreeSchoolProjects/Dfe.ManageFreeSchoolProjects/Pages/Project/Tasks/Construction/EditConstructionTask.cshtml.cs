@@ -16,8 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 {
     public class EditPropertyTaskModel : PageModel
     {
-        private readonly IGetProjectService _getProjectService;
-        private readonly IUpdateProjectTaskService _updateProjectTaskService;
+        private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditSchoolTaskModel> _logger;
         private readonly ErrorService _errorService;
 
@@ -70,8 +70,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
         public string TypeOfWorksLocation { get; set; }
 
         public EditPropertyTaskModel(
-            IGetProjectService getProjectService,
-            IUpdateProjectTaskService updateProjectTaskService,
+            IGetProjectByTaskService getProjectService,
+            IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditSchoolTaskModel> logger,
             ErrorService errorService)
         {
@@ -88,15 +88,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
             try
             {
                 var project = await _getProjectService.Execute(ProjectId);
-                NameOfSite = project.NameOfSite;
-                AddressOfSite = project.AddressOfSite;
-                PostcodeOfSite = project.PostcodeOfSite;
-                BuildingType = project.BuildingType;
-                TrustRef = project.TrustRef;
-                TrustLeadSponsor = project.TrustLeadSponsor;
-                TrustName = project.TrustName;
-                SiteMinArea = project.SiteMinArea;
-                TypeOfWorksLocation = project.TypeofWorksLocation;
+                NameOfSite = project.Construction.NameOfSite;
+                AddressOfSite = project.Construction.AddressOfSite;
+                PostcodeOfSite = project.Construction.PostcodeOfSite;
+                BuildingType = project.Construction.BuildingType;
+                TrustRef = project.Construction.TrustRef;
+                TrustLeadSponsor = project.Construction.TrustLeadSponsor;
+                TrustName = project.Construction.TrustName;
+                SiteMinArea = project.Construction.SiteMinArea;
+                TypeOfWorksLocation = project.Construction.TypeofWorksLocation;
 
             }
             catch (Exception ex)

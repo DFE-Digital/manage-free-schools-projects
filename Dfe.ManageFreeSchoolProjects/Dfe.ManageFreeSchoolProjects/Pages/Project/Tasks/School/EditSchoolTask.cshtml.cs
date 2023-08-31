@@ -15,8 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
     public class EditSchoolTaskModel : PageModel
     {
-        private readonly IGetProjectService _getProjectService;
-        private readonly IUpdateProjectTaskService _updateProjectTaskService;
+        private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditSchoolTaskModel> _logger;
         private readonly ErrorService _errorService;
 
@@ -64,8 +64,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         public string ProposedChairOfTrustees { get; set; }
 
         public EditSchoolTaskModel(
-            IGetProjectService getProjectService,
-            IUpdateProjectTaskService updateProjectTaskService,
+            IGetProjectByTaskService getProjectService,
+            IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditSchoolTaskModel> logger,
             ErrorService errorService)
         {
@@ -82,14 +82,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             try
             {
                 var project = await _getProjectService.Execute(ProjectId);
-                SchoolType = project.SchoolType;
-                SchoolPhase = project.SchoolPhase;
-                AgeRange = project.AgeRange;
-                Nursery = project.Nursery;
-                SixthForm = project.SixthForm;
-                CompanyName = project.CompanyName;
-                NumberOfCompanyMembers = project.NumberOfCompanyMembers;
-                ProposedChairOfTrustees = project.ProposedChairOfTrustees;
+                SchoolType = project.School.SchoolType;
+                SchoolPhase = project.School.SchoolPhase;
+                AgeRange = project.School.AgeRange;
+                Nursery = project.School.Nursery;
+                SixthForm = project.School.SixthForm;
+                CompanyName = project.School.CompanyName;
+                NumberOfCompanyMembers = project.School.NumberOfCompanyMembers;
+                ProposedChairOfTrustees = project.School.ProposedChairOfTrustees;
             }
             catch (Exception ex)
             {

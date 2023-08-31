@@ -66,21 +66,21 @@
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@schoolTaskLink" aria-describedby="">
-                            @Model.ProjectTaskListSummary.Tasks.School.Name
+                            @Model.ProjectTaskListSummary.School.Name
                         </a>
                     </span>
                     @{
-                        RenderStatus(Model.ProjectTaskListSummary.Tasks.School);
+                        RenderStatus(Model.ProjectTaskListSummary.School);
                     }
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@constructionTaskLink" aria-describedby="">
-                            @Model.ProjectTaskListSummary.Tasks.Construction.Name
+                            @Model.ProjectTaskListSummary.Construction.Name
                         </a>
                     </span>
                     @{
-                        RenderStatus(Model.ProjectTaskListSummary.Tasks.Construction);
+                        RenderStatus(Model.ProjectTaskListSummary.Construction);
                     }
                 </li>
             </ul>

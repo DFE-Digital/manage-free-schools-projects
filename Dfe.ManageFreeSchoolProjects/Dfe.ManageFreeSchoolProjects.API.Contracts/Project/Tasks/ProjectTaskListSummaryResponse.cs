@@ -2,11 +2,6 @@
 {
     public class ProjectTaskListSummaryResponse
     {
-        public TaskSummaryCollectionResponse Tasks { get; set; }
-    }
-
-    public class TaskSummaryCollectionResponse
-    {
         public TaskSummaryResponse School { get; set; }
 
         public TaskSummaryResponse Construction { get; set; }

@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Task;
@@ -14,15 +15,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
     public class ViewPropertyTaskModel : PageModel
     {
         private readonly ILogger<ViewSchoolTaskModel> _logger;
-        private readonly IGetProjectService _getProjectService;
+        private readonly IGetProjectByTaskService _getProjectService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        public GetProjectResponse Project { get; set; }
+        public GetProjectByTaskResponse Project { get; set; }
 
         public ViewPropertyTaskModel(
-            IGetProjectService getProjectService,
+            IGetProjectByTaskService getProjectService,
             ILogger<ViewSchoolTaskModel> logger)
         {
             _logger = logger;

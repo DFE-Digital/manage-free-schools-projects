@@ -31,10 +31,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var result = content.Data;
 
-            result.Tasks.School.Name.Should().Be("School");
-            result.Tasks.School.Status.Should().Be(ProjectTaskStatus.NotStarted);
-            result.Tasks.Construction.Name.Should().Be("Construction");
-            result.Tasks.Construction.Status.Should().Be(ProjectTaskStatus.InProgress);
+            result.School.Name.Should().Be("School");
+            result.School.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.Construction.Name.Should().Be("Construction");
+            result.Construction.Status.Should().Be(ProjectTaskStatus.InProgress);
         }
     }
 }

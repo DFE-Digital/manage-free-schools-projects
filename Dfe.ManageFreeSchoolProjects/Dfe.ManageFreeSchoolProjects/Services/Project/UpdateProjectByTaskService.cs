@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface IUpdateProjectTaskService
+    public interface IUpdateProjectByTaskService
     {
         public Task Execute(string projectId, UpdateProjectByTaskRequest request);
     }
 
-    public class UpdateProjectTaskService : IUpdateProjectTaskService
+    public class UpdateProjectByTaskService : IUpdateProjectByTaskService
     {
         private readonly MfspApiClient _apiClient;
 
-        public UpdateProjectTaskService(MfspApiClient apiClient)
+        public UpdateProjectByTaskService(MfspApiClient apiClient)
         {
             _apiClient = apiClient;
         }

@@ -41,19 +41,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 StatusCode = StatusCodes.Status201Created
             };
         }
-
-        [HttpGet]
-        [Route("{projectId}")]
-        public async Task<ActionResult> Get(string projectId)
-        {
-            _logger.LogMethodEntered();
-
-            var project = await _getProjectService.Execute(projectId);
-
-            var result = new ApiSingleResponseV2<GetProjectResponse>(project);
-
-            return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
-        }
     }
 }
 

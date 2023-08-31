@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
@@ -48,52 +47,49 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.AgeRange.Should().Be("11-18");
             projectResponse.School.Nursery.Should().Be("Yes");
             projectResponse.School.SixthForm.Should().Be("Yes");
-            //projectResponse.CompanyName.Should().Be("School Builders Ltd");
-            //projectResponse.NumberOfCompanyMembers.Should().Be("100");
-            //projectResponse.ProposedChairOfTrustees.Should().Be("Lemon Group Ltd");
+            projectResponse.School.CompanyName.Should().Be("School Builders Ltd");
+            projectResponse.School.NumberOfCompanyMembers.Should().Be("100");
+            projectResponse.School.ProposedChairOfTrustees.Should().Be("Lemon Group Ltd");
         }
 
-        //[Fact]
-        //public async Task Patch_ConstructionTask_Returns_201()
-        //{
-        //    var project = DatabaseModelBuilder.BuildProject();
-        //    var projectId = project.ProjectStatusProjectId;
+        [Fact]
+        public async Task Patch_ConstructionTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
 
-        //    using var context = _testFixture.GetContext();
-        //    context.Kpi.Add(project);
-        //    await context.SaveChangesAsync();
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
 
-        //    var request = new UpdateProjectTasksRequest()
-        //    {
-        //        Tasks = new ProjectTaskRequest()
-        //        {
-        //            Construction = new ConstructionTask()
-        //            {
-        //                NameOfSite = "Lemon Site",
-        //                AddressOfSite = "Fruitpickers Lane",
-        //                PostcodeOfSite = "LF124YH",
-        //                BuildingType = "Brick",
-        //                TrustRef = "1234ABC",
-        //                TrustLeadSponsor = "Aviva",
-        //                TrustName = "Education First",
-        //                SiteMinArea = "10000",
-        //                TypeofWorksLocation = "Building site"
-        //            }
-        //        }
-        //    };
+            var request = new UpdateProjectByTaskRequest()
+            {
+                Construction = new ConstructionTask()
+                {
+                    NameOfSite = "Lemon Site",
+                    AddressOfSite = "Fruitpickers Lane",
+                    PostcodeOfSite = "LF124YH",
+                    BuildingType = "Brick",
+                    TrustRef = "1234ABC",
+                    TrustLeadSponsor = "Aviva",
+                    TrustName = "Education First",
+                    SiteMinArea = "10000",
+                    TypeofWorksLocation = "Building site"
+                }
+            };
 
-        //    var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request);
 
-        //    projectResponse.NameOfSite.Should().Be("Lemon Site");
-        //    projectResponse.AddressOfSite.Should().Be("Fruitpickers Lane");
-        //    projectResponse.PostcodeOfSite.Should().Be("LF124YH");
-        //    projectResponse.BuildingType.Should().Be("Brick");
-        //    projectResponse.TrustRef.Should().Be("1234ABC");
-        //    projectResponse.TrustLeadSponsor.Should().Be("Aviva");
-        //    projectResponse.TrustName.Should().Be("Education First");
-        //    projectResponse.SiteMinArea.Should().Be("10000");
-        //    projectResponse.TypeofWorksLocation.Should().Be("Building site");
-        //}
+            projectResponse.Construction.NameOfSite.Should().Be("Lemon Site");
+            projectResponse.Construction.AddressOfSite.Should().Be("Fruitpickers Lane");
+            projectResponse.Construction.PostcodeOfSite.Should().Be("LF124YH");
+            projectResponse.Construction.BuildingType.Should().Be("Brick");
+            projectResponse.Construction.TrustRef.Should().Be("1234ABC");
+            projectResponse.Construction.TrustLeadSponsor.Should().Be("Aviva");
+            projectResponse.Construction.TrustName.Should().Be("Education First");
+            projectResponse.Construction.SiteMinArea.Should().Be("10000");
+            projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
+        }
 
         [Fact]
         public async Task Patch_Task_NoProjectExists_Returns_404()
