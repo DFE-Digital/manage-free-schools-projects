@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
         public async Task<ProjectOverviewResponse> Execute(string projectId)
         {
-            var endpoint = $"/api/v1/client/project/overview/{projectId}";
+            var endpoint = $"/api/v1/client/projects/{projectId}/overview";
 
             var result = await _apiClient.Get<ApiSingleResponseV2<ProjectOverviewResponse>>(endpoint);
 

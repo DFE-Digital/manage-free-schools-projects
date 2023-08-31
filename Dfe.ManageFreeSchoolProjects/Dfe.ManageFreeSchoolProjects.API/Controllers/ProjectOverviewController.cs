@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/client/project/overview")]
+    [Route("api/v{version:apiVersion}/client/projects/{projectId}/overview")]
     [ApiController]
     public class ProjectOverviewController : ControllerBase
     {
@@ -23,7 +23,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        [Route("{projectId}")]
         public async Task<ActionResult<ApiSingleResponseV2<ProjectOverviewResponse>>> GetProjectOverview(string projectId)
         {
             _logger.LogMethodEntered();

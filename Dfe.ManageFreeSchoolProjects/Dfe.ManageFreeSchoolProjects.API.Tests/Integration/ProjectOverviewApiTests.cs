@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
 
-            var overviewResponse = await _client.GetAsync($"/api/v1/client/project/overview/{project.ProjectStatusProjectId}");
+            var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var result = await overviewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
