@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.Constants
 {
-    public class RouteConstants
+    public static class RouteConstants
     {
         public const string ProjectOverview = "/projects/{0}/overview";
         public const string TaskList = "/projects/{0}/tasks";

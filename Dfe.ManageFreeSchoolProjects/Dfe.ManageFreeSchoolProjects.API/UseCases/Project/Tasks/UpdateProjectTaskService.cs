@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             await _context.SaveChangesAsync();
         }
 
-        private void ApplySchoolTaskUpdates(
+        private static void ApplySchoolTaskUpdates(
             SchoolTask task,
             Kpi dbKpi,
             Kai dbKai)
@@ -53,7 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
-            dbKpi.SchoolDetailsAgeRange = task.AgeRange = task.AgeRange;
+            dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery;
             dbKpi.SchoolDetailsSixthForm = task.SixthForm;
 
@@ -62,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;
         }
 
-        private void ApplyConstructionTaskUpdates(
+        private static void ApplyConstructionTaskUpdates(
             ConstructionTask task,
             Property dbProperty,
             Trust dbTrust,
