@@ -48,17 +48,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         [Route("list/summary")]
-        public ActionResult<ApiSingleResponseV2<ProjectTaskListSummaryResponse>> GetProjectTaskListSummary(string projectId)
+        public ActionResult<ApiSingleResponseV2<ProjectByTaskSummaryResponse>> GetProjectTaskListSummary(string projectId)
         {
             _logger.LogMethodEntered();
 
-            var taskSummary = new ProjectTaskListSummaryResponse()
+            var taskSummary = new ProjectByTaskSummaryResponse()
             {
                 School = new TaskSummaryResponse() { Name = "School", Status = ProjectTaskStatus.NotStarted },
                 Construction = new TaskSummaryResponse() { Name = "Construction", Status = ProjectTaskStatus.InProgress }
             };
 
-            var result = new ApiSingleResponseV2<ProjectTaskListSummaryResponse>(taskSummary);
+            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(taskSummary);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }

@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        public ProjectTaskListSummaryResponse ProjectTaskListSummary { get; set; }
+        public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
 
         public TaskListModel(
             IGetProjectTaskListSummaryService getProjectTaskListSummaryService,

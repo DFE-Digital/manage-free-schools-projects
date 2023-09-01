@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
-    public class ProjectTaskListSummaryResponse
+    public class ProjectByTaskSummaryResponse
     {
         public TaskSummaryResponse School { get; set; }
 

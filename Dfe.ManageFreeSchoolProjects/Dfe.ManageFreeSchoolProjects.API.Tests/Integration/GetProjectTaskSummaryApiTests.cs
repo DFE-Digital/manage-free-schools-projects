@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/list/summary");
             taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectTaskListSummaryResponse>>();
+            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
 
             var result = content.Data;
 
