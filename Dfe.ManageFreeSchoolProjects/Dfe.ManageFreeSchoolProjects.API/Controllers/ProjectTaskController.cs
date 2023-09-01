@@ -10,12 +10,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class ProjectTaskController : ControllerBase
     {
-        public readonly IUpdateProjectTaskService _updateProjectTaskService;
+        public readonly IUpdateProjectByTaskService _updateProjectTaskService;
         public readonly IGetProjectByTaskService _getProjectByTaskService;
         public readonly ILogger<ProjectTaskController> _logger;
 
         public ProjectTaskController(
-            IUpdateProjectTaskService updateProjectTaskService,
+            IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
             ILogger<ProjectTaskController> logger)
         {
@@ -47,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        [Route("list/summary")]
+        [Route("summary")]
         public ActionResult<ApiSingleResponseV2<ProjectByTaskSummaryResponse>> GetProjectTaskListSummary(string projectId)
         {
             _logger.LogMethodEntered();

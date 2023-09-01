@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 {
     public class TaskListModel : PageModel
     {
-        private readonly IGetProjectTaskListSummaryService _getProjectTaskListSummaryService;
+        private readonly IGetProjectByTaskSummaryService _getProjectTaskListSummaryService;
         private readonly ILogger<TaskListModel> _logger;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
 
         public TaskListModel(
-            IGetProjectTaskListSummaryService getProjectTaskListSummaryService,
+            IGetProjectByTaskSummaryService getProjectTaskListSummaryService,
             ILogger<TaskListModel> logger)
         {
             _getProjectTaskListSummaryService = getProjectTaskListSummaryService;

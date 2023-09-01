@@ -74,7 +74,7 @@ public class Startup
         services.AddScoped<ICreateBulkProjectValidator, CreateBulkProjectValidator>();
         services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
         services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
-        services.AddScoped<IGetProjectTaskListSummaryService, GetProjectTaskListSummaryService>();
+        services.AddScoped<IGetProjectByTaskSummaryService, GetProjectByTaskSummaryService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

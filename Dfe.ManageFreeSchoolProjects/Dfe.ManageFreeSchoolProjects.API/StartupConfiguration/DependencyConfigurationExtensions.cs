@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<ICreateProjectService, CreateProject>();
             services.AddScoped<ICreateUserService, CreateUserService>();
 			services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
-			services.AddScoped<IUpdateProjectTaskService, UpdateProjectTaskService>();
+			services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
             services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));

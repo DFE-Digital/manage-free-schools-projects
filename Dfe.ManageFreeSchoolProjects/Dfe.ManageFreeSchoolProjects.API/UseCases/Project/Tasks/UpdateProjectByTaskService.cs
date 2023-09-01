@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
-    public interface IUpdateProjectTaskService
+    public interface IUpdateProjectByTaskService
     {
         public Task Execute(string projectId, UpdateProjectByTaskRequest request);
     }
 
-    public class UpdateProjectTaskService : IUpdateProjectTaskService
+    public class UpdateProjectByTaskService : IUpdateProjectByTaskService
     {
         public readonly MfspContext _context;
 
-        public UpdateProjectTaskService(MfspContext context)
+        public UpdateProjectByTaskService(MfspContext context)
         {
             _context = context;
         }
