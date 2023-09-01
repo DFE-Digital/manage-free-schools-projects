@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             //Reduce these string lengths to avoid truncation errors
             request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
-            var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
+            var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             result.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -66,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 p.ProjectId = DatabaseModelBuilder.CreateProjectId();
             }
 
-            var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
+            var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             result.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -93,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             //Reduce these string lengths to avoid truncation errors
             request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
-            var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
+            var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             result.StatusCode.Should().Be(HttpStatusCode.Created);
 
@@ -115,7 +115,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             //Set the school name to an existing school name
             request2.Projects[0].SchoolName = request.Projects[0].SchoolName;
 
-            var result2 = await _client.PostAsync($"/api/v1/client/project/create", request2.ConvertToJson());
+            var result2 = await _client.PostAsync($"/api/v1/client/projects/create", request2.ConvertToJson());
 
             result2.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         }

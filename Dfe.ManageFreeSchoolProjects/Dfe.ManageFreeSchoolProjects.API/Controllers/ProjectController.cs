@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            var result = _createProject.Execute(createProjectRequest);
+            var result = _createProjectService.Execute(createProjectRequest);
 
             foreach (ProjectResponseDetails proj in result.Result.Projects)
             {
