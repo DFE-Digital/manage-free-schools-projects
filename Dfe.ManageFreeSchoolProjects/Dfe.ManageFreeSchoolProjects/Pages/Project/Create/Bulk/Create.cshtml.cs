@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
             return Page();
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             _logger.LogMethodEntered();
 
@@ -74,6 +74,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
                 }
 
                 await _createProjectService.Execute(createProjectRequest);
+                
+                return Page();
 
             }
 

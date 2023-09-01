@@ -1,8 +1,11 @@
 ﻿@page "/projects/{projectId}/overview"
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 
 @{
     ViewData["Title"] = "Project overview";
+    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
 
 <div class="dfe-content-page--header">
@@ -33,10 +36,10 @@
 
             <ul class="app-sub-navigation__list govuk-!-margin-top-6">
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" aria-current="page" href="#">Project overview</a>
+                    <a class="app-sub-navigation__link" aria-current="page" href="@projectOverviewLink">Project overview</a>
                 </li>
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" href="#">Task list</a>
+                    <a class="app-sub-navigation__link" href="@taskListLink">Task list</a>
                 </li>
                 <li class="app-sub-navigation__item">
                     <a class="app-sub-navigation__link" href="#">Project notes</a>

@@ -1,16 +1,17 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
-using System.Reflection;
 using FluentValidation;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
+using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
-	public static class DependencyConfigurationExtensions
+    public static class DependencyConfigurationExtensions
 	{
 		public static IServiceCollection AddUseCases(this IServiceCollection services)
 		{
@@ -67,6 +68,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<ICreateProjectService, CreateProject>();
             services.AddScoped<ICreateUserService, CreateUserService>();
 			services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
+			services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
+            services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

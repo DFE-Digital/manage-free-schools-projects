@@ -14,6 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
         private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly ILogger<ProjectOverviewModel> _logger;
 
+        [BindProperty(SupportsGet = true, Name = "projectId")]
+        public string ProjectId { get; set; }
+
         public ProjectOverviewResponse Project { get; set; }
 
         public ProjectOverviewModel(

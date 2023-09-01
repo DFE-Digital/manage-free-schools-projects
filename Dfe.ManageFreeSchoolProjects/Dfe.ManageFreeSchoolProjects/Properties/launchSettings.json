@@ -1,12 +1,4 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:46783",
-      "sslPort": 44355
-    }
-  },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
@@ -17,13 +9,20 @@
     },
     "Dfe.ManageFreeSchoolProjects": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "https://localhost:5003/",
-      "applicationUrl": "https://localhost:5003;http://localhost:5002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "applicationUrl": "https://localhost:5003;http://localhost:5002",
       "dotnetRunMessages": "true"
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:46783",
+      "sslPort": 44355
     }
   }
 }

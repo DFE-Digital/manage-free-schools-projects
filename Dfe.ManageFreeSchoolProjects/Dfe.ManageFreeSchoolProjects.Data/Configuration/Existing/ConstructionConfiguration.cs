@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Construction> builder)
 		{
-            builder.HasNoKey();
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.IctDetailsBroadbandOrdered)
                 .HasColumnType("date")
