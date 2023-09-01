@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 
             if (project == null) 
             {
-                return null;
+                throw new NotFoundException($"Project {projectId} not found");
             }
 
             return new ProjectOverviewResponse()

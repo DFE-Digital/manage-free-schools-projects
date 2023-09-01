@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             request.ApplicationNumber = request.ApplicationNumber.Substring(0, 9);
             request.ProjectId = request.ProjectId.Substring(0, 24);
 
-            var result = await _client.PostAsync($"/api/v1/client/project/create/individual", request.ConvertToJson());
+            var result = await _client.PostAsync($"/api/v1/client/projects/create/individual", request.ConvertToJson());
 
             result.StatusCode.Should().Be(HttpStatusCode.Created);
 

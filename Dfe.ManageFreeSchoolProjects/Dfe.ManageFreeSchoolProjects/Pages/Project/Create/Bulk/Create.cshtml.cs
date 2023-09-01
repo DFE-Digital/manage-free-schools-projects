@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
             return Page();
         }
 
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             using MemoryStream stream = new MemoryStream();
 
@@ -44,6 +44,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
             RowErrors = _createBulkProjectValidator.Validate(projectTable);
 
             ProjectTable = projectTable;
+
+            return Page();
         }
     }
 }

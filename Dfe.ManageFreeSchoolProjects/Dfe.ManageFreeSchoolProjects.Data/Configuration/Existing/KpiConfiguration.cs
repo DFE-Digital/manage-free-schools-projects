@@ -834,7 +834,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsRequired()
                 .HasMaxLength(16)
                 .IsUnicode(false);
-
 		}
 	}
 
