@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface ICreateProjectService
     {
-        public Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest);
+        public Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest);
     }
 
     public class CreateProjectService : ICreateProjectService
@@ -21,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest)
+        public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
         {
-            return await _apiClient.Post<List<CreateProjectRequest>, List<CreateProjectResponse>>($"/api/v1/client/project/create/", createProjectsRequest);
+            return await _apiClient.Post<CreateProjectRequest, CreateProjectResponse>($"/api/v1/client/project/create/", createProjectRequest);
         }
     }
 }

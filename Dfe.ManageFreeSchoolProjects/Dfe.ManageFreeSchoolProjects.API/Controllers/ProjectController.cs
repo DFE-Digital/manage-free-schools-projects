@@ -1,9 +1,6 @@
 ﻿using Azure;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -28,13 +25,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult CreateProject(List<CreateProjectRequest> createProjectsRequest)
+        public ActionResult CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();
 
-            var result = _createProject.Execute(createProjectsRequest);
+            var result = _createProject.Execute(createProjectRequest);
 
-            foreach(CreateProjectResponse proj in result.Result)
+            foreach (ProjectResponseDetails proj in result.Result.Projects)
             {
                 if (proj.ProjectCreateState == ProjectCreateState.Exists)
                 {

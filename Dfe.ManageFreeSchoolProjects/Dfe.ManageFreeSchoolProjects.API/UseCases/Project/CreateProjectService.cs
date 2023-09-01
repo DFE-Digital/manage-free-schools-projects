@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
     public interface ICreateProjectService
 	{
-		Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest);
+		Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest);
 	}
 
     public class CreateProject : ICreateProjectService
@@ -25,14 +25,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             _context = context;
         }
 
-        public async Task<List<CreateProjectResponse>> Execute(List<CreateProjectRequest> createProjectsRequest)
+        public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
         {
-            List<CreateProjectResponse> result = new List<CreateProjectResponse>();
+            CreateProjectResponse result = new CreateProjectResponse();
             List<Kpi> checkedProjects = new List<Kpi>();
 
             bool duplicatesFound = false;
 
-            foreach (CreateProjectRequest proj in createProjectsRequest)
+            foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
 
                 var existingProject = await _context.Kpi
@@ -46,11 +46,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     projectCreateState = ProjectCreateState.Exists;
                 }
 
-                result.Add(new CreateProjectResponse
+                result.Projects.Add(new ProjectResponseDetails
                 {
+                    ProjectId = proj.ProjectId,
+                    SchoolName = proj.SchoolName,
+                    ApplicationNumber = proj.ApplicationNumber,
+                    ApplicationWave = proj.ApplicationWave,
+                    CreatedBy = proj.CreatedBy,
                     ProjectCreateState = projectCreateState,
-                    createProjectRequest = proj
-                });
+                 });
 
 
                 checkedProjects.Add(new Kpi()

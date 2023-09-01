@@ -60,20 +60,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 
                 ProjectTable = projectTable;
 
-                List<CreateProjectRequest> createProjectsRequest = new List<CreateProjectRequest>();
+                CreateProjectRequest createProjectRequest = new CreateProjectRequest();
 
                 foreach (ProjectRow proj in ProjectTable.Rows)
                 {
-                    CreateProjectRequest projReq = new CreateProjectRequest()
+                    ProjectDetails projReq = new ProjectDetails
                     {
                         ProjectId = proj.ProjectId,
-                        SchoolName = proj.ProjectTitle,
+                        SchoolName = proj.ProjectTitle
                     };
 
-                    createProjectsRequest.Add(projReq);
+                    createProjectRequest.Projects.Add(projReq);
                 }
 
-                await _createProjectService.Execute(createProjectsRequest);
+                await _createProjectService.Execute(createProjectRequest);
 
             }
 

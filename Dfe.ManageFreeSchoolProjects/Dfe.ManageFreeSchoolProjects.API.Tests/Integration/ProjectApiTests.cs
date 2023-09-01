@@ -22,17 +22,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_NewProjectFields_201()
         {
-            var proj = _autoFixture.Create<CreateProjectRequest>();
-            List<CreateProjectRequest> request = new List<CreateProjectRequest>()
-            {
-                proj
-            };
+            var proj = _autoFixture.Create<ProjectDetails>();
+            var request = new CreateProjectRequest();
+            //request.Projects.Clear();
+            request.Projects.Add(proj);
 
             //Reduce these string lengths to avoid truncation errors
-            foreach (CreateProjectRequest p in request)
-            {
-                p.ProjectId = DatabaseModelBuilder.CreateProjectId();
-            }
+            request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
             var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
 
@@ -40,10 +36,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
 
-            var createdProject = context.Kpi.First(p => p.ProjectStatusProjectId == request[0].ProjectId);
+            var createdProject = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[0].ProjectId);
 
-            createdProject.ProjectStatusProjectId.Should().Be(request[0].ProjectId);
-            createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request[0].SchoolName);
+            createdProject.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
+            createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().NotBeNullOrEmpty();
             createdProject.ProjectStatusFreeSchoolApplicationWave.Should().NotBeNullOrEmpty();
 
@@ -52,19 +48,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProjectBulk_Returns_NewProjectFields_201()
         {
-            var proj1 = _autoFixture.Create<CreateProjectRequest>();
-            var proj2 = _autoFixture.Create<CreateProjectRequest>();
-            var proj3 = _autoFixture.Create<CreateProjectRequest>();
+            var proj1 = _autoFixture.Create<ProjectDetails>();
+            var proj2 = _autoFixture.Create<ProjectDetails>();
+            var proj3 = _autoFixture.Create<ProjectDetails>();
 
-            List<CreateProjectRequest> request = new List<CreateProjectRequest>()
+            CreateProjectRequest request = new CreateProjectRequest();
+            request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
                 proj2,
                 proj3
-            };
+            });
 
             //Reduce these string lengths to avoid truncation errors
-            foreach (CreateProjectRequest p in request)
+            foreach (ProjectDetails p in request.Projects)
             {
                 p.ProjectId = DatabaseModelBuilder.CreateProjectId();
             }
@@ -75,32 +72,26 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
 
-            var createdProject1 = context.Kpi.First(p => p.ProjectStatusProjectId == request[0].ProjectId);
-            var createdProject2 = context.Kpi.First(p => p.ProjectStatusProjectId == request[1].ProjectId);
-            var createdProject3 = context.Kpi.First(p => p.ProjectStatusProjectId == request[2].ProjectId);
+            var createdProject1 = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[0].ProjectId);
+            var createdProject2 = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[1].ProjectId);
+            var createdProject3 = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[2].ProjectId);
 
-            createdProject1.ProjectStatusProjectId.Should().Be(request[0].ProjectId);
-            createdProject2.ProjectStatusProjectId.Should().Be(request[1].ProjectId);
-            createdProject3.ProjectStatusProjectId.Should().Be(request[2].ProjectId);
+            createdProject1.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
+            createdProject2.ProjectStatusProjectId.Should().Be(request.Projects[1].ProjectId);
+            createdProject3.ProjectStatusProjectId.Should().Be(request.Projects[2].ProjectId);
 
         }
 
         [Fact]
         public async Task When_CreateProject_Returns_Duplicate_422()
         {
-            var proj1 = _autoFixture.Create<CreateProjectRequest>();
+            var proj1 = _autoFixture.Create<ProjectDetails>();
 
-            List<CreateProjectRequest> request = new List<CreateProjectRequest>()
-            {
-                proj1,
-            };
+            CreateProjectRequest request = new CreateProjectRequest();
+            request.Projects.Add(proj1);
 
             //Reduce these string lengths to avoid truncation errors
-            foreach (CreateProjectRequest p in request)
-            {
-                p.ProjectId = DatabaseModelBuilder.CreateProjectId();
-            }
-
+            request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
             var result = await _client.PostAsync($"/api/v1/client/project/create", request.ConvertToJson());
 
@@ -108,27 +99,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
 
-            var createdProject1 = context.Kpi.First(p => p.ProjectStatusProjectId == request[0].ProjectId);
+            var createdProject1 = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[0].ProjectId);
 
-            createdProject1.ProjectStatusProjectId.Should().Be(request[0].ProjectId);
-
+            createdProject1.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
 
             //Create another request
-            var proj2 = _autoFixture.Create<CreateProjectRequest>();
+            var proj2 = _autoFixture.Create<ProjectDetails>();
 
-            List<CreateProjectRequest> request2 = new List<CreateProjectRequest>()
-            {
-                proj2,
-            };
+            CreateProjectRequest request2 = new CreateProjectRequest();
+            request2.Projects.Add(proj2);
 
             //Reduce these string lengths to avoid truncation errors
-            foreach (CreateProjectRequest p in request2)
-            {
-                p.ProjectId = DatabaseModelBuilder.CreateProjectId();
-            }
+            request2.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
             //Set the school name to an existing school name
-            request2[0].SchoolName = request[0].SchoolName;
+            request2.Projects[0].SchoolName = request.Projects[0].SchoolName;
 
             var result2 = await _client.PostAsync($"/api/v1/client/project/create", request2.ConvertToJson());
 
