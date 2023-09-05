@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
@@ -34,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             catch (Exception ex)
             {
                 _logger.LogErrorMsg(ex);
+                throw;
             }
 
             return Page();
