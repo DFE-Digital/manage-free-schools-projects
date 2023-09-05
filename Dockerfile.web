@@ -1,8 +1,9 @@
 ﻿# Stage 1
-ARG ASPNET_IMAGE_TAG=6.0-bullseye-slim
+ARG ASPNET_IMAGE_TAG=7.0-bullseye-slim
+ARG DOTNET_SDK_IMAGE_TAG=7.0
 ARG NODEJS_IMAGE_TAG=18-bullseye
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
+FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_SDK_IMAGE_TAG} AS publish
 
 WORKDIR /build
 
