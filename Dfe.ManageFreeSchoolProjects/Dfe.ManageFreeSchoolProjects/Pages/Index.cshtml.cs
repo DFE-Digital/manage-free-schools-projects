@@ -39,6 +39,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			catch (Exception ex) 
 			{
                 _logger.LogErrorMsg(ex);
+				throw;
             }
 
 			return Page();
@@ -46,16 +47,16 @@ namespace Dfe.BuildFreeSchools.Pages
 
 		private async Task LoadPage()
 		{
-            var username = User.Identity.Name.ToString();
+			var username = User.Identity.Name.ToString();
 			await _createUserService.Execute(username);
 
 			var projects = await _getDashboardAllService.Execute();
 
-			Dashboard = new DashboardModel()
-			{
-				Header = "All projects",
+            Dashboard = new DashboardModel()
+            {
+                Header = "All projects",
 				Projects = projects
-			};
+            };
 		}
 	}
 }
