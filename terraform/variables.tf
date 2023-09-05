@@ -249,3 +249,15 @@ variable "dns_txt_records" {
     })
   )
 }
+
+variable "enable_container_health_probe" {
+  description = "Enable liveness probes for the Container"
+  type        = bool
+  default     = true
+}
+
+variable "cdn_frontdoor_health_probe_protocol" {
+  description = "Use Http or Https"
+  type        = string
+  default     = "Https"
+}
