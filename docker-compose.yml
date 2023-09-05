@@ -1,12 +1,26 @@
 version: "3.8"
 services:
-  webapi:
+  web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.web
     command: /bin/bash -c "./docker-entrypoint.sh dotnet Dfe.ManageFreeSchoolProjects.dll"
     ports:
       - 80:80/tcp
+    depends_on:
+      - api
+    env_file:
+       - .env.development.local
+    networks:
+      - dev
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: /bin/bash -c "./docker-entrypoint.sh dotnet Dfe.ManageFreeSchoolProjects.API.dll"
+    ports:
+      - 88:80/tcp
     depends_on:
       - db
       - sqlcmd
