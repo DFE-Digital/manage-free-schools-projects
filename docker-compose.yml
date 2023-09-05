@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   web:
+    container_name: Dfe.ManageFreeSchoolProjects.Web
     build:
       context: .
       dockerfile: Dockerfile.web
@@ -15,6 +16,7 @@ services:
       - dev
 
   api:
+    container_name: Dfe.ManageFreeSchoolProjects.API
     build:
       context: .
       dockerfile: Dockerfile.api
@@ -30,7 +32,7 @@ services:
       - dev
 
   db:
-    container_name: amsd-casework-sql-server
+    container_name: Dfe.ManageFreeSchoolProjects.SQL
     image: mcr.microsoft.com/azure-sql-edge:latest
     env_file: .env.database
     ports:
@@ -39,6 +41,7 @@ services:
       - dev
 
   sqlcmd:
+    container_name: Dfe.ManageFreeSchoolProjects.Tools
     image: mcr.microsoft.com/mssql-tools:latest
     env_file: .env.database
     command: /etc/docker-entrypoint.sh
