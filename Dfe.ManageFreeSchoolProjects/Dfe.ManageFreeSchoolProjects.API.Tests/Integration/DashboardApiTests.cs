@@ -3,7 +3,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using FluentAssertions;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-	[Collection(ApiTestCollection.ApiTestCollectionName)]
+    [Collection(ApiTestCollection.ApiTestCollectionName)]
     public class DashboardApiTests : ApiTestsBase
     {
         public DashboardApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
@@ -31,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
-            var userDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/{user.Email}");
+            var userDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}");
             userDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var result = await userDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -75,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await context.SaveChangesAsync();
 
             // Ensure project one and two belong to the first user
-            var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/{firstUser.Email}");
+            var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={firstUser.Email}");
             firstUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var firstUserResult = await firstUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -85,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             firstUserResult.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
 
             // Ensure project three belongs to the second user
-            var secondUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/{secondUser.Email}");
+            var secondUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={secondUser.Email}");
             secondUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var secondUserResult = await secondUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -97,12 +96,39 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_GetByUser_UserDoesNotExist_Returns_EmptyDashboard_200()
         {
-            var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/byuser/NotExist");
+            var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId=NotExist");
             firstUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var result = await firstUserDashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
 
             result.Data.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task When_GetAll_Returns_Dashboard_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            var projectThree = DatabaseModelBuilder.BuildProject();
+
+            var user = await CreateUser();
+            var dbUser = context.Users.First(u => u.Email == user.Email);
+            dbUser.Projects.Add(projectOne);
+
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+
+            await context.SaveChangesAsync();
+
+            // Ensure project one and two belong to the first user
+            var dashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard");
+            dashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await dashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            result.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            result.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+            result.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
         }
 
         private async Task<CreateUserRequest> CreateUser()
@@ -111,30 +137,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await _client.PostAsync($"/api/v1/client/users", result.ConvertToJson());
 
             return result;
-        }
-
-        [Fact]
-        public async Task When_GetAll_Returns_Dashboard_200()
-        {
-
-            using var context = _testFixture.GetContext();
-            var projectOne = DatabaseModelBuilder.BuildProject();
-            var projectTwo = DatabaseModelBuilder.BuildProject();
-            var projectThree = DatabaseModelBuilder.BuildProject();
-
-            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
-
-            await context.SaveChangesAsync();
-
-            // Ensure project one and two belong to the first user
-            var dashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard/all");
-            dashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var result = await dashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
-
-            result.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
-            result.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
-            result.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
         }
     }
 }

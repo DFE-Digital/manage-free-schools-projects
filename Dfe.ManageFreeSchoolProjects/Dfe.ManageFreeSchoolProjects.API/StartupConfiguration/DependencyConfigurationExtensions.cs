@@ -63,8 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			
 			services.AddScoped<ICorrelationContext, CorrelationContext>();
 
-            services.AddScoped<IGetDashboardAllService, GetDashboardAllService>();
-			services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
+            services.AddScoped<IGetDashboardService, GetDashboardService>();
 			services.AddScoped<ICreateProjectService, CreateProject>();
             services.AddScoped<ICreateUserService, CreateUserService>();
 			services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();

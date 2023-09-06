@@ -5,22 +5,21 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using DocumentFormat.OpenXml.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
     public class DashboardGetByUserModel : PageModel
     {
-        private readonly IGetDashboardByUserService _getDashboardByUserService;
+        private readonly IGetDashboardService _getDashboardService;
         private readonly ILogger<DashboardGetByUserModel> _logger;
 
         public DashboardModel Dashboard { get; set; }
 
         public DashboardGetByUserModel(
-            IGetDashboardByUserService getDashboardByUserService,
+            IGetDashboardService getDashboardByUserService,
             ILogger<DashboardGetByUserModel> logger)
         {
-            _getDashboardByUserService = getDashboardByUserService;
+            _getDashboardService = getDashboardByUserService;
             _logger = logger;
         }
 
@@ -45,7 +44,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             var username = User.Identity.Name.ToString();
 
-            var projects = await _getDashboardByUserService.Execute(username);
+            var parameters = new GetDashboardServiceParameters()
+            {
+                UserId = username
+            };
+
+            var projects = await _getDashboardService.Execute(parameters);
 
             Dashboard = new DashboardModel()
             {

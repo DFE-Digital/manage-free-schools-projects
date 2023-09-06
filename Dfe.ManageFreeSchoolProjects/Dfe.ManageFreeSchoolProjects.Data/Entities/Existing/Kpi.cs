@@ -436,6 +436,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string UpperStatus { get; set; }
 
-        public List<User> Users { get; set; } = new();
+        public int? UserId { get; set; }
+
+        public User? User { get; set; }
     }
 }

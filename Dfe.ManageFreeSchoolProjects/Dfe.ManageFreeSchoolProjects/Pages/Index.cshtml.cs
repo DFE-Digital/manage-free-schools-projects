@@ -7,19 +7,20 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace Dfe.BuildFreeSchools.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IGetDashboardAllService _getDashboardAllService;
+        private readonly IGetDashboardService _getDashboardAllService;
 		private readonly ICreateUserService _createUserService;
         private readonly ILogger<IndexModel> _logger;
 
         public DashboardModel Dashboard { get; set; }
 
         public IndexModel(
-			IGetDashboardAllService getDashboardAllService, 
+			IGetDashboardService getDashboardAllService, 
 			ICreateUserService createUserService,
             ILogger<IndexModel> logger)
         {
@@ -50,7 +51,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			var username = User.Identity.Name.ToString();
 			await _createUserService.Execute(username);
 
-			var projects = await _getDashboardAllService.Execute();
+			var projects = await _getDashboardAllService.Execute(new GetDashboardServiceParameters());
 
             Dashboard = new DashboardModel()
             {

@@ -64,8 +64,7 @@ public class Startup
         services.AddControllersWithViews()
            .AddMicrosoftIdentityUI();
 
-        services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
-        services.AddScoped<IGetDashboardAllService, GetDashboardAllService>();
+        services.AddScoped<IGetDashboardService, GetDashboardService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
