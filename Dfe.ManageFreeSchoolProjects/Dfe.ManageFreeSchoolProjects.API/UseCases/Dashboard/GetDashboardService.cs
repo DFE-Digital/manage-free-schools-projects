@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             query = ApplyFilters(query, parameters);
 
-            var projectRecords = await query.Take(10).ToListAsync();
+            var projectRecords = await query.Take(30).ToListAsync();
 
             var result = projectRecords.Select(record =>
             {
@@ -57,6 +57,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             if (!string.IsNullOrEmpty(parameters.UserId))
             {
                 query = query.Where(kpi => kpi.User.Email == parameters.UserId);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Region))
+            {
+                query = query.Where(kpi => kpi.SchoolDetailsGeographicalRegion.Contains(parameters.Region));
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Project))
+            {
+                query = query.Where(kpi => 
+                kpi.ProjectStatusCurrentFreeSchoolName.Contains(parameters.Project)
+                || kpi.ProjectStatusProjectId == parameters.Project);
             }
 
             return query;

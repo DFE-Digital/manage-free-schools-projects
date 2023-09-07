@@ -16,6 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
     public record GetDashboardServiceParameters
     {
         public string UserId { get; set; }
+        public string Project { get; set; }
+        public string Region { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -36,6 +38,16 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             if (!string.IsNullOrEmpty(parameters.UserId))
             {
                 query = query.Add("userId", parameters.UserId);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Project))
+            {
+                query = query.Add("project", parameters.Project);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Region))
+            {
+                query = query.Add("region", parameters.Region);
             }
 
             endpoint += query.ToString();

@@ -5,28 +5,59 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Services.User;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
-    public class DashboardGetByUserModel : PageModel
+    public class DashboardGetByUserModel : DashboardBasePageModel
     {
-        private readonly IGetDashboardService _getDashboardService;
         private readonly ILogger<DashboardGetByUserModel> _logger;
 
-        public DashboardModel Dashboard { get; set; }
-
         public DashboardGetByUserModel(
-            IGetDashboardService getDashboardByUserService,
-            ILogger<DashboardGetByUserModel> logger)
+            ICreateUserService createUserService,
+            IGetDashboardService getDashboardService,
+            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService)
         {
-            _getDashboardService = getDashboardByUserService;
             _logger = logger;
         }
 
-        public async Task<ActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             _logger.LogMethodEntered();
 
+            try
+            {
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSearch()
+        {
+            _logger.LogMethodEntered();
+
+            try
+            {
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetClearFilters()
+        {
+            _logger.LogMethodEntered();
             try
             {
                 await LoadPage();
@@ -49,13 +80,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 UserId = username
             };
 
-            var projects = await _getDashboardService.Execute(parameters);
+            await LoadDashboard(parameters);
 
-            Dashboard = new DashboardModel()
-            {
-                Header = "Your projects",
-                Projects = projects
-            };
+            Dashboard.Header = "Your projects";
         }
     }
 }

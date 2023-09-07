@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_GetByUser_Returns_DashboardFields_200()
+        public async Task When_Get_Returns_DashboardFields_200()
         {
             var user = await CreateUser();
 
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_GetByUser_Returns_DashboardForSpecifiedUser_200()
+        public async Task When_Get_WithUser_Returns_DashboardForSpecifiedUser_200()
         {
             var firstUser = await CreateUser();
 
@@ -94,7 +94,103 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_GetByUser_UserDoesNotExist_Returns_EmptyDashboard_200()
+        public async Task When_Get_WithRegion_Returns_DashboardForSpecifiedRegion_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            projectTwo.SchoolDetailsGeographicalRegion = projectOne.SchoolDetailsGeographicalRegion;
+
+            var projectThree = DatabaseModelBuilder.BuildProject();
+
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+
+            await context.SaveChangesAsync();
+
+
+            var firstRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?region={projectTwo.SchoolDetailsGeographicalRegion}");
+            firstRegionResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var firstRegionProjects = await firstRegionResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            firstRegionProjects.Data.Should().HaveCount(2);
+            firstRegionProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            firstRegionProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+
+            var secondRegion = projectThree.SchoolDetailsGeographicalRegion.Substring(0, 12);
+            var secondRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?region={secondRegion}");
+            secondRegionResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var secondRegionProjects = await secondRegionResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            secondRegionProjects.Data.Should().HaveCount(1);
+            secondRegionProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
+
+        [Fact]
+        public async Task When_Get_WithProjectTitle_Returns_DashboardForSpecifiedProjectTitle_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            projectTwo.ProjectStatusCurrentFreeSchoolName = projectOne.ProjectStatusCurrentFreeSchoolName;
+
+            var projectThree = DatabaseModelBuilder.BuildProject();
+
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+
+            await context.SaveChangesAsync();
+
+            var firstProjectTitle = projectOne.ProjectStatusCurrentFreeSchoolName;
+            var firstProjectTitleResponse = await _client.GetAsync($"/api/v1/client/dashboard?project={firstProjectTitle}");
+            firstProjectTitleResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var firstTitleProjects = await firstProjectTitleResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            firstTitleProjects.Data.Should().HaveCount(2);
+            firstTitleProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            firstTitleProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+
+            var secondProjectTitle = projectThree.ProjectStatusCurrentFreeSchoolName.Substring(0, 12);
+            var secondProjectTitleResponse = await _client.GetAsync($"/api/v1/client/dashboard?project={secondProjectTitle}");
+            secondProjectTitleResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var secondTitleProjects = await secondProjectTitleResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            secondTitleProjects.Data.Should().HaveCount(1);
+            secondTitleProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
+
+        [Fact]
+        public async Task When_Get_WithProjectId_Returns_DashboardForSpecifiedProjectId_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+
+            context.Kpi.AddRange(projectOne, projectTwo);
+            await context.SaveChangesAsync();
+
+            var firstProjectId = projectOne.ProjectStatusCurrentFreeSchoolName;
+            var firstProjectTitleResponse = await _client.GetAsync($"/api/v1/client/dashboard?project={projectOne.ProjectStatusProjectId}");
+            firstProjectTitleResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var firstIdProjects = await firstProjectTitleResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            firstIdProjects.Data.Should().HaveCount(1);
+            firstIdProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+
+            var secondProjectIdResponse = await _client.GetAsync($"/api/v1/client/dashboard?project={projectTwo.ProjectStatusProjectId}");
+            secondProjectIdResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var secondIdProjects = await secondProjectIdResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            secondIdProjects.Data.Should().HaveCount(1);
+            secondIdProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+        }
+
+        [Fact]
+        public async Task When_Get_UserDoesNotExist_Returns_EmptyDashboard_200()
         {
             var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId=NotExist");
             firstUserDashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -105,7 +201,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_GetAll_Returns_Dashboard_200()
+        public async Task When_Get_Returns_Dashboard_200()
         {
             using var context = _testFixture.GetContext();
             var projectOne = DatabaseModelBuilder.BuildProject();

@@ -24,13 +24,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects(
-            string userId)
+            string userId,
+            string region,
+            string project)
         {
             _logger.LogMethodEntered();
 
             var parameters = new GetDashboardParameters()
             {
-                UserId = userId
+                UserId = userId,
+                Region = region,
+                Project = project
             };
 
             var projects = await _getDashboard.Execute(parameters);
