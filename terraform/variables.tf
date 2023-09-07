@@ -307,3 +307,8 @@ variable "custom_container_apps" {
   default = {}
 }
 
+variable "image_tag" {
+  description = "Default image tag for the primary container"
+  type        = string
+  default     = "web-latest"
+}

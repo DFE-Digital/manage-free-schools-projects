@@ -11,6 +11,7 @@ module "azure_container_apps_hosting" {
   enable_container_registry = local.enable_container_registry
 
   image_name                             = local.image_name
+  image_tag                              = local.image_tag
   container_command                      = local.container_command
   container_secret_environment_variables = local.container_secret_environment_variables
 
