@@ -45,4 +45,5 @@ locals {
   existing_logic_app_workflow                     = var.existing_logic_app_workflow
   existing_network_watcher_name                   = var.existing_network_watcher_name
   existing_network_watcher_resource_group_name    = var.existing_network_watcher_resource_group_name
+  custom_container_apps                           = var.custom_container_apps
 }
