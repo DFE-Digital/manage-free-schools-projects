@@ -23,15 +23,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiSingleResponseV2<GetLocalAuthoritiesResponse>> Get(string region) 
+        public async Task<ApiSingleResponseV2<GetLocalAuthoritiesResponse>> Get([FromQuery(Name = "regions")]string regionQuery) 
         {
             _logger.LogMethodEntered();
 
-            var localAuthorities = await _getLocalAuthoritiesService.Execute(region);
+            var regions = new List<string>();
 
-            _logger.LogInformation("Found {count} local authorities for region {region}", region.Count(), region);
+            if (regionQuery != null)
+            {
+                regions = regionQuery.Split(",").ToList();
+            }
 
-            var result = new ApiSingleResponseV2<GetLocalAuthoritiesResponse>(localAuthorities);
+            var response = await _getLocalAuthoritiesService.Execute(regions);
+
+            _logger.LogInformation("Found {count} local authorities for region {region}", response.LocalAuthorities.Count, string.Join(",", regionQuery));
+
+            var result = new ApiSingleResponseV2<GetLocalAuthoritiesResponse>(response);
 
             return result;
         }

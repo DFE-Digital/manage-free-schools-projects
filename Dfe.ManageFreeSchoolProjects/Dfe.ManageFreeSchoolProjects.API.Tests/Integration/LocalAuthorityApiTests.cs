@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var firstRegion = firstLa.LocalAuthoritiesGeographicalRegion;
             var secondRegion = thirdLa.LocalAuthoritiesGeographicalRegion;
 
-            var firstLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?region={firstRegion}");
+            var firstLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?regions={firstRegion}");
             firstLaResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var firstResponseContent = await firstLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
@@ -42,18 +42,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             firstRegionLocalAuthorities.Should().BeEquivalentTo(expectedFirstRegionLocalAuthorities);
 
-            var secondLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?region={secondRegion}");
-            secondLaResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var allLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?regions={firstRegion},{secondRegion}");
+            allLaResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var secondResponseContent = await secondLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
-            var secondRegionLocalAuthorities = secondResponseContent.Data.LocalAuthorities;
+            var allResponseContent = await allLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
+            var allRegionLocalAuthorities = allResponseContent.Data.LocalAuthorities;
 
-            var expectedSecondRegionLocalAuthorities = new List<LocalAuthorityResponse>()
+            var expectedAllRegionLocalAuthorities = new List<LocalAuthorityResponse>()
             {
+                new LocalAuthorityResponse{ Name = firstLa.LocalAuthoritiesLaName },
+                new LocalAuthorityResponse{ Name = secondLa.LocalAuthoritiesLaName },
                 new LocalAuthorityResponse{ Name = thirdLa.LocalAuthoritiesLaName }
             };
 
-            secondRegionLocalAuthorities.Should().BeEquivalentTo(expectedSecondRegionLocalAuthorities);
+            allRegionLocalAuthorities.Should().BeEquivalentTo(expectedAllRegionLocalAuthorities);
         }
 
         [Fact]

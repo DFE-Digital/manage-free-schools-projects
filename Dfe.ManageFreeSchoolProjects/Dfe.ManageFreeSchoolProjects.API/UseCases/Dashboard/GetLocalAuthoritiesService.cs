@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
     public interface IGetLocalAuthoritiesService
     {
-        public Task<GetLocalAuthoritiesResponse> Execute(string region);
+        public Task<GetLocalAuthoritiesResponse> Execute(List<string> regions);
     }
 
     public class GetLocalAuthoritiesService : IGetLocalAuthoritiesService
@@ -18,9 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             _context = context;
         }
 
-        public async Task<GetLocalAuthoritiesResponse> Execute(string region)
+        public async Task<GetLocalAuthoritiesResponse> Execute(List<string> regions)
         {
-            var records = await _context.LaData.Where(e => e.LocalAuthoritiesGeographicalRegion == region).ToListAsync();
+            var records = await _context.LaData.Where(e => regions.Contains(e.LocalAuthoritiesGeographicalRegion)).ToListAsync();
 
             var localAuthorities = records.Select(r =>
             {
