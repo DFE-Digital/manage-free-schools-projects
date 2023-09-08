@@ -27,6 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             try
             {
+                await AddUser();
                 await LoadPage();
             }
             catch (Exception ex)

@@ -27,6 +27,7 @@ namespace Dfe.BuildFreeSchools.Pages
 
 			try
 			{
+				await AddUser();
 				await LoadPage();
 			}
 			catch (Exception ex) 

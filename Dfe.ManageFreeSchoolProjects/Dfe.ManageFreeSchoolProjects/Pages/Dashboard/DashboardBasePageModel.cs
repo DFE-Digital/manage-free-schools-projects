@@ -29,11 +29,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             _getDashboardService = getDashboardAllService;
         }
 
-        protected async Task LoadDashboard(GetDashboardServiceParameters parameters)
+        protected async Task AddUser()
         {
             var username = User.Identity.Name.ToString();
             await _createUserService.Execute(username);
+        }
 
+        protected async Task LoadDashboard(GetDashboardServiceParameters parameters)
+        {
             parameters.Project = ProjectSearchTerm;
 			parameters.Region = RegionSearchTerm.Count > 0 ? RegionSearchTerm.First() : null;
 

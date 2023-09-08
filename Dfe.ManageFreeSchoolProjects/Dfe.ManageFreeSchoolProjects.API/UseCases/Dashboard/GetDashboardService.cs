@@ -52,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             return result;
         }
 
-        private IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
+        private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
         {
             if (!string.IsNullOrEmpty(parameters.UserId))
             {
