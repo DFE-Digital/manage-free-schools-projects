@@ -56,6 +56,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             secondRegionLocalAuthorities.Should().BeEquivalentTo(expectedSecondRegionLocalAuthorities);
         }
 
+        [Fact]
+        public async Task When_Get_FilterByRegion_NoMatch_Returns_Empty_200()
+        {
+            var response = await _client.GetAsync($"/api/v1/client/local-authorities?region=NotExist");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
+            content.Data.LocalAuthorities.Should().HaveCount(0);
+        }
+
         private async Task<List<LaData>> CreateLocalAuthorityData()
         {
             using var context = _testFixture.GetContext();
