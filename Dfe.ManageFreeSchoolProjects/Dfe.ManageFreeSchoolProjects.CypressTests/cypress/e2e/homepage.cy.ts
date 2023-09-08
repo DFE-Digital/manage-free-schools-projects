@@ -18,13 +18,13 @@ describe("Testing the home page", () => {
         beforeEach(() => {
             firstProject = RequestBuilder.createProjectDetails();
             secondProject = RequestBuilder.createProjectDetails();
-            projectTitlePrefix = firstProject.SchoolName.substring(0, 10);
+            projectTitlePrefix = firstProject.schoolName.substring(0, 10);
 
-            firstProject.SchoolName = `${projectTitlePrefix} school`;
-            secondProject.SchoolName = `${projectTitlePrefix} academy`;
+            firstProject.schoolName = `${projectTitlePrefix} school`;
+            secondProject.schoolName = `${projectTitlePrefix} academy`;
 
             projectApi.post({
-                Projects: [firstProject, secondProject],
+                projects: [firstProject, secondProject],
             });
         });
 
@@ -32,20 +32,39 @@ describe("Testing the home page", () => {
             homePage.withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
-                .getRowByProjectId(firstProject.ProjectId)
+                .getRowByProjectId(firstProject.projectId)
                 .then((row) => {
-                    row.hasProjectId(firstProject.ProjectId);
-                    row.hasProjectTitle(firstProject.SchoolName);
+                    row.hasProjectId(firstProject.projectId);
+                    row.hasProjectTitle(firstProject.schoolName);
                     row.hasStatus("Not started");
                 });
 
             projectTable
-                .getRowByProjectId(secondProject.ProjectId)
+                .getRowByProjectId(secondProject.projectId)
                 .then((row) => {
-                    row.hasProjectId(secondProject.ProjectId);
-                    row.hasProjectTitle(secondProject.SchoolName);
+                    row.hasProjectId(secondProject.projectId);
+                    row.hasProjectTitle(secondProject.schoolName);
                     row.hasStatus("Not started");
                 });
+        });
+    });
+
+    describe("Filtering by region", () => {
+        let firstProject: ProjectDetails;
+
+        beforeEach(() => {
+            firstProject = RequestBuilder.createProjectDetails();
+            firstProject.region = `North West`;
+
+            projectApi.post({
+                projects: [firstProject],
+            });
+        });
+
+        it.only("Should be able to filter projects by region", () => {
+            homePage.withRegionFilter("North West").applyFilters();
+
+            projectTable.allRowsHaveRegion("North West");
         });
     });
 });

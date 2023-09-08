@@ -58,7 +58,7 @@
                                     var checkedStatus = Model.RegionSearchTerm.Contains(region) ? "checked" : "";
 
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="@region" name="search-by-region" type="checkbox" value="@region" @checkedStatus>
+                                        <input class="govuk-checkboxes__input" id="@region" data-testid="@region-option" name="search-by-region" type="checkbox" value="@region" @checkedStatus>
                                         <label class="govuk-label govuk-checkboxes__label" for="@region">
                                             @region
                                         </label>

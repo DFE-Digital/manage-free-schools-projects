@@ -16,17 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public class ProjectResponseDetails
     {
-        [Required]
         public string ProjectId { get; set; }
-        [Required]
-        public string SchoolName { get; set; }
-        [Required]
-        public string ApplicationNumber { get; set; }
-        [Required]
-        public string ApplicationWave { get; set; }
-        [Required]
-        public string CreatedBy { get; set; }
-        [Required]
+
         public ProjectCreateState ProjectCreateState { get; set; }
     }
 }

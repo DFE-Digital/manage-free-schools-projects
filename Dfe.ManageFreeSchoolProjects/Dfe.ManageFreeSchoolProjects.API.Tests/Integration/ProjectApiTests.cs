@@ -24,10 +24,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var proj = _autoFixture.Create<ProjectDetails>();
             var request = new CreateProjectRequest();
-            //request.Projects.Clear();
             request.Projects.Add(proj);
 
-            //Reduce these string lengths to avoid truncation errors
             request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
             var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
@@ -40,6 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             createdProject.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
+            createdProject.SchoolDetailsGeographicalRegion.Should().Be(request.Projects[0].Region);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().NotBeNullOrEmpty();
             createdProject.ProjectStatusFreeSchoolApplicationWave.Should().NotBeNullOrEmpty();
 
@@ -60,7 +59,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 proj3
             });
 
-            //Reduce these string lengths to avoid truncation errors
             foreach (ProjectDetails p in request.Projects)
             {
                 p.ProjectId = DatabaseModelBuilder.CreateProjectId();
@@ -108,11 +106,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             CreateProjectRequest request2 = new CreateProjectRequest();
             request2.Projects.Add(proj2);
-
-            //Reduce these string lengths to avoid truncation errors
             request2.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
-
-            //Set the school name to an existing school name
             request2.Projects[0].SchoolName = request.Projects[0].SchoolName;
 
             var result2 = await _client.PostAsync($"/api/v1/client/projects/create", request2.ConvertToJson());

@@ -6,6 +6,13 @@ class ProjectTable {
             return new ProjectRow(el);
         });
     }
+
+    public allRowsHaveRegion(region: string) {
+        cy.containsByTestId(`row-`).each((el) => {
+            const projectRow = new ProjectRow(el.get(0));
+            projectRow.hasRegionName(region);
+        });
+    }
 }
 
 const projectTable = new ProjectTable();

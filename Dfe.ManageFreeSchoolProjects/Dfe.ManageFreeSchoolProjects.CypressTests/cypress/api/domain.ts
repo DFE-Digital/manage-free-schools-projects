@@ -23,15 +23,16 @@ export type BulkProjectRow = {
 };
 
 export type CreateProjectRequest = {
-    Projects: Array<ProjectDetails>;
+    projects: Array<ProjectDetails>;
 };
 
 export type ProjectDetails = {
-    ProjectId: string;
-    SchoolName: string;
-    ApplicationNumber: string;
-    ApplicationWave: string;
-    CreatedBy: string;
+    projectId: string;
+    schoolName: string;
+    applicationNumber: string;
+    applicationWave: string;
+    region: string;
+    createdBy: string;
 };
 
 export type CreateProjectResponse = {};

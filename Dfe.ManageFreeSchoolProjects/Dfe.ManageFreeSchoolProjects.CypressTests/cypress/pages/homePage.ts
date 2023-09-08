@@ -17,6 +17,12 @@ class HomePage {
         return this;
     }
 
+    public withRegionFilter(region: string): this {
+        cy.getByTestId(`${region}-option`).check();
+
+        return this;
+    }
+
     public applyFilters(): this {
         cy.getByTestId("apply-filters").click();
 
