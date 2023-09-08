@@ -32,7 +32,7 @@
                         <div id="dashboardSearch-hint" class="govuk-hint">
                             For example, St George’s Primary School or 193323.
                         </div>
-                        <input class="govuk-input" id="search-by-project" name="search-by-project" type="text" value="@Model.ProjectSearchTerm">
+                        <input class="govuk-input" id="search-by-project" name="search-by-project" type="text" value="@Model.ProjectSearchTerm" data-testid="search-by-project">
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
                     <div class="govuk-button-group">
-                        <button class="govuk-button govuk-button--secondary mfsp-project-listing__button--apply" data-module="govuk-button" asp-page-handler="search">
+                        <button class="govuk-button govuk-button--secondary mfsp-project-listing__button--apply" data-module="govuk-button" asp-page-handler="search" data-testid="apply-filters">
                             Apply filters
                         </button>
 

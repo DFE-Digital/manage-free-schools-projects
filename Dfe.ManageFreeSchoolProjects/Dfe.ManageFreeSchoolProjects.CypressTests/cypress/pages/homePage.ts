@@ -10,6 +10,18 @@ class HomePage {
 
         return this;
     }
+
+    public withProjectFilter(project: string): this {
+        cy.getByTestId("search-by-project").clear().type(project);
+
+        return this;
+    }
+
+    public applyFilters(): this {
+        cy.getByTestId("apply-filters").click();
+
+        return this;
+    }
 }
 
 const homePage = new HomePage();
