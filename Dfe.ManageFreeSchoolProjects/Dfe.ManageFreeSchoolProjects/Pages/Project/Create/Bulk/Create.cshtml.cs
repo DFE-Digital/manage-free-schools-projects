@@ -1,7 +1,11 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,13 +23,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 
         private readonly IProjectTableReader _projectTableReader;
         private readonly ICreateBulkProjectValidator _createBulkProjectValidator;
+        private readonly ICreateProjectService _createProjectService;
+        private readonly ILogger<CreateModel> _logger;
 
         public CreateModel(
             IProjectTableReader projectTableReader, 
-            ICreateBulkProjectValidator createBulkProjectValidator)
+            ICreateBulkProjectValidator createBulkProjectValidator,
+            ICreateProjectService createProjectService,
+            ILogger<CreateModel> logger)
         {
             _projectTableReader = projectTableReader;
             _createBulkProjectValidator = createBulkProjectValidator;
+            _createProjectService = createProjectService;
+            _logger = logger;
         }
 
         public IActionResult OnGet()
@@ -35,17 +45,45 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 
         public async Task<IActionResult> OnPostAsync()
         {
-            using MemoryStream stream = new MemoryStream();
+            _logger.LogMethodEntered();
 
-            await Upload.CopyToAsync(stream);
+            try
+            {
 
-            var projectTable = _projectTableReader.Read(stream, Upload.ContentType);
+                using MemoryStream stream = new MemoryStream();
 
-            RowErrors = _createBulkProjectValidator.Validate(projectTable);
+                await Upload.CopyToAsync(stream);
 
-            ProjectTable = projectTable;
+                var projectTable = _projectTableReader.Read(stream, Upload.ContentType);
+
+                RowErrors = _createBulkProjectValidator.Validate(projectTable);
+
+                ProjectTable = projectTable;
+
+                CreateProjectRequest createProjectRequest = new CreateProjectRequest();
+
+                foreach (ProjectRow proj in ProjectTable.Rows)
+                {
+                    ProjectDetails projReq = new ProjectDetails
+                    {
+                        ProjectId = proj.ProjectId,
+                        SchoolName = proj.ProjectTitle
+                    };
+
+                    createProjectRequest.Projects.Add(projReq);
+                }
+
+                await _createProjectService.Execute(createProjectRequest);
+
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+            }
 
             return Page();
+
         }
     }
 }

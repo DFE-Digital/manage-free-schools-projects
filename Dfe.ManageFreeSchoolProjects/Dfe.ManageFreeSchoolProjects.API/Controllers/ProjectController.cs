@@ -1,4 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Azure;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -21,12 +23,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 		}
 
         [HttpPost]
-        [Route("create/individual")]
+        [Route("create")]
         public ActionResult CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();
 
-            _createProjectService.Execute(createProjectRequest);
+            var result = _createProjectService.Execute(createProjectRequest);
+
+            foreach (ProjectResponseDetails proj in result.Result.Projects)
+            {
+                if (proj.ProjectCreateState == ProjectCreateState.Exists)
+                {
+                    return new ObjectResult(result.Result)
+                    {
+                        StatusCode = StatusCodes.Status422UnprocessableEntity
+                    };
+                }
+            }
 
             return new ObjectResult(null)
             {
