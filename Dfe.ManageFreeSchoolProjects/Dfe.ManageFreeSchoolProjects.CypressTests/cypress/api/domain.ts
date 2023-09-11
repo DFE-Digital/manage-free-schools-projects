@@ -32,6 +32,7 @@ export type ProjectDetails = {
     applicationNumber: string;
     applicationWave: string;
     region: string;
+    localAuthority: string;
     createdBy: string;
 };
 

@@ -128,6 +128,40 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
+        public async Task When_Get_WithLocalAuthority_Returns_DashboardForSpecifiedLocalAuthority_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            projectTwo.LocalAuthority = projectOne.LocalAuthority;
+
+            var projectThree = DatabaseModelBuilder.BuildProject();
+
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+
+            await context.SaveChangesAsync();
+
+
+            var firstLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={projectTwo.LocalAuthority}");
+            firstLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var firstLocalAuthorityProjects = await firstLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            firstLocalAuthorityProjects.Data.Should().HaveCount(2);
+            firstLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            firstLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+
+            var secondLocalAuthority = projectThree.LocalAuthority.Substring(0, 12);
+            var secondLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={secondLocalAuthority}");
+            secondLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var secondLocalAuthorityProjects = await secondLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            secondLocalAuthorityProjects.Data.Should().HaveCount(1);
+            secondLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
+
+        [Fact]
         public async Task When_Get_WithProjectTitle_Returns_DashboardForSpecifiedProjectTitle_200()
         {
             using var context = _testFixture.GetContext();

@@ -16,6 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string Project { get; set; }
         public string UserId { get; set; }
         public string Region { get; set; }
+        public string LocalAuthority { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -69,6 +70,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 query = query.Where(kpi => 
                 kpi.ProjectStatusCurrentFreeSchoolName.Contains(parameters.Project)
                 || kpi.ProjectStatusProjectId == parameters.Project);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.LocalAuthority))
+            {
+                query = query.Where(kpi => kpi.LocalAuthority.Contains(parameters.LocalAuthority));
             }
 
             return query;

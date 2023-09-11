@@ -26,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects(
             string userId,
             string region,
+            string localAuthority,
             string project)
         {
             _logger.LogMethodEntered();
@@ -34,7 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             {
                 UserId = userId,
                 Region = region,
-                Project = project
+                Project = project,
+                LocalAuthority = localAuthority
             };
 
             var projects = await _getDashboard.Execute(parameters);

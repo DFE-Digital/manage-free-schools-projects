@@ -1,18 +1,14 @@
-﻿using ConcernsCaseWork.Service.Base;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using FluentAssertions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-	[Collection(ApiTestCollection.ApiTestCollectionName)]
+    [Collection(ApiTestCollection.ApiTestCollectionName)]
 	public class ProjectApiTests : ApiTestsBase
 	{
 		public ProjectApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
@@ -39,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
             createdProject.SchoolDetailsGeographicalRegion.Should().Be(request.Projects[0].Region);
+            createdProject.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().NotBeNullOrEmpty();
             createdProject.ProjectStatusFreeSchoolApplicationWave.Should().NotBeNullOrEmpty();
 

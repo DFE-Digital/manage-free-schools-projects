@@ -11,6 +11,7 @@ export class RequestBuilder {
             createdBy: Cypress.env(EnvUsername),
             schoolName: v4(),
             region: v4(),
+            localAuthority: v4(),
         };
 
         return result;

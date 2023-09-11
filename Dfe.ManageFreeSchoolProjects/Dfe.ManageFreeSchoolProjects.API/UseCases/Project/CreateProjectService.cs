@@ -65,7 +65,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
                     MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
                     SponsorUnitProjects = Guid.NewGuid().ToString(),
-                    SchoolDetailsGeographicalRegion = proj.Region
+                    SchoolDetailsGeographicalRegion = proj.Region,
+                    LocalAuthority = proj.LocalAuthority,
                 });
 
             }

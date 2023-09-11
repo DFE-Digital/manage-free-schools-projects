@@ -1,4 +1,5 @@
 ﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@using NetEscapades.AspNetCore.SecurityHeaders;
 @model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
 @{
@@ -51,7 +52,7 @@
                                 Select all that apply.
                             </div>
 
-                            <div class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+                            <div id="search-by-region-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
 
                                 @foreach (var region in regionLabels)
                                 {
@@ -70,6 +71,27 @@
 
                         </fieldset>
                     </div>
+                </div>
+                <div class="govuk-grid-column-one-quarter">
+
+                    <div class="govuk-form-group">
+
+                        <fieldset class="govuk-fieldset" aria-describedby="filter-la-hint">
+
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                                Local Authority
+
+                            </legend>
+
+                            <div id="filter-la-hint" class="govuk-hint">
+                                Select all that apply.
+                            </div>
+
+                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes"><div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div></div>
+                        </fieldset>
+                    </div>
+
                 </div>
             </div>
 
@@ -162,3 +184,53 @@
         }
     </tbody>
 </table>
+
+<script type="application/javascript" asp-add-nonce>
+    $(function () {
+        const regionCheckboxContainer = $('#search-by-region-container');
+        const regionCheckboxes = regionCheckboxContainer.find('.govuk-checkboxes__input');
+
+        regionCheckboxes.each(function() {
+
+            $(this).click(function(e) {
+
+                const selectedRegions = regionCheckboxes.filter(':checked').map(function() {
+                    return $(this).val();
+                }).get().join();
+
+                $.ajax({
+                    type: "GET",
+                    url: "?handler=localAuthoritiesByRegion",
+                    data: { regions: selectedRegions },
+                    success: function (data) {
+
+                        let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>';
+
+                        if (data.length > 0) {
+
+                            const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
+                                return $(this).val();
+                            }).get();
+
+                            checkboxHtml = $.map(data, function (localAuthority) {
+                                const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
+
+                                return `
+                                    <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="${localAuthority}" data-testid="${localAuthority}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority}" ${laIsChecked}>
+                                    <label class="govuk-label govuk-checkboxes__label" for="${localAuthority}">${localAuthority}</label>
+                                    </div>
+                                `
+                            }).join('');
+                        }
+
+                        $('#la-checkbox-container').html(checkboxHtml);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    });
+</script>

@@ -16,6 +16,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-region")]
         public List<string> RegionSearchTerm { get; set; } = new();
 
+        [BindProperty(Name = "search-by-local-authority")]
+        public List<string> LocalAuthoritySearchTerm { get; set; } = new();
+
         public DashboardModel Dashboard { get; set; } = new();
 
         protected readonly ICreateUserService _createUserService;
@@ -39,6 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             parameters.Project = ProjectSearchTerm;
 			parameters.Region = RegionSearchTerm.Count > 0 ? RegionSearchTerm.First() : null;
+            parameters.LocalAuthority = LocalAuthoritySearchTerm.Count > 0 ? LocalAuthoritySearchTerm.First() : null;
 
             var projects = await _getDashboardService.Execute(parameters);
 
@@ -47,6 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 Projects = projects,
                 ProjectSearchTerm = ProjectSearchTerm,
                 RegionSearchTerm = RegionSearchTerm,
+                LocalAuthoritySearchTerm = LocalAuthoritySearchTerm
             };
         }
     }

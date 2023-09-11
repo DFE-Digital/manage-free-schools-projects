@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public string UserId { get; set; }
         public string Project { get; set; }
         public string Region { get; set; }
+        public string LocalAuthority { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -48,6 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             if (!string.IsNullOrEmpty(parameters.Region))
             {
                 query = query.Add("region", parameters.Region);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.LocalAuthority))
+            {
+                query = query.Add("localAuthority", parameters.LocalAuthority);
             }
 
             endpoint += query.ToString();

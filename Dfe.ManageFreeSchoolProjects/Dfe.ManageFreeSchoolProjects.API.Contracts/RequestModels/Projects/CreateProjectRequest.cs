@@ -20,6 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         [Required]
         public string Region { get; set; }
         [Required]
+        public string LocalAuthority { get; set; }
+        [Required]
         public string CreatedBy { get; set; }
     }
 }

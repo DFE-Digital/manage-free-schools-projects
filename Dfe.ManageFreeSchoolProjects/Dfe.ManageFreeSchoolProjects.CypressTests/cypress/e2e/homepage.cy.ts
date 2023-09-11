@@ -61,10 +61,36 @@ describe("Testing the home page", () => {
             });
         });
 
-        it.only("Should be able to filter projects by region", () => {
+        it("Should be able to filter projects by region", () => {
             homePage.withRegionFilter("North West").applyFilters();
 
             projectTable.allRowsHaveRegion("North West");
+        });
+    });
+
+    describe("Filtering by region and Local authority", () => {
+        let firstProject: ProjectDetails;
+
+        beforeEach(() => {
+            firstProject = RequestBuilder.createProjectDetails();
+            firstProject.region = `East Of England`;
+            firstProject.localAuthority = "Bedford";
+
+            const secondProject = RequestBuilder.createProjectDetails();
+            firstProject.region = "East Of England";
+
+            projectApi.post({
+                projects: [firstProject, secondProject],
+            });
+        });
+
+        it("Should be able to filter projects by local authority", () => {
+            homePage
+                .withRegionFilter("East Of England")
+                .withLocalAuthorityFilter("Bedford")
+                .applyFilters();
+
+            projectTable.allRowsHaveLocalAuthority("Bedford");
         });
     });
 });

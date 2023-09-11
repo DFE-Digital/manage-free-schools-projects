@@ -23,6 +23,12 @@ class HomePage {
         return this;
     }
 
+    public withLocalAuthorityFilter(localAuthority: string): this {
+        cy.getByTestId(`${localAuthority}-option`).check();
+
+        return this;
+    }
+
     public applyFilters(): this {
         cy.getByTestId("apply-filters").click();
 
