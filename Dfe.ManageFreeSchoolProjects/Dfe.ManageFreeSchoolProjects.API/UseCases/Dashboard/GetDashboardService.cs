@@ -63,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             if (parameters.Regions.Any())
             {
-                query = query.Where(kpi => parameters.Regions.Any(r => kpi.SchoolDetailsGeographicalRegion == r));
+                query = query.Where(kpi => parameters.Regions.Any(region => kpi.SchoolDetailsGeographicalRegion == region));
             }
 
             if (!string.IsNullOrEmpty(parameters.Project))
@@ -75,7 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             if (parameters.LocalAuthority.Any())
             {
-                query = query.Where(kpi => parameters.LocalAuthority.Any(l => kpi.LocalAuthority == l));
+                query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
             }
 
             return query;
