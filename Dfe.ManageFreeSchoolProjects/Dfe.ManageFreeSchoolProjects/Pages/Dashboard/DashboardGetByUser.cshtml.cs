@@ -16,7 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public DashboardGetByUserModel(
             ICreateUserService createUserService,
             IGetDashboardService getDashboardService,
-            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService)
+            IGetLocalAuthoritiesService getLocalAuthoritiesService,
+            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
         {
             _logger = logger;
         }

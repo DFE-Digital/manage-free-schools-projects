@@ -9,11 +9,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
     {
         public string Header { get; set; }
         public List<GetDashboardResponse> Projects { get; set; }
-
         public string ProjectSearchTerm { get; set; }
-
         public List<string> RegionSearchTerm { get; set; } = new();
-
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
     }
 }

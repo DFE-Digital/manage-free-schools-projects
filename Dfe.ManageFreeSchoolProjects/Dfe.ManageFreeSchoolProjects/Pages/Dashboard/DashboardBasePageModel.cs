@@ -23,13 +23,34 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         protected readonly ICreateUserService _createUserService;
         protected readonly IGetDashboardService _getDashboardService;
+        private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
 
         public DashboardBasePageModel(
             ICreateUserService createUserService,
-            IGetDashboardService getDashboardAllService)
+            IGetDashboardService getDashboardAllService,
+            IGetLocalAuthoritiesService getLocalAuthoritiesService)
         {
             _createUserService = createUserService;
             _getDashboardService = getDashboardAllService;
+            _getLocalAuthoritiesService = getLocalAuthoritiesService;
+        }
+
+        public async Task<JsonResult> OnGetLocalAuthoritiesByRegion(string regions)
+        {
+            if (string.IsNullOrEmpty(regions))
+            {
+                return new JsonResult(new List<string>());
+            }
+
+            var regionsToSearch = regions.Split(",").ToList();
+
+            var regionResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
+
+            var regionList = regionResponse.LocalAuthorities.Select(l => l.Name).ToList();
+
+            var result = new JsonResult(regionList);
+
+            return result;
         }
 
         protected async Task AddUser()

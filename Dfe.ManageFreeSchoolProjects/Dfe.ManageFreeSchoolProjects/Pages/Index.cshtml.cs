@@ -15,16 +15,14 @@ namespace Dfe.BuildFreeSchools.Pages
 {
     public class IndexModel : DashboardBasePageModel
 	{
-		private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
 		private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(
 			IGetDashboardService getDashboardService, 
 			ICreateUserService createUserService,
 			IGetLocalAuthoritiesService getLocalAuthoritiesService,
-            ILogger<IndexModel> logger) : base(createUserService, getDashboardService)
+            ILogger<IndexModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
         {
-			_getLocalAuthoritiesService = getLocalAuthoritiesService;
 			_logger = logger;
         }
 
@@ -78,24 +76,6 @@ namespace Dfe.BuildFreeSchools.Pages
 
             return Page();
         }
-
-		public async Task<JsonResult> OnGetLocalAuthoritiesByRegion(string regions)
-		{
-			if (string.IsNullOrEmpty(regions))
-			{
-				return new JsonResult(new List<string>());
-			}
-
-			var regionsToSearch = regions.Split(",").ToList();
-
-			var regionResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
-
-			var regionList = regionResponse.LocalAuthorities.Select(l => l.Name).ToList();
-
-			var result = new JsonResult(regionList);
-
-			return result;
-		}
 
         protected async Task LoadPage()
 		{
