@@ -148,7 +148,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await context.SaveChangesAsync();
 
 
-            var firstLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={firstLocalAuthority}");
+            var firstLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthorities={firstLocalAuthority}");
             firstLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var firstLocalAuthorityProjects = await firstLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -158,7 +158,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             firstLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
 
             var secondLocalAuthority = projectThree.LocalAuthority;
-            var secondLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={firstLocalAuthority},{secondLocalAuthority}");
+            var secondLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthorities={firstLocalAuthority},{secondLocalAuthority}");
             secondLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var secondLocalAuthorityProjects = await secondLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
