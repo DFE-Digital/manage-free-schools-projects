@@ -187,50 +187,71 @@
 
 <script type="application/javascript" asp-add-nonce>
     $(function () {
-        const regionCheckboxContainer = $('#search-by-region-container');
-        const regionCheckboxes = regionCheckboxContainer.find('.govuk-checkboxes__input');
+        const regionCheckboxes = getRegionCheckboxes();
+
+        getLocalAuthoritiesByRegion();
 
         regionCheckboxes.each(function() {
 
             $(this).click(function(e) {
-
-                const selectedRegions = regionCheckboxes.filter(':checked').map(function() {
-                    return $(this).val();
-                }).get().join();
-
-                $.ajax({
-                    type: "GET",
-                    url: "?handler=localAuthoritiesByRegion",
-                    data: { regions: selectedRegions },
-                    success: function (data) {
-
-                        let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>';
-
-                        if (data.length > 0) {
-
-                            const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
-                                return $(this).val();
-                            }).get();
-
-                            checkboxHtml = $.map(data, function (localAuthority) {
-                                const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
-
-                                return `
-                                    <div class="govuk-checkboxes__item">
-                                    <input class="govuk-checkboxes__input" id="${localAuthority}" data-testid="${localAuthority}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority}" ${laIsChecked}>
-                                    <label class="govuk-label govuk-checkboxes__label" for="${localAuthority}">${localAuthority}</label>
-                                    </div>
-                                `
-                            }).join('');
-                        }
-
-                        $('#la-checkbox-container').html(checkboxHtml);
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                getLocalAuthoritiesByRegion();
             });
         });
     });
+
+    function getRegionCheckboxes() {
+        const regionCheckboxContainer = $('#search-by-region-container');
+        const result = regionCheckboxContainer.find('.govuk-checkboxes__input');
+
+        return result;
+    }
+
+    function updateLocalAuthorityHtml(checkboxHtml) {
+        $('#la-checkbox-container').html(checkboxHtml);
+    }
+
+    function getLocalAuthoritiesByRegion() {
+        const regionCheckboxes = getRegionCheckboxes();
+
+        const selectedRegions = regionCheckboxes.filter(':checked').map(function() {
+                    return $(this).val();
+                }).get().join();
+
+        $.ajax({
+            type: "GET",
+            url: "?handler=localAuthoritiesByRegion",
+            data: { regions: selectedRegions },
+            success: function (data) {
+
+                let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>';
+
+                if (data.length > 0) {
+
+                    const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    checkboxHtml = $.map(data, function (localAuthority) {
+                        const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
+
+                        return `
+                            <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="${localAuthority}" data-testid="${localAuthority}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority}" ${laIsChecked}>
+                            <label class="govuk-label govuk-checkboxes__label" for="${localAuthority}">${localAuthority}</label>
+                            </div>
+                        `
+                    }).join('');
+                }
+
+                updateLocalAuthorityHtml(checkboxHtml);
+            },
+            error: function (data) {
+                let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Something went wrong retrieving the local authorities</div>';
+                updateLocalAuthorityHtml(checkboxHtml);
+
+                console.log(data);
+            }
+        });
+    }
+
 </script>
