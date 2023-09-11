@@ -50,6 +50,9 @@ jobs:
     needs: set-env
     runs-on: ubuntu-22.04
     environment: ${{ needs.set-env.outputs.environment }}
+    strategy:
+      matrix:
+        image: ['web', 'api']
     steps:
       - uses: actions/checkout@v3
         with:
@@ -66,12 +69,12 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile
+          file: Dockerfile.${{ matrix.image }}
           tags: |
-            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ needs.set-env.outputs.branch }}
-            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ needs.set-env.outputs.release }}
-            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:sha-${{ needs.set-env.outputs.checked-out-sha }}
-            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:latest
+            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.branch }}
+            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }}
+            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-sha-${{ needs.set-env.outputs.checked-out-sha }}
+            ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-latest
           push: true
 
   create-tag:

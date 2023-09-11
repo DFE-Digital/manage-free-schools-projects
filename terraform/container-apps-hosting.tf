@@ -11,6 +11,7 @@ module "azure_container_apps_hosting" {
   enable_container_registry = local.enable_container_registry
 
   image_name                             = local.image_name
+  image_tag                              = local.image_tag
   container_command                      = local.container_command
   container_secret_environment_variables = local.container_secret_environment_variables
 
@@ -53,4 +54,6 @@ module "azure_container_apps_hosting" {
   existing_logic_app_workflow                  = local.existing_logic_app_workflow
   existing_network_watcher_name                = local.existing_network_watcher_name
   existing_network_watcher_resource_group_name = local.existing_network_watcher_resource_group_name
+
+  custom_container_apps = local.custom_container_apps
 }
