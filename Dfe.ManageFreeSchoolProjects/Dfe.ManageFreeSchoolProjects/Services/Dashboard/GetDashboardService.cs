@@ -18,8 +18,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
     {
         public string UserId { get; set; }
         public string Project { get; set; }
-        public string Region { get; set; }
-        public string LocalAuthority { get; set; }
+        public List<string> Regions { get; set; }
+        public List<string> LocalAuthorities { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -47,14 +47,14 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
                 query = query.Add("project", parameters.Project);
             }
 
-            if (!string.IsNullOrEmpty(parameters.Region))
+            if (parameters.Regions.Any())
             {
-                query = query.Add("region", parameters.Region);
+                query = query.Add("regions", string.Join(",", parameters.Regions));
             }
 
-            if (!string.IsNullOrEmpty(parameters.LocalAuthority))
+            if (parameters.LocalAuthorities.Any())
             {
-                query = query.Add("localAuthority", parameters.LocalAuthority);
+                query = query.Add("localAuthorities", string.Join(",", parameters.LocalAuthorities));
             }
 
             endpoint += query.ToString();

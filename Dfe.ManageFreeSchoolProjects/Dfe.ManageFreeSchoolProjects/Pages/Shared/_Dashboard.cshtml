@@ -232,6 +232,7 @@
                     }).get();
 
                     checkboxHtml = $.map(data, function (localAuthority) {
+
                         const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
 
                         return `

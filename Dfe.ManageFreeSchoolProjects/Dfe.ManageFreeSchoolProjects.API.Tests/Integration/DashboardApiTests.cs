@@ -100,15 +100,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
             projectTwo.SchoolDetailsGeographicalRegion = projectOne.SchoolDetailsGeographicalRegion;
+            var firstRegion = projectOne.SchoolDetailsGeographicalRegion;
 
             var projectThree = DatabaseModelBuilder.BuildProject();
+            var projectFour = DatabaseModelBuilder.BuildProject();
 
-            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
 
             await context.SaveChangesAsync();
 
 
-            var firstRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?region={projectTwo.SchoolDetailsGeographicalRegion}");
+            var firstRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?regions={firstRegion}");
             firstRegionResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var firstRegionProjects = await firstRegionResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -117,13 +119,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             firstRegionProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
             firstRegionProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
 
-            var secondRegion = projectThree.SchoolDetailsGeographicalRegion.Substring(0, 12);
-            var secondRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?region={secondRegion}");
+            var secondRegion = projectThree.SchoolDetailsGeographicalRegion;
+            var secondRegionResponse = await _client.GetAsync($"/api/v1/client/dashboard?regions={firstRegion},{secondRegion}");
             secondRegionResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var secondRegionProjects = await secondRegionResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
 
-            secondRegionProjects.Data.Should().HaveCount(1);
+            secondRegionProjects.Data.Should().HaveCount(3);
+            secondRegionProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            secondRegionProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
             secondRegionProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
         }
 
@@ -134,15 +138,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
             projectTwo.LocalAuthority = projectOne.LocalAuthority;
+            var firstLocalAuthority = projectOne.LocalAuthority;
 
             var projectThree = DatabaseModelBuilder.BuildProject();
+            var projectFour = DatabaseModelBuilder.BuildProject();
 
-            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
 
             await context.SaveChangesAsync();
 
 
-            var firstLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={projectTwo.LocalAuthority}");
+            var firstLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={firstLocalAuthority}");
             firstLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var firstLocalAuthorityProjects = await firstLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
@@ -151,13 +157,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             firstLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
             firstLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
 
-            var secondLocalAuthority = projectThree.LocalAuthority.Substring(0, 12);
-            var secondLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={secondLocalAuthority}");
+            var secondLocalAuthority = projectThree.LocalAuthority;
+            var secondLocalAuthorityResponse = await _client.GetAsync($"/api/v1/client/dashboard?localAuthority={firstLocalAuthority},{secondLocalAuthority}");
             secondLocalAuthorityResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var secondLocalAuthorityProjects = await secondLocalAuthorityResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
 
-            secondLocalAuthorityProjects.Data.Should().HaveCount(1);
+            secondLocalAuthorityProjects.Data.Should().HaveCount(3);
+            secondLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            secondLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
             secondLocalAuthorityProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
         }
 

@@ -25,18 +25,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects(
             string userId,
-            string region,
-            string localAuthority,
+            string regions,
+            string localAuthorities,
             string project)
         {
             _logger.LogMethodEntered();
 
+            var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
+            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
+
             var parameters = new GetDashboardParameters()
             {
                 UserId = userId,
-                Region = region,
+                Regions = regionsToSearch,
                 Project = project,
-                LocalAuthority = localAuthority
+                LocalAuthority = localAuthoritiesToSearch
             };
 
             var projects = await _getDashboard.Execute(parameters);

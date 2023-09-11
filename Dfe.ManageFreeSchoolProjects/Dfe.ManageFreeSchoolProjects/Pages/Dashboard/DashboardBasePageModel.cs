@@ -62,8 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         protected async Task LoadDashboard(GetDashboardServiceParameters parameters)
         {
             parameters.Project = ProjectSearchTerm;
-			parameters.Region = RegionSearchTerm.Count > 0 ? RegionSearchTerm.First() : null;
-            parameters.LocalAuthority = LocalAuthoritySearchTerm.Count > 0 ? LocalAuthoritySearchTerm.First() : null;
+			parameters.Regions = RegionSearchTerm;
+            parameters.LocalAuthorities = LocalAuthoritySearchTerm;
 
             var projects = await _getDashboardService.Execute(parameters);
 

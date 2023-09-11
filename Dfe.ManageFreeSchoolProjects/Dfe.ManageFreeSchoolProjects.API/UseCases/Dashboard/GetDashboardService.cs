@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
     {
         public string Project { get; set; }
         public string UserId { get; set; }
-        public string Region { get; set; }
-        public string LocalAuthority { get; set; }
+        public List<string> Regions { get; set; }
+        public List<string> LocalAuthority { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -60,9 +61,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 query = query.Where(kpi => kpi.User.Email == parameters.UserId);
             }
 
-            if (!string.IsNullOrEmpty(parameters.Region))
+            if (parameters.Regions.Any())
             {
-                query = query.Where(kpi => kpi.SchoolDetailsGeographicalRegion.Contains(parameters.Region));
+                query = query.Where(kpi => parameters.Regions.Any(r => kpi.SchoolDetailsGeographicalRegion == r));
             }
 
             if (!string.IsNullOrEmpty(parameters.Project))
@@ -72,9 +73,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 || kpi.ProjectStatusProjectId == parameters.Project);
             }
 
-            if (!string.IsNullOrEmpty(parameters.LocalAuthority))
+            if (parameters.LocalAuthority.Any())
             {
-                query = query.Where(kpi => kpi.LocalAuthority.Contains(parameters.LocalAuthority));
+                query = query.Where(kpi => parameters.LocalAuthority.Any(l => kpi.LocalAuthority == l));
             }
 
             return query;
