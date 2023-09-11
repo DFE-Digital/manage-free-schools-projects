@@ -261,3 +261,54 @@ variable "cdn_frontdoor_health_probe_protocol" {
   type        = string
   default     = "Https"
 }
+
+variable "custom_container_apps" {
+  description = "Custom container apps, by default deployed within the container app environment managed by this module."
+  type = map(object({
+    container_app_environment_id = optional(string, "")
+    resource_group_name          = optional(string, "")
+    revision_mode                = optional(string, "Single")
+    container_port               = optional(number, 0)
+    ingress = optional(object({
+      external_enabled = optional(bool, true)
+      target_port      = optional(number, null)
+      traffic_weight = object({
+        percentage = optional(number, 100)
+      })
+    }), null)
+    secrets = optional(list(object({
+      name  = string
+      value = string
+    })), [])
+    registry = object({
+      server               = optional(string, "")
+      username             = optional(string, "")
+      password_secret_name = optional(string, "")
+      identity             = optional(string, "")
+    }),
+    image   = string
+    cpu     = number
+    memory  = number
+    command = list(string)
+    liveness_probes = optional(list(object({
+      interval_seconds = number
+      transport        = string
+      port             = number
+      path             = optional(string, null)
+    })), [])
+    env = optional(list(object({
+      name      = string
+      value     = optional(string, null)
+      secretRef = optional(string, null)
+    })), [])
+    min_replicas = number
+    max_replicas = number
+  }))
+  default = {}
+}
+
+variable "image_tag" {
+  description = "Default image tag for the primary container"
+  type        = string
+  default     = "web-latest"
+}
