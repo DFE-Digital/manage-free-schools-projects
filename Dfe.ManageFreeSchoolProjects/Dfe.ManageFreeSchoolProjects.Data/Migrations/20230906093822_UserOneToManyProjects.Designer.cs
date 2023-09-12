@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20230906093822_UserOneToManyProjects")]
+    partial class UserOneToManyProjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4628,12 +4631,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.LaData", b =>
                 {
-                    b.Property<string>("LocalAuthoritiesLaCode")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Local Authorities.LA Code");
-
                     b.Property<string>("LocalAuthoritiesCapitalCostTier")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -4645,6 +4642,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Local Authorities.Geographical region");
+
+                    b.Property<string>("LocalAuthoritiesLaCode")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Local Authorities.LA Code");
 
                     b.Property<string>("LocalAuthoritiesLaLondonBased")
                         .HasMaxLength(100)
@@ -4669,8 +4672,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Local Authorities.RSC Region");
-
-                    b.HasKey("LocalAuthoritiesLaCode");
 
                     b.ToTable("LA_Data", (string)null);
                 });

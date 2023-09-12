@@ -10,6 +10,30 @@ class HomePage {
 
         return this;
     }
+
+    public withProjectFilter(project: string): this {
+        cy.getByTestId("search-by-project").clear().type(project);
+
+        return this;
+    }
+
+    public withRegionFilter(region: string): this {
+        cy.getByTestId(`${region}-option`).check();
+
+        return this;
+    }
+
+    public withLocalAuthorityFilter(localAuthority: string): this {
+        cy.getByTestId(`${localAuthority}-option`).check();
+
+        return this;
+    }
+
+    public applyFilters(): this {
+        cy.getByTestId("apply-filters").click();
+
+        return this;
+    }
 }
 
 const homePage = new HomePage();

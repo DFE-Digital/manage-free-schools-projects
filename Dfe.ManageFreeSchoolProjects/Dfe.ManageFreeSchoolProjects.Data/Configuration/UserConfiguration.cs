@@ -1,7 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using Dfe.ManageFreeSchoolProjects.Data.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration
 {
@@ -15,11 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration
             builder.Property(e => e.Email).HasMaxLength(80);
             builder
                 .HasMany(e => e.Projects)
-                .WithMany(e => e.Users)
-                .UsingEntity<UserProject>(
-                    l => l.HasOne<Kpi>().WithMany().HasForeignKey(e => e.Rid),
-                    r => r.HasOne<User>().WithMany().HasForeignKey(e => e.UserId))
-                .ToTable("UserProject", "mfsp");
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired(false);
         }
     }
 }

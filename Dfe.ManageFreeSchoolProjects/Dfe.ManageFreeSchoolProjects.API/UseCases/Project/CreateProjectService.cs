@@ -12,12 +12,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
 
     public interface ICreateProjectService
-	{
-		Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest);
-	}
+    {
+        Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest);
+    }
 
     public class CreateProject : ICreateProjectService
-	{
+    {
         private readonly MfspContext _context;
 
         public CreateProject(MfspContext context)
@@ -34,7 +34,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
             foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
-
                 var existingProject = await _context.Kpi
                 .FirstOrDefaultAsync(k => k.ProjectStatusCurrentFreeSchoolName == proj.SchoolName);
 
@@ -49,13 +48,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 result.Projects.Add(new ProjectResponseDetails
                 {
                     ProjectId = proj.ProjectId,
-                    SchoolName = proj.SchoolName,
-                    ApplicationNumber = proj.ApplicationNumber,
-                    ApplicationWave = proj.ApplicationWave,
-                    CreatedBy = proj.CreatedBy,
-                    ProjectCreateState = projectCreateState,
-                 });
-
+                    ProjectCreateState = projectCreateState
+                });
 
                 checkedProjects.Add(new Kpi()
                 {
@@ -70,8 +64,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     FsType = Guid.NewGuid().ToString().Substring(0, 13),
                     FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
                     MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
-                    SponsorUnitProjects = Guid.NewGuid().ToString()
-
+                    SponsorUnitProjects = Guid.NewGuid().ToString(),
+                    SchoolDetailsGeographicalRegion = proj.Region,
+                    LocalAuthority = proj.LocalAuthority,
                 });
 
             }

@@ -1,7 +1,118 @@
-﻿@model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
+﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@using NetEscapades.AspNetCore.SecurityHeaders;
+@model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
+
+@{
+    var regions = Enum.GetValues(typeof(ProjectRegion));
+    var regionLabels = new List<string>();
+
+    foreach (var region in regions)
+    {
+        regionLabels.Add(region.ToDescription());
+    }
+}
+
+<details class="govuk-details mfsp-project-listing__filters-container" data-module="govuk-details" open="">
+
+    <summary class="govuk-details__summary mfsp-project-listing__fitlers-details-summary">
+        <span class="govuk-details__summary-text govuk-button govuk-button--secondary mfsp-project-listing__button--main">
+            Filter projects
+        </span>
+    </summary>
+    <div class="govuk-details__text mfsp-project-listing__filters-details">
+        <form method="post" class="form">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-quarter">
+                    <div class="govuk-form-group">
+                        <h2 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--m" for="search-by-project">
+                                Project title or ID
+                            </label>
+                        </h2>
+                        <div id="dashboardSearch-hint" class="govuk-hint">
+                            For example, St George’s Primary School or 193323.
+                        </div>
+                        <input class="govuk-input" id="search-by-project" name="search-by-project" type="text" value="@Model.ProjectSearchTerm" data-testid="search-by-project">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <div class="govuk-form-group">
+
+                        <fieldset class="govuk-fieldset" aria-describedby="filter-regions-hint">
+
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                                Regions
+
+                            </legend>
+
+                            <div id="filter-regions-hint" class="govuk-hint">
+                                Select all that apply.
+                            </div>
+
+                            <div id="search-by-region-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+
+                                @foreach (var region in regionLabels)
+                                {
+                                    var checkedStatus = Model.RegionSearchTerm.Contains(region) ? "checked" : "";
+
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="@region" data-testid="@region-option" name="search-by-region" type="checkbox" value="@region" @checkedStatus>
+                                        <label class="govuk-label govuk-checkboxes__label" for="@region">
+                                            @region
+                                        </label>
+
+                                    </div>
+                                }
+
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="govuk-grid-column-one-quarter">
+
+                    <div class="govuk-form-group">
+
+                        <fieldset class="govuk-fieldset" aria-describedby="filter-la-hint">
+
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                                Local Authority
+
+                            </legend>
+
+                            <div id="filter-la-hint" class="govuk-hint">
+                                Select all that apply.
+                            </div>
+
+                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes"><div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div></div>
+                        </fieldset>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <div class="govuk-button-group">
+                        <button class="govuk-button govuk-button--secondary mfsp-project-listing__button--apply" data-module="govuk-button" asp-page-handler="search" data-testid="apply-filters">
+                            Apply filters
+                        </button>
+
+                        <a class="govuk-link" asp-page-handler="clearFilters">Clear filters</a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</details>
 
 <table class="govuk-table">
-     <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">@Model.Header</caption>
+    <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">@Model.Header</caption>
     <thead class="govuk-table__head">
         <tr class="govuk-table__row tr__large">
             <th class="govuk-table__header govuk-table__cell__cases" scope="col">
@@ -33,43 +144,115 @@
     <tbody class="govuk-table__body">
         @if (Model.Projects == null || Model.Projects.Count == 0)
         {
-                <tr class="govuk-table__row tr__large">
-                    <td class="govuk-table__cell__cases govuk-oneline-row">
-                        <span>There are no projects available.</span>
-                    </td>
-                </tr>
+            <tr class="govuk-table__row tr__large">
+                <td class="govuk-table__cell__cases govuk-oneline-row">
+                    <span>There are no projects available.</span>
+                </td>
+            </tr>
         }
         else
         {
             foreach (var project in Model.Projects)
             {
-                        <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
-                            <td class="govuk-table__cell" data-testid="project-title">
+                <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
+                    <td class="govuk-table__cell" data-testid="project-title">
                         @project.ProjectTitle
-                            </td>
-                            <td class="govuk-table__cell" data-testid="project-id">
+                    </td>
+                    <td class="govuk-table__cell" data-testid="project-id">
                         @project.ProjectId
-                            </td>
-                            <td class="govuk-table__cell" data-testid="trust-name">
+                    </td>
+                    <td class="govuk-table__cell" data-testid="trust-name">
                         @project.TrustName
-                            </td>
-                            <td class="govuk-table__cell" data-testid="region-name">
+                    </td>
+                    <td class="govuk-table__cell" data-testid="region-name">
                         @project.Region
-                            </td>
-                            <td class="govuk-table__cell" data-testid="local-authority">
+                    </td>
+                    <td class="govuk-table__cell" data-testid="local-authority">
                         @project.LocalAuthority
-                            </td>
-                            <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                    </td>
+                    <td class="govuk-table__cell" data-testid="realistic-opening-date">
                         @project.RealisticOpeningDate
-                            </td>
-                            <td class="govuk-table__cell" data-testid="status">
-                                <strong class="govuk-tag govuk-tag--grey">Not started</strong>
-                            </td>
-                            <td class="govuk-table__cell">
-                                <a href="/projects/@project.ProjectId/overview" data-testid="action">View</a>
-                            </td>
-                        </tr>
+                    </td>
+                    <td class="govuk-table__cell" data-testid="status">
+                        <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                    </td>
+                    <td class="govuk-table__cell">
+                        <a href="/projects/@project.ProjectId/overview" data-testid="action">View</a>
+                    </td>
+                </tr>
             }
         }
     </tbody>
 </table>
+
+<script type="application/javascript" asp-add-nonce>
+    $(function () {
+        const regionCheckboxes = getRegionCheckboxes();
+
+        getLocalAuthoritiesByRegion();
+
+        regionCheckboxes.each(function() {
+
+            $(this).click(function(e) {
+                getLocalAuthoritiesByRegion();
+            });
+        });
+    });
+
+    function getRegionCheckboxes() {
+        const regionCheckboxContainer = $('#search-by-region-container');
+        const result = regionCheckboxContainer.find('.govuk-checkboxes__input');
+
+        return result;
+    }
+
+    function updateLocalAuthorityHtml(checkboxHtml) {
+        $('#la-checkbox-container').html(checkboxHtml);
+    }
+
+    function getLocalAuthoritiesByRegion() {
+        const regionCheckboxes = getRegionCheckboxes();
+
+        const selectedRegions = regionCheckboxes.filter(':checked').map(function() {
+                    return $(this).val();
+                }).get().join();
+
+        $.ajax({
+            type: "GET",
+            url: "?handler=localAuthoritiesByRegion",
+            data: { regions: selectedRegions },
+            success: function (data) {
+
+                let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>';
+
+                if (data.length > 0) {
+
+                    const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    checkboxHtml = $.map(data, function (localAuthority) {
+
+                        const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
+
+                        return `
+                            <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="${localAuthority}" data-testid="${localAuthority}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority}" ${laIsChecked}>
+                            <label class="govuk-label govuk-checkboxes__label" for="${localAuthority}">${localAuthority}</label>
+                            </div>
+                        `
+                    }).join('');
+                }
+
+                updateLocalAuthorityHtml(checkboxHtml);
+            },
+            error: function (data) {
+                let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Something went wrong retrieving the local authorities</div>';
+                updateLocalAuthorityHtml(checkboxHtml);
+
+                console.log(data);
+            }
+        });
+    }
+
+</script>

@@ -11,38 +11,38 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class DashboardController : ControllerBase
     {
-        private readonly IGetDashboardByUserService _getDashboardByUser;
-        private readonly IGetDashboardAllService _getDashboardAll;
+        private readonly IGetDashboardService _getDashboard;
         private readonly ILogger<DashboardController> _logger;
 
         public DashboardController(
-            IGetDashboardByUserService getDashboardByUser, 
-            IGetDashboardAllService getDashboardAll,
+            IGetDashboardService getDashboardAll,
             ILogger<DashboardController> logger)
         {
-            _getDashboardByUser = getDashboardByUser;
-            _getDashboardAll = getDashboardAll;
+            _getDashboard = getDashboardAll;
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("byuser/{userId}")]
-        public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetProjectsByUser(string userId)
+        public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects(
+            string userId,
+            string regions,
+            string localAuthorities,
+            string project)
         {
             _logger.LogMethodEntered();
 
-            var projects = await _getDashboardByUser.Execute(userId);
+            var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
+            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
 
-            return GetResponse(projects);
-        }
+            var parameters = new GetDashboardParameters()
+            {
+                UserId = userId,
+                Regions = regionsToSearch,
+                Project = project,
+                LocalAuthority = localAuthoritiesToSearch
+            };
 
-        [HttpGet]
-        [Route("all")]
-        public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects()
-        {
-            _logger.LogMethodEntered();
-
-            var projects = await _getDashboardAll.Execute();
+            var projects = await _getDashboard.Execute(parameters);
 
             return GetResponse(projects);
         }

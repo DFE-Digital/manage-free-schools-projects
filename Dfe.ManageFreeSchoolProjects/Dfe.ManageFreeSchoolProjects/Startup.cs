@@ -64,8 +64,7 @@ public class Startup
         services.AddControllersWithViews()
            .AddMicrosoftIdentityUI();
 
-        services.AddScoped<IGetDashboardByUserService, GetDashboardByUserService>();
-        services.AddScoped<IGetDashboardAllService, GetDashboardAllService>();
+        services.AddScoped<IGetDashboardService, GetDashboardService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
@@ -75,6 +74,7 @@ public class Startup
         services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
         services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
         services.AddScoped<IGetProjectByTaskSummaryService, GetProjectByTaskSummaryService>();
+        services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

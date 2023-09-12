@@ -5,29 +5,61 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using DocumentFormat.OpenXml.Drawing;
+using Dfe.ManageFreeSchoolProjects.Services.User;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
-    public class DashboardGetByUserModel : PageModel
+    public class DashboardGetByUserModel : DashboardBasePageModel
     {
-        private readonly IGetDashboardByUserService _getDashboardByUserService;
         private readonly ILogger<DashboardGetByUserModel> _logger;
 
-        public DashboardModel Dashboard { get; set; }
-
         public DashboardGetByUserModel(
-            IGetDashboardByUserService getDashboardByUserService,
-            ILogger<DashboardGetByUserModel> logger)
+            ICreateUserService createUserService,
+            IGetDashboardService getDashboardService,
+            IGetLocalAuthoritiesService getLocalAuthoritiesService,
+            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
         {
-            _getDashboardByUserService = getDashboardByUserService;
             _logger = logger;
         }
 
-        public async Task<ActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             _logger.LogMethodEntered();
 
+            try
+            {
+                await AddUser();
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostSearch()
+        {
+            _logger.LogMethodEntered();
+
+            try
+            {
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetClearFilters()
+        {
+            _logger.LogMethodEntered();
             try
             {
                 await LoadPage();
@@ -45,13 +77,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             var username = User.Identity.Name.ToString();
 
-            var projects = await _getDashboardByUserService.Execute(username);
-
-            Dashboard = new DashboardModel()
+            var parameters = new GetDashboardServiceParameters()
             {
-                Header = "Your projects",
-                Projects = projects
+                UserId = username
             };
+
+            await LoadDashboard(parameters);
+
+            Dashboard.Header = "Your projects";
         }
     }
 }

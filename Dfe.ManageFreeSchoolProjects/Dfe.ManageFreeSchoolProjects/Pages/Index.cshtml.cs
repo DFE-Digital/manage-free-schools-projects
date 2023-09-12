@@ -1,30 +1,28 @@
-﻿using Dfe.ManageFreeSchoolProjects.Pages.Dashboard;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Pages.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Logging;
 
 namespace Dfe.BuildFreeSchools.Pages
 {
-    public class IndexModel : PageModel
-    {
-        private readonly IGetDashboardAllService _getDashboardAllService;
-		private readonly ICreateUserService _createUserService;
-        private readonly ILogger<IndexModel> _logger;
-
-        public DashboardModel Dashboard { get; set; }
+    public class IndexModel : DashboardBasePageModel
+	{
+		private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(
-			IGetDashboardAllService getDashboardAllService, 
+			IGetDashboardService getDashboardService, 
 			ICreateUserService createUserService,
-            ILogger<IndexModel> logger)
+			IGetLocalAuthoritiesService getLocalAuthoritiesService,
+            ILogger<IndexModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
         {
-			_getDashboardAllService = getDashboardAllService;
-			_createUserService = createUserService;
 			_logger = logger;
         }
 
@@ -34,6 +32,7 @@ namespace Dfe.BuildFreeSchools.Pages
 
 			try
 			{
+				await AddUser();
 				await LoadPage();
 			}
 			catch (Exception ex) 
@@ -45,18 +44,44 @@ namespace Dfe.BuildFreeSchools.Pages
 			return Page();
 		}
 
-		private async Task LoadPage()
+		public async Task<IActionResult> OnPostSearch()
 		{
-			var username = User.Identity.Name.ToString();
-			await _createUserService.Execute(username);
+			_logger.LogMethodEntered();
 
-			var projects = await _getDashboardAllService.Execute();
+			try
+			{
+				await LoadPage();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogErrorMsg(ex);
+				throw;
+			}
 
-            Dashboard = new DashboardModel()
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetClearFilters()
+        {
+            _logger.LogMethodEntered();
+            try
             {
-                Header = "All projects",
-				Projects = projects
-            };
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        protected async Task LoadPage()
+		{
+			await LoadDashboard(new GetDashboardServiceParameters());
+
+			Dashboard.Header = "All projects";
 		}
 	}
 }
