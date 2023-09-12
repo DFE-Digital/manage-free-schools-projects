@@ -41,6 +41,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var projectByTask = await _getProjectByTaskService.Execute(projectId);
 
+            if (projectByTask == null) 
+            {
+                _logger.LogInformation("No project could be found for the given project id {projectId}", projectId);
+                return new NotFoundResult();
+            }
+
             var result = new ApiSingleResponseV2<GetProjectByTaskResponse>(projectByTask);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };

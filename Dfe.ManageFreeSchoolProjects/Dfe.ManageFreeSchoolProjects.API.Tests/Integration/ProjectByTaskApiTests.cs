@@ -9,10 +9,39 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class UpdateProjectTaskApiTests : ApiTestsBase
+    public class ProjectTaskApiTests : ApiTestsBase
     {
-        public UpdateProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
+        public ProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
+        }
+
+        [Fact]
+        public async Task Get_ProjectByTask_NoDependentDataCreated_Returns_200()
+        {
+            // Ensures that if the child tables for the tasks are not populated, the api still works
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
+            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+
+            result.Data.School.CompanyName.Should().BeNull();
+            result.Data.School.NumberOfCompanyMembers.Should().BeNull();
+            result.Data.Construction.AddressOfSite.Should().BeNull();
+            result.Data.Construction.BuildingType.Should().BeNull();
+        }
+
+        [Fact]
+        public async Task Get_ProjectByTask_DoesNotExist_Returns_404()
+        {
+            var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks");
+            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
