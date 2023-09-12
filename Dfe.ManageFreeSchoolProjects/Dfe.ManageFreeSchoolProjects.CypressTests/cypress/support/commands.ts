@@ -2,6 +2,9 @@ import "cypress-localstorage-commands";
 import "cypress-axe";
 import { AuthenticationInterceptor } from "../auth/authenticationInterceptor";
 import { Logger } from "../common/logger";
+import { RequestBuilder } from "cypress/api/requestBuilder";
+import projectApi from "cypress/api/projectApi";
+import { CreateProjectRequest } from "cypress/api/domain";
 
 Cypress.Commands.add("getByTestId", (id) => {
     cy.get(`[data-testid="${id}"]`);

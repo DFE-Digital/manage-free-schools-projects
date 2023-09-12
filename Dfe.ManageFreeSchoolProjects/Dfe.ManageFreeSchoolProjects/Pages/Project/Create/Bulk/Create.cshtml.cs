@@ -74,7 +74,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
                 }
 
                 await _createProjectService.Execute(createProjectRequest);
-
             }
 
             catch (Exception ex)

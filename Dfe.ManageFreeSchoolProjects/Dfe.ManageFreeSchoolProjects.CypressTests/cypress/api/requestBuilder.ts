@@ -1,10 +1,10 @@
 import { v4 } from "uuid";
-import { ProjectDetails } from "./domain";
+import { ProjectDetailsRequest } from "./domain";
 import { EnvUsername } from "cypress/constants/cypressConstants";
 
 export class RequestBuilder {
-    public static createProjectDetails(): ProjectDetails {
-        const result: ProjectDetails = {
+    public static createProjectDetails(): ProjectDetailsRequest {
+        const result: ProjectDetailsRequest = {
             projectId: v4().substring(0, 24),
             applicationNumber: v4().substring(0, 9),
             applicationWave: v4(),

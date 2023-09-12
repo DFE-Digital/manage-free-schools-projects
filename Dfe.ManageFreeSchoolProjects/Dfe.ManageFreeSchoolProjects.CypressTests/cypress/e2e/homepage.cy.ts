@@ -1,4 +1,4 @@
-import { ProjectDetails } from "cypress/api/domain";
+import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import homePage from "cypress/pages/homePage";
@@ -11,8 +11,8 @@ describe("Testing the home page", () => {
     });
 
     describe("Filtering by project title", () => {
-        let firstProject: ProjectDetails;
-        let secondProject: ProjectDetails;
+        let firstProject: ProjectDetailsRequest;
+        let secondProject: ProjectDetailsRequest;
         let projectTitlePrefix: string;
 
         beforeEach(() => {
@@ -50,7 +50,7 @@ describe("Testing the home page", () => {
     });
 
     describe("Filtering by region", () => {
-        let firstProject: ProjectDetails;
+        let firstProject: ProjectDetailsRequest;
 
         beforeEach(() => {
             firstProject = RequestBuilder.createProjectDetails();
@@ -69,7 +69,7 @@ describe("Testing the home page", () => {
     });
 
     describe("Filtering by region and Local authority", () => {
-        let firstProject: ProjectDetails;
+        let firstProject: ProjectDetailsRequest;
 
         beforeEach(() => {
             firstProject = RequestBuilder.createProjectDetails();

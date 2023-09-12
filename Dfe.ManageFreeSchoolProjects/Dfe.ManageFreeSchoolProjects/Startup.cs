@@ -75,6 +75,7 @@ public class Startup
         services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
         services.AddScoped<IGetProjectByTaskSummaryService, GetProjectByTaskSummaryService>();
         services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
+        services.AddScoped<ICreateProjectService, CreateProjectService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
