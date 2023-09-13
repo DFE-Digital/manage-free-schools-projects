@@ -1,5 +1,8 @@
-﻿using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
+﻿using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
+using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
@@ -10,13 +13,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
     public class DashboardBasePageModel : PageModel
     {
-        [BindProperty(Name = "search-by-project")]
+        [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+
+        [BindProperty(Name = "search-by-project", SupportsGet = true)]
         public string ProjectSearchTerm { get; set; }
 
-        [BindProperty(Name = "search-by-region")]
+        [BindProperty(Name = "search-by-region", SupportsGet = true)]
         public List<string> RegionSearchTerm { get; set; } = new();
 
-        [BindProperty(Name = "search-by-local-authority")]
+        [BindProperty(Name = "search-by-local-authority", SupportsGet = true)]
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
 
         public DashboardModel Dashboard { get; set; } = new();
@@ -59,21 +65,57 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             await _createUserService.Execute(username);
         }
 
-        protected async Task LoadDashboard(GetDashboardServiceParameters parameters)
+        protected async Task LoadDashboard(LoadDashboardParameters loadDashboardParameters)
         {
-            parameters.Project = ProjectSearchTerm;
-			parameters.Regions = RegionSearchTerm;
-            parameters.LocalAuthorities = LocalAuthoritySearchTerm;
+            var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
 
-            var projects = await _getDashboardService.Execute(parameters);
+            getDashboardServiceParameters.Project = ProjectSearchTerm;
+			getDashboardServiceParameters.Regions = RegionSearchTerm;
+            getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardServiceParameters.Page = PageNumber;
+
+            var response = await _getDashboardService.Execute(getDashboardServiceParameters);
+
+            var paginationModel = PaginationMapping.ToModel(response.Paging);
+            var query = BuildPaginationQuery();
+            paginationModel.Url = $"{loadDashboardParameters.Url}{query}";
 
             Dashboard = new DashboardModel()
             {
-                Projects = projects,
+                Projects = response.Data.ToList(),
                 ProjectSearchTerm = ProjectSearchTerm,
                 RegionSearchTerm = RegionSearchTerm,
-                LocalAuthoritySearchTerm = LocalAuthoritySearchTerm
+                LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
+                Pagination = paginationModel,
             };
+        }
+
+        private string BuildPaginationQuery()
+        {
+            QueryString query = new QueryString("?handler=movePage");
+
+            if (!string.IsNullOrEmpty(ProjectSearchTerm))
+            {
+                query = query.Add("search-by-project", ProjectSearchTerm);
+            }
+
+            if (RegionSearchTerm.Any())
+            {
+                RegionSearchTerm.ForEach((r => query = query.Add("search-by-region", r)));
+            }
+
+            if (LocalAuthoritySearchTerm.Any())
+            {
+                LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
+            }
+
+            return query.ToString();
+        }
+
+        protected class LoadDashboardParameters
+        {
+            public GetDashboardServiceParameters GetDashboardServiceParameters { get; set; }
+            public string Url { get; set; }
         }
     }
 }

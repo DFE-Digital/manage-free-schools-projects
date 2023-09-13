@@ -1,11 +1,10 @@
-using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
-using System;
-using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
@@ -29,6 +28,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             try
             {
                 await AddUser();
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetMovePage()
+        {
+            _logger.LogMethodEntered();
+
+            try
+            {
                 await LoadPage();
             }
             catch (Exception ex)
@@ -77,9 +93,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             var username = User.Identity.Name.ToString();
 
-            var parameters = new GetDashboardServiceParameters()
+            var parameters = new LoadDashboardParameters()
             {
-                UserId = username
+                GetDashboardServiceParameters = new GetDashboardServiceParameters()
+                {
+                    UserId = username
+                },
+                Url = "/my"
             };
 
             await LoadDashboard(parameters);
