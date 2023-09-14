@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("FAL");
+                .ToTable("FAL", "dbo");
 
             builder.Property(e => e.FundingApprovalLettersFundingApprovalLetterIssuedDate)
                 .HasColumnType("date")

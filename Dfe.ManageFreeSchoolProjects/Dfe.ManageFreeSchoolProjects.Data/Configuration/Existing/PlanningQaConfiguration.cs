@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Planning_QA");
+                .ToTable("Planning_QA", "dbo");
 
             builder.Property(e => e.AppealProcedureHighlight).HasColumnName("Appeal procedure highlight");
             builder.Property(e => e.AppealRequiredHighlight).HasColumnName("Appeal required? highlight");
