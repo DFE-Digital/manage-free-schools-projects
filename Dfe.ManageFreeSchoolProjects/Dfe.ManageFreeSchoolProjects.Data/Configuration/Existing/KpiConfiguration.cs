@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Kpi> builder)
 		{
             builder.HasKey(e => e.Rid);
-            builder.ToTable("KPI");
+            builder.ToTable("KPI", "dbo");
 
             builder.Property(e => e.AprilIndicator)
                 .IsRequired()
