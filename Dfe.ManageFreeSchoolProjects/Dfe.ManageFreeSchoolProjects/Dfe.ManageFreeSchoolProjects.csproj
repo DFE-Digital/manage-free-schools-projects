@@ -21,6 +21,25 @@
 	  <AdditionalFiles Include="..\.sonarlint\dfe-digital_a2b-internal\CSharp\SonarLint.xml" Link="SonarLint.xml" />
 	</ItemGroup>
 
+	<PropertyGroup Label="custom">
+		<BuildDateTime>$([System.DateTime]::UtcNow.ToString("s"))</BuildDateTime>
+		<BuildGuid>$([System.Guid]::NewGuid().ToString())</BuildGuid>
+		<CustomBuildMessage></CustomBuildMessage>
+		<ApplicationInsightsResourceId>/</ApplicationInsightsResourceId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="Dfe.ManageFreeSchoolProjects.Attributes.BuildTimeAttribute">
+			<_Parameter1>"$(BuildDateTime)"</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="Dfe.ManageFreeSchoolProjects.Attributes.BuildGuidAttribute">
+			<_Parameter1>"$(BuildGuid)"</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="Dfe.ManageFreeSchoolProjects.Attributes.CustomBuildMessageAttribute">
+			<_Parameter1>"$(CustomBuildMessage)"</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 	<ItemGroup>
 	  <PackageReference Include="AngleSharp" Version="1.0.4" />
 	  <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
