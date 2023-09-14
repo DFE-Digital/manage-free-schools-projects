@@ -129,7 +129,7 @@ describe("Testing the home page", () => {
                 });
         });
 
-        it("Should paginate the cases based on my filter criteria", () => {
+        it("Should paginate the projects based on my filter criteria", () => {
             homePage
                 .withProjectFilter(paginationPrefix)
                 .withRegionFilter(region)
