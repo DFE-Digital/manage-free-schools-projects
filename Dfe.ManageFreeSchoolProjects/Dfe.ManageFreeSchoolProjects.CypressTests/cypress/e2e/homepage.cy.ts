@@ -1,7 +1,10 @@
+import dashboardApi from "cypress/api/dashboardApi";
 import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
+import { Logger } from "cypress/common/logger";
 import homePage from "cypress/pages/homePage";
+import paginationComponent from "cypress/pages/paginationComponent";
 import projectTable from "cypress/pages/projectTable";
 
 describe("Testing the home page", () => {
@@ -10,7 +13,7 @@ describe("Testing the home page", () => {
         cy.visit("/");
     });
 
-    describe("Filtering by project title", () => {
+    describe("Filtering by project", () => {
         let firstProject: ProjectDetailsRequest;
         let secondProject: ProjectDetailsRequest;
         let projectTitlePrefix: string;
@@ -93,4 +96,101 @@ describe("Testing the home page", () => {
             projectTable.allRowsHaveLocalAuthority("Bedford");
         });
     });
+
+    describe("Pagination on the dashboard with filters for project", () => {
+        const paginationPrefix = "Pagination";
+        const region = "South East";
+
+        beforeEach(() => {
+            dashboardApi
+                .get({ project: paginationPrefix, regions: [region] })
+                .then((response) => {
+                    console.log(response);
+                    const currentNumberOfProjects = response.paging.recordCount;
+                    const projectsToCreate = 15 - currentNumberOfProjects;
+
+                    const projects: Array<ProjectDetailsRequest> = [];
+
+                    for (let idx = 0; idx < projectsToCreate; idx++) {
+                        const project = RequestBuilder.createProjectDetails();
+                        project.schoolName = `${project.schoolName.substring(
+                            0,
+                            15,
+                        )} ${paginationPrefix}`;
+                        project.region = region;
+                        projects.push(project);
+                    }
+
+                    projectApi.post({
+                        projects: projects,
+                    });
+
+                    cy.reload();
+                });
+        });
+
+        it("Should paginate the cases based on my filter criteria", () => {
+            homePage
+                .withProjectFilter(paginationPrefix)
+                .withRegionFilter(region)
+                .applyFilters();
+
+            let pageOneProjects: Array<string> = [];
+            let pageTwoProjects: Array<string> = [];
+
+            projectTable
+                .getProjectIds()
+                .then((projectIds: Array<string>) => {
+                    pageOneProjects = projectIds;
+
+                    Logger.log("Ensure we have 5 projects on page one");
+                    expect(pageOneProjects.length).to.eq(5);
+
+                    Logger.log(
+                        "Moving to the second page using the direct link",
+                    );
+                    paginationComponent.goToPage("2");
+                    return projectTable.getProjectIds();
+                })
+                .then((projectIds: Array<string>) => {
+                    pageTwoProjects = projectIds;
+
+                    Logger.log("Ensure we have 5 projects on page 2");
+                    expect(pageTwoProjects.length).to.equal(5);
+
+                    Logger.log(
+                        "Ensure that the projects on page one and two are different",
+                    );
+                    hasNoSimilarElements(pageOneProjects, pageTwoProjects);
+
+                    Logger.log("Move to the previous page, which is page 1");
+                    paginationComponent.previous();
+                    return projectTable.getProjectIds();
+                })
+                .then((projectIds: Array<string>) => {
+                    Logger.log(
+                        "On moving to page one, we should get the exact same projects",
+                    );
+                    expect(projectIds).to.deep.equal(pageOneProjects);
+
+                    Logger.log("Move to the next page, which is page 2");
+                    paginationComponent.next();
+                    return projectTable.getProjectIds();
+                })
+                .then((projectIds: Array<string>) => {
+                    Logger.log(
+                        "On moving to page two, we should get the exact same cases",
+                    );
+                    expect(projectIds).to.deep.equal(pageTwoProjects);
+                });
+        });
+    });
+
+    function hasNoSimilarElements(first: Array<string>, second: Array<string>) {
+        const firstSet = new Set(first);
+
+        const match = second.some((e) => firstSet.has(e));
+
+        expect(match).to.be.false;
+    }
 });
