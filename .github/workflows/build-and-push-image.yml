@@ -115,15 +115,18 @@ jobs:
     needs: [ build-and-push-image, set-env ]
     runs-on: ubuntu-22.04
     environment: ${{ needs.set-env.outputs.environment }}
+    strategy:
+      matrix:
+        image: ['web', 'api']
     steps:
       - name: Azure login with ACA credentials
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_ACA_CREDENTIALS }}
 
-      - name: Update Azure Container Apps Revision
+      - name: Update Web Container Revision
         uses: azure/CLI@v1
-        id: azure
+        if: matrix.image == 'web'
         with:
           azcliversion: 2.45.0
           inlineScript: |
@@ -131,5 +134,18 @@ jobs:
             az containerapp update \
               --name ${{ secrets.AZURE_ACA_NAME }} \
               --resource-group ${{ secrets.AZURE_ACA_RESOURCE_GROUP }} \
-              --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ needs.set-env.outputs.release }} \
+              --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }} \
+              --output none
+
+      - name: Update API Container Revision
+        uses: azure/CLI@v1
+        if: matrix.image == 'api'
+        with:
+          azcliversion: 2.45.0
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az containerapp update \
+              --name ${{ secrets.AZURE_API_ACA_NAME }} \
+              --resource-group ${{ secrets.AZURE_ACA_RESOURCE_GROUP }} \
+              --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }} \
               --output none
