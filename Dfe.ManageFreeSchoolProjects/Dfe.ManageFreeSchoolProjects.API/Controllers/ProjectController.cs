@@ -1,6 +1,7 @@
 using Azure;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -24,24 +25,26 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        public ActionResult CreateProject(CreateProjectRequest createProjectRequest)
+        public async Task<ActionResult> CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();
 
-            var result = _createProjectService.Execute(createProjectRequest);
+            var createResult = await _createProjectService.Execute(createProjectRequest);
 
-            foreach (ProjectResponseDetails proj in result.Result.Projects)
+            foreach (ProjectResponseDetails proj in createResult.Projects)
             {
                 if (proj.ProjectCreateState == ProjectCreateState.Exists)
                 {
-                    return new ObjectResult(result.Result)
+                    return new ObjectResult(createResult)
                     {
                         StatusCode = StatusCodes.Status422UnprocessableEntity
                     };
                 }
             }
 
-            return new ObjectResult(null)
+            var response = new ApiSingleResponseV2<CreateProjectResponse>(createResult);
+
+            return new ObjectResult(response)
             {
                 StatusCode = StatusCodes.Status201Created
             };

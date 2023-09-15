@@ -1,9 +1,12 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
@@ -24,9 +27,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
 
-            var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
+            var createProjectResponse = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
-            result.StatusCode.Should().Be(HttpStatusCode.Created);
+            createProjectResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var apiProjects  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
+
+            apiProjects.Data.Projects.Should().HaveCount(1);
+            apiProjects.Data.Projects[0].ProjectId.Should().Be(request.Projects[0].ProjectId);
 
             using var context = _testFixture.GetContext();
 
