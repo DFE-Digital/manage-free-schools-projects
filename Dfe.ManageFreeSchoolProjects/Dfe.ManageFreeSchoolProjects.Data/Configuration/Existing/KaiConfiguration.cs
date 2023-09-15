@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Kai> builder)
 		{
             builder.HasKey(e => e.Rid);
-            builder.ToTable("KAI");
+            builder.ToTable("KAI", b => b.IsTemporal());
 
             builder.Property(e => e.ApplicationDetailsAnyOtherFreedomsTheSchoolIntendsToUse)
                 .IsUnicode(false)

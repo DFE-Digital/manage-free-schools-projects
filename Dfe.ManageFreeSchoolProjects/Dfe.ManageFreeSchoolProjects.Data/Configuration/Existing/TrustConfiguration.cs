@@ -11,6 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Trust> builder)
 		{
             builder.HasKey(e => e.Rid);
+            builder.ToTable("Trust", b => b.IsTemporal());
 
             builder.Property(e => e.LeadSponsor)
                 .HasMaxLength(7)

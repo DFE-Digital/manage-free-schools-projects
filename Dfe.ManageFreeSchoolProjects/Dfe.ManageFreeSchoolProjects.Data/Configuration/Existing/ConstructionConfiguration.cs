@@ -11,6 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Construction> builder)
 		{
             builder.HasKey(e => e.Rid);
+            builder.ToTable("Construction", b => b.IsTemporal());
 
             builder.Property(e => e.IctDetailsBroadbandOrdered)
                 .HasColumnType("date")

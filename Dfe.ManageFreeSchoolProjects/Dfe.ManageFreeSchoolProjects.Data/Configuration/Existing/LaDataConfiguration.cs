@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<LaData> builder)
 		{
             builder.HasKey(e => e.LocalAuthoritiesLaCode);
-            builder.ToTable("LA_Data");
+            builder.ToTable("LA_Data", b => b.IsTemporal());
 
             builder.Property(e => e.LocalAuthoritiesCapitalCostTier)
                 .HasMaxLength(100)
