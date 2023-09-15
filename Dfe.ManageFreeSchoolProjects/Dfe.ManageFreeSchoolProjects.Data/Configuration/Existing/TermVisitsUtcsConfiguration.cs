@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Term_Visits_UTCs");
+                .ToTable("Term_Visits_UTCs", "dbo");
 
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)

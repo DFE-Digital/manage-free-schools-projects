@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Technical_QA");
+                .ToTable("Technical_QA", "dbo");
 
             builder.Property(e => e.Bim).HasColumnName("BIM");
             builder.Property(e => e.ComgdIssued).HasColumnName("COMGD Issued");
