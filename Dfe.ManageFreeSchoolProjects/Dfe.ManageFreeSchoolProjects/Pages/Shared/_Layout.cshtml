@@ -31,7 +31,6 @@
     <title>@ViewData["Title"] @titleDescription</title>
     <link rel="stylesheet" href="~/dist/site.css" />
     <link rel="stylesheet" href="~/dist/dfefrontend.css" />
-    <link rel="stylesheet" href="~/src/index.css" />
     <link rel="stylesheet" href="~/dist/accessible-autocomplete.min.css" asp-add-nonce />
     @if (showAnalytics)
     {
@@ -57,15 +56,15 @@
         <!-- End Google Tag Manager (noscript) -->
     }
 
-    <script type="text/javascript" src="~/dist/accessible-autocomplete.min.js" asp-add-nonce></script>
-    <script src="~/dist/jquery.min.js" asp-add-nonce></script>
-
 </head>
 <body class="govuk-template__body mfsp-wider-page">
 
     <script asp-add-nonce>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
+
+    <script src="~/dist/jquery.min.js" asp-add-nonce></script>
+
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
     <partial name="_CookieBanner" />
@@ -153,6 +152,7 @@
             </div>
         </div>
     </footer>
+    <script src="~/dist/accessible-autocomplete.min.js" asp-add-nonce></script>
     <script src="~/dist/site.js" asp-add-nonce></script>
 </body>
 </html>
