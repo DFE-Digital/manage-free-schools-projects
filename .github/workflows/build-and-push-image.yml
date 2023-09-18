@@ -149,3 +149,54 @@ jobs:
               --resource-group ${{ secrets.AZURE_ACA_RESOURCE_GROUP }} \
               --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }} \
               --output none
+              
+  cypress-tests:
+    name: Run Cypress Tests
+    if: needs.set-env.outputs.environment == 'staging' || needs.set-env.outputs.environment == 'development'
+    needs: [ deploy-image, set-env ]
+    runs-on: ubuntu-22.04
+    environment: ${{ needs.set-env.outputs.environment }}
+    defaults:
+      run:
+        working-directory: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Npm install
+        run: npm install
+
+      - name: Run cypress
+        run: npm run cy:run -- --env username=${{ secrets.USERNAME }},url=${{ secrets.AZURE_WEB_ENDPOINT }},api=${{ secrets.AZURE_API_ENDPOINT }},apiKey=${{ secrets.AZURE_API_KEY }},authKey=${{secrets.CYPRESS_TEST_SECRET}}
+
+      - name: Upload screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v1
+        with:
+          name: screenshots-${{ needs.set-env.outputs.environment }}
+          path: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/cypress/screenshots
+
+      - name: Generate report
+        if: always()
+        run: |
+          mkdir mochareports
+          npm run generate:html:report
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports-${{ needs.set-env.outputs.environment }}
+          path: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/mochareports
+
+      - name: Report results
+        if: always()
+        run: npm run cy:notify -- --custom-text="Environment ${{ needs.set-env.outputs.environment }}, See more information https://github.com/DFE-Digital/manage-free-schools-projects/actions/runs/${{github.run_id}}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
