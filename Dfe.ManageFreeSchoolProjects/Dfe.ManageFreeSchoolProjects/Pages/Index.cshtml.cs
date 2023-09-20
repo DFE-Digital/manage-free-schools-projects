@@ -1,14 +1,10 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
-using Dfe.ManageFreeSchoolProjects.Extensions;
-using Dfe.ManageFreeSchoolProjects.Logging;
+﻿using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dfe.BuildFreeSchools.Pages
@@ -43,6 +39,23 @@ namespace Dfe.BuildFreeSchools.Pages
 
 			return Page();
 		}
+
+		public async Task<IActionResult> OnGetMovePage()
+		{
+            _logger.LogMethodEntered();
+
+            try
+            {
+                await LoadPage();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+
+            return Page();
+        }
 
 		public async Task<IActionResult> OnPostSearch()
 		{
@@ -79,9 +92,15 @@ namespace Dfe.BuildFreeSchools.Pages
 
         protected async Task LoadPage()
 		{
-			await LoadDashboard(new GetDashboardServiceParameters());
+            var parameters = new LoadDashboardParameters()
+            {
+                GetDashboardServiceParameters = new GetDashboardServiceParameters(),
+                Url = "?handler=movePage"
+            };
+
+			await LoadDashboard(parameters);
 
 			Dashboard.Header = "All projects";
-		}
+        }
 	}
 }

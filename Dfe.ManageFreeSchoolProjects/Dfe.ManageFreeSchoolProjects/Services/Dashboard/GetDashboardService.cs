@@ -1,8 +1,6 @@
 ﻿using ConcernsCaseWork.Service.Base;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
-using Dfe.ManageFreeSchoolProjects.Extensions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
 {
     public interface IGetDashboardService
     {
-        public Task<List<GetDashboardResponse>> Execute(GetDashboardServiceParameters parameters);
+        public Task<ApiListWrapper<GetDashboardResponse>> Execute(GetDashboardServiceParameters parameters);
     }
 
     public record GetDashboardServiceParameters
@@ -20,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public string Project { get; set; }
         public List<string> Regions { get; set; }
         public List<string> LocalAuthorities { get; set; }
+        public int Page { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -31,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             _apiClient = apiClient;
         }
 
-        public async Task<List<GetDashboardResponse>> Execute(GetDashboardServiceParameters parameters)
+        public async Task<ApiListWrapper<GetDashboardResponse>> Execute(GetDashboardServiceParameters parameters)
         {
             var endpoint = $"/api/v1/client/dashboard";
 
@@ -57,11 +56,14 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
                 query = query.Add("localAuthorities", string.Join(",", parameters.LocalAuthorities));
             }
 
+            query = query.Add("page", parameters.Page.ToString());
+            query = query.Add("count", "5");
+
             endpoint += query.ToString();
 
             var result = await _apiClient.Get<ApiListWrapper<GetDashboardResponse>>(endpoint);
 
-            return result.Data.ToList();
+            return result;
         }
 
     }

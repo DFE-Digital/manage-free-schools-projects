@@ -43,3 +43,12 @@ export type CreateProjectResponse = {
 export type ProjectDetailsResponse = {
     projectId: string;
 };
+
+export type GetDashboardParameters = {
+    project: string;
+    regions: Array<string>;
+};
+
+export type GetDashboardResponse = {
+    projectTitle: string;
+};

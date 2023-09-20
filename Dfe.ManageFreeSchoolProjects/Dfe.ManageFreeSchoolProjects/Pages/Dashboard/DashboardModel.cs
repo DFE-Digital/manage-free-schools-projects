@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public string ProjectSearchTerm { get; set; }
         public List<string> RegionSearchTerm { get; set; } = new();
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
+
+        public PaginationModel Pagination { get; set; } = new();
     }
 }

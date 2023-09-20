@@ -17,6 +17,20 @@ export class ApiClient {
             });
     }
 
+    public get<TResponse extends object>(
+        endpoint: string,
+    ): Cypress.Chainable<TResponse> {
+        return cy
+            .request<TResponse>({
+                method: "GET",
+                url: Cypress.env(EnvApi) + endpoint,
+                headers: this.getHeaders(),
+            })
+            .then((response) => {
+                return response.body;
+            });
+    }
+
     protected getHeaders(): object {
         const result = {
             "Content-type": "application/json",

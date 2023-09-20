@@ -3,6 +3,8 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
@@ -242,31 +244,59 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.Should().BeEmpty();
         }
 
+        // Since the data isn't ordered we can't check specific projects are returned
+        // For now just checking the count
+        // TODO: Check specific projects
         [Fact]
-        public async Task When_Get_Returns_Dashboard_200()
+        public async Task When_Get_Pagination_Returns_Dashboard_200()
         {
             using var context = _testFixture.GetContext();
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
             var projectThree = DatabaseModelBuilder.BuildProject();
+            var projectFour = DatabaseModelBuilder.BuildProject();
+            var projectFive = DatabaseModelBuilder.BuildProject();
+            var projectSix = DatabaseModelBuilder.BuildProject();
+
+            var projects = new List<Kpi>()
+            {
+                projectOne,
+                projectTwo,
+                projectThree,
+                projectFour,
+                projectFive,
+                projectSix
+            };
 
             var user = await CreateUser();
             var dbUser = context.Users.First(u => u.Email == user.Email);
-            dbUser.Projects.Add(projectOne);
+            dbUser.Projects.AddRange(projects);
 
-            context.Kpi.AddRange(projectOne, projectTwo, projectThree);
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour, projectFive, projectSix);
 
             await context.SaveChangesAsync();
 
-            // Ensure project one and two belong to the first user
-            var dashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard");
-            dashboardResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var pageOneResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}&page=1&count=2");
+            pageOneResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var result = await dashboardResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+            var pageOneResult = await pageOneResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
 
-            result.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
-            result.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
-            result.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+            pageOneResult.Data.Should().HaveCount(2);
+            pageOneResult.Paging.RecordCount.Should().Be(6);
+            pageOneResult.Paging.Page.Should().Be(1);
+            pageOneResult.Paging.HasNext.Should().BeTrue();
+            pageOneResult.Paging.HasPrevious.Should().BeFalse();
+            pageOneResult.Paging.TotalPages.Should().Be(3);
+
+            var pageTwoResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}&page=3&count=2");
+            pageTwoResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var pageTwoResult = await pageTwoResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            pageTwoResult.Data.Should().HaveCount(2);
+            pageTwoResult.Paging.Page.Should().Be(3);
+            pageTwoResult.Paging.HasNext.Should().BeFalse();
+            pageTwoResult.Paging.HasPrevious.Should().BeTrue();
         }
 
         private async Task<CreateUserRequest> CreateUser()

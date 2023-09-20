@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
     public interface IGetDashboardService
     {
-        Task<List<GetDashboardResponse>> Execute(GetDashboardParameters parameters);
+        Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters);
     }
 
     public record GetDashboardParameters
@@ -18,6 +18,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string UserId { get; set; }
         public List<string> Regions { get; set; }
         public List<string> LocalAuthority { get; set; }
+        public int Page { get; set; }
+        public int Count { get; set; }
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -29,13 +31,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             _context = context;
         }
 
-        public async Task<List<GetDashboardResponse>> Execute(GetDashboardParameters parameters)
+        public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
         {
             var query = _context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
-            var projectRecords = await query.Take(30).ToListAsync();
+            var count = query.Count();
+
+            var projectRecords = await query.Paginate(parameters.Page, parameters.Count).ToListAsync();
 
             var result = projectRecords.Select(record =>
             {
@@ -51,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 };
             }).ToList();
 
-            return result;
+            return (result, count);
         }
 
         private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)

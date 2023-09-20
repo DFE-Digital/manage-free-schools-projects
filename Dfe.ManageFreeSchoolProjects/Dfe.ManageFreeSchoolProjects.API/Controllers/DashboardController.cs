@@ -1,8 +1,10 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
+using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -27,7 +29,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string userId,
             string regions,
             string localAuthorities,
-            string project)
+            string project,
+            int? page = 1,
+            int? count = 5)
         {
             _logger.LogMethodEntered();
 
@@ -39,21 +43,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 UserId = userId,
                 Regions = regionsToSearch,
                 Project = project,
-                LocalAuthority = localAuthoritiesToSearch
+                LocalAuthority = localAuthoritiesToSearch,
+                Page = page.Value,
+                Count = count.Value
             };
 
-            var projects = await _getDashboard.Execute(parameters);
+            var (projects, recordCount) = await _getDashboard.Execute(parameters);
 
-            return GetResponse(projects);
-        }
+            PagingResponse pagingResponse = BuildPaginationResponse(recordCount, page, count);
 
-        private ActionResult<ApiResponseV2<GetDashboardResponse>> GetResponse(List<GetDashboardResponse> projects)
-        {
-            var response = new ApiResponseV2<GetDashboardResponse>(projects, null);
+            var response = new ApiResponseV2<GetDashboardResponse>(projects, pagingResponse);
 
             _logger.LogInformation("Found {ProjectCount} projects", projects.Count);
 
             return Ok(response);
+        }
+
+        private PagingResponse BuildPaginationResponse(int recordCount, int? page = null, int? count = null)
+        {
+            PagingResponse result = null;
+
+            if (page.HasValue && count.HasValue)
+                result = PagingResponseFactory.Create(page.Value, count.Value, recordCount, Request);
+
+            return result;
         }
     }
 }

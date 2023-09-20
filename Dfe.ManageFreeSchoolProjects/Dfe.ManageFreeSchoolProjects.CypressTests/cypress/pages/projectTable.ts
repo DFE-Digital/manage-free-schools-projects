@@ -7,6 +7,21 @@ class ProjectTable {
         });
     }
 
+    public getProjectIds() {
+        const result: Array<string> = [];
+
+        return cy
+            .containsByTestId("row-")
+            .each(($el) => {
+                result.push($el.text());
+
+                return result;
+            })
+            .then(() => {
+                return result;
+            });
+    }
+
     public allRowsHaveRegion(region: string) {
         cy.containsByTestId(`row-`).each((el) => {
             const projectRow = new ProjectRow(el.get(0));
