@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("PDFD_Archive");
+                .ToTable("PDFD_Archive", "dbo");
 
             builder.Property(e => e.ActualDateOfOpeningActual)
                 .HasMaxLength(100)

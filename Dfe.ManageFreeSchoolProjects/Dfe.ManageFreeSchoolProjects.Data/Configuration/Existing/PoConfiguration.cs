@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("PO");
+                .ToTable("PO", "dbo");
 
             builder.Property(e => e.FinancialPlanningOptInToRpa)
                 .HasMaxLength(100)

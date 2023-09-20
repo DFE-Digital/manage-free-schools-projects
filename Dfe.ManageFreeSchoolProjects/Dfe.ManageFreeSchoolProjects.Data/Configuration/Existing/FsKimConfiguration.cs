@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("FS_KIM");
+                .ToTable("FS_KIM", "dbo");
 
             builder.Property(e => e.GeneralDetailsAcademyLaestab)
                 .HasMaxLength(100)
