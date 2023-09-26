@@ -28,7 +28,7 @@ public class EmailController : ControllerBase
          
          try
          {
-             await _emailService.SendEmail(email, "4cc18c16-5535-4498-a06f-2b3d1e3eb57b");
+             await _emailService.SendEmail(email);
              return Ok();
          }
          catch (Exception ex)

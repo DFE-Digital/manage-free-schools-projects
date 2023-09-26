@@ -6,20 +6,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 
 public interface IEmailService
 {
-    Task<EmailNotificationResponse> SendEmail(string email, string templateId);
+    Task<EmailNotificationResponse> SendEmail(string email);
 }
 
 public class EmailService : IEmailService
 {
-    //TODO: set this, where will we store & retrieve it for Dev & Prod?
-    private const string _apiKey = "";
+    private readonly IConfiguration _configuration;
+    
+    public EmailService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
 
-    public Task<EmailNotificationResponse> SendEmail(string email, string templateId)
+    public Task<EmailNotificationResponse> SendEmail(string email)
     {
         try
         {
-            var client = new NotificationClient(_apiKey);
-            return client.SendEmailAsync(email, templateId);
+            var client = new NotificationClient(_configuration.GetValue<string>("GovNotify:ApiKey"));
+            return client.SendEmailAsync(email, _configuration.GetValue<string>("GovNotify:TemplateId"));
         }
         catch (Exception e)
         {
