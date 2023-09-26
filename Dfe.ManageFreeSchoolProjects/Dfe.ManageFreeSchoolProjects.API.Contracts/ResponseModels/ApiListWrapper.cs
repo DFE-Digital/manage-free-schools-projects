@@ -1,32 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 
 namespace ConcernsCaseWork.Service.Base
 {
 	public sealed class ApiListWrapper<T>
 	{
-		[JsonPropertyName("data")] 
 		public IList<T> Data { get; }
 		
-		[JsonPropertyName("paging")]
-		public Pagination Paging { get; }
+		public PagingResponse Paging { get; }
 
-		[JsonConstructor]
-		public ApiListWrapper(IList<T> data, Pagination paging) => (Data, Paging) = (data, paging);
-
-		public class Pagination
-		{
-			[JsonPropertyName("page")]
-			public int Page { get; }
-			
-			[JsonPropertyName("recordCount")]
-			public int RecordCount { get; }
-			
-			[JsonPropertyName("nextPageUrl")]
-			public string NextPageUrl { get; }
-			
-			[JsonConstructor]
-			public Pagination(int page, int recordCount, string nextPageUrl) => 
-				(Page, RecordCount, NextPageUrl) = (page, recordCount, nextPageUrl);
-		}
+		public ApiListWrapper(IList<T> data, PagingResponse paging) => (Data, Paging) = (data, paging);
 	}
 }
