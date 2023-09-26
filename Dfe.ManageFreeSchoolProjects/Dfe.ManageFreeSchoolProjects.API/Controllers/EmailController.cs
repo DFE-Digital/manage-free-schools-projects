@@ -24,7 +24,11 @@ public class EmailController : ControllerBase
      {
          _logger.LogMethodEntered();
 
-         if (email.IsNullOrEmpty()) return BadRequest("Email is required.");
+         if (email.IsNullOrEmpty()) 
+             return BadRequest("Email is required.");
+
+         if (!_emailService.IsEmailValid(email)) 
+             return BadRequest("Email is not valid.");
          
          try
          {

@@ -1,4 +1,5 @@
-﻿using Notify.Client;
+﻿using System.ComponentModel.DataAnnotations;
+using Notify.Client;
 using Notify.Models.Responses;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
@@ -6,6 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 
 public interface IEmailService
 {
+    bool IsEmailValid(string email);
     Task<EmailNotificationResponse> SendEmail(string email);
 }
 
@@ -20,15 +22,12 @@ public class EmailService : IEmailService
 
     public Task<EmailNotificationResponse> SendEmail(string email)
     {
-        try
-        {
-            var client = new NotificationClient(_configuration.GetValue<string>("GovNotify:ApiKey"));
-            return client.SendEmailAsync(email, _configuration.GetValue<string>("GovNotify:TemplateId"));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Sending Email through Gov Notify failed.");
-            throw;
-        }    
+        var client = new NotificationClient(_configuration.GetValue<string>("GovNotify:ApiKey"));
+        return client.SendEmailAsync(email, _configuration.GetValue<string>("GovNotify:TemplateId"));
+    }
+
+    public bool IsEmailValid(string email)
+    {
+        return new EmailAddressAttribute().IsValid(email);
     }
 }
