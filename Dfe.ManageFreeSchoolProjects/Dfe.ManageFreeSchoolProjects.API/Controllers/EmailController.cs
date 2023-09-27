@@ -38,7 +38,7 @@ public class EmailController : ControllerBase
          catch (Exception ex)
          {
              _logger.LogErrorMsg(ex);
-             return new ObjectResult("Failed to send email. Check Gov Notify service.")
+             return new ObjectResult("Failed to send email. Check email exists/valid or Gov Notify service.")
                  { StatusCode = StatusCodes.Status500InternalServerError };
          }
      }
