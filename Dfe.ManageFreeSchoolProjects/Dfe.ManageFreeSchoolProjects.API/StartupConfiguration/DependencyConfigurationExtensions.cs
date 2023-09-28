@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
@@ -70,6 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateProjectByTaskService, UpdateProjectByTaskService>();
             services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
 			services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
+			services.AddScoped<IEmailService, EmailService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

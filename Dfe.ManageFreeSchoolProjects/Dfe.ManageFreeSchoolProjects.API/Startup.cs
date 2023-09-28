@@ -1,6 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.Middleware;
 using Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 using Dfe.ManageFreeSchoolProjects.Middleware;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
