@@ -18,7 +18,7 @@ public partial class KpiConfiguration : IEntityTypeConfiguration<Tasks>
             .IsRequired()
             .HasMaxLength(30)
             .IsUnicode(false)
-            .HasColumnName("Task")
+            .HasColumnName("TaskName")
             .HasConversion(taskConverter);
         
         var statusConverter = new EnumToStringConverter<Status>();

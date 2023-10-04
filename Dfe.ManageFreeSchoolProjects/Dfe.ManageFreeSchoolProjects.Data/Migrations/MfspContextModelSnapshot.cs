@@ -11150,7 +11150,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasMaxLength(30)
                         .IsUnicode(false)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("Task");
+                        .HasColumnName("TaskName");
 
                     b.HasKey("Rid");
 
