@@ -8,9 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="4.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Trust\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Dfe.ManageFreeSchoolProjects.API.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Trust\" />
   </ItemGroup>
 </Project>

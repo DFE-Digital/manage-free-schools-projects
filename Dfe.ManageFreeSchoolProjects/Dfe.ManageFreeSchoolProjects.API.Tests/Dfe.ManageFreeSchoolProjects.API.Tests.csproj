@@ -12,6 +12,7 @@
       <Compile Remove="Validators\**" />
       <EmbeddedResource Remove="Validators\**" />
       <None Remove="Validators\**" />
+      <Compile Remove="Integration\GetTrustApiTests.cs" />
     </ItemGroup>
 
     <ItemGroup>
