@@ -61,9 +61,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             var taskSummary = new ProjectByTaskSummaryResponse()
             {
                 School = new TaskSummaryResponse() { Name = "School", Status = ProjectTaskStatus.NotStarted },
-                Construction = new TaskSummaryResponse() { Name = "Construction", Status = ProjectTaskStatus.InProgress }
+                Construction = new TaskSummaryResponse() { Name = "Construction", Status = ProjectTaskStatus.InProgress },
+                Dates = new TaskSummaryResponse() {  Name = "Dates", Status = ProjectTaskStatus.NotStarted }
             };
-
+             
             var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(taskSummary);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };

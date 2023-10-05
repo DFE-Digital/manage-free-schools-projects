@@ -35,6 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.School.NumberOfCompanyMembers.Should().BeNull();
             result.Data.Construction.AddressOfSite.Should().BeNull();
             result.Data.Construction.BuildingType.Should().BeNull();
+            result.Data.Dates.DateOfEntryIntoPreopening.Should().BeNull();
+            result.Data.Dates.RealisticYearOfOpening.Should().BeNull();
         }
 
         [Fact]
@@ -118,6 +120,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.Construction.TrustName.Should().Be("Education First");
             projectResponse.Construction.SiteMinArea.Should().Be("10000");
             projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
+        }
+
+        [Fact]
+        public async Task Patch_DatesTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                Dates = new DatesTask()
+                {
+                    DateOfEntryIntoPreopening = "Lemon Site",
+                    ProvisionalOpeningDateAgreedWithTrust = "Fruitpickers Lane",
+                    RealisticYearOfOpening = "LF124YH",
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be("Lemon Site");
+            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be("Fruitpickers Lane");
+            projectResponse.Dates.RealisticYearOfOpening.Should().Be("LF124YH");
         }
 
         [Fact]

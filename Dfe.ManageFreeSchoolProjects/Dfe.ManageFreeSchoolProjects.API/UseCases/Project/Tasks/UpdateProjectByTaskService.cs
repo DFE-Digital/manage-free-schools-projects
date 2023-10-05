@@ -86,6 +86,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
         }
 
+        private static void ApplyDatesTaskUpdates(
+            DatesTask task,
+            Kpi dbKpi)
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            dbKpi.ProjectStatusDateOfEntryIntoPreOpening = DateTime.Parse(task.DateOfEntryIntoPreopening);
+            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = DateTime.Parse(task.ProvisionalOpeningDateAgreedWithTrust);
+        }
+
         private async Task<Kai> GetKai(string id)
         {
             var result = await _context.Kai.FirstOrDefaultAsync(e => e.Rid == id);

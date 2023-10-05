@@ -35,6 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.School.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.Construction.Name.Should().Be("Construction");
             result.Construction.Status.Should().Be(ProjectTaskStatus.InProgress);
+            result.Dates.Name.Should().Be("Dates");
+            result.Dates.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }

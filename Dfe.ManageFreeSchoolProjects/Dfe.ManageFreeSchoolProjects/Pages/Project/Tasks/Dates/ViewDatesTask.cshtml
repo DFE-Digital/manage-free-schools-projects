@@ -1,0 +1,105 @@
+﻿@page "/projects/{projectId}/tasks/dates"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewPropertyTaskModel
+@{
+    var editLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">St George's Primary super School</span>
+            Dates
+        </h1>
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Entry into pre-opening
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.Dates.DateOfEntryIntoPreopening);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Entry into pre-opening</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Provisional opening date agreed with trust
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.Dates.ProvisionalOpeningDateAgreedWithTrust);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Provisional opening date agreed with trust</span>
+                    </a>
+
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Opening academic year
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.Dates.OpeningAcademicYear);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> Opening academic year</span>
+                    </a>
+
+                </dd>
+            </div>
+        </dl>
+        <form method="post">
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="task-school-details-status" name="task-school-details-status" type="checkbox" value="Complete">
+                        <label class="govuk-label govuk-checkboxes__label" for="task-school-details-status">
+                            Mark this section as complete, you can still make changes later
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Confirm and continue
+            </button>
+        </form>
+
+    </div>
+</div>
+
+@functions {
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+}

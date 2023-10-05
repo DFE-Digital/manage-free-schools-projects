@@ -56,6 +56,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         TrustName = trust.TrustsTrustName,
                         SiteMinArea = construction.SiteDetailsAreaOfNewBuildM2,
                         TypeofWorksLocation = construction.SiteDetailsTypeOfWorks,
+                    },
+                    Dates = new DatesTask()
+                    {
+                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening.ToString(),
+                        RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
+                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust.ToString(),
                     }
                 }).FirstOrDefaultAsync();
 
