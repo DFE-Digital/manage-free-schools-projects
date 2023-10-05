@@ -67,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
                 OpeningAcademicYear = project.Dates.OpeningAcademicYear.Substring(0,4);
-                OpeningAcademicYearTo = project.Dates.OpeningAcademicYear.Substring(6);
+                OpeningAcademicYearTo = project.Dates.OpeningAcademicYear.Substring(5);
 
             }
             catch (Exception ex)
@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        OpeningAcademicYear = OpeningAcademicYear + " " + OpeningAcademicYearTo,
+                        OpeningAcademicYear = OpeningAcademicYear.Substring(0, 4) + " " + OpeningAcademicYearTo,
                     }
                 };
 
