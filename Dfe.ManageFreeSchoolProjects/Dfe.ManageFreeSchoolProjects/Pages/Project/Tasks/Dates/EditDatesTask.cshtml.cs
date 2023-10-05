@@ -41,6 +41,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [Required]
         public string OpeningAcademicYear { get; set; }
 
+        [BindProperty(Name = "opening-academic-year-to")]
+        [Required]
+        public string OpeningAcademicYearTo { get; set; }
+
         public EditDatesTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -62,7 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 var project = await _getProjectService.Execute(ProjectId);
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
-                OpeningAcademicYear = project.Dates.OpeningAcademicYear;
+                OpeningAcademicYear = project.Dates.OpeningAcademicYear.Substring(0,4);
+                OpeningAcademicYearTo = project.Dates.OpeningAcademicYear.Substring(6);
 
             }
             catch (Exception ex)
@@ -89,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        OpeningAcademicYear = OpeningAcademicYear,
+                        OpeningAcademicYear = OpeningAcademicYear + " " + OpeningAcademicYearTo,
                     }
                 };
 
