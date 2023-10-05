@@ -59,9 +59,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     },
                     Dates = new DatesTask()
                     {
-                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening.ToString(),
+                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                         RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust.ToString(),
+                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                     }
                 }).FirstOrDefaultAsync();
 

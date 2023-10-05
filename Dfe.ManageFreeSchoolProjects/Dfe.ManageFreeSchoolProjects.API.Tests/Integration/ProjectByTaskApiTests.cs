@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -132,21 +133,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
 
+            var DateTenDaysInFuture = new DateTime().AddDays(10);
+
             var request = new UpdateProjectByTaskRequest()
             {
                 Dates = new DatesTask()
                 {
-                    DateOfEntryIntoPreopening = "Lemon Site",
-                    ProvisionalOpeningDateAgreedWithTrust = "Fruitpickers Lane",
-                    RealisticYearOfOpening = "LF124YH",
+                    DateOfEntryIntoPreopening = DateTenDaysInFuture,
+                    ProvisionalOpeningDateAgreedWithTrust = DateTenDaysInFuture,
+                    RealisticYearOfOpening = "2023/2024",
                 }
             };
 
             var projectResponse = await UpdateProjectTask(projectId, request);
 
-            projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be("Lemon Site");
-            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be("Fruitpickers Lane");
-            projectResponse.Dates.RealisticYearOfOpening.Should().Be("LF124YH");
+            projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
+            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateTenDaysInFuture);
+            projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023/2024");
         }
 
         [Fact]

@@ -1,11 +1,10 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -15,35 +14,37 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 {
-    public class EditPropertyTaskModel : PageModel
+    public class EditDatesTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditSchoolTaskModel> _logger;
+        private readonly ILogger<EditDatesTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        [BindProperty(Name = "entry-into-pre-opening")]
+        [BindProperty(Name = "entry-into-pre-opening", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Entry into pre-opening")]
         [Required]
-        public string EntryIntoPreOpening { get; set; }
+        [DateValidation(DateRangeValidationService.DateRange.Future)]
+        public DateTime? EntryIntoPreOpening { get; set; }
 
-        [BindProperty(Name = "provisional-opening-date-agreed-with-trust")]
+        [BindProperty(Name = "provisional-opening-date-agreed-with-trust", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Provisional opening date agreed with trust")]
         [Required]
-        public string ProvisionalOpeningDateAgreedWithTrust { get; set; }
+        [DateValidation(DateRangeValidationService.DateRange.Future)]
+        public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
 
         [BindProperty(Name = "opening-academic-year")]
         [Display(Name = "Opening academic year")]
         [Required]
         public string OpeningAcademicYear { get; set; }
 
-        public EditPropertyTaskModel(
+        public EditDatesTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditSchoolTaskModel> logger,
+            ILogger<EditDatesTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;

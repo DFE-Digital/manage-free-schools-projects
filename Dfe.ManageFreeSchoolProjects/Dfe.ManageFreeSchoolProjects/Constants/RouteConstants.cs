@@ -12,6 +12,6 @@
         public const string EditConstructionTask = ViewConstructionTask + "/edit";
 
         public const string ViewDatesTask = TaskList + "/dates";
-        public const string EditDatesTask = ViewConstructionTask + "/edit";
+        public const string EditDatesTask = ViewDatesTask + "/edit";
     }
 }

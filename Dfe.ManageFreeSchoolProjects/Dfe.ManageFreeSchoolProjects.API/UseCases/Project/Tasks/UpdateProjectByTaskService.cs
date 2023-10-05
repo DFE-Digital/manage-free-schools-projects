@@ -95,9 +95,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 return;
             }
 
-            dbKpi.ProjectStatusDateOfEntryIntoPreOpening = DateTime.Parse(task.DateOfEntryIntoPreopening);
+            dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
-            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = DateTime.Parse(task.ProvisionalOpeningDateAgreedWithTrust);
+            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 
         private async Task<Kai> GetKai(string id)

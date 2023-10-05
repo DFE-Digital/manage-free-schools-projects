@@ -1,8 +1,8 @@
 ﻿@page "/projects/{projectId}/tasks/dates"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewPropertyTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewDatesTaskModel
 @{
-    var editLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
+    var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
 }
 
 <div class="govuk-grid-row">
@@ -20,7 +20,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.Dates.DateOfEntryIntoPreopening);
+                        RenderValue(Model.Project.Dates.DateOfEntryIntoPreopening.ToDateString());
                     }
                 </dd>
 
@@ -38,7 +38,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.Dates.ProvisionalOpeningDateAgreedWithTrust);
+                        RenderValue(Model.Project.Dates.ProvisionalOpeningDateAgreedWithTrust.ToDateString());
                     }
                 </dd>
 

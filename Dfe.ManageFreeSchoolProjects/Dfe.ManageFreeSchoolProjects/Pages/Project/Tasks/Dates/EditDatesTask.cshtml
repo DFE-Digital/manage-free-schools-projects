@@ -1,5 +1,5 @@
 ﻿@page "/projects/{projectId}/tasks/dates/edit"
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditPropertyTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditDatesTaskModel
 @{
 }
 
@@ -16,8 +16,8 @@
 
                 <form method="post">
 
-                    <govuk-text-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" />
-                    <govuk-text-input id="provisional-opening-date-agreed-with-trust" name="provisional-opening-date-agreed-with-trust" asp-for="@Model.ProvisionalOpeningDateAgreedWithTrust" data-testid="provisional-opening-date-agreed-with-trust" label="Provisional opening date agreed with trust" />
+                    <govuk-date-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" />
+                    <govuk-date-input id="provisional-opening-date-agreed-with-trust" name="provisional-opening-date-agreed-with-trust" asp-for="@Model.ProvisionalOpeningDateAgreedWithTrust" data-testid="provisional-opening-date-agreed-with-trust" label="Provisional opening date agreed with trust" />
                     <govuk-text-input id="opening-academic-year" name="opening-academic-year" asp-for="@Model.OpeningAcademicYear" data-testid="opening-academic-year" label="Opening academic year" />
 
                     <button class="govuk-button" data-module="govuk-button">

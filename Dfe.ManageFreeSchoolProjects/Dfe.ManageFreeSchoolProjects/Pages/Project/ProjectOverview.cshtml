@@ -152,7 +152,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
                     @{
-                        RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening);
+                        RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening.ToDateString());
                     }
                 </dd>
 
@@ -164,7 +164,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="provisional-opening-date-agreed-with-trust">
                     @{
-                        RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust);
+                        RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust.ToDateString());
                     }
                 </dd>
 

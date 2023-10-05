@@ -1,8 +1,6 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Task;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 {
-    public class ViewPropertyTaskModel : PageModel
+    public class ViewConstructionTaskModel : PageModel
     {
-        private readonly ILogger<ViewSchoolTaskModel> _logger;
+        private readonly ILogger<ViewConstructionTaskModel> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -22,9 +20,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 
         public GetProjectByTaskResponse Project { get; set; }
 
-        public ViewPropertyTaskModel(
+        public ViewConstructionTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewSchoolTaskModel> logger)
+            ILogger<ViewConstructionTaskModel> logger)
         {
             _logger = logger;
             _getProjectService = getProjectService;
