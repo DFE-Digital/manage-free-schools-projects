@@ -37,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+            ApplyDatesTaskUpdates(request.Dates, dbKpi);
 
             await _context.SaveChangesAsync();
         }
@@ -96,7 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             }
 
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
-            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.ProjectStatusTrustsPreferredYearOfOpening = task.OpeningAcademicYear;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 
