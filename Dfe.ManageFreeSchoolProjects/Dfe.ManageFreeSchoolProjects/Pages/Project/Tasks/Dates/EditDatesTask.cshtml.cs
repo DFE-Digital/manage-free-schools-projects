@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        OpeningAcademicYear = OpeningAcademicYear.Substring(0, 4) + " " + OpeningAcademicYearTo,
+                        OpeningAcademicYear = OpeningAcademicYear.Trim() + " " + OpeningAcademicYearTo.Trim(),
                     }
                 };
 
