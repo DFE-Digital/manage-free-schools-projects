@@ -97,7 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             }
 
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
-            dbKpi.ProjectStatusTrustsPreferredYearOfOpening = task.OpeningAcademicYear;
+            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 

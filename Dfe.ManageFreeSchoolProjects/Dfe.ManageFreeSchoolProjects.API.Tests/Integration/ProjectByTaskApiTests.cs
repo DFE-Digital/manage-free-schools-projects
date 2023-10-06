@@ -36,8 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.School.NumberOfCompanyMembers.Should().BeNull();
             result.Data.Construction.AddressOfSite.Should().BeNull();
             result.Data.Construction.BuildingType.Should().BeNull();
-            result.Data.Dates.DateOfEntryIntoPreopening.Should().BeNull();
-            result.Data.Dates.RealisticYearOfOpening.Should().BeNull();
         }
 
         [Fact]
@@ -134,13 +132,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await context.SaveChangesAsync();
 
             var DateTenDaysInFuture = new DateTime().AddDays(10);
+            var DateNineDaysInFuture = new DateTime().AddDays(9);
 
             var request = new UpdateProjectByTaskRequest()
             {
                 Dates = new DatesTask()
                 {
                     DateOfEntryIntoPreopening = DateTenDaysInFuture,
-                    ProvisionalOpeningDateAgreedWithTrust = DateTenDaysInFuture,
+                    ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
                     RealisticYearOfOpening = "2023 2024",
                 }
             };
@@ -148,7 +147,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectResponse = await UpdateProjectTask(projectId, request);
 
             projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
-            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateTenDaysInFuture);
+            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
             projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
         }
 

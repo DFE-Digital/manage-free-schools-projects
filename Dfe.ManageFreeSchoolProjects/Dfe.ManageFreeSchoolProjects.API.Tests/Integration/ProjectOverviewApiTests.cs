@@ -39,8 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectStatus.Urn.Should().Be(project.ProjectStatusUrnWhenGivenOne);
             projectStatus.ApplicationWave.Should().Be(project.ProjectStatusFreeSchoolApplicationWave);
             projectStatus.RealisticYearOfOpening.Should().Be(project.ProjectStatusRealisticYearOfOpening);
-            projectStatus.DateOfEntryIntoPreopening.Should().Be(project.ProjectStatusDateOfEntryIntoPreOpening);
-            projectStatus.ProvisionalOpeningDateAgreedWithTrust.Should().Be(project.ProjectStatusProvisionalOpeningDateAgreedWithTrust);
+            projectStatus.DateOfEntryIntoPreopening.Should().Be(project.ProjectStatusDateOfEntryIntoPreOpening.Value.Date);
+            projectStatus.ProvisionalOpeningDateAgreedWithTrust.Should().Be(project.ProjectStatusProvisionalOpeningDateAgreedWithTrust.Value.Date);
             projectStatus.ActualOpeningDate.Should().Be(project.ProjectStatusActualOpeningDate.Value.Date.ToString());
             projectStatus.OpeningAcademicYear.Should().Be(project.ProjectStatusTrustsPreferredYearOfOpening);
 
