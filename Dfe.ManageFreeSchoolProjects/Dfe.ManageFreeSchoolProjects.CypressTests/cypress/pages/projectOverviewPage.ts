@@ -6,11 +6,6 @@ class ProjectOverviewPage {
         return this;
     }
 
-    public selectDatesFromTaskList(): this {
-        cy.contains("Dates").click()
-        return this;
-    }
-
     public hasProjectTitleHeader(value: string): this {
         cy.getByTestId("project-title-header").should("contain.text", value);
 

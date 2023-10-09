@@ -3,6 +3,7 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
+import taskListPage from "cypress/pages/taskList";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -26,7 +27,7 @@ describe("Testing project overview", () => {
 
         projectOverviewPage.selectTaskListTab();
 
-        projectOverviewPage.selectDatesFromTaskList();
+        taskListPage.selectDatesFromTaskList();
 
 
 
