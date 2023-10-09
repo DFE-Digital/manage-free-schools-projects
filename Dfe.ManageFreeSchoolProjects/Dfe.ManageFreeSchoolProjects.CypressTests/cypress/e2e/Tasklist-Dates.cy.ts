@@ -28,5 +28,5 @@ describe("Testing project overview", () => {
 
         
 
-    
+    });
 });
