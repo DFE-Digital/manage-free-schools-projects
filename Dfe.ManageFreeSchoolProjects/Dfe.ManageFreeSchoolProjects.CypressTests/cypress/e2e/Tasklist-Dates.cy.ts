@@ -24,9 +24,11 @@ describe("Testing project overview", () => {
     it("Should successfully set project dates", () => {
         Logger.log("Clicking on Task list tab");
 
-        projectOverviewPage.selectTaskListTab()
+        projectOverviewPage.selectTaskListTab();
 
-        
+        projectOverviewPage.selectDatesFromTaskList();
+
+
 
     });
 });

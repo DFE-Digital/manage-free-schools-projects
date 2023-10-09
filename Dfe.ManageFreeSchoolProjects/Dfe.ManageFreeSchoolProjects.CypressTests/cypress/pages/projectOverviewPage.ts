@@ -3,7 +3,12 @@ class ProjectOverviewPage {
     public selectTaskListTab(): this {
         cy.contains("Task list").click()
         
-        return this
+        return this;
+    }
+
+    public selectDatesFromTaskList(): this {
+        cy.contains("Dates").click()
+        return this;
     }
 
     public hasProjectTitleHeader(value: string): this {
