@@ -25,13 +25,15 @@ describe("Testing project overview", () => {
 
     it("Should successfully set project dates", () => {
         Logger.log("Clicking on Task list tab");
-
         projectOverviewPage.selectTaskListTab();
 
+        Logger.log("Selecting Dates link from Tasklist")
         taskListPage.selectDatesFromTaskList();
 
+        Logger.log("Checking Dates Summary page elements present")
         datesSummaryPage.verifyDatesSummaryElementsVisible();
 
+        Logger.log("Selecting first Change link from first 'Pre-opening' line")
         datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
 
 
