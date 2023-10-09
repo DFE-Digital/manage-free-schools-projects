@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing;
 
-public partial class KpiConfiguration : IEntityTypeConfiguration<Tasks>
+public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
 {
     public void Configure(EntityTypeBuilder<Tasks> builder)
     {

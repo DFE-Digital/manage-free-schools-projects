@@ -13,6 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     public partial class Tasks
     {
         public string Rid { get; set; }
+        
+        public string ProjectId { get; set; }
 
         public TaskName TaskName { get; set; }
 

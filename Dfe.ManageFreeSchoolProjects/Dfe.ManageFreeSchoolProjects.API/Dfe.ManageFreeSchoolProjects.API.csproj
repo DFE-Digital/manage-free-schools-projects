@@ -47,6 +47,5 @@
       <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Logging\Dfe.ManageFreeSchoolProjects.Logging.csproj" />
       <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
     </ItemGroup>
-
-
+  
 </Project>
