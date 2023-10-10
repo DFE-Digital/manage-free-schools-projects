@@ -24,6 +24,32 @@ class DatesSummaryPage {
         return this;
     }
 
+    public verifyDatesSummaryCompleteElementsVisible(): this {
+        cy.getByClass("govuk-caption-l").should("be.visible");
+        cy.getByClass("govuk-heading-xl").contains("Dates");
+
+        cy.getByClass("govuk-summary-list__key").eq(0).contains("Entry into pre-opening");
+        cy.getByClass("govuk-summary-list__value").eq(0).contains("28 February 2025");
+        cy.getByClass("govuk-link").eq(2).contains("Change");
+
+        cy.getByClass("govuk-summary-list__key").eq(1).contains("Provisional opening date agreed with trust");
+        cy.getByClass("govuk-summary-list__value").eq(1).contains("28 February 2025");
+        cy.getByClass("govuk-link").eq(3).contains("Change");
+
+        cy.getByClass("govuk-summary-list__key").eq(2).contains("Opening academic year");
+        cy.getByClass("govuk-summary-list__value").eq(2).contains("2025 2026");
+        cy.getByClass("govuk-link").eq(4).contains("Change");
+
+        cy.getById("task-school-details-status").should("not.be.checked");
+        cy.contains("Mark this section as complete, you can still make changes later");
+
+        cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
+        
+        return this;
+    }
+
+
+
     public selectChangePreopeningToGoToDatesDetails(): this {
         cy.getByClass("govuk-link").eq(4).click();
 
