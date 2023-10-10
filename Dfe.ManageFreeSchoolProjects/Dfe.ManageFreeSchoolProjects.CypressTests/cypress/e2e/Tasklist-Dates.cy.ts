@@ -50,7 +50,7 @@ describe("Testing project overview", () => {
         datesDetailsPage.selectSaveAndContinueButton()
         
         cy.excuteAccessibilityTests();
-        cy.checkA11y();;
+        cy.checkA11y();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         datesDetailsPage.verifyValidationMessagesWhenNoDataSet();
@@ -99,6 +99,9 @@ describe("Testing project overview", () => {
 
         cy.excuteAccessibilityTests();
         cy.checkA11y();
+
+        Logger.log("Verify Dates Summary Page Complete Elements Visible");
+        datesSummaryPage.verifyDatesSummaryElementsVisible();
 
     });
 });
