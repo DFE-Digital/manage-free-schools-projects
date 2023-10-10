@@ -101,7 +101,7 @@ describe("Testing project overview", () => {
         cy.checkA11y();
 
         Logger.log("Verify Dates Summary Page Complete Elements Visible");
-        datesSummaryPage.verifyDatesSummaryElementsVisible();
+        datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
 
     });
 });
