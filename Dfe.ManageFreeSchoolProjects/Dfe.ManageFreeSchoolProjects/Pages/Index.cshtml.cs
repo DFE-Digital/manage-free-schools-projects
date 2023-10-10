@@ -95,7 +95,7 @@ namespace Dfe.BuildFreeSchools.Pages
             var parameters = new LoadDashboardParameters()
             {
                 GetDashboardServiceParameters = new GetDashboardServiceParameters(),
-                Url = "?handler=movePage"
+                Url = string.Empty
             };
 
 			await LoadDashboard(parameters);
