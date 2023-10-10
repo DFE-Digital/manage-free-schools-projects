@@ -1,6 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
@@ -28,18 +27,10 @@ public class GetTasksService : IGetTasksService
         var response = dbTasks.Select(task => new TaskSummaryResponse
         {
             Name = task.TaskName.ToString(),
-            Status = MapTaskStatus(task.Status)
+            Status = TaskStatusMapper.MapTaskStatus(task.Status)
         });
     
         return response.ToList();
     }
-
-    private ProjectTaskStatus MapTaskStatus(Status taskStatus) => taskStatus switch
-    {
-        Status.NotStarted => ProjectTaskStatus.NotStarted,
-        Status.InProgress => ProjectTaskStatus.InProgress,
-        Status.Completed => ProjectTaskStatus.Completed,
-        _ => throw new ArgumentOutOfRangeException(nameof(taskStatus), taskStatus, null)
-    };
 }
 

@@ -22,7 +22,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     public enum TaskName
     {
         School,
-        Construction
+        Construction, 
+        Dates
     }
 
     public enum Status
