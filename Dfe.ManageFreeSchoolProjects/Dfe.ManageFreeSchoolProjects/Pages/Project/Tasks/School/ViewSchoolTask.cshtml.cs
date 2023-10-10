@@ -18,6 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
+        
+        [BindProperty(SupportsGet = true, Name = "task-school-details-status")]
+        public bool MarkAsComplete { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
 
@@ -48,6 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public ActionResult OnPost()
         {
+            var completed = MarkAsComplete;
             return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
         }
     }

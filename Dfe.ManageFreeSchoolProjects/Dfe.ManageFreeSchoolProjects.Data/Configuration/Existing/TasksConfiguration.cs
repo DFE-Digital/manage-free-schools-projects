@@ -11,7 +11,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
     {
         builder
             .ToTable("Tasks", "dbo")
-            .HasNoKey();
+            .HasKey(tasks => new { tasks.Rid, tasks.TaskName });
 
         builder.Property(e => e.Rid)
             .HasMaxLength(30)

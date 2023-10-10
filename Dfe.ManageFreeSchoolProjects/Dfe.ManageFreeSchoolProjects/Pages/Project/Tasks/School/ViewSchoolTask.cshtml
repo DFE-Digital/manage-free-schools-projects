@@ -171,7 +171,7 @@
             <div class="govuk-form-group">
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="task-school-details-status" name="task-school-details-status" type="checkbox" value="Complete">
+                        <input class="govuk-checkboxes__input" id="task-school-details-status" name="task-school-details-status" asp-for="@Model.MarkAsComplete" type="checkbox" value="@Model.MarkAsComplete">
                         <label class="govuk-label govuk-checkboxes__label" for="task-school-details-status">
                             Mark this section as complete, you can still make changes later
                         </label>

@@ -23,7 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     {
         School,
         Construction, 
-        Dates
+        Dates,
+        RiskAppraisal
     }
 
     public enum Status

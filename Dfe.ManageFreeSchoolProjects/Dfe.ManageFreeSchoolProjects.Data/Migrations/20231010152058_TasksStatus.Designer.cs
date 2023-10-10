@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    [Migration("20231010095927_TasksStatus")]
+    [Migration("20231010152058_TasksStatus")]
     partial class TasksStatus
     {
         /// <inheritdoc />
@@ -11144,6 +11144,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("RID");
 
+                    b.Property<string>("TaskName")
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("Task Name");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -11151,12 +11157,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("Status");
 
-                    b.Property<string>("TaskName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("Task Name");
+                    b.HasKey("Rid", "TaskName");
 
                     b.ToTable("Tasks", "dbo");
                 });

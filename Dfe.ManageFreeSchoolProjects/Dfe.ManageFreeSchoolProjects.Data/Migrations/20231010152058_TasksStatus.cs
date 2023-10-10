@@ -15,12 +15,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    RID = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: true),
+                    RID = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     TaskName = table.Column<string>(name: "Task Name", type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     Status = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Tasks", x => new { x.RID, x.TaskName });
                 });
         }
 

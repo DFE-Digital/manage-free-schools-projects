@@ -25,15 +25,16 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
         var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
         
         //taskName might need mapping to TaskName enum if contains multiple words from frontend
-        var task = await _context.Tasks.SingleOrDefaultAsync(e => e.Rid == dbKpi.Rid && e.TaskName.ToString() == taskName);
+        var task = await _context.Tasks.FirstOrDefaultAsync(e => e.Rid == dbKpi.Rid && e.TaskName == Enum.Parse<TaskName>(taskName));
 
-        var parsedStatus = (Status) Enum.Parse(typeof(Status), updatedProjectTaskStatus.ToString());
+        var parsedStatus = TaskStatusMapper.MapProjectTaskStatus(updatedProjectTaskStatus);
 
         if (task.Status == parsedStatus)
             return;
         
-        task.Status = parsedStatus; 
+        task.Status = parsedStatus;
 
+        _context.Entry(task).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 }

@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
     public class UpdateProjectByTaskService : IUpdateProjectByTaskService
     {
-        public readonly MfspContext _context;
+        private readonly MfspContext _context;
 
         public UpdateProjectByTaskService(MfspContext context)
         {
@@ -33,11 +33,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             var dbProperty = await GetProperty(dbKpi.Rid);
             var dbTrust = await GetTrust(dbKpi.Rid);
             var dbConstruction = await GetConstruction(dbKpi.Rid);
-
+            
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
 
+            await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
+            
             await _context.SaveChangesAsync();
         }
 
@@ -154,5 +156,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             return result;
         }
+
+        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
+            UpdateProjectByTaskRequest updateProjectByTaskRequest)
+        {
+            TaskName taskToUpdate;
+            
+            if (updateProjectByTaskRequest.Construction != null)
+                taskToUpdate = TaskName.Construction;
+            else if (updateProjectByTaskRequest.School != null)
+                taskToUpdate = TaskName.School;
+            else if (updateProjectByTaskRequest.Dates != null)
+                taskToUpdate = TaskName.Dates;
+            else if (updateProjectByTaskRequest.RiskAppraisal != null)
+                taskToUpdate = TaskName.RiskAppraisal;
+            else
+                return;
+            
+            var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid && x.TaskName == taskToUpdate);
+            
+            if (task is null)
+                return; 
+            
+            task.Status = updatedStatus;
+        } 
     }
 }

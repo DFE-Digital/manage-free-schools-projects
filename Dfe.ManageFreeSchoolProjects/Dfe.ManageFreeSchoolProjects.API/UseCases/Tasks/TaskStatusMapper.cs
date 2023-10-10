@@ -12,4 +12,12 @@ public static class TaskStatusMapper
         Status.Completed => ProjectTaskStatus.Completed,
         _ => throw new ArgumentOutOfRangeException(nameof(taskStatus), taskStatus, null)
     };
+    
+    public static Status MapProjectTaskStatus(ProjectTaskStatus projectTaskStatus) => projectTaskStatus switch
+    {
+        ProjectTaskStatus.NotStarted => Status.NotStarted,
+        ProjectTaskStatus.InProgress => Status.InProgress,
+        ProjectTaskStatus.Completed => Status.Completed,
+        _ => throw new ArgumentOutOfRangeException(nameof(projectTaskStatus), projectTaskStatus, null)
+    };
 }

@@ -14,18 +14,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly IGetProjectByTaskService _getProjectByTaskService;
         private readonly IGetTasksService _getTasksService;
+        private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ILogger<ProjectTaskController> _logger;
 
         public ProjectTaskController(
             IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
             IGetTasksService getTasksService,
-            ILogger<ProjectTaskController> logger)
+            ILogger<ProjectTaskController> logger, IUpdateTaskStatusService updateTaskStatusService)
         {
             _updateProjectTaskService = updateProjectTaskService;
             _getProjectByTaskService = getProjectByTaskService;
             _getTasksService = getTasksService;
             _logger = logger;
+            _updateTaskStatusService = updateTaskStatusService;
         }
 
         [HttpPatch]
@@ -43,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string projectId)
         {
             _logger.LogMethodEntered();
-
+            
             var projectByTask = await _getProjectByTaskService.Execute(projectId);
 
             if (projectByTask == null)
@@ -70,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             {
                 School = projectTasks.SingleOrDefault(x => x.Name == "School"),
                 Construction = projectTasks.SingleOrDefault(x => x.Name == "Construction"),
-                Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
+                // Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
             };
 
             var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(taskSummary);
