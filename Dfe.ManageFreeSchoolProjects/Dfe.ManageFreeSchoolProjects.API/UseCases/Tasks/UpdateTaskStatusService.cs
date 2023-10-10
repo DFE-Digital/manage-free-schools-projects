@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 
-public interface ITasksService
+public interface IUpdateTaskStatusService
 {
     Task Execute(string projectId, ProjectTaskStatus projectTaskStatus);
 }
 
-public class UpdateTaskStatusService : ITasksService
+public class UpdateTaskStatusService : IUpdateTaskStatusService
 {
     private readonly MfspContext _context;
 

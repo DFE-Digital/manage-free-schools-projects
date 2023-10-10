@@ -5,7 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 
-public class GetTasksService
+public interface IGetTasksService
+{ 
+    Task<List<TaskSummaryResponse>> Execute(string projectId);
+}
+
+public class GetTasksService : IGetTasksService
 {
     private readonly MfspContext _context;
 
@@ -16,22 +21,25 @@ public class GetTasksService
 
     public async Task<List<TaskSummaryResponse>> Execute(string projectId)
     {
-        var dbTasks = await _context.Tasks.Where(x => x.Rid == projectId).ToListAsync();
+        var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
+        var dbTasks = await _context.Tasks.Where(x => x.Rid == dbKpi.Rid).ToListAsync();
+    
         var response = dbTasks.Select(task => new TaskSummaryResponse
         {
             Name = task.TaskName.ToString(),
             Status = MapTaskStatus(task.Status)
         });
-
+    
         return response.ToList();
     }
 
     private ProjectTaskStatus MapTaskStatus(Status taskStatus) => taskStatus switch
     {
-        Status.InProgress => ProjectTaskStatus.InProgress,
         Status.NotStarted => ProjectTaskStatus.NotStarted,
+        Status.InProgress => ProjectTaskStatus.InProgress,
         Status.Completed => ProjectTaskStatus.Completed,
         _ => throw new ArgumentOutOfRangeException(nameof(taskStatus), taskStatus, null)
     };
 }
+

@@ -14,8 +14,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     {
         public string Rid { get; set; }
         
-        public string ProjectId { get; set; }
-
         public TaskName TaskName { get; set; }
 
         public Status Status { get; set; }

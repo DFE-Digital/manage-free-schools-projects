@@ -9,22 +9,26 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
 {
     public void Configure(EntityTypeBuilder<Tasks> builder)
     {
-        builder.HasKey(e => e.Rid);
-        builder.ToTable("Tasks", "dbo");
+        builder
+            .ToTable("Tasks", "dbo")
+            .HasNoKey();
 
-        var taskConverter = new EnumToStringConverter<TaskName>();
-        
-        builder.Property(e => e.TaskName)
-            .IsRequired()
+        builder.Property(e => e.Rid)
             .HasMaxLength(30)
             .IsUnicode(false)
-            .HasColumnName("TaskName")
+            .HasColumnName("RID");
+
+        var taskConverter = new EnumToStringConverter<TaskName>();
+
+        builder.Property(e => e.TaskName)
+            .HasMaxLength(30)
+            .IsUnicode(false)
+            .HasColumnName("Task Name")
             .HasConversion(taskConverter);
-        
+
         var statusConverter = new EnumToStringConverter<Status>();
-        
+
         builder.Property(e => e.Status)
-            .IsRequired()
             .HasMaxLength(20)
             .IsUnicode(false)
             .HasColumnName("Status")

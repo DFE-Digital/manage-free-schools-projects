@@ -9,6 +9,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -72,7 +73,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IGetProjectByTaskService, GetProjectByTaskService>();
 			services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
 			services.AddScoped<IEmailService, EmailService>();
-
+			services.AddScoped<IGetTasksService, GetTasksService>(); 
+			services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
+			
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;
