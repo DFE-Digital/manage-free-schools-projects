@@ -136,10 +136,10 @@ class DatesDetailsPage {
         cy.getById("provisional-opening-date-agreed-with-trust-year").type(dateYear);
 
         cy.getByTestId("opening-academic-year").click()
-        cy.getByTestId("opening-academic-year").type("2023");
+        cy.getByTestId("opening-academic-year").type("2025");
 
         cy.getByTestId("opening-academic-year-to").click()
-        cy.getByTestId("opening-academic-year-to").type("2024");
+        cy.getByTestId("opening-academic-year-to").type("2026");
 
 
         return this;
