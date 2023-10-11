@@ -27,7 +27,7 @@ public class GetAllTasksStatusService : IGetTasksService
         var response = dbTasks.Select(task => new TaskSummaryResponse
         {
             Name = task.TaskName.ToString(),
-            Status = TaskStatusMapper.MapTaskStatus(task.Status)
+            Status = task.Status.Map()
         });
     
         return response.ToList();

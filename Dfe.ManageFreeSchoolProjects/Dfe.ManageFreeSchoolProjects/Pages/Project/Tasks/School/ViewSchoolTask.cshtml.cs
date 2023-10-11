@@ -59,9 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public ActionResult OnPost()
         {
-                
-                
-                
+            //just send PATCH request regardless
             return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
         }
     }

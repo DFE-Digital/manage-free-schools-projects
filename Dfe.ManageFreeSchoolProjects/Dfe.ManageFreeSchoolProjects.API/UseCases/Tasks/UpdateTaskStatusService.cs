@@ -27,7 +27,7 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
         //taskName might need mapping to TaskName enum if contains multiple words from frontend
         var task = await _context.Tasks.FirstOrDefaultAsync(e => e.Rid == dbKpi.Rid && e.TaskName == Enum.Parse<TaskName>(taskName));
 
-        var parsedStatus = TaskStatusMapper.MapProjectTaskStatus(updatedProjectTaskStatus);
+        var parsedStatus = updatedProjectTaskStatus.Map();
 
         if (task.Status == parsedStatus)
             return;

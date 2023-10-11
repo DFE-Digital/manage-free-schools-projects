@@ -23,7 +23,7 @@ public class GetTaskStatusService : IGetTaskStatusService
     {
         var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
         var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == dbKpi.Rid && x.TaskName == Enum.Parse<TaskName>(taskName));
-        var mappedStatus = TaskStatusMapper.MapTaskStatus(task.Status); 
+        var mappedStatus = task.Status.Map(); 
         
         return mappedStatus;
     }

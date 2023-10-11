@@ -5,19 +5,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 
 public static class TaskStatusMapper
 {
-    public static ProjectTaskStatus MapTaskStatus(Status taskStatus) => taskStatus switch
+    public static Status Map(this ProjectTaskStatus projectTaskStatus)
     {
-        Status.NotStarted => ProjectTaskStatus.NotStarted,
-        Status.InProgress => ProjectTaskStatus.InProgress,
-        Status.Completed => ProjectTaskStatus.Completed,
-        _ => throw new ArgumentOutOfRangeException(nameof(taskStatus), taskStatus, null)
-    };
-    
-    public static Status MapProjectTaskStatus(ProjectTaskStatus projectTaskStatus) => projectTaskStatus switch
+        return Enum.Parse<Status>(projectTaskStatus.ToString());
+    }
+    public static ProjectTaskStatus Map(this Status taskStatus)
     {
-        ProjectTaskStatus.NotStarted => Status.NotStarted,
-        ProjectTaskStatus.InProgress => Status.InProgress,
-        ProjectTaskStatus.Completed => Status.Completed,
-        _ => throw new ArgumentOutOfRangeException(nameof(projectTaskStatus), projectTaskStatus, null)
-    };
+        return Enum.Parse<ProjectTaskStatus>(taskStatus.ToString());
+    }
 }
