@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 {
@@ -16,17 +17,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
     {
         private readonly ILogger<ViewSchoolTaskModel> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IGetTaskStatusService _getTaskStatusService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
 
+        [BindProperty]
+        public bool MarkAsCompleted { get; set; }
+
+        public ProjectTaskStatus ProjectTaskStatus { get; set; }
+
         public ViewPropertyTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewSchoolTaskModel> logger)
+            ILogger<ViewSchoolTaskModel> logger, IGetTaskStatusService getTaskStatusService)
         {
             _logger = logger;
+            _getTaskStatusService = getTaskStatusService;
             _getProjectService = getProjectService;
         }
 
@@ -37,6 +45,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
             try
             {
                 Project = await _getProjectService.Execute(ProjectId);
+                ProjectTaskStatus = await _getTaskStatusService.Execute(ProjectId, "Construction");
+                MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed; 
             }
             catch (Exception ex)
             {

@@ -9,11 +9,11 @@ public interface IGetTasksService
     Task<List<TaskSummaryResponse>> Execute(string projectId);
 }
 
-public class GetTasksStatusService : IGetTasksService
+public class GetAllTasksStatusService : IGetTasksService
 {
     private readonly MfspContext _context;
 
-    public GetTasksStatusService(MfspContext context)
+    public GetAllTasksStatusService(MfspContext context)
     {
         _context = context;
     }

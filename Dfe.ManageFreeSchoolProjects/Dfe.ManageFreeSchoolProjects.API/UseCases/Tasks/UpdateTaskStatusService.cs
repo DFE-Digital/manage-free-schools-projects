@@ -34,7 +34,6 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
         
         task.Status = parsedStatus;
 
-        _context.Entry(task).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 }

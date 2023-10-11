@@ -20,6 +20,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -76,6 +77,7 @@ public class Startup
         services.AddScoped<IGetProjectByTaskSummaryService, GetProjectByTaskSummaryService>();
         services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
         services.AddScoped<ICreateProjectService, CreateProjectService>();
+        services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
