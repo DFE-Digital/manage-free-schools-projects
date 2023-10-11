@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
@@ -18,9 +19,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
-        [BindProperty(SupportsGet = true, Name = "task-school-details-status")]
-        public bool MarkAsComplete { get; set; }
+
+        [BindProperty()] public bool MarkAsComplete { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
 
@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
         {
             _logger.LogMethodEntered();
 
-            try 
+            try
             {
                 Project = await _getProjectService.Execute(ProjectId);
             }
@@ -51,7 +51,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public ActionResult OnPost()
         {
-            var completed = MarkAsComplete;
             return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
         }
     }
