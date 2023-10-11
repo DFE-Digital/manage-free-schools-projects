@@ -62,8 +62,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public async Task<ActionResult> OnPost()
         {
-            await _updateTaskStatusService.Execute(ProjectId,
-                new UpdateTaskStatusRequest { TaskName = "School", ProjectTaskStatus = ProjectTaskStatus.InProgress });
+            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress; 
+            
+            await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
+            {
+                TaskName = "School", ProjectTaskStatus = ProjectTaskStatus
+            });
             return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
         }
     }
