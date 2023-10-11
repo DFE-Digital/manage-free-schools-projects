@@ -17,6 +17,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
+        
+        public string CurrentFreeSchoolName { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
 

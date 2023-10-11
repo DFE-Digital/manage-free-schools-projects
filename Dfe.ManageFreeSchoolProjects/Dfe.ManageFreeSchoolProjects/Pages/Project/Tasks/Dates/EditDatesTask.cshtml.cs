@@ -24,6 +24,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        public string CurrentFreeSchoolName { get; set; }
+
         [BindProperty(Name = "entry-into-pre-opening", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Entry into pre-opening")]
         [Required]
@@ -36,14 +38,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
 
-        [BindProperty(Name = "opening-academic-year")]
+        [BindProperty(Name = "opening-academic-years", BinderType = typeof(StartEndModelBinder))]
         [Display(Name = "Opening academic year")]
         [Required]
         public string OpeningAcademicYear { get; set; }
-
-        [BindProperty(Name = "opening-academic-year-to")]
-        [Required]
-        public string OpeningAcademicYearTo { get; set; }
 
         public EditDatesTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -64,10 +62,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
             try
             {
                 var project = await _getProjectService.Execute(ProjectId);
+                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
-                OpeningAcademicYear = project.Dates.RealisticYearOfOpening?.Substring(0,4);
-                OpeningAcademicYearTo = project.Dates.RealisticYearOfOpening?.Substring(5);
+                OpeningAcademicYear = project.Dates.RealisticYearOfOpening;
 
             }
             catch (Exception ex)
@@ -94,7 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        RealisticYearOfOpening = OpeningAcademicYear.Trim() + " " + OpeningAcademicYearTo.Trim(),
+                        RealisticYearOfOpening = OpeningAcademicYear
                     }
                 };
 

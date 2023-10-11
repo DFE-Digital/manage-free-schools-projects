@@ -59,6 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 School = new SchoolTask()
                 {
+                    CurrentFreeSchoolName = "Test High School",
                     SchoolType = "Secondary",
                     AgeRange = "11-18",
                     SchoolPhase = "Opening",
@@ -72,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var projectResponse = await UpdateProjectTask(projectId, request);
 
+            projectResponse.School.CurrentFreeSchoolName.Should().Be("Test High School");
             projectResponse.School.SchoolType.Should().Be("Secondary");
             projectResponse.School.SchoolPhase.Should().Be("Opening");
             projectResponse.School.AgeRange.Should().Be("11-18");

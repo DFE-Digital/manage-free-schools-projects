@@ -36,6 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 {
                     School = new SchoolTask()
                     {
+                        CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                         SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
                         SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
                         AgeRange = kpi.SchoolDetailsAgeRange,

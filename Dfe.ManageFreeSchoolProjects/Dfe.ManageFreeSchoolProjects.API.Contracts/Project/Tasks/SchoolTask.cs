@@ -2,6 +2,7 @@
 {
     public record SchoolTask
     {
+        public string CurrentFreeSchoolName { get; set; }
         public string SchoolType { get; set; }
         public string SchoolPhase { get; set; }
         public string AgeRange { get; set; }

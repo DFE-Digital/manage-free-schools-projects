@@ -3,13 +3,14 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewDatesTaskModel
 @{
     var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
-
+<a href=@backlink class="govuk-back-link">Back</a>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St George's Primary super School</span>
+            <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
             Dates
         </h1>
         <dl class="govuk-summary-list">
