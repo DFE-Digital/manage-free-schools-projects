@@ -51,9 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			string startYear = startValueProviderResult.FirstValue;
 			string endYear = endValueProviderResult.FirstValue;
 
-			var startValid = startYear.Length == 4 && Regex.Match(startYear, "20\\d\\d").Success;
-
-			if (!startValid)
+			if (!ValidateYearFormat(startYear))
 			{
 				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Start date should be in the format: 20XX");
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
@@ -62,9 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 				return Task.CompletedTask;
 			}
 
-			var endValid = startYear.Length == 4 && Regex.Match(endYear, "20\\d\\d").Success;
-
-			if (!endValid)
+			if (!ValidateYearFormat(endYear))
 			{
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
 				bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
@@ -75,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
 			int start = int.Parse(startYear);
 			int end = int.Parse(endYear);
-						
+
 			if (start >= end)
 			{
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
@@ -85,9 +81,14 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 				return Task.CompletedTask;
 			}
 
-			bindingContext.Result = ModelBindingResult.Success($"20{startYear.Substring(2,2)}/{endYear.Substring(2, 2)}");
+			bindingContext.Result = ModelBindingResult.Success($"20{startYear.Substring(2, 2)}/{endYear.Substring(2, 2)}");
 
 			return Task.CompletedTask;
+		}
+
+		private static bool ValidateYearFormat(string year)
+		{
+			return year.Length == 4 && Regex.Match(year, "20\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success;
 		}
 
 		private static Type ValidateBindingContext(ModelBindingContext bindingContext)
