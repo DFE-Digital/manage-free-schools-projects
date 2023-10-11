@@ -55,7 +55,7 @@ public class TaskStatusController : ControllerBase
 
         try
         {
-            await _updateTaskStatusService.Execute(projectId, request.TaskName, ProjectTaskStatus.Completed);
+            await _updateTaskStatusService.Execute(projectId, request.TaskName, request.ProjectTaskStatus);
         }
         catch (Exception e)
         {

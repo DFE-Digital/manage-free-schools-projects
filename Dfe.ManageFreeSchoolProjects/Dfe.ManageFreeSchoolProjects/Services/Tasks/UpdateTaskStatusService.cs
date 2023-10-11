@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 public interface IUpdateTaskStatusService
 {
+    Task Execute(string projectId, UpdateTaskStatusRequest request);
 }
 
 public class UpdateTaskStatusService : IUpdateTaskStatusService
@@ -17,14 +18,13 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
         _apiClient = apiClient;
     }
 
-    public async Task Execute(string projectId, string taskName)
+    public async Task Execute(string projectId, UpdateTaskStatusRequest request)
     {
         var endpoint = $"/api/v1/{projectId}/task/status";
 
         try
         {
-            var response = await _apiClient.Patch<object, object>(endpoint, new { taskName = taskName });
-
+            await _apiClient.Patch<UpdateTaskStatusRequest, object>(endpoint, request);
         }
         catch (Exception e)
         {
