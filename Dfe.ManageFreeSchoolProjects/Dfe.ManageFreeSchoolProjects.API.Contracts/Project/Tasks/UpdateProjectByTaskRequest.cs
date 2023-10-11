@@ -7,7 +7,7 @@
         public SchoolTask School { get; set; }
         public ConstructionTask Construction { get; set; }
 
-        public string TaskNameToUpdate
+        public string TaskToUpdate
         {
             get
             {

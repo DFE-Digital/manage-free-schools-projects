@@ -160,7 +160,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
             UpdateProjectByTaskRequest updateProjectByTaskRequest)
         {
-            var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskNameToUpdate);
+            var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskToUpdate);
 
             var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid
                                                                       && x.TaskName == taskNameToUpdate);

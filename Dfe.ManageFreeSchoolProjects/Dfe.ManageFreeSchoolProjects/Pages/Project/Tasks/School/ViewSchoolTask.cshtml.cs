@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
@@ -20,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTaskStatusService _getTaskStatusService;
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
+        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -33,11 +35,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
         public ViewSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewSchoolTaskModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService)
+            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService, ErrorService errorService)
         {
             _logger = logger;
             _getTaskStatusService = getTaskStatusService;
             _updateTaskStatusService = updateTaskStatusService;
+            _errorService = errorService;
             _getProjectService = getProjectService;
         }
 
@@ -62,6 +65,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public async Task<ActionResult> OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
             ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress; 
             
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
