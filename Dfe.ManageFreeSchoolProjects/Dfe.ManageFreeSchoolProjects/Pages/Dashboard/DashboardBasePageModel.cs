@@ -25,6 +25,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-local-authority", SupportsGet = true)]
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
 
+        [BindProperty]
+        public bool UserCanCreateProject { get; set; }
+
         public DashboardModel Dashboard { get; set; } = new();
 
         protected readonly ICreateUserService _createUserService;
@@ -87,7 +90,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
                 Pagination = paginationModel,
-            };
+                UserCanCreateProject = User.IsInRole("projectrecordcreator"),
+            };  
         }
 
         private string BuildPaginationQuery()

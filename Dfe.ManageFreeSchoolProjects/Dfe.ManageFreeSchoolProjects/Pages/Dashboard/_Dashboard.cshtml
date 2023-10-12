@@ -1,5 +1,6 @@
 ﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using NetEscapades.AspNetCore.SecurityHeaders;
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
 @{
@@ -10,8 +11,17 @@
     {
         regionLabels.Add(region.ToDescription());
     }
+
+    var createProjectLink = RouteConstants.CreateProject;
 }
 
+@if (Model.UserCanCreateProject)
+{
+    <p class="govuk-body govuk-!-margin-top-3">You can add new projects by using the button below.</p>
+    <a href=@createProjectLink role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-6" data-module="govuk-button">
+        Create new projects
+    </a>
+}
 <details class="govuk-details mfsp-project-listing__filters-container" data-module="govuk-details" open="">
 
     <summary class="govuk-details__summary mfsp-project-listing__fitlers-details-summary">

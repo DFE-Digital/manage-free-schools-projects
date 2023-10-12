@@ -4,6 +4,7 @@
     {
         public const string ProjectOverview = "/projects/{0}/overview";
         public const string TaskList = "/projects/{0}/tasks";
+        public const string CreateProject = "/project/create/method";
 
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
