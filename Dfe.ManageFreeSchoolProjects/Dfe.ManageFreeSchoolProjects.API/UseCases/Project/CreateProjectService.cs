@@ -10,7 +10,6 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
-
     public interface ICreateProjectService
     {
         Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest);
@@ -35,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
                 var existingProject = await _context.Kpi
-                .FirstOrDefaultAsync(k => k.ProjectStatusCurrentFreeSchoolName == proj.SchoolName);
+                    .FirstOrDefaultAsync(k => k.ProjectStatusCurrentFreeSchoolName == proj.SchoolName);
 
                 ProjectCreateState projectCreateState = ProjectCreateState.New;
 
@@ -68,7 +67,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     LocalAuthority = proj.LocalAuthority,
                 });
-
             }
 
             if (duplicatesFound)
@@ -79,13 +77,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             foreach (Kpi proj in checkedProjects)
             {
                 _context.Add(proj);
+                _context.AddRange(CreateTasks(proj.Rid));
             }
-
+            
             await _context.SaveChangesAsync();
 
             return result;
         }
 
+        private List<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
+        {
+            return new List<Data.Entities.Existing.Tasks>()
+            {
+                new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
+                new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
+            };
+        }
     }
 }
-

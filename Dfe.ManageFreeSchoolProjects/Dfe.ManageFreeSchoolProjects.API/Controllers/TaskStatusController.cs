@@ -55,9 +55,6 @@ public class TaskStatusController : ControllerBase
 
         try
         {
-            if (request == null || string.IsNullOrEmpty(request.TaskName) || request.ProjectTaskStatus == null )
-                return BadRequest("Task Name and Status required");
-            
             await _updateTaskStatusService.Execute(projectId, request.TaskName, request.ProjectTaskStatus);
         }
         catch (Exception e)
