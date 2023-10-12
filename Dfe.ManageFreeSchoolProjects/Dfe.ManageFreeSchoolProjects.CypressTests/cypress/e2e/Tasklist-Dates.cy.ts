@@ -91,6 +91,12 @@ describe("Testing project overview", () => {
         cy.reload();
         datesDetailsPage.clearTextInControls();
 
+        Logger.log("Verify we get correct validation messages for exceptional year in academic year to field");
+        datesDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
+
+        cy.reload();
+        datesDetailsPage.clearTextInControls();
+
         Logger.log("Attempting to add valid dates in correct format");
         datesDetailsPage.enterValidDatesInEditDatesPage();
 
