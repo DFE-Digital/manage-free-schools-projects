@@ -24,7 +24,7 @@ describe("Testing project overview", () => {
             });
     });
 
-    it.skip("Should successfully set project dates", () => {
+    it("Should successfully set project dates", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
