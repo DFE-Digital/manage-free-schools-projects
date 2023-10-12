@@ -45,8 +45,10 @@ public class TaskStatusTests : ApiTestsBase
         responseContent.Data.ProjectTaskStatus.Should().Be(Status.NotStarted.Map());
     }
     
-    [Fact]
-    public async Task When_Patch_TaskStatus_Updated_Returns_200_OK()
+    [InlineData("School", ProjectTaskStatus.InProgress)]
+    [InlineData("Construction", ProjectTaskStatus.Completed)]
+    [Theory]
+    public async Task When_Patch_TaskStatus_Updated_Returns_200_OK(string expectedTaskName, ProjectTaskStatus expectedProjectTaskStatus)
     {
         using var context = _testFixture.GetContext();
 
@@ -60,7 +62,7 @@ public class TaskStatusTests : ApiTestsBase
 
         var updateTaskStatusRequest = new UpdateTaskStatusRequest
         {
-            ProjectTaskStatus = ProjectTaskStatus.InProgress, TaskName = "School"
+            ProjectTaskStatus = expectedProjectTaskStatus, TaskName = expectedTaskName
         };
         
         var taskUpdateResponse =
@@ -68,13 +70,13 @@ public class TaskStatusTests : ApiTestsBase
         taskUpdateResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var taskStatusResponse =
-            await _client.GetAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status?taskName={TaskName.School}");
+            await _client.GetAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status?taskName={expectedTaskName}");
         taskStatusResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var responseContent =
             await taskStatusResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<TaskStatusResponse>>();
 
-        responseContent.Data.ProjectTaskStatus.Should().Be(Status.InProgress.Map());
+        responseContent.Data.ProjectTaskStatus.Should().Be(expectedProjectTaskStatus);
     }
     
     private static List<Tasks> BuildListOfTasks(string projectRid)
