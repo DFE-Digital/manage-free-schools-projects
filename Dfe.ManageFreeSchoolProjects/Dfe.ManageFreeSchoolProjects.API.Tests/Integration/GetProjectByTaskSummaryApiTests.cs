@@ -19,6 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task GetProjectTaskList_Returns_200()
         {
             using var context = _testFixture.GetContext();
+            
             var project = DatabaseModelBuilder.BuildProject();
 
             context.Kpi.Add(project);
