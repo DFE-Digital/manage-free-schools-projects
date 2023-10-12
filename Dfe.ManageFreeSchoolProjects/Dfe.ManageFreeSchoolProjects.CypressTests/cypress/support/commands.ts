@@ -22,6 +22,10 @@ Cypress.Commands.add("getByClass", (className) => {
     cy.get(`[class="${className}"]`);
 });
 
+Cypress.Commands.add("getByName", (name) => {
+    cy.get(`[name="${name}"]`);
+});
+
 Cypress.Commands.add("login", (params) => {
     cy.clearCookies();
     cy.clearLocalStorage();

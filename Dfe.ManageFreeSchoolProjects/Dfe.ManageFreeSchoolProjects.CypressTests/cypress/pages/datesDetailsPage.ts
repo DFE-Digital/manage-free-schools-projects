@@ -24,9 +24,9 @@ class DatesDetailsPage {
 
         cy.getById("provisional-opening-date-agreed-with-trust-year").clear();
 
-        cy.getByTestId("opening-academic-year").clear();
+        cy.getByName("opening-academic-years-startyear").clear();
 
-        cy.getByTestId("opening-academic-year-to").clear();
+        cy.getByName("opening-academic-years-endyear").clear();
 
         return this;
     }
@@ -36,9 +36,7 @@ class DatesDetailsPage {
 
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Enter a date for the provisional opening date agreed with trust");
 
-        cy.getById("opening-academic-year-error").should("be.visible").contains("The Opening academic year field is required.");
-
-        cy.getById("opening-academic-year-to-error").should("be.visible").contains("The OpeningAcademicYearTo field is required.");
+        cy.getById("opening-academic-year-error").should("be.visible").contains("Start date should be in the format: 20XX");
 
         return this;
     }
@@ -62,11 +60,11 @@ class DatesDetailsPage {
         cy.getById("provisional-opening-date-agreed-with-trust-year").click();
         cy.getById("provisional-opening-date-agreed-with-trust-year").type(invalidDateFormatData);
 
-        cy.getByTestId("opening-academic-year").click()
-        cy.getByTestId("opening-academic-year").type("2026");
+        cy.getByName("opening-academic-years-startyear").click()
+        cy.getByName("opening-academic-years-startyear").type("2026");
 
-        cy.getByTestId("opening-academic-year-to").click()
-        cy.getByTestId("opening-academic-year-to").type("2027");
+        cy.getByName("opening-academic-years-endyear").click()
+        cy.getByName("opening-academic-years-endyear").type("2027");
 
         return this;
 
@@ -91,11 +89,11 @@ class DatesDetailsPage {
         cy.getById("provisional-opening-date-agreed-with-trust-year").click();
         cy.getById("provisional-opening-date-agreed-with-trust-year").type(dateYear);
 
-        cy.getByTestId("opening-academic-year").click()
-        cy.getByTestId("opening-academic-year").type("2023");
+        cy.getByName("opening-academic-years-startyear").click()
+        cy.getByName("opening-academic-years-startyear").type("2023");
 
-        cy.getByTestId("opening-academic-year-to").click()
-        cy.getByTestId("opening-academic-year-to").type("2024");
+        cy.getByName("opening-academic-years-endyear").click()
+        cy.getByName("opening-academic-years-endyear").type("2024");
 
         return this;
 
@@ -114,6 +112,40 @@ class DatesDetailsPage {
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Day must be between 1 and 28");
 
         return this;
+    }
+
+    enterInvalidAcademicYearEndDateInEditDatesPage(): this {
+        cy.getById("entry-into-pre-opening-day").click();
+        cy.getById("entry-into-pre-opening-day").type(dateDay);
+
+        cy.getById("entry-into-pre-opening-month").click();
+        cy.getById("entry-into-pre-opening-month").type(dateMonth);
+
+        cy.getById("entry-into-pre-opening-year").click();
+        cy.getById("entry-into-pre-opening-year").type(dateYear);
+  
+        cy.getById("provisional-opening-date-agreed-with-trust-day").click();
+        cy.getById("provisional-opening-date-agreed-with-trust-day").type(dateDay);
+
+        cy.getById("provisional-opening-date-agreed-with-trust-month").click();
+        cy.getById("provisional-opening-date-agreed-with-trust-month").type(dateMonth);
+
+        cy.getById("provisional-opening-date-agreed-with-trust-year").click();
+        cy.getById("provisional-opening-date-agreed-with-trust-year").type(dateYear);
+
+        cy.getByName("opening-academic-years-startyear").click()
+        cy.getByName("opening-academic-years-startyear").type("2025");
+
+        cy.getByName("opening-academic-years-endyear").click()
+        cy.getByName("opening-academic-years-endyear").type("POTATO");
+
+
+        return this;
+    }
+
+    verifyInvalidAcademicEndYearDate(): this {
+        cy.getById('opening-academic-year-error').contains('End date should be in the format: 20XX') 
+        return this
     }
 
     enterValidDatesInEditDatesPage(): this {
@@ -135,11 +167,11 @@ class DatesDetailsPage {
         cy.getById("provisional-opening-date-agreed-with-trust-year").click();
         cy.getById("provisional-opening-date-agreed-with-trust-year").type(dateYear);
 
-        cy.getByTestId("opening-academic-year").click()
-        cy.getByTestId("opening-academic-year").type("2025");
+        cy.getByName("opening-academic-years-startyear").click()
+        cy.getByName("opening-academic-years-startyear").type("2025");
 
-        cy.getByTestId("opening-academic-year-to").click()
-        cy.getByTestId("opening-academic-year-to").type("2026");
+        cy.getByName("opening-academic-years-endyear").click()
+        cy.getByName("opening-academic-years-endyear").type("2026");
 
 
         return this;

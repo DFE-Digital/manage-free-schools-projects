@@ -24,7 +24,7 @@ describe("Testing project overview", () => {
             });
     });
 
-    it.skip("Should successfully set project dates", () => {
+    it("Should successfully set project dates", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
@@ -88,6 +88,12 @@ describe("Testing project overview", () => {
         datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered();
 
         Logger.log("Attempting to Reload page and clear controls");
+        cy.reload();
+        datesDetailsPage.clearTextInControls();
+
+        Logger.log("Verify we get correct validation messages for exceptional year in academic year to field");
+        datesDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
+
         cy.reload();
         datesDetailsPage.clearTextInControls();
 
