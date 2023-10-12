@@ -38,8 +38,6 @@ class DatesDetailsPage {
 
         cy.getById("opening-academic-year-error").should("be.visible").contains("Start date should be in the format: 20XX");
 
-       // cy.getById("opening-academic-year-to-error").should("be.visible").contains("The OpeningAcademicYearTo field is required.");
-
         return this;
     }
 
