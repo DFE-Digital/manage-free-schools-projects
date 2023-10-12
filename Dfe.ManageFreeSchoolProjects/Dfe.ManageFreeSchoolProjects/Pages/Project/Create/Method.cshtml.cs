@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             switch (chosenMethod)
             {
                 case ProjectCreateMethod.Individual:
-                    return Redirect("/project/create/school");
+                    return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.Bulk:
                     return Redirect("/project/create/bulk");
                 default:

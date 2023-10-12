@@ -55,6 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
     public record CreateProjectCacheItem
     {
+        public string ProjectId { get; set; }
         public string School { get; set; }
         public ProjectRegion Region { get; set; }
         public ProjectLocalAuthority LocalAuthority { get; set; }
