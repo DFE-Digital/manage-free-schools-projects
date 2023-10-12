@@ -1,7 +1,6 @@
 class DatesSummaryPage {
 
     public verifyDatesSummaryElementsVisible(): this {
-        cy.getByClass("govuk-caption-l").should("be.visible");
         cy.getByClass("govuk-heading-xl").contains("Dates");
 
         cy.getByClass("govuk-summary-list__key").eq(0).contains("Entry into pre-opening");
@@ -25,7 +24,6 @@ class DatesSummaryPage {
     }
 
     public verifyDatesSummaryCompleteElementsVisible(): this {
-        cy.getByClass("govuk-caption-l").should("be.visible");
         cy.getByClass("govuk-heading-xl").contains("Dates");
 
         cy.getByClass("govuk-summary-list__key").eq(0).contains("Entry into pre-opening");
@@ -37,7 +35,7 @@ class DatesSummaryPage {
         cy.getByClass("govuk-link").eq(3).contains("Change");
 
         cy.getByClass("govuk-summary-list__key").eq(2).contains("Opening academic year");
-        cy.getByClass("govuk-summary-list__value").eq(2).contains("2025 2026");
+        cy.getByClass("govuk-summary-list__value").eq(2).contains("2025/26");
         cy.getByClass("govuk-link").eq(4).contains("Change");
 
         cy.getById("task-school-details-status").should("not.be.checked");
