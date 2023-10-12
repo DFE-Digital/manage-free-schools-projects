@@ -8,6 +8,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
@@ -30,7 +31,7 @@ public class TaskStatusTests : ApiTestsBase
         var project = DatabaseModelBuilder.BuildProject();
         context.Kpi.Add(project);
 
-        var tasks = BuildListOfTasks(project.Rid);
+        var tasks = TasksStub.BuildListOfTasks(project.Rid);
         context.Tasks.AddRange(tasks);
 
         await context.SaveChangesAsync();
@@ -45,6 +46,25 @@ public class TaskStatusTests : ApiTestsBase
         responseContent.Data.ProjectTaskStatus.Should().Be(Status.NotStarted.Map());
     }
     
+    [Fact]
+    public async Task When_Get_With_No_TaskName_Returns_400BadRequest()
+    {
+        using var context = _testFixture.GetContext();
+
+        var project = DatabaseModelBuilder.BuildProject();
+        context.Kpi.Add(project);
+
+        var tasks = TasksStub.BuildListOfTasks(project.Rid);
+        context.Tasks.AddRange(tasks);
+
+        await context.SaveChangesAsync();
+
+        var taskStatusResponse =
+            await _client.GetAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status");
+        taskStatusResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+    
+    
     [InlineData("School", ProjectTaskStatus.InProgress)]
     [InlineData("Construction", ProjectTaskStatus.Completed)]
     [Theory]
@@ -55,7 +75,7 @@ public class TaskStatusTests : ApiTestsBase
         var project = DatabaseModelBuilder.BuildProject();
         context.Kpi.Add(project);
 
-        var tasks = BuildListOfTasks(project.Rid);
+        var tasks = TasksStub.BuildListOfTasks(project.Rid);
         context.Tasks.AddRange(tasks);
 
         await context.SaveChangesAsync();
@@ -79,22 +99,25 @@ public class TaskStatusTests : ApiTestsBase
         responseContent.Data.ProjectTaskStatus.Should().Be(expectedProjectTaskStatus);
     }
     
-    private static List<Tasks> BuildListOfTasks(string projectRid)
+    [Fact]
+    public async Task When_Patch_TaskStatus_With_No_TaskName_Returns_400BadRequest()
     {
-        return new List<Tasks>()
+        using var context = _testFixture.GetContext();
+
+        var project = DatabaseModelBuilder.BuildProject();
+        context.Kpi.Add(project);
+
+        var tasks = TasksStub.BuildListOfTasks(project.Rid);
+        context.Tasks.AddRange(tasks);
+
+        await context.SaveChangesAsync();
+
+        var updateTaskStatusRequest = new UpdateTaskStatusRequest
         {
-            new()
-            {
-                Rid = projectRid,
-                Status = Status.NotStarted,
-                TaskName = TaskName.School
-            },
-            new()
-            {
-                Rid = projectRid,
-                Status = Status.InProgress,
-                TaskName = TaskName.Construction
-            }
         };
+        
+        var taskUpdateResponse =
+            await _client.PatchAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status", updateTaskStatusRequest.ConvertToJson());
+        taskUpdateResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }

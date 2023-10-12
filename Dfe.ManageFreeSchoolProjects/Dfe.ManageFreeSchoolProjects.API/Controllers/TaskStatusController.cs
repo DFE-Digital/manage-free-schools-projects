@@ -30,6 +30,9 @@ public class TaskStatusController : ControllerBase
 
         try
         {
+            if (string.IsNullOrEmpty(taskName))
+                return BadRequest("Task name required.");
+                    
             var response = new TaskStatusResponse
             {
                 ProjectTaskStatus = await _getTaskStatusService.Execute(projectId, taskName)
@@ -40,8 +43,8 @@ public class TaskStatusController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            _logger.LogErrorMsg(e);
+            return StatusCode(500);
         }
     }
 
@@ -52,12 +55,15 @@ public class TaskStatusController : ControllerBase
 
         try
         {
+            if (request == null || string.IsNullOrEmpty(request.TaskName) || request.ProjectTaskStatus == null )
+                return BadRequest("Task Name and Status required");
+            
             await _updateTaskStatusService.Execute(projectId, request.TaskName, request.ProjectTaskStatus);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            _logger.LogErrorMsg(e);
+            return StatusCode(500);
         }
 
         return new OkResult();
