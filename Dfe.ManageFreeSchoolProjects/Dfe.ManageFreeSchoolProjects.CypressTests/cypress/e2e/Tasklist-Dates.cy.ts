@@ -91,9 +91,21 @@ describe("Testing project overview", () => {
         cy.reload();
         datesDetailsPage.clearTextInControls();
 
-        Logger.log("Verify we get correct validation messages for exceptional year in academic year to field");
-        datesDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
+        Logger.log("Verify we get correct validation messages for exceptional year in academic year START field");
+        datesDetailsPage.enterInvalidAcademicYearStartDateInEditDatesPage();
+        datesDetailsPage.selectSaveAndContinueButton();
+        datesDetailsPage.verifyInvalidAcademicStartYearDate();
 
+        Logger.log("Attempting to Reload page and clear controls");
+        cy.reload();
+        datesDetailsPage.clearTextInControls();
+
+        Logger.log("Verify we get correct validation messages for exceptional year in academic yearTo field");
+        datesDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
+        datesDetailsPage.selectSaveAndContinueButton();
+        datesDetailsPage.verifyInvalidAcademicEndYearDate();
+
+        Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
         datesDetailsPage.clearTextInControls();
 
