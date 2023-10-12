@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
@@ -68,8 +69,11 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             }
 			else
 			{
-				model.StartYear = "20" + startEnd.Substring(2, 2);
-				model.EndYear = "20" + startEnd.Substring(5, 2);
+                if (!string.IsNullOrEmpty(startEnd) && Regex.Match(startEnd, "20\\d\\d/\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+                {
+                    model.StartYear = "20" + startEnd.Substring(2, 2);
+                    model.EndYear = "20" + startEnd.Substring(5, 2);
+                }
 			}
 
 			return model;
