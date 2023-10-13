@@ -1,4 +1,5 @@
 ﻿@page "/project/create/checkyouranswers"
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
 }
@@ -11,6 +12,21 @@
             Check your answers
         </h1>
         <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Temporary Project ID
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="school">
+                    @Model.Project.ProjectId
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@RouteConstants.CreateProjectId>
+                        Change<span class="govuk-visually-hidden">Temporary Project Id</span>
+                    </a>
+                </dd>
+            </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">

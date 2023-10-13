@@ -28,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnGet()
         {
+            ProjectId = _createProjectCache.Get().ProjectId;
             return Page();
         }
 

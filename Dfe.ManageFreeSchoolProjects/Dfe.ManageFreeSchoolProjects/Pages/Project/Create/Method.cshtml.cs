@@ -1,6 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,9 +18,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public string? Method { get; set; }
 
         private readonly ErrorService _errorService;
+        private readonly ICreateProjectCache _createProjectCache;
 
-        public MethodModel(ErrorService errorService)
+        public MethodModel(ErrorService errorService,ICreateProjectCache createProjectCache)
         {
+            _createProjectCache = createProjectCache;
             _errorService = errorService;
         }
 
@@ -41,6 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             switch (chosenMethod)
             {
                 case ProjectCreateMethod.Individual:
+                    _createProjectCache.Delete();
                     return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.Bulk:
                     return Redirect("/project/create/bulk");
