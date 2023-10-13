@@ -15,5 +15,6 @@
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
+        public const string CreateProjectConfirmation = CreateProject + "/confirmation";
     }
 }

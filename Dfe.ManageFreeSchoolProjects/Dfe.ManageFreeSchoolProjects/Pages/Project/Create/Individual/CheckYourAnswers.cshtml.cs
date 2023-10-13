@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             await _createProjectService.Execute(createProjectRequest);
 
 
-            return Redirect(RouteConstants.CreateProjectSchool);
+            return Redirect(RouteConstants.CreateProjectConfirmation);
 
         }
     }
