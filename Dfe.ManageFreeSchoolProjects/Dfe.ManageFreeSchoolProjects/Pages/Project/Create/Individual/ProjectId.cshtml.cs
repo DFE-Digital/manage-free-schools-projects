@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -17,22 +19,40 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
 
+        public string BackLink { get; set; }
+
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
+        private readonly IGetProjectOverviewService _getProjectOverviewService;
 
-        public ProjectIdModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+        public ProjectIdModel(ErrorService errorService, ICreateProjectCache createProjectCache, IGetProjectOverviewService getProjectOverviewService)
         {
             _errorService = errorService;
             _createProjectCache = createProjectCache;
+            _getProjectOverviewService = getProjectOverviewService;
         }
 
         public IActionResult OnGet()
         {
-            ProjectId = _createProjectCache.Get().ProjectId;
+            var project = _createProjectCache.Get();
+            ProjectId = project.ProjectId;
+            SetBackLink(project);
             return Page();
         }
 
-        public IActionResult OnPost()
+        private void SetBackLink(CreateProjectCacheItem project)
+        {
+            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
+            {
+                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
+            }
+            else
+            {
+                BackLink = RouteConstants.CreateProjectMethod;
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -52,6 +72,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ModelState.AddModelError("projectid", "Temporary project ID must only include numbers and letters");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
+            }
+
+            try
+            {
+                var a = await _getProjectOverviewService.Execute(ProjectId);
+                ModelState.AddModelError("projectid", "Project Id already exists");
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode != System.Net.HttpStatusCode.NotFound)
+                {
+                    throw;
+                }
             }
 
             var project = _createProjectCache.Get();

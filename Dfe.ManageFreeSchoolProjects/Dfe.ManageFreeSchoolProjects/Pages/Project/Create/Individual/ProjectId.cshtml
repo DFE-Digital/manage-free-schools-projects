@@ -2,6 +2,11 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ProjectIdModel
 @{
 }
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+    </div>
+}
 
 <div class="govuk-grid-row">
     <partial name="_ErrorSummary" />
