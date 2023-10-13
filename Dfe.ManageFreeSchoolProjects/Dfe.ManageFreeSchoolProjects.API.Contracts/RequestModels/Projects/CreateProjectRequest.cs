@@ -11,15 +11,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
     {
         [Required]
         public string ProjectId { get; set; }
-        [Required]
         public string SchoolName { get; set; }
-        [Required]
         public string ApplicationNumber { get; set; }
-        [Required]
+        
         public string ApplicationWave { get; set; }
-        [Required]
         public string Region { get; set; }
-        [Required]
         public string LocalAuthority { get; set; }
         [Required]
         public string CreatedBy { get; set; }

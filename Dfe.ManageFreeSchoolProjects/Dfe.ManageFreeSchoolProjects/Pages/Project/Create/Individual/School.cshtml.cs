@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
-            project.School = School;
+            project.SchoolName = School;
             _createProjectCache.Update(project);
 
             return Redirect("/project/create/region");

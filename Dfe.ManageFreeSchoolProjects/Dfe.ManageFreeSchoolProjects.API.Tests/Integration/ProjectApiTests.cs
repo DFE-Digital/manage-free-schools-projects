@@ -44,8 +44,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
             createdProject.SchoolDetailsGeographicalRegion.Should().Be(request.Projects[0].Region);
             createdProject.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
-            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().NotBeNullOrEmpty();
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().NotBeNullOrEmpty();
+            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
+            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeNullOrEmpty();
 
         }
 
@@ -111,8 +111,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             CreateProjectRequest request2 = new CreateProjectRequest();
             request2.Projects.Add(proj2);
-            request2.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
-            request2.Projects[0].SchoolName = request.Projects[0].SchoolName;
+            request2.Projects[0].ProjectId = request.Projects[0].ProjectId;
 
             var result2 = await _client.PostAsync($"/api/v1/client/projects/create", request2.ConvertToJson());
 

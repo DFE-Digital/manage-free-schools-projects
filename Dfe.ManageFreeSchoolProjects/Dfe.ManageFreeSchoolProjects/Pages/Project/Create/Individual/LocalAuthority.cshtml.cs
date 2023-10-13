@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             project.LocalAuthority = (ProjectLocalAuthority)Enum.Parse(typeof(ProjectLocalAuthority), LocalAuthority);
             _createProjectCache.Update(project);
 
-            return Redirect("/project/create/confirmation");
+            return Redirect("/project/create/checkyouranswers");
         }
     }
 }
