@@ -13,12 +13,14 @@ public class TaskStatusController : ControllerBase
     private readonly IUpdateTaskStatusService _updateTaskStatusService;
     private readonly IGetTaskStatusService _getTaskStatusService;
     private readonly ILogger<TaskStatusController> _logger;
+    private readonly ICreateTasksService _createTasksService;
 
     public TaskStatusController(IUpdateTaskStatusService updateTaskStatusService, ILogger<TaskStatusController> logger,
-        IGetTaskStatusService getTaskStatusService)
+        IGetTaskStatusService getTaskStatusService, ICreateTasksService createTasksService)
     {
         _updateTaskStatusService = updateTaskStatusService;
         _getTaskStatusService = getTaskStatusService;
+        _createTasksService = createTasksService;
         _logger = logger;
     }
 
@@ -32,19 +34,31 @@ public class TaskStatusController : ControllerBase
         {
             if (string.IsNullOrEmpty(taskName))
                 return BadRequest("Task name required.");
-                    
-            var response = new TaskStatusResponse
-            {
-                ProjectTaskStatus = await _getTaskStatusService.Execute(projectId, taskName)
-            };
+
+            var existingStatus = await _getTaskStatusService.Execute(projectId, taskName);
+
+            var response = new TaskStatusResponse { ProjectTaskStatus = existingStatus, StatusExists = true };
 
             return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
                 { StatusCode = StatusCodes.Status200OK };
         }
+        catch (InvalidOperationException ex) when (ex.InnerException is NullReferenceException)
+        {
+            _logger.LogErrorMsg(ex);
+            
+            var response = new TaskStatusResponse { StatusExists = false };
+            
+            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
+                { StatusCode = StatusCodes.Status404NotFound };
+        }
         catch (Exception e)
         {
             _logger.LogErrorMsg(e);
-            return StatusCode(500);
+
+            var response = new TaskStatusResponse { StatusExists = false };
+            
+            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
+                { StatusCode = StatusCodes.Status500InternalServerError };
         }
     }
 
@@ -64,5 +78,15 @@ public class TaskStatusController : ControllerBase
         }
 
         return new OkResult();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> CreateTasks([FromRoute] string projectId)
+    {
+        _logger.LogMethodEntered();
+
+        await _createTasksService.Execute(projectId);
+
+        return Ok();
     }
 }

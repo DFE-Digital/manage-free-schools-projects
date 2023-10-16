@@ -35,7 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
         public ViewSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewSchoolTaskModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService, ErrorService errorService)
+            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
+            ErrorService errorService)
         {
             _logger = logger;
             _getTaskStatusService = getTaskStatusService;
@@ -48,16 +49,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
         {
             _logger.LogMethodEntered();
 
-            try
+            Project = await _getProjectService.Execute(ProjectId);
+            
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, "School");
+
+            if (taskStatusResponse.StatusExists)
             {
-                Project = await _getProjectService.Execute(ProjectId);
-                ProjectTaskStatus = await _getTaskStatusService.Execute(ProjectId, "School");
+                ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
                 MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogErrorMsg(ex);
-                throw;
+                //create tasks
+                
             }
 
             return Page();
@@ -70,9 +74,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-            
-            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress; 
-            
+
+            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
                 TaskName = "School", ProjectTaskStatus = ProjectTaskStatus

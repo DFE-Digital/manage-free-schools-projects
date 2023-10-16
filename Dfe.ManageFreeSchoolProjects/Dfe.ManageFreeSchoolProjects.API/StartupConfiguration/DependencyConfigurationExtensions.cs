@@ -75,7 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IEmailService, EmailService>();
 			services.AddScoped<IGetTasksService, GetAllTasksStatusService>();
 			services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
-			services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
+			services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>();
+			services.AddScoped<ICreateTasksService, CreateTasksService>();
 			
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

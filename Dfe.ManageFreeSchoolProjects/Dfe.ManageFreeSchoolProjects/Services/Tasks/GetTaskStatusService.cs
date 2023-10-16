@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 public interface IGetTaskStatusService
 {
-    Task<ProjectTaskStatus> Execute(string projectId, string taskName);
+    Task<TaskStatusResponse> Execute(string projectId, string taskName);
 }
 
 public class GetTaskStatusService : IGetTaskStatusService
@@ -21,20 +21,12 @@ public class GetTaskStatusService : IGetTaskStatusService
     }
 
 
-    public async Task<ProjectTaskStatus> Execute(string projectId, string taskName)
+    public async Task<TaskStatusResponse> Execute(string projectId, string taskName)
     {
         var endpoint = $"/api/v1/{projectId}/task/status?taskName={taskName}";
 
-        try
-        {
-            var response = await _apiClient.Get<ApiSingleResponseV2<TaskStatusResponse>>(endpoint);
-
-            return response.Data.ProjectTaskStatus;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        var response = await _apiClient.Get<ApiSingleResponseV2<TaskStatusResponse>>(endpoint);
+        
+        return response.Data;
     }
 }

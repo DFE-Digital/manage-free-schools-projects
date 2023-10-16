@@ -14,20 +14,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly IGetProjectByTaskService _getProjectByTaskService;
         private readonly IGetTasksService _getTasksService;
-        private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ILogger<ProjectTaskController> _logger;
 
         public ProjectTaskController(
             IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
             IGetTasksService getTasksService,
-            ILogger<ProjectTaskController> logger, IUpdateTaskStatusService updateTaskStatusService)
+            ILogger<ProjectTaskController> logger)
         {
             _updateProjectTaskService = updateProjectTaskService;
             _getProjectByTaskService = getProjectByTaskService;
             _getTasksService = getTasksService;
             _logger = logger;
-            _updateTaskStatusService = updateTaskStatusService;
         }
 
         [HttpPatch]
