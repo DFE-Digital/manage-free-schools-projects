@@ -5,6 +5,4 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 public class TaskStatusResponse
 {
     public ProjectTaskStatus ProjectTaskStatus { get; set; }
-    
-    public bool StatusExists { get; set; }
 }

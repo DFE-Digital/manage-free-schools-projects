@@ -64,16 +64,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
+            ProjectByTaskSummaryResponse summary = null;
+            
             var projectTasks = await _getTasksService.Execute(projectId);
 
-            var taskSummary = new ProjectByTaskSummaryResponse
+            if (projectTasks.Any())
             {
-                School = projectTasks.SingleOrDefault(x => x.Name == "School"),
-                Construction = projectTasks.SingleOrDefault(x => x.Name == "Construction"),
-                // Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
-            };
-
-            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(taskSummary);
+                summary = new ProjectByTaskSummaryResponse
+                {
+                    School = projectTasks.SingleOrDefault(x => x.Name == "School"),
+                    Construction = projectTasks.SingleOrDefault(x => x.Name == "Construction"),
+                    Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
+                };
+            }
+            
+            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }

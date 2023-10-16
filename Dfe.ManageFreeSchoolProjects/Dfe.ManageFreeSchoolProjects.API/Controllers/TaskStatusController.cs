@@ -37,7 +37,7 @@ public class TaskStatusController : ControllerBase
 
             var existingStatus = await _getTaskStatusService.Execute(projectId, taskName);
 
-            var response = new TaskStatusResponse { ProjectTaskStatus = existingStatus, StatusExists = true };
+            var response = new TaskStatusResponse { ProjectTaskStatus = existingStatus };
 
             return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
                 { StatusCode = StatusCodes.Status200OK };
@@ -46,18 +46,14 @@ public class TaskStatusController : ControllerBase
         {
             _logger.LogErrorMsg(ex);
             
-            var response = new TaskStatusResponse { StatusExists = false };
-            
-            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
+            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(null))
                 { StatusCode = StatusCodes.Status404NotFound };
         }
         catch (Exception e)
         {
             _logger.LogErrorMsg(e);
 
-            var response = new TaskStatusResponse { StatusExists = false };
-            
-            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(response))
+            return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(null))
                 { StatusCode = StatusCodes.Status500InternalServerError };
         }
     }

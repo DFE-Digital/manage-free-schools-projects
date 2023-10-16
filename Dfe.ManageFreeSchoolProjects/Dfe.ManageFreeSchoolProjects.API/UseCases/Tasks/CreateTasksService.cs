@@ -28,12 +28,14 @@ public class CreateTasksService : ICreateTasksService
     
     private IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
     {
+        const Status status = Status.InProgress;
+
         return new List<Data.Entities.Existing.Tasks>()
         {
-            new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
-            new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = Status.NotStarted },
-            new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
-            new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
+            new() { Rid = kpiRid, TaskName = TaskName.School, Status = status },
+            new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = status },
+            new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = status },
+            // new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = status },
         };
     }
 }

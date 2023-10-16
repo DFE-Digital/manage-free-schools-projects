@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 public interface ICreateTasksService
-{
-    
+{ 
+    Task Execute(string projectId);
 }
 
 public class CreateTasksService : ICreateTasksService
@@ -19,7 +19,7 @@ public class CreateTasksService : ICreateTasksService
 
     public async Task Execute(string projectId)
     {
-        var endpoint = $"/api/v1/{projectId}/tasks/status";
+        var endpoint = $"/api/v1/{projectId}/task/status";
         await _apiClient.Post<object, object>(endpoint, null);
     }
 }

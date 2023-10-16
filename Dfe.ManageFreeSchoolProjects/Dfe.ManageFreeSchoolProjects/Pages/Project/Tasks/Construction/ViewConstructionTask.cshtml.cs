@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
 
+        private const string TaskName = "Construction";
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -52,7 +53,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
             try
             {
                 Project = await _getProjectService.Execute(ProjectId);
-                ProjectTaskStatus = await _getTaskStatusService.Execute(ProjectId, "Construction");
+                var statusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+                ProjectTaskStatus = statusResponse.ProjectTaskStatus;
+
                 MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
             }
             catch (Exception ex)
@@ -71,12 +74,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-            
-            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress; 
-            
+
+            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
-                TaskName = "Construction", ProjectTaskStatus = ProjectTaskStatus
+                TaskName = TaskName, ProjectTaskStatus = ProjectTaskStatus
             });
 
             return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
