@@ -2,7 +2,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -10,12 +10,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
+    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class MethodModel : PageModel
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
         [Required]
-        public string? Method { get; set; }
+        public string Method { get; set; }
 
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;

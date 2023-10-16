@@ -1,6 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,9 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Constants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 {
+    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class CreateModel : PageModel
     {
         [BindProperty]

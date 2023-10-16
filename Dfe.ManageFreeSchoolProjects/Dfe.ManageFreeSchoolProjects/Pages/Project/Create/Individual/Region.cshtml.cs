@@ -1,6 +1,8 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -8,12 +10,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
+    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class RegionModel : PageModel
     {
         [BindProperty(Name = "region")]
         [Display(Name = "region")]
         [Required]
-        public string? Region { get; set; }
+        public string Region { get; set; }
 
         private readonly ErrorService _errorService;
 

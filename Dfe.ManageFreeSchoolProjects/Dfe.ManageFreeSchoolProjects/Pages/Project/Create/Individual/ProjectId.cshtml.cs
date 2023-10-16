@@ -8,9 +8,11 @@ using System.Text.RegularExpressions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
+    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class ProjectIdModel : PageModel
     {
         [BindProperty(Name = "projectid")]
