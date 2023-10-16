@@ -62,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return Page();
             }
 
-            if (ProjectId.Contains(" "))
+            if (ProjectId.Contains(' '))
             {
                 ModelState.AddModelError("projectid", "Temporary project ID must not include spaces");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -78,7 +78,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             try
             {
-                var a = await _getProjectOverviewService.Execute(ProjectId);
+                //Attempt to get project, will throw an exception when 404 is returned
+                await _getProjectOverviewService.Execute(ProjectId);
                 ModelState.AddModelError("projectid", "Project Id already exists");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
