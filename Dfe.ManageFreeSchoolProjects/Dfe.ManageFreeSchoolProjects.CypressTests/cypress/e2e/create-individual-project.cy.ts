@@ -54,7 +54,7 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS", () => {
 describe("Creating an individual project - POSITIVE ROLE TESTS", () => {
     beforeEach(() => {
         
-        cy.login({role: "POTATO"});
+        cy.login({role: ProjectRecordCreator});
         cy.visit(Cypress.env("url"));
         
     });
