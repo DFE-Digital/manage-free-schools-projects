@@ -11,6 +11,7 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration;
 
@@ -130,5 +131,10 @@ public class TaskStatusTests : ApiTestsBase
         var createTasksRequest = await _client.PostAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status", null);
 
         createTasksRequest.StatusCode.Should().Be(HttpStatusCode.Created);
+
+        var tasks = await context.Tasks.Where(x => x.Rid == project.Rid).ToListAsync();
+
+        tasks.Should().NotBeNull();
+        tasks.Count.Should().BeGreaterThan(1);
     }
 }
