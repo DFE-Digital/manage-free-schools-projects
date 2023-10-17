@@ -1,4 +1,4 @@
-# Manage Free Schools Projects Service
+# Manage Free School Projects Service
 Internal service for managing free schools projects
 
 ## Requirements
