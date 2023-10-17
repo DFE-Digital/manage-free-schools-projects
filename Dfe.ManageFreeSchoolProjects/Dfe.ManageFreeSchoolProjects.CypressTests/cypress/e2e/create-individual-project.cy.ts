@@ -13,6 +13,20 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
         
     });
 
+    it("Should NOT allow a NON-projectrecordcreator user to access certain URLs", () => {
+        // Define the URLs that should trigger a failure for the "POTATO" user
+        const unauthorizedUrls = ["/project/create/method", "/project/create/school"];
+
+        // Verify that the "POTATO" user cannot access unauthorized URLs
+        cy.location().should((loc) => {
+            const currentUrl = loc.href;
+            if (unauthorizedUrls.some(url => currentUrl.includes(url))) {
+                // Fail the test if the user is on an unauthorized URL
+                throw new Error("Test failed because the 'POTATO' user is on an unauthorized URL");
+            }
+        });
+    });
+
     it("Should NOT allow a NON-projectrecordcreator user to create a new project using the form", () => {
         // VERIFY THIS NON-PROJECTRECORDCREATOR USER DOES NOT GET A GREEN CREATE NEW PROJECT BUTTON
             cy.contains('Create new projects').should('not.exist');    
@@ -34,7 +48,7 @@ describe("Creating an individual project - POSITIVE ROLE TESTS", () => {
         const school = `${v4()} school`;
 
         cy.contains('Create new projects').should('be.visible');  
-/*
+
         Logger.log("Selecting method");
         createProjectPage.continue();
         validationComponent.hasValidationError("The method field is required");
@@ -68,6 +82,7 @@ describe("Creating an individual project - POSITIVE ROLE TESTS", () => {
             .hasSchool(school)
             .hasRegion("South East")
             .hasLocalAuthority("Essex");
-*/
+
     });
 });
+
