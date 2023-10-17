@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
     public class UpdateProjectByTaskService : IUpdateProjectByTaskService
     {
-        public readonly MfspContext _context;
+        private readonly MfspContext _context;
 
         public UpdateProjectByTaskService(MfspContext context)
         {
@@ -37,6 +37,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+
+            await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
             await _context.SaveChangesAsync();
         }
@@ -153,6 +155,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             }
 
             return result;
+        }
+
+        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
+            UpdateProjectByTaskRequest updateProjectByTaskRequest)
+        {
+            var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskToUpdate);
+
+            var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid
+                                                                      && x.TaskName == taskNameToUpdate);
+            if (task is null)
+                return;
+
+            task.Status = updatedStatus;
         }
     }
 }
