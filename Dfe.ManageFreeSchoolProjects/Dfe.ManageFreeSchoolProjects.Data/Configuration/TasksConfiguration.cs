@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing;
+namespace Dfe.ManageFreeSchoolProjects.Data.Configuration;
 
 public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
 {
     public void Configure(EntityTypeBuilder<Tasks> builder)
     {
         builder
-            .ToTable("Tasks", "dbo")
+            .ToTable("Tasks", "mfsp")
             .HasKey(tasks => new { tasks.Rid, tasks.TaskName });
 
         builder.Property(e => e.Rid)

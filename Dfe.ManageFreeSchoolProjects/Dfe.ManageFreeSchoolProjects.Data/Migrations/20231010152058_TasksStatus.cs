@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "Tasks",
-                schema: "dbo",
+                schema: "mfsp",
                 columns: table => new
                 {
                     RID = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Tasks",
-                schema: "dbo");
+                schema: "mfsp");
         }
     }
 }
