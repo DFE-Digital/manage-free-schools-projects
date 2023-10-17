@@ -28,7 +28,7 @@ public class CreateTasksService : ICreateTasksService
     
     private IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
     {
-        const Status status = Status.InProgress;
+        const Status status = Status.NotStarted;
 
         return new List<Data.Entities.Existing.Tasks>()
         {

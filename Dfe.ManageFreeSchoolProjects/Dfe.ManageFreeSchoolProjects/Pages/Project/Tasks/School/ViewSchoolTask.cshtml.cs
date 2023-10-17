@@ -75,7 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
             {
                 TaskName = TaskName, ProjectTaskStatus = ProjectTaskStatus
             });
-            return Redirect(string.Format(RouteConstants.ProjectOverview, ProjectId));
+            return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }
     }
 }
