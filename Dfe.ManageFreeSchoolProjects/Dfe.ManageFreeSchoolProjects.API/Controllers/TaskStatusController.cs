@@ -83,6 +83,6 @@ public class TaskStatusController : ControllerBase
 
         await _createTasksService.Execute(projectId);
 
-        return new ObjectResult($"Tasks created for project {projectId}.") { StatusCode = StatusCodes.Status201Created };
+        return new ObjectResult(null) { StatusCode = StatusCodes.Status201Created };
     }
 }

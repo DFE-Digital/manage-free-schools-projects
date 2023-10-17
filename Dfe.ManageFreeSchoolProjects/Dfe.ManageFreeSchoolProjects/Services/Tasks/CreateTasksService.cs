@@ -20,6 +20,6 @@ public class CreateTasksService : ICreateTasksService
     public async Task Execute(string projectId)
     {
         var endpoint = $"/api/v1/{projectId}/task/status";
-        await _apiClient.Post<object, object>(endpoint, null);
+        await _apiClient.Post<object, object>(endpoint, new {});
     }
 }
