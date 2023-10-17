@@ -45,7 +45,7 @@ public class TaskStatusController : ControllerBase
         catch (InvalidOperationException ex) when (ex.InnerException is NullReferenceException)
         {
             _logger.LogErrorMsg(ex);
-            
+
             return new ObjectResult(new ApiSingleResponseV2<TaskStatusResponse>(null))
                 { StatusCode = StatusCodes.Status404NotFound };
         }
@@ -83,6 +83,6 @@ public class TaskStatusController : ControllerBase
 
         await _createTasksService.Execute(projectId);
 
-        return Ok();
+        return new ObjectResult($"Tasks created for project {projectId}.") { StatusCode = StatusCodes.Status201Created };
     }
 }

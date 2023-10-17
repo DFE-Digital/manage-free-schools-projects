@@ -17,8 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration;
 [Collection(ApiTestCollection.ApiTestCollectionName)]
 public class TaskStatusTests : ApiTestsBase
 {
-    private static Fixture _fixture = new Fixture();
-
     public TaskStatusTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
     {
     }
@@ -119,5 +117,18 @@ public class TaskStatusTests : ApiTestsBase
         var taskUpdateResponse =
             await _client.PatchAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status", updateTaskStatusRequest.ConvertToJson());
         taskUpdateResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task When_Post_Creates_Tasks_Returns_201Created()
+    {
+        using var context = _testFixture.GetContext();
+        var project = DatabaseModelBuilder.BuildProject();
+        context.Kpi.Add(project);
+        await context.SaveChangesAsync();
+        
+        var createTasksRequest = await _client.PostAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status", null);
+
+        createTasksRequest.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 }
