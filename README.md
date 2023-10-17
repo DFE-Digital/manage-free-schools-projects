@@ -1,8 +1,8 @@
-# Manage Free Schools Projects Service
+# Manage Free School Projects Service
 Internal service for managing free schools projects
 
 ## Requirements
-- .NET 7.0
+- .NET 6.0
 - NodeJS (for frontend build tools)
 
 ## Development Setup
