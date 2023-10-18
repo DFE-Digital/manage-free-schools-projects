@@ -15,7 +15,7 @@ class DatesSummaryPage {
         cy.getByClass("govuk-summary-list__value").eq(2).contains("Empty");
         cy.getByClass("govuk-link").eq(4).contains("Change");
 
-        cy.getById("task-school-details-status").should("not.be.checked");
+        cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
@@ -38,7 +38,7 @@ class DatesSummaryPage {
         cy.getByClass("govuk-summary-list__value").eq(2).contains("2025/26");
         cy.getByClass("govuk-link").eq(4).contains("Change");
 
-        cy.getById("task-school-details-status").should("not.be.checked");
+        cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
@@ -52,6 +52,15 @@ class DatesSummaryPage {
         cy.getByClass("govuk-link").eq(4).click();
 
         return this;
+    }
+
+    public selectMarkItemAsComplete(): this {
+        cy.getById("mark-as-complete").click();
+        return this;
+    }
+
+    public selectConfirmAndContinue(): this {
+        cy.contains("Confirm and continue").click();
     }
 }
 
