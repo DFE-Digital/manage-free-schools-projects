@@ -5,6 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -19,9 +20,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task GetProjectTaskList_Returns_200()
         {
             using var context = _testFixture.GetContext();
+            
             var project = DatabaseModelBuilder.BuildProject();
-
             context.Kpi.Add(project);
+            
+            var tasks = TasksStub.BuildListOfTasks(project.Rid);
+            context.Tasks.AddRange(tasks);
+            
             await context.SaveChangesAsync();
 
             var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");

@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +11,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiController]
     public class ProjectTaskController : ControllerBase
     {
-        public readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        public readonly IGetProjectByTaskService _getProjectByTaskService;
-        public readonly ILogger<ProjectTaskController> _logger;
+        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+        private readonly IGetProjectByTaskService _getProjectByTaskService;
+        private readonly IGetTasksService _getTasksService;
+        private readonly ILogger<ProjectTaskController> _logger;
 
         public ProjectTaskController(
             IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
+            IGetTasksService getTasksService,
             ILogger<ProjectTaskController> logger)
         {
             _updateProjectTaskService = updateProjectTaskService;
             _getProjectByTaskService = getProjectByTaskService;
+            _getTasksService = getTasksService;
             _logger = logger;
         }
 
@@ -54,18 +58,26 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         [Route("summary")]
-        public ActionResult<ApiSingleResponseV2<ProjectByTaskSummaryResponse>> GetProjectTaskListSummary(string projectId)
+        public async Task<ActionResult<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>> GetProjectTaskListSummary(
+            string projectId)
         {
             _logger.LogMethodEntered();
 
-            var taskSummary = new ProjectByTaskSummaryResponse()
+            ProjectByTaskSummaryResponse summary = null;
+            
+            var projectTasks = await _getTasksService.Execute(projectId);
+
+            if (projectTasks.Any())
             {
-                School = new TaskSummaryResponse() { Name = "School", Status = ProjectTaskStatus.NotStarted },
-                Construction = new TaskSummaryResponse() { Name = "Construction", Status = ProjectTaskStatus.InProgress },
-                Dates = new TaskSummaryResponse() {  Name = "Dates", Status = ProjectTaskStatus.NotStarted }
-            };
-             
-            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(taskSummary);
+                summary = new ProjectByTaskSummaryResponse
+                {
+                    School = projectTasks.SingleOrDefault(x => x.Name == "School"),
+                    Construction = projectTasks.SingleOrDefault(x => x.Name == "Construction"),
+                    Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
+                };
+            }
+            
+            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }

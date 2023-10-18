@@ -5,7 +5,7 @@
         public TaskSummaryResponse School { get; set; }
 
         public TaskSummaryResponse Construction { get; set; }
-
+        
         public TaskSummaryResponse Dates { get; set; }
     }
 
