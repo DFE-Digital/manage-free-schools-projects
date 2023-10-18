@@ -1,23 +1,20 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
-using Dfe.ManageFreeSchoolProjects.Services;
-using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 {
-    public class ViewSchoolTaskModel : PageModel
+    public class ViewSchoolTask : PageModel
     {
-        private readonly ILogger<ViewSchoolTaskModel> _logger;
+        private readonly ILogger<ViewSchoolTask> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTaskStatusService _getTaskStatusService;
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
@@ -34,9 +31,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task
 
         public GetProjectByTaskResponse Project { get; set; }
 
-        public ViewSchoolTaskModel(
+        public ViewSchoolTask(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewSchoolTaskModel> logger,
+            ILogger<ViewSchoolTask> logger,
             IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
             ErrorService errorService)
         {

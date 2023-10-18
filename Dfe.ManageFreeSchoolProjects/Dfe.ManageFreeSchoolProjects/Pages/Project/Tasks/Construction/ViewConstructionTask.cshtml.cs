@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
@@ -17,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 {
     public class ViewPropertyTaskModel : PageModel
     {
-        private readonly ILogger<ViewSchoolTaskModel> _logger;
+        private readonly ILogger<ViewSchoolTask> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTaskStatusService _getTaskStatusService;
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
@@ -36,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 
         public ViewPropertyTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewSchoolTaskModel> logger, IGetTaskStatusService getTaskStatusService,
+            ILogger<ViewSchoolTask> logger, IGetTaskStatusService getTaskStatusService,
             IUpdateTaskStatusService updateTaskStatusService, ErrorService errorService)
         {
             _logger = logger;
