@@ -1,4 +1,11 @@
 class ProjectOverviewPage {
+
+    public selectTaskListTab(): this {
+        cy.contains("Task list").click()
+        
+        return this;
+    }
+
     public hasProjectTitleHeader(value: string): this {
         cy.getByTestId("project-title-header").should("contain.text", value);
 

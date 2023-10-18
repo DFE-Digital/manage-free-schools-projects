@@ -39,14 +39,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiSingleResponseV2<GetProjectByTaskResponse>>> GetProjectByTask(
-            string projectId)
+        public async Task<ActionResult<ApiSingleResponseV2<GetProjectByTaskResponse>>> GetProjectByTask(string projectId)
         {
             _logger.LogMethodEntered();
-            
+
             var projectByTask = await _getProjectByTaskService.Execute(projectId);
 
-            if (projectByTask == null)
+            if (projectByTask == null) 
             {
                 _logger.LogInformation("No project could be found for the given project id {projectId}", projectId);
                 return new NotFoundResult();

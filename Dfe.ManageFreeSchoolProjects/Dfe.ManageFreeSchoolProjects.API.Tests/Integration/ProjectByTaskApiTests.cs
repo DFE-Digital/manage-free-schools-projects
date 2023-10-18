@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -58,6 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 School = new SchoolTask()
                 {
+                    CurrentFreeSchoolName = "Test High School",
                     SchoolType = "Secondary",
                     AgeRange = "11-18",
                     SchoolPhase = "Opening",
@@ -71,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var projectResponse = await UpdateProjectTask(projectId, request);
 
+            projectResponse.School.CurrentFreeSchoolName.Should().Be("Test High School");
             projectResponse.School.SchoolType.Should().Be("Secondary");
             projectResponse.School.SchoolPhase.Should().Be("Opening");
             projectResponse.School.AgeRange.Should().Be("11-18");
@@ -118,6 +121,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.Construction.TrustName.Should().Be("Education First");
             projectResponse.Construction.SiteMinArea.Should().Be("10000");
             projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
+        }
+
+        [Fact]
+        public async Task Patch_DatesTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var DateTenDaysInFuture = new DateTime().AddDays(10);
+            var DateNineDaysInFuture = new DateTime().AddDays(9);
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                Dates = new DatesTask()
+                {
+                    DateOfEntryIntoPreopening = DateTenDaysInFuture,
+                    ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
+                    RealisticYearOfOpening = "2023 2024",
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
+            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
+            projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
         }
 
         [Fact]

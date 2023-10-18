@@ -37,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+            ApplyDatesTaskUpdates(request.Dates, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
@@ -53,6 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 return;
             }
 
+            dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
@@ -86,6 +88,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
+        }
+
+        private static void ApplyDatesTaskUpdates(
+            DatesTask task,
+            Kpi dbKpi)
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
+            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 
         private async Task<Kai> GetKai(string id)
