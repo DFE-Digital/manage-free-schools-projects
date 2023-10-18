@@ -121,5 +121,10 @@ describe("Testing project overview", () => {
         Logger.log("Verify Dates Summary Page Complete Elements Visible");
         datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
 
+        datesSummaryPage.selectMarkItemAsComplete();
+        datesSummaryPage.selectConfirmAndContinue();
+
+        taskListPage.verifyDatesMarkedAsComplete();
+
     });
 });
