@@ -11,5 +11,7 @@
         public string CompanyName { get; set; }
         public string NumberOfCompanyMembers { get; set; }
         public string ProposedChairOfTrustees { get; set; }
+        
+        public bool MarkedAsComplete { get; set; }
     }
 }
