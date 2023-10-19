@@ -77,7 +77,16 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION
 
-        whichProjectMethodPage.selectIndividualProjectAndClickContinue();
+        whichProjectMethodPage.selectContinue();
+
+        // VERIFY WE GET CORRECT VALIDATION RESPONSE
+
+        // TEST WE CANNOT SELECT MORE THAN ONE OPTION
+        whichProjectMethodPage.selectBulkUploadProject();
+
+        // CLICK CONTINUE WITH INDIVIDUAL PROJECT SELECTED
+        whichProjectMethodPage.selectIndividualProject();
+        whichProjectMethodPage.selectContinue();
 
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
