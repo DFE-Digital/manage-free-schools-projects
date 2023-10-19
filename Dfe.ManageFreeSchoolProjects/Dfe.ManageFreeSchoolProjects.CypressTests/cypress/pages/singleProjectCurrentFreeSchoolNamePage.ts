@@ -1,7 +1,7 @@
-class CurrentFreeSchoolNamePage {
+class SingleProjectCurrentFreeSchoolNamePage {
     
 }
 
-const currentFreeSchoolNamePage = new CurrentFreeSchoolNamePage();
+const singleProjectCurrentFreeSchoolNamePage = new SingleProjectCurrentFreeSchoolNamePage();
 
-export default currentFreeSchoolNamePage;
+export default singleProjectCurrentFreeSchoolNamePage;

@@ -1,7 +1,7 @@
-class TemporaryProjectIdPage {
+class SingleProjectTemporaryProjectIdPage {
     
 }
 
-const temporaryProjectIdPage = new TemporaryProjectIdPage();
+const singleProjectTemporaryProjectIdPage = new SingleProjectTemporaryProjectIdPage();
 
-export default temporaryProjectIdPage;
+export default singleProjectTemporaryProjectIdPage;

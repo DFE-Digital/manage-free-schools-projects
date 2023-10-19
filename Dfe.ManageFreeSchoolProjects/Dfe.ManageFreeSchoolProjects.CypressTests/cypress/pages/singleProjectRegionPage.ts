@@ -1,7 +1,7 @@
-class RegionPage {
+class SingleProjectRegionPage {
     
 }
 
-const regionPage = new RegionPage();
+const singleProjectRegionPage = new SingleProjectRegionPage();
 
-export default regionPage;
+export default singleProjectRegionPage;

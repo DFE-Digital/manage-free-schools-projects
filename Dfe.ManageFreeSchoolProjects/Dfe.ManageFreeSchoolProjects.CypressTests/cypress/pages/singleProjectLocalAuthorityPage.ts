@@ -1,7 +1,7 @@
-class LocalAuthorityPage {
+class SingleProjectLocalAuthorityPage {
     
 }
 
-const localAuthorityPage = new LocalAuthorityPage();
+const singleProjectLocalAuthorityPage = new SingleProjectLocalAuthorityPage();
 
-export default localAuthorityPage;
+export default singleProjectLocalAuthorityPage;
