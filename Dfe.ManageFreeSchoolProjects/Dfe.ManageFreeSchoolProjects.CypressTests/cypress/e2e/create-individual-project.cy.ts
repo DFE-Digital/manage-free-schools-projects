@@ -1,8 +1,15 @@
 import { Logger } from "cypress/common/logger";
 import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
+import singleProjectConfirmationPage from "cypress/pages/SingleProjectConfirmationPage";
 import createProjectPage from "cypress/pages/createProjectPage";
 import homePage from "cypress/pages/homePage";
+import singleProjectCheckYourAnswersPage from "cypress/pages/singleProjectCheckYourAnswersPage";
+import singleProjectCurrentFreeSchoolNamePage from "cypress/pages/singleProjectCurrentFreeSchoolNamePage";
+import singleProjectLocalAuthorityPage from "cypress/pages/singleProjectLocalAuthorityPage";
+import singleProjectRegionPage from "cypress/pages/singleProjectRegionPage";
+import singleProjectTemporaryProjectIdPage from "cypress/pages/singleProjectTemporaryProjectIdPage";
 import validationComponent from "cypress/pages/validationComponent";
+import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
 import { v4 } from "uuid";
 
 
@@ -53,7 +60,7 @@ describe("Creating an individual project - Create new project button should disp
     });
 });
 
-describe("Creating an individual project - Test Trust ID Page for projectRecordCreator role", () => {
+describe("Creating an individual project - Test Create new individual project journey for projectRecordCreator role", () => {
     beforeEach(() => {
         
         cy.login({role: ProjectRecordCreator});
@@ -65,6 +72,89 @@ describe("Creating an individual project - Test Trust ID Page for projectRecordC
         const school = `${v4()} school`;
 
         homePage.createNewProjects();
+
+        whichProjectMethodPage.elementsVisible();
+
+        // TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION
+
+        whichProjectMethodPage.selectIndividualProjectAndClickContinue();
+
+        singleProjectTemporaryProjectIdPage.checkElementsVisible();
+
+        // TEST THAT SUBMITTING A BLANK TEMPORARY ID FAILS
+
+        // TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS
+
+        // TEST THAT SUBMITTING SPACES IN TEMPORARY ID FAILS
+
+        // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 25 CHARS FAILS
+
+        // TEST THAT AN SQL INJECTION ATTACK FAILS
+
+        // TEST THAT A JAVASCRIPT ATTACK FAILS
+
+        // TEST THAT A VALID FORMAT 25 CHARS OR LESS GETS US TO FREE SCHOOL NAME SECTION
+
+        //-------------------------------------------------------------
+        // FREE SCHOOL NAME PAGE
+        //--------------------------------------------------------------
+
+        singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
+
+        // TEST THAT SUBMITTING A BLANK SCHOOL NAME FAILS
+
+        // TEST THAT SUBMITTING UNALLOWED SPECIAL CHARS IN SCHOOL NAME FAILS
+
+        // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 80? 100? CHARS FAILS
+
+        // TEST THAT AN SQL INJECTION ATTACK FAILS
+
+        // TEST THAT A JAVASCRIPT ATTACK FAILS
+
+        // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS GETS US TO FREE SCHOOL NAME SECTION PASSES
+
+        //------------------------------------------------------------------------------------------------------------------------
+        //REGION PAGE
+        //------------------------------------------------------------------------------------------------------------------------
+
+        singleProjectRegionPage.checkElementsVisible();
+
+        // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
+
+        // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
+
+        // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO LOCAL AUTHORITY PAGE
+
+        //------------------------------------------------------------------------------------------------------------------------
+        //LOCAL AUTHORITY PAGE
+        //------------------------------------------------------------------------------------------------------------------------
+
+        singleProjectLocalAuthorityPage.checkElementsVisible();
+
+        // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
+
+        // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
+
+        // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO CHECK YOUR ANSWERS PAGE
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        //CHECK YOUR ANSWERS PAGE
+        //--------------------------------------------------------------------------------------------------------------------------
+
+        singleProjectCheckYourAnswersPage.checkElementsVisible();
+
+        singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        //PROJECT CREATED CONFIRMATION PAGE
+        //--------------------------------------------------------------------------------------------------------------------------
+
+        singleProjectConfirmationPage.checkElementsVisible();
+
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        // MIKE'S LEGACY CODE - LEAVE THIS FOR NOW!
+        //--------------------------------------------------------------------------------------------------------------------------
 /*
         Logger.log("Selecting method");
         createProjectPage.continue();
