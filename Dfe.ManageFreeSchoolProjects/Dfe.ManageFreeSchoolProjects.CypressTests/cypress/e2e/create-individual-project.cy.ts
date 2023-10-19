@@ -57,12 +57,14 @@ describe("Creating an individual project - Test Trust ID Page for projectRecordC
     beforeEach(() => {
         
         cy.login({role: ProjectRecordCreator});
-        cy.visit('/project/create/method');
+        cy.visit('/');
         
     });
 
     it("Should navigate to project/create/method page", () => {
         const school = `${v4()} school`;
+
+        homePage.createNewProjects();
 /*
         Logger.log("Selecting method");
         createProjectPage.continue();
