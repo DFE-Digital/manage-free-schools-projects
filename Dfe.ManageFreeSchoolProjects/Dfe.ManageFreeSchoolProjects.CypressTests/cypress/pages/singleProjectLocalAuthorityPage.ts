@@ -1,5 +1,9 @@
 class SingleProjectLocalAuthorityPage {
-    
+    public checkElementsVisible(): this {
+        
+        
+        return this;
+    }
 }
 
 const singleProjectLocalAuthorityPage = new SingleProjectLocalAuthorityPage();
