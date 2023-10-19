@@ -4,7 +4,7 @@ class HomePage {
 
     public createNewProjects(): this {
         cy.contains("Create new projects").click();
-        cy.login({role: ProjectRecordCreator})
+     //   cy.login({role: ProjectRecordCreator})
         return this;
     }
 
