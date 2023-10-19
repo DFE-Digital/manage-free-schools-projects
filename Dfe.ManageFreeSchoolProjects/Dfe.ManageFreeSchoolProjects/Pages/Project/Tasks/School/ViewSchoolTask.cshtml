@@ -9,35 +9,34 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St George's Primary super School</span>
+            <span class="govuk-caption-l">St George's Primary super School Cheesy</span>
             School
         </h1>
         <dl class="govuk-summary-list">
-
             <div class="govuk-summary-list__row">
+
                 <dt class="govuk-summary-list__key">
                     School type
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
                         RenderValue(Model.Project.School.SchoolType);
                     }
                 </dd>
-
+                
                 <dd class="govuk-summary-list__actions">
-
                     <a class="govuk-link" href="@editLink">
                         Change<span class="govuk-visually-hidden"> School type</span>
                     </a>
-
                 </dd>
-
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     School phase
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
                         RenderValue(Model.Project.School.SchoolPhase);
@@ -45,19 +44,17 @@
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-
                     <a class="govuk-link" href="task-school-details-edit">
                         Change<span class="govuk-visually-hidden"> School phase</span>
                     </a>
-
                 </dd>
-
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Age range
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
                         RenderValue(Model.Project.School.AgeRange);
@@ -65,13 +62,26 @@
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-
                     <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden"> Age range</span>
+                        Change<span class="govuk-visually-hidden">Age range</span>
                     </a>
-
                 </dd>
+            </div>
 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue("");
+                    }
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="task-school-details-edit">
+                        Change<span class="govuk-visually-hidden">Gender</span>
+                    </a>
+                </dd>
             </div>
 
             <div class="govuk-summary-list__row">
@@ -89,9 +99,7 @@
                     <a class="govuk-link" href="task-school-details-edit">
                         Change<span class="govuk-visually-hidden"> Nursery</span>
                     </a>
-
                 </dd>
-
             </div>
 
             <div class="govuk-summary-list__row">
@@ -189,6 +197,7 @@
 </div>
 
 @functions {
+
     public void RenderValue(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -200,4 +209,5 @@
             @value
         }
     }
+
 }

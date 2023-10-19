@@ -1,6 +1,12 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
+    var schoolTypes = new[] { "Alternative provision", "Further education" };
+    var nurseryOptions = new[] { "Yes", "No" };
+    var faithStatues = new[] { "Designation", "Ethos", "None" };
+    var genderOptions = new[] { "Boys Only", "Girls Only", "Mixed" };
+    var faithTypes = new[] { "Boys Only", "Girls Only", "Mixed" };
+
 }
 
 
@@ -16,15 +22,88 @@
             <div class="govuk-grid-column-two-thirds">
 
                 <form method="post">
+                    <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.AgeRange" data-testid="school-type" label="Current free school name"/>
 
-                    <govuk-text-input id="school-type" name="school-type" asp-for="@Model.SchoolType" data-testid="school-type" label="School type" />
-                    <govuk-text-input id="school-phase" name="school-phase" asp-for="@Model.SchoolPhase" data-testid="school-phase" label="School phase" />
-                    <govuk-text-input id="age-range" name="age-range" asp-for="@Model.AgeRange" data-testid="age-range" label="Age range" />
-                    <govuk-text-input id="nursery" name="nursery" asp-for="@Model.Nursery" data-testid="nursery" label="Nursery" />
-                    <govuk-text-input id="sixth-form" name="sixth-form" asp-for="@Model.SixthForm" data-testid="sixth-form" label="Sixth form" />
-                    <govuk-text-input id="company-name" name="company-name" asp-for="@Model.CompanyName" data-testid="company-name" label="Company name" />
-                    <govuk-text-input id="number-of-company-members" name="number-of-company-members" asp-for="@Model.NumberOfCompanyMembers" data-testid="number-of-company-members" label="Number of company members" />
-                    <govuk-text-input id="proposed-chair-of-trustees" name="proposed-chair-of-trustees" asp-for="@Model.ProposedChairOfTrustees" data-testid="proposed-chair-of-trustees" label="Proposed chair of trustees" />
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="school-type">School Type</label>
+                        <govuk-radios-input id="school-type"
+                                            name="school-type"
+                                            asp-for="ProjectId"
+                                            data-testid="school-type"
+                                            labels="@schoolTypes"
+                                            values="@schoolTypes"/>
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="school-phase">School Phase</label>
+                        <govuk-radios-input id="school-phase"
+                                            name="school-phase"
+                                            asp-for="ProjectId"
+                                            data-testid="school-phase"
+                                            labels="@schoolTypes"
+                                            values="@schoolTypes"/>
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="age-range-from">Age Range</label>
+                        <input class="govuk-input govuk-input--width-2" id="age-range-from" name="age-range-from" type="text">
+                        <input class="govuk-input govuk-input--width-2" id="age-range-to" name="age-range-to" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="gender">Gender</label>
+                        <govuk-radios-input id="gender"
+                                            name="gender"
+                                            asp-for="ProjectId"
+                                            data-testid="gender"
+                                            labels="@genderOptions"
+                                            values="@genderOptions"/>
+                    </div>
+
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="nursery">Nursery</label>
+                        <govuk-radios-input id="nursery"
+                                            name="nursery"
+                                            asp-for="ProjectId"
+                                            data-testid="nursery"
+                                            labels="@nurseryOptions"
+                                            values="@nurseryOptions"/>
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="school-type">Sixth Form</label>
+                        <govuk-radios-input id="sixth-form"
+                                            name="sixth-form"
+                                            asp-for="ProjectId"
+                                            data-testid="sixth-form"
+                                            labels="@nurseryOptions"
+                                            values="@nurseryOptions"/>
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="faith-status">Faith Status</label>
+                        <govuk-radios-input id="faith-status"
+                                            name="faith-status"
+                                            asp-for="ProjectId"
+                                            data-testid="faith-status"
+                                            labels="@faithStatues"
+                                            values="@faithStatues"/>
+                    </div>
+
+                    @* Only allowed if Faith Status is NOT None. Maybe conditionally render it?*@
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="faith-type">Faith Type</label>
+                        <govuk-radios-input id="faith-type"
+                                            name="faith-type"
+                                            asp-for="ProjectId"
+                                            data-testid="faith-type"
+                                            labels="@faithStatues"
+                                            values="@faithStatues"/>
+                    </div>
+
+                    @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
+                    <govuk-text-input id="other-faith-type" name="other-faith-type" asp-for="@Model.ProposedChairOfTrustees" data-testid="other-faith-type" label="Other Faith Type"/>
 
                     <button class="govuk-button" data-module="govuk-button">
                         Save and continue
