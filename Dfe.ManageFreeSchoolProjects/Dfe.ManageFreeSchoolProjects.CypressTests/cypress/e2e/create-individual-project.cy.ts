@@ -81,9 +81,12 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // VERIFY WE GET CORRECT VALIDATION RESPONSE
 
-        // TEST WE CANNOT SELECT MORE THAN ONE OPTION
-        whichProjectMethodPage.selectBulkUploadProject();
 
+        // TEST WE CANNOT SELECT MORE THAN ONE OPTION
+        whichProjectMethodPage.selectIndividualProject();
+        whichProjectMethodPage.selectBulkUploadProject();
+        
+        
         // CLICK CONTINUE WITH INDIVIDUAL PROJECT SELECTED
         whichProjectMethodPage.selectIndividualProject();
         whichProjectMethodPage.selectContinue();
