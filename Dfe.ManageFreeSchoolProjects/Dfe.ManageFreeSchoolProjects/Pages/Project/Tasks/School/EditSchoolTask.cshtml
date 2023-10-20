@@ -1,9 +1,42 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
-    var schoolTypes = new[] { "Alternative provision", "Further education" };
+    var schoolTypes = Enum.GetValues(typeof(SchoolType));
+    var schoolTypeLabels = new List<string>();
+    var schoolTypeValues = new List<string>();
+    
+    foreach (var schoolType in schoolTypes)
+    {
+        schoolTypeLabels.Add(schoolType.ToDescription());  
+        schoolTypeValues.Add(schoolType.ToString());  
+    }
+    
+    var schoolPhases = Enum.GetValues(typeof(SchoolPhase));
+    var schoolPhaseLabels = new List<string>();
+    var schoolPhaseValues = new List<string>();
+
+    foreach (var schoolPhase in schoolPhases)
+    {
+        schoolPhaseLabels.Add(schoolPhase.ToDescription());
+        schoolPhaseValues.Add(schoolPhase.ToString());
+    }
+
+    var faithStatuses = Enum.GetValues<FaithStatus>();
+    var faithStatusLabels = new List<string>();
+    var faithStatusValues = new List<string>();
+    
+    foreach (var faithStatus in faithStatuses)
+    {
+        faithStatusLabels.Add(faithStatus.ToDescription());
+        faithStatusValues.Add(faithStatus.ToString());
+    }
+    
+    
+
+
     var nurseryOptions = new[] { "Yes", "No" };
-    var faithStatues = new[] { "Designation", "Ethos", "None" };
+    // var faithStatues = new[] { "Designation", "Ethos", "None" };
     var genderOptions = new[] { "Boys Only", "Girls Only", "Mixed" };
     var faithTypes = new[] { "Boys Only", "Girls Only", "Mixed" };
 
@@ -30,8 +63,8 @@
                                             name="school-type"
                                             asp-for="ProjectId"
                                             data-testid="school-type"
-                                            labels="@schoolTypes"
-                                            values="@schoolTypes"/>
+                                            labels="@schoolTypeLabels.ToArray()"
+                                            values="@schoolTypeValues.ToArray()"/>
                     </div>
 
                     <div class="govuk-form-group">
@@ -40,8 +73,8 @@
                                             name="school-phase"
                                             asp-for="ProjectId"
                                             data-testid="school-phase"
-                                            labels="@schoolTypes"
-                                            values="@schoolTypes"/>
+                                            labels="@schoolPhaseLabels.ToArray()"
+                                            values="@schoolPhaseValues.ToArray()"/>
                     </div>
 
                     <div class="govuk-form-group">
@@ -87,23 +120,23 @@
                                             name="faith-status"
                                             asp-for="ProjectId"
                                             data-testid="faith-status"
-                                            labels="@faithStatues"
-                                            values="@faithStatues"/>
+                                            labels="@faithStatusLabels.ToArray()"
+                                            values="@faithStatusValues.ToArray()"/>
                     </div>
 
                     @* Only allowed if Faith Status is NOT None. Maybe conditionally render it?*@
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="faith-type">Faith Type</label>
-                        <govuk-radios-input id="faith-type"
-                                            name="faith-type"
-                                            asp-for="ProjectId"
-                                            data-testid="faith-type"
-                                            labels="@faithStatues"
-                                            values="@faithStatues"/>
-                    </div>
+                    @* <div class="govuk-form-group"> *@
+                    @*     <label class="govuk-label" for="faith-type">Faith Type</label> *@
+                    @*     <govuk-radios-input id="faith-type" *@
+                    @*                         name="faith-type" *@
+                    @*                         asp-for="ProjectId" *@
+                    @*                         data-testid="faith-type" *@
+                    @*                         labels="@faithStatues" *@
+                    @*                         values="@faithStatues"/> *@
+                    @* </div> *@
 
                     @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
-                    <govuk-text-input id="other-faith-type" name="other-faith-type" asp-for="@Model.ProposedChairOfTrustees" data-testid="other-faith-type" label="Other Faith Type"/>
+                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.ProposedChairOfTrustees" data-testid="other-faith-type" label="Other Faith Type"/>
 
                     <button class="govuk-button" data-module="govuk-button">
                         Save and continue
