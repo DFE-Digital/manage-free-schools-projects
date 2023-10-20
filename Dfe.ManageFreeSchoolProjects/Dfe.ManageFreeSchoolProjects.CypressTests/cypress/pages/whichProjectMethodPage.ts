@@ -28,7 +28,7 @@ class WhichProjectMethodPage {
         return this;
     }
 
-    public selectBulkUpload(): this {
+    public selectBulkUploadProject(): this {
         cy.getByTestId("Bulk").click();
         cy.getByTestId("Bulk").should("be.checked");
         cy.getByTestId("Individual").should("not.be.checked");
