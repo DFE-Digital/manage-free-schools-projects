@@ -18,9 +18,17 @@ Cypress.Commands.add("getById", (id) => {
     cy.get(`[id="${id}"]`);
 });
 
-Cypress.Commands.add("getByRole", (role) => {
-    cy.get(`role="${role}"]`);
+Cypress.Commands.add("getByClass", (classname) => {
+    cy.get(`[class="${classname}"]`);
 });
+
+Cypress.Commands.add("getByRole", (role) => {
+    cy.get(`[role="${role}"]`);
+});
+
+Cypress.Commands.add("getByLabelFor", (labelFor) => {
+    cy.get(`[for="${labelFor}"]`);
+})
 
 Cypress.Commands.add("login", (params) => {
     cy.clearCookies();
