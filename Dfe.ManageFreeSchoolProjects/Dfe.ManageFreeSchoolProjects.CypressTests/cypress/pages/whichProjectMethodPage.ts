@@ -41,6 +41,14 @@ class WhichProjectMethodPage {
 
         return this;
     }
+
+    public verifyValidationMessage(): this {
+        cy.geyById("method-error-link").contains("The method field is required");
+        cy.getById("method-error").contains("The method field is required")
+
+        return this;
+    }
+
 }
 
 const whichProjectMethodPage = new WhichProjectMethodPage();
