@@ -80,7 +80,7 @@ describe("Creating an individual project - Test Create new individual project jo
         whichProjectMethodPage.selectContinue();
 
         // VERIFY WE GET CORRECT VALIDATION RESPONSE
-
+        whichProjectMethodPage.verifyValidationMessage();
 
         // TEST WE CANNOT SELECT MORE THAN ONE OPTION
         whichProjectMethodPage.selectIndividualProject();
