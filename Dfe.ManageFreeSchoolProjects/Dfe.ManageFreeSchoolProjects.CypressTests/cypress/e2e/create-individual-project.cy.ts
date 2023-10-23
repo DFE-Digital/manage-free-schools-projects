@@ -120,7 +120,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
         // TEST THAT A VALID FORMAT 25 CHARS OR LESS LETS US PROCEED TO THE FREE SCHOOL NAME SECTION
-        
+        singleProjectTemporaryProjectIdPage.UserEntersValidTempId();
+        singleProjectTemporaryProjectIdPage.selectContinue();
 
         //-------------------------------------------------------------
         // FREE SCHOOL NAME PAGE
