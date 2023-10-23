@@ -73,6 +73,29 @@ class SingleProjectRegionPage {
         return this;
     }
 
+    public selectLondon(): this {
+        cy.getByTestId("London").click();
+        cy.getByTestId("London").should("be.checked");
+
+        cy.getByTestId("London").should("not.be.checked");
+
+        cy.getByTestId("EastMidlands").should("not.be.checked");
+
+        cy.getByTestId("NorthEast").should("not.be.checked");
+
+        cy.getByTestId("NorthWest").should("not.be.checked");
+
+        cy.getByTestId("SouthEast").should("not.be.checked");
+
+        cy.getByTestId("SouthWest").should("not.be.checked");
+
+        cy.getByTestId("WestMidlands").should("not.be.checked");
+
+        cy.getByTestId("YorkshireAndHumber").should("not.be.checked");
+
+        return this;
+    }
+
     public selectEastOfEngland(): this {
         cy.getByTestId("EastOfEngland").click();
         cy.getByTestId("EastOfEngland").should("be.checked");
