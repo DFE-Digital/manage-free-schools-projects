@@ -94,18 +94,33 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
         // TEST THAT SUBMITTING A BLANK TEMPORARY ID FAILS
+        singleProjectTemporaryProjectIdPage.selectContinue();
+        singleProjectTemporaryProjectIdPage.verifyEmptyValidationMessage();
+
 
         // TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS
 
+        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
+        singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
+
         // TEST THAT SUBMITTING SPACES IN TEMPORARY ID FAILS
+        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsSpaces();
+        singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
         // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 25 CHARS FAILS
+        singleProjectTemporaryProjectIdPage.UserEntersMoreThanTwentyFiveChars();
+        singleProjectTemporaryProjectIdPage.verifyMoreThanTwentFiveCharsValidationMessage();
 
         // TEST THAT AN SQL INJECTION ATTACK FAILS
+        singleProjectTemporaryProjectIdPage.UserAttemptsSQLInjection();
+        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
         // TEST THAT A JAVASCRIPT ATTACK FAILS
+        singleProjectTemporaryProjectIdPage.UserAttemptsJavaScriptAttack();
+        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
         // TEST THAT A VALID FORMAT 25 CHARS OR LESS LETS US PROCEED TO THE FREE SCHOOL NAME SECTION
+        
 
         //-------------------------------------------------------------
         // FREE SCHOOL NAME PAGE
