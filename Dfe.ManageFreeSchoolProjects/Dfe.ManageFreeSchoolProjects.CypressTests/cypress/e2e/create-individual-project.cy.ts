@@ -183,10 +183,18 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectLocalAuthorityPage.checkElementsVisible();
 
         // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
+        singleProjectLocalAuthorityPage.selectContinue();
+        singleProjectLocalAuthorityPage.verifyValidationMessage();
 
         // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
+        singleProjectLocalAuthorityPage.selectCambridgeshire();
+        singleProjectLocalAuthorityPage.selectCentralBedfordshire();
+        singleProjectLocalAuthorityPage.selectEssex();
+        singleProjectLocalAuthorityPage.selectHertfordshire();
 
         // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO CHECK YOUR ANSWERS PAGE
+        singleProjectLocalAuthorityPage.selectBedford();
+        singleProjectLocalAuthorityPage.selectContinue();
 
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
