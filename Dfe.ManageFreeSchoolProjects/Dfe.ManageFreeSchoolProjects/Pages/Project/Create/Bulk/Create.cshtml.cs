@@ -14,7 +14,6 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 {
-    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class CreateModel : PageModel
     {
         [BindProperty]
@@ -43,6 +42,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Bulk
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
             return Page();
         }
 

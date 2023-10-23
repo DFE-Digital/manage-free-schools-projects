@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class ProjectIdModel : PageModel
     {
         [BindProperty(Name = "projectid")]
@@ -36,6 +35,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
+
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
             SetBackLink(project);

@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class RegionModel : PageModel
     {
         [BindProperty(Name = "region")]
@@ -30,6 +29,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
             return Page();
         }
 

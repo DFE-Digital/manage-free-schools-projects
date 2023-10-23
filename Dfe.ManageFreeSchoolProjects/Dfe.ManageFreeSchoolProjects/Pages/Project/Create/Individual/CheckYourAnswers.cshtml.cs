@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class CheckYourAnswersModel : PageModel
     {
         public CreateProjectCacheItem Project { get; set; }
@@ -29,6 +28,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
             _createProjectCache.Update(Project);

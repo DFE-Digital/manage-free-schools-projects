@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    [Authorize(Roles = RolesConstants.ProjectRecordCreator)]
     public class ConfirmationModel : PageModel
     {
         private readonly ICreateProjectCache _createProjectCache;
