@@ -76,7 +76,6 @@ describe("Creating an individual project - Test Create new individual project jo
         whichProjectMethodPage.checkElementsVisible();
 
         // TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION
-
         whichProjectMethodPage.selectContinue();
 
         // VERIFY WE GET CORRECT VALIDATION RESPONSE
@@ -99,7 +98,6 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         // TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS
-
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
@@ -151,7 +149,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS PASSES AND LETS US PROCEED TO THE REGION PAGE
         singleProjectCurrentFreeSchoolNamePage.UserEntersValidSchool();
-        
+
 
         //------------------------------------------------------------------------------------------------------------------------
         //REGION PAGE
@@ -160,6 +158,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectRegionPage.checkElementsVisible();
 
         // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
+        singleProjectRegionPage.selectContinue();
+        
 
         // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
 
