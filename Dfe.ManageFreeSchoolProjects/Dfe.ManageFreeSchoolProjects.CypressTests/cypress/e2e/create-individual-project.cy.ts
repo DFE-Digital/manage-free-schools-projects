@@ -148,7 +148,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS PASSES AND LETS US PROCEED TO THE REGION PAGE
-        singleProjectCurrentFreeSchoolNamePage.UserEntersValidSchool();
+        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool();
 
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -159,11 +159,22 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
         singleProjectRegionPage.selectContinue();
-        
+        singleProjectRegionPage.verifyValidationMessage();
 
         // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
+        singleProjectRegionPage.selectEastMidlands();
+        singleProjectRegionPage.selectEastOfEngland();
+        singleProjectRegionPage.selectLondon();
+        singleProjectRegionPage.selectNorthEast();
+        singleProjectRegionPage.selectNorthWest();
+        singleProjectRegionPage.selectSouthEast();
+        singleProjectRegionPage.selectWestMidlands();
+        singleProjectRegionPage.selectYorkshireAndHumber();
+
 
         // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO LOCAL AUTHORITY PAGE
+        singleProjectRegionPage.selectSouthWest();
+        singleProjectRegionPage.selectContinue();
 
         //------------------------------------------------------------------------------------------------------------------------
         //LOCAL AUTHORITY PAGE
