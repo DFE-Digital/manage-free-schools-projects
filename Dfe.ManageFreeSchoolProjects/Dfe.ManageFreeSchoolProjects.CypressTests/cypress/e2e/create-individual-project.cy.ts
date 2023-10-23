@@ -130,16 +130,28 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
 
         // TEST THAT SUBMITTING A BLANK SCHOOL NAME FAILS
+        singleProjectCurrentFreeSchoolNamePage.selectContinue();
+        singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
 
         // TEST THAT SUBMITTING UNALLOWED SPECIAL CHARS IN SCHOOL NAME FAILS
+        singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 80? 100? CHARS FAILS
+        singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanEightyChars();
+        singleProjectCurrentFreeSchoolNamePage.verifyMoreThanEightyCharsValidationMessage();
 
         // TEST THAT AN SQL INJECTION ATTACK FAILS
+        singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A JAVASCRIPT ATTACK FAILS
+        singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS PASSES AND LETS US PROCEED TO THE REGION PAGE
+        singleProjectCurrentFreeSchoolNamePage.UserEntersValidSchool();
+        
 
         //------------------------------------------------------------------------------------------------------------------------
         //REGION PAGE
