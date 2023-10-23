@@ -1,3 +1,5 @@
+
+
 class WhichProjectMethodPage {
     public checkElementsVisible(): this {
         cy.getByClass("govuk-back-link").contains("Back");
@@ -44,10 +46,12 @@ class WhichProjectMethodPage {
 
     public verifyValidationMessage(): this {
         cy.geyById("method-error-link").contains("The method field is required");
-        cy.getById("method-error").contains("The method field is required")
+        cy.getById("method-error").contains("The method field is required");
 
         return this;
     }
+
+  
 
 }
 
