@@ -3,7 +3,7 @@ class SingleProjectLocalAuthorityPage {
         cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
-        cy.get("h1").contains("What is the region of the local authority?");
+        cy.get("h1").contains("What is the local authority?");
 
         cy.getByTestId("Bedford").should("not.be.checked");
         cy.contains("Bedford");
