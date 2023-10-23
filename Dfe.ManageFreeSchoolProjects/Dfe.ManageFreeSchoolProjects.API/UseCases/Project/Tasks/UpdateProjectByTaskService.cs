@@ -58,8 +58,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
             // dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
-            dbKpi.SchoolDetailsNursery = task.Nursery;
-            dbKpi.SchoolDetailsSixthForm = task.SixthForm;
+            // dbKpi.SchoolDetailsNursery = task.Nursery;
+            // dbKpi.SchoolDetailsSixthForm = task.SixthForm;
             
         }
 

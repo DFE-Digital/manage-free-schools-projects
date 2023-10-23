@@ -51,17 +51,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
         [Required]
-        public string Gender { get; set; }
-        
+        public string? Gender { get; set; }
+
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required]
-        public string Nursery { get; set; }
+        public Nursery? Nursery { get; set; } 
         
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
         [Required]
-        public string SixthForm { get; set; }
+        public SixthForm? SixthForm { get; set; }
         
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
@@ -100,8 +100,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 SchoolType = project.School.SchoolType;
                 // SchoolPhase = project.School.SchoolPhase;
                 // AgeRange = project.School.AgeRange;
-                Nursery = project.School.Nursery;
-                SixthForm = project.School.SixthForm;
+                // Nursery = project.School.Nursery;
+                // SixthForm = project.School.SixthForm;
             }
             catch (Exception ex)
             {
@@ -128,8 +128,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                         SchoolType = SchoolType,
                         // SchoolPhase = SchoolPhase,
                         // AgeRange = AgeRange,
-                        Nursery = Nursery,
-                        SixthForm = SixthForm,
+                        // Nursery = Nursery,
+                        // SixthForm = SixthForm,
                     }
                 };
 

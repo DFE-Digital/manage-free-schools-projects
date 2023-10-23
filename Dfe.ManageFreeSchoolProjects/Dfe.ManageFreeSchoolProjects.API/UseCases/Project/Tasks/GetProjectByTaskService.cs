@@ -40,8 +40,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
                         // SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
                         AgeRange = kpi.SchoolDetailsAgeRange,
-                        Nursery = kpi.SchoolDetailsNursery,
-                        SixthForm = kpi.SchoolDetailsSixthForm,
+                        // Nursery = kpi.SchoolDetailsNursery,
+                        // SixthForm = kpi.SchoolDetailsSixthForm,
                     },
                     Construction = new ConstructionTask()
                     {

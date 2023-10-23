@@ -8,9 +8,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public string SchoolType { get; set; }
         public SchoolPhase SchoolPhase { get; set; }
         public string AgeRange { get; set; }
-        public string Nursery { get; set; }
+        public Nursery Nursery { get; set; }
         public Gender Gender { get; set; }
-        public string SixthForm { get; set; }
+        public SixthForm SixthForm { get; set; }
 
         public FaithStatus FaithStatus { get; set; }
 
@@ -37,6 +37,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         UniversityTechnicalCollege = 6
     }
 
+    public enum Nursery
+    {
+        Yes,
+        No
+    }
+
+    public enum SixthForm
+    {
+        Yes,
+        No
+    }
+    
     public enum SchoolPhase
     {
         [Description("Primary")]

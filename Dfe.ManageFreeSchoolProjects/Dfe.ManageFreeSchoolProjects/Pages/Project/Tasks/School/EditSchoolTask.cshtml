@@ -2,42 +2,27 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
-    var schoolTypes = Enum.GetValues(typeof(SchoolType));
-    var schoolTypeLabels = new List<string>();
-    var schoolTypeValues = new List<string>();
+    var schoolTypes = Enum.GetValues<SchoolType>();
+    var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
+    var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
 
-    foreach (var schoolType in schoolTypes)
-    {
-        schoolTypeLabels.Add(schoolType.ToDescription());
-        schoolTypeValues.Add(schoolType.ToString());
-    }
+    var schoolPhases = Enum.GetValues<SchoolPhase>();
+    var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();
+    var schoolPhaseValues = schoolPhases.Select(x => x.ToString()).ToArray();
 
-    var schoolPhases = Enum.GetValues(typeof(SchoolPhase));
-    var schoolPhaseLabels = new List<string>();
-    var schoolPhaseValues = new List<string>();
+    var faithStatuses = Enum.GetValues<FaithStatus>().Select(x => x.ToString()).ToArray();
 
-    foreach (var schoolPhase in schoolPhases)
-    {
-        schoolPhaseLabels.Add(schoolPhase.ToDescription());
-        schoolPhaseValues.Add(schoolPhase.ToString());
-    }
+    var nurseryOptions = Enum.GetValues<Nursery>().Select(x => x.ToString()).ToArray();
 
-    var faithStatuses = Enum.GetValues<FaithStatus>();
-    var faithStatusLabels = new List<string>();
-    var faithStatusValues = new List<string>();
+    var sixthFormOptions = Enum.GetValues<SixthForm>().Select(x => x.ToString()).ToArray();
 
-    foreach (var faithStatus in faithStatuses)
-    {
-        faithStatusLabels.Add(faithStatus.ToDescription());
-        faithStatusValues.Add(faithStatus.ToString());
-    }
+    var genders = Enum.GetValues<Gender>();
+    var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
+    var genderValues = genders.Select(x => x.ToString()).ToArray();
 
-    var nurseryOptions = new[] { "Yes", "No" };
-    var sixthFormOptions = new[] { "Yes", "No" };
-
-    var genderOptions = new[] { "Boys Only", "Girls Only", "Mixed" };
-    var faithTypes = new[] { "Boys Only", "Girls Only", "Mixed" };
-
+    var faiths = Enum.GetValues<FaithType>();
+    var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
+    var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
 }
 
 
@@ -50,98 +35,156 @@
         </h1>
 
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+            < class="govuk-grid-column-two-thirds">
 
-                <form method="post">
-                    <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name"/>
+            <form method="post">
+                <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name"/>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="school-type">School Type</label>
-                        <govuk-radios-input id="school-type"
-                                            name="school-type"
-                                            asp-for="@Model.SchoolType"
-                                            data-testid="school-type"
-                                            labels="@schoolTypeLabels.ToArray()"
-                                            values="@schoolTypeValues.ToArray()"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="school-type">School Type</label>
+                    <govuk-radios-input id="school-type"
+                                        name="school-type"
+                                        asp-for="@Model.SchoolType"
+                                        data-testid="school-type"
+                                        labels="@schoolTypeLabels"
+                                        values="@schoolTypeValues"/>
+                </div>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="school-phase">School Phase</label>
-                        <govuk-radios-input id="school-phase"
-                                            name="school-phase"
-                                            asp-for="@Model.SchoolPhase"
-                                            data-testid="school-phase"
-                                            labels="@schoolPhaseLabels.ToArray()"
-                                            values="@schoolPhaseValues.ToArray()"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="school-phase">School Phase</label>
+                    <govuk-radios-input id="school-phase"
+                                        name="school-phase"
+                                        asp-for="@Model.SchoolPhase"
+                                        data-testid="school-phase"
+                                        labels="@schoolPhaseLabels"
+                                        values="@schoolPhaseValues"/>
+                </div>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="age-range-from">Age Range</label>
-                        <input class="govuk-input govuk-input--width-2" asp-for="@Model.AgeRangeFrom" id="age-range-from" name="age-range-from" type="text">
-                        <input class="govuk-input govuk-input--width-2" asp-for="@Model.AgeRangeTo" id="age-range-to" name="age-range-to" type="text">
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="age-range-from">Age Range</label>
+                    <govuk-text-input width="2" id="age-range-from" name="age-range-from" asp-for="@Model.AgeRangeFrom" type="text" label="From"/>
+                    <govuk-text-input width="2" id="age-range-to" name="age-range-to" asp-for="@Model.AgeRangeTo" type="text" label="To"/>
+                </div>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="gender">Gender</label>
-                        <govuk-radios-input id="gender"
-                                            name="gender"
-                                            data-testid="gender"
-                                            asp-for="@Model.Gender"
-                                            labels="@genderOptions"
-                                            values="@genderOptions"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="gender">Gender</label>
+                    <govuk-radios-input id="gender"
+                                        name="gender"
+                                        data-testid="gender"
+                                        asp-for="@Model.Gender"
+                                        labels="@genderLabels"
+                                        values="@genderValues"/>
+                </div>
 
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="nursery">Nursery</label>
-                        <govuk-radios-input id="nursery"
-                                            name="nursery"
-                                            asp-for="@Model.Nursery"
-                                            data-testid="nursery"
-                                            labels="@nurseryOptions"
-                                            values="@nurseryOptions"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="nursery">Nursery</label>
+                    <govuk-radios-input id="nursery"
+                                        name="nursery"
+                                        asp-for="@Model.Nursery"
+                                        data-testid="nursery"
+                                        labels="@nurseryOptions"
+                                        values="@nurseryOptions"/>
+                </div>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="school-type">Sixth Form</label>
-                        <govuk-radios-input id="sixth-form"
-                                            name="sixth-form"
-                                            asp-for="@Model.SixthForm"
-                                            data-testid="sixth-form"
-                                            labels="@nurseryOptions"
-                                            values="@nurseryOptions"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="school-type">Sixth Form</label>
+                    <govuk-radios-input id="sixth-form"
+                                        name="sixth-form"
+                                        asp-for="@Model.SixthForm"
+                                        data-testid="sixth-form"
+                                        labels="@sixthFormOptions"
+                                        values="@sixthFormOptions"/>
+                </div>
 
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="faith-status">Faith Status</label>
-                        <govuk-radios-input id="faith-status"
-                                            name="faith-status"
-                                            asp-for="ProjectId"
-                                            data-testid="faith-status"
-                                            labels="@faithStatusLabels.ToArray()"
-                                            values="@faithStatusValues.ToArray()"/>
-                    </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="faith-status">Faith Status</label>
+                    <govuk-radios-input id="faith-status"
+                                        name="faith-status"
+                                        asp-for="ProjectId"
+                                        data-testid="faith-status"
+                                        labels="@faithStatuses"
+                                        values="@faithStatuses"/>
+                </div>
 
-                    @* Only allowed if Faith Status is NOT None. Maybe conditionally render it?*@
+                @if (!string.IsNullOrEmpty(Model.FaithStatus) && Model.FaithStatus != FaithStatus.None.ToString())
+                {
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="faith-type">Faith Type</label>
-                        <govuk-radios-input id="faith-type"
+                        <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
                                             name="faith-type"
                                             asp-for="ProjectId"
                                             data-testid="faith-type"
-                                            labels="@faithStatusLabels.ToArray()"
-                                            values="@faithStatusValues.ToArray()"/>
+                                            labels="@faithTypeLabels"
+                                            values="@faithTypeValues"/>
                     </div>
+                }
 
-                    @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
-                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
+                @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
+                <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
+                @* *@
+                @* <div class="govuk-form-group"> *@
+                @*     <fieldset class="govuk-fieldset" aria-describedby="contact-hint"> *@
+                @*         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l"> *@
+                @*             <h1 class="govuk-fieldset__heading"> *@
+                @*                 How would you prefer to be contacted? *@
+                @*             </h1> *@
+                @*         </legend> *@
+                @*         <div id="contact-hint" class="govuk-hint"> *@
+                @*             Select one option. *@
+                @*         </div> *@
+                @*         <div class="govuk-radios" data-module="govuk-radios"> *@
+                @*             <div class="govuk-radios__item"> *@
+                @*                 <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="email" data-aria-controls="conditional-contact"> *@
+                @*                 <label class="govuk-label govuk-radios__label" for="contact"> *@
+                @*                     Email *@
+                @*                 </label> *@
+                @*             </div> *@
+                @*             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact"> *@
+                @*                 <div class="govuk-form-group"> *@
+                @*                     <label class="govuk-label" for="contact-by-email"> *@
+                @*                         Email address *@
+                @*                     </label> *@
+                @*                     <input class="govuk-input govuk-!-width-one-third" id="contact-by-email" name="contactByEmail" type="email" spellcheck="false" autocomplete="email"> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="govuk-radios__item"> *@
+                @*                 <input class="govuk-radios__input" id="contact-2" name="contact" type="radio" value="phone" data-aria-controls="conditional-contact-2"> *@
+                @*                 <label class="govuk-label govuk-radios__label" for="contact-2"> *@
+                @*                     Phone *@
+                @*                 </label> *@
+                @*             </div> *@
+                @*             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2"> *@
+                @*                 <div class="govuk-form-group"> *@
+                @*                     <label class="govuk-label" for="contact-by-phone"> *@
+                @*                         Phone number *@
+                @*                     </label> *@
+                @*                     <input class="govuk-input govuk-!-width-one-third" id="contact-by-phone" name="contactByPhone" type="tel" autocomplete="tel"> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="govuk-radios__item"> *@
+                @*                 <input class="govuk-radios__input" id="contact-3" name="contact" type="radio" value="text" data-aria-controls="conditional-contact-3"> *@
+                @*                 <label class="govuk-label govuk-radios__label" for="contact-3"> *@
+                @*                     Text message *@
+                @*                 </label> *@
+                @*             </div> *@
+                @*             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3"> *@
+                @*                 <div class="govuk-form-group"> *@
+                @*                     <label class="govuk-label" for="contact-by-text"> *@
+                @*                         Mobile phone number *@
+                @*                     </label> *@
+                @*                     <input class="govuk-input govuk-!-width-one-third" id="contact-by-text" name="contactByText" type="tel" autocomplete="tel"> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </fieldset> *@
+                @* </div> *@
 
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                </form>
+                <button class="govuk-button" data-module="govuk-button">
+                    Save and continue
+                </button>
+            </form>
 
-            </div>
         </div>
     </div>
 </div>

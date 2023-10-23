@@ -63,8 +63,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     SchoolType = "Secondary",
                     AgeRange = "11-18",
                     // SchoolPhase = "Opening",
-                    Nursery = "Yes",
-                    SixthForm = "Yes",
+                    // Nursery = "Yes",
+                    // SixthForm = "Yes",
                 }
             };
 
@@ -74,8 +74,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.SchoolType.Should().Be("Secondary");
             // projectResponse.School.SchoolPhase.Should().Be("Opening");
             projectResponse.School.AgeRange.Should().Be("11-18");
-            projectResponse.School.Nursery.Should().Be("Yes");
-            projectResponse.School.SixthForm.Should().Be("Yes");
+            // projectResponse.School.Nursery.Should().Be("Yes");
+            // projectResponse.School.SixthForm.Should().Be("Yes");
         }
 
         [Fact]
