@@ -69,6 +69,14 @@ class SingleProjectCurrentFreeSchoolNamePage {
         return this;
     }
 
+    public UserEntersValidSchool(): this {
+
+        cy.getByTestId("school").type("Plymstock School");
+        cy.getByTestId("continue").click();
+
+        return this;
+    }
+
 
 }
 
