@@ -69,9 +69,9 @@ class SingleProjectCurrentFreeSchoolNamePage {
         return this;
     }
 
-    public UserEntersValidSchool(): this {
+    public userEntersValidSchool(): this {
 
-        cy.getByTestId("school").type("Plymstock School");
+        cy.getByTestId("school").type("St Dunstan's Abbey, (Plymouth)");
         cy.getByTestId("continue").click();
 
         return this;
