@@ -5,13 +5,13 @@
     var schoolTypes = Enum.GetValues(typeof(SchoolType));
     var schoolTypeLabels = new List<string>();
     var schoolTypeValues = new List<string>();
-    
+
     foreach (var schoolType in schoolTypes)
     {
-        schoolTypeLabels.Add(schoolType.ToDescription());  
-        schoolTypeValues.Add(schoolType.ToString());  
+        schoolTypeLabels.Add(schoolType.ToDescription());
+        schoolTypeValues.Add(schoolType.ToString());
     }
-    
+
     var schoolPhases = Enum.GetValues(typeof(SchoolPhase));
     var schoolPhaseLabels = new List<string>();
     var schoolPhaseValues = new List<string>();
@@ -25,18 +25,16 @@
     var faithStatuses = Enum.GetValues<FaithStatus>();
     var faithStatusLabels = new List<string>();
     var faithStatusValues = new List<string>();
-    
+
     foreach (var faithStatus in faithStatuses)
     {
         faithStatusLabels.Add(faithStatus.ToDescription());
         faithStatusValues.Add(faithStatus.ToString());
     }
-    
-    
-
 
     var nurseryOptions = new[] { "Yes", "No" };
-    // var faithStatues = new[] { "Designation", "Ethos", "None" };
+    var sixthFormOptions = new[] { "Yes", "No" };
+
     var genderOptions = new[] { "Boys Only", "Girls Only", "Mixed" };
     var faithTypes = new[] { "Boys Only", "Girls Only", "Mixed" };
 
@@ -55,13 +53,13 @@
             <div class="govuk-grid-column-two-thirds">
 
                 <form method="post">
-                    <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.AgeRange" data-testid="school-type" label="Current free school name"/>
+                    <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name"/>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="school-type">School Type</label>
                         <govuk-radios-input id="school-type"
                                             name="school-type"
-                                            asp-for="ProjectId"
+                                            asp-for="@Model.SchoolType"
                                             data-testid="school-type"
                                             labels="@schoolTypeLabels.ToArray()"
                                             values="@schoolTypeValues.ToArray()"/>
@@ -71,7 +69,7 @@
                         <label class="govuk-label" for="school-phase">School Phase</label>
                         <govuk-radios-input id="school-phase"
                                             name="school-phase"
-                                            asp-for="ProjectId"
+                                            asp-for="@Model.SchoolPhase"
                                             data-testid="school-phase"
                                             labels="@schoolPhaseLabels.ToArray()"
                                             values="@schoolPhaseValues.ToArray()"/>
@@ -79,16 +77,16 @@
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="age-range-from">Age Range</label>
-                        <input class="govuk-input govuk-input--width-2" id="age-range-from" name="age-range-from" type="text">
-                        <input class="govuk-input govuk-input--width-2" id="age-range-to" name="age-range-to" type="text">
+                        <input class="govuk-input govuk-input--width-2" asp-for="@Model.AgeRangeFrom" id="age-range-from" name="age-range-from" type="text">
+                        <input class="govuk-input govuk-input--width-2" asp-for="@Model.AgeRangeTo" id="age-range-to" name="age-range-to" type="text">
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="gender">Gender</label>
                         <govuk-radios-input id="gender"
                                             name="gender"
-                                            asp-for="ProjectId"
                                             data-testid="gender"
+                                            asp-for="@Model.Gender"
                                             labels="@genderOptions"
                                             values="@genderOptions"/>
                     </div>
@@ -98,7 +96,7 @@
                         <label class="govuk-label" for="nursery">Nursery</label>
                         <govuk-radios-input id="nursery"
                                             name="nursery"
-                                            asp-for="ProjectId"
+                                            asp-for="@Model.Nursery"
                                             data-testid="nursery"
                                             labels="@nurseryOptions"
                                             values="@nurseryOptions"/>
@@ -108,7 +106,7 @@
                         <label class="govuk-label" for="school-type">Sixth Form</label>
                         <govuk-radios-input id="sixth-form"
                                             name="sixth-form"
-                                            asp-for="ProjectId"
+                                            asp-for="@Model.SixthForm"
                                             data-testid="sixth-form"
                                             labels="@nurseryOptions"
                                             values="@nurseryOptions"/>

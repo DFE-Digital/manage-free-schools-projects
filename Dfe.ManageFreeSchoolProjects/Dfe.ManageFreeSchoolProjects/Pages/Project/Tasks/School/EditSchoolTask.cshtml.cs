@@ -23,6 +23,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        [BindProperty(Name = "current-free-school-name")]
+        [Display(Name = "Current Free School Name")]
+        [Required]
+        public string CurrentFreeSchoolName { get; set; }
+        
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
         [Required]
@@ -33,35 +38,45 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [Required]
         public string SchoolPhase { get; set; }
 
-        [BindProperty(Name = "age-range")]
-        [Display(Name = "Age range")]
+        [BindProperty(Name = "age-range-from")]
+        [Display(Name = "Age range from")]
         [Required]
-        public string AgeRange { get; set; }
+        public string AgeRangeFrom { get; set; }
+        
+        [BindProperty(Name = "age-range-to")]
+        [Display(Name = "Age range to")]
+        [Required]
+        public string AgeRangeTo { get; set; }
 
+        [BindProperty(Name = "gender")]
+        [Display(Name = "Gender")]
+        [Required]
+        public string Gender { get; set; }
+        
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required]
         public string Nursery { get; set; }
-
+        
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
         [Required]
         public string SixthForm { get; set; }
-
-        [BindProperty(Name = "company-name")]
-        [Display(Name = "Company name")]
+        
+        [BindProperty(Name = "faith-status")]
+        [Display(Name = "Faith status")]
         [Required]
-        public string CompanyName { get; set; }
+        public string FaithStatus { get; set; }
 
-        [BindProperty(Name = "number-of-company-members")]
-        [Display(Name = "Number of company members")]
-        [Required]
-        public string NumberOfCompanyMembers { get; set; }
+        [BindProperty(Name = "faith-type")]
+        [Display(Name = "Faith type")]
+        public string FaithType { get; set; }
+        
+        
+        [BindProperty(Name = "other-faith-type")]
+        [Display(Name = "Other Faith type")]
+        public string OtherFaithType { get; set; }
 
-        [BindProperty(Name = "proposed-chair-of-trustees")]
-        [Display(Name = "Proposed chair of trustees")]
-        [Required]
-        public string ProposedChairOfTrustees { get; set; }
 
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -87,9 +102,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 AgeRange = project.School.AgeRange;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
-                CompanyName = project.School.CompanyName;
-                NumberOfCompanyMembers = project.School.NumberOfCompanyMembers;
-                ProposedChairOfTrustees = project.School.ProposedChairOfTrustees;
             }
             catch (Exception ex)
             {
@@ -118,9 +130,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                         AgeRange = AgeRange,
                         Nursery = Nursery,
                         SixthForm = SixthForm,
-                        CompanyName = CompanyName,
-                        NumberOfCompanyMembers = NumberOfCompanyMembers,
-                        ProposedChairOfTrustees = ProposedChairOfTrustees
                     }
                 };
 
