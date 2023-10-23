@@ -13,6 +13,12 @@ class SingleProjectTemporaryProjectIdPage {
         
         return this;
     }
+
+    public selectContinue(): this {
+        cy.getByTestId("continue").click();
+
+    }
+
 }
 
 const singleProjectTemporaryProjectIdPage = new SingleProjectTemporaryProjectIdPage();
