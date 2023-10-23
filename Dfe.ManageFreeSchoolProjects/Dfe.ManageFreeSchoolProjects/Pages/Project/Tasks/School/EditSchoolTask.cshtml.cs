@@ -98,8 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 var project = await _getProjectService.Execute(ProjectId);
                 SchoolType = project.School.SchoolType;
-                SchoolPhase = project.School.SchoolPhase;
-                AgeRange = project.School.AgeRange;
+                // SchoolPhase = project.School.SchoolPhase;
+                // AgeRange = project.School.AgeRange;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
             }
@@ -126,8 +126,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                     School = new SchoolTask()
                     {
                         SchoolType = SchoolType,
-                        SchoolPhase = SchoolPhase,
-                        AgeRange = AgeRange,
+                        // SchoolPhase = SchoolPhase,
+                        // AgeRange = AgeRange,
                         Nursery = Nursery,
                         SixthForm = SixthForm,
                     }

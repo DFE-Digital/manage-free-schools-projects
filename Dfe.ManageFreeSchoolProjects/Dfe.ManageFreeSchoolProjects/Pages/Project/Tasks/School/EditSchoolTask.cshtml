@@ -123,18 +123,18 @@
                     </div>
 
                     @* Only allowed if Faith Status is NOT None. Maybe conditionally render it?*@
-                    @* <div class="govuk-form-group"> *@
-                    @*     <label class="govuk-label" for="faith-type">Faith Type</label> *@
-                    @*     <govuk-radios-input id="faith-type" *@
-                    @*                         name="faith-type" *@
-                    @*                         asp-for="ProjectId" *@
-                    @*                         data-testid="faith-type" *@
-                    @*                         labels="@faithStatues" *@
-                    @*                         values="@faithStatues"/> *@
-                    @* </div> *@
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="faith-type">Faith Type</label>
+                        <govuk-radios-input id="faith-type"
+                                            name="faith-type"
+                                            asp-for="ProjectId"
+                                            data-testid="faith-type"
+                                            labels="@faithStatusLabels.ToArray()"
+                                            values="@faithStatusValues.ToArray()"/>
+                    </div>
 
                     @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
-                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.ProposedChairOfTrustees" data-testid="other-faith-type" label="Other Faith Type"/>
+                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
 
                     <button class="govuk-button" data-module="govuk-button">
                         Save and continue

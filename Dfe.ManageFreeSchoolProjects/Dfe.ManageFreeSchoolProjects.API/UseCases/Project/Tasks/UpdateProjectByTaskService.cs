@@ -56,14 +56,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
-            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
+            // dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery;
             dbKpi.SchoolDetailsSixthForm = task.SixthForm;
-
-            dbKai.ApplicationDetailsCompanyName = task.CompanyName;
-            dbKai.ApplicationDetailsNumberOfCompanyMembers = task.NumberOfCompanyMembers;
-            dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;
+            
         }
 
         private static void ApplyConstructionTaskUpdates(

@@ -38,13 +38,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     {
                         CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                         SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
-                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
+                        // SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
                         AgeRange = kpi.SchoolDetailsAgeRange,
                         Nursery = kpi.SchoolDetailsNursery,
                         SixthForm = kpi.SchoolDetailsSixthForm,
-                        CompanyName = kai.ApplicationDetailsCompanyName,
-                        NumberOfCompanyMembers = kai.ApplicationDetailsNumberOfCompanyMembers,
-                        ProposedChairOfTrustees = kai.ApplicationDetailsProposedChairOfTrustees
                     },
                     Construction = new ConstructionTask()
                     {

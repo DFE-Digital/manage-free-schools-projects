@@ -6,13 +6,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         public string CurrentFreeSchoolName { get; set; }
         public string SchoolType { get; set; }
-        public string SchoolPhase { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
         public string AgeRange { get; set; }
         public string Nursery { get; set; }
+        public Gender Gender { get; set; }
         public string SixthForm { get; set; }
-        public string CompanyName { get; set; }
-        public string NumberOfCompanyMembers { get; set; }
-        public string ProposedChairOfTrustees { get; set; }
+
+        public FaithStatus FaithStatus { get; set; }
+
+        public FaithType FaithType { get; set; }
+
+        public string OtherFaithType { get; set; }
         
         public bool MarkedAsComplete { get; set; }
     }
@@ -74,5 +78,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Designation,
         Ethos,
         None
+    }
+
+    public enum Gender
+    {
+        [Description("Boys only")]
+        BoysOnly,
+        [Description("Girls only")]
+        GirlsOnly,
+        [Description("Mixed")]
+        Mixed
     }
 }
