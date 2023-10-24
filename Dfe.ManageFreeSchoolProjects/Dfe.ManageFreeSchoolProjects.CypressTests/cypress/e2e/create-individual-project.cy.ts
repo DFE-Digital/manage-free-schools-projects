@@ -23,14 +23,14 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
     it("Should NOT allow a NON-projectrecordcreator user to access certain URLs", () => {
         // Define the URLs that should trigger a failure for the "POTATO" user
-        const unauthorizedUrls = ["/project/create/method", "/project/create/school"];
+        const unauthorizedUrls = ["/project/create/method", "/project/create/school", "/project/create/region", "/project/create/localauthority", "/project/create/checkyouranswers", "/project/create/confirmation"];
 
-        // Verify that the "POTATO" user cannot access unauthorized URLs
+        // Verify that the "NON-Projectrecordcreator" user cannot access unauthorized URLs
         cy.location().should((loc) => {
             const currentUrl = loc.href;
             if (unauthorizedUrls.some(url => currentUrl.includes(url))) {
                 // Fail the test if the user is on an unauthorized URL
-                throw new Error("Test failed because the 'POTATO' user is on an unauthorized URL");
+                throw new Error("Test failed because the 'NON-Projectrecordcreator' user is on an unauthorized URL");
             }
         });
     });
