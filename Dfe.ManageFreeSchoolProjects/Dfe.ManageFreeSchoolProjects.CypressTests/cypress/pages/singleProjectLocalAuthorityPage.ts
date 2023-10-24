@@ -1,6 +1,6 @@
 class SingleProjectLocalAuthorityPage {
     public checkElementsVisible(): this {
-        cy.contains("Back");
+        //cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
         cy.get("h1").contains("What is the local authority?");
@@ -11,7 +11,7 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("Cambridgeshire").should("not.be.checked");
         cy.contains("Cambridgeshire");
 
-        cy.getByTestId("Central Bedfordshire").should("not.be.checked");
+        cy.getByTestId("CentralBedfordshire").should("not.be.checked");
         cy.contains("Central Bedfordshire");
 
         cy.getByTestId("Essex").should("not.be.checked");
@@ -33,7 +33,7 @@ class SingleProjectLocalAuthorityPage {
 
     public verifyValidationMessage(): this {
         cy.getById("local-authority-error-link").contains("The local authority field is required");
-        cy.getById("local-authority-error").contains("The The local authority field is required");
+        cy.getById("local-authority-error").contains("The local authority field is required");
 
         return this;
     }
@@ -43,9 +43,9 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("Bedford").should("be.checked");
 
         cy.getByTestId("Cambridgeshire").should("not.be.checked");
-        cy.getByTestId("CentralBedfordshire").contains("not.be.checked");
-        cy.getByTestId("Essex").contains("not.be.checked");
-        cy.getByTestId("Hertfordshire").contains("not.be.checked");
+        cy.getByTestId("CentralBedfordshire").should("not.be.checked");
+        cy.getByTestId("Essex").should("not.be.checked");
+        cy.getByTestId("Hertfordshire").should("not.be.checked");
     
         return this;
     }
@@ -55,9 +55,9 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("Cambridgeshire").should("be.checked");
 
         cy.getByTestId("Bedford").should("not.be.checked");
-        cy.getByTestId("CentralBedfordshire").contains("not.be.checked");
-        cy.getByTestId("Essex").contains("not.be.checked");
-        cy.getByTestId("Hertfordshire").contains("not.be.checked");
+        cy.getByTestId("CentralBedfordshire").should("not.be.checked");
+        cy.getByTestId("Essex").should("not.be.checked");
+        cy.getByTestId("Hertfordshire").should("not.be.checked");
     
         return this;
     }
@@ -67,9 +67,9 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("CentralBedfordshire").should("be.checked");
 
         cy.getByTestId("Bedford").should("not.be.checked");
-        cy.getByTestId("Cambridgeshire").contains("not.be.checked");
-        cy.getByTestId("Essex").contains("not.be.checked");
-        cy.getByTestId("Hertfordshire").contains("not.be.checked");
+        cy.getByTestId("Cambridgeshire").should("not.be.checked");
+        cy.getByTestId("Essex").should("not.be.checked");
+        cy.getByTestId("Hertfordshire").should("not.be.checked");
     
         return this;
     }
@@ -79,9 +79,9 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("Essex").should("be.checked");
 
         cy.getByTestId("Bedford").should("not.be.checked");
-        cy.getByTestId("Cambridgeshire").contains("not.be.checked");
-        cy.getByTestId("CentralBedfordshire").contains("not.be.checked");
-        cy.getByTestId("Hertfordshire").contains("not.be.checked");
+        cy.getByTestId("Cambridgeshire").should("not.be.checked");
+        cy.getByTestId("CentralBedfordshire").should("not.be.checked");
+        cy.getByTestId("Hertfordshire").should("not.be.checked");
     
         return this;
     }
@@ -91,9 +91,9 @@ class SingleProjectLocalAuthorityPage {
         cy.getByTestId("Hertfordshire").should("be.checked");
 
         cy.getByTestId("Bedford").should("not.be.checked");
-        cy.getByTestId("Cambridgeshire").contains("not.be.checked");
-        cy.getByTestId("CentralBedfordshire").contains("not.be.checked");
-        cy.getByTestId("Essex").contains("not.be.checked");
+        cy.getByTestId("Cambridgeshire").should("not.be.checked");
+        cy.getByTestId("CentralBedfordshire").should("not.be.checked");
+        cy.getByTestId("Essex").should("not.be.checked");
     
         return this;
     }

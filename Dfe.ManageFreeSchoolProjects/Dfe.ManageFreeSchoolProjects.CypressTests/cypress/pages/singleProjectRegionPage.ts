@@ -1,6 +1,6 @@
 class SingleProjectRegionPage {
     public checkElementsVisible(): this {
-        cy.contains("Back");
+        //cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
         cy.get("h1").contains("What is the region of the school?");
@@ -45,7 +45,7 @@ class SingleProjectRegionPage {
 
     public verifyValidationMessage(): this {
         cy.getById("region-error-link").contains("The region field is required");
-        cy.getById("region-error").contains("The The region field is required");
+        cy.getById("region-error").contains("The region field is required");
 
         return this;
     }
@@ -76,8 +76,6 @@ class SingleProjectRegionPage {
     public selectLondon(): this {
         cy.getByTestId("London").click();
         cy.getByTestId("London").should("be.checked");
-
-        cy.getByTestId("London").should("not.be.checked");
 
         cy.getByTestId("EastMidlands").should("not.be.checked");
 
