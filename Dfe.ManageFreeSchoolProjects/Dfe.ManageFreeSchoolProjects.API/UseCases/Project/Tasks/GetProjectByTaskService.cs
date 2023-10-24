@@ -37,11 +37,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     School = new SchoolTask()
                     {
                         CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
-                        // SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
+                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
+                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
                         AgeRange = kpi.SchoolDetailsAgeRange,
-                        // Nursery = kpi.SchoolDetailsNursery,
-                        // SixthForm = kpi.SchoolDetailsSixthForm,
+                        Nursery = Enum.Parse<Nursery>(kpi.SchoolDetailsNursery),
+                        SixthForm = Enum.Parse<SixthForm>(kpi.SchoolDetailsSixthForm),
                     },
                     Construction = new ConstructionTask()
                     {

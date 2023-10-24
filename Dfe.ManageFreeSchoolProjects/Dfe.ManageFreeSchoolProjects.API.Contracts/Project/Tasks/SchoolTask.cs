@@ -5,12 +5,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     public record SchoolTask
     {
         public string CurrentFreeSchoolName { get; set; }
-        public string SchoolType { get; set; }
+        public SchoolType SchoolType { get; set; }
         public SchoolPhase SchoolPhase { get; set; }
         public string AgeRange { get; set; }
-        public Nursery Nursery { get; set; }
+        public Nursery? Nursery { get; set; }
         public Gender Gender { get; set; }
-        public SixthForm SixthForm { get; set; }
+        public SixthForm? SixthForm { get; set; }
 
         public FaithStatus FaithStatus { get; set; }
 

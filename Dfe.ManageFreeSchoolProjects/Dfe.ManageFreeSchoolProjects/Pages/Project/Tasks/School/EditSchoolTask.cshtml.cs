@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
@@ -31,12 +32,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
         [Required]
-        public string SchoolType { get; set; }
+        public SchoolType SchoolType { get; set; }
 
         [BindProperty(Name = "school-phase")]
         [Display(Name = "School phase")]
         [Required]
-        public string SchoolPhase { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
 
         [BindProperty(Name = "age-range-from")]
         [Display(Name = "Age range from")]
@@ -51,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
         [Required]
-        public string? Gender { get; set; }
+        public Gender Gender { get; set; }
 
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
@@ -66,17 +67,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
         [Required]
-        public string FaithStatus { get; set; }
+        public FaithStatus FaithStatus { get; set; }
 
         [BindProperty(Name = "faith-type")]
         [Display(Name = "Faith type")]
-        public string FaithType { get; set; }
-        
-        
+        public FaithType FaithType { get; set; }
+
         [BindProperty(Name = "other-faith-type")]
         [Display(Name = "Other Faith type")]
         public string OtherFaithType { get; set; }
-
 
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -98,10 +97,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 var project = await _getProjectService.Execute(ProjectId);
                 SchoolType = project.School.SchoolType;
-                // SchoolPhase = project.School.SchoolPhase;
-                // AgeRange = project.School.AgeRange;
-                // Nursery = project.School.Nursery;
-                // SixthForm = project.School.SixthForm;
+                SchoolPhase = project.School.SchoolPhase;
+                Nursery = project.School.Nursery;
+                SixthForm = project.School.SixthForm;
+                Gender = project.School.Gender;
+                SixthForm = project.School.SixthForm;
+                FaithStatus = project.School.FaithStatus;
+                FaithType = project.School.FaithType;
+                OtherFaithType = project.School.OtherFaithType;
+                
+                if (!string.IsNullOrEmpty(project.School.AgeRange))
+                {
+                    var ageRanges = SplitAgeRange(project.School.AgeRange);
+                    AgeRangeFrom = ageRanges[0];
+                    AgeRangeTo = ageRanges[1];
+                }
             }
             catch (Exception ex)
             {
@@ -121,16 +131,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
             try
             {
-                var request = new UpdateProjectByTaskRequest()
+                var request = new UpdateProjectByTaskRequest
                 {
-                    School = new SchoolTask()
-                    {
-                        SchoolType = SchoolType,
-                        // SchoolPhase = SchoolPhase,
-                        // AgeRange = AgeRange,
-                        // Nursery = Nursery,
-                        // SixthForm = SixthForm,
-                    }
+                    School = CreateUpdatedSchoolTask()
                 };
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
@@ -142,6 +145,26 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 _logger.LogErrorMsg(ex);
                 throw;
             }
+        }
+
+        private SchoolTask CreateUpdatedSchoolTask()
+        {
+            return new SchoolTask
+            {
+                SchoolType = SchoolType,
+                SchoolPhase = SchoolPhase,
+                Nursery = Nursery,
+                SixthForm = SixthForm, 
+                Gender = Gender,
+                FaithStatus = FaithStatus, 
+                FaithType = FaithType, 
+                OtherFaithType = OtherFaithType
+            };
+        }
+        
+        private static string[] SplitAgeRange(string ageRange)
+        {
+            return ageRange.Split('-');
         }
     }
 }

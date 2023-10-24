@@ -29,13 +29,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
-            var dbKai = await GetKai(dbKpi.Rid);
             var dbProperty = await GetProperty(dbKpi.Rid);
             var dbTrust = await GetTrust(dbKpi.Rid);
             var dbConstruction = await GetConstruction(dbKpi.Rid);
 
             // Updates here
-            ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
+            ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
 
@@ -46,8 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
         private static void ApplySchoolTaskUpdates(
             SchoolTask task,
-            Kpi dbKpi,
-            Kai dbKai)
+            Kpi dbKpi)
         {
             if (task == null)
             {
@@ -55,12 +53,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             }
 
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
-            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
-            // dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
+            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType.MapSchoolType();
+            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
-            // dbKpi.SchoolDetailsNursery = task.Nursery;
-            // dbKpi.SchoolDetailsSixthForm = task.SixthForm;
-            
+            dbKpi.SchoolDetailsNursery = task.Nursery.ToString();
+            dbKpi.SchoolDetailsSixthForm = task.SixthForm.ToString();
+            dbKpi.SchoolDetailsFaithStatus = task.FaithStatus.ToString();
+            dbKpi.SchoolDetailsFaithType = task.FaithType.ToString();
+            dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
         }
 
         private static void ApplyConstructionTaskUpdates(
@@ -87,9 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
         }
 
-        private static void ApplyDatesTaskUpdates(
-            DatesTask task,
-            Kpi dbKpi)
+        private static void ApplyDatesTaskUpdates(DatesTask task, Kpi dbKpi)
         {
             if (task == null)
             {
@@ -100,24 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
-
-        private async Task<Kai> GetKai(string id)
-        {
-            var result = await _context.Kai.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Kai()
-                {
-                    Rid = id,
-                };
-
-                _context.Kai.Add(result);
-            }
-
-            return result;
-        }
-
+        
         private async Task<Property> GetProperty(string id)
         {
             var result = await _context.Property.FirstOrDefaultAsync(e => e.Rid == id);
@@ -169,6 +150,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             return result;
         }
+
 
         private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
             UpdateProjectByTaskRequest updateProjectByTaskRequest)
