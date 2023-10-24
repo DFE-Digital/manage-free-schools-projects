@@ -82,6 +82,7 @@ describe("Creating an individual project - Test Create new individual project jo
     });
 
     it("Should navigate to project/create/method page", () => {
+
         const temporaryProjectId = dataGenerator.generateTemporaryId();
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
@@ -193,7 +194,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST THAT A VALID FORMAT 25 CHARS OR LESS LETS US PROCEED TO THE FREE SCHOOL NAME SECTION
         Logger.log("TESTING THAT A VALID FORMAT OF TEMPORARY ID OF 25 CHARS OR LESS PASSES");
-        singleProjectTemporaryProjectIdPage.UserEntersValidTempId();
+        singleProjectTemporaryProjectIdPage.UserEntersValidTempId(temporaryProjectId);
         singleProjectTemporaryProjectIdPage.selectContinue();
 
         //-------------------------------------------------------------
@@ -241,7 +242,8 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //singleProjectCurrentFreeSchoolNamePage.verifyMoreThanEightyCharsValidationMessage();
 
-        // TEST THAT AN SQL INJECTION ATTACK FAILS
+        // TEST THAT AN SQL INJECTION ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
+
         //Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN SCHOOL NAME FIELD FAILS");
         //singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
 
@@ -251,7 +253,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
-        // TEST THAT A JAVASCRIPT ATTACK FAILS
+        // TEST THAT A JAVASCRIPT ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
         //Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN SCHOOL NAME FIELD FAILS");
         //singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
 
@@ -365,7 +367,7 @@ describe("Creating an individual project - Test Create new individual project jo
         //cy.excuteAccessibilityTests();
         //cy.checkA11y();
 
-        singleProjectConfirmationPage.checkElementsVisible();
+        singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
 
 
         //--------------------------------------------------------------------------------------------------------------------------
