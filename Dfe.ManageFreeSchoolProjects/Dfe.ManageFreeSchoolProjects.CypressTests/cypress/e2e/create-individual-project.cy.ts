@@ -1,6 +1,6 @@
 import { Logger } from "cypress/common/logger";
 import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
-import singleProjectConfirmationPage from "cypress/pages/SingleProjectConfirmationPage";
+import singleProjectConfirmationPage from "cypress/pages/singleProjectConfirmationPage";
 import createProjectPage from "cypress/pages/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import singleProjectCheckYourAnswersPage from "cypress/pages/singleProjectCheckYourAnswersPage";
@@ -37,7 +37,10 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
     it("Should NOT allow a NON-projectrecordcreator user to create a new project using the form", () => {
         // VERIFY THIS NON-PROJECTRECORDCREATOR USER DOES NOT GET A GREEN CREATE NEW PROJECT BUTTON
-            cy.contains('Create new projects').should('not.exist');    
+            cy.contains('Create new projects').should('not.exist');
+            
+            cy.excuteAccessibilityTests();
+            cy.checkA11y();
     });
 
 });
@@ -57,6 +60,9 @@ describe("Creating an individual project - Create new project button should disp
 
         cy.contains('Create new projects').should('be.visible');
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
     });
 });
 
@@ -71,12 +77,21 @@ describe("Creating an individual project - Test Create new individual project jo
     it("Should navigate to project/create/method page", () => {
         const school = `${v4()} school`;
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         homePage.createNewProjects();
 
         whichProjectMethodPage.checkElementsVisible();
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         // TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION
         whichProjectMethodPage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
 
         // VERIFY WE GET CORRECT VALIDATION RESPONSE
         whichProjectMethodPage.verifyValidationMessage();
@@ -88,34 +103,65 @@ describe("Creating an individual project - Test Create new individual project jo
         
         // CLICK CONTINUE WITH INDIVIDUAL PROJECT SELECTED
         whichProjectMethodPage.selectIndividualProject();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         whichProjectMethodPage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
 
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
         // TEST THAT SUBMITTING A BLANK TEMPORARY ID FAILS
         singleProjectTemporaryProjectIdPage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectTemporaryProjectIdPage.verifyEmptyValidationMessage();
 
 
         // TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT SUBMITTING SPACES IN TEMPORARY ID FAILS
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsSpaces();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
         // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 25 CHARS FAILS
         singleProjectTemporaryProjectIdPage.UserEntersMoreThanTwentyFiveChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentFiveCharsValidationMessage();
 
         // TEST THAT AN SQL INJECTION ATTACK FAILS
         singleProjectTemporaryProjectIdPage.UserAttemptsSQLInjection();
-        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
+        singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A JAVASCRIPT ATTACK FAILS
         singleProjectTemporaryProjectIdPage.UserAttemptsJavaScriptAttack();
-        singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
+        singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A VALID FORMAT 25 CHARS OR LESS LETS US PROCEED TO THE FREE SCHOOL NAME SECTION
         singleProjectTemporaryProjectIdPage.UserEntersValidTempId();
@@ -125,26 +171,49 @@ describe("Creating an individual project - Test Create new individual project jo
         // FREE SCHOOL NAME PAGE
         //--------------------------------------------------------------
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
 
         // TEST THAT SUBMITTING A BLANK SCHOOL NAME FAILS
         singleProjectCurrentFreeSchoolNamePage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
 
         // TEST THAT SUBMITTING UNALLOWED SPECIAL CHARS IN SCHOOL NAME FAILS
         singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 80? 100? CHARS FAILS
         singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanEightyChars();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.verifyMoreThanEightyCharsValidationMessage();
 
         // TEST THAT AN SQL INJECTION ATTACK FAILS
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A JAVASCRIPT ATTACK FAILS
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS PASSES AND LETS US PROCEED TO THE REGION PAGE
@@ -155,10 +224,17 @@ describe("Creating an individual project - Test Create new individual project jo
         //REGION PAGE
         //------------------------------------------------------------------------------------------------------------------------
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectRegionPage.checkElementsVisible();
 
         // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
         singleProjectRegionPage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectRegionPage.verifyValidationMessage();
 
         // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
@@ -174,16 +250,27 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO LOCAL AUTHORITY PAGE
         singleProjectRegionPage.selectSouthWest();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectRegionPage.selectContinue();
 
         //------------------------------------------------------------------------------------------------------------------------
         //LOCAL AUTHORITY PAGE
         //------------------------------------------------------------------------------------------------------------------------
 
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectLocalAuthorityPage.checkElementsVisible();
 
         // TEST THAT A USER IS UNABLE TO PROCEED WITHOUT MAKING A SELECTION
         singleProjectLocalAuthorityPage.selectContinue();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+        
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
         // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
@@ -194,11 +281,18 @@ describe("Creating an individual project - Test Create new individual project jo
 
         // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO CHECK YOUR ANSWERS PAGE
         singleProjectLocalAuthorityPage.selectBedford();
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
+
         singleProjectLocalAuthorityPage.selectContinue();
 
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
@@ -207,6 +301,9 @@ describe("Creating an individual project - Test Create new individual project jo
         //--------------------------------------------------------------------------------------------------------------------------
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
+
+        cy.excuteAccessibilityTests();
+        cy.checkA11y();
 
         singleProjectConfirmationPage.checkElementsVisible();
 
