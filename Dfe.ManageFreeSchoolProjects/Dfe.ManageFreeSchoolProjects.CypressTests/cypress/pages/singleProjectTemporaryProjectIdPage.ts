@@ -1,5 +1,7 @@
 import dataGenerator from "cypress/fixtures/dataGenerator";
 
+let temporaryProjectId = Cypress.env('temporaryProjectId');
+
 class SingleProjectTemporaryProjectIdPage {
     public checkElementsVisible(): this {
         cy.contains("Back");
@@ -44,6 +46,7 @@ class SingleProjectTemporaryProjectIdPage {
     }
 
     public UserEntersAndSubmitsSpaces(): this {
+        cy.getByTestId("projectid").clear();
         cy.getByTestId("projectid").type("W 3 4 5 6 ");
         cy.getByTestId("continue").click();
 
@@ -58,20 +61,22 @@ class SingleProjectTemporaryProjectIdPage {
     }
 
     public UserEntersMoreThanTwentyFiveChars(): this {
+        cy.getByTestId("projectid").clear();
         cy.getByTestId("projectid").type("AB345678901234567890123456");
         cy.getByTestId("continue").click();
 
         return this;
     }
 
-    public verifyMoreThanTwentFiveCharsValidationMessage(): this {
-        cy.getById("projectid-error-link").contains("Temporary project ID must not include spaces");
-        cy.getById("projectid-error").contains("Temporary project ID must not include spaces");
+    public verifyMoreThanTwentyFiveCharsValidationMessage(): this {
+        cy.getById("projectid-error-link").contains("The temporary project id must be 25 characters or less");
+        cy.getById("projectid-error").contains("The temporary project id must be 25 characters or less");
 
         return this;
     }
 
     public UserAttemptsSQLInjection(): this {
+        cy.getByTestId("projectid").clear();
         cy.getByTestId("projectid").type("' OR 1=1");
         cy.getByTestId("continue").click();
 
@@ -79,6 +84,7 @@ class SingleProjectTemporaryProjectIdPage {
     }
 
     public UserAttemptsJavaScriptAttack(): this {
+        cy.getByTestId("projectid").clear();
         cy.getByTestId("projectid").type("<script>window.alert('Hello World!')</script>");
         cy.getByTestId("continue").click();
 
@@ -88,6 +94,7 @@ class SingleProjectTemporaryProjectIdPage {
     public UserEntersValidTempId(): this {
         let tempId = dataGenerator.generateTemporaryId();
 
+        cy.getByTestId("projectid").clear();
         cy.getByTestId("projectid").type(tempId);
         cy.getByTestId("continue").click();
 

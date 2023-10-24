@@ -17,7 +17,7 @@ class WhichProjectMethodPage {
         cy.getById("subsection-title").contains("Guidance");
 
         cy.contains("Creating individual new free school project");
-        cy.contains("Bulk upload of new free achool projects");
+        cy.contains("Bulk upload of new free school projects");
 
         return this;
     }
@@ -45,7 +45,7 @@ class WhichProjectMethodPage {
     }
 
     public verifyValidationMessage(): this {
-        cy.geyById("method-error-link").contains("The method field is required");
+        cy.getById("method-error-link").contains("The method field is required");
         cy.getById("method-error").contains("The method field is required");
 
         return this;
