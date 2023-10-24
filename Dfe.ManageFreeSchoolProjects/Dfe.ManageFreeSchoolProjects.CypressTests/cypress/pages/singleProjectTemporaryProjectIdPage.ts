@@ -1,6 +1,6 @@
 import dataGenerator from "cypress/fixtures/dataGenerator";
 
-let temporaryProjectId = Cypress.env('temporaryProjectId');
+//let temporaryProjectId = "";
 
 class SingleProjectTemporaryProjectIdPage {
     public checkElementsVisible(): this {
@@ -91,11 +91,10 @@ class SingleProjectTemporaryProjectIdPage {
         return this;
     }
 
-    public UserEntersValidTempId(): this {
-        let tempId = dataGenerator.generateTemporaryId();
+    public UserEntersValidTempId(temporaryProjectId): this {
 
         cy.getByTestId("projectid").clear();
-        cy.getByTestId("projectid").type(tempId);
+        cy.getByTestId("projectid").type(temporaryProjectId);
         cy.getByTestId("continue").click();
 
         return this;
