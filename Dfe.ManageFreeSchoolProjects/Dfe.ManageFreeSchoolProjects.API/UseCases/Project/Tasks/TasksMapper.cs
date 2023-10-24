@@ -15,7 +15,7 @@ public static class TasksMapper
     private const string Secondary = "Secondary";
     private const string SixteenToNineteen = "16-19";
     private const string AllThrough = "All-Through";
-    public static string MapSchoolType(this SchoolType schoolType)
+    public static string? MapSchoolType(this SchoolType? schoolType)
     {
         return schoolType switch
         {
@@ -25,25 +25,22 @@ public static class TasksMapper
             SchoolType.Mainstream => Mainstream,
             SchoolType.StudioSchool => StudioSchool,
             SchoolType.UniversityTechnicalCollege => UniversityTechnicalCollege,
-            _ => throw new ArgumentOutOfRangeException(nameof(schoolType), schoolType, null)
+            _ => null
         };
     }
 
-    public static SchoolType MapSchoolType(this string schoolType)
+    public static SchoolType? MapSchoolType(this string? schoolType) => schoolType switch
     {
-        return schoolType switch
-        {
-            Special => SchoolType.Special,
-            AlternativeProvision => SchoolType.AlternativeProvision,
-            FurtherEducation => SchoolType.FurtherEducation,
-            Mainstream => SchoolType.Mainstream,
-            StudioSchool => SchoolType.StudioSchool,
-            UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,
-            _ => throw new ArgumentOutOfRangeException(nameof(schoolType), schoolType, null)
-        };
-    }
+        Special => SchoolType.Special,
+        AlternativeProvision => SchoolType.AlternativeProvision,
+        FurtherEducation => SchoolType.FurtherEducation,
+        Mainstream => SchoolType.Mainstream,
+        StudioSchool => SchoolType.StudioSchool,
+        UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,
+        _ => null
+    };
 
-    public static string MapSchoolPhase(this SchoolPhase schoolPhase)
+    public static string? MapSchoolPhase(this SchoolPhase? schoolPhase)
     {
         return schoolPhase switch
         {
@@ -51,11 +48,11 @@ public static class TasksMapper
             SchoolPhase.Secondary => SchoolPhase.Secondary.ToString(),
             SchoolPhase.SixteenToNineteen => SixteenToNineteen,
             SchoolPhase.AllThrough => AllThrough,
-            _ => throw new ArgumentOutOfRangeException(nameof(schoolPhase), schoolPhase, null)
+            _ => null
         };
     }
     
-    public static SchoolPhase MapSchoolPhase(this string schoolPhase)
+    public static SchoolPhase? MapSchoolPhase(this string? schoolPhase)
     {
         return schoolPhase switch
         {
@@ -63,7 +60,7 @@ public static class TasksMapper
             Secondary => SchoolPhase.Secondary, 
             SixteenToNineteen => SchoolPhase.SixteenToNineteen, 
             AllThrough => SchoolPhase.AllThrough,
-            _ => throw new ArgumentOutOfRangeException(nameof(schoolPhase), schoolPhase, null)
+            _ => null
         };
     }
 }

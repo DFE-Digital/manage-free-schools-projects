@@ -23,9 +23,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Ensures that if the child tables for the tasks are not populated, the api still works
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-
+            
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+            
+            var tasks = TasksStub.BuildListOfTasks(project.Rid);
+            context.Tasks.AddRange(tasks);
+            
             await context.SaveChangesAsync();
 
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
