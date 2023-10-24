@@ -1,9 +1,11 @@
 class SingleProjectConfirmationPage {
-    public checkElementsVisible(): this {
+    public checkElementsVisible(temporaryProjectId): this {
 
         cy.get("h1").contains("Free school project created");
 
         cy.contains("Temporary project ID");
+
+        cy.get("strong").contains(temporaryProjectId);
 
         cy.contains("We have sent a notification email to team leaders.");
         
