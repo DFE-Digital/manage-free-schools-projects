@@ -1,8 +1,6 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
 {
-    public class EditPropertyTaskModel : PageModel
+    public class EditConstructionTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditSchoolTaskModel> _logger;
+        private readonly ILogger<EditConstructionTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -69,10 +67,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Construction
         [Required]
         public string TypeOfWorksLocation { get; set; }
 
-        public EditPropertyTaskModel(
+        public EditConstructionTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditSchoolTaskModel> logger,
+            ILogger<EditConstructionTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;

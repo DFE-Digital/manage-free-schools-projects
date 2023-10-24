@@ -17,8 +17,8 @@
         public string Urn { get; set; }
         public string ApplicationWave { get; set; }
         public string RealisticYearOfOpening { get; set; }
-        public string DateOfEntryIntoPreopening { get; set; }
-        public string ProvisionalOpeningDateAgreedWithTrust { get; set; }
+        public DateTime? DateOfEntryIntoPreopening { get; set; }
+        public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
         public string ActualOpeningDate { get; set; }
         public string OpeningAcademicYear { get; set; }
     }

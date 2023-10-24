@@ -11133,6 +11133,32 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.ToTable("Tally");
                 });
 
+            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Tasks", b =>
+                {
+                    b.Property<string>("Rid")
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("RID");
+
+                    b.Property<string>("TaskName")
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("Task Name");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("Status");
+
+                    b.HasKey("Rid", "TaskName");
+
+                    b.ToTable("Tasks", "dbo");
+                });
+
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.TechnicalQa", b =>
                 {
                     b.Property<int>("Bim")

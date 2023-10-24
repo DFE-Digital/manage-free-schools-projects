@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
     public class UpdateProjectByTaskService : IUpdateProjectByTaskService
     {
-        public readonly MfspContext _context;
+        private readonly MfspContext _context;
 
         public UpdateProjectByTaskService(MfspContext context)
         {
@@ -37,6 +37,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+            ApplyDatesTaskUpdates(request.Dates, dbKpi);
+
+            await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
             await _context.SaveChangesAsync();
         }
@@ -51,6 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 return;
             }
 
+            dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
@@ -84,6 +88,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
+        }
+
+        private static void ApplyDatesTaskUpdates(
+            DatesTask task,
+            Kpi dbKpi)
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
+            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 
         private async Task<Kai> GetKai(string id)
@@ -153,6 +171,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             }
 
             return result;
+        }
+
+        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
+            UpdateProjectByTaskRequest updateProjectByTaskRequest)
+        {
+            var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskToUpdate);
+
+            var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid
+                                                                      && x.TaskName == taskNameToUpdate);
+            if (task is null)
+                return;
+
+            task.Status = updatedStatus;
         }
     }
 }

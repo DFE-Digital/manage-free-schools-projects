@@ -36,6 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 {
                     School = new SchoolTask()
                     {
+                        CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                         SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
                         SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
                         AgeRange = kpi.SchoolDetailsAgeRange,
@@ -56,6 +57,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         TrustName = trust.TrustsTrustName,
                         SiteMinArea = construction.SiteDetailsAreaOfNewBuildM2,
                         TypeofWorksLocation = construction.SiteDetailsTypeOfWorks,
+                    },
+                    Dates = new DatesTask()
+                    {
+                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
+                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                        RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
                     }
                 }).FirstOrDefaultAsync();
 

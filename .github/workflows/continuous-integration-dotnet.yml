@@ -19,7 +19,7 @@ jobs:
 
     services:
       sql-server:
-        image: mcr.microsoft.com/mssql/server:2017-latest
+        image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
         - 1433:1433
         env:
@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones disabled for a better relevancy of SC analysis
 

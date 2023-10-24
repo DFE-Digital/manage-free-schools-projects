@@ -39,8 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     Urn = project.ProjectStatusUrnWhenGivenOne,
                     ApplicationWave = project.ProjectStatusFreeSchoolApplicationWave,
                     RealisticYearOfOpening = project.ProjectStatusRealisticYearOfOpening,
-                    DateOfEntryIntoPreopening = FormatDate(project.ProjectStatusDateOfEntryIntoPreOpening),
-                    ProvisionalOpeningDateAgreedWithTrust = FormatDate(project.ProjectStatusProvisionalOpeningDateAgreedWithTrust),
+                    DateOfEntryIntoPreopening = project.ProjectStatusDateOfEntryIntoPreOpening,
+                    ProvisionalOpeningDateAgreedWithTrust = project.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                     ActualOpeningDate = FormatDate(project.ProjectStatusActualOpeningDate),
                     OpeningAcademicYear = project.ProjectStatusTrustsPreferredYearOfOpening
                 },

@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\htb-template.docx" />
+	  <None Remove="Pages\Project\Tasks\Dates\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -66,6 +67,7 @@
 	<ItemGroup>
 	  <Folder Include="ViewComponents\" />
 	  <Folder Include="wwwroot\src\images" />
+	  <Folder Include="Pages\Project\Tasks\Dates\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -74,6 +76,9 @@
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Remove="Pages\Project\Tasks\Date\EditDateTask.cshtml" />
+	</ItemGroup>
 	<ItemGroup>
 	  <Content Update="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>

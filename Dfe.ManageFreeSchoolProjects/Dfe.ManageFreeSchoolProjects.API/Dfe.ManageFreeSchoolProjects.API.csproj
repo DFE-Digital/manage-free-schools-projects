@@ -30,7 +30,7 @@
       <PackageReference Include="FluentValidation" Version="11.7.1" />
       <PackageReference Include="GovukNotify" Version="6.1.0" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -47,6 +47,5 @@
       <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Logging\Dfe.ManageFreeSchoolProjects.Logging.csproj" />
       <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
     </ItemGroup>
-
-
+  
 </Project>

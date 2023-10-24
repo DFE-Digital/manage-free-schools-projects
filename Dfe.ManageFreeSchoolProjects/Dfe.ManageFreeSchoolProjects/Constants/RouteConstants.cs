@@ -8,7 +8,8 @@
 
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
-
+        public const string ViewDatesTask = TaskList + "/dates";
+        public const string EditDatesTask = ViewDatesTask + "/edit";
         public const string ViewConstructionTask = TaskList + "/construction";
         public const string EditConstructionTask = ViewConstructionTask + "/edit";
 
@@ -19,6 +20,6 @@
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
         
-        
+
     }
 }

@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 {
     public class TaskListModel : PageModel
     {
         private readonly IGetProjectByTaskSummaryService _getProjectTaskListSummaryService;
+        private readonly IGetTaskStatusService _getTaskStatusService;
+        private readonly ICreateTasksService _createTasksService;
         private readonly ILogger<TaskListModel> _logger;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -21,9 +24,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
         public TaskListModel(
             IGetProjectByTaskSummaryService getProjectTaskListSummaryService,
+            IGetTaskStatusService getTaskStatusService,
+            ICreateTasksService createTasksService,
             ILogger<TaskListModel> logger)
         {
             _getProjectTaskListSummaryService = getProjectTaskListSummaryService;
+            _getTaskStatusService = getTaskStatusService;
+            _createTasksService = createTasksService;
             _logger = logger;
         }
 
@@ -31,15 +38,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         {
             _logger.LogMethodEntered();
 
-            try
-            {
-                ProjectTaskListSummary = await _getProjectTaskListSummaryService.Execute(ProjectId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorMsg(ex);
-                throw;
-            }
+            ProjectTaskListSummary = await _getProjectTaskListSummaryService.Execute(ProjectId);
+
+            if (ProjectTaskListSummary is not null) 
+                return Page();
+            
+            await _createTasksService.Execute(ProjectId);
+            ProjectTaskListSummary = await _getProjectTaskListSummaryService.Execute(ProjectId);
 
             return Page();
         }
