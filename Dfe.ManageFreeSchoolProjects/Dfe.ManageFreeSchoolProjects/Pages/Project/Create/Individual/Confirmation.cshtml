@@ -1,0 +1,27 @@
+﻿@page "/project/create/confirmation"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ConfirmationModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                Free school project created
+            </h1>
+            <div class="govuk-panel__body">
+                Temporary project ID<br><strong>@Model.ProjectID</strong>
+            </div>
+        </div>
+        <p>
+            We have sent a notification email to team leaders.
+        </p>
+        <h2 class="govuk-heading-m">
+            What happens next
+        </h2>
+        <p>
+            <a class="govuk-link" href="/">Go back to the projects listing page</a> and see the newly created projects.
+        </p>
+    </div>
+</div>

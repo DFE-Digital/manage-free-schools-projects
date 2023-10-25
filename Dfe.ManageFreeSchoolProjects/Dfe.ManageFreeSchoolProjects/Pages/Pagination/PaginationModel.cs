@@ -23,7 +23,7 @@
         /// This is for partial page reloads when pagination is invoked
         /// When we only want to refresh the content container, not the entire page
         /// </summary>
-        public string? ContentContainerId { get; set; }
+        public string ContentContainerId { get; set; }
 
         /// <summary>
         /// Prefix so that we can have multiple pagination elements on screen

@@ -26,6 +26,15 @@ Cypress.Commands.add("getByName", (name) => {
     cy.get(`[name="${name}"]`);
 });
 
+
+Cypress.Commands.add("getByRole", (role) => {
+    cy.get(`[role="${role}"]`);
+});
+
+Cypress.Commands.add("getByLabelFor", (labelFor) => {
+    cy.get(`[for="${labelFor}"]`);
+})
+
 Cypress.Commands.add("login", (params) => {
     cy.clearCookies();
     cy.clearLocalStorage();

@@ -107,3 +107,12 @@ for details on configuring this project to bundle and minify static web assets. 
 .dfe-width-container {
 	max-width: 960px;
 }
+
+.govuk-prototype-kit-common-templates-related-items {
+    border-top: 2px solid govuk-colour("blue");
+    padding-top: govuk-spacing(2);
+}
+
+.govuk-prototype-kit-common-templates-related-items .govuk-list > li {
+    margin-bottom: govuk-spacing(2);
+}

@@ -1,7 +1,7 @@
-﻿using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
+﻿using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,6 +24,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         [BindProperty(Name = "search-by-local-authority", SupportsGet = true)]
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
+
+        [BindProperty]
+        public bool UserCanCreateProject { get; set; }
 
         public DashboardModel Dashboard { get; set; } = new();
 
@@ -87,7 +90,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
                 Pagination = paginationModel,
-            };
+                UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
+            };  
         }
 
         private string BuildPaginationQuery()
