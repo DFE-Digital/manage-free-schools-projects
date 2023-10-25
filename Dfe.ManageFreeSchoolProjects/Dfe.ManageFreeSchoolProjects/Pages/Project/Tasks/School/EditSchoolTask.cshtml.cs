@@ -27,7 +27,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current Free School Name")]
-        // [RegularExpression(@"^[a-zA-Z0-9'(),\s]*$")]
         [FreeSchoolNameValidator]
         [Required]
         public string CurrentFreeSchoolName { get; set; }
