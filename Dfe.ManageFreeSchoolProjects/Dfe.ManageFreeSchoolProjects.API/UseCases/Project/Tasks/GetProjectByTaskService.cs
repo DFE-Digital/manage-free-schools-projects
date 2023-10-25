@@ -63,6 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                         RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
+                    },
+                    Trust = new TrustTask()
+                    {
+                        TRN = trust.TrustRef,
+                        TrustName = trust.TrustsTrustName,
+                        TrustType = trust.TrustsTrustType,
                     }
                 }).FirstOrDefaultAsync();
 

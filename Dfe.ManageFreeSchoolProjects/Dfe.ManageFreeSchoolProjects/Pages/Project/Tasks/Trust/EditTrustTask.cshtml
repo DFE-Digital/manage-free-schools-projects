@@ -1,0 +1,28 @@
+﻿@page "/projects/{projectId}/tasks/trust/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.EditTrustTaskModel
+@{
+    var backlink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
+}
+<a href=@backlink class="govuk-back-link">Back</a>
+
+<h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
+    Edit trust
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="entry-into-pre-opening" label="Entry into pre-opening" hint="For example, TR00036" />
+            <govuk-text-input id="trust-name" name="trust-name" asp-for="@Model.TrustName" data-testid="trust-name" label="Trust name" />
+            <govuk-text-input id="trust-type" name="trust-type" asp-for="@Model.TrustType" data-testid="trust-type" label="Trust type" />
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

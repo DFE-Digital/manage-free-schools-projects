@@ -1,0 +1,26 @@
+﻿@page "/projects/{projectId}/tasks/trust/search"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.SearchTrustTaskModel
+@{
+    var backlink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
+}
+<a href=@backlink class="govuk-back-link">Back</a>
+
+<h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
+    Search for a trust by TRN
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="trust-reference-number" label="TRN (Trust reference number)" hint="For example, TR00036" />
+            
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>

@@ -35,6 +35,7 @@ public class CreateTasksService : ICreateTasksService
             new() { Rid = kpiRid, TaskName = TaskName.School, Status = status },
             new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = status },
             new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = status },
+            new() {Rid = kpiRid, TaskName = TaskName.Trust, Status = status},
             // new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = status },
         };
     }

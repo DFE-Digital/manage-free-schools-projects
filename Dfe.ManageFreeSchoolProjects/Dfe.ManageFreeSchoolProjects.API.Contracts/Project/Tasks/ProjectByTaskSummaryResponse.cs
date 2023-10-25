@@ -7,6 +7,8 @@
         public TaskSummaryResponse Construction { get; set; }
         
         public TaskSummaryResponse Dates { get; set; }
+
+        public TaskSummaryResponse Trust { get; set; }
     }
 
     public class TaskSummaryResponse

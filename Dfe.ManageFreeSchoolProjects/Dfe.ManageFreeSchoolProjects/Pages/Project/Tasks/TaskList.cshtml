@@ -9,6 +9,7 @@
     var schoolTaskLink = string.Format(RouteConstants.ViewSchoolTask, Model.ProjectId);
     var constructionTaskLink = string.Format(RouteConstants.ViewConstructionTask, Model.ProjectId);
     var datesTaskLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
+    var trustTaskLink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
 }
 
 <div class="dfe-content-page--header">
@@ -92,6 +93,16 @@
                     </span>
                     @{
                         RenderStatus(Model.ProjectTaskListSummary.Dates);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@trustTaskLink" aria-describedby="">
+                            @Model.ProjectTaskListSummary.Trust.Name
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.Trust);
                     }
                 </li>
             </ul>

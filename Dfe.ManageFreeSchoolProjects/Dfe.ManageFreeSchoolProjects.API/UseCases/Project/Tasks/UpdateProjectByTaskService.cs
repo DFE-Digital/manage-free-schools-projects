@@ -38,6 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
             ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
+            ApplyTrustTaskUpdates(request.Trust, dbTrust);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
@@ -102,6 +103,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
+        }
+
+        private static void ApplyTrustTaskUpdates(
+            TrustTask task,
+            Trust dbTrust)
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            dbTrust.TrustRef = task.TRN;
+            dbTrust.TrustsTrustName = task.TrustName;
+            dbTrust.TrustsTrustType = task.TrustType;
         }
 
         private async Task<Kai> GetKai(string id)

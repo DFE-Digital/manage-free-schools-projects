@@ -13,5 +13,9 @@
 
         public const string ViewDatesTask = TaskList + "/dates";
         public const string EditDatesTask = ViewDatesTask + "/edit";
+
+        public const string ViewTrustTask = TaskList + "/trust";
+        public const string SearchTrustTask = ViewTrustTask + "/search";
+        public const string EditTrustTask = ViewTrustTask + "/edit";
     }
 }
