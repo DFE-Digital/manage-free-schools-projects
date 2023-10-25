@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiSingleResponseV2<GetTrustByRefResponse>>> GetProjectByTask(string trn)
+        public async Task<ActionResult<ApiSingleResponseV2<GetTrustByRefResponse>>> Execute(string trn)
         {
             _logger.LogMethodEntered();
 
@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             if (trustByRef == null) 
             {
-                _logger.LogInformation("No trust could be found for the given trust ref {projectId}", trn);
+                _logger.LogInformation("No trust could be found for the given trust ref {trn}", trn);
                 return new NotFoundResult();
             }
 

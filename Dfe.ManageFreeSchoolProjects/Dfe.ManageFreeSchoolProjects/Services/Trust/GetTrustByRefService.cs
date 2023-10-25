@@ -3,7 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Services.Project
+namespace Dfe.ManageFreeSchoolProjects.Services.Trust
 {
     public interface IGetTrustByRefService
     {

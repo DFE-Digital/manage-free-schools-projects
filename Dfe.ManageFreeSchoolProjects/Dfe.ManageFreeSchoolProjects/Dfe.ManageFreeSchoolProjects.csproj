@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\htb-template.docx" />
+	  <None Remove="Services\Trust\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -66,6 +67,7 @@
 	<ItemGroup>
 	  <Folder Include="ViewComponents\" />
 	  <Folder Include="wwwroot\src\images" />
+	  <Folder Include="Services\Trust\" />
 	</ItemGroup>
 
 	<ItemGroup>
