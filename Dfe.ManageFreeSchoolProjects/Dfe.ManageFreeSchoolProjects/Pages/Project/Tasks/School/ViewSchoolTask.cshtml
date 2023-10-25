@@ -9,10 +9,33 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St George's Primary super School Cheesy</span>
+            <span class="govuk-caption-l">
+                @{
+                    RenderValue(Model.Project.School.CurrentFreeSchoolName);
+                }
+            </span>
             School
         </h1>
         <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                   Current free school name
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.School.CurrentFreeSchoolName);
+                    }
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> School type</span>
+                    </a>
+                </dd>
+            </div>
+
             <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
