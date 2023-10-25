@@ -97,7 +97,7 @@
                     <label class="govuk-label" for="faith-status">Faith Status</label>
                     <govuk-radios-input id="faith-status"
                                         name="faith-status"
-                                        asp-for="ProjectId"
+                                        asp-for="@Model.FaithStatus"
                                         data-testid="faith-status"
                                         labels="@faithStatuses"
                                         values="@faithStatuses"/>
@@ -109,7 +109,7 @@
                         <label class="govuk-label" for="faith-type">Faith Type</label>
                         <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
                                             name="faith-type"
-                                            asp-for="ProjectId"
+                                            asp-for="@Model.FaithType"
                                             data-testid="faith-type"
                                             labels="@faithTypeLabels"
                                             values="@faithTypeValues"/>

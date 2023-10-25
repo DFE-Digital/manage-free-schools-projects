@@ -37,21 +37,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         [Description("University technical college")]
         UniversityTechnicalCollege = 6
     }
-
-    // public enum Nursery
-    // {
-    //     None,
-    //     Yes,
-    //     No,
-    //     
-    // }
-    //
-    // public enum SixthForm
-    // {
-    //     None,
-    //     Yes,
-    //     No
-    // }
     
     public enum SchoolPhase
     {
@@ -62,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Secondary = 2,
         [Description("16 to 19")]
         SixteenToNineteen = 3, 
-        [Description("All-Through")]
+        [Description("All-through")]
         AllThrough = 4, 
     }
 

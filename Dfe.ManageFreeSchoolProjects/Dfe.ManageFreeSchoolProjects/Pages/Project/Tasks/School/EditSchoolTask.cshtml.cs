@@ -96,6 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             try
             {
                 var project = await _getProjectService.Execute(ProjectId);
+                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
                 SchoolType = project.School.SchoolType;
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;
@@ -151,6 +152,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         {
             return new SchoolTask
             {
+                CurrentFreeSchoolName = CurrentFreeSchoolName,
                 SchoolType = SchoolType,
                 SchoolPhase = SchoolPhase,
                 Nursery = Nursery,
@@ -158,7 +160,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 Gender = Gender,
                 FaithStatus = FaithStatus, 
                 FaithType = FaithType, 
-                OtherFaithType = OtherFaithType
+                OtherFaithType = OtherFaithType,
+                AgeRange = string.Concat(AgeRangeFrom, "-", AgeRangeTo)
             };
         }
         
