@@ -32,12 +32,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
         [Required]
-        public SchoolType? SchoolType { get; set; }
+        public SchoolType SchoolType { get; set; }
 
         [BindProperty(Name = "school-phase")]
         [Display(Name = "School phase")]
         [Required]
-        public SchoolPhase? SchoolPhase { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
 
         [BindProperty(Name = "age-range-from")]
         [Display(Name = "Age range from")]
@@ -57,12 +57,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required]
-        public Nursery? Nursery { get; set; } 
+        public string Nursery { get; set; } 
         
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
         [Required]
-        public SixthForm? SixthForm { get; set; }
+        public string SixthForm { get; set; }
         
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]

@@ -22,25 +22,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
         public async Task Execute(string projectId, UpdateProjectByTaskRequest request)
         {
-            var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
-
-            if (dbKpi == null)
+            try
             {
-                throw new NotFoundException($"Project {projectId} not found");
+                var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
+
+                if (dbKpi == null)
+                {
+                    throw new NotFoundException($"Project {projectId} not found");
+                }
+
+                var dbProperty = await GetProperty(dbKpi.Rid);
+                var dbTrust = await GetTrust(dbKpi.Rid);
+                var dbConstruction = await GetConstruction(dbKpi.Rid);
+
+                // Updates here
+                ApplySchoolTaskUpdates(request.School, dbKpi);
+                ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+                ApplyDatesTaskUpdates(request.Dates, dbKpi);
+
+                await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
+
+                await _context.SaveChangesAsync();
             }
-
-            var dbProperty = await GetProperty(dbKpi.Rid);
-            var dbTrust = await GetTrust(dbKpi.Rid);
-            var dbConstruction = await GetConstruction(dbKpi.Rid);
-
-            // Updates here
-            ApplySchoolTaskUpdates(request.School, dbKpi);
-            ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
-            ApplyDatesTaskUpdates(request.Dates, dbKpi);
-
-            await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
-
-            await _context.SaveChangesAsync();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private static void ApplySchoolTaskUpdates(
@@ -98,7 +106,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
-        
+
         private async Task<Property> GetProperty(string id)
         {
             var result = await _context.Property.FirstOrDefaultAsync(e => e.Rid == id);

@@ -15,7 +15,7 @@ public static class TasksMapper
     private const string Secondary = "Secondary";
     private const string SixteenToNineteen = "16-19";
     private const string AllThrough = "All-Through";
-    public static string? MapSchoolType(this SchoolType? schoolType)
+    public static string MapSchoolType(this SchoolType schoolType)
     {
         return schoolType switch
         {
@@ -25,11 +25,11 @@ public static class TasksMapper
             SchoolType.Mainstream => Mainstream,
             SchoolType.StudioSchool => StudioSchool,
             SchoolType.UniversityTechnicalCollege => UniversityTechnicalCollege,
-            _ => null
+            _ => ""
         };
     }
 
-    public static SchoolType? MapSchoolType(this string? schoolType) => schoolType switch
+    public static SchoolType MapSchoolType(this string schoolType) => schoolType switch
     {
         Special => SchoolType.Special,
         AlternativeProvision => SchoolType.AlternativeProvision,
@@ -37,10 +37,10 @@ public static class TasksMapper
         Mainstream => SchoolType.Mainstream,
         StudioSchool => SchoolType.StudioSchool,
         UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,
-        _ => null
+        _ => SchoolType.None
     };
 
-    public static string? MapSchoolPhase(this SchoolPhase? schoolPhase)
+    public static string MapSchoolPhase(this SchoolPhase schoolPhase)
     {
         return schoolPhase switch
         {
@@ -48,11 +48,11 @@ public static class TasksMapper
             SchoolPhase.Secondary => SchoolPhase.Secondary.ToString(),
             SchoolPhase.SixteenToNineteen => SixteenToNineteen,
             SchoolPhase.AllThrough => AllThrough,
-            _ => null
+            _ => ""
         };
     }
     
-    public static SchoolPhase? MapSchoolPhase(this string? schoolPhase)
+    public static SchoolPhase MapSchoolPhase(this string schoolPhase)
     {
         return schoolPhase switch
         {
@@ -60,7 +60,7 @@ public static class TasksMapper
             Secondary => SchoolPhase.Secondary, 
             SixteenToNineteen => SchoolPhase.SixteenToNineteen, 
             AllThrough => SchoolPhase.AllThrough,
-            _ => null
+            _ => SchoolPhase.None
         };
     }
 }

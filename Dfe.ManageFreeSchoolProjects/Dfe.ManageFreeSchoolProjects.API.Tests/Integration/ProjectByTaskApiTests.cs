@@ -23,20 +23,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Ensures that if the child tables for the tasks are not populated, the api still works
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-            
+
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
-            
+
             var tasks = TasksStub.BuildListOfTasks(project.Rid);
             context.Tasks.AddRange(tasks);
-            
+
             await context.SaveChangesAsync();
 
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
-            
+            var result = await getProjectByTaskResponse.Content
+                .ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+
             result.Data.Construction.AddressOfSite.Should().BeNull();
             result.Data.Construction.BuildingType.Should().BeNull();
         }
@@ -57,10 +58,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
-            
+
             var tasks = TasksStub.BuildListOfTasks(project.Rid);
             context.Tasks.AddRange(tasks);
-            
+
             await context.SaveChangesAsync();
 
             var request = new UpdateProjectByTaskRequest()
@@ -71,8 +72,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     SchoolType = SchoolType.Mainstream,
                     AgeRange = "11-18",
                     SchoolPhase = SchoolPhase.Primary,
-                    Nursery = Nursery.No,
-                    SixthForm = SixthForm.No,
+                    Nursery = "No",
+                    SixthForm = "No",
                     FaithStatus = FaithStatus.None,
                     FaithType = FaithType.Other,
                     Gender = Gender.Mixed
@@ -85,8 +86,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.SchoolType.Should().Be(SchoolType.Mainstream);
             projectResponse.School.SchoolPhase.Should().Be(SchoolPhase.Primary);
             projectResponse.School.AgeRange.Should().Be("11-18");
-            projectResponse.School.Nursery.Should().Be(Nursery.No);
-            projectResponse.School.SixthForm.Should().Be(SixthForm.No);
+            projectResponse.School.Nursery.Should().Be("No");
+            projectResponse.School.SixthForm.Should().Be("No");
         }
 
         [Fact]
@@ -165,19 +166,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
             };
 
-            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
+            var updateTaskResponse =
+                await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request)
+        private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId,
+            UpdateProjectByTaskRequest request)
         {
-            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
+            var updateTaskResponse =
+                await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+            var result = await getProjectByTaskResponse.Content
+                .ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
 
             return result.Data;
         }

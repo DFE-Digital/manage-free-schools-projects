@@ -12,9 +12,8 @@
 
     var faithStatuses = Enum.GetValues<FaithStatus>().Select(x => x.ToString()).ToArray();
 
-    var nurseryOptions = Enum.GetValues<Nursery>().Select(x => x.ToString()).ToArray();
-
-    var sixthFormOptions = Enum.GetValues<SixthForm>().Select(x => x.ToString()).ToArray();
+    var nurseryOptions = new[] { "No", "Yes" }; 
+    var sixthFormOptions = new[] { "No", "Yes" }; 
 
     var genders = Enum.GetValues<Gender>();
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
