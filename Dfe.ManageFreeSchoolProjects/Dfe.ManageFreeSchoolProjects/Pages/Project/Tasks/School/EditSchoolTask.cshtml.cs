@@ -11,6 +11,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Models;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
@@ -26,6 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current Free School Name")]
+        [RegularExpression(@"^[a-zA-Z0-9'(),\s]*$")]
         [Required]
         public string CurrentFreeSchoolName { get; set; }
         
@@ -41,11 +43,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "age-range-from")]
         [Display(Name = "Age range from")]
+        [StringLength(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Range(0, int.MaxValue, ErrorMessage =  "Please enter a valid number.")]
         [Required]
         public string AgeRangeFrom { get; set; }
         
         [BindProperty(Name = "age-range-to")]
         [Display(Name = "Age range to")]
+        [StringLength(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Range(0, int.MaxValue, ErrorMessage =  "Please enter a valid number")]
         [Required]
         public string AgeRangeTo { get; set; }
 
@@ -124,6 +130,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         public async Task<ActionResult> OnPost()
         {
+            if (int.TryParse(AgeRangeTo, out int ageRangeTo) && int.TryParse(AgeRangeFrom, out int ageRangeFrom))
+            {
+                if (ageRangeFrom > ageRangeTo)
+                    ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
+            }
+            
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -136,7 +148,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 {
                     School = CreateUpdatedSchoolTask()
                 };
-
+                
                 await _updateProjectTaskService.Execute(ProjectId, request);
 
                 return Redirect(string.Format(RouteConstants.ViewSchoolTask, ProjectId));
