@@ -21,10 +21,10 @@
 
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.SchoolType);
+                        RenderValue(Model.Project.School.SchoolType.ToDescription());
                     }
                 </dd>
-                
+
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@editLink">
                         Change<span class="govuk-visually-hidden"> School type</span>
@@ -39,7 +39,7 @@
 
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.SchoolPhase);
+                        RenderValue(Model.Project.School.SchoolPhase.ToDescription());
                     }
                 </dd>
 
@@ -74,7 +74,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue("");
+                        RenderValue(Model.Project.School.Gender.ToDescription());
                     }
                 </dd>
                 <dd class="govuk-summary-list__actions">
@@ -90,7 +90,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.Nursery);
+                        RenderValue(Model.Project.School.Nursery);
                     }
                 </dd>
 
@@ -108,68 +108,69 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.SixthForm);
+                        RenderValue(Model.Project.School.SixthForm);
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
                     <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden"> Sixth form</span>
+                        Change<span class="govuk-visually-hidden">Sixth form</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Company name
+                    Faith Status
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.CompanyName);
+                        RenderValue(Model.Project.School.FaithStatus.ToString());
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
                     <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Company name</span>
+                        Change
+                        <span class="govuk-visually-hidden">Faith status</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    number of company members
+                    Faith type
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.NumberOfCompanyMembers);
+                        RenderValue(Model.Project.School.FaithType.ToDescription());
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
                     <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Number of company members</span>
+                        Change<span class="govuk-visually-hidden">Faith type</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Proposed chair of trustees
+                    Other faith type
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        // RenderValue(Model.Project.School.ProposedChairOfTrustees);
+                        RenderValue(Model.Project.School.OtherFaithType);
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
                     <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Proposed chair of trustees</span>
+                        Change<span class="govuk-visually-hidden">Other faith type</span>
                     </a>
 
                 </dd>
