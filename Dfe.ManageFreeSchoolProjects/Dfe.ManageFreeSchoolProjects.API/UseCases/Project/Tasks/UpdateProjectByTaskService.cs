@@ -31,14 +31,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             var dbKai = await GetKai(dbKpi.Rid);
             var dbProperty = await GetProperty(dbKpi.Rid);
-            var dbTrust = await GetTrust(dbKpi.Rid);
             var dbConstruction = await GetConstruction(dbKpi.Rid);
 
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
-            ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
+            ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbConstruction);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
-            ApplyTrustTaskUpdates(request.Trust, dbTrust);
+            await ApplyTrustTaskUpdates(request.Trust, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
@@ -70,7 +69,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         private static void ApplyConstructionTaskUpdates(
             ConstructionTask task,
             Property dbProperty,
-            Trust dbTrust,
             Construction dbConstruction)
         {
             if (task == null)
@@ -82,10 +80,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbProperty.SiteAddressOfSite = task.AddressOfSite;
             dbProperty.SitePostcodeOfSite = task.PostcodeOfSite;
             dbProperty.SiteBuildingType = task.BuildingType;
-
-            dbTrust.TrustRef = task.TrustRef;
-            dbTrust.LeadSponsor = task.TrustLeadSponsor;
-            dbTrust.TrustsTrustName = task.TrustName;
 
             dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
             dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
@@ -105,18 +99,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
 
-        private static void ApplyTrustTaskUpdates(
+        private async Task ApplyTrustTaskUpdates(
             TrustTask task,
-            Trust dbTrust)
+            Kpi dbKpi)
         {
             if (task == null)
             {
                 return;
             }
 
-            dbTrust.TrustRef = task.TRN;
-            dbTrust.TrustsTrustName = task.TrustName;
-            dbTrust.TrustsTrustType = task.TrustType;
+            var trust = await GetTrust(task.TRN);
+
+            dbKpi.TrustId = trust.TrustRef ;
+            dbKpi.TrustName = trust.TrustsTrustName;
+            dbKpi.TrustType = trust.TrustsTrustType;
+
+            dbKpi.SchoolDetailsTrustId = trust.TrustsTrustRef;
+            dbKpi.SchoolDetailsTrustName = trust.TrustsTrustName;
+            dbKpi.SchoolDetailsTrustType = trust.TrustsTrustType;
         }
 
         private async Task<Kai> GetKai(string id)
@@ -154,20 +154,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             return result;
         }
 
-        private async Task<Trust> GetTrust(string id)
+        private async Task<Trust> GetTrust(string trustRef)
         {
-            var result = await _context.Trust.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Trust()
-                {
-                    Rid = id
-                };
-
-                _context.Trust.Add(result);
-            }
-
+            var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
+            
             return result;
         }
 

@@ -16,6 +16,6 @@
 
         public const string ViewTrustTask = TaskList + "/trust";
         public const string SearchTrustTask = ViewTrustTask + "/search";
-        public const string EditTrustTask = ViewTrustTask + "/edit";
+        public const string EditTrustTask = ViewTrustTask + "/edit/{1}";
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.EMMA;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 {
@@ -65,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
             Trust = await _getTrustByRefService.Execute(TRN);
 
-            return Redirect(RouteConstants.EditTrustTask);
+            return Redirect(string.Format(RouteConstants.EditTrustTask, ProjectId, TRN));
         }
 
     }

@@ -23,54 +23,52 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         {
             var result = await
                 (from kpi in _context.Kpi
-                where kpi.ProjectStatusProjectId == projectId
-                join kai in _context.Kai on kpi.Rid equals kai.Rid into kaiJoin
-                from kai in kaiJoin.DefaultIfEmpty()
-                join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
-                from property in propertyJoin.DefaultIfEmpty()
-                join trust in _context.Trust on kpi.Rid equals trust.Rid into trustJoin
-                from trust in trustJoin.DefaultIfEmpty()
-                join construction in _context.Construction on kpi.Rid equals construction.Rid into constructionJoin
-                from construction in constructionJoin.DefaultIfEmpty()
-                select new GetProjectByTaskResponse()
-                {
-                    School = new SchoolTask()
-                    {
-                        CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
-                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
-                        AgeRange = kpi.SchoolDetailsAgeRange,
-                        Nursery = kpi.SchoolDetailsNursery,
-                        SixthForm = kpi.SchoolDetailsSixthForm,
-                        CompanyName = kai.ApplicationDetailsCompanyName,
-                        NumberOfCompanyMembers = kai.ApplicationDetailsNumberOfCompanyMembers,
-                        ProposedChairOfTrustees = kai.ApplicationDetailsProposedChairOfTrustees
-                    },
-                    Construction = new ConstructionTask()
-                    {
-                        NameOfSite = property.SiteNameOfSite,
-                        AddressOfSite = property.SiteAddressOfSite,
-                        PostcodeOfSite = property.SitePostcodeOfSite,
-                        BuildingType = property.SiteBuildingType,
-                        TrustRef = trust.TrustRef,
-                        TrustLeadSponsor = trust.LeadSponsor,
-                        TrustName = trust.TrustsTrustName,
-                        SiteMinArea = construction.SiteDetailsAreaOfNewBuildM2,
-                        TypeofWorksLocation = construction.SiteDetailsTypeOfWorks,
-                    },
-                    Dates = new DatesTask()
-                    {
-                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
-                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
-                        RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                    },
-                    Trust = new TrustTask()
-                    {
-                        TRN = trust.TrustRef,
-                        TrustName = trust.TrustsTrustName,
-                        TrustType = trust.TrustsTrustType,
-                    }
-                }).FirstOrDefaultAsync();
+                 where kpi.ProjectStatusProjectId == projectId
+                 join kai in _context.Kai on kpi.Rid equals kai.Rid into kaiJoin
+                 from kai in kaiJoin.DefaultIfEmpty()
+                 join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
+                 from property in propertyJoin.DefaultIfEmpty()
+                 join construction in _context.Construction on kpi.Rid equals construction.Rid into constructionJoin
+                 from construction in constructionJoin.DefaultIfEmpty()
+                 select new GetProjectByTaskResponse()
+                 {
+                     School = new SchoolTask()
+                     {
+                         CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
+                         SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
+                         SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
+                         AgeRange = kpi.SchoolDetailsAgeRange,
+                         Nursery = kpi.SchoolDetailsNursery,
+                         SixthForm = kpi.SchoolDetailsSixthForm,
+                         CompanyName = kai.ApplicationDetailsCompanyName,
+                         NumberOfCompanyMembers = kai.ApplicationDetailsNumberOfCompanyMembers,
+                         ProposedChairOfTrustees = kai.ApplicationDetailsProposedChairOfTrustees
+                     },
+                     Construction = new ConstructionTask()
+                     {
+                         NameOfSite = property.SiteNameOfSite,
+                         AddressOfSite = property.SiteAddressOfSite,
+                         PostcodeOfSite = property.SitePostcodeOfSite,
+                         BuildingType = property.SiteBuildingType,
+                         TrustRef = kpi.TrustId,
+                         TrustLeadSponsor = kpi.TrustType,
+                         TrustName = kpi.TrustName,
+                         SiteMinArea = construction.SiteDetailsAreaOfNewBuildM2,
+                         TypeofWorksLocation = construction.SiteDetailsTypeOfWorks,
+                     },
+                     Dates = new DatesTask()
+                     {
+                         DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
+                         ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                         RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
+                     },
+                     Trust = new TrustTask()
+                     {
+                         TRN = kpi.TrustId,
+                         TrustName = kpi.TrustName,
+                         TrustType = kpi.TrustType,
+                     }
+                 }).FirstOrDefaultAsync();
 
             return result;
         }

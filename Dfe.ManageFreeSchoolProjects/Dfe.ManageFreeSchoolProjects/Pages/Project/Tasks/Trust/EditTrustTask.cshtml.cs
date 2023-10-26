@@ -5,6 +5,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
     public class EditTrustTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditTrustTaskModel> _logger;
         private readonly ErrorService _errorService;
@@ -26,28 +28,28 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
         public string CurrentFreeSchoolName { get; set; }
 
-        [BindProperty(Name = "trn")]
+        [BindProperty(SupportsGet = true, Name = "trn")]
         [Display(Name = "TRN")]
         [Required]
         public string TRN { get; set; }
 
         [BindProperty(Name = "trust-name")]
         [Display(Name = "Trust Name")]
-        [Required]
         public string TrustName { get; set; }
 
         [BindProperty(Name = "trust-type")]
         [Display(Name = "Trust Type")]
-        [Required]
         public string TrustType { get; set; }
 
         public EditTrustTaskModel(
             IGetProjectByTaskService getProjectService,
+            IGetTrustByRefService getTrustByRefService,
             IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditTrustTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
+            _getTrustByRefService = getTrustByRefService;
             _updateProjectTaskService = updateProjectTaskService;
             _logger = logger;
             _errorService = errorService;
@@ -61,9 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             {
                 var project = await _getProjectService.Execute(ProjectId);
                 CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
-                TRN = project.Trust.TRN;
-                TrustName = project.Trust.TrustName;
-                TrustType = project.Trust.TrustType;
+
+                var trust = await _getTrustByRefService.Execute(TRN);
+
+                TRN = trust.Trust.TRN;
+                TrustName = trust.Trust.TrustName;
+                TrustType = trust.Trust.TrustType;
 
             }
             catch (Exception ex)
@@ -84,13 +89,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
             try
             {
+                var trust = await _getTrustByRefService.Execute(TRN);
+
                 var request = new UpdateProjectByTaskRequest()
                 {
                     Trust = new TrustTask()
                     {
-                        TRN = TRN,
-                        TrustName = TrustName,
-                        TrustType = TrustType
+                        TRN = trust.Trust.TRN,
+                        TrustName = trust.Trust.TrustName,
+                        TrustType = trust.Trust.TrustType
+
                     }
                 };
 
