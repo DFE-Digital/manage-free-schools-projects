@@ -34,8 +34,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.Data.School.CompanyName.Should().BeNull();
             result.Data.School.NumberOfCompanyMembers.Should().BeNull();
-            result.Data.Construction.AddressOfSite.Should().BeNull();
-            result.Data.Construction.BuildingType.Should().BeNull();
         }
 
         [Fact]
@@ -82,45 +80,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.CompanyName.Should().Be("School Builders Ltd");
             projectResponse.School.NumberOfCompanyMembers.Should().Be("100");
             projectResponse.School.ProposedChairOfTrustees.Should().Be("Lemon Group Ltd");
-        }
-
-        [Fact]
-        public async Task Patch_ConstructionTask_Returns_201()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
-
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
-            var request = new UpdateProjectByTaskRequest()
-            {
-                Construction = new ConstructionTask()
-                {
-                    NameOfSite = "Lemon Site",
-                    AddressOfSite = "Fruitpickers Lane",
-                    PostcodeOfSite = "LF124YH",
-                    BuildingType = "Brick",
-                    TrustRef = "1234ABC",
-                    TrustLeadSponsor = "Aviva",
-                    TrustName = "Education First",
-                    SiteMinArea = "10000",
-                    TypeofWorksLocation = "Building site"
-                }
-            };
-
-            var projectResponse = await UpdateProjectTask(projectId, request);
-
-            projectResponse.Construction.NameOfSite.Should().Be("Lemon Site");
-            projectResponse.Construction.AddressOfSite.Should().Be("Fruitpickers Lane");
-            projectResponse.Construction.PostcodeOfSite.Should().Be("LF124YH");
-            projectResponse.Construction.BuildingType.Should().Be("Brick");
-            projectResponse.Construction.TrustRef.Should().Be("1234ABC");
-            projectResponse.Construction.TrustLeadSponsor.Should().Be("Aviva");
-            projectResponse.Construction.TrustName.Should().Be("Education First");
-            projectResponse.Construction.SiteMinArea.Should().Be("10000");
-            projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
         }
 
         [Fact]

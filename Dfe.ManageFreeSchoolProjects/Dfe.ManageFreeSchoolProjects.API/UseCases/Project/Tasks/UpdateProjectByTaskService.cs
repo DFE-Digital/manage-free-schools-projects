@@ -32,11 +32,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             var dbKai = await GetKai(dbKpi.Rid);
             var dbProperty = await GetProperty(dbKpi.Rid);
             var dbTrust = await GetTrust(dbKpi.Rid);
-            var dbConstruction = await GetConstruction(dbKpi.Rid);
 
             // Updates here
             ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
-            ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
@@ -64,30 +62,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKai.ApplicationDetailsCompanyName = task.CompanyName;
             dbKai.ApplicationDetailsNumberOfCompanyMembers = task.NumberOfCompanyMembers;
             dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;
-        }
-
-        private static void ApplyConstructionTaskUpdates(
-            ConstructionTask task,
-            Property dbProperty,
-            Trust dbTrust,
-            Construction dbConstruction)
-        {
-            if (task == null)
-            {
-                return;
-            }
-
-            dbProperty.SiteNameOfSite = task.NameOfSite;
-            dbProperty.SiteAddressOfSite = task.AddressOfSite;
-            dbProperty.SitePostcodeOfSite = task.PostcodeOfSite;
-            dbProperty.SiteBuildingType = task.BuildingType;
-
-            dbTrust.TrustRef = task.TrustRef;
-            dbTrust.LeadSponsor = task.TrustLeadSponsor;
-            dbTrust.TrustsTrustName = task.TrustName;
-
-            dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
-            dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
         }
 
         private static void ApplyDatesTaskUpdates(
@@ -151,23 +125,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 };
 
                 _context.Trust.Add(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Construction> GetConstruction(string id)
-        {
-            var result = await _context.Construction.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Construction()
-                {
-                    Rid = id
-                };
-
-                _context.Construction.Add(result);
             }
 
             return result;
