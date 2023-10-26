@@ -11,6 +11,8 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.EMMA;
+using Dfe.ManageFreeSchoolProjects.Services;
+using System.Net.Http;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 {
@@ -19,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         private readonly ILogger<SearchTrustTaskModel> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTrustByRefService _getTrustByRefService;
+        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -27,7 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
         [BindProperty(Name = "trn")]
         [Display(Name = "TRN (trust reference number)")]
-        [Required]
+        [StringLength(7, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Required(ErrorMessage = "Enter the TRN.")]
+        [RegularExpression("TR\\d\\d\\d\\d\\d", ErrorMessage = "The TRN must be in the format TRXXXXX")]
         public string TRN { get; set; }
 
         public GetTrustByRefResponse Trust { get; set; }
@@ -35,11 +40,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         public SearchTrustTaskModel(
             IGetProjectByTaskService getProjectService,
             IGetTrustByRefService getTrustByRefService,
-            ILogger<SearchTrustTaskModel> logger)
+            ILogger<SearchTrustTaskModel> logger,
+            ErrorService errorService)
         {
             _logger = logger;
             _getProjectService = getProjectService;
             _getTrustByRefService = getTrustByRefService;
+            _errorService = errorService;
         }
 
         public async Task<IActionResult> OnGet()
@@ -64,9 +71,29 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         {
             _logger.LogMethodEntered();
 
-            Trust = await _getTrustByRefService.Execute(TRN);
+            try
+            {
+                //Attempt to get trust, will throw an exception when 404 is returned
+                Trust = await _getTrustByRefService.Execute(TRN);
+                
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    ModelState.AddModelError("trn", "Trust ID not found");
+                    _errorService.AddErrors(ModelState.Keys, ModelState);
+                    return Page();
+                }
+
+                else
+                {
+                    throw;
+                }
+            }
 
             return Redirect(string.Format(RouteConstants.EditTrustTask, ProjectId, TRN));
+
         }
 
     }
