@@ -37,7 +37,7 @@ public static class TasksMapper
         Mainstream => SchoolType.Mainstream,
         StudioSchool => SchoolType.StudioSchool,
         UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,
-        _ => SchoolType.None
+        _ => SchoolType.NotSet
     };
 
     public static string MapSchoolPhase(this SchoolPhase schoolPhase)
@@ -60,7 +60,7 @@ public static class TasksMapper
             Secondary => SchoolPhase.Secondary, 
             SixteenToNineteen => SchoolPhase.SixteenToNineteen, 
             AllThrough => SchoolPhase.AllThrough,
-            _ => SchoolPhase.None
+            _ => SchoolPhase.NotSet
         };
     }
 }

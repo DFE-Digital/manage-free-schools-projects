@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum SchoolType
     {
-        None = 0,
+        NotSet = 0,
         [Description("Alternative provision")]
         AlternativeProvision = 1, 
         [Description("Further edcuation")]
@@ -40,8 +40,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     
     public enum SchoolPhase
     {
-        [Description("None")]
-        None,
+        [Description("Not set")]
+        NotSet,
         [Description("Primary")]
         Primary,
         [Description("Secondary")]
@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum FaithType
     {
-        None,
+        NotSet,
         [Description("Church of England")]
         ChurchOfEngland,
         [Description("Christian")]
@@ -81,12 +81,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         Designation,
         Ethos,
-        None
+        None,
+        NotSet
     }
 
     public enum Gender
     {
-        None,
+        NotSet,
         [Description("Boys only")]
         BoysOnly,
         [Description("Girls only")]

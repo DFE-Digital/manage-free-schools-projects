@@ -6,16 +6,16 @@ public static class TaskParsers
 {
     public static FaithStatus ParseFaithStatus(string input)
     {
-        return Enum.TryParse<FaithStatus>(input, out var faithStatus) ? faithStatus : FaithStatus.None;
+        return Enum.TryParse<FaithStatus>(input, out var faithStatus) ? faithStatus : FaithStatus.NotSet;
     }
 
     public static FaithType ParseFaithType(string input)
     {
-        return Enum.TryParse<FaithType>(input, out var faithType) ? faithType : FaithType.None;
+        return Enum.TryParse<FaithType>(input, out var faithType) ? faithType : FaithType.NotSet;
     }
         
     public static Gender ParseGender(string input)
     {
-        return Enum.TryParse<Gender>(input, out var gender) ? gender : Gender.None;
+        return Enum.TryParse<Gender>(input, out var gender) ? gender : Gender.NotSet;
     }
 }

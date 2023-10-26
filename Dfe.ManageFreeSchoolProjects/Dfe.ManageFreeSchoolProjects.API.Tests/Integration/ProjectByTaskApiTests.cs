@@ -77,7 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     SchoolPhase = SchoolPhase.Primary,
                     Nursery = "No",
                     SixthForm = "No",
-                    FaithStatus = FaithStatus.None,
+                    FaithStatus = FaithStatus.NotSet,
                     FaithType = FaithType.Other,
                     Gender = Gender.Mixed
                 }

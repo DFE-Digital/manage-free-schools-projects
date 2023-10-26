@@ -3,24 +3,24 @@
 @using AngleSharp.Common
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
-    var schoolTypes = Enum.GetValues<SchoolType>().Except(new [] { SchoolType.None });
+    var schoolTypes = Enum.GetValues<SchoolType>().Except(new [] { SchoolType.NotSet });
     var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
     var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
 
-    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.None });;
+    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.NotSet });;
     var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();
     var schoolPhaseValues = schoolPhases.Select(x => x.ToString()).ToArray();
 
-    var faithStatuses = Enum.GetValues<FaithStatus>().Select(x => x.ToString()).ToArray();
+    var faithStatuses = Enum.GetValues<FaithStatus>().Except(new []{ FaithStatus.NotSet}).Select(x => x.ToString()).ToArray();
 
     var nurseryOptions = new[] { "No", "Yes" }; 
     var sixthFormOptions = new[] { "No", "Yes" }; 
 
-    var genders = Enum.GetValues<Gender>().Except(new [] { Gender.None });
+    var genders = Enum.GetValues<Gender>().Except(new [] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
     var genderValues = genders.Select(x => x.ToString()).ToArray();
 
-    var faiths = Enum.GetValues<FaithType>().Except(new [] { FaithType.None });
+    var faiths = Enum.GetValues<FaithType>().Except(new [] { FaithType.NotSet });
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
 }
@@ -105,8 +105,8 @@
                                         values="@faithStatuses"/>
                 </div>
 
-                @* @if (!string.IsNullOrEmpty(Model.FaithStatus) && Model.FaithStatus != FaithStatus.None.ToString()) *@
-                @* { *@
+                @if (Model.DisplayFaithType)
+                {
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="faith-type">Faith Type</label>
                         <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
@@ -116,11 +116,13 @@
                                             labels="@faithTypeLabels"
                                             values="@faithTypeValues"/>
                     </div>
-                @* } *@
+                }
 
-                @* Only allowed if Faith Type set to Other. Maybe conditionally render?*@
-                <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
-     
+                @if (@Model.DisplayOtherFaithType)
+                {
+                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
+                }
+                
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue
                 </button>

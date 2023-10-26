@@ -224,7 +224,7 @@
 
     public void RenderValue(string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
             <span class="empty">Empty</span>
         }

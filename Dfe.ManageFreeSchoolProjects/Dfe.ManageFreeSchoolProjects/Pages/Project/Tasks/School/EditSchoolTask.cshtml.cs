@@ -81,6 +81,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [Display(Name = "Other Faith type")]
         public string OtherFaithType { get; set; }
 
+        public bool DisplayFaithType
+        {
+            get { return FaithStatus is not (FaithStatus.None or FaithStatus.NotSet); }
+            private set {}
+        } 
+
+        public bool DisplayOtherFaithType => FaithType is FaithType.Other;
+
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -132,6 +140,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 if (ageRangeFrom > ageRangeTo)
                     ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
+            }
+
+            if (DisplayFaithType && FaithType == FaithType.NotSet)
+            {
+                ModelState.AddModelError("faith-type", "Faith type is required.");
+            }
+
+            if (DisplayOtherFaithType && string.IsNullOrEmpty(OtherFaithType))
+            {
+                ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+            }
+            else if (FaithType != FaithType.Other && !string.IsNullOrEmpty(OtherFaithType))
+            {
+                OtherFaithType = string.Empty;
             }
             
             if (!ModelState.IsValid)

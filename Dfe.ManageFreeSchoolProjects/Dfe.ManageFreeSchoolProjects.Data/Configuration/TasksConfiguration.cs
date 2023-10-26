@@ -10,7 +10,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
     public void Configure(EntityTypeBuilder<Tasks> builder)
     {
         builder
-            .ToTable("Tasks", "dbo")
+            .ToTable("Tasks", "mfsp")
             .HasKey(tasks => new { tasks.Rid, tasks.TaskName });
 
         builder.Property(e => e.Rid)

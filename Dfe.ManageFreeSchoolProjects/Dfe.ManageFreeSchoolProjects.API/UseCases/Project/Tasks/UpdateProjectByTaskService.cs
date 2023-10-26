@@ -60,14 +60,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 return;
             }
 
+            var faithStatus = task.FaithStatus == FaithStatus.NotSet ? string.Empty : task.FaithStatus.ToString();
+            var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToString();
+            var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
+            
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType.MapSchoolType();
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
+            dbKpi.SchoolDetailsGender = gender;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
-            dbKpi.SchoolDetailsNursery = task.Nursery.ToString();
-            dbKpi.SchoolDetailsSixthForm = task.SixthForm.ToString();
-            dbKpi.SchoolDetailsFaithStatus = task.FaithStatus.ToString();
-            dbKpi.SchoolDetailsFaithType = task.FaithType.ToString();
+            dbKpi.SchoolDetailsNursery = task.Nursery;
+            dbKpi.SchoolDetailsSixthForm = task.SixthForm;
+            dbKpi.SchoolDetailsFaithStatus = faithStatus;
+            dbKpi.SchoolDetailsFaithType = faithType;
             dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
         }
 
