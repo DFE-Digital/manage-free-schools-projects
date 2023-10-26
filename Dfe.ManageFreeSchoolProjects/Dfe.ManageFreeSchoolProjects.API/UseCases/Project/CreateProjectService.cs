@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
                 var existingProject = await _context.Kpi
-                    .FirstOrDefaultAsync(k => k.ProjectStatusCurrentFreeSchoolName == proj.SchoolName);
+                    .FirstOrDefaultAsync(k => k.ProjectStatusProjectId == proj.ProjectId);
 
                 ProjectCreateState projectCreateState = ProjectCreateState.New;
 
@@ -55,15 +55,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     Rid = Guid.NewGuid().ToString().Substring(0, 10),
                     ProjectStatusProjectId = proj.ProjectId,
                     ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
-                    ProjectStatusFreeSchoolApplicationWave = Guid.NewGuid().ToString().Substring(0, 9),
-                    ProjectStatusFreeSchoolsApplicationNumber = Guid.NewGuid().ToString().Substring(0, 9),
-                    AprilIndicator = Guid.NewGuid().ToString().Substring(0, 9),
-                    Wave = Guid.NewGuid().ToString().Substring(0, 15),
-                    UpperStatus = Guid.NewGuid().ToString().Substring(0, 10),
-                    FsType = Guid.NewGuid().ToString().Substring(0, 13),
-                    FsType1 = Guid.NewGuid().ToString().Substring(0, 15),
-                    MatUnitProjects = Guid.NewGuid().ToString().Substring(0, 31),
-                    SponsorUnitProjects = Guid.NewGuid().ToString(),
+                    ProjectStatusFreeSchoolApplicationWave = "",
+                    ProjectStatusFreeSchoolsApplicationNumber = "",
+                    AprilIndicator = "",
+                    Wave = "",
+                    UpperStatus = "",
+                    FsType = "",
+                    FsType1 = "",
+                    MatUnitProjects = "",
+                    SponsorUnitProjects = "",
                     SchoolDetailsGeographicalRegion = proj.Region,
                     LocalAuthority = proj.LocalAuthority,
                 });

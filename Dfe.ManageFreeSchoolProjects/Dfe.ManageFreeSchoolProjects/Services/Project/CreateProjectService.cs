@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
         public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
         {
-            return await _apiClient.Post<CreateProjectRequest, CreateProjectResponse>($"/api/v1/client/project/create/", createProjectRequest);
+            return await _apiClient.Post<CreateProjectRequest, CreateProjectResponse>($"/api/v1/client/projects/create/", createProjectRequest);
         }
     }
 }

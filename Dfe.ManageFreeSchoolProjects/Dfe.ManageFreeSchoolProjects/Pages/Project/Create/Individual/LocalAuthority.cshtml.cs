@@ -1,6 +1,8 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -8,18 +10,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class RegionModel : PageModel
+    public class LocalAuthorityModel : PageModel
     {
-        [BindProperty(Name = "region")]
-        [Display(Name = "region")]
+        [BindProperty(Name = "local-authority")]
+        [Display(Name = "local authority")]
         [Required]
-        public string? Region { get; set; }
+        public string LocalAuthority { get; set; }
 
         private readonly ErrorService _errorService;
 
         private readonly ICreateProjectCache _createProjectCache;
 
-        public RegionModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+        public LocalAuthorityModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {
             _errorService = errorService;
             _createProjectCache = createProjectCache;
@@ -27,6 +29,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnGet()
         {
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
             return Page();
         }
 
@@ -39,10 +45,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
-            project.Region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+            project.LocalAuthority = (ProjectLocalAuthority)Enum.Parse(typeof(ProjectLocalAuthority), LocalAuthority);
             _createProjectCache.Update(project);
 
-            return Redirect("/project/create/localauthority");
+            return Redirect("/project/create/checkyouranswers");
         }
     }
 }

@@ -1,4 +1,13 @@
+import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
+
 class HomePage {
+
+    public createNewProjects(): this {
+        cy.contains("Create new projects").click();
+     //   cy.login({role: ProjectRecordCreator})
+        return this;
+    }
+
     public createProject(): this {
         cy.getByTestId("create-project-button").click();
 
