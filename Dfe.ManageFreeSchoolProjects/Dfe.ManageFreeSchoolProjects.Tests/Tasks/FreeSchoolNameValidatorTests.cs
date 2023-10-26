@@ -36,9 +36,19 @@ public class FreeSchoolNameValidatorTests
     }
 
     [Theory]
-    [InlineData("School~>>>> Name with invalid character@s", "")]
-    public void SchoolName_WithInvalid_Characters_ReturnsErrorMessage(string schoolName, string errorMessage)
+    [InlineData("School~>>>> Name with invalid character@s")]
+    [InlineData("School'@s Name%%^££££")]
+    public void SchoolName_WithInvalid_Characters_ReturnsErrorMessage(string schoolName)
     {
+        const string expectedErrorMessage = "Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas.";
         
+        var validationContext = new ValidationContext(schoolName);
+
+        var freeSchoolNameValidator = new FreeSchoolNameValidator();
+        var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
+
+        validationResult.Should().NotBe(ValidationResult.Success);
+        validationResult?.ErrorMessage.Should().NotBeNullOrEmpty();
+        validationResult?.ErrorMessage.Should().Be(expectedErrorMessage);
     }
 }

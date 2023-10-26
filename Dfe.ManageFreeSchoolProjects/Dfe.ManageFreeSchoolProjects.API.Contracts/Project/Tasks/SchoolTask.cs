@@ -40,19 +40,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     
     public enum SchoolPhase
     {
-        None = 0,
+        [Description("None")]
+        None,
         [Description("Primary")]
-        Primary = 1,
+        Primary,
         [Description("Secondary")]
-        Secondary = 2,
+        Secondary,
         [Description("16 to 19")]
-        SixteenToNineteen = 3, 
+        SixteenToNineteen, 
         [Description("All-through")]
-        AllThrough = 4, 
+        AllThrough, 
     }
 
     public enum FaithType
     {
+        None,
         [Description("Church of England")]
         ChurchOfEngland,
         [Description("Christian")]
@@ -84,6 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum Gender
     {
+        None,
         [Description("Boys only")]
         BoysOnly,
         [Description("Girls only")]

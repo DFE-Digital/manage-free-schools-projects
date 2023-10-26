@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -32,6 +33,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
+            var dbConnString = context.Database.GetDbConnection().ConnectionString;
+            
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 

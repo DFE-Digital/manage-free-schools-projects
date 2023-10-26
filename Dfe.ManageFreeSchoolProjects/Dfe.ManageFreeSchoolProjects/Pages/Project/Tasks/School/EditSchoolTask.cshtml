@@ -1,12 +1,13 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using AngleSharp.Common
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
-    var schoolTypes = Enum.GetValues<SchoolType>();
+    var schoolTypes = Enum.GetValues<SchoolType>().Except(new [] { SchoolType.None });
     var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
     var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
 
-    var schoolPhases = Enum.GetValues<SchoolPhase>();
+    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.None });;
     var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();
     var schoolPhaseValues = schoolPhases.Select(x => x.ToString()).ToArray();
 
@@ -15,11 +16,11 @@
     var nurseryOptions = new[] { "No", "Yes" }; 
     var sixthFormOptions = new[] { "No", "Yes" }; 
 
-    var genders = Enum.GetValues<Gender>();
+    var genders = Enum.GetValues<Gender>().Except(new [] { Gender.None });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
     var genderValues = genders.Select(x => x.ToString()).ToArray();
 
-    var faiths = Enum.GetValues<FaithType>();
+    var faiths = Enum.GetValues<FaithType>().Except(new [] { FaithType.None });
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
 }
