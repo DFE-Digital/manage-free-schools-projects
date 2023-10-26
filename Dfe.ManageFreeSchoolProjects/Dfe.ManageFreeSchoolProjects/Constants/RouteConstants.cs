@@ -16,6 +16,7 @@
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
+        public const string CreateProjectRegion = CreateProject + "/region";
         public const string CreateProjectLA = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";

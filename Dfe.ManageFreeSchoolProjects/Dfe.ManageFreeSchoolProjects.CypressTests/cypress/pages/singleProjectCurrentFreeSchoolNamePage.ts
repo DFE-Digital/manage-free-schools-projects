@@ -21,8 +21,8 @@ class SingleProjectCurrentFreeSchoolNamePage {
     }
 
     public verifyEmptyValidationMessage(): this {
-        cy.getById("school-error-link").contains("The free school name field is required");
-        cy.getById("school-error").contains("The free school name field is required");
+        cy.getById("school-error-link").contains("Enter the current free school name.");
+        cy.getById("school-error").contains("Enter the current free school name.");
 
         return this;
     }
@@ -36,23 +36,23 @@ class SingleProjectCurrentFreeSchoolNamePage {
     }
 
     public verifyInvalidCharsValidationMessage(): this {
-        cy.getById("school-error-link").contains("The free school name must only include valid characters");
-        cy.getById("school-error").contains("The free school name must only include valid characters");
+        cy.getById("school-error-link").contains("School name must not include < > { } | ; = and .");
+        cy.getById("school-error").contains("School name must not include < > { } | ; = and .");
 
         return this;
     }
 
-    public UserEntersMoreThanEightyChars(): this {
+    public UserEntersMoreThanOneHundredChars(): this {
         cy.getByTestId("school").clear();
-        cy.getByTestId("school").type("123456789012345678901234567890123456789012345678901234567890123456789012345678901");
+        cy.getByTestId("school").type("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
         cy.getByTestId("continue").click();
 
         return this;
     }
 
-    public verifyMoreThanEightyCharsValidationMessage(): this {
-        cy.getById("school-error-link").contains("The free school name must be 80 characters or less");
-        cy.getById("school-error").contains("The free school name must be 80 characters or less");
+    public verifyMoreThanHundredCharsValidationMessage(): this {
+        cy.getById("school-error-link").contains("The school name must be 100 characters or less");
+        cy.getById("school-error").contains("The school name must be 100 characters or less");
 
         return this;
     }

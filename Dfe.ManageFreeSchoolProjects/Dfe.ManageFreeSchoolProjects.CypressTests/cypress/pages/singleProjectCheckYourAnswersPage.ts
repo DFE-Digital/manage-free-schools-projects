@@ -10,7 +10,7 @@ class SingleProjectCheckYourAnswersPage {
 
         cy.get("dt").eq(1).contains("Current free school name");
         cy.get("dd").eq(2).contains("St Dunstan's Abbey, (Plymouth)");
-        cy.get("a[href='create-new-project-school-name']").contains("Change");
+        cy.get("a[href='/project/create/school']").contains("Change");
 
         cy.get("dt").eq(2).contains("Region");
         cy.get("dd").eq(4).contains("South West");
