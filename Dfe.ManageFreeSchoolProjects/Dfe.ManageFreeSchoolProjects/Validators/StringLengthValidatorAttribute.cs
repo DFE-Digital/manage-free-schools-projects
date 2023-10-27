@@ -2,11 +2,11 @@
 
 namespace Dfe.ManageFreeSchoolProjects.Models;
 
-public class StringLengthValidator : ValidationAttribute
+public class StringLengthValidatorAttribute : ValidationAttribute
 {
     private readonly int _maxLength;
 
-    public StringLengthValidator(int maxLength)
+    public StringLengthValidatorAttribute(int maxLength)
     {
         _maxLength = maxLength;
     }

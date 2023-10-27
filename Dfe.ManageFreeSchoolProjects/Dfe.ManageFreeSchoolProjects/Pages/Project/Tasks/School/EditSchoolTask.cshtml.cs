@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current Free School Name")]
-        [FreeSchoolNameValidator]
+        [SchoolNameValidator]
         [Required]
         public string CurrentFreeSchoolName { get; set; }
 
@@ -132,11 +132,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         public async Task<ActionResult> OnPost()
         {
-            if (int.TryParse(AgeRangeTo, out int ageRangeTo) && int.TryParse(AgeRangeFrom, out int ageRangeFrom))
-            {
-                if (ageRangeFrom > ageRangeTo)
-                    ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
-            }
+            ValidateAgeRange();
 
             if (DisplayFaithType && FaithType == FaithType.NotSet)
             {
@@ -173,6 +169,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 _logger.LogErrorMsg(ex);
                 throw;
+            }
+        }
+
+        private void ValidateAgeRange()
+        {
+            if (int.TryParse(AgeRangeTo, out var ageRangeTo)
+                && int.TryParse(AgeRangeFrom, out var ageRangeFrom)
+                && ageRangeFrom > ageRangeTo)
+            {
+                ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
             }
         }
 

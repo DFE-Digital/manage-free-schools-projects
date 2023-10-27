@@ -13,7 +13,7 @@ public class FreeSchoolNameValidatorTests
     {
         var validationContext = new ValidationContext(schoolName);
 
-        var freeSchoolNameValidator = new FreeSchoolNameValidator();
+        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
         var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
 
         validationResult.Should().Be(ValidationResult.Success);
@@ -27,7 +27,7 @@ public class FreeSchoolNameValidatorTests
         
         var validationContext = new ValidationContext(schoolName);
 
-        var freeSchoolNameValidator = new FreeSchoolNameValidator();
+        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
         var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
 
         validationResult.Should().NotBe(ValidationResult.Success);
@@ -44,7 +44,7 @@ public class FreeSchoolNameValidatorTests
         
         var validationContext = new ValidationContext(schoolName);
 
-        var freeSchoolNameValidator = new FreeSchoolNameValidator();
+        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
         var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
 
         validationResult.Should().NotBe(ValidationResult.Success);

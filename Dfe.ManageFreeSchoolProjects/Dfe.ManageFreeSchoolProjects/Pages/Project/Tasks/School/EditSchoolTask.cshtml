@@ -7,7 +7,7 @@
     var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
     var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
 
-    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.NotSet });;
+    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.NotSet });
     var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();
     var schoolPhaseValues = schoolPhases.Select(x => x.ToString()).ToArray();
 

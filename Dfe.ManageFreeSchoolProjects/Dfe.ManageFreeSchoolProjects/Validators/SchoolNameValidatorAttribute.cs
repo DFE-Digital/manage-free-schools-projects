@@ -6,7 +6,7 @@ using AngleSharp.Text;
 
 namespace Dfe.ManageFreeSchoolProjects.Models;
 
-public class FreeSchoolNameValidator : ValidationAttribute
+public class SchoolNameValidatorAttribute : ValidationAttribute
 {
     private const string AllowSpecialCharactersPattern = @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$";
 
@@ -17,9 +17,7 @@ public class FreeSchoolNameValidator : ValidationAttribute
 
         var valueAsString = (string) value;
         
-        var valueAsChars = valueAsString.ToCharArray();
-
-        if (!valueAsChars.Any(x => x.IsLetter()))
+        if (!valueAsString.ToList().Exists(x => x.IsLetter()))
         {
             return new ValidationResult("Please enter some letters.");
         }
