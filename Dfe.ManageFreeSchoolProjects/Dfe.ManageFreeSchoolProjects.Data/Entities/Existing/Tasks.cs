@@ -21,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
     public enum TaskName
     {
+        Unknown,
         School,
         Dates,
         RiskAppraisal
