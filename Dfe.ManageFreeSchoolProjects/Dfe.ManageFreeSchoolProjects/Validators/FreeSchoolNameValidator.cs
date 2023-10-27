@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 using AngleSharp.Text;
@@ -23,7 +24,7 @@ public class FreeSchoolNameValidator : ValidationAttribute
             return new ValidationResult("Please enter some letters.");
         }
         
-        var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern);
+        var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(30));
         var match = specialCharactersRegex.Match(valueAsString);
         
         return match.Success
