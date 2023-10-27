@@ -15,12 +15,6 @@ public static class TasksStub
                 Status = Status.NotStarted,
                 TaskName = TaskName.School
             },
-            new()
-            {
-                Rid = projectRid,
-                Status = Status.InProgress,
-                TaskName = TaskName.Construction
-            }, 
             new ()
             {
                 Rid = projectRid,

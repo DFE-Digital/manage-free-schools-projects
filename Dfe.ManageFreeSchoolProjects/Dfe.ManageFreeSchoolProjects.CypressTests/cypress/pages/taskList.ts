@@ -6,7 +6,7 @@ class TaskListPage {
     }
 
     public verifyDatesMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(2).contains("Completed");
+        cy.getByClass("app-task-list__item").eq(1).contains("Completed");
     }
 }
 

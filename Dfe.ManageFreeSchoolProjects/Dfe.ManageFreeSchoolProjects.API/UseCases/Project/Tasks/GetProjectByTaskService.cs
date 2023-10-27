@@ -28,10 +28,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 from kai in kaiJoin.DefaultIfEmpty()
                 join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
                 from property in propertyJoin.DefaultIfEmpty()
-                join trust in _context.Trust on kpi.Rid equals trust.Rid into trustJoin
-                from trust in trustJoin.DefaultIfEmpty()
-                join construction in _context.Construction on kpi.Rid equals construction.Rid into constructionJoin
-                from construction in constructionJoin.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
                     School = new SchoolTask()
@@ -45,18 +41,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         CompanyName = kai.ApplicationDetailsCompanyName,
                         NumberOfCompanyMembers = kai.ApplicationDetailsNumberOfCompanyMembers,
                         ProposedChairOfTrustees = kai.ApplicationDetailsProposedChairOfTrustees
-                    },
-                    Construction = new ConstructionTask()
-                    {
-                        NameOfSite = property.SiteNameOfSite,
-                        AddressOfSite = property.SiteAddressOfSite,
-                        PostcodeOfSite = property.SitePostcodeOfSite,
-                        BuildingType = property.SiteBuildingType,
-                        TrustRef = trust.TrustRef,
-                        TrustLeadSponsor = trust.LeadSponsor,
-                        TrustName = trust.TrustsTrustName,
-                        SiteMinArea = construction.SiteDetailsAreaOfNewBuildM2,
-                        TypeofWorksLocation = construction.SiteDetailsTypeOfWorks,
                     },
                     Dates = new DatesTask()
                     {

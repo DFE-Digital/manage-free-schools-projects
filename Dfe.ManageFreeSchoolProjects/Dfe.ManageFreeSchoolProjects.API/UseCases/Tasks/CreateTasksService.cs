@@ -33,7 +33,6 @@ public class CreateTasksService : ICreateTasksService
         return new List<Data.Entities.Existing.Tasks>()
         {
             new() { Rid = kpiRid, TaskName = TaskName.School, Status = status },
-            new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = status },
             new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = status },
             // new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = status },
         };
