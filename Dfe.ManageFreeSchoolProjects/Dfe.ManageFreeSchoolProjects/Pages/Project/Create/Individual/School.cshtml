@@ -1,6 +1,13 @@
 ﻿@page "/project/create/school"
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.SchoolModel
 @{
+    ViewData["Title"] = "What is the current free school name?";
+
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+    </div>
 }
 
 <div class="govuk-grid-row">
@@ -10,7 +17,7 @@
 
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl" for="create-new-project-school-name">
+                    <label class="govuk-label govuk-label--xl" for="school">
                         <span class="govuk-caption-l">Creating a new free school project</span>
                         What is the current free school name?
                     </label>

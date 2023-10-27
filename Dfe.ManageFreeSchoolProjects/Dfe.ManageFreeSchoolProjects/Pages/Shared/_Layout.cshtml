@@ -69,7 +69,7 @@
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
     <partial name="_CookieBanner" />
     <header class="dfe-header" role="banner">
-        <a href="#mainContent" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+        <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
         <div class="dfe-width-container dfe-header__container">
             <div class="dfe-header__logo">
                 <a class="dfe-header__link dfe-header__link--service " href="/">
@@ -85,16 +85,14 @@
     </header>
     @await RenderSectionAsync("BeforeMain", required: false)
     <div class="govuk-main-wrapper">
-        <div class="govuk-width-container msfp-wider-page">
-            <main id="main-content" role="main">
-                <div class="govuk-grid-row">
-                    <div class="govuk-grid-column-full">
-                        <partial name="_NotificationSummary" />
-                        @RenderBody()
-                    </div>
+        <main id="main-content" role="main" class="govuk-width-container msfp-wider-page">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <partial name="_NotificationSummary" />
+                    @RenderBody()
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
     <footer class="govuk-footer " role="contentinfo">
         <div class="govuk-width-container ">
