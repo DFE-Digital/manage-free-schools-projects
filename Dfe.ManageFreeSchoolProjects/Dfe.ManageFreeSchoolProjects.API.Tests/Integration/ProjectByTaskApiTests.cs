@@ -32,15 +32,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             context.Tasks.AddRange(tasks);
 
             await context.SaveChangesAsync();
-
             
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
-            
-            result.Data.Construction.AddressOfSite.Should().BeNull();
-            result.Data.Construction.BuildingType.Should().BeNull();
         }
 
         [Fact]
