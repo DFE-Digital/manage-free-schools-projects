@@ -28,13 +28,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             {
                 throw new NotFoundException($"Project {projectId} not found");
             }
-
-            var dbKai = await GetKai(dbKpi.Rid);
-            var dbProperty = await GetProperty(dbKpi.Rid);
-            var dbTrust = await GetTrust(dbKpi.Rid);
-
+            
             // Updates here
-            ApplySchoolTaskUpdates(request.School, dbKpi, dbKai);
+            ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
@@ -44,24 +40,27 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
         private static void ApplySchoolTaskUpdates(
             SchoolTask task,
-            Kpi dbKpi,
-            Kai dbKai)
+            Kpi dbKpi)
         {
             if (task == null)
             {
                 return;
             }
 
+            var faithStatus = task.FaithStatus == FaithStatus.NotSet ? string.Empty : task.FaithStatus.ToString();
+            var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToString();
+            var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
+
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
-            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType;
-            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase;
+            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType.MapSchoolType();
+            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
+            dbKpi.SchoolDetailsGender = gender;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery;
             dbKpi.SchoolDetailsSixthForm = task.SixthForm;
-
-            dbKai.ApplicationDetailsCompanyName = task.CompanyName;
-            dbKai.ApplicationDetailsNumberOfCompanyMembers = task.NumberOfCompanyMembers;
-            dbKai.ApplicationDetailsProposedChairOfTrustees = task.ProposedChairOfTrustees;
+            dbKpi.SchoolDetailsFaithStatus = faithStatus;
+            dbKpi.SchoolDetailsFaithType = faithType;
+            dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
         }
 
         private static void ApplyDatesTaskUpdates(
@@ -76,58 +75,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
-        }
-
-        private async Task<Kai> GetKai(string id)
-        {
-            var result = await _context.Kai.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Kai()
-                {
-                    Rid = id,
-                };
-
-                _context.Kai.Add(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Property> GetProperty(string id)
-        {
-            var result = await _context.Property.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Property()
-                {
-                    Rid = id,
-                    Tos = "123"
-                };
-
-                _context.Property.Add(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Trust> GetTrust(string id)
-        {
-            var result = await _context.Trust.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Trust()
-                {
-                    Rid = id
-                };
-
-                _context.Trust.Add(result);
-            }
-
-            return result;
         }
 
         private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,

@@ -33,14 +33,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     School = new SchoolTask()
                     {
                         CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
-                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary,
+                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
+                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
                         AgeRange = kpi.SchoolDetailsAgeRange,
+                        Gender = TaskParsers.ParseGender(kpi.SchoolDetailsGender),
                         Nursery = kpi.SchoolDetailsNursery,
                         SixthForm = kpi.SchoolDetailsSixthForm,
-                        CompanyName = kai.ApplicationDetailsCompanyName,
-                        NumberOfCompanyMembers = kai.ApplicationDetailsNumberOfCompanyMembers,
-                        ProposedChairOfTrustees = kai.ApplicationDetailsProposedChairOfTrustees
+                        FaithStatus = TaskParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
+                        FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
+                        OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
                     },
                     Dates = new DatesTask()
                     {

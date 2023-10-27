@@ -1,4 +1,3 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Models;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
@@ -23,20 +23,40 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        [BindProperty(Name = "current-free-school-name")]
+        [Display(Name = "Current Free School Name")]
+        [SchoolNameValidator]
+        [Required]
+        public string CurrentFreeSchoolName { get; set; }
+
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
         [Required]
-        public string SchoolType { get; set; }
+        public SchoolType SchoolType { get; set; }
 
         [BindProperty(Name = "school-phase")]
         [Display(Name = "School phase")]
         [Required]
-        public string SchoolPhase { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
 
-        [BindProperty(Name = "age-range")]
-        [Display(Name = "Age range")]
+        [BindProperty(Name = "age-range-from")]
+        [Display(Name = "Age range from")]
+        [StringLengthValidator(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number.")]
         [Required]
-        public string AgeRange { get; set; }
+        public string AgeRangeFrom { get; set; }
+
+        [BindProperty(Name = "age-range-to")]
+        [Display(Name = "Age range to")]
+        [StringLengthValidator(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number")]
+        [Required]
+        public string AgeRangeTo { get; set; }
+
+        [BindProperty(Name = "gender")]
+        [Display(Name = "Gender")]
+        [Required]
+        public Gender Gender { get; set; }
 
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
@@ -48,20 +68,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [Required]
         public string SixthForm { get; set; }
 
-        [BindProperty(Name = "company-name")]
-        [Display(Name = "Company name")]
+        [BindProperty(Name = "faith-status")]
+        [Display(Name = "Faith status")]
         [Required]
-        public string CompanyName { get; set; }
+        public FaithStatus FaithStatus { get; set; }
 
-        [BindProperty(Name = "number-of-company-members")]
-        [Display(Name = "Number of company members")]
-        [Required]
-        public string NumberOfCompanyMembers { get; set; }
+        [BindProperty(Name = "faith-type")]
+        [Display(Name = "Faith type")]
+        public FaithType FaithType { get; set; }
 
-        [BindProperty(Name = "proposed-chair-of-trustees")]
-        [Display(Name = "Proposed chair of trustees")]
-        [Required]
-        public string ProposedChairOfTrustees { get; set; }
+        [BindProperty(Name = "other-faith-type")]
+        [Display(Name = "Other Faith type")]
+        public string OtherFaithType { get; set; }
+
+        public bool DisplayFaithType => FaithStatus is not (FaithStatus.None or FaithStatus.NotSet);
+
+        public bool DisplayOtherFaithType => FaithType is FaithType.Other;
 
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -82,14 +104,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             try
             {
                 var project = await _getProjectService.Execute(ProjectId);
+                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
                 SchoolType = project.School.SchoolType;
                 SchoolPhase = project.School.SchoolPhase;
-                AgeRange = project.School.AgeRange;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
-                CompanyName = project.School.CompanyName;
-                NumberOfCompanyMembers = project.School.NumberOfCompanyMembers;
-                ProposedChairOfTrustees = project.School.ProposedChairOfTrustees;
+                Gender = project.School.Gender;
+                SixthForm = project.School.SixthForm;
+                FaithStatus = project.School.FaithStatus;
+                FaithType = project.School.FaithType;
+                OtherFaithType = project.School.OtherFaithType;
+
+                if (!string.IsNullOrEmpty(project.School.AgeRange))
+                {
+                    var ageRanges = SplitAgeRange(project.School.AgeRange);
+                    AgeRangeFrom = ageRanges[0];
+                    AgeRangeTo = ageRanges[1];
+                }
             }
             catch (Exception ex)
             {
@@ -101,6 +132,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         public async Task<ActionResult> OnPost()
         {
+            ValidateAgeRange();
+
+            if (DisplayFaithType && FaithType == FaithType.NotSet)
+            {
+                ModelState.AddModelError("faith-type", "Faith type is required.");
+            }
+
+            if (DisplayOtherFaithType && string.IsNullOrEmpty(OtherFaithType))
+            {
+                ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+            }
+            else if (FaithType != FaithType.Other && !string.IsNullOrEmpty(OtherFaithType))
+            {
+                OtherFaithType = string.Empty;
+            }
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -109,19 +156,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
             try
             {
-                var request = new UpdateProjectByTaskRequest()
+                var request = new UpdateProjectByTaskRequest
                 {
-                    School = new SchoolTask()
-                    {
-                        SchoolType = SchoolType,
-                        SchoolPhase = SchoolPhase,
-                        AgeRange = AgeRange,
-                        Nursery = Nursery,
-                        SixthForm = SixthForm,
-                        CompanyName = CompanyName,
-                        NumberOfCompanyMembers = NumberOfCompanyMembers,
-                        ProposedChairOfTrustees = ProposedChairOfTrustees
-                    }
+                    School = CreateUpdatedSchoolTask()
                 };
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
@@ -133,6 +170,38 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 _logger.LogErrorMsg(ex);
                 throw;
             }
+        }
+
+        private void ValidateAgeRange()
+        {
+            if (int.TryParse(AgeRangeTo, out var ageRangeTo)
+                && int.TryParse(AgeRangeFrom, out var ageRangeFrom)
+                && ageRangeFrom > ageRangeTo)
+            {
+                ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
+            }
+        }
+
+        private SchoolTask CreateUpdatedSchoolTask()
+        {
+            return new SchoolTask
+            {
+                CurrentFreeSchoolName = CurrentFreeSchoolName,
+                SchoolType = SchoolType,
+                SchoolPhase = SchoolPhase,
+                Nursery = Nursery,
+                SixthForm = SixthForm,
+                Gender = Gender,
+                FaithStatus = FaithStatus,
+                FaithType = FaithType,
+                OtherFaithType = OtherFaithType,
+                AgeRange = string.Concat(AgeRangeFrom, "-", AgeRangeTo)
+            };
+        }
+
+        private static string[] SplitAgeRange(string ageRange)
+        {
+            return ageRange.Split('-');
         }
     }
 }
