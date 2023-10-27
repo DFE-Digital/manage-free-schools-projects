@@ -1,9 +1,15 @@
-﻿@page "/project/create/confirmation"
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.ConfirmationModel
+﻿@page "/project/create/checkyouranswers"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
 }
-
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href=@RouteConstants.CreateProjectLA class="govuk-back-link">Back</a>
+    </div>
+}
 <div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
         <h1 class="govuk-heading-xl">
@@ -14,10 +20,25 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
+                    Temporary Project ID
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="projectid">
+                    @Model.Project.ProjectId
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@RouteConstants.CreateProjectId>
+                        Change<span class="govuk-visually-hidden">Temporary Project Id</span>
+                    </a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                     Current free school name
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="school">
-                    @Model.Project.School
+                    @Model.Project.SchoolName
                 </dd>
 
                 <dd class="govuk-summary-list__actions">

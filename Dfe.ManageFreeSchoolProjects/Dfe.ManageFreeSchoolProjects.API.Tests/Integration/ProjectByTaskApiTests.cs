@@ -33,14 +33,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
-            var dbConnString = context.Database.GetDbConnection().ConnectionString;
             
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var result = await getProjectByTaskResponse.Content
-                .ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
-
+            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+            
             result.Data.Construction.AddressOfSite.Should().BeNull();
             result.Data.Construction.BuildingType.Should().BeNull();
         }
@@ -52,7 +50,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        //TODO: fix unit test for new fields
         [Fact]
         public async Task Patch_SchoolTask_Returns_201()
         {
@@ -94,45 +91,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task Patch_ConstructionTask_Returns_201()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
-
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
-            var request = new UpdateProjectByTaskRequest()
-            {
-                Construction = new ConstructionTask()
-                {
-                    NameOfSite = "Lemon Site",
-                    AddressOfSite = "Fruitpickers Lane",
-                    PostcodeOfSite = "LF124YH",
-                    BuildingType = "Brick",
-                    TrustRef = "1234ABC",
-                    TrustLeadSponsor = "Aviva",
-                    TrustName = "Education First",
-                    SiteMinArea = "10000",
-                    TypeofWorksLocation = "Building site"
-                }
-            };
-
-            var projectResponse = await UpdateProjectTask(projectId, request);
-
-            projectResponse.Construction.NameOfSite.Should().Be("Lemon Site");
-            projectResponse.Construction.AddressOfSite.Should().Be("Fruitpickers Lane");
-            projectResponse.Construction.PostcodeOfSite.Should().Be("LF124YH");
-            projectResponse.Construction.BuildingType.Should().Be("Brick");
-            projectResponse.Construction.TrustRef.Should().Be("1234ABC");
-            projectResponse.Construction.TrustLeadSponsor.Should().Be("Aviva");
-            projectResponse.Construction.TrustName.Should().Be("Education First");
-            projectResponse.Construction.SiteMinArea.Should().Be("10000");
-            projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
-        }
-
-        [Fact]
         public async Task Patch_DatesTask_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
@@ -169,23 +127,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
             };
 
-            var updateTaskResponse =
-                await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
+            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId,
-            UpdateProjectByTaskRequest request)
+        private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request)
         {
-            var updateTaskResponse =
-                await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
+            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var result = await getProjectByTaskResponse.Content
-                .ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
 
             return result.Data;
         }

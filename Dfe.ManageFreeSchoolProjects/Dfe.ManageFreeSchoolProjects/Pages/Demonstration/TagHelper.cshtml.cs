@@ -52,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Demonstration
         public decimal ProjectCost { get; set; }
 
         [BindProperty(Name = "project-options")]
-        public string? ProjectOptions { get; set; }
+        public string ProjectOptions { get; set; }
 
         [BindProperty(Name = "project-approved", BinderType = typeof(CheckboxInputModelBinder))]
         public bool ProjectApproved { get; set; }

@@ -22,33 +22,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
         public async Task Execute(string projectId, UpdateProjectByTaskRequest request)
         {
-            try
+            var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
+
+            if (dbKpi == null)
             {
-                var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
-
-                if (dbKpi == null)
-                {
-                    throw new NotFoundException($"Project {projectId} not found");
-                }
-
-                var dbProperty = await GetProperty(dbKpi.Rid);
-                var dbTrust = await GetTrust(dbKpi.Rid);
-                var dbConstruction = await GetConstruction(dbKpi.Rid);
-
-                // Updates here
-                ApplySchoolTaskUpdates(request.School, dbKpi);
-                ApplyConstructionTaskUpdates(request.Construction, dbProperty, dbTrust, dbConstruction);
-                ApplyDatesTaskUpdates(request.Dates, dbKpi);
-
-                await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
-
-                await _context.SaveChangesAsync();
+                throw new NotFoundException($"Project {projectId} not found");
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            
+            // Updates here
+            ApplySchoolTaskUpdates(request.School, dbKpi);
+            ApplyDatesTaskUpdates(request.Dates, dbKpi);
+
+            await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
+
+            await _context.SaveChangesAsync();
         }
 
         private static void ApplySchoolTaskUpdates(
@@ -63,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             var faithStatus = task.FaithStatus == FaithStatus.NotSet ? string.Empty : task.FaithStatus.ToString();
             var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToString();
             var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
-            
+
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType.MapSchoolType();
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
@@ -76,31 +63,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
         }
 
-        private static void ApplyConstructionTaskUpdates(
-            ConstructionTask task,
-            Property dbProperty,
-            Trust dbTrust,
-            Construction dbConstruction)
-        {
-            if (task == null)
-            {
-                return;
-            }
-
-            dbProperty.SiteNameOfSite = task.NameOfSite;
-            dbProperty.SiteAddressOfSite = task.AddressOfSite;
-            dbProperty.SitePostcodeOfSite = task.PostcodeOfSite;
-            dbProperty.SiteBuildingType = task.BuildingType;
-
-            dbTrust.TrustRef = task.TrustRef;
-            dbTrust.LeadSponsor = task.TrustLeadSponsor;
-            dbTrust.TrustsTrustName = task.TrustName;
-
-            dbConstruction.SiteDetailsAreaOfNewBuildM2 = task.SiteMinArea;
-            dbConstruction.SiteDetailsTypeOfWorks = task.TypeofWorksLocation;
-        }
-
-        private static void ApplyDatesTaskUpdates(DatesTask task, Kpi dbKpi)
+        private static void ApplyDatesTaskUpdates(
+            DatesTask task,
+            Kpi dbKpi)
         {
             if (task == null)
             {
@@ -111,59 +76,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
-
-        private async Task<Property> GetProperty(string id)
-        {
-            var result = await _context.Property.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Property()
-                {
-                    Rid = id,
-                    Tos = "123"
-                };
-
-                _context.Property.Add(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Trust> GetTrust(string id)
-        {
-            var result = await _context.Trust.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Trust()
-                {
-                    Rid = id
-                };
-
-                _context.Trust.Add(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Construction> GetConstruction(string id)
-        {
-            var result = await _context.Construction.FirstOrDefaultAsync(e => e.Rid == id);
-
-            if (result == null)
-            {
-                result = new Construction()
-                {
-                    Rid = id
-                };
-
-                _context.Construction.Add(result);
-            }
-
-            return result;
-        }
-
 
         private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
             UpdateProjectByTaskRequest updateProjectByTaskRequest)

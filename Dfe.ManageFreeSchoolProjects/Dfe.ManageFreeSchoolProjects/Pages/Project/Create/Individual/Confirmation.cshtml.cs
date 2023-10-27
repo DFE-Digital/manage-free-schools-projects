@@ -1,25 +1,25 @@
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class ConfirmationModel : PageModel
     {
-        public CreateProjectCacheItem Project { get; set; }
-
         private readonly ICreateProjectCache _createProjectCache;
+
+        public string ProjectID { get; set; }
 
         public ConfirmationModel(ICreateProjectCache createProjectCache)
         {
             _createProjectCache = createProjectCache;
         }
 
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            Project = _createProjectCache.Get();
-
-            return Page();
+            ProjectID = _createProjectCache.Get().ProjectId;
         }
     }
 }
