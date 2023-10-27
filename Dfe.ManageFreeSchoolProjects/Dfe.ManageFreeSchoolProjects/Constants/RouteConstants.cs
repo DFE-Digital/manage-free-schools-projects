@@ -10,8 +10,6 @@
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
         public const string ViewDatesTask = TaskList + "/dates";
         public const string EditDatesTask = ViewDatesTask + "/edit";
-        public const string ViewConstructionTask = TaskList + "/construction";
-        public const string EditConstructionTask = ViewConstructionTask + "/edit";
 
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
