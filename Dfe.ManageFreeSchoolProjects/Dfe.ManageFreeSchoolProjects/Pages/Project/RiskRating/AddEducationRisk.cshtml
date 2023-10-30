@@ -1,0 +1,76 @@
+﻿@page "/projects/{projectId}/risk-rating/education/add"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating.AddEducationRiskModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l">St Marys Catholic Academy - new risk rating entry</span>
+            Education
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <input hidden="" type="text" name="returnToSummary" value="no">
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset">
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-margin-bottom-6">
+
+                        What is the updated RAG rating for education?
+
+                    </legend>
+
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="create-new-rag-rating-governance" name="create-new-rag-rating-governance" type="radio" value="Green">
+                            <label class="govuk-label govuk-radios__label" for="create-new-rag-rating-governance">
+                                <strong class="govuk-tag govuk-tag--green">Green</strong>
+                            </label>
+
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="create-new-rag-rating-governance-2" name="create-new-rag-rating-governance" type="radio" value="Amber Green">
+                            <label class="govuk-label govuk-radios__label" for="create-new-rag-rating-governance-2">
+                                <strong class="govuk-tag dfe-tag--amber">Amber</strong>&nbsp;<strong class="govuk-tag govuk-tag--green">Green</strong>
+                            </label>
+
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="create-new-rag-rating-governance-3" name="create-new-rag-rating-governance" type="radio" value="Amber Red">
+                            <label class="govuk-label govuk-radios__label" for="create-new-rag-rating-governance-3">
+                                <strong class="govuk-tag dfe-tag--amber">Amber</strong>&nbsp;<strong class="govuk-tag govuk-tag--red">Red</strong>
+                            </label>
+
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="create-new-rag-rating-governance-4" name="create-new-rag-rating-governance" type="radio" value="Red">
+                            <label class="govuk-label govuk-radios__label" for="create-new-rag-rating-governance-4">
+                                <strong class="govuk-tag govuk-tag--red">Red</strong>
+                            </label>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="create-new-rag-summary-governance">
+                    What is the updated RAG summary for education?
+                </label>
+
+                <textarea class="govuk-textarea" id="create-new-rag-summary-governance" name="create-new-rag-summary-governance" rows="5"></textarea>
+            </div>
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

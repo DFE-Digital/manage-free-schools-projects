@@ -1,0 +1,33 @@
+﻿@page "/projects/{projectId}/risk-rating/risk-appraisal-form/add"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating.AddRiskAppraisalFormModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l"> - new RAG rating entry</span>
+            RAF (risk appraisal form)
+        </h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <input hidden="" type="text" name="returnToSummary" value="no">
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-heading-m" for="createNewRAGRatingRAFSharepointLink">
+                    RAF Sharepoint link
+                </label>
+
+                <input class="govuk-input govuk-!-margin-bottom-6" id="createNewRAGRatingRAFSharepointLink" name="createNewRAGRatingRAFSharepointLink" type="text">
+
+            </div>
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>
