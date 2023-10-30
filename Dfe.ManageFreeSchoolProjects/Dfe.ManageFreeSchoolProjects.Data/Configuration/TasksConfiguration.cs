@@ -41,16 +41,6 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
 
     private TaskName ConvertTaskName(string v)
     {
-        TaskName taskName = new TaskName();
-
-        if(Enum.TryParse(v, false, out taskName))
-        {
-            return taskName;
-        }
-        else
-        {
-            return TaskName.Unknown;
-        }
-
+        return Enum.TryParse(v, false, out TaskName taskName) ? taskName : TaskName.Unknown;
     }
 }
