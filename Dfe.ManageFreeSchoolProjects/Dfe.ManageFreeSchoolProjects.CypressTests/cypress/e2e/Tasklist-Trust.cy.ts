@@ -2,8 +2,8 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import datesDetailsPage from "cypress/pages/datesDetailsPage";
-import datesSummaryPage from "cypress/pages/datesSummaryPage";
+import trustDetailsPage from "cypress/pages/trustDetailsPage";
+import trustSummaryPage from "cypress/pages/trustSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskList";
 
@@ -24,7 +24,7 @@ describe("Testing project overview", () => {
             });
     });
 
-    it("Should successfully set project dates", () => {
+    it("Should successfully set Tasklist-trust information", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
@@ -38,13 +38,13 @@ describe("Testing project overview", () => {
         Logger.log("Checking Trust Summary page elements present");
         trustSummaryPage.verifyTrustSummaryElementsVisible();
 
-        Logger.log("Selecting first Change link from first 'Pre-opening' line");
-        trustSummaryPage.selectChangePreopeningToGoToDatesDetails();
+        Logger.log("Selecting first Change link from first 'TRN' line");
+        trustSummaryPage.selectChangeTRNToGoToTrustDetails();
 
         cy.excuteAccessibilityTests();
 
 
-        Logger.log("Attempting to save Dates Details page with no values");
+        Logger.log("Attempting to save 'Search for a trust by TRN' with no values");
         trustDetailsPage.selectSaveAndContinueButton()
         
         cy.excuteAccessibilityTests();
@@ -52,13 +52,43 @@ describe("Testing project overview", () => {
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         trustDetailsPage.verifyValidationMessagesWhenNoDataSet();
 
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
+        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string e.g. 'POTATO'");
+        trustDetailsPage.enterInvalidTRNStringInTRNPage();
 
-        Logger.log("Entering in exceptional date format to check correct validation messages");
-        trustDetailsPage.enterInvalidDateFormatInEditDatesPage();
+        trustDetailsPage.selectSaveAndContinueButton();
 
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string with spaces e.g. 'P O T A T O'");
+        trustDetailsPage.enterInvalidTRNStringWithSpacesInTRNPage();
+
+        trustDetailsPage.selectSaveAndContinueButton();
+
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid numerical string e.g. '1234567'");
+        trustDetailsPage.enterInvalidTRNNumbersStringInTRNPage();
+
+        trustDetailsPage.selectSaveAndContinueButton();
+
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with a TRN that doesn't exist");
+        trustDetailsPage.enterNonExistentTrustIdInTRNPage();
+
+        trustDetailsPage.selectSaveAndContinueButton();
+
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenNonExistentTRNEntered();
+
+/*
         Logger.log("Submitting invalid date formats");
         trustDetailsPage.selectSaveAndContinueButton();
 
@@ -118,7 +148,7 @@ describe("Testing project overview", () => {
         trustSummaryPage.selectMarkItemAsComplete();
         trustSummaryPage.selectConfirmAndContinue();
 
-        taskListPage.verifyDatesMarkedAsComplete();
-
+        taskListPage.verifyTrustMarkedAsComplete();
+*/
     });
 });
