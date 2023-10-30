@@ -36,7 +36,7 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         Logger.log("Checking Dates Summary page elements present");
-        datesSummaryPage.verifyDatesSummaryElementsVisible();
+        datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
 
         Logger.log("Selecting first Change link from first 'Pre-opening' line");
         datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
@@ -50,7 +50,7 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
-        datesDetailsPage.verifyValidationMessagesWhenNoDataSet();
+        datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
@@ -65,7 +65,7 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         Logger.log("Verify we get correct validation messages for exceptional date formats");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered();
+        datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
@@ -80,7 +80,7 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         Logger.log("Verify we get correct validation messages for exceptional days in dates");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered();
+        datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();

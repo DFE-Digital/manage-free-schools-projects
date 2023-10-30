@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
             Project = await _getProjectService.Execute(ProjectId);
 
             var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
-
+            CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
 

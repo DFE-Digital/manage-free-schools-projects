@@ -1,6 +1,7 @@
 class DatesSummaryPage {
 
-    public verifyDatesSummaryElementsVisible(): this {
+    public verifyDatesSummaryElementsVisible(schoolName: string): this {
+        cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);
         cy.getByClass("govuk-heading-xl").contains("Dates");
 
         cy.getByClass("govuk-summary-list__key").eq(0).contains("Entry into pre-opening");
