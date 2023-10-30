@@ -17,10 +17,8 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
             .HasMaxLength(30)
             .IsUnicode(false)
             .HasColumnName("RID");
-
-        var taskConverter = new EnumToStringConverter<TaskName>();
-
-        var converter = new ValueConverter<TaskName, string>(
+        
+        var taskConverter = new ValueConverter<TaskName, string>(
                 v => v.ToString(),
                 v => ConvertTaskName(v));
 
