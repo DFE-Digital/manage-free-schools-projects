@@ -1,7 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -11,10 +10,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class SchoolModel : PageModel
     {
         [BindProperty(Name = "school")]
-        [Display(Name = "free school name")]
-        [Required]
-        [StringLength(80, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Display(Name = "school name")]
+        [Required(ErrorMessage = "Enter the current free school name.")]
+        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [RegularExpression(@"[^<>{}=|;.]+", ErrorMessage = "School name must not include < > {{ }} | ; = and .")]
         public string School { get; set; }
+
+        public string BackLink { get; set; }
 
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
@@ -31,6 +33,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
+            BackLink = SetBackLink();
+
+            var project = _createProjectCache.Get();
+            School = project.SchoolName;
             return Page();
         }
 
@@ -46,7 +52,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             project.SchoolName = School;
             _createProjectCache.Update(project);
 
-            return Redirect("/project/create/region");
+            return Redirect(RouteConstants.CreateProjectRegion);
+        }
+
+        private string SetBackLink()
+        {
+            var project = _createProjectCache.Get();
+            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
+            {
+                return RouteConstants.CreateProjectCheckYourAnswers;
+            }
+            else
+            {
+                return RouteConstants.CreateProjectId;
+            }
         }
     }
 }
