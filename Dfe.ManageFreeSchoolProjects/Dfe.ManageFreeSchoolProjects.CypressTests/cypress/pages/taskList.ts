@@ -8,6 +8,15 @@ class TaskListPage {
     public verifyDatesMarkedAsComplete(): this {
         cy.getByClass("app-task-list__item").eq(1).contains("Completed");
     }
+
+    public selectTrustFromTaskList(): this {
+        cy.contains("Trust").click()
+        return this;
+    }
+
+    public verifyTrustMarkedAsComplete(): this {
+        cy.getByClass("app-task-list__item").eq(3).contains("Completed");
+    }
 }
 
 const taskListPage = new TaskListPage();
