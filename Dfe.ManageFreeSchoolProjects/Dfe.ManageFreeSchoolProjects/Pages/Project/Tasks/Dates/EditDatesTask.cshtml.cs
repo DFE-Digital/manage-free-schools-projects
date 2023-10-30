@@ -81,6 +81,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
+                var project = await _getProjectService.Execute(ProjectId);
+                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
                 return Page();
             }
 
