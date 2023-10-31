@@ -6,6 +6,7 @@ import trustDetailsPage from "cypress/pages/trustDetailsPage";
 import trustSummaryPage from "cypress/pages/trustSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskList";
+import confirmTrustPage from "cypress/pages/confirmTrustPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -25,6 +26,8 @@ describe("Testing project overview", () => {
     });
 
     it("Should successfully set Tasklist-trust information", () => {
+        const validTrustId = "TR03446";
+
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
@@ -36,7 +39,7 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         Logger.log("Checking Trust Summary page elements present");
-        trustSummaryPage.verifyTrustSummaryElementsVisible();
+        trustSummaryPage.verifyTrustSummaryElementsVisible(project.schoolName);
 
         Logger.log("Selecting first Change link from first 'TRN' line");
         trustSummaryPage.selectChangeTRNToGoToTrustDetails();
@@ -45,7 +48,7 @@ describe("Testing project overview", () => {
 
 
         Logger.log("Attempting to save 'Search for a trust by TRN' with no values");
-        trustDetailsPage.selectSaveAndContinueButton()
+        trustDetailsPage.selectSaveAndContinue()
         
         cy.excuteAccessibilityTests();
 
@@ -55,7 +58,7 @@ describe("Testing project overview", () => {
         Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string e.g. 'POTATO'");
         trustDetailsPage.enterInvalidTRNStringInTRNPage();
 
-        trustDetailsPage.selectSaveAndContinueButton();
+        trustDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
@@ -64,7 +67,7 @@ describe("Testing project overview", () => {
         Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string with spaces e.g. 'P O T A T O'");
         trustDetailsPage.enterInvalidTRNStringWithSpacesInTRNPage();
 
-        trustDetailsPage.selectSaveAndContinueButton();
+        trustDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
@@ -73,7 +76,7 @@ describe("Testing project overview", () => {
         Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid numerical string e.g. '1234567'");
         trustDetailsPage.enterInvalidTRNNumbersStringInTRNPage();
 
-        trustDetailsPage.selectSaveAndContinueButton();
+        trustDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
@@ -82,11 +85,58 @@ describe("Testing project overview", () => {
         Logger.log("Attempting to save 'Search for a trust by TRN' with a TRN that doesn't exist");
         trustDetailsPage.enterNonExistentTrustIdInTRNPage();
 
-        trustDetailsPage.selectSaveAndContinueButton();
+        trustDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenNonExistentTRNEntered();
+
+
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with SQL injection attempt");
+        trustDetailsPage.enterSQLInjectionAttemptInTRNPage();
+
+        trustDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
+
+
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with Cross-site Scripting Attack");
+        trustDetailsPage.enterCrossSiteScriptingAttemptInTRNPage();
+
+        trustDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
+
+
+
+        Logger.log("Attempting to save 'Search for a trust by TRN' with valid Trust ID that exists");
+        trustDetailsPage.enterValidTrustId(validTrustId);
+
+        trustDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
+
+        confirmTrustPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(project.schoolName, validTrustId);
+
+        trustSummaryPage.selectMarkItemAsComplete();
+
+        trustSummaryPage.selectConfirmAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        taskListPage.verifyTrustMarkedAsComplete();
 
 /*
         Logger.log("Submitting invalid date formats");

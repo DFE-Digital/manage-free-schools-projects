@@ -1,12 +1,15 @@
 const invalidTRNString = "POTATO";
 const invalidTRNStringWithSpaces = "P O T A T O";
 const invalidTRNNumbersString = "1234567";
-const nonExistentTrustId = 'TR09999';
-const validTrustId = 'TR03446';
+const nonExistentTrustId = "TR09999";
+
+const SQLInjectionAttempt = "' OR 1=1";
+const crossSiteScriptingAttempt = "<script>window.alert('Hello World!')</script>";
+
 class TrustDetailsPage {
     
     
-    selectSaveAndContinueButton(): this {
+    selectSaveAndContinue(): this {
         cy.getByClass("govuk-button").click();
         return this;
     }
@@ -50,6 +53,32 @@ class TrustDetailsPage {
 
         return this;
 
+    }
+
+    enterSQLInjectionAttemptInTRNPage(): this {
+        cy.getById("trn").clear();
+        cy.getById("trn").click();
+        cy.getById("trn").type(SQLInjectionAttempt);
+
+        return this;
+
+    }
+
+    enterCrossSiteScriptingAttemptInTRNPage(): this {
+        cy.getById("trn").clear();
+        cy.getById("trn").click();
+        cy.getById("trn").type(crossSiteScriptingAttempt);
+
+        return this;
+
+    }
+
+    enterValidTrustId(validTrustId: string): this {
+        cy.getById("trn").clear();
+        cy.getById("trn").click();
+        cy.getById("trn").type(validTrustId);
+
+        return this;
     }
 
 
