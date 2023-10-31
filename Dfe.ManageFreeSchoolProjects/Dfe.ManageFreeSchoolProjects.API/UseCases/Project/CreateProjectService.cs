@@ -1,12 +1,8 @@
-﻿using System.Text.Json.Serialization;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.Data.Entities;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {

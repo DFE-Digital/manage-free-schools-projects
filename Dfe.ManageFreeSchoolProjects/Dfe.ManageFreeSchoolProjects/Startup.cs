@@ -80,8 +80,9 @@ public class Startup
         services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
         services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
         services.AddScoped<ICreateTasksService, CreateTasksService>();
-        services.AddScoped<IGetProjectRiskRatingService, GetProjectRiskRatingService>();
+        services.AddScoped<IGetProjectRiskService, GetProjectRiskService>();
         services.AddScoped<ICreateProjectRiskCache, CreateProjectRiskCache>();
+        services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

@@ -4,23 +4,23 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface IGetProjectRiskRatingService
+    public interface IGetProjectRiskService
     {
         Task<GetProjectRiskResponse> Execute(string projectId);
     }
 
-    public class GetProjectRiskRatingService : IGetProjectRiskRatingService
+    public class GetProjectRiskService : IGetProjectRiskService
     {
         private readonly MfspApiClient _apiClient;
 
-        public GetProjectRiskRatingService(MfspApiClient apiClient)
+        public GetProjectRiskService(MfspApiClient apiClient)
         {
             _apiClient = apiClient;
         }
 
         public async Task<GetProjectRiskResponse> Execute(string projectId)
         {
-            var endpoint = $"/api/v1/client/projects/{projectId}/risk-rating";
+            var endpoint = $"/api/v1/client/projects/{projectId}/risk";
 
             var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectRiskResponse>>(endpoint);
 

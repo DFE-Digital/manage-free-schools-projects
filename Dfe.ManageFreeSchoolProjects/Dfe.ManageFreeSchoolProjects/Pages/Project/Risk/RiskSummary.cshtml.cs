@@ -8,14 +8,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
     public class RiskSummaryModel : PageModel
     {
-        private readonly IGetProjectRiskRatingService _getProjectRiskRatingService;
+        private readonly IGetProjectRiskService _getProjectRiskRatingService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
         public GetProjectRiskResponse ProjectRiskRating { get; set; }
 
-        public RiskSummaryModel(IGetProjectRiskRatingService getProjectRiskRatingService)
+        public RiskSummaryModel(IGetProjectRiskService getProjectRiskRatingService)
         {
             _getProjectRiskRatingService = getProjectRiskRatingService;
         }
