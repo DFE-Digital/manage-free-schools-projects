@@ -3,29 +3,31 @@
 @using AngleSharp.Common
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
 @{
-    var schoolTypes = Enum.GetValues<SchoolType>().Except(new [] { SchoolType.NotSet });
+    var schoolTypes = Enum.GetValues<SchoolType>().Except(new[] { SchoolType.NotSet });
     var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
     var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
 
-    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new [] { SchoolPhase.NotSet });
+    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new[] { SchoolPhase.NotSet });
     var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();
     var schoolPhaseValues = schoolPhases.Select(x => x.ToString()).ToArray();
 
-    var faithStatuses = Enum.GetValues<FaithStatus>().Except(new []{ FaithStatus.NotSet}).Select(x => x.ToString()).ToArray();
+    var faithStatuses = Enum.GetValues<FaithStatus>().Except(new[] { FaithStatus.NotSet }).Select(x => x.ToString()).ToArray();
 
-    var nurseryOptions = new[] { "No", "Yes" }; 
-    var sixthFormOptions = new[] { "No", "Yes" }; 
+    var nurseryOptions = new[] { "No", "Yes" };
+    var sixthFormOptions = new[] { "No", "Yes" };
 
-    var genders = Enum.GetValues<Gender>().Except(new [] { Gender.NotSet });
+    var genders = Enum.GetValues<Gender>().Except(new[] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
     var genderValues = genders.Select(x => x.ToString()).ToArray();
 
-    var faiths = Enum.GetValues<FaithType>().Except(new [] { FaithType.NotSet });
+    var faiths = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet });
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
 }
 
 <div class="govuk-grid-row">
+    <a href="/projects/@Model.ProjectId/tasks/school" class="govuk-back-link">Back</a>
+    
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
@@ -59,9 +61,9 @@
 
                 <div class="govuk-form-group" id="age-range">
                     <label class="govuk-label" for="age-range">Age Range</label>
-                    <govuk-text-input width="2" id="age-range-from" name="age-range-from" asp-for="@Model.AgeRangeFrom" type="text" label="From" />
+                    <govuk-text-input width="2" id="age-range-from" name="age-range-from" asp-for="@Model.AgeRangeFrom" type="text" label="From"/>
                     <govuk-text-input width="2" id="age-range-to" name="age-range-to" asp-for="@Model.AgeRangeTo" type="text" label="To"/>
-                    
+
                 </div>
 
                 <div class="govuk-form-group">
@@ -122,7 +124,7 @@
                 {
                     <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
                 }
-                
+
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue
                 </button>
