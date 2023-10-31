@@ -9,18 +9,18 @@ const crossSiteScriptingAttempt = "<script>window.alert('Hello World!')</script>
 class TrustDetailsPage {
     
     
-    selectSaveAndContinue(): this {
+    public selectSaveAndContinue(): this {
         cy.getByClass("govuk-button").click();
         return this;
     }
 
-    verifyValidationMessagesWhenNoDataSet(): this {
+    public verifyValidationMessagesWhenNoDataSet(): this {
         cy.getById("trn-error").should("be.visible").contains("Enter the TRN");
 
         return this;
     }
 
-    enterInvalidTRNStringInTRNPage(): this {
+    public enterInvalidTRNStringInTRNPage(): this {
         cy.getById("trn").click();
         cy.getById("trn").type(invalidTRNString);
 
@@ -28,7 +28,7 @@ class TrustDetailsPage {
 
     }
 
-    enterInvalidTRNStringWithSpacesInTRNPage(): this {
+    public enterInvalidTRNStringWithSpacesInTRNPage(): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(invalidTRNStringWithSpaces);
@@ -37,7 +37,7 @@ class TrustDetailsPage {
 
     }
 
-    enterInvalidTRNNumbersStringInTRNPage(): this {
+    public enterInvalidTRNNumbersStringInTRNPage(): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(invalidTRNNumbersString);
@@ -46,7 +46,7 @@ class TrustDetailsPage {
 
     }
 
-    enterNonExistentTrustIdInTRNPage(): this {
+    public enterNonExistentTrustIdInTRNPage(): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(nonExistentTrustId);
@@ -55,7 +55,7 @@ class TrustDetailsPage {
 
     }
 
-    enterSQLInjectionAttemptInTRNPage(): this {
+    public enterSQLInjectionAttemptInTRNPage(): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(SQLInjectionAttempt);
@@ -64,7 +64,7 @@ class TrustDetailsPage {
 
     }
 
-    enterCrossSiteScriptingAttemptInTRNPage(): this {
+    public enterCrossSiteScriptingAttemptInTRNPage(): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(crossSiteScriptingAttempt);
@@ -73,7 +73,7 @@ class TrustDetailsPage {
 
     }
 
-    enterValidTrustId(validTrustId: string): this {
+    public enterValidTrustId(validTrustId: string): this {
         cy.getById("trn").clear();
         cy.getById("trn").click();
         cy.getById("trn").type(validTrustId);
@@ -82,19 +82,19 @@ class TrustDetailsPage {
     }
 
 
-    verifyValidationMessagesWhenInvalidTRNFormatEntered(): this {
+    public verifyValidationMessagesWhenInvalidTRNFormatEntered(): this {
         cy.getById("trn-error").should("be.visible").contains("The TRN must be in the format TRXXXXX");
 
         return this;
     }
 
-    verifyValidationMessagesWhenTRNTooLongEntered(): this {
+    public verifyValidationMessagesWhenTRNTooLongEntered(): this {
         cy.getById("trn-error").should("be.visible").contains("The TRN (trust reference number) must be 7 characters or less");
 
         return this;
     }
 
-    verifyValidationMessagesWhenNonExistentTRNEntered(): this {
+    public verifyValidationMessagesWhenNonExistentTRNEntered(): this {
         cy.getById("trn-error").should("be.visible").contains("Trust ID not found");
 
         return this;
