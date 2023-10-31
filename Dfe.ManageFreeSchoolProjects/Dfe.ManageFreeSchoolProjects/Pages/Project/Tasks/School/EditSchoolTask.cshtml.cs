@@ -80,6 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "other-faith-type")]
         [Display(Name = "Other Faith type")]
+        [RegularExpression("[a-zA-Z\\s]*", ErrorMessage = "{0} must only contain letters and spaces")]
         public string OtherFaithType { get; set; }
 
         public EditSchoolTaskModel(
