@@ -5,7 +5,7 @@ import { Logger } from "cypress/common/logger";
 import trustDetailsPage from "cypress/pages/trustDetailsPage";
 import trustSummaryPage from "cypress/pages/trustSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
-import taskListPage from "cypress/pages/taskList";
+import taskListPage from "cypress/pages/taskListPage";
 import confirmTrustPage from "cypress/pages/confirmTrustPage";
 
 describe("Testing project overview", () => {
