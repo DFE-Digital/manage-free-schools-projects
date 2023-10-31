@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.EMMA;
 using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
+using System.Net;
+using Dfe.ManageFreeSchoolProjects.Models;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 {
@@ -21,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         private readonly ILogger<SearchTrustTaskModel> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTrustByRefService _getTrustByRefService;
+        private readonly ISearchTrustByRefService _searchTrustByRefService;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -35,17 +38,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         [RegularExpression("TR\\d\\d\\d\\d\\d", ErrorMessage = "The TRN must be in the format TRXXXXX")]
         public string TRN { get; set; }
 
+        public string Nonce;
+
         public GetTrustByRefResponse Trust { get; set; }
+
+        public SearchTrustByRefResponse TrustSearchResults { get; set; }
 
         public SearchTrustTaskModel(
             IGetProjectByTaskService getProjectService,
             IGetTrustByRefService getTrustByRefService,
+            ISearchTrustByRefService searchTrustByRefService,
             ILogger<SearchTrustTaskModel> logger,
             ErrorService errorService)
         {
             _logger = logger;
             _getProjectService = getProjectService;
             _getTrustByRefService = getTrustByRefService;
+            _searchTrustByRefService = searchTrustByRefService;
             _errorService = errorService;
         }
 
@@ -94,6 +103,33 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
             return Redirect(string.Format(RouteConstants.EditTrustTask, ProjectId, TRN));
 
+        }
+
+        public async Task<ActionResult> OnGetTrustsSearchResult(string searchTerm, string nonce)
+        {
+            try
+            {
+                _logger.LogMethodEntered();
+
+
+                // Double check search term
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    _logger.LogInformationMsg($"Search rejected, searchQuery too short");
+                    return new JsonResult(new TrustSearchResponse() { Nonce = nonce });
+                }
+
+                _logger.LogInformationMsg($"Entered trust search: searchQuery -'{searchTerm}', nonce-{nonce}");
+                var trustSearchResponse = await _searchTrustByRefService.Execute(searchTerm);
+
+                return new JsonResult(new TrustSearchResponse() { Nonce = nonce, Data = trustSearchResponse.Data });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Trust::IndexPageModel::OnGetTrustsSearchResult::Exception - {Message}", ex.Message);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
     }

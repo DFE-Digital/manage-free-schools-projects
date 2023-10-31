@@ -6,6 +6,7 @@ using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -40,6 +41,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         [BindProperty(Name = "trust-type")]
         [Display(Name = "Trust Type")]
         public string TrustType { get; set; }
+
+        [BindProperty(Name = "confirm-trust")]
+        [Display(Name = "confirm trust")]
+        [Required(ErrorMessage = "Confirm that the trust displayed above is correct.")]
+        public string ConfirmTrust { get; set; }
 
         public EditTrustTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -84,7 +90,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
+
+                var project = await _getProjectService.Execute(ProjectId);
+                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+
+                var trust = await _getTrustByRefService.Execute(TRN);
+
+                TRN = trust.Trust.TRN;
+                TrustName = trust.Trust.TrustName;
+                TrustType = trust.Trust.TrustType;
+
                 return Page();
+            }
+
+            if (bool.Parse(ConfirmTrust) == false) {
+                return Redirect(string.Format(RouteConstants.SearchTrustTask, ProjectId));
             }
 
             try

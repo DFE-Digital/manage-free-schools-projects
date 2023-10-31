@@ -4,6 +4,25 @@
 @{
     var backlink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
 }
+
+@*@{
+    if (String.IsNullOrWhiteSpace(Model.Nonce))
+    {
+        throw new InvalidOperationException("Nonce not provided by parent page");
+    }
+
+    var errors = new List<ValidationResult>();
+
+    foreach (var modelStateEntry in ViewData.modelState)
+    {
+        errors.AddRange(modelStateEntry.Value.Errors.Select(e => new ValidationResult(e.ErrorMessage)));
+    };
+
+    var errorBannerClass = errors.Any() ? " govuk-form-group--error" : string.Empty;
+
+    var inputErrorClass = errors.Any() ? "autocomplete__error" : string.Empty;
+
+}*@
 <a href=@backlink class="govuk-back-link">Back</a>
 
 <h1 class="govuk-heading-xl">
@@ -15,8 +34,10 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
+            <div id="container-SelectedTrn" class="govuk-!-margin-top-3"></div>
+            <div class="ccms-loader govuk-!-display-none"></div>
             <govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="trust-reference-number" label="TRN (Trust reference number)" hint="For example, TR00036" />
-            
+
             <button class="govuk-button" data-module="govuk-button">
                 Continue
             </button>
@@ -24,3 +45,93 @@
 
     </div>
 </div>
+
+<script type="application/javascript" nonce="@Model.Nonce">
+    $(document).ready(function () {
+
+         $(document).ajaxStart(function() {
+            showLoader();
+        })
+         $(document).ajaxStop(function() {
+            hideLoader();
+        })
+
+        const autocompleteContainer = document.getElementById("container-SelectedTrn");
+        const trustSearchDelay = 1000;
+        let trustSearchResults = undefined;
+        let selectedTrn = undefined;
+        let xhr = undefined;
+        let timeout = undefined;
+
+        function generateNonce(length) {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for(var i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        }
+
+        function cancelSearch() {
+            clearTimeout(timeout);
+            if (xhr !== undefined) {
+                xhr.abort();
+            }
+            xhr = undefined;
+            trustSearchResults = undefined;
+            selectedTrn = undefined;
+        }
+
+        function searchForTrusts(queryStr, populateResults) {
+
+            cancelSearch();
+
+            var requestIfNotCancelled = () => {
+
+                // use trust page for searching
+                xhr = $.get("/trust/TrustsSearchResult", { searchQuery: queryStr, nonce:generateNonce(20) })
+                    .done(function (response) {
+
+                        console.log(JSON.stringify(response));
+
+                        let nonce = response.nonce;
+                        let trusts = response.data;
+
+                        if (trusts !== undefined) {
+                            trustSearchResults = trusts;
+                            populateResults(trusts.map(x => x.displayName));
+
+                            console.log('total matches on api = ' + response.totalMatchesFromApi);
+                            console.log('isMoreDataOnServer = ' + response.isMoreDataOnServer);
+                            console.log(JSON.stringify(trusts));
+                        }
+                        else {
+                            trustSearchResults = undefined;
+                            populateResults();
+                        }
+                    })
+                    .always(function() {
+                        xhr = undefined;
+                    });
+            };
+
+            timeout = setTimeout(requestIfNotCancelled, trustSearchDelay);
+        }
+
+        accessibleAutocomplete({
+            element: autocompleteContainer,
+            id: "search",
+            name: "trustSearch",
+            source: searchForTrusts,
+            confirmOnBlur: false,
+            autoselect: true,
+            minLength: 3,
+            showNoOptonsFound: true,
+            onConfirm: (selected) => {
+                selectedTrn = trustSearchResults === undefined ? undefined : trustSearchResults.find(trust => trust.displayName === selected).trn;
+                $('#selectedTrn').val(selectedTrn);
+            }
+        });
+    });
+
+</script>

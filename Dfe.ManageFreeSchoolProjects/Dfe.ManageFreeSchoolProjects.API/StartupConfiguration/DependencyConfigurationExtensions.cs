@@ -78,7 +78,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>();
 			services.AddScoped<ICreateTasksService, CreateTasksService>();
 			services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
-			
+            services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

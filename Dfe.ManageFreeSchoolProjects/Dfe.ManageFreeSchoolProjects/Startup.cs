@@ -82,6 +82,7 @@ public class Startup
         services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
         services.AddScoped<ICreateTasksService, CreateTasksService>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
+        services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

@@ -3,6 +3,9 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.EditTrustTaskModel
 @{
     var backlink = string.Format(RouteConstants.SearchTrustTask, Model.ProjectId);
+
+    var labels = new [] { "Yes", "No" };
+    var values = new [] { "true", "false" };
 }
 <a href=@backlink class="govuk-back-link">Back</a>
 
@@ -24,7 +27,7 @@
                     <dt class="govuk-summary-list__key">
                         Trust ID:
                     </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trn" >
+                    <dd class="govuk-summary-list__value" data-testid="trn">
                         @{
                             RenderValue(@Model.TRN);
                         }
@@ -34,7 +37,7 @@
 
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
-                        Trust name: 
+                        Trust name:
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="trust-name">
                         @{
@@ -57,6 +60,13 @@
 
                 </div>
             </dl>
+
+            <govuk-radios-input id="confirm-trust"
+                                    name="confirm-trust"
+                                    asp-for="@Model.ConfirmTrust"
+                                    data-testid="confirm-trust"
+                                    labels="@labels"
+                                    values="@values" />
 
             <button class="govuk-button" data-module="govuk-button">
                 Save and continue
