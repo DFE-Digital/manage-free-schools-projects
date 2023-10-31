@@ -24,7 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "current-free-school-name")]
-        [Display(Name = "Current Free School Name")]
+        [Display(Name = "Current free school name")]
         [StringLengthValidator(100, ErrorMessage = "Current free school name must be 100 characters or less.")]
         [SchoolNameValidator]
         [Required]
@@ -79,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         public FaithType FaithType { get; set; }
 
         [BindProperty(Name = "other-faith-type")]
-        [Display(Name = "Other Faith type")]
+        [Display(Name = "Other faith type")]
         [RegularExpression("[a-zA-Z\\s]*", ErrorMessage = "{0} must only contain letters and spaces")]
         public string OtherFaithType { get; set; }
 
