@@ -24,7 +24,6 @@
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
 }
-
 <div class="govuk-grid-row">
     <a href="/projects/@Model.ProjectId/tasks/school" class="govuk-back-link">Back</a>
     
@@ -37,7 +36,7 @@
 
         <div class="govuk-grid-row">
             <form method="post">
-                <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name"/>
+                <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name" />
 
                 <div class="govuk-form-group">
                     <label class="govuk-label" for="school-type">School Type</label>
@@ -46,7 +45,7 @@
                                         asp-for="@Model.SchoolType"
                                         data-testid="school-type"
                                         labels="@schoolTypeLabels"
-                                        values="@schoolTypeValues"/>
+                                        values="@schoolTypeValues" />
                 </div>
 
                 <div class="govuk-form-group">
@@ -56,7 +55,7 @@
                                         asp-for="@Model.SchoolPhase"
                                         data-testid="school-phase"
                                         labels="@schoolPhaseLabels"
-                                        values="@schoolPhaseValues"/>
+                                        values="@schoolPhaseValues" />
                 </div>
 
                 <div class="govuk-form-group" id="age-range">
@@ -73,7 +72,7 @@
                                         data-testid="gender"
                                         asp-for="@Model.Gender"
                                         labels="@genderLabels"
-                                        values="@genderValues"/>
+                                        values="@genderValues" />
                 </div>
 
 
@@ -84,7 +83,7 @@
                                         asp-for="@Model.Nursery"
                                         data-testid="nursery"
                                         labels="@nurseryOptions"
-                                        values="@nurseryOptions"/>
+                                        values="@nurseryOptions" />
                 </div>
 
                 <div class="govuk-form-group">
@@ -94,7 +93,7 @@
                                         asp-for="@Model.SixthForm"
                                         data-testid="sixth-form"
                                         labels="@sixthFormOptions"
-                                        values="@sixthFormOptions"/>
+                                        values="@sixthFormOptions" />
                 </div>
 
                 <div class="govuk-form-group">
@@ -104,26 +103,20 @@
                                         asp-for="@Model.FaithStatus"
                                         data-testid="faith-status"
                                         labels="@faithStatuses"
-                                        values="@faithStatuses"/>
+                                        values="@faithStatuses" />
                 </div>
 
-                @if (Model.DisplayFaithType)
-                {
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="faith-type">Faith Type</label>
-                        <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
-                                            name="faith-type"
-                                            asp-for="@Model.FaithType"
-                                            data-testid="faith-type"
-                                            labels="@faithTypeLabels"
-                                            values="@faithTypeValues"/>
-                    </div>
-                }
+                <div class="govuk-form-group" id="faith-type-radios">
+                    <label class="govuk-label" for="faith-type">Faith Type</label>
+                    <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
+                                        name="faith-type"
+                                        asp-for="@Model.FaithType"
+                                        data-testid="faith-type"
+                                        labels="@faithTypeLabels"
+                                        values="@faithTypeValues" />
+                </div>
 
-                @if (@Model.DisplayOtherFaithType)
-                {
-                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type"/>
-                }
+                <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other Faith Type" />
 
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue
@@ -133,3 +126,41 @@
         </div>
     </div>
 </div>
+
+<script type="application/javascript" asp-add-nonce>
+    const setVisibility = () =>
+    {
+        if($("input[type='radio']:checked[name='faith-status']").val() === 'None')
+        {
+            $('#faith-type-radios').hide();
+            $('#other-faith-type').parent().hide();
+        }
+        else
+        {
+            $('#faith-type-radios').show();
+            if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
+            {
+                $('#other-faith-type').parent().show();
+            }
+            else
+            {
+                $('#other-faith-type').parent().hide();
+            }
+
+        }
+    }
+
+
+    $(document).ready(() => {
+        setVisibility();
+
+        $("input[type='radio'][name='faith-status']").click((e) => {
+            setVisibility();
+        });
+
+        $("input[type='radio'][name='faith-type']").click((e) => {
+            setVisibility();
+        });
+    });
+
+</script>

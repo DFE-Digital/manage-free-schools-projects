@@ -82,10 +82,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [Display(Name = "Other Faith type")]
         public string OtherFaithType { get; set; }
 
-        public bool DisplayFaithType => FaithStatus is not (FaithStatus.None or FaithStatus.NotSet);
-
-        public bool DisplayOtherFaithType => FaithType is FaithType.Other;
-
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -135,12 +131,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         {
             ValidateAgeRange();
 
-            if (DisplayFaithType && FaithType == FaithType.NotSet)
+            if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation) && (FaithType == FaithType.NotSet))
             {
                 ModelState.AddModelError("faith-type", "Faith type is required.");
             }
 
-            if (DisplayOtherFaithType && string.IsNullOrEmpty(OtherFaithType))
+            if (FaithStatus == FaithStatus.None)
+            {
+                FaithType = FaithType.NotSet;
+            }
+
+            if (FaithType == FaithType.Other && string.IsNullOrEmpty(OtherFaithType))
             {
                 ModelState.AddModelError("other-faith-type", "Other faith type is required.");
             }
