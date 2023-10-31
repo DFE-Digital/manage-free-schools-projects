@@ -1,4 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;

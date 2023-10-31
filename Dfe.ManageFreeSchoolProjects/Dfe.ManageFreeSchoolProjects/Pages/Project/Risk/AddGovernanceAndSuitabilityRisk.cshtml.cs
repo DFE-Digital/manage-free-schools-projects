@@ -1,11 +1,11 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
     public class AddGovernanceAndSuitabilityRiskModel : PageModel
     {
@@ -35,9 +35,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 
             if (existingCacheItem.GovernanceAndSuitability != null)
             {
-				Summary = existingCacheItem.GovernanceAndSuitability.Summary;
-				RiskRating = ((int)existingCacheItem.GovernanceAndSuitability.RiskRating).ToString();
-			}
+                Summary = existingCacheItem.GovernanceAndSuitability.Summary;
+                RiskRating = ((int)existingCacheItem.GovernanceAndSuitability.RiskRating).ToString();
+            }
         }
 
         public IActionResult OnPost()
@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-			return Redirect($"/projects/{ProjectId}/risk-rating/education/add");
+            return Redirect($"/projects/{ProjectId}/risk-rating/education/add");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 
 namespace Dfe.ManageFreeSchoolProjects.ViewModels
 {

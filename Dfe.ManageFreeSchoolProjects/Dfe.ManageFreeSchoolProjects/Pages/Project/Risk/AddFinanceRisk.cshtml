@@ -1,8 +1,8 @@
 ﻿@page "/projects/{projectId}/risk-rating/finance/add"
-@using Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating.AddFinanceRiskModel
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@model AddFinanceRiskModel
 @{
-    var ratingLabels = RatingLabelBuilder.Build();
+    var ratingLabels = RiskRatingLabelBuilder.Build();
 
     var labels = new List<string>();
     var values = new List<string>();
@@ -10,7 +10,7 @@
     ratingLabels.ForEach(entry =>
     {
         labels.Add(entry.Label);
-        values.Add(((int)entry.Rating).ToString());
+        values.Add(((int)entry.RiskRating).ToString());
     });
 }
 

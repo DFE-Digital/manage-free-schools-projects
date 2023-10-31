@@ -1,4 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using System.Threading.Tasks;
 
@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IGetProjectRiskRatingService
     {
-        Task<GetProjectRiskRatingResponse> Execute(string projectId);
+        Task<GetProjectRiskResponse> Execute(string projectId);
     }
 
     public class GetProjectRiskRatingService : IGetProjectRiskRatingService
@@ -18,11 +18,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task<GetProjectRiskRatingResponse> Execute(string projectId)
+        public async Task<GetProjectRiskResponse> Execute(string projectId)
         {
             var endpoint = $"/api/v1/client/projects/{projectId}/risk-rating";
 
-            var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectRiskRatingResponse>>(endpoint);
+            var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectRiskResponse>>(endpoint);
 
             return result.Data;
         }

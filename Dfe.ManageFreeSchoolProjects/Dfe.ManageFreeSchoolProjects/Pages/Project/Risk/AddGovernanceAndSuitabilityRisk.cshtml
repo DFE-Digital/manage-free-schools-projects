@@ -1,9 +1,9 @@
 ﻿@page "/projects/{projectId}/risk-rating/governance-and-suitability/add"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
-@using Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating.AddGovernanceAndSuitabilityRiskModel
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@model AddGovernanceAndSuitabilityRiskModel
 @{
-    var ratingLabels = RatingLabelBuilder.Build();
+    var ratingLabels = RiskRatingLabelBuilder.Build();
 
     var labels = new List<string>();
     var values = new List<string>();
@@ -11,7 +11,7 @@
     ratingLabels.ForEach(entry =>
     {
         labels.Add(entry.Label);
-        values.Add(((int)entry.Rating).ToString());
+        values.Add(((int)entry.RiskRating).ToString());
     });
 }
 

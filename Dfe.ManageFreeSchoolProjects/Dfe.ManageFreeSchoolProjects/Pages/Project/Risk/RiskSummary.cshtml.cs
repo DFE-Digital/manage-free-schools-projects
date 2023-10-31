@@ -1,21 +1,21 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
-    public class RiskRatingSummaryModel : PageModel
+    public class RiskSummaryModel : PageModel
     {
         private readonly IGetProjectRiskRatingService _getProjectRiskRatingService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        public GetProjectRiskRatingResponse ProjectRiskRating { get; set; }
+        public GetProjectRiskResponse ProjectRiskRating { get; set; }
 
-        public RiskRatingSummaryModel(IGetProjectRiskRatingService getProjectRiskRatingService)
+        public RiskSummaryModel(IGetProjectRiskRatingService getProjectRiskRatingService)
         {
             _getProjectRiskRatingService = getProjectRiskRatingService;
         }

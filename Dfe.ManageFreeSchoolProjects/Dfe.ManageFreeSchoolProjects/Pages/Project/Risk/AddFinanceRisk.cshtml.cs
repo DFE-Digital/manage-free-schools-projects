@@ -1,11 +1,11 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
     public class AddFinanceRiskModel : PageModel
     {

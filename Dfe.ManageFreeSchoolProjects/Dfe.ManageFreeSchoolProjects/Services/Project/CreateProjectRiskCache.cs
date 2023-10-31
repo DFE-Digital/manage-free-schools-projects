@@ -1,4 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
