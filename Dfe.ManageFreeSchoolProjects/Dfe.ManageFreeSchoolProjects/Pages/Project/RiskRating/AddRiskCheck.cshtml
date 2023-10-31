@@ -21,7 +21,7 @@
                     Governance and suitability RAG rating
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <span class="empty">Empty</span>
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.GovernanceAndSuitability.RiskRating" />
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -36,7 +36,7 @@
                     Governance and suitability RAG summary
                 </dt>
                 <dd class="govuk-summary-list__value">
-
+                    @Model.ProjectRisk.GovernanceAndSuitability.Summary
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -53,7 +53,7 @@
                     Education RAG rating
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <span class="empty">Empty</span>
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Education.RiskRating" />
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -70,7 +70,7 @@
                     Education RAG summary
                 </dt>
                 <dd class="govuk-summary-list__value">
-
+                    @Model.ProjectRisk.Education.Summary
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -88,7 +88,7 @@
                     Finance RAG rating
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <span class="empty">Empty</span>
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Finance.RiskRating" />
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -106,7 +106,7 @@
                     Finance RAG summary
                 </dt>
                 <dd class="govuk-summary-list__value">
-
+                    @Model.ProjectRisk.Finance.Summary
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -124,7 +124,7 @@
                     RAF Sharepoint link
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <span class="empty">Empty</span>
+                    @Model.ProjectRisk.RiskAppraisalFormSharepointLink
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -141,7 +141,7 @@
                     Overall RAG rating
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <span class="empty">Empty</span>
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
@@ -159,7 +159,7 @@
                     Overall RAG summary
                 </dt>
                 <dd class="govuk-summary-list__value">
-
+                    @Model.ProjectRisk.Overall.Summary
                 </dd>
 
                 <dd class="govuk-summary-list__actions">

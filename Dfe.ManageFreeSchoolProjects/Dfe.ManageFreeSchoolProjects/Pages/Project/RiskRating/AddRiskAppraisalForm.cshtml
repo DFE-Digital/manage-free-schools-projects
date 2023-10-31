@@ -3,6 +3,8 @@
 @{
 }
 
+<partial name="_ErrorSummary" />
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
@@ -16,15 +18,8 @@
 
         <form class="form" method="post">
 
-            <input hidden="" type="text" name="returnToSummary" value="no">
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-heading-m" for="createNewRAGRatingRAFSharepointLink">
-                    RAF Sharepoint link
-                </label>
+            <govuk-text-input id="sharepoint-link" name="sharepoint-link" asp-for="@Model.SharepointLink" data-testid="sharepoint-link" label="RAF Sharepoint link" />
 
-                <input class="govuk-input govuk-!-margin-bottom-6" id="createNewRAGRatingRAFSharepointLink" name="createNewRAGRatingRAFSharepointLink" type="text">
-
-            </div>
             <button class="govuk-button" data-module="govuk-button">
                 Continue
             </button>

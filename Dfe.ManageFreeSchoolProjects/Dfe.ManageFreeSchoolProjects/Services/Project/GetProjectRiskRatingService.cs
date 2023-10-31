@@ -6,9 +6,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IGetProjectRiskRatingService
     {
+        Task<GetProjectRiskRatingResponse> Execute(string projectId);
     }
 
-    public class GetProjectRiskRatingService
+    public class GetProjectRiskRatingService : IGetProjectRiskRatingService
     {
         private readonly MfspApiClient _apiClient;
 

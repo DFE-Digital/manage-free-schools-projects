@@ -23,6 +23,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("labels")]
 		public string[] Labels { get; set; }
 
+		[HtmlAttributeName("html-labels")]
+		public string[] HtmlLabels { get; set; }
+
 		[HtmlAttributeName("hints")]
 		public string[] Hints { get; set; }
 
@@ -44,6 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Value = For.Model?.ToString(),
 				Values = Values,
 				Labels = Labels,
+				HtmlLabels = HtmlLabels,
 				HeadingLabel = HeadingLabel,
 				LeadingParagraph = LeadingParagraph,
                 Hints = Hints

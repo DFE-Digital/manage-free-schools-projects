@@ -1,0 +1,23 @@
+﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.RiskRating
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model RiskRatingLabelViewModel
+
+@switch(Model.RiskRating)
+{
+    case ProjectRiskRating.Green:
+        <strong class="govuk-tag govuk-tag--green">Green</strong>
+        break;
+    case ProjectRiskRating.AmberGreen:
+       <strong class="govuk-tag govuk-tag--yellow">Amber</strong><strong class="govuk-tag govuk-tag--green">Green</strong>
+       break;
+    case ProjectRiskRating.AmberRed:
+       <strong class="govuk-tag govuk-tag--yellow">Amber</strong><strong class="govuk-tag govuk-tag--red">Red</strong>
+        break;
+    case ProjectRiskRating.Red:
+        <strong class="govuk-tag govuk-tag--red">Red</strong>
+        break;
+
+    default:
+        <span class="empty">Empty</span>
+        break;
+}
