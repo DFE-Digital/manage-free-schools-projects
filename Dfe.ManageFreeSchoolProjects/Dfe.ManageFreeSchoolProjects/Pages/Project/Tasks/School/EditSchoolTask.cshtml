@@ -27,7 +27,7 @@
 
 <div class="govuk-grid-row">
     <a href="/projects/@Model.ProjectId/tasks/school" class="govuk-back-link">Back</a>
-    
+
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
@@ -35,13 +35,16 @@
             Edit school
         </h1>
 
+
         <div class="govuk-grid-row">
+            <partial name="_ErrorSummary"/>
+
             <form method="post">
                 <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" label="Current free school name"/>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="school-type">
                     <label class="govuk-label" for="school-type">School Type</label>
-                    <govuk-radios-input id="school-type"
+                    <govuk-radios-input 
                                         name="school-type"
                                         asp-for="@Model.SchoolType"
                                         data-testid="school-type"
@@ -49,9 +52,9 @@
                                         values="@schoolTypeValues"/>
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="school-phase">
                     <label class="govuk-label" for="school-phase">School Phase</label>
-                    <govuk-radios-input id="school-phase"
+                    <govuk-radios-input 
                                         name="school-phase"
                                         asp-for="@Model.SchoolPhase"
                                         data-testid="school-phase"
@@ -66,9 +69,9 @@
 
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="gender">
                     <label class="govuk-label" for="gender">Gender</label>
-                    <govuk-radios-input id="gender"
+                    <govuk-radios-input
                                         name="gender"
                                         data-testid="gender"
                                         asp-for="@Model.Gender"
@@ -77,9 +80,9 @@
                 </div>
 
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="nursery">
                     <label class="govuk-label" for="nursery">Nursery</label>
-                    <govuk-radios-input id="nursery"
+                    <govuk-radios-input 
                                         name="nursery"
                                         asp-for="@Model.Nursery"
                                         data-testid="nursery"
@@ -87,9 +90,9 @@
                                         values="@nurseryOptions"/>
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="sixth-form">
                     <label class="govuk-label" for="school-type">Sixth Form</label>
-                    <govuk-radios-input id="sixth-form"
+                    <govuk-radios-input 
                                         name="sixth-form"
                                         asp-for="@Model.SixthForm"
                                         data-testid="sixth-form"
@@ -97,9 +100,9 @@
                                         values="@sixthFormOptions"/>
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="faith-status">
                     <label class="govuk-label" for="faith-status">Faith Status</label>
-                    <govuk-radios-input id="faith-status"
+                    <govuk-radios-input 
                                         name="faith-status"
                                         asp-for="@Model.FaithStatus"
                                         data-testid="faith-status"
@@ -109,9 +112,9 @@
 
                 @if (Model.DisplayFaithType)
                 {
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group" id="faith-type">
                         <label class="govuk-label" for="faith-type">Faith Type</label>
-                        <govuk-radios-input class="govuk-radios__conditional--hidden" id="faith-type"
+                        <govuk-radios-input class="govuk-radios__conditional--hidden" 
                                             name="faith-type"
                                             asp-for="@Model.FaithType"
                                             data-testid="faith-type"
