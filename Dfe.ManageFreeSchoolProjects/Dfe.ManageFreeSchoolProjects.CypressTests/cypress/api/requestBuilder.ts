@@ -9,7 +9,7 @@ export class RequestBuilder {
             applicationNumber: v4().substring(0, 9),
             applicationWave: v4(),
             createdBy: Cypress.env(EnvUsername),
-            schoolName: "Test School (" + v4().substring(0, 4) + ")",
+            schoolName: "(" + v4().substring(0, 4) + ")Test School",
             region: v4(),
             localAuthority: v4(),
         };
