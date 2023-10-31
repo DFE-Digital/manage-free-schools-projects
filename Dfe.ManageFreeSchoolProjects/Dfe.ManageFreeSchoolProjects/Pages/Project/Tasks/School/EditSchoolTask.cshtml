@@ -135,7 +135,8 @@
 <script type="application/javascript" asp-add-nonce>
     const setVisibility = () =>
     {
-        if($("input[type='radio']:checked[name='faith-status']").val() === 'None')
+        const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
+        if(faithStatus === 'None' || faithStatus == null)
         {
             $('#faith-type-radios').hide();
             $('#other-faith-type').parent().hide();

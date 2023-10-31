@@ -79,10 +79,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum FaithStatus
     {
+        NotSet,
+        None,
         Designation,
         Ethos,
-        None,
-        NotSet
     }
 
     public enum Gender
