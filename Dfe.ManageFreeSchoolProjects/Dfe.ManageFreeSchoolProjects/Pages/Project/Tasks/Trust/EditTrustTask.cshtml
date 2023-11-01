@@ -60,14 +60,15 @@
 
                 </div>
             </dl>
-
-            <govuk-radios-input id="confirm-trust"
+            <div>
+                <h3 class="govuk-heading-s">Is this the correct trust?</h3>
+                <govuk-radios-input id="confirm-trust"
                                     name="confirm-trust"
                                     asp-for="@Model.ConfirmTrust"
                                     data-testid="confirm-trust"
                                     labels="@labels"
                                     values="@values" />
-
+            </div>
             <button class="govuk-button" data-module="govuk-button">
                 Save and continue
             </button>

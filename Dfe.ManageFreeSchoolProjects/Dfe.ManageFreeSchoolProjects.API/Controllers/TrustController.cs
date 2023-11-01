@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         [Route("search/{searchTerm}")]
-        public async Task<ActionResult<ApiResponseV2<SearchTrustByRefResponse>>> searchTrustByRef(string searchTerm)
+        public async Task<ActionResult<ApiResponseV2<SearchTrustByRefResponse>>> searchTrustByRef( string searchTerm)
         {
             _logger.LogMethodEntered();
 
