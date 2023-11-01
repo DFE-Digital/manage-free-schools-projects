@@ -100,9 +100,7 @@
 
                 // use trust page for searching
 
-                var endpoint = "/api/v1/client/trust/search/" + @Model.TRN
-                xhr = $.get(endpoint)
-                    .setRequestHeader('nonce', generateNonce(20))
+                xhr = $.get("search/TrustsSearchResult", { searchTerm: searchTerm, nonce:generateNonce(20) })
                     .done(function (response) {
 
                         console.log(JSON.stringify(response));
