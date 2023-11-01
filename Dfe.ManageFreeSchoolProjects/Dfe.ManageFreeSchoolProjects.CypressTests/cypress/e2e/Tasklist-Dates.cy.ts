@@ -5,7 +5,7 @@ import { Logger } from "cypress/common/logger";
 import datesDetailsPage from "cypress/pages/datesDetailsPage";
 import datesSummaryPage from "cypress/pages/datesSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
-import taskListPage from "cypress/pages/taskList";
+import taskListPage from "cypress/pages/taskListPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
