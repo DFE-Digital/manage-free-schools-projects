@@ -38,6 +38,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         [RegularExpression("TR\\d\\d\\d\\d\\d", ErrorMessage = "The TRN must be in the format TRXXXXX")]
         public string TRN { get; set; }
 
+        [BindProperty(Name = "selectedTrustTrn")]
+        public string SelectedTrustTrn { get; set; }
+
         public string Nonce;
 
         public GetTrustByRefResponse Trust { get; set; }
@@ -83,7 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             try
             {
                 //Attempt to get trust, will throw an exception when 404 is returned
-                Trust = await _getTrustByRefService.Execute(TRN);
+                Trust = await _getTrustByRefService.Execute(SelectedTrustTrn);
                 
             }
             catch (HttpRequestException ex)

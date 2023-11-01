@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/tasks/trust/search"
+﻿@page "/projects/{projectId}/tasks/trust/search/{handler?}"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using NetEscapades.AspNetCore.SecurityHeaders;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.SearchTrustTaskModel
@@ -7,24 +7,6 @@
     Model.Nonce = HttpContext.GetNonce();
 }
 
-@*@{
-    if (String.IsNullOrWhiteSpace(Model.Nonce))
-    {
-        throw new InvalidOperationException("Nonce not provided by parent page");
-    }
-
-    var errors = new List<ValidationResult>();
-
-    foreach (var modelStateEntry in ViewData.modelState)
-    {
-        errors.AddRange(modelStateEntry.Value.Errors.Select(e => new ValidationResult(e.ErrorMessage)));
-    };
-
-    var errorBannerClass = errors.Any() ? " govuk-form-group--error" : string.Empty;
-
-    var inputErrorClass = errors.Any() ? "autocomplete__error" : string.Empty;
-
-}*@
 <a href=@backlink class="govuk-back-link">Back</a>
 
 <h1 class="govuk-heading-xl">
@@ -36,10 +18,9 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <div id="container-SelectedTrn" class="govuk-!-margin-top-3"></div>
-            <div class="ccms-loader govuk-!-display-none"></div>
-            <govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="trust-reference-number" label="TRN (Trust reference number)" hint="For example, TR00036" />
-
+            <div id="container-SelectedTrn" class="govuk-!-margin-top-3">HELLO</div>
+            @*<govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="trust-reference-number" label="TRN (Trust reference number)" hint="For example, TR00036" />*@
+            <input type="hidden" asp-for="@Model.SelectedTrustTrn" id="selectedTrustTrn" name="selectedTrustTrn" required />
             <button class="govuk-button" data-module="govuk-button">
                 Continue
             </button>
@@ -51,7 +32,7 @@
 <script type="application/javascript" nonce="@Model.Nonce">
     $(document).ready(function () {
 
-        console.log("START SCRIPT");
+
 
          $(document).ajaxStart(function() {
             showLoader();
@@ -67,15 +48,12 @@
         let xhr = undefined;
         let timeout = undefined;
 
-        console.log("DEFINED VARIABLES");
-
         function generateNonce(length) {
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             for(var i = 0; i < length; i++) {
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
             }
-            console.log("generatedNonce");
             return text;
         }
 
@@ -110,10 +88,8 @@
 
                         if (trusts !== undefined) {
                             trustSearchResults = trusts;
-                            populateResults(trusts.map(x => x.trust.trustName));
+                            populateResults(trusts.map(x => x.trust.trn));
 
-                            console.log('total matches on api = ' + response.totalMatchesFromApi);
-                            console.log('isMoreDataOnServer = ' + response.isMoreDataOnServer);
                             console.log(JSON.stringify(trusts));
                         }
                         else {
@@ -139,8 +115,8 @@
             minLength: 3,
             showNoOptonsFound: true,
             onConfirm: (selected) => {
-                selectedTrn = trustSearchResults === undefined ? undefined : trustSearchResults.find(trust => trust.trust.trustName === selected).trn;
-                $('#selectedTrn').val(selectedTrn);
+                selectedTrustTrn = trustSearchResults === undefined ? undefined : trustSearchResults.find(trust => trust.trust.trn === selected).trust.trn;
+                $('#selectedTrustTrn').val(selectedTrustTrn);
             }
         });
     });
