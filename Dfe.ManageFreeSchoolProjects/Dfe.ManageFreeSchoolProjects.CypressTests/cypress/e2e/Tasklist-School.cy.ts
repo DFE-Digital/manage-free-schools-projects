@@ -46,7 +46,7 @@ describe("Testing project overview", () => {
         Logger.log("Selecting first Change link from first 'Current free school name' line");
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
-        cy.excuteAccessibilityTests
+        cy.excuteAccessibilityTests();
 
         schoolDetailsPage.verifySchoolDetailsElementsVisible(project.schoolName);
 
@@ -57,13 +57,13 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests
+        cy.excuteAccessibilityTests();
 
         schoolDetailsPage.verifyValidationSummaryAndErrorsVisible();
 
 
 
-        Logger.log("Test that submitting a form with all fields complete apart from Faith type when Ethos or Designation selected results in error summary and error");
+        Logger.log("Test that submitting a form with all fields complete apart from Faith type when Designation selected results in error summary and error");
         schoolDetailsPage.enterSchoolNameField(project.schoolName);
 
         schoolDetailsPage.selectMainstream();
@@ -84,162 +84,158 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        // UNCOMMENT THIS AFTER ARIA-ID BUG FIX
+        schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
+
         cy.excuteAccessibilityTests();
 
-/*
-        Logger.log("Attempting to save 'Search for a trust by TRN' with no values");
-        trustDetailsPage.selectSaveAndContinue()
+        Logger.log("Test that submitting a form with all fields complete apart from Faith type when Ethos selected results in error summary and error");
+
+        schoolDetailsPage.selectFaithEthos();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
+
+        cy.excuteAccessibilityTests();
+
+        Logger.log("Test that entering all numbers into schoolname field fails");
+
+        schoolDetailsPage.clearSchoolNameField();
+
+        schoolDetailsPage.enterNegTestAllNumbersSchoolNameField();
+
+        schoolDetailsPage.selectFaithTypeGreekOrthodox();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
+
+        Logger.log("Test that entering only disallowed special chars into schoolname field fails");
+
+        schoolDetailsPage.clearSchoolNameField();
+
+        schoolDetailsPage.enterNegTestAllInvalidSpecialCharsSchoolNameField();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
+
+        Logger.log("Test that entering a mixture of letters and disallowed special chars into schoolname field fails");
+
+        schoolDetailsPage.clearSchoolNameField();
+
+        schoolDetailsPage.enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
+
+        Logger.log("Test that entering an SQL injection attempt in the schoolname field fails to execute");
+
+        schoolDetailsPage.clearSchoolNameField();
+
+        schoolDetailsPage.enterNegTestSQLInjectionAttemptSchoolNameField();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
         
-        cy.excuteAccessibilityTests();
+        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
-        Logger.log("Check we get the correct validation messages coming back when no data entered");
-        trustDetailsPage.verifyValidationMessagesWhenNoDataSet();
 
-        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string e.g. 'POTATO'");
-        trustDetailsPage.enterInvalidTRNStringInTRNPage();
+        Logger.log("Test that entering a cross-site scripting attempt in the schoolname field fails to execute");
 
-        trustDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField();
 
-        cy.excuteAccessibilityTests();
+        schoolDetailsPage.enterNegTestCrossSiteScriptAttemptSchoolNameField();
 
-        trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
-
-        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid string with spaces e.g. 'P O T A T O'");
-        trustDetailsPage.enterInvalidTRNStringWithSpacesInTRNPage();
-
-        trustDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
+        
+        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
-        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
+        Logger.log("Test that entering more than 100 chars in the schoolname fields fails");
 
-        Logger.log("Attempting to save 'Search for a trust by TRN' with an invalid numerical string e.g. '1234567'");
-        trustDetailsPage.enterInvalidTRNNumbersStringInTRNPage();
+        schoolDetailsPage.clearSchoolNameField();
 
-        trustDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.enterNegTestMoreThanOneHundredCharsSchoolNameField();
+
+        schoolDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
-        trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
+        schoolDetailsPage.verifyNegTestMoreThanOneHundredCharsSchoolName();
 
-        Logger.log("Attempting to save 'Search for a trust by TRN' with a TRN that doesn't exist");
-        trustDetailsPage.enterNonExistentTrustIdInTRNPage();
+        Logger.log("Test that entering a school name with all VALID SPECIAL CHARS in schoolname field passes");
 
-        trustDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField();
 
-        cy.excuteAccessibilityTests();
+        schoolDetailsPage.enterValidSpecialCharsSchoolNameField();
 
-        trustDetailsPage.verifyValidationMessagesWhenNonExistentTRNEntered();
-
-
-
-        Logger.log("Attempting to save 'Search for a trust by TRN' with SQL injection attempt");
-        trustDetailsPage.enterSQLInjectionAttemptInTRNPage();
-
-        trustDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
 
-        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
+        schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible();
+
+
+        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+        // FILL OUT SCHOOLNAME WITH project.schoolname const
+
+        //select Other Faith Type and HAMMER OTHER FIELD
 
 
 
-        Logger.log("Attempting to save 'Search for a trust by TRN' with Cross-site Scripting Attack");
-        trustDetailsPage.enterCrossSiteScriptingAttemptInTRNPage();
-
-        trustDetailsPage.selectSaveAndContinue();
-
-        cy.excuteAccessibilityTests();
-
-        trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
 
 
 
-        Logger.log("Attempting to save 'Search for a trust by TRN' with valid Trust ID that exists");
-        trustDetailsPage.enterValidTrustId(validTrustId);
 
-        trustDetailsPage.selectSaveAndContinue();
+        /*
+        
+        Logger.log("Test that entering a schoolname containing valid special chars DOES NOT TRIGGER SCHOOLNAME VALIDATION");
 
-        cy.excuteAccessibilityTests();
 
-        confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
+        Logger.log("Test that entering all numbers into Other religion field fails");
+        Logger.log("Test that entering only disallowed special chars into Other religion field fails");
+        Logger.log("Test that entering a mixture of letters and disallowed special chars into Other religion field fails");
+        Logger.log("Test that entering more than 100 chars in the Other religion fields fails");
+        Logger.log("Test that entering an SQL injection attack in the Other religion field fails to execute");
+        Logger.log("Test that entering a cross-site scripting attack in the Other religion field fails to execute");
+        Logger.log("Test that entering a Other religion containing valid special chars DOES NOT TRIGGER OTHER RELIGION VALIDATION");
+*/
 
-        confirmTrustPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
-
-        trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(project.schoolName, validTrustId);
-
-        trustSummaryPage.selectMarkItemAsComplete();
-
-        trustSummaryPage.selectConfirmAndContinue();
-
-        cy.excuteAccessibilityTests();
-
-        taskListPage.verifyTrustMarkedAsComplete();
 
 /*
-        Logger.log("Submitting invalid date formats");
-        trustDetailsPage.selectSaveAndContinueButton();
+        Logger.log("Test that then selecting faith type of Other and adding a valid Other faith and submitting form passes");
+
+        schoolDetailsPage.selectFaithTypeOther();
 
         cy.excuteAccessibilityTests();
 
-        Logger.log("Verify we get correct validation messages for exceptional date formats");
-        trustDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered();
+        schoolDetailsPage.enterOtherJaneFaithType();
 
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
+        schoolDetailsPage.selectSaveAndContinue();
 
-        Logger.log("Attempting to add invalid dates in correct format");
-        trustDetailsPage.enterInvalidDateInEditDatesPage(); 
-
-        Logger.log("Submitting invalid dates");
-        trustDetailsPage.selectSaveAndContinueButton();
+        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
 
         cy.excuteAccessibilityTests();
 
-        Logger.log("Verify we get correct validation messages for exceptional days in dates");
-        trustDetailsPage.verifyValidationMessagesWhenInvalidDateEntered();
+        schoolSummaryPage.selectMarkItemAsComplete();
 
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
+        schoolSummaryPage.selectConfirmAndContinue();
 
-        Logger.log("Verify we get correct validation messages for exceptional year in academic year START field");
-        trustDetailsPage.enterInvalidAcademicYearStartDateInEditDatesPage();
-        trustDetailsPage.selectSaveAndContinueButton();
-        trustDetailsPage.verifyInvalidAcademicStartYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Verify we get correct validation messages for exceptional year in academic yearTo field");
-        trustDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
-        trustDetailsPage.selectSaveAndContinueButton();
-        trustDetailsPage.verifyInvalidAcademicEndYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Attempting to add valid dates in correct format");
-        trustDetailsPage.enterValidDatesInEditDatesPage();
-
-        Logger.log("Submitting valid dates");
-        trustDetailsPage.selectSaveAndContinueButton();
+        taskListPage.verifySchoolMarkedAsComplete();
 
         cy.excuteAccessibilityTests();
-
-        Logger.log("Verify Dates Summary Page Complete Elements Visible");
-        trustSummaryPage.verifyDatesSummaryCompleteElementsVisible();
-
-        trustSummaryPage.selectMarkItemAsComplete();
-        trustSummaryPage.selectConfirmAndContinue();
-
-        taskListPage.verifyTrustMarkedAsComplete();
 */
+
     });
 });

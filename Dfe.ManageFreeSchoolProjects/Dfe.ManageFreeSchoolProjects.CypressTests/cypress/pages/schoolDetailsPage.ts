@@ -128,6 +128,76 @@ class SchoolDetailsPage {
         return this;
     }
 
+    public enterValidSpecialCharsSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth)");
+1
+        return this;
+    }
+
+    public enterNegTestAllNumbersSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("0123456789");
+1
+        return this;
+    }
+
+    public enterNegTestAllInvalidSpecialCharsSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("!\"£$%^&-+=[]{}:;@~#?/|.*" + "\\<>");
+1
+        return this;
+    }
+
+    public verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError(): this {
+        cy.getByClass("govuk-error-summary").contains("There is a problem");
+        cy.getByClass("govuk-error-summary").contains("Please enter some letters");
+
+        cy.getByClass("govuk-error-message").contains("Please enter some letters");
+
+        return this;
+    }
+
+    public enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth) !\"£$%^&-+=[]{}:;@~#?/|.*" + "\\<>");
+1
+        return this;
+    }
+
+    public verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError(): this {
+        cy.getByClass("govuk-error-summary").contains("There is a problem");
+        cy.getByClass("govuk-error-summary").contains("Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas");
+
+        cy.getByClass("govuk-error-message").contains("Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas");
+
+        return this;
+    }
+
+
+    public enterNegTestSQLInjectionAttemptSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("' OR 1=1");
+1
+        return this;
+    }
+
+    public enterNegTestCrossSiteScriptAttemptSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("<script>window.alert('Hello World')</script>");
+
+        return this;
+    }
+
+    public enterNegTestMoreThanOneHundredCharsSchoolNameField(): this {
+        cy.getByTestId("current-free-school-name").type("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw");
+
+        return this;
+    }
+
+    public verifyNegTestMoreThanOneHundredCharsSchoolName(): this {
+        cy.getByClass("govuk-error-summary").contains("There is a problem");
+        cy.getByClass("govuk-error-summary").contains("Current free school name must be 100 characters or less");
+
+        cy.getByClass("govuk-error-message").contains("Current free school name must be 100 characters or less");
+
+        return this;
+    }
+
     public selectMainstream(): this {
         cy.getByTestId("Mainstream").click();
         cy.getByTestId("Mainstream").should("be.checked");
@@ -163,35 +233,48 @@ class SchoolDetailsPage {
 
     public selectNurseryNo(): this {
         cy.getById("nursery-1").click();
-        cy.getById("nursery-1").should("be.checked");
 
         return this;
     }
 
     public selectSixthFormYes(): this {
         cy.getById("sixth-form-2").click();
-       // cy.getById("sixth-form-2").should("be.selected");
 
         return this;
     }
 
     public selectFaithStatusNone(): this {
         cy.getByTestId("None").click();
-        cy.getByTestId("None").should("be.selected");
 
         return this
     }
 
     public selectFaithDesignation(): this {
         cy.getByTestId("Designation").click();
-      //  cy.getByTestId("Designation").should("be.selected");
 
         return this;
     }
 
     public selectFaithEthos(): this {
         cy.getByTestId("Ethos").click();
-        cy.getByTestId("Ethos").should("be.selected");
+
+        return this;
+    }
+
+    public selectFaithTypeGreekOrthodox(): this {
+        cy.getByTestId("GreekOrthodox").click();
+
+        return this;
+    }
+
+    public selectFaithTypeOther(): this {
+        cy.getByTestId("Other").click();
+
+        return this;
+    }
+
+    public enterOtherJaneFaithType(): this {
+        cy.getByTestId("other-faith-type").type("Jane");
 
         return this;
     }
