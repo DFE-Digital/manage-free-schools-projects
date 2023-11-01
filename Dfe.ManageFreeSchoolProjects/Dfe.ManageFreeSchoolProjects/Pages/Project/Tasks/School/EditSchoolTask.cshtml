@@ -104,7 +104,7 @@
                         labels="@sixthFormOptions"
                         values="@sixthFormOptions"/>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="faith-status">
                     <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
                     <govuk-radios-input name="faith-status"
                                         asp-for="@Model.FaithStatus"
@@ -113,7 +113,7 @@
                                         values="@faithStatuses" />
                 </div>
 
-                <div class="govuk-form-group" id="faith-type-radios">
+                <div class="govuk-form-group" id="faith-type">
                     <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
                     <govuk-radios-input name="faith-type"
                                         asp-for="@Model.FaithType"
@@ -139,12 +139,12 @@
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
-            $('#faith-type-radios').hide();
+            $('#faith-type').hide();
             $('#other-faith-type').parent().hide();
         }
         else
         {
-            $('#faith-type-radios').show();
+            $('#faith-type').show();
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();
