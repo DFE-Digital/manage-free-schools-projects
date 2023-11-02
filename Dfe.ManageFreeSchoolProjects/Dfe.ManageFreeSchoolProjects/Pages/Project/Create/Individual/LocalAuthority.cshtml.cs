@@ -49,6 +49,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             var localAuthorities = await GetLocalAuthoritiesByRegion();
             LocalAuthorities = localAuthorities.Values.ToList();
             project.LocalAuthorities = localAuthorities;
+
+            if (!string.IsNullOrEmpty(project.LocalAuthority))
+                LocalAuthority = project.LocalAuthority;
             
             _createProjectCache.Update(project);
 
