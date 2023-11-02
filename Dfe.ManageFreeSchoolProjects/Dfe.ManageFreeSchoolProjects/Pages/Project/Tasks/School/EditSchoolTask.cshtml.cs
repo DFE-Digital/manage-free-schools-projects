@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
+using System.Text.RegularExpressions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
@@ -24,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "current-free-school-name")]
-        [Display(Name = "Current Free School Name")]
+        [Display(Name = "Current free school name")]
         [StringLengthValidator(100, ErrorMessage = "Current free school name must be 100 characters or less.")]
         [SchoolNameValidator]
         [Required]
@@ -42,14 +43,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "age-range-from")]
         [Display(Name = "Age range from")]
-        [StringLengthValidator(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [StringLengthValidator(2, ErrorMessage = "Age range from must be 2 characters or less.")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number.")]
         [Required]
         public string AgeRangeFrom { get; set; }
 
         [BindProperty(Name = "age-range-to")]
         [Display(Name = "Age range to")]
-        [StringLengthValidator(2, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [StringLengthValidator(2, ErrorMessage = "Age range from must be 2 characters or less.")]
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number")]
         [Required]
         public string AgeRangeTo { get; set; }
@@ -79,12 +80,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         public FaithType FaithType { get; set; }
 
         [BindProperty(Name = "other-faith-type")]
-        [Display(Name = "Other Faith type")]
+        [Display(Name = "Other faith type")]
+        [StringLengthValidator(100, ErrorMessage = "Other faith type must be 100 characters or less.")]
         public string OtherFaithType { get; set; }
-
-        public bool DisplayFaithType => FaithStatus is not (FaithStatus.None or FaithStatus.NotSet);
-
-        public bool DisplayOtherFaithType => FaithType is FaithType.Other;
 
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -133,21 +131,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         public async Task<ActionResult> OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
             ValidateAgeRange();
-
-            if (DisplayFaithType && FaithType == FaithType.NotSet)
-            {
-                ModelState.AddModelError("faith-type", "Faith type is required.");
-            }
-
-            if (DisplayOtherFaithType && string.IsNullOrEmpty(OtherFaithType))
-            {
-                ModelState.AddModelError("other-faith-type", "Other faith type is required.");
-            }
-            else if (FaithType != FaithType.Other && !string.IsNullOrEmpty(OtherFaithType))
-            {
-                OtherFaithType = string.Empty;
-            }
+            ValidateFaithFields();
 
             if (!ModelState.IsValid)
             {
@@ -170,6 +161,35 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 _logger.LogErrorMsg(ex);
                 throw;
+            }
+        }
+
+        private void ValidateFaithFields()
+        {
+            if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation) && (FaithType == FaithType.NotSet))
+            {
+                ModelState.AddModelError("faith-type", "Faith type is required.");
+            }
+
+            if (FaithStatus == FaithStatus.None)
+            {
+                FaithType = FaithType.NotSet;
+            }
+
+            if (FaithType == FaithType.Other)
+            {
+                if (string.IsNullOrEmpty(OtherFaithType))
+                {
+                    ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+                }
+                else if (Regex.Match(ProjectId, "[^a-zA-Z\\s]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+                {
+                    ModelState.AddModelError("other-faith-type", "Other faith type must only contain letters and spaces.");
+                }
+            }
+            else if (FaithType != FaithType.Other && !string.IsNullOrEmpty(OtherFaithType))
+            {
+                OtherFaithType = string.Empty;
             }
         }
 

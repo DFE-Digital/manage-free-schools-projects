@@ -7,7 +7,7 @@ class WhichProjectMethodPage {
         cy.getByClass("govuk-fieldset__heading").contains("Which method do you want to use?");
 
         cy.getByTestId("Individual").should('not.be.checked');
-        cy.getByLabelFor("method").contains("Creating an individual project");
+        cy.getByLabelFor("method-1").contains("Creating an individual project");
 
         cy.getByTestId("Bulk").should('not.be.checked');
         cy.getByLabelFor("method-2").contains("Bulk upload");
