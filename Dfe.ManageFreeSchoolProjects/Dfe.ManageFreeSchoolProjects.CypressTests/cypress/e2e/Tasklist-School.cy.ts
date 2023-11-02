@@ -33,12 +33,12 @@ describe("Testing project overview", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Selecting School link from Tasklist");
         taskListPage.selectSchoolFromTaskList();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Checking School Summary page elements present");
         schoolSummaryPage.verifySchoolSummaryElementsVisible(project.schoolName);
@@ -46,7 +46,7 @@ describe("Testing project overview", () => {
         Logger.log("Selecting first Change link from first 'Current free school name' line");
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifySchoolDetailsElementsVisible(project.schoolName);
 
@@ -57,7 +57,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyValidationSummaryAndErrorsVisible();
 
@@ -86,7 +86,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Test that submitting a form with all fields complete apart from Faith type when Ethos selected results in error summary and error");
 
@@ -96,7 +96,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Test that entering all numbers into schoolname field fails");
 
@@ -108,7 +108,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
 
@@ -120,7 +120,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
 
@@ -132,7 +132,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
@@ -144,7 +144,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
         schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
@@ -157,7 +157,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
         schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
@@ -169,7 +169,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyNegTestMoreThanOneHundredCharsSchoolName();
 
@@ -181,7 +181,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible();
 
@@ -197,7 +197,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -207,7 +207,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -219,7 +219,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -231,7 +231,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -243,7 +243,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -255,7 +255,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
@@ -267,7 +267,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Test that entering more than 100 chars in the 'Other religion' textfield fails and gives correct validation");
 
@@ -281,7 +281,7 @@ describe("Testing project overview", () => {
 
         schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         schoolSummaryPage.selectMarkItemAsComplete();
 
