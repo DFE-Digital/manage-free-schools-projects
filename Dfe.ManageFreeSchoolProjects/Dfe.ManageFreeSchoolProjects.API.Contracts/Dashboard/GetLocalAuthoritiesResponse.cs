@@ -8,5 +8,6 @@
     public record LocalAuthorityResponse
     {
         public string Name { get; set; }
+        public string LACode { get; set; }
     }
 }

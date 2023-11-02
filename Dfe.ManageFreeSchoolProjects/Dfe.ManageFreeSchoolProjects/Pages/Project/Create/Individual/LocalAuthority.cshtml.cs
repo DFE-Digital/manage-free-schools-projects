@@ -45,9 +45,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
-            LocalAuthorities = await GetLocalAuthoritiesByRegion();
-            project.LocalAuthorities = LocalAuthorities;
-
+            
+            var localAuthorities = await GetLocalAuthoritiesByRegion();
+            LocalAuthorities = localAuthorities.Values.ToList();
+            project.LocalAuthorities = localAuthorities;
+            
             _createProjectCache.Update(project);
 
             return Page();
@@ -57,23 +59,32 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             if (!ModelState.IsValid)
             {
-                LocalAuthorities = await GetLocalAuthoritiesByRegion();
+                LocalAuthorities = _createProjectCache.Get().LocalAuthorities.Values.ToList();
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
             var project = _createProjectCache.Get();
-            project.LocalAuthority = LocalAuthorities.SingleOrDefault();
+            project.LocalAuthority = LocalAuthority;
+            project.LocalAuthorityCode = project.LocalAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
             _createProjectCache.Update(project);
 
             return Redirect("/project/create/checkyouranswers");
         }
 
-        private async Task<List<string>> GetLocalAuthoritiesByRegion()
+        private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
         {
             var region = _createProjectCache.Get().Region.ToDescription();
             var response = await _getLocalAuthoritiesService.Execute(new List<string> { region });
-            return response.LocalAuthorities.Select(x => x.Name).ToList();
+
+            var authorities = new Dictionary<string, string>();
+            
+            response.LocalAuthorities.ForEach(authority =>
+            {
+                authorities.Add(authority.LACode, authority.Name);
+            });
+
+            return authorities;
         }
     }
 }

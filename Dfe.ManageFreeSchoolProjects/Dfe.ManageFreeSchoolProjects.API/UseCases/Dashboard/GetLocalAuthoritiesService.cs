@@ -20,22 +20,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
         public async Task<GetLocalAuthoritiesResponse> Execute(List<string> regions)
         {
-            var records = await _context.LaData.Where(e => regions.Contains(e.LocalAuthoritiesGeographicalRegion)).ToListAsync();
+            var records = await _context.LaData.Where(e => regions.Contains(e.LocalAuthoritiesGeographicalRegion))
+                .ToListAsync();
 
-            var localAuthorities = records.Select(r =>
+            var localAuthorities = records.Select(r => new LocalAuthorityResponse
             {
-                return new LocalAuthorityResponse()
-                {
-                    Name = r.LocalAuthoritiesLaName
-                };
+                Name = r.LocalAuthoritiesLaName,
+                LACode = r.LocalAuthoritiesLaCode
             }).ToList();
 
-            var result = new GetLocalAuthoritiesResponse()
-            {
-                LocalAuthorities = localAuthorities
-            };
-
-            return result;
+            return new GetLocalAuthoritiesResponse { LocalAuthorities = localAuthorities };
         }
     }
 }
