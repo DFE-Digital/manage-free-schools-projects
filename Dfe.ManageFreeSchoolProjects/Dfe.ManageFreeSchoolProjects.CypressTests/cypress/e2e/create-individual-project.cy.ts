@@ -44,8 +44,7 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
             cy.contains('Create new projects').should('not.exist');
             
             //Logger.log("Checking accessibility of the homepage");
-            //cy.excuteAccessibilityTests();
-            //cy.checkA11y();
+            cy.excuteAccessibilityTests();
     });
 
 });
@@ -61,14 +60,12 @@ describe("Creating an individual project - Create new project button should disp
     });
 
     it("Should display Create new projects button for projectRecordCreator role", () => {
-        const school = `${v4()} school`;
-
         Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
         cy.contains('Create new projects').should('be.visible');
 
         //Logger.log("Checking accessibility of the homepage");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
     });
 });
@@ -86,25 +83,25 @@ describe("Creating an individual project - Test Create new individual project jo
         const temporaryProjectId = dataGenerator.generateTemporaryId();
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         Logger.log("Clicking on Create new projects CTA as projectrecordcreator")
         homePage.createNewProjects();
 
         whichProjectMethodPage.checkElementsVisible();
 
-        //Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator");
+        cy.excuteAccessibilityTests();
+        
 
         // TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
         whichProjectMethodPage.selectContinue();
 
-        //Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator when validation error occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator when validation error occurs");
+        cy.excuteAccessibilityTests();
+        
 
         // VERIFY WE GET CORRECT VALIDATION RESPONSE
         whichProjectMethodPage.verifyValidationMessage();
@@ -119,15 +116,15 @@ describe("Creating an individual project - Test Create new individual project jo
         whichProjectMethodPage.selectIndividualProject();
 
         //Logger.log("Checking accessibility of whichProjectMethodPage when Creating individual project selected for a projectrecordcreator");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
 
         whichProjectMethodPage.selectContinue();
 
         //Logger.log("Checking accessibility of temporaryProjectId page when Creating individual project selected for a projectrecordcreator");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
@@ -136,8 +133,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.selectContinue();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when empty string validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifyEmptyValidationMessage();
 
@@ -147,8 +144,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
@@ -157,8 +154,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsSpaces();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid spaces validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
@@ -167,8 +164,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserEntersMoreThanTwentyFiveChars();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when > 25 chars validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
@@ -177,8 +174,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserAttemptsSQLInjection();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
@@ -187,8 +184,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.UserAttemptsJavaScriptAttack();
 
         //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
@@ -202,8 +199,8 @@ describe("Creating an individual project - Test Create new individual project jo
         //--------------------------------------------------------------
 
         //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
 
@@ -212,59 +209,53 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.selectContinue();
 
         //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when empty string validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
+        
 
         singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
 
-        //**************************************************************************************************************** */
-        // TEST THAT SUBMITTING UNALLOWED SPECIAL CHARS IN SCHOOL NAME FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!!!!
-        //**************************************************************************************************************** */
-        //Logger.log("TESTING THAT SUBMITTING INVALID CHARS IN SCHOOL NAME FAILS");
-        //singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
+        Logger.log("TESTING THAT SUBMITTING INVALID CHARS IN SCHOOL NAME FAILS");
+        singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
 
-        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs");
+        cy.excuteAccessibilityTests();
+        
 
         //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
         //*******************************************************************************************************************/
 
 
 
-        // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 80? 100? CHARS FAILS
-        Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 80 CHARS SCHOOL NAME FAILS");
-        singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanEightyChars();
+        // TEST THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 100? CHARS FAILS
+        Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 100 CHARS SCHOOL NAME FAILS");
+        singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanOneHundredChars();
 
         //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when > 25 chars validation message occurs");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        cy.excuteAccessibilityTests();
 
-        //singleProjectCurrentFreeSchoolNamePage.verifyMoreThanEightyCharsValidationMessage();
+        singleProjectCurrentFreeSchoolNamePage.verifyMoreThanHundredCharsValidationMessage();
 
-        // TEST THAT AN SQL INJECTION ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
+        //TEST THAT AN SQL INJECTION ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
 
-        //Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN SCHOOL NAME FIELD FAILS");
-        //singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
+        Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN SCHOOL NAME FIELD FAILS");
+        singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
 
-        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
+        cy.excuteAccessibilityTests();
 
-        //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
-        // TEST THAT A JAVASCRIPT ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
-        //Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN SCHOOL NAME FIELD FAILS");
-        //singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
+        //TEST THAT A JAVASCRIPT ATTACK FAILS - SKIP THIS UNTIL SCHOOL FEATURE READY!*********
+        Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN SCHOOL NAME FIELD FAILS");
+        singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
 
-        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
-        //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
+        cy.excuteAccessibilityTests();
 
-        //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
         // TEST THAT A VALID FORMAT 80 CHARS? 100 CHARS? WITH ALL LEGIT SPECIAL CHARS OR LESS PASSES AND LETS US PROCEED TO THE REGION PAGE
-        Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 80 CHARS OR LESS PASSES");
+        Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 100 CHARS OR LESS PASSES");
         singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool();
 
 
@@ -274,7 +265,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectRegionPage.checkElementsVisible();
 
@@ -284,7 +275,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when validation message occurs");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectRegionPage.verifyValidationMessage();
 
@@ -306,7 +297,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when South West selected");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectRegionPage.selectContinue();
 
@@ -316,7 +307,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectLocalAuthorityPage.checkElementsVisible();
 
@@ -326,7 +317,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when validation message occurs");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
         
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
@@ -343,7 +334,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when Bedford selected");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectLocalAuthorityPage.selectContinue();
 
@@ -353,7 +344,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
@@ -365,7 +356,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         //Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
         //cy.excuteAccessibilityTests();
-        //cy.checkA11y();
+        
 
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
 

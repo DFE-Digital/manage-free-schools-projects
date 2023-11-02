@@ -7,7 +7,6 @@
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var schoolTaskLink = string.Format(RouteConstants.ViewSchoolTask, Model.ProjectId);
-    var constructionTaskLink = string.Format(RouteConstants.ViewConstructionTask, Model.ProjectId);
     var datesTaskLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
     var trustTaskLink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
 }
@@ -73,16 +72,6 @@
                     </span>
                     @{
                         RenderStatus(Model.ProjectTaskListSummary.School);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@constructionTaskLink" aria-describedby="">
-                            @Model.ProjectTaskListSummary.Construction.Name
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.Construction);
                     }
                 </li>
                 <li class="app-task-list__item">

@@ -13,7 +13,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
     public class TaskListModel : PageModel
     {
         private readonly IGetProjectByTaskSummaryService _getProjectTaskListSummaryService;
-        private readonly IGetTaskStatusService _getTaskStatusService;
         private readonly ICreateTasksService _createTasksService;
         private readonly ILogger<TaskListModel> _logger;
 
@@ -29,7 +28,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             ILogger<TaskListModel> logger)
         {
             _getProjectTaskListSummaryService = getProjectTaskListSummaryService;
-            _getTaskStatusService = getTaskStatusService;
             _createTasksService = createTasksService;
             _logger = logger;
         }

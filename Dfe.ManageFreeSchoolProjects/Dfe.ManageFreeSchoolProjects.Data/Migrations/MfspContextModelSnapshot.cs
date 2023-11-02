@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -11156,7 +11156,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.HasKey("Rid", "TaskName");
 
-                    b.ToTable("Tasks", "dbo");
+                    b.ToTable("Tasks", "mfsp");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.TechnicalQa", b =>

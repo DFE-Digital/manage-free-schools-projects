@@ -2,10 +2,8 @@
 {
     public class GetProjectByTaskResponse
     {
-        public RiskAppraisalTask RiskAppraisal { get; set; }
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
-        public ConstructionTask Construction { get; set; }
         public TrustTask Trust { get; set; }
     }
 }

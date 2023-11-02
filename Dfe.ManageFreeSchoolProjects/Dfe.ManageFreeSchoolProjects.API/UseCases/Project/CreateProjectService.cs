@@ -90,7 +90,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return new List<Data.Entities.Existing.Tasks>()
             {
                 new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
-                new() { Rid = kpiRid, TaskName = TaskName.Construction, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },

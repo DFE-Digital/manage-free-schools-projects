@@ -3,61 +3,83 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.ViewSchoolTask
 @{
     var editLink = string.Format(RouteConstants.EditSchoolTask, Model.ProjectId);
+    ViewData["Title"] = $"School - {Model.Project.School.CurrentFreeSchoolName}";
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+        <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St George's Primary super School</span>
+            <span class="govuk-caption-l">
+                @{
+                    RenderValue(Model.Project.School.CurrentFreeSchoolName);
+                }
+            </span>
             School
         </h1>
         <dl class="govuk-summary-list">
-
             <div class="govuk-summary-list__row">
+
                 <dt class="govuk-summary-list__key">
-                    School type
+                   Current free school name
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.School.SchoolType);
+                        RenderValue(Model.Project.School.CurrentFreeSchoolName);
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-
                     <a class="govuk-link" href="@editLink">
                         Change<span class="govuk-visually-hidden"> School type</span>
                     </a>
+                </dd>
+            </div>
 
+            <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                    School type
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.School.SchoolType.ToDescription());
+                    }
                 </dd>
 
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden"> School type</span>
+                    </a>
+                </dd>
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     School phase
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.School.SchoolPhase);
+                        RenderValue(Model.Project.School.SchoolPhase.ToDescription());
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="task-school-details-edit">
+                    <a class="govuk-link" href="@editLink">
                         Change<span class="govuk-visually-hidden"> School phase</span>
                     </a>
-
                 </dd>
-
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Age range
                 </dt>
+
                 <dd class="govuk-summary-list__value">
                     @{
                         RenderValue(Model.Project.School.AgeRange);
@@ -65,13 +87,26 @@
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden"> Age range</span>
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Age range</span>
                     </a>
-
                 </dd>
+            </div>
 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Gender
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @{
+                        RenderValue(Model.Project.School.Gender.ToDescription());
+                    }
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Gender</span>
+                    </a>
+                </dd>
             </div>
 
             <div class="govuk-summary-list__row">
@@ -86,12 +121,10 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="task-school-details-edit">
+                    <a class="govuk-link" href="@editLink">
                         Change<span class="govuk-visually-hidden"> Nursery</span>
                     </a>
-
                 </dd>
-
             </div>
 
             <div class="govuk-summary-list__row">
@@ -106,62 +139,63 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden"> Sixth form</span>
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Sixth form</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Company name
+                    Faith status
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.School.CompanyName);
+                        RenderValue(Model.Project.School.FaithStatus.ToString());
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Company name</span>
+                    <a class="govuk-link" href="@editLink">
+                        Change
+                        <span class="govuk-visually-hidden">Faith status</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    number of company members
+                    Faith type
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.School.NumberOfCompanyMembers);
+                        RenderValue(Model.Project.School.FaithType.ToDescription());
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Number of company members</span>
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Faith type</span>
                     </a>
 
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Proposed chair of trustees
+                    Other faith type
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.School.ProposedChairOfTrustees);
+                        RenderValue(Model.Project.School.OtherFaithType);
                     }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="task-school-details-edit">
-                        Change<span class="govuk-visually-hidden">Proposed chair of trustees</span>
+                    <a class="govuk-link" href="@editLink">
+                        Change<span class="govuk-visually-hidden">Other faith type</span>
                     </a>
 
                 </dd>
@@ -189,9 +223,10 @@
 </div>
 
 @functions {
+
     public void RenderValue(string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
             <span class="empty">Empty</span>
         }
@@ -200,4 +235,5 @@
             @value
         }
     }
+
 }

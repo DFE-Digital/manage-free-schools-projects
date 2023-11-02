@@ -6,6 +6,8 @@ using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -25,17 +27,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
-            await context.SaveChangesAsync();
 
+            var tasks = TasksStub.BuildListOfTasks(project.Rid);
+            context.Tasks.AddRange(tasks);
+
+            await context.SaveChangesAsync();
+            
             var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
-
-            result.Data.School.CompanyName.Should().BeNull();
-            result.Data.School.NumberOfCompanyMembers.Should().BeNull();
-            result.Data.Construction.AddressOfSite.Should().BeNull();
-            result.Data.Construction.BuildingType.Should().BeNull();
         }
 
         [Fact]
@@ -53,6 +52,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+
+            var tasks = TasksStub.BuildListOfTasks(project.Rid);
+            context.Tasks.AddRange(tasks);
+
             await context.SaveChangesAsync();
 
             var request = new UpdateProjectByTaskRequest()
@@ -60,67 +63,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 School = new SchoolTask()
                 {
                     CurrentFreeSchoolName = "Test High School",
-                    SchoolType = "Secondary",
+                    SchoolType = SchoolType.Mainstream,
                     AgeRange = "11-18",
-                    SchoolPhase = "Opening",
-                    Nursery = "Yes",
-                    SixthForm = "Yes",
-                    CompanyName = "School Builders Ltd",
-                    NumberOfCompanyMembers = "100",
-                    ProposedChairOfTrustees = "Lemon Group Ltd"
+                    SchoolPhase = SchoolPhase.Primary,
+                    Nursery = "No",
+                    SixthForm = "No",
+                    FaithStatus = FaithStatus.NotSet,
+                    FaithType = FaithType.Other,
+                    Gender = Gender.Mixed
                 }
             };
 
             var projectResponse = await UpdateProjectTask(projectId, request);
 
             projectResponse.School.CurrentFreeSchoolName.Should().Be("Test High School");
-            projectResponse.School.SchoolType.Should().Be("Secondary");
-            projectResponse.School.SchoolPhase.Should().Be("Opening");
+            projectResponse.School.SchoolType.Should().Be(SchoolType.Mainstream);
+            projectResponse.School.SchoolPhase.Should().Be(SchoolPhase.Primary);
             projectResponse.School.AgeRange.Should().Be("11-18");
-            projectResponse.School.Nursery.Should().Be("Yes");
-            projectResponse.School.SixthForm.Should().Be("Yes");
-            projectResponse.School.CompanyName.Should().Be("School Builders Ltd");
-            projectResponse.School.NumberOfCompanyMembers.Should().Be("100");
-            projectResponse.School.ProposedChairOfTrustees.Should().Be("Lemon Group Ltd");
-        }
-
-        [Fact]
-        public async Task Patch_ConstructionTask_Returns_201()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
-
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
-            var request = new UpdateProjectByTaskRequest()
-            {
-                Construction = new ConstructionTask()
-                {
-                    NameOfSite = "Lemon Site",
-                    AddressOfSite = "Fruitpickers Lane",
-                    PostcodeOfSite = "LF124YH",
-                    BuildingType = "Brick",
-                    TrustRef = "1234ABC",
-                    TrustLeadSponsor = "Aviva",
-                    TrustName = "Education First",
-                    SiteMinArea = "10000",
-                    TypeofWorksLocation = "Building site"
-                }
-            };
-
-            var projectResponse = await UpdateProjectTask(projectId, request);
-
-            projectResponse.Construction.NameOfSite.Should().Be("Lemon Site");
-            projectResponse.Construction.AddressOfSite.Should().Be("Fruitpickers Lane");
-            projectResponse.Construction.PostcodeOfSite.Should().Be("LF124YH");
-            projectResponse.Construction.BuildingType.Should().Be("Brick");
-            projectResponse.Construction.TrustRef.Should().Be("1234ABC");
-            projectResponse.Construction.TrustLeadSponsor.Should().Be("Aviva");
-            projectResponse.Construction.TrustName.Should().Be("Education First");
-            projectResponse.Construction.SiteMinArea.Should().Be("10000");
-            projectResponse.Construction.TypeofWorksLocation.Should().Be("Building site");
+            projectResponse.School.Nursery.Should().Be("No");
+            projectResponse.School.SixthForm.Should().Be("No");
         }
 
         [Fact]

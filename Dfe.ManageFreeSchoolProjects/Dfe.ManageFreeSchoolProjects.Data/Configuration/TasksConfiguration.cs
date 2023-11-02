@@ -17,8 +17,10 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
             .HasMaxLength(30)
             .IsUnicode(false)
             .HasColumnName("RID");
-
-        var taskConverter = new EnumToStringConverter<TaskName>();
+        
+        var taskConverter = new ValueConverter<TaskName, string>(
+                v => v.ToString(),
+                v => ConvertTaskName(v));
 
         builder.Property(e => e.TaskName)
             .HasMaxLength(30)
@@ -33,5 +35,10 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
             .IsUnicode(false)
             .HasColumnName("Status")
             .HasConversion(statusConverter);
+    }
+
+    private TaskName ConvertTaskName(string v)
+    {
+        return Enum.TryParse(v, false, out TaskName taskName) ? taskName : TaskName.Unknown;
     }
 }

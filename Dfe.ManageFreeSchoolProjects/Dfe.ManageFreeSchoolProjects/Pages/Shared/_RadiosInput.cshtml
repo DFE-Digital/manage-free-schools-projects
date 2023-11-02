@@ -4,16 +4,10 @@
 }
 
 @functions{
-
 	string Id(string id, int position)
 	{
-		if (position == 0)
-		{
-			return id;
-		}
 		return $"{id}-{position + 1}";
 	}
-
 }
 
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
@@ -52,7 +46,7 @@
 			{
 				<div class="govuk-radios__item">
 					<input class="govuk-radios__input" id="@Id(Model.Id, i)" name="@Model.Name" type="radio" value="@Model.Values[i]" checked="@(Model.Values[i].Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@Model.Values[i]">
-					<label class="govuk-label govuk-radios__label" for="@Id(Model.Id, i)">
+					<label class="govuk-label govuk-radios__label" id="@Id(Model.Id, i)-label" for="@Id(Model.Id, i)">
 						@Model.Labels[i]
 					</label>
 					@if (Model.Hints != null)

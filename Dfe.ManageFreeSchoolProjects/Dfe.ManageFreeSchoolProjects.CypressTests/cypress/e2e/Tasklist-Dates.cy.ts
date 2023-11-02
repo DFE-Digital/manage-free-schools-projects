@@ -29,31 +29,28 @@ describe("Testing project overview", () => {
         projectOverviewPage.selectTaskListTab();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Selecting Dates link from Tasklist");
         taskListPage.selectDatesFromTaskList();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Checking Dates Summary page elements present");
-        datesSummaryPage.verifyDatesSummaryElementsVisible();
+        datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
 
         Logger.log("Selecting first Change link from first 'Pre-opening' line");
         datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
+
 
         Logger.log("Attempting to save Dates Details page with no values");
         datesDetailsPage.selectSaveAndContinueButton()
         
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
-        datesDetailsPage.verifyValidationMessagesWhenNoDataSet();
+        datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
@@ -66,10 +63,9 @@ describe("Testing project overview", () => {
         datesDetailsPage.selectSaveAndContinueButton();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Verify we get correct validation messages for exceptional date formats");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered();
+        datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
@@ -82,10 +78,9 @@ describe("Testing project overview", () => {
         datesDetailsPage.selectSaveAndContinueButton();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Verify we get correct validation messages for exceptional days in dates");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered();
+        datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered(project.schoolName);
 
         Logger.log("Attempting to Reload page and clear controls");
         cy.reload();
@@ -116,7 +111,6 @@ describe("Testing project overview", () => {
         datesDetailsPage.selectSaveAndContinueButton();
 
         cy.excuteAccessibilityTests();
-        cy.checkA11y();
 
         Logger.log("Verify Dates Summary Page Complete Elements Visible");
         datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();

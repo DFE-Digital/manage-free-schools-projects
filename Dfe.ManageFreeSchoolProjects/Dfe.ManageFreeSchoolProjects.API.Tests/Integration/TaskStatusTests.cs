@@ -65,7 +65,6 @@ public class TaskStatusTests : ApiTestsBase
     
     
     [InlineData("School", ProjectTaskStatus.InProgress)]
-    [InlineData("Construction", ProjectTaskStatus.Completed)]
     [Theory]
     public async Task When_Patch_TaskStatus_Updated_Returns_200_OK(string expectedTaskName, ProjectTaskStatus expectedProjectTaskStatus)
     {
