@@ -81,7 +81,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "other-faith-type")]
         [Display(Name = "Other faith type")]
-        [StringLengthValidator(100, ErrorMessage = "Other faith type must be 100 characters or less.")]
         public string OtherFaithType { get; set; }
 
         public EditSchoolTaskModel(
@@ -181,6 +180,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 if (string.IsNullOrEmpty(OtherFaithType))
                 {
                     ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+                }
+                else if (OtherFaithType.Length > 100)
+                {
+                    ModelState.AddModelError("other-faith-type", "Other faith type must be 100 characters or less.");
                 }
                 else if (Regex.Match(ProjectId, "[^a-zA-Z\\s]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
                 {
