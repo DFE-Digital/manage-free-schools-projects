@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
         [BindProperty(Name = "confirm-trust")]
         [Display(Name = "confirm trust")]
-        [Required(ErrorMessage = "Confirm that the trust displayed above is correct.")]
+        [Required(ErrorMessage = "Confirm that the trust displayed is correct.")]
         public string ConfirmTrust { get; set; }
 
         public EditTrustTaskModel(
