@@ -20,17 +20,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Display(Name = "Local Authority")]
         [Required]
         public string LocalAuthority { get; set; }
-        
-        [BindProperty(Name = "local-authorities")]
-        [Required]
-        public List<string> LocalAuthorities { get; set; }
 
+        [BindProperty(Name = "local-authorities")]
+        public List<string> LocalAuthorities { get; set; }
+        
         private readonly ErrorService _errorService;
 
         private readonly ICreateProjectCache _createProjectCache;
         private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
 
-        public LocalAuthorityModel(ErrorService errorService, ICreateProjectCache createProjectCache, IGetLocalAuthoritiesService getLocalAuthoritiesService)
+        public LocalAuthorityModel(ErrorService errorService, ICreateProjectCache createProjectCache,
+            IGetLocalAuthoritiesService getLocalAuthoritiesService)
         {
             _errorService = errorService;
             _createProjectCache = createProjectCache;
@@ -44,27 +44,36 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return new UnauthorizedResult();
             }
 
-            var region = _createProjectCache.Get().Region.ToDescription();
-            var response = await _getLocalAuthoritiesService.Execute(new List<string> { region });
+            var project = _createProjectCache.Get();
+            LocalAuthorities = await GetLocalAuthoritiesByRegion();
+            project.LocalAuthorities = LocalAuthorities;
 
-            LocalAuthorities = response.LocalAuthorities.Select(x => x.Name).ToList(); 
-            
+            _createProjectCache.Update(project);
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<ActionResult> OnPost()
         {
             if (!ModelState.IsValid)
             {
+                LocalAuthorities = await GetLocalAuthoritiesByRegion();
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
             var project = _createProjectCache.Get();
-            project.LocalAuthority = (ProjectLocalAuthority)Enum.Parse(typeof(ProjectLocalAuthority), LocalAuthority);
+            project.LocalAuthority = LocalAuthorities.SingleOrDefault();
             _createProjectCache.Update(project);
 
             return Redirect("/project/create/checkyouranswers");
+        }
+
+        private async Task<List<string>> GetLocalAuthoritiesByRegion()
+        {
+            var region = _createProjectCache.Get().Region.ToDescription();
+            var response = await _getLocalAuthoritiesService.Execute(new List<string> { region });
+            return response.LocalAuthorities.Select(x => x.Name).ToList();
         }
     }
 }

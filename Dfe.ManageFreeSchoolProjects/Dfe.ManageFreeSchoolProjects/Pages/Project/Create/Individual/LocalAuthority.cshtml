@@ -2,15 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.LocalAuthorityModel
 @{
-    var localAuthorities = Enum.GetValues(typeof(ProjectLocalAuthority));
-    var labels = new List<string>();
-    var values = new List<string>();
-
-    foreach (var localAuthority in localAuthorities)
-    {
-        labels.Add(localAuthority.ToDescription());
-        values.Add(localAuthority.ToString());
-    }
+    var localAuthorities = Model.LocalAuthorities.ToArray();
 }
 
 <div class="govuk-form-group">
@@ -25,13 +17,13 @@
 
     <form method="post">
 
-        <div class="govuk-form-group" id="local-authorities">
+        <div class="govuk-form-group" id="local-authority">
             <govuk-radios-input
-                name="local-authorities"
-                asp-for="@Model.LocalAuthorities"
+                asp-for="@Model.LocalAuthority"
+                name="local-authority"
                 data-testid="local-authority"
-                labels="@Model.LocalAuthorities.ToArray()"
-                values="@Model.LocalAuthorities.ToArray()"/>
+                labels="localAuthorities"
+                values="localAuthorities"/>
         </div>
 
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
