@@ -31,28 +31,31 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var firstLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?regions={firstRegion}");
             firstLaResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var firstResponseContent = await firstLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
+            var firstResponseContent = await firstLaResponse.Content
+                .ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
             var firstRegionLocalAuthorities = firstResponseContent.Data.LocalAuthorities;
 
             var expectedFirstRegionLocalAuthorities = new List<LocalAuthorityResponse>()
             {
-                new LocalAuthorityResponse{ Name = firstLa.LocalAuthoritiesLaName },
-                new LocalAuthorityResponse{ Name = secondLa.LocalAuthoritiesLaName }
+                new() { Name = firstLa.LocalAuthoritiesLaName, LACode = firstLa.LocalAuthoritiesLaCode },
+                new() { Name = secondLa.LocalAuthoritiesLaName, LACode = secondLa.LocalAuthoritiesLaCode }
             };
 
             firstRegionLocalAuthorities.Should().BeEquivalentTo(expectedFirstRegionLocalAuthorities);
 
-            var allLaResponse = await _client.GetAsync($"/api/v1/client/local-authorities?regions={firstRegion},{secondRegion}");
+            var allLaResponse =
+                await _client.GetAsync($"/api/v1/client/local-authorities?regions={firstRegion},{secondRegion}");
             allLaResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var allResponseContent = await allLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
+            var allResponseContent =
+                await allLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
             var allRegionLocalAuthorities = allResponseContent.Data.LocalAuthorities;
 
             var expectedAllRegionLocalAuthorities = new List<LocalAuthorityResponse>()
             {
-                new LocalAuthorityResponse{ Name = firstLa.LocalAuthoritiesLaName },
-                new LocalAuthorityResponse{ Name = secondLa.LocalAuthoritiesLaName },
-                new LocalAuthorityResponse{ Name = thirdLa.LocalAuthoritiesLaName }
+                new() { Name = firstLa.LocalAuthoritiesLaName, LACode = firstLa.LocalAuthoritiesLaCode },
+                new() { Name = secondLa.LocalAuthoritiesLaName, LACode = secondLa.LocalAuthoritiesLaCode },
+                new() { Name = thirdLa.LocalAuthoritiesLaName, LACode = thirdLa.LocalAuthoritiesLaCode }
             };
 
             allRegionLocalAuthorities.Should().BeEquivalentTo(expectedAllRegionLocalAuthorities);
