@@ -2,12 +2,11 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -39,13 +38,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            CreateProjectRequest createProjectRequest = new CreateProjectRequest();
+            var createProjectRequest = new CreateProjectRequest();
             var project = _createProjectCache.Get();
-            ProjectDetails projReq = new ProjectDetails
+            
+            var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
                 SchoolName = project.SchoolName,
                 CreatedBy = User.Identity.Name,
+                LocalAuthority = project.LocalAuthority,
+                LocalAuthorityCode = project.LocalAuthorityCode,
+                Region = project.Region.ToDescription(),
             };
 
             createProjectRequest.Projects.Add(projReq);

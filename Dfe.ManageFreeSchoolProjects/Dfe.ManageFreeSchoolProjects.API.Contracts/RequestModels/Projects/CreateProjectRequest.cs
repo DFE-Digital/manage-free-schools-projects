@@ -17,6 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string ApplicationWave { get; set; }
         public string Region { get; set; }
         public string LocalAuthority { get; set; }
+        public string LocalAuthorityCode { get; set; }
         [Required]
         public string CreatedBy { get; set; }
     }
