@@ -187,7 +187,75 @@ describe("Testing project overview", () => {
 
 
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+
         // FILL OUT SCHOOLNAME WITH project.schoolname const
+        schoolDetailsPage.clearSchoolNameField();
+
+        schoolDetailsPage.enterSchoolNameField(project.schoolName);
+
+        schoolDetailsPage.selectFaithTypeOther();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.enterNegTestAllNumbersOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterNegTestAllSpecialCharsOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterNegTestSomeValidSomeSpecialCharsOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterNegTestSQLInjectionAttemptOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterNegTestCrossSiteScriptAttackAttemptOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        cy.excuteAccessibilityTests();
+
+        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterOtherFaithType();
+
+        schoolDetailsPage.selectSaveAndContinue();
+
+        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
 
         //select Other Faith Type and HAMMER OTHER FIELD
 

@@ -273,16 +273,74 @@ class SchoolDetailsPage {
         return this;
     }
 
-    public enterOtherJaneFaithType(): this {
+    public clearOtherFaithTypeField(): this {
+        cy.getByTestId("other-faith-type").clear();
+
+        return this;
+    }
+
+    public enterOtherFaithType(): this {
         cy.getByTestId("other-faith-type").type("Jane");
 
         return this;
     }
 
+
+    public enterNegTestAllNumbersOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type("0123456789");
+
+        return this;
+    }
+
+    public enterNegTestAllSpecialCharsOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type("!@£$%^&*()',-_+=\"?/\\|`~±§");
+
+        return this;
+    }
+
+    public enterNegTestSomeValidSomeSpecialCharsOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type(",()' Catholic Jewish Muslim Hindu Buddhist Jane");
+
+        return this;
+    }
+
+    public enterNegTestSQLInjectionAttemptOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type("' OR 1=1");
+
+        return this;
+    }
+
+    public enterNegTestCrossSiteScriptAttackAttemptOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type("<script>window.alert('Hello')</script>");
+
+        return this;
+    }
+
+    public verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible(): this {
+        cy.getById("error-summary-title").contains("There is a problem");
+
+        cy.getById("other-faith-type-error-link").contains("Other faith type must only contain letters and spaces");
+        cy.getById("other-faith-type-error").contains("Other faith type must only contain letters and spaces");
+
+        return this;
+    }
+
+
+
     public verifyFaithTypeErrorSummaryAndErrorVisible(): this {
         cy.getById("error-summary-title").contains("There is a problem");
 
         cy.getById("faith-type-error-link").contains("Faith type is required");
+        cy.getById("faith-type-error").contains("Faith type is required");
+
+        return this;
+    }
+
+    public verifyOtherFaithTypeErrorSummaryAndErrorVisible(): this {
+        cy.getById("error-summary-title").contains("There is a problem");
+
+        cy.getById("other-faith-type-error-link").contains("Other faith type is required");
+        cy.getById("other-faith-type-error").contains("Other faith type is required");
 
         return this;
     }
