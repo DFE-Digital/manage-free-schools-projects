@@ -161,7 +161,7 @@ describe("Testing project overview", () => {
         
         schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
-        Logger.log("Test that entering more than 100 chars in the schoolname fields fails");
+        Logger.log("Test that entering more than 100 chars in the schoolname fields fails and gives correct validation");
 
         schoolDetailsPage.clearSchoolNameField();
 
@@ -185,6 +185,8 @@ describe("Testing project overview", () => {
 
         schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible();
 
+        Logger.log("Test that selecting 'Other Religion' And Leaving 'Other religion textfield blank gives correct validation'");
+
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
         schoolDetailsPage.clearSchoolNameField();
@@ -199,6 +201,8 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyOtherFaithTypeErrorSummaryAndErrorVisible();
 
+        Logger.log("Test that selecting 'Other Religion' And entering all numbers in 'Other religion' textfield gives correct validation'");
+
         schoolDetailsPage.enterNegTestAllNumbersOtherFaithType();
 
         schoolDetailsPage.selectSaveAndContinue();
@@ -206,6 +210,8 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        Logger.log("Test that selecting 'Other Religion' And entering all special chars in 'Other religion' textfield gives correct validation'");
 
         schoolDetailsPage.clearOtherFaithTypeField();
 
@@ -217,6 +223,8 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
+        Logger.log("Test that selecting 'Other Religion' And entering SOME special chars AS WELL AS VALID CHARS in 'Other religion' textfield gives correct validation'");
+
         schoolDetailsPage.clearOtherFaithTypeField();
 
         schoolDetailsPage.enterNegTestSomeValidSomeSpecialCharsOtherFaithType();
@@ -226,6 +234,8 @@ describe("Testing project overview", () => {
         cy.excuteAccessibilityTests();
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
 
         schoolDetailsPage.clearOtherFaithTypeField();
 
@@ -237,6 +247,8 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
+        Logger.log("Test that entering a Cross-site scripting attack attempt in 'Other religion' textfield gives correct validation and Cross-site scripting attack attempt fails to execute'");
+
         schoolDetailsPage.clearOtherFaithTypeField();
 
         schoolDetailsPage.enterNegTestCrossSiteScriptAttackAttemptOtherFaithType();
@@ -247,6 +259,8 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
+        Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
+
         schoolDetailsPage.clearOtherFaithTypeField();
 
         schoolDetailsPage.enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType();
@@ -254,6 +268,8 @@ describe("Testing project overview", () => {
         schoolDetailsPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
+
+        Logger.log("Test that entering more than 100 chars in the 'Other religion' textfield fails and gives correct validation");
 
         schoolDetailsPage.verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible();
 
