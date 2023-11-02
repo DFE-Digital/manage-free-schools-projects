@@ -185,10 +185,8 @@ describe("Testing project overview", () => {
 
         schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible();
 
-
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
-        // FILL OUT SCHOOLNAME WITH project.schoolname const
         schoolDetailsPage.clearSchoolNameField();
 
         schoolDetailsPage.enterSchoolNameField(project.schoolName);
@@ -251,44 +249,17 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.clearOtherFaithTypeField();
 
-        schoolDetailsPage.enterOtherFaithType();
+        schoolDetailsPage.enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType();
 
         schoolDetailsPage.selectSaveAndContinue();
 
-        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
-
-        //select Other Faith Type and HAMMER OTHER FIELD
-
-
-
-
-
-
-
-        /*
-        
-        Logger.log("Test that entering a schoolname containing valid special chars DOES NOT TRIGGER SCHOOLNAME VALIDATION");
-
-
-        Logger.log("Test that entering all numbers into Other religion field fails");
-        Logger.log("Test that entering only disallowed special chars into Other religion field fails");
-        Logger.log("Test that entering a mixture of letters and disallowed special chars into Other religion field fails");
-        Logger.log("Test that entering more than 100 chars in the Other religion fields fails");
-        Logger.log("Test that entering an SQL injection attack in the Other religion field fails to execute");
-        Logger.log("Test that entering a cross-site scripting attack in the Other religion field fails to execute");
-        Logger.log("Test that entering a Other religion containing valid special chars DOES NOT TRIGGER OTHER RELIGION VALIDATION");
-*/
-
-
-
-/*
-        Logger.log("Test that then selecting faith type of Other and adding a valid Other faith and submitting form passes");
-
-        schoolDetailsPage.selectFaithTypeOther();
-
         cy.excuteAccessibilityTests();
 
-        schoolDetailsPage.enterOtherJaneFaithType();
+        schoolDetailsPage.verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+
+        schoolDetailsPage.clearOtherFaithTypeField();
+
+        schoolDetailsPage.enterOtherFaithType();
 
         schoolDetailsPage.selectSaveAndContinue();
 
@@ -301,9 +272,6 @@ describe("Testing project overview", () => {
         schoolSummaryPage.selectConfirmAndContinue();
 
         taskListPage.verifySchoolMarkedAsComplete();
-
-        cy.excuteAccessibilityTests();
-*/
 
     });
 });

@@ -316,6 +316,21 @@ class SchoolDetailsPage {
         return this;
     }
 
+    public enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType(): this {
+        cy.getByTestId("other-faith-type").type("ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrst");
+
+        return this;
+    }
+
+    public verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible(): this {
+        cy.getById("error-summary-title").contains("There is a problem");
+
+        cy.getById("other-faith-type-error-link").contains("Other faith type must be 100 characters or less");
+        cy.getById("other-faith-type-error").contains("Other faith type must be 100 characters or less");
+
+        return this;
+    }
+
     public verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible(): this {
         cy.getById("error-summary-title").contains("There is a problem");
 
