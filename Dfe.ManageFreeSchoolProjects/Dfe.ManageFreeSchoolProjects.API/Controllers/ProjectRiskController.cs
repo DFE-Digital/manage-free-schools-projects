@@ -11,40 +11,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     public class ProjectRiskController : ControllerBase
     {
         private readonly ICreateProjectRiskService _createProjectRiskService;
+        private readonly IGetProjectRiskService _getProjectRiskService;
 
-        public ProjectRiskController(ICreateProjectRiskService createProjectRiskService)
+        public ProjectRiskController(
+            ICreateProjectRiskService createProjectRiskService,
+            IGetProjectRiskService getProjectRiskService)
         {
             _createProjectRiskService = createProjectRiskService;
+            _getProjectRiskService = getProjectRiskService;
         }
 
         [HttpGet]
-        public ActionResult<ApiSingleResponseV2<GetProjectRiskResponse>> GetProjectRisk(string projectId)
+        public async Task<ActionResult<ApiSingleResponseV2<GetProjectRiskResponse>>> GetProjectRisk(string projectId)
         {
-            var response = new GetProjectRiskResponse()
-            {
-                Date = DateTime.Now,
-                GovernanceAndSuitability = new ProjectRiskEntryResponse()
-                {
-                    Summary = "Governance and suitability risk summary",
-                    RiskRating = ProjectRiskRating.Green
-                },
-                Education = new ProjectRiskEntryResponse()
-                {
-                    Summary = "Education risk summary",
-                    RiskRating = ProjectRiskRating.Red
-                },
-                Finance = new ProjectRiskEntryResponse()
-                {
-                    Summary = "Finance risk summary",
-                    RiskRating = ProjectRiskRating.AmberRed
-                },
-                Overall = new ProjectRiskEntryResponse()
-                {
-                    Summary = "Overall risk summary",
-                    RiskRating = ProjectRiskRating.AmberGreen
-                },
-                RiskAppraisalFormSharepointLink = "https://www.google.com"
-            };
+            var response = await _getProjectRiskService.Execute(projectId);
 
             return new ObjectResult(new ApiSingleResponseV2<GetProjectRiskResponse>(response))
             { StatusCode = StatusCodes.Status200OK };

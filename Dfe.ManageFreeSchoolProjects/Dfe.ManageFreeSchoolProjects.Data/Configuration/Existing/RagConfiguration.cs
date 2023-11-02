@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.HasKey(e => e.Rid);
 
             builder
-                .ToTable("RAG", "dbo");
+                .ToTable("RAG", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)

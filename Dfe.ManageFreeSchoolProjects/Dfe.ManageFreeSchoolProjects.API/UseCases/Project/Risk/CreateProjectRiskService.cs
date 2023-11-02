@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -26,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
 
             if (dbProject == null)
             {
-                throw new ArgumentException($"Project with id {projectId} not found");
+                throw new NotFoundException($"Project with id {projectId} not found");
             }
 
             var existingRag = await _context.Rag.FirstOrDefaultAsync(x => x.Rid == dbProject.Rid);

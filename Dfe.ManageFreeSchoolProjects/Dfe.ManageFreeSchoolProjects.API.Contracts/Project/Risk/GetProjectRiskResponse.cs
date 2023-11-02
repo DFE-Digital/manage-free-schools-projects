@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
 
     public enum ProjectRiskRating
     {
+        Unknown = 0,
         [Description("Green")]
         Green = 1,
         [Description("Amber/Green")]

@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        public GetProjectRiskResponse ProjectRiskRating { get; set; }
+        public GetProjectRiskResponse ProjectRisk { get; set; }
 
         public RiskSummaryModel(IGetProjectRiskService getProjectRiskRatingService)
         {
@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public async Task<IActionResult> OnGet()
         {
-            ProjectRiskRating = await _getProjectRiskRatingService.Execute(ProjectId);
+            ProjectRisk = await _getProjectRiskRatingService.Execute(ProjectId);
 
             return Page();
         }
