@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
+﻿using System.ComponentModel;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
 {
     public class GetProjectRiskResponse
     {
@@ -31,9 +33,13 @@
 
     public enum ProjectRiskRating
     {
+        [Description("Green")]
         Green = 1,
+        [Description("Amber/Green")]
         AmberGreen = 2,
+        [Description("Amber/Red")]
         AmberRed = 3,
+        [Description("Red")]
         Red = 4
     }
 }

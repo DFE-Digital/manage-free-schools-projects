@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             await _createProjectRiskService.Execute(ProjectId, request);
 
-            return RedirectToPage("/");
+            return Redirect($"/projects/{ProjectId}/risk-rating/summary");
         }
     }
 }

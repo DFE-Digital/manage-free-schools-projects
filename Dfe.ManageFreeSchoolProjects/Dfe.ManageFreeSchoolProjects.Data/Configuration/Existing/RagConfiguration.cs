@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
-	public partial class RagConfiguration : IEntityTypeConfiguration< Rag>
+    public partial class RagConfiguration : IEntityTypeConfiguration< Rag>
 	{
 		public void Configure(EntityTypeBuilder<Rag> builder)
 		{
+            builder.HasKey(e => e.Rid);
+
             builder
-                .HasNoKey()
                 .ToTable("RAG", "dbo");
 
             builder.Property(e => e.PRid)

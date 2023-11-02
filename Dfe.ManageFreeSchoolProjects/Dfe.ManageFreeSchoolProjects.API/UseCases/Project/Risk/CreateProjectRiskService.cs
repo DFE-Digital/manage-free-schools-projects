@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
 {
@@ -21,17 +22,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
 
         public async Task<CreateProjectRiskResponse> Execute(string projectId, CreateProjectRiskRequest request)
         {
-            var toAdd = new Rag()
-            {
-                RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating.GetDescription(),
-                RagRatingsEducationRag = request.Education.RiskRating.GetDescription(),
-                RagRatingsFinancesRagRating = request.Finance.RiskRating.GetDescription(),
-                RagRatingsFinanceRagSummary = request.Finance.Summary,
-                RagRatingsOverallRagRating = request.Overall.RiskRating.GetDescription(),
-                RagRatingsOverallRagSummary = request.Overall.Summary,
-            };
+            var dbProject = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
-            _context.Rag.Add(toAdd);
+            if (dbProject == null)
+            {
+                throw new ArgumentException($"Project with id {projectId} not found");
+            }
+
+            var existingRag = await _context.Rag.FirstOrDefaultAsync(x => x.Rid == dbProject.Rid);
+
+            if (existingRag == null) 
+            {
+                existingRag = new Rag();
+
+                _context.Rag.Add(existingRag);
+            }
+
+            existingRag.Rid = dbProject.Rid;
+            existingRag.RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating.GetDescription();
+            existingRag.RagRatingsEducationRag = request.Education.RiskRating.GetDescription();
+            existingRag.RagRatingsFinancesRagRating = request.Finance.RiskRating.GetDescription();
+            existingRag.RagRatingsFinanceRagSummary = request.Finance.Summary;
+            existingRag.RagRatingsOverallRagRating = request.Overall.RiskRating.GetDescription();
+            existingRag.RagRatingsOverallRagSummary = request.Overall.Summary;
 
             await _context.SaveChangesAsync();
 
