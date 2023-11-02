@@ -28,7 +28,6 @@ describe("Testing project overview", () => {
     });
 
     it("Should successfully set Tasklist-school information", () => {
-        const validTrustId = "TR03446";
 
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
