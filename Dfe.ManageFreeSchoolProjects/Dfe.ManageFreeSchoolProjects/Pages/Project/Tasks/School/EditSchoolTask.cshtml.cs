@@ -185,7 +185,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 {
                     ModelState.AddModelError("other-faith-type", "Other faith type must be 100 characters or less.");
                 }
-                else if (Regex.Match(ProjectId, "[^a-zA-Z\\s]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+                else if (Regex.Match(OtherFaithType, "[^a-zA-Z\\s]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
                 {
                     ModelState.AddModelError("other-faith-type", "Other faith type must only contain letters and spaces.");
                 }
