@@ -15,6 +15,7 @@ using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
 using System.Net;
 using Dfe.ManageFreeSchoolProjects.Models;
+using System.Text.RegularExpressions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 {
@@ -35,10 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         [Display(Name = "TRN (trust reference number)")]
         [StringLength(7, ErrorMessage = ValidationConstants.TextValidationMessage)]
         [Required(ErrorMessage = "Enter the TRN.")]
-        [RegularExpression("TR\\d\\d\\d\\d\\d", ErrorMessage = "The TRN must be in the format TRXXXXX")]
         public string TRN { get; set; }
 
-        public string Nonce;
+        //public string Nonce;
 
         public GetTrustByRefResponse Trust { get; set; }
 
@@ -79,6 +79,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         public async Task<IActionResult> OnPost()
         {
             _logger.LogMethodEntered();
+
+            if(!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
+            if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+            {
+                ModelState.AddModelError("trn", "The TRN must be in the format 6 TRXXXXX");
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
 
             try
             {

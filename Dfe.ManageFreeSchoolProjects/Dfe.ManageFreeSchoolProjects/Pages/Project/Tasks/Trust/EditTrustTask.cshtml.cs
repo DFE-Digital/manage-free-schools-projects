@@ -103,7 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
                 return Page();
             }
 
-            if (bool.Parse(ConfirmTrust) == false) {
+            if (!bool.Parse(ConfirmTrust)) {
                 return Redirect(string.Format(RouteConstants.SearchTrustTask, ProjectId));
             }
 
