@@ -28,10 +28,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             {
                 throw new NotFoundException($"Project {projectId} not found");
             }
-            
-            // Updates here
+
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
+            await ApplyTrustTaskUpdates(request.Trust, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
@@ -58,6 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery;
             dbKpi.SchoolDetailsSixthForm = task.SixthForm;
+
             dbKpi.SchoolDetailsFaithStatus = faithStatus;
             dbKpi.SchoolDetailsFaithType = faithType;
             dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
@@ -75,6 +76,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
+        }
+
+        private async Task ApplyTrustTaskUpdates(
+            TrustTask task,
+            Kpi dbKpi)
+        {
+            if (task == null)
+            {
+                return;
+            }
+
+            var trust = await GetTrust(task.TRN);
+
+            dbKpi.TrustId = trust.TrustRef ;
+            dbKpi.TrustName = trust.TrustsTrustName;
+            dbKpi.TrustType = trust.TrustsTrustType;
+
+            dbKpi.SchoolDetailsTrustId = trust.TrustsTrustRef;
+            dbKpi.SchoolDetailsTrustName = trust.TrustsTrustName;
+            dbKpi.SchoolDetailsTrustType = trust.TrustsTrustType;
+        }
+
+        private async Task<Trust> GetTrust(string trustRef)
+        {
+            var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
+            
+            return result;
         }
 
         private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
