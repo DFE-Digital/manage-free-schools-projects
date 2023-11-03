@@ -1,4 +1,4 @@
-﻿using ConcernsCaseWork.Service.Base;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Users;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;

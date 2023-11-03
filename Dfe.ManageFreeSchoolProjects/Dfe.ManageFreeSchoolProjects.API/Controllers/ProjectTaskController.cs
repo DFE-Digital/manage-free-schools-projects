@@ -72,7 +72,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 summary = new ProjectByTaskSummaryResponse
                 {
                     School = projectTasks.SingleOrDefault(x => x.Name == "School"),
-                    Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
+                    Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates"),
+                    Trust = projectTasks.SingleOrDefault(x => x.Name == "Trust")
                 };
             }
             
