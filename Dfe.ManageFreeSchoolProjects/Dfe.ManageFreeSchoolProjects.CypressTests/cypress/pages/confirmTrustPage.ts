@@ -13,7 +13,24 @@ class ConfirmTrustPage {
         cy.getByClass("govuk-summary-list__key").eq(2).contains("Trust type:");
         cy.getByClass("govuk-summary-list__value").eq(2).contains("MAT");
 
+        cy.getByClass("govuk-heading-s").contains("Is this the correct trust?");
+
+        cy.getByTestId("true").should("not.be.selected");
+        cy.getByTestId("false").should("not.be.selected");
+
         cy.getByClass("govuk-button").should("be.visible").contains("Save and continue");
+
+        return this;
+    }
+
+    public selectYes(): this {
+        cy.getByTestId("true").click();
+
+        return this;
+    }
+
+    public selectNo(): this {
+        cy.getByTestId("false").click();
 
         return this;
     }
