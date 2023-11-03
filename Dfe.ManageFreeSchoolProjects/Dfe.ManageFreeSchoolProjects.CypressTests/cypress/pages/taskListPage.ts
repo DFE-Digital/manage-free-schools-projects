@@ -9,6 +9,17 @@ class TaskListPage {
         cy.getByClass("app-task-list__item").eq(1).contains("Completed");
     }
 
+    public selectSchoolFromTaskList(): this {
+        cy.contains("School").click()
+        return this;
+    }
+
+    public verifySchoolMarkedAsComplete(): this {
+        cy.getByClass("app-task-list__item").eq(0).contains("Completed");
+
+        return this;
+    }
+
     public selectTrustFromTaskList(): this {
         cy.contains("Trust").click()
         return this;

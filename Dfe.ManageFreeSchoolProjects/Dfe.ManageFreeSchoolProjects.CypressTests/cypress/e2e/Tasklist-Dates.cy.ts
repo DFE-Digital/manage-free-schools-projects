@@ -28,12 +28,12 @@ describe("Testing project overview", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Selecting Dates link from Tasklist");
         taskListPage.selectDatesFromTaskList();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Checking Dates Summary page elements present");
         datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
@@ -41,13 +41,13 @@ describe("Testing project overview", () => {
         Logger.log("Selecting first Change link from first 'Pre-opening' line");
         datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
 
         Logger.log("Attempting to save Dates Details page with no values");
         datesDetailsPage.selectSaveAndContinueButton()
         
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
@@ -62,7 +62,7 @@ describe("Testing project overview", () => {
         Logger.log("Submitting invalid date formats");
         datesDetailsPage.selectSaveAndContinueButton();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Verify we get correct validation messages for exceptional date formats");
         datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered(project.schoolName);
@@ -77,7 +77,7 @@ describe("Testing project overview", () => {
         Logger.log("Submitting invalid dates");
         datesDetailsPage.selectSaveAndContinueButton();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Verify we get correct validation messages for exceptional days in dates");
         datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered(project.schoolName);
@@ -110,7 +110,7 @@ describe("Testing project overview", () => {
         Logger.log("Submitting valid dates");
         datesDetailsPage.selectSaveAndContinueButton();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Verify Dates Summary Page Complete Elements Visible");
         datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();

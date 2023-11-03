@@ -29,8 +29,15 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
 
         var parsedStatus = updatedProjectTaskStatus.Map();
 
-        if (task.Status == parsedStatus)
+        if (task == null)
+        {
+            task = new Data.Entities.Existing.Tasks() { Rid = dbKpi.Rid, TaskName = Enum.Parse<TaskName>(taskName), Status = parsedStatus };
+            _context.Add(task);
+        }
+        else if (task.Status == parsedStatus)
+        {
             return;
+        }
         
         task.Status = parsedStatus;
 

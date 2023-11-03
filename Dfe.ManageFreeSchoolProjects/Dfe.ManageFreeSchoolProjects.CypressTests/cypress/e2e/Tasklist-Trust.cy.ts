@@ -31,12 +31,12 @@ describe("Testing project overview", () => {
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Selecting Trust link from Tasklist");
         taskListPage.selectTrustFromTaskList();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Checking Trust Summary page elements present");
         trustSummaryPage.verifyTrustSummaryElementsVisible(project.schoolName);
@@ -44,13 +44,13 @@ describe("Testing project overview", () => {
         Logger.log("Selecting first Change link from first 'TRN' line");
         trustSummaryPage.selectChangeTRNToGoToTrustDetails();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
 
         Logger.log("Attempting to save 'Search for a trust by TRN' with no values");
         trustDetailsPage.selectSaveAndContinue()
         
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         trustDetailsPage.verifyValidationMessagesWhenNoDataSet();
@@ -60,7 +60,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
 
@@ -69,7 +69,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
 
@@ -78,7 +78,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenInvalidTRNFormatEntered();
 
@@ -87,7 +87,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenNonExistentTRNEntered();
 
@@ -98,7 +98,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
 
@@ -109,7 +109,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.verifyValidationMessagesWhenTRNTooLongEntered();
 
@@ -120,7 +120,11 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
+<<<<<<< HEAD
        // cy.excuteAccessibilityTests();
+=======
+        cy.executeAccessibilityTests();
+>>>>>>> 48e7da7d86a507c803edfacf84de0a34098f4faa
 
         confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
 
@@ -128,7 +132,7 @@ describe("Testing project overview", () => {
 
         confirmTrustPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         trustDetailsPage.enterValidTrustId(validTrustId);
 
@@ -148,7 +152,7 @@ describe("Testing project overview", () => {
 
         trustSummaryPage.selectConfirmAndContinue();
 
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         taskListPage.verifyTrustMarkedAsComplete();
 
