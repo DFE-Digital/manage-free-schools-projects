@@ -53,6 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             _logger.LogMethodEntered();
 
             Project = await _getProjectService.Execute(ProjectId);
+            CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
 
             var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
 

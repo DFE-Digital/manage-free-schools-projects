@@ -86,9 +86,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
                 return Page();
             }
 
-            if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+            if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(5)).Success)
             {
-                ModelState.AddModelError("trn", "The TRN must be in the format 6 TRXXXXX");
+                ModelState.AddModelError("trn", "The TRN must be in the format TRXXXXX");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
