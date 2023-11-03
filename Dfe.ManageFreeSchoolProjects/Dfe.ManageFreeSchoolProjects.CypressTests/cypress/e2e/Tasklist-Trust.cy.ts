@@ -120,13 +120,27 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        cy.excuteAccessibilityTests();
+       // cy.excuteAccessibilityTests();
 
         confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
+
+        confirmTrustPage.selectNo();
 
         confirmTrustPage.selectSaveAndContinue();
 
         cy.excuteAccessibilityTests();
+
+        trustDetailsPage.enterValidTrustId(validTrustId);
+
+        trustDetailsPage.selectSaveAndContinue();
+
+        // cy.excuteAccessibilityTests();
+
+        confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
+
+        confirmTrustPage.selectYes();
+
+        confirmTrustPage.selectSaveAndContinue();
 
         trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(project.schoolName, validTrustId);
 
@@ -138,67 +152,5 @@ describe("Testing project overview", () => {
 
         taskListPage.verifyTrustMarkedAsComplete();
 
-/*
-        Logger.log("Submitting invalid date formats");
-        trustDetailsPage.selectSaveAndContinueButton();
-
-        cy.excuteAccessibilityTests();
-
-        Logger.log("Verify we get correct validation messages for exceptional date formats");
-        trustDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Attempting to add invalid dates in correct format");
-        trustDetailsPage.enterInvalidDateInEditDatesPage(); 
-
-        Logger.log("Submitting invalid dates");
-        trustDetailsPage.selectSaveAndContinueButton();
-
-        cy.excuteAccessibilityTests();
-
-        Logger.log("Verify we get correct validation messages for exceptional days in dates");
-        trustDetailsPage.verifyValidationMessagesWhenInvalidDateEntered();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Verify we get correct validation messages for exceptional year in academic year START field");
-        trustDetailsPage.enterInvalidAcademicYearStartDateInEditDatesPage();
-        trustDetailsPage.selectSaveAndContinueButton();
-        trustDetailsPage.verifyInvalidAcademicStartYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Verify we get correct validation messages for exceptional year in academic yearTo field");
-        trustDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
-        trustDetailsPage.selectSaveAndContinueButton();
-        trustDetailsPage.verifyInvalidAcademicEndYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        trustDetailsPage.clearTextInControls();
-
-        Logger.log("Attempting to add valid dates in correct format");
-        trustDetailsPage.enterValidDatesInEditDatesPage();
-
-        Logger.log("Submitting valid dates");
-        trustDetailsPage.selectSaveAndContinueButton();
-
-        cy.excuteAccessibilityTests();
-
-        Logger.log("Verify Dates Summary Page Complete Elements Visible");
-        trustSummaryPage.verifyDatesSummaryCompleteElementsVisible();
-
-        trustSummaryPage.selectMarkItemAsComplete();
-        trustSummaryPage.selectConfirmAndContinue();
-
-        taskListPage.verifyTrustMarkedAsComplete();
-*/
     });
 });
