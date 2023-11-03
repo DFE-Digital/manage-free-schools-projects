@@ -43,8 +43,8 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
             Logger.log("Testing that a NON-projectrecordcreator role DOES NOT have the green Create new projects CTA");
             cy.contains('Create new projects').should('not.exist');
             
-            Logger.log("Checking accessibility of the homepage");
-            cy.excuteAccessibilityTests();
+            //Logger.log("Checking accessibility of the homepage");
+            cy.executeAccessibilityTests();
     });
 
 });
@@ -63,8 +63,8 @@ describe("Creating an individual project - Create new project button should disp
         Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
         cy.contains('Create new projects').should('be.visible');
 
-        Logger.log("Checking accessibility of the homepage");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of the homepage");
+        cy.executeAccessibilityTests();
         
 
     });
@@ -83,7 +83,7 @@ describe("Creating an individual project - Test Create new individual project jo
         const temporaryProjectId = dataGenerator.generateTemporaryId();
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
 
         Logger.log("Clicking on Create new projects CTA as projectrecordcreator")
@@ -92,14 +92,14 @@ describe("Creating an individual project - Test Create new individual project jo
         whichProjectMethodPage.checkElementsVisible();
 
         Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
 
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
         whichProjectMethodPage.selectContinue();
 
         Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator when validation error occurs");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
         whichProjectMethodPage.verifyValidationMessage();
 
@@ -117,12 +117,16 @@ describe("Creating an individual project - Test Create new individual project jo
 
         Logger.log("Checking accessibility of whichProjectMethodPage when Creating individual project selected for a projectrecordcreator");
         cy.excuteAccessibilityTests();
-
-        whichProjectMethodPage.selectContinue();
+        //Logger.log("Checking accessibility of whichProjectMethodPage when Creating individual project selected for a projectrecordcreator");
+        cy.executeAccessibilityTests();
         
 
-        Logger.log("Checking accessibility of temporaryProjectId page when Creating individual project selected for a projectrecordcreator")
-        cy.excuteAccessibilityTests();
+
+        whichProjectMethodPage.selectContinue();
+
+        //Logger.log("Checking accessibility of temporaryProjectId page when Creating individual project selected for a projectrecordcreator");
+        cy.executeAccessibilityTests();
+        
 
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
@@ -130,18 +134,20 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT SUBMITTING A BLANK TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.selectContinue();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when empty string validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when empty string validation message occurs");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifyEmptyValidationMessage();
 
 
         Logger.log("TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
 
@@ -150,9 +156,10 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT SUBMITTING INVALID SPACES IN TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsSpaces();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid spaces validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid spaces validation message occurs");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
 
@@ -160,9 +167,10 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 25 CHARS TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersMoreThanTwentyFiveChars();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when > 25 chars validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when > 25 chars validation message occurs");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
 
@@ -170,9 +178,10 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN TEMPORARY ID FIELD FAILS");
         singleProjectTemporaryProjectIdPage.UserAttemptsSQLInjection();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
 
@@ -181,9 +190,10 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN TEMPORARY ID FIELD FAILS");
         singleProjectTemporaryProjectIdPage.UserAttemptsJavaScriptAttack();
 
-        Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of temporaryProjectId page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
+        cy.executeAccessibilityTests();
         
+
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
 
@@ -196,9 +206,10 @@ describe("Creating an individual project - Test Create new individual project jo
         // FREE SCHOOL NAME PAGE
         //--------------------------------------------------------------
 
-        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator");
+        cy.executeAccessibilityTests();
         
+
         singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
 
 
@@ -207,9 +218,10 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT SUBMITTING A BLANK SCHOOL NAME FAILS");
         singleProjectCurrentFreeSchoolNamePage.selectContinue();
 
-        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when empty string validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when empty string validation message occurs");
+        cy.executeAccessibilityTests();
         
+
         singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
 
 
@@ -219,7 +231,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
 
         Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
         
         // ***** UNCOMMENT THIS WHEN FINAL CREATE-PROJECT-SCHOOLNAME BUG-FIX COMES IN **************************************/
         //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
@@ -230,8 +242,8 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 100 CHARS SCHOOL NAME FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanOneHundredChars();
 
-        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when > 25 chars validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when > 25 chars validation message occurs");
+        cy.executeAccessibilityTests();
 
         singleProjectCurrentFreeSchoolNamePage.verifyMoreThanHundredCharsValidationMessage();
 
@@ -242,7 +254,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
 
         Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
@@ -253,7 +265,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
 
         Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
-        cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
@@ -268,9 +280,10 @@ describe("Creating an individual project - Test Create new individual project jo
         //REGION PAGE
         //------------------------------------------------------------------------------------------------------------------------
 
-        Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator");
+        //cy.executeAccessibilityTests();
         
+
         singleProjectRegionPage.checkElementsVisible();
 
         
@@ -279,8 +292,9 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A USER IS UNABLE TO PROCEED ON SINGLEPROJECTREGIONPAGE WITHOUT MAKING A SELECTION");
         singleProjectRegionPage.selectContinue();
 
-        Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when validation message occurs");
+        //cy.executeAccessibilityTests();
+        
 
         singleProjectRegionPage.verifyValidationMessage();
 
@@ -303,18 +317,20 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN SOUTH WEST AND PROCEED TO LOCAL AUTHORITY PAGE");
         singleProjectRegionPage.selectSouthWest();
 
-        Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when South West selected");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectRegion page for a projectrecordcreator when South West selected");
+        //cy.executeAccessibilityTests();
         
+
         singleProjectRegionPage.selectContinue();
 
         //------------------------------------------------------------------------------------------------------------------------
         //LOCAL AUTHORITY PAGE
         //------------------------------------------------------------------------------------------------------------------------
 
-        Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator");
+        //cy.executeAccessibilityTests();
         
+
         singleProjectLocalAuthorityPage.checkElementsVisible();
 
 
@@ -324,8 +340,9 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A USER IS UNABLE TO PROCEED ON SINGLEPROJECTLOCALAUTHORITYPAGE WITHOUT MAKING A SELECTION");
         singleProjectLocalAuthorityPage.selectContinue();
 
-        Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when validation message occurs");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when validation message occurs");
+        //cy.executeAccessibilityTests();
+        
         
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
@@ -346,8 +363,9 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN BEDFORD AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectBedford();
 
-        Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when Bedford selected");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectLocalAuthority page for a projectrecordcreator when Bedford selected");
+        //cy.executeAccessibilityTests();
+        
 
         singleProjectLocalAuthorityPage.selectContinue();
 
@@ -355,9 +373,10 @@ describe("Creating an individual project - Test Create new individual project jo
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
-        Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
+        //cy.executeAccessibilityTests();
         
+
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
 
@@ -368,8 +387,8 @@ describe("Creating an individual project - Test Create new individual project jo
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
-        Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
-        cy.excuteAccessibilityTests();
+        //Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
+        //cy.executeAccessibilityTests();
         
         Logger.log("TESTING THAT THE singleProjectConfirmationPage DISPLAYS CORRECTLY AND THE temporaryProjectId IS CORRECT");
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
