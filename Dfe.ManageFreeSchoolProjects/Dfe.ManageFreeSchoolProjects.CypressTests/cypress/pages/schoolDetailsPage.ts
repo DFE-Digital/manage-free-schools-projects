@@ -118,8 +118,8 @@ class SchoolDetailsPage {
         return this;
     }
 
-    public enterValidSpecialCharsSchoolNameField(): this {
-        cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth)");
+    public enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars :string): this {
+        cy.getByTestId("current-free-school-name").type(schoolWithAllValidSpecialChars);
 1
         return this;
     }
