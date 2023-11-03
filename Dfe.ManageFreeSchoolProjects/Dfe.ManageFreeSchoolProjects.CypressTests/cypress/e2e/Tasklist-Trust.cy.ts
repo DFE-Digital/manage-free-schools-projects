@@ -120,11 +120,7 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-<<<<<<< HEAD
-       // cy.excuteAccessibilityTests();
-=======
-        cy.executeAccessibilityTests();
->>>>>>> 48e7da7d86a507c803edfacf84de0a34098f4faa
+        //cy.executeAccessibilityTests();
 
         confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
 
