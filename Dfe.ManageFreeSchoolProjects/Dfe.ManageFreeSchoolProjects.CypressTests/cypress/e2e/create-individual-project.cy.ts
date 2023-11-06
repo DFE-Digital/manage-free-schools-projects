@@ -313,14 +313,27 @@ describe("Creating an individual project - Test Create new individual project jo
 
         
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTLOCALAUTHORITY PAGE");
-        singleProjectLocalAuthorityPage.selectCambridgeshire();
-        singleProjectLocalAuthorityPage.selectCentralBedfordshire();
-        singleProjectLocalAuthorityPage.selectEssex();
-        singleProjectLocalAuthorityPage.selectHertfordshire();
+        singleProjectLocalAuthorityPage.selectIslesOfScilly()
+                                       .selectBathAndNorthEastSomerset()
+                                       .selectBristol()
+                                       .selectNorthSomerset()
+                                       .selectSouthGloucestershire()
+                                       .selectPoole()
+                                       .selectDorset()
+                                       .selectBournemouthChristchurchAndPoole()
+                                       .selectWiltshire()
+                                       .selectSwindon()
+                                       .selectDevon()
+                                       .selectPlymouth()
+                                       .selectTorbay()
+                                       .selectCornwall()
+                                       .selectSomerset()
+                                       .selectGloucestershire();
+
 
 
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN BEDFORD AND PROCEED TO CHECK YOUR ANSWERS PAGE");
-        singleProjectLocalAuthorityPage.selectBedford();
+        singleProjectLocalAuthorityPage.selectSomerset();
 
         singleProjectLocalAuthorityPage.selectContinue();
 
