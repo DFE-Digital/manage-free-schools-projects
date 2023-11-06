@@ -36,8 +36,8 @@ class SingleProjectCurrentFreeSchoolNamePage {
     }
 
     public verifyInvalidCharsValidationMessage(): this {
-        cy.getById("school-error-link").contains("School name must not include < > { } | ; = and .");
-        cy.getById("school-error").contains("School name must not include < > { } | ; = and .");
+        cy.getById("school-error-link").contains("School name must not include special characters other than , ( ) '");
+        cy.getById("school-error").contains("School name must not include special characters other than , ( ) '");
 
         return this;
     }

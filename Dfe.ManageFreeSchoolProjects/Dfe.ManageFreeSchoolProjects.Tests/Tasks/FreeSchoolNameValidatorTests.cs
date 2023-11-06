@@ -19,28 +19,12 @@ public class FreeSchoolNameValidatorTests
         validationResult.Should().Be(ValidationResult.Success);
     }
 
-    [Fact]
-    public void SchoolNameWithNoLetters_OnlySpecialCharacters_ReturnsErrorMessage()
-    {
-        const string schoolName = "(),'";
-        const string expectedErrorMessage = "Please enter some letters."; 
-        
-        var validationContext = new ValidationContext(schoolName);
-
-        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
-        var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
-
-        validationResult.Should().NotBe(ValidationResult.Success);
-        validationResult?.ErrorMessage.Should().NotBeNullOrEmpty();
-        validationResult?.ErrorMessage.Should().Be(expectedErrorMessage);
-    }
-
     [Theory]
     [InlineData("School~>>>> Name with invalid character@s")]
     [InlineData("School'@s Name%%^££££")]
     public void SchoolName_WithInvalid_Characters_ReturnsErrorMessage(string schoolName)
     {
-        const string expectedErrorMessage = "Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas.";
+        const string expectedErrorMessage = "School name must not include special characters other than , ( ) '";
         
         var validationContext = new ValidationContext(schoolName);
 

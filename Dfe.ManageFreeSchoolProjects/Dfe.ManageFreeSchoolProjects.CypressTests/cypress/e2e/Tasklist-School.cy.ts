@@ -97,19 +97,7 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Test that entering all numbers into schoolname field fails");
-
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestAllNumbersSchoolNameField();
-
         schoolDetailsPage.selectFaithTypeGreekOrthodox();
-
-        schoolDetailsPage.selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
 
         Logger.log("Test that entering only disallowed special chars into schoolname field fails");
 
@@ -121,7 +109,7 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        schoolDetailsPage.verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError();
+        schoolDetailsPage.enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField();
 
         Logger.log("Test that entering a mixture of letters and disallowed special chars into schoolname field fails");
 

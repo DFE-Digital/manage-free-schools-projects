@@ -26,7 +26,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current free school name")]
-        [StringLengthValidator(100, ErrorMessage = "Current free school name must be 100 characters or less.")]
         [SchoolNameValidator]
         [Required]
         public string CurrentFreeSchoolName { get; set; }
