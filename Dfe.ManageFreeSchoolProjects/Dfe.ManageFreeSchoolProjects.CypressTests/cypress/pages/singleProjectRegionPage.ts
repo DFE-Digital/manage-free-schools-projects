@@ -9,7 +9,7 @@ class SingleProjectRegionPage {
         cy.contains("East Midlands");
 
         cy.getByTestId("EastOfEngland").should("not.be.checked");
-        cy.contains("East Of England");
+        cy.contains("East of England");
 
         cy.getByTestId("London").should("not.be.checked");
         cy.contains("London");
