@@ -1,6 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
@@ -48,7 +47,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                         RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                    }
+                    },
+                    Trust = new TrustTask()
+                     {
+                         TRN = kpi.TrustId,
+                         TrustName = kpi.TrustName,
+                         TrustType = kpi.TrustType,
+                     }
                 }).FirstOrDefaultAsync();
 
             return result;

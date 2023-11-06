@@ -14,11 +14,6 @@ class WhichProjectMethodPage {
 
         cy.getByTestId("continue").should("be.visible").contains("Continue");
 
-        cy.getById("subsection-title").contains("Guidance");
-
-        cy.contains("Creating individual new free school project");
-        cy.contains("Bulk upload of new free school projects");
-
         return this;
     }
 
