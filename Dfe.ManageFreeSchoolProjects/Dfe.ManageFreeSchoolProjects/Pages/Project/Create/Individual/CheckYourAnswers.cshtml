@@ -43,7 +43,7 @@
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href=@RouteConstants.CreateProjectSchool>
-                        Change<span class="govuk-visually-hidden"> School name</span>
+                        Change<span class="govuk-visually-hidden">School name</span>
                     </a>
                 </dd>
 
@@ -58,8 +58,8 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="create-new-project-regions">
-                        Change<span class="govuk-visually-hidden"> Geographical region</span>
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectRegion">
+                        Change<span class="govuk-visually-hidden">Geographical region</span>
                     </a>
 
                 </dd>
@@ -70,12 +70,12 @@
                     Local authority
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="local-authority">
-                    @Model.Project.LocalAuthority.ToDescription()
+                    @Model.Project.LocalAuthority
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="create-new-project-local-authority">
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectLA">
                         Change<span class="govuk-visually-hidden"> Local authority</span>
                     </a>
 

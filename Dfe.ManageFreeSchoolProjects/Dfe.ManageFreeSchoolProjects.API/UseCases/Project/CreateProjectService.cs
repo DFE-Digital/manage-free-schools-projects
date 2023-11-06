@@ -65,6 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     MatUnitProjects = "",
                     SponsorUnitProjects = "",
                     SchoolDetailsGeographicalRegion = proj.Region,
+                    SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
                 });
             }
