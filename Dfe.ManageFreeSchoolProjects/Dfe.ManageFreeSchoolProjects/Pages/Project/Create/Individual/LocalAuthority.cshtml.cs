@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             return Page();
         }
 
-        public async Task<ActionResult> OnPost()
+        public ActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
