@@ -79,6 +79,7 @@ describe("Creating an individual project - Test Create new individual project jo
     it("Should navigate to the project/create/method page and navigate through the 'Create individual project journey' e2e", () => {
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
+        const theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
 
         cy.executeAccessibilityTests();
         
@@ -215,9 +216,9 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs");
         cy.executeAccessibilityTests();
         
-        // ***** UNCOMMENT THIS WHEN FINAL CREATE-PROJECT-SCHOOLNAME BUG-FIX COMES IN **************************************/
-        //singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
-        //*******************************************************************************************************************/
+
+        singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
+
 
 
 
@@ -253,7 +254,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         
         Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 100 CHARS OR LESS PASSES");
-        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool();
+        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool(theE2eTestSchool);
 
         //------------------------------------------------------------------------------------------------------------------------
         //REGION PAGE
