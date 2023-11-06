@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
     {
         [Description("East Midlands")]
         EastMidlands = 1,
-        [Description("East Of England")]
+        [Description("East of England")]
         EastOfEngland = 2,
         [Description("London")]
         London = 3,
