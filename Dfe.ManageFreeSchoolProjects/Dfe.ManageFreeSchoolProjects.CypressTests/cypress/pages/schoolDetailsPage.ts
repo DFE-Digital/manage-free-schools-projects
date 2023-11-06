@@ -136,15 +136,6 @@ class SchoolDetailsPage {
         return this;
     }
 
-    public verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError(): this {
-        cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("Please enter some letters");
-
-        cy.getByClass("govuk-error-message").contains("Please enter some letters");
-
-        return this;
-    }
-
     public enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField(): this {
         cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth) !\"£$%^&-+=[]{}:;@~#?/|.*" + "\\<>");
 1
@@ -153,9 +144,9 @@ class SchoolDetailsPage {
 
     public verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas");
+        cy.getByClass("govuk-error-summary").contains("School name must not include special characters other than , ( ) '");
 
-        cy.getByClass("govuk-error-message").contains("Please use valid characters. Valid characters are: A-Z, apostrophes, parentheses and commas");
+        cy.getByClass("govuk-error-message").contains("School name must not include special characters other than , ( ) '");
 
         return this;
     }
@@ -181,9 +172,9 @@ class SchoolDetailsPage {
 
     public verifyNegTestMoreThanOneHundredCharsSchoolName(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("Current free school name must be 100 characters or less");
+        cy.getByClass("govuk-error-summary").contains("The school name must be 100 characters or less");
 
-        cy.getByClass("govuk-error-message").contains("Current free school name must be 100 characters or less");
+        cy.getByClass("govuk-error-message").contains("The school name must be 100 characters or less");
 
         return this;
     }
