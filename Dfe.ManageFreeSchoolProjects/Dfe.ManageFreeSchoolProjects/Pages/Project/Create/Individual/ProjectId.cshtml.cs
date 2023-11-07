@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return Page();
             }
 
-            if (Regex.Match(ProjectId, @"[^a-zA-Z\d\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+            if (Regex.Match(ProjectId,  "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
             {
                 ModelState.AddModelError("projectid", "Temporary project ID must only include numbers and letters");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
