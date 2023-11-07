@@ -136,6 +136,7 @@ class SchoolDetailsPage {
         return this;
     }
 
+<<<<<<< HEAD
     public verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
         cy.getByClass("govuk-error-summary").contains("School name must not include special characters other than , ( ) '");
@@ -145,6 +146,8 @@ class SchoolDetailsPage {
         return this;
     }
 
+=======
+>>>>>>> b1087d7 (Fix: Schoolname allowed special chars need further restrictions)
     public enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField(): this {
         cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth) !\"£$%^&-+=[]{}:;@~#?/|.*" + "\\<>");
 1
