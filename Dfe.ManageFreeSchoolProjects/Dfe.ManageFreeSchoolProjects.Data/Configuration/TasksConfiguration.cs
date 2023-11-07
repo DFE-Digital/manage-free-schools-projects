@@ -10,7 +10,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
     public void Configure(EntityTypeBuilder<Tasks> builder)
     {
         builder
-            .ToTable("Tasks", "mfsp")
+            .ToTable("Tasks", "dbo")
             .HasKey(tasks => new { tasks.Rid, tasks.TaskName });
 
         builder.Property(e => e.Rid)
@@ -25,8 +25,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
         builder.Property(e => e.TaskName)
             .HasMaxLength(30)
             .IsUnicode(false)
-            .HasColumnName("Task Name")
-            .HasConversion(taskConverter);
+            .HasColumnName("Task Name").HasConversion(taskConverter);
 
         var statusConverter = new EnumToStringConverter<Status>();
 
