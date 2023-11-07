@@ -1,12 +1,12 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Microsoft.AspNetCore.Authorization;
+using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -14,8 +14,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "region")]
         [Display(Name = "region")]
-        [Required]
+        [Required(ErrorMessage = "Select the region of the free school.")]
         public string Region { get; set; }
+
+        public string BackLink { get; set; }
 
         private readonly ErrorService _errorService;
 
@@ -33,6 +35,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
+
+            var project = _createProjectCache.Get();
+
+            if (project.Region != 0)
+                Region = _createProjectCache.Get().Region.ToString();
+
+            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSchool); 
             return Page();
         }
 
