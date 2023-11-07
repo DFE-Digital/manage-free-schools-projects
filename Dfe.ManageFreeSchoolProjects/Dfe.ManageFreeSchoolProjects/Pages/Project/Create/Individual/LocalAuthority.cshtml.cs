@@ -92,18 +92,5 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             return authorities;
         }
-        
-        private void SetBackLink(CreateProjectCacheItem project)
-        {
-            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
-            {
-                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
-            }
-            else
-            {
-                BackLink = RouteConstants.CreateProjectRegion;
-            }
-        }
-
     }
 }
