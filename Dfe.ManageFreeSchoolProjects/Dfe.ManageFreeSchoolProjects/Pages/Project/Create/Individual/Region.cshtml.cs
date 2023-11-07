@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -40,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             if (project.Region != 0)
                 Region = _createProjectCache.Get().Region.ToString();
 
-            SetBackLink(project);
+            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSchool); 
             return Page();
         }
 
@@ -58,18 +59,5 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             return Redirect("/project/create/localauthority");
         }
-        
-        private void SetBackLink(CreateProjectCacheItem project)
-        {
-            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
-            {
-                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
-            }
-            else
-            {
-                BackLink = RouteConstants.CreateProjectSchool;
-            }
-        }
-
     }
 }
