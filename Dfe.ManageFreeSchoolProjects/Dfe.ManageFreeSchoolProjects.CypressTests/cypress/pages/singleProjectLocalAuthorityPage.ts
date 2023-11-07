@@ -66,8 +66,8 @@ class SingleProjectLocalAuthorityPage {
     }
 
     public verifyValidationMessage(): this {
-        cy.getById("local-authority-error-link").contains("The Local Authority field is required");
-        cy.getById("local-authority-error").contains("The Local Authority field is required");
+        cy.getById("local-authority-error-link").contains("Select the local authority of the free school");
+        cy.getById("local-authority-error").contains("Select the local authority of the free school");
 
         return this;
     }

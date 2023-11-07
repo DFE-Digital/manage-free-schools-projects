@@ -44,8 +44,8 @@ class SingleProjectRegionPage {
     }
 
     public verifyValidationMessage(): this {
-        cy.getById("region-error-link").contains("The region field is required");
-        cy.getById("region-error").contains("The region field is required");
+        cy.getById("region-error-link").contains("Select the region of the free school");
+        cy.getById("region-error").contains("Select the region of the free school");
 
         return this;
     }
