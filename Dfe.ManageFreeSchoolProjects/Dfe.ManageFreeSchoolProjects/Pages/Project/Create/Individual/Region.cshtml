@@ -34,13 +34,14 @@
                     </h1>
 
                 </legend>
-
-                <govuk-radios-input id="region"
-                                    name="region"
-                                    asp-for="@Model.Region"
-                                    data-testid="region"
-                                    labels="@labels.ToArray()"
-                                    values="@values.ToArray()"/>
+            <div class="govuk-form-group" id="region">
+                <govuk-radios-input 
+                    name="region"
+                    asp-for="@Model.Region"
+                    data-testid="region"
+                    labels="@labels.ToArray()"
+                    values="@values.ToArray()"/>
+                </div>
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
