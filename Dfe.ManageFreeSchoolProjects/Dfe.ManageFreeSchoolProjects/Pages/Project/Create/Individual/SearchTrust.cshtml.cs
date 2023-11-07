@@ -3,14 +3,12 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using DocumentFormat.OpenXml.EMMA;
 using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
 using System.Net;
@@ -26,9 +24,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly ISearchTrustByRefService _searchTrustByRefService;
         private readonly ErrorService _errorService;
-
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
 
         public string CurrentFreeSchoolName { get; set; }
 
@@ -56,24 +51,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _getTrustByRefService = getTrustByRefService;
             _searchTrustByRefService = searchTrustByRefService;
             _errorService = errorService;
-        }
-
-        public async Task<IActionResult> OnGet()
-        {
-            _logger.LogMethodEntered();
-
-            try
-            {
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorMsg(ex);
-            }
-
-            return Page();
         }
 
         public async Task<IActionResult> OnPost()
@@ -117,33 +94,5 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             return Redirect(string.Format(RouteConstants.CreateProjectConfirmTrust, TRN));
 
         }
-
-        public async Task<ActionResult> OnGetTrustsSearchResult(string searchTerm, string nonce)
-        {
-            try
-            {
-                _logger.LogMethodEntered();
-
-
-                // Double check search term
-                if (string.IsNullOrEmpty(searchTerm))
-                {
-                    _logger.LogInformationMsg($"Search rejected, searchQuery too short");
-                    return new JsonResult(new TrustSearchResponse() { Nonce = nonce });
-                }
-
-                _logger.LogInformationMsg($"Entered trust search: searchQuery -'{searchTerm}', nonce-{nonce}");
-                var trustSearchResponse = await _searchTrustByRefService.Execute(searchTerm);
-
-                return new JsonResult(new TrustSearchResponse() { Nonce = nonce, Data = trustSearchResponse.Data });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Trust::IndexPageModel::OnGetTrustsSearchResult::Exception - {Message}", ex.Message);
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
-
     }
 }

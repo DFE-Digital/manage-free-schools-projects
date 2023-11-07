@@ -1,11 +1,27 @@
-﻿using System;
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
-{
-	public class SearchTrust
-	{
-		public SearchTrust()
-		{
-		}
-	}
+﻿@page "/project/create/trust/search"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.SearchTrustTaskModel
+@{
+    var backlink = RouteConstants.CreateProjectLA;
 }
 
+<a href=@backlink class="govuk-back-link">Back</a>
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl">
+    <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
+    Search for a trust by TRN
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-text-input id="trn" name="trn" asp-for="@Model.TRN" data-testid="trust-reference-number" label="TRN (Trust reference number)" hint="For example, TR00036" />
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </form>
+
+    </div>
+</div>

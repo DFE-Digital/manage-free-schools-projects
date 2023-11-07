@@ -84,6 +84,23 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
+                    Trust
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="trust">
+                    @Model.Project.Trust.ToDescription()
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href=@RouteConstants.CreateProjectSearchTrust>
+                        Change<span class="govuk-visually-hidden"> Trust</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                     Provisional opening date agreed with trust
                 </dt>
                 <dd class="govuk-summary-list__value">
