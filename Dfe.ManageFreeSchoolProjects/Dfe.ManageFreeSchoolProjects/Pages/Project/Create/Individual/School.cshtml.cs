@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "school")]
         [Display(Name = "school name")]
         [Required(ErrorMessage = "Enter the current free school name.")]
-        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
-        [RegularExpression(@"[^<>{}=|;.]+", ErrorMessage = "School name must not include < > {{ }} | ; = and .")]
+        [SchoolNameValidator]
         public string School { get; set; }
 
         public string BackLink { get; set; }
