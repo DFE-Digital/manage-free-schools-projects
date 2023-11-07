@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.EditTrustTaskModel
 @{
+    ViewData["Title"] = $"Confirm Trust - {Model.CurrentFreeSchoolName}";
     var backlink = string.Format(RouteConstants.SearchTrustTask, Model.ProjectId);
 
     var labels = new [] { "Yes", "No" };
@@ -63,7 +64,7 @@
                 </div>
             </dl>
             <div>
-                <h3 class="govuk-heading-s">Is this the correct trust?</h3>
+                <h2 class="govuk-heading-s">Is this the correct trust?</h2>
                 <govuk-radios-input id="confirm-trust"
                                     name="confirm-trust"
                                     asp-for="@Model.ConfirmTrust"
