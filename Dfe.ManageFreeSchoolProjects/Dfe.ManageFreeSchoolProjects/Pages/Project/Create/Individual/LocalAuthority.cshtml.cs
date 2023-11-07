@@ -21,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         [BindProperty(Name = "local-authorities")]
         public List<string> LocalAuthorities { get; set; }
+        public string BackLink { get; set; }
         
         private readonly ErrorService _errorService;
-
         private readonly ICreateProjectCache _createProjectCache;
         private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
 
@@ -53,6 +53,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             _createProjectCache.Update(project);
 
+            SetBackLink(project);
+            
             return Page();
         }
 
@@ -89,5 +91,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             return authorities;
         }
+        
+        private void SetBackLink(CreateProjectCacheItem project)
+        {
+            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
+            {
+                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
+            }
+            else
+            {
+                BackLink = RouteConstants.CreateProjectRegion;
+            }
+        }
+
     }
 }

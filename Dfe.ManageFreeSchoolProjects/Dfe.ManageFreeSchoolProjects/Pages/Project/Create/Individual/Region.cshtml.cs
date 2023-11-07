@@ -16,6 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Select the region of the free school.")]
         public string Region { get; set; }
 
+        public string BackLink { get; set; }
+
         private readonly ErrorService _errorService;
 
         private readonly ICreateProjectCache _createProjectCache;
@@ -37,7 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             if (project.Region != 0)
                 Region = _createProjectCache.Get().Region.ToString();
-            
+
+            SetBackLink(project);
             return Page();
         }
 
@@ -55,5 +58,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             return Redirect("/project/create/localauthority");
         }
+        
+        private void SetBackLink(CreateProjectCacheItem project)
+        {
+            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
+            {
+                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
+            }
+            else
+            {
+                BackLink = RouteConstants.CreateProjectSchool;
+            }
+        }
+
     }
 }
