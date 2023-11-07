@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -41,22 +42,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
-            SetBackLink(project);
+            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectMethod); 
             return Page();
         }
-
-        private void SetBackLink(CreateProjectCacheItem project)
-        {
-            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
-            {
-                BackLink = RouteConstants.CreateProjectCheckYourAnswers;
-            }
-            else
-            {
-                BackLink = RouteConstants.CreateProjectMethod;
-            }
-        }
-
+        
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -72,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return Page();
             }
 
-            if (Regex.Match(ProjectId, "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+            if (Regex.Match(ProjectId, @"[^a-zA-Z\d\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
             {
                 ModelState.AddModelError("projectid", "Temporary project ID must only include numbers and letters");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
