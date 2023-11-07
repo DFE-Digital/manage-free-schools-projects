@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "local-authority")]
         [Display(Name = "Local Authority")]
-        [Required]
+        [Required(ErrorMessage = "Select the local authority of the free school.")]
         public string LocalAuthority { get; set; }
 
         [BindProperty(Name = "local-authorities")]
@@ -49,6 +49,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             var localAuthorities = await GetLocalAuthoritiesByRegion();
             LocalAuthorities = localAuthorities.Values.ToList();
             project.LocalAuthorities = localAuthorities;
+
+            if (!string.IsNullOrEmpty(project.LocalAuthority))
+                LocalAuthority = project.LocalAuthority;
             
             _createProjectCache.Update(project);
 
@@ -65,8 +68,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
+            
             project.LocalAuthority = LocalAuthority;
             project.LocalAuthorityCode = project.LocalAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
+            
             _createProjectCache.Update(project);
 
             return Redirect("/project/create/checkyouranswers");

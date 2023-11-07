@@ -2,6 +2,8 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.RegionModel
 @{
+    ViewData["Title"] = "What is the region of the school?";
+
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var labels = new List<string>();
     var values = new List<string>();
@@ -12,9 +14,15 @@
         values.Add(region.ToString());
     }
 }
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="/project/create/school" class="govuk-back-link">Back</a>
+    </div>
+}
+
 
 <div class="govuk-grid-row">
-    <partial name="_ErrorSummary" />
+    <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
 
@@ -33,7 +41,7 @@
                                     asp-for="@Model.Region"
                                     data-testid="region"
                                     labels="@labels.ToArray()"
-                                    values="@values.ToArray()" />
+                                    values="@values.ToArray()"/>
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

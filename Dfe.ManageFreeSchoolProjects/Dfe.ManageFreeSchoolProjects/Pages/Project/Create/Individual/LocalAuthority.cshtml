@@ -1,8 +1,14 @@
 ﻿@page "/project/create/localauthority"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.LocalAuthorityModel
 @{
+    ViewData["Title"] = "What is the local authority?";
     var localAuthorities = Model.LocalAuthorities.ToArray();
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="/project/create/region" class="govuk-back-link">Back</a>
+    </div>
 }
 
 <div class="govuk-form-group">
