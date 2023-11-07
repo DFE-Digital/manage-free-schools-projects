@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -14,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "region")]
         [Display(Name = "region")]
-        [Required]
+        [Required(ErrorMessage = "Select the region of the free school.")]
         public string Region { get; set; }
 
         private readonly ErrorService _errorService;
@@ -33,6 +34,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
+
+            var project = _createProjectCache.Get();
+
+            if (project.Region != 0)
+                Region = _createProjectCache.Get().Region.ToString();
+            
             return Page();
         }
 
