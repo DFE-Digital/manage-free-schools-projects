@@ -1,4 +1,4 @@
-class RegionAndLocalAuthorityPage {
+class RegionAndLocalAuthoritySummaryPage {
 
     public verifyRegionAndLASummaryElementsVisible(schoolName: string): this {
         cy.getByClass("govuk-back-link").contains("Back");
@@ -45,6 +45,6 @@ class RegionAndLocalAuthorityPage {
     }
 }
 
-const regionAndLocalAuthorityPage = new RegionAndLocalAuthorityPage();
+const regionAndLocalAuthoritySummaryPage = new RegionAndLocalAuthoritySummaryPage();
 
-export default regionAndLocalAuthorityPage;
+export default regionAndLocalAuthoritySummaryPage;
