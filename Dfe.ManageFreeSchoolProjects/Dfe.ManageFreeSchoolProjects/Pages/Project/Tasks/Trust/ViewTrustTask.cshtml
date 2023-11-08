@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.ViewTrustTaskModel
 @{
+    ViewData["Title"] = $"Trust - {Model.CurrentFreeSchoolName}";
     var searchLink = string.Format(RouteConstants.SearchTrustTask, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
