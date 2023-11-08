@@ -20,6 +20,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectRegionAndLAFromTaskList(): this {
+        cy.contains("Region and local authority").click()
+        return this;
+    }
+
     public selectTrustFromTaskList(): this {
         cy.contains("Trust").click()
         return this;

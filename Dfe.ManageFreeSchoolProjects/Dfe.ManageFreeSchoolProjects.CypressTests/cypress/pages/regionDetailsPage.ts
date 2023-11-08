@@ -1,4 +1,4 @@
-class RegionAndLocalAuthorityDetailsPage {
+class RegionDetailsPage {
     public checkElementsVisible(schoolName :string): this {
         cy.contains("Back");
 
@@ -260,6 +260,6 @@ class RegionAndLocalAuthorityDetailsPage {
     
 }
 
-const regionAndLocalAuthorityDetailsPage = new RegionAndLocalAuthorityDetailsPage();
+const regionDetailsPage = new RegionDetailsPage();
 
-export default regionAndLocalAuthorityDetailsPage;
+export default regionDetailsPage;
