@@ -2,8 +2,8 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority.ViewRegionAndLocalAuthority
 @{
-    var regionAndLocalAuthorityEditLink = string.Format(RouteConstants.EditRegionAndLocalAuthority, Model.ProjectId);
-    ViewData["Title"] = $"Region and local authority - ";
+    var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
+    ViewData["Title"] = $"Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects"; //TODO: add school name here
 }
 
 <div class="govuk-grid-row">
@@ -32,7 +32,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="@regionAndLocalAuthorityEditLink">
+                    <a class="govuk-link" href="@regionEditLink">
                         Change<span class="govuk-visually-hidden">Region</span>
                     </a>
                 </dd>
@@ -50,7 +50,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="@regionAndLocalAuthorityEditLink">
+                    <a class="govuk-link" href="@regionEditLink">
                         Change<span class="govuk-visually-hidden">Local authority</span>
                     </a>
 
