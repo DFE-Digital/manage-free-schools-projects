@@ -5,5 +5,6 @@
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
         public TrustTask Trust { get; set; }
+        public RegionAndLocalAuthorityTask RegionAndLocalAuthority { get; set; }
     }
 }

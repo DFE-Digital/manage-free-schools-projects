@@ -1,5 +1,4 @@
 ﻿@page "/projects/{projectId}/tasks"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
@@ -98,8 +97,8 @@
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@regionAndLocalAuthorityLink" aria-describedby="">
-                            @* @Model.ProjectTaskListSummary.Trust.Name *@
-                            @* TODO: Task goes here *@
+                            @* @Model.ProjectTaskListSummary.RegionAndLocalAuthority *@
+                            Region and local authority
                         </a>
                     </span>
                     @{
