@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -18,12 +20,18 @@ public class ViewRegionAndLocalAuthority : PageModel
     private readonly IGetTaskStatusService _getTaskStatusService;
     private readonly IUpdateTaskStatusService _updateTaskStatusService;
     private readonly ErrorService _errorService;
+    
+    private const string TaskName = "RegionAndLocalAuthority";
+    
     public GetProjectByTaskResponse Project { get; set; }
     
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
     
+    [BindProperty]
     public bool MarkAsComplete { get; set; }
+
+    public ProjectTaskStatus ProjectTaskStatus { get; set; }
 
     public ViewRegionAndLocalAuthority(IGetProjectByTaskService getProjectService,
         ILogger<ViewSchoolTask> logger,
@@ -43,6 +51,28 @@ public class ViewRegionAndLocalAuthority : PageModel
         
         Project = await _getProjectService.Execute(ProjectId);
         
+        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+
+        ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
+        MarkAsComplete = ProjectTaskStatus == ProjectTaskStatus.Completed;
+        
         return Page();
+    }
+
+    public async Task<ActionResult> OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
+        ProjectTaskStatus = MarkAsComplete ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+
+        await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
+        {
+            TaskName = TaskName, ProjectTaskStatus = ProjectTaskStatus
+        });
+        return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
     }
 }
