@@ -1,9 +1,9 @@
-class SingleProjectLocalAuthorityPage {
-    public checkElementsVisible(): this {
+class LocalAuthorityDetailsPage {
+    public checkElementsVisible(schoolName :string): this {
         cy.contains("Back");
 
-        cy.get("h1").contains("Creating a new free school project");
-        cy.get("h1").contains("What is the local authority?");
+        cy.get("h1").contains(schoolName);
+        cy.get("h1").contains("Edit local authority");
 
         cy.getByTestId("Bedford").should("not.be.checked");
         cy.contains("Bedford");
@@ -100,9 +100,9 @@ class SingleProjectLocalAuthorityPage {
 
 
 
-
+    
 }
 
-const singleProjectLocalAuthorityPage = new SingleProjectLocalAuthorityPage();
+const localAuthorityDetailsPage = new LocalAuthorityDetailsPage();
 
-export default singleProjectLocalAuthorityPage;
+export default localAuthorityDetailsPage;

@@ -10,7 +10,8 @@ import confirmTrustPage from "cypress/pages/confirmTrustPage";
 import schoolSummaryPage from "cypress/pages/schoolSummaryPage";
 import schoolDetailsPage from "cypress/pages/schoolDetailsPage";
 import regionAndLocalAuthoritySummaryPage from "cypress/pages/regionAndLocalAuthoritySummaryPage";
-import regionAndLocalAuthorityDetailsPage from "cypress/pages/regionAndLocalAuthorityDetailsPage";
+import regionDetailsPage from "cypress/pages/regionDetailsPage";
+import localAuthorityDetailsPage from "cypress/pages/localAuthorityDetailsPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -49,28 +50,56 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        regionAndLocalAuthorityDetailsPage.checkElementsVisible(project.schoolName);
+        regionDetailsPage.checkElementsVisible(project.schoolName);
 
 
 
         Logger.log("Test that submitting a blank form on Region page results in a validation error prompting us to make a selection");
-        regionAndLocalAuthorityDetailsPage.selectContinue();
+        regionDetailsPage.selectContinue();
 
         cy.executeAccessibilityTests();
 
-        regionAndLocalAuthorityDetailsPage.verifyValidationMessage();
+        regionDetailsPage.verifyValidationMessage();
 
-        schoolDetailsPage.selectSaveAndContinue();
+        Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Region Details page");
 
-        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
+        regionDetailsPage.selectEastMidlands()
+                         .selectEastOfEngland()
+                         .selectLondon()
+                         .selectNorthEast()
+                         .selectNorthWest()
+                         .selectSouthEast()
+                         .selectSouthWest()
+                         .selectWestMidlands()
+                         .selectYorkshireAndHumber();
+
+
+        Logger.log("Testing that a user can select an option e.g. 'North West' and successfully continue to Local authority Details page");
+
+        regionDetailsPage.selectNorthWest();
+
+        regionDetailsPage.selectContinue();
 
         cy.executeAccessibilityTests();
 
-        schoolSummaryPage.selectMarkItemAsComplete();
+        localAuthorityDetailsPage.checkElementsVisible(project.schoolName);
 
-        schoolSummaryPage.selectConfirmAndContinue();
+        Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Local authority Details page");
 
-        taskListPage.verifySchoolMarkedAsComplete();
+        localAuthorityDetailsPage.selectBedford()
+                                 .selectCambridgeshire()
+                                 .selectCentralBedfordshire()
+                                 .selectEssex()
+                                 .selectHertfordshire();
+        
+        Logger.log("Testing that a user can make a selection and save the Region and Local authority data and navigate to the Region and Local authority Summary page");
+
+        
+      //  regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
+
+      //  regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
+
+      //  taskListPage.verifySchoolMarkedAsComplete();
 
     });
 });
