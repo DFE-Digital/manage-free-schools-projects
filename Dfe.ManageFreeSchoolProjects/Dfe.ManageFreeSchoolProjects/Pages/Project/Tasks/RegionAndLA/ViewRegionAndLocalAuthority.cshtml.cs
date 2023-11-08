@@ -1,4 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -35,8 +37,12 @@ public class ViewRegionAndLocalAuthority : PageModel
         _errorService = errorService;
     }
     
-    public void OnGet()
+    public async Task<ActionResult> OnGet()
     {
+        _logger.LogMethodEntered();
         
+        Project = await _getProjectService.Execute(ProjectId);
+        
+        return Page();
     }
 }

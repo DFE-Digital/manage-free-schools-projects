@@ -97,13 +97,11 @@
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@regionAndLocalAuthorityLink" aria-describedby="">
-                            @* @Model.ProjectTaskListSummary.RegionAndLocalAuthority *@
                             Region and local authority
                         </a>
                     </span>
                     @{
-                        // RenderStatus(Model.ProjectTaskListSummary.Trust);
-                        //TODO: status of task here
+                        RenderStatus(Model.ProjectTaskListSummary.RegionAndLocalAuthority);
                     }
                 </li>
             </ul>
@@ -130,5 +128,4 @@
             <strong class="govuk-tag govuk-tag--grey app-task-list__tag" data-testid="@testId">Not started</strong>
         }
     }
-
 }

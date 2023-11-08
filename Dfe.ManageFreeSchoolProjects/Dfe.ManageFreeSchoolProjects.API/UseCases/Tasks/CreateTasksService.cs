@@ -30,12 +30,12 @@ public class CreateTasksService : ICreateTasksService
     {
         const Status status = Status.NotStarted;
 
-        return new List<Data.Entities.Existing.Tasks>()
+        return new List<Data.Entities.Existing.Tasks>
         {
             new() { Rid = kpiRid, TaskName = TaskName.School, Status = status },
             new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = status },
-            new() {Rid = kpiRid, TaskName = TaskName.Trust, Status = status},
-            // new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = status },
+            new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = status},
+            new() { Rid = kpiRid, TaskName = TaskName.RegionAndLocalAuthority, Status = status },
         };
     }
 }
