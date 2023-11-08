@@ -94,7 +94,7 @@ describe("Testing project overview", () => {
         
         Logger.log("Testing that a user can make a selection and save the Region and Local authority data and navigate to the Region and Local authority Summary page");
 
-        
+
       //  regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
 
       //  regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
