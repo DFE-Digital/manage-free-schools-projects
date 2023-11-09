@@ -1,54 +1,40 @@
 ﻿@page "/projects/{projectId}/tasks/region-and-localauthority/localauthority/edit"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority.EditLocalAuthority
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.EditLocalAuthority
 
 @{
-    // ViewData["Title"] = $"Edit Local authority - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
+    var currentFreeSchoolName = Model.Project.School.CurrentFreeSchoolName;
     
-    var regions = Enum.GetValues(typeof(ProjectRegion));
-    var labels = new List<string>();
-    var values = new List<string>();
-
-    foreach (var region in regions)
-    {
-        labels.Add(region.ToDescription());
-        values.Add(region.ToString());
-    }
+    ViewData["Title"] = $"Edit Local authority - {currentFreeSchoolName} - Manage free school projects";
     
+    var localAuthorities = Model.LocalAuthorities.ToArray();
 }
 
 <div class="govuk-grid-row">
-    @* <a href="/projects/@Model.ProjectId/tasks/region-and-localauthority/region/edit" class="govuk-back-link">Back</a> *@
+    <a href="/projects/@Model.ProjectId/tasks/region-and-localauthority/region/edit" class="govuk-back-link">Back</a>
 
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            @* <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span> *@
-            Edit Region
+            <span class="govuk-caption-l">@currentFreeSchoolName</span>
+            Edit Local authority
         </h1>
-
-
         <div class="govuk-grid-row">
             <partial name="_ErrorSummary"/>
 
-            <form method="post">
-
-                @* <div class="govuk-form-group" id="region"> *@
-                @*     <label class="govuk-label govuk-heading-m" for="region">Region</label> *@
-                @*     <govuk-radios-input *@
-                @*         name="school-type" *@
-                @*         asp-for="@Model.Region" *@
-                @*         data-testid="school-type" *@
-                @*         labels="@labels.ToArray()" *@
-                @*         values="@values.ToArray()"/> *@
-                @* </div> *@
-
+            <form class="form" method="post">
+                <div class="govuk-form-group" id="local-authority">
+                          <govuk-radios-input
+                              asp-for="@Model.LocalAuthority"
+                              name="local-authority"
+                              data-testid="local-authority"
+                              labels="localAuthorities"
+                              values="localAuthorities"/>
+                      </div>
 
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue
                 </button>
             </form>
-
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority;
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA;
 
 public class ViewRegionAndLocalAuthority : PageModel
 {
@@ -30,7 +30,7 @@ public class ViewRegionAndLocalAuthority : PageModel
     
     [BindProperty]
     public bool MarkAsComplete { get; set; }
-
+    
     public ProjectTaskStatus ProjectTaskStatus { get; set; }
 
     public ViewRegionAndLocalAuthority(IGetProjectByTaskService getProjectService,

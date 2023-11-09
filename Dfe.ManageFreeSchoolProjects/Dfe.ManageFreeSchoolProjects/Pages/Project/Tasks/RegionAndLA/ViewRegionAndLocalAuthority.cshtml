@@ -1,6 +1,6 @@
 ﻿@page "/projects/{projectId}/tasks/region-and-localauthority"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority.ViewRegionAndLocalAuthority
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.ViewRegionAndLocalAuthority
 @{
     var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
     ViewData["Title"] = $"Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
@@ -8,14 +8,14 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        @* <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a> *@
+        <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
 
         <h1 class="govuk-heading-xl">
-            @* <span class="govuk-caption-l"> *@
-            @*     @{ *@
-            @*         RenderValue(Model.Project.); *@
-            @*     } *@
-            @* </span> *@
+            <span class="govuk-caption-l">
+                @{
+                    RenderValue(Model.Project.School.CurrentFreeSchoolName);
+                }
+            </span>
             Region and local authority
         </h1>
         <dl class="govuk-summary-list">
