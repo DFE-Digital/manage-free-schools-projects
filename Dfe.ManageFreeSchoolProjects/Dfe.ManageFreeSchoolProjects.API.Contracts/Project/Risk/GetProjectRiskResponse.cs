@@ -22,18 +22,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
     public class ProjectRiskHistoryResponse
     {
         public DateTime Date { get; set; }
-        public ProjectRiskRating RiskRating { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
     }
 
     public class ProjectRiskEntryResponse
     {
-        public ProjectRiskRating RiskRating { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
         public string Summary { get; set; }
     }
 
     public enum ProjectRiskRating
     {
-        Unknown = 0,
         [Description("Green")]
         Green = 1,
         [Description("Amber/Green")]

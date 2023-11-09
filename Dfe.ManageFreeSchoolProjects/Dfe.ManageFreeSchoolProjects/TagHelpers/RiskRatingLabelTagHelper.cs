@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         private readonly IHtmlHelper _htmlHelper;
 
         [HtmlAttributeName("risk-rating")]
-        public ProjectRiskRating RiskRating { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
 
         [ViewContext]
         public ViewContext ViewContext { get; set; }

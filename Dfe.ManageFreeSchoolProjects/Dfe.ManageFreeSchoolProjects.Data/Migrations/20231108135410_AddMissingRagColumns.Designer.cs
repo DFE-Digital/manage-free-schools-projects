@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20231108135410_AddMissingRagColumns")]
+    partial class AddMissingRagColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -10500,10 +10503,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Education RAG");
 
                     b.Property<string>("RagRatingsEducationRagSummary")
-                        .HasMaxLength(1000)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1000)")
-                        .HasColumnName("Rag Ratings.Education RAG summary");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagRatingsFinanceRagSummary")
                         .HasMaxLength(1000)
@@ -10512,9 +10512,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Finance RAG summary");
 
                     b.Property<string>("RagRatingsFinancesRagRating")
-                        .HasMaxLength(1000)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1000)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Rag Ratings.Finances RAG rating");
 
                     b.Property<string>("RagRatingsGovernanceAndSuitabilityRagRating")
@@ -10524,15 +10524,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Governance and Suitability RAG rating");
 
                     b.Property<string>("RagRatingsGovernanceAndSuitabilityRagSummary")
-                        .HasMaxLength(1000)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1000)")
-                        .HasColumnName("Rag Ratings.Governance and Suitability RAG summary");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagRatingsHasCondition1BeenMet")
-                        .HasMaxLength(1000)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1000)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Rag Ratings.Has condition 1 been met?");
 
                     b.Property<string>("RagRatingsHasCondition2BeenMet")
@@ -10638,10 +10635,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Reason for Joint Risk Category");
 
                     b.Property<string>("RagRatingsRiskAppraisalFormSharepointLink")
-                        .HasMaxLength(1000)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(1000)")
-                        .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagRatingsRscStocktakeRecommendationSummary")
                         .HasMaxLength(1000)

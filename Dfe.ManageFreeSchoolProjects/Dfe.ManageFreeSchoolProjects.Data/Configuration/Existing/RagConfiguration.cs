@@ -61,16 +61,24 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Finance RAG summary");
+            builder.Property(e => e.RagRatingsEducationRagSummary)
+                 .HasMaxLength(1000)
+                 .IsUnicode(false)
+                 .HasColumnName("Rag Ratings.Education RAG summary");
             builder.Property(e => e.RagRatingsFinancesRagRating)
-                .HasMaxLength(100)
+                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Finances RAG rating");
             builder.Property(e => e.RagRatingsGovernanceAndSuitabilityRagRating)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Governance and Suitability RAG rating");
+            builder.Property(e => e.RagRatingsGovernanceAndSuitabilityRagSummary)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("Rag Ratings.Governance and Suitability RAG summary");
             builder.Property(e => e.RagRatingsHasCondition1BeenMet)
-                .HasMaxLength(100)
+                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Has condition 1 been met?");
             builder.Property(e => e.RagRatingsHasCondition2BeenMet)
@@ -153,6 +161,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("RID");
+            builder.Property(e => e.RagRatingsRiskAppraisalFormSharepointLink)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
+                .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
 
 		}
 	}

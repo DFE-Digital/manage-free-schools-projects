@@ -2,13 +2,14 @@
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
 {
     public interface IGetProjectRiskService
     {
-        Task<GetProjectRiskResponse> Execute(string projectId);
+        Task<GetProjectRiskResponse> Execute(string projectId, int entry);
     }
 
     public class GetProjectRiskService : IGetProjectRiskService
@@ -20,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
             _context = context;
         }
 
-        public async Task<GetProjectRiskResponse> Execute(string projectId)
+        public async Task<GetProjectRiskResponse> Execute(string projectId, int entry)
         {
             var dbProject = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
@@ -29,17 +30,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
                 throw new NotFoundException($"Project with id {projectId} not found");
             }
 
-            var result = await _context.Rag
+            var ragEntries = await _context.Rag
+                .TemporalAll()
                 .Where(e => e.Rid == dbProject.Rid)
-                .Select(rag => new GetProjectRiskResponse
+                .OrderByDescending(e => EF.Property<DateTime>(e, "PeriodStart"))
+                .Select(rag => new GetProjectRiskResponse()
                 {
+                    Date = EF.Property<DateTime>(rag, "PeriodStart"),
                     GovernanceAndSuitability = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsGovernanceAndSuitabilityRagRating)
+                        RiskRating = MapToRisk(rag.RagRatingsGovernanceAndSuitabilityRagRating),
+                        Summary = rag.RagRatingsGovernanceAndSuitabilityRagSummary
                     },
                     Education = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsEducationRag)
+                        RiskRating = MapToRisk(rag.RagRatingsEducationRag),
+                        Summary = rag.RagRatingsEducationRagSummary
                     },
                     Finance = new()
                     {
@@ -51,46 +57,54 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
                         RiskRating = MapToRisk(rag.RagRatingsOverallRagRating),
                         Summary = rag.RagRatingsOverallRagSummary
                     },
-                }).FirstOrDefaultAsync();
-
-            var history = await _context.Rag
-                .TemporalAll()
-                .Where(e => e.Rid == dbProject.Rid)
-                .Select(rag => new ProjectRiskHistoryResponse
-                {
-                    Date = DateTime.Now,
-                    RiskRating = MapToRisk(rag.RagRatingsOverallRagRating)
+                    RiskAppraisalFormSharepointLink = rag.RagRatingsRiskAppraisalFormSharepointLink
                 })
                 .ToListAsync();
 
-            result.History = history;
+            GetProjectRiskResponse result = ragEntries.ElementAtOrDefault(entry - 1);
+
+            if (result != null)
+            {
+                result.History = ragEntries.Select(ToHistory).ToList();
+            }
 
             return result;
         }
 
-        private static ProjectRiskRating MapToRisk(string value)
+        public static ProjectRiskHistoryResponse ToHistory(GetProjectRiskResponse response)
         {
-            if (value == ProjectRiskRating.Green.GetDescription())
+            var result = new ProjectRiskHistoryResponse()
+            {
+                Date = response.Date,
+                RiskRating = response.Overall.RiskRating
+            };
+
+            return result;
+        }
+
+        private static ProjectRiskRating? MapToRisk(string value)
+        {
+            if (value == "Green")
             {
                 return ProjectRiskRating.Green;
             }
 
-            if (value == ProjectRiskRating.AmberGreen.GetDescription())
+            if (value == "Amber/Green")
             {
                 return ProjectRiskRating.AmberGreen;
             }
 
-            if (value == ProjectRiskRating.AmberRed.GetDescription())
+            if (value == "Amber/Red")
             {
                 return ProjectRiskRating.AmberRed;
             }
 
-            if (value == ProjectRiskRating.Red.GetDescription())
+            if (value == "Red")
             {
                 return ProjectRiskRating.Red;
             }
 
-            return ProjectRiskRating.Unknown;
+            return null;
         }
     }
 }

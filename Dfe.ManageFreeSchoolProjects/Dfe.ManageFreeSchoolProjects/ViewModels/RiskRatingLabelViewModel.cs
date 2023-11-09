@@ -4,6 +4,6 @@ namespace Dfe.ManageFreeSchoolProjects.ViewModels
 {
     public class RiskRatingLabelViewModel
     {
-        public ProjectRiskRating RiskRating { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
     }
 }

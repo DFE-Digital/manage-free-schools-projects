@@ -35,17 +35,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
             if (existingRag == null) 
             {
                 existingRag = new Rag();
+                existingRag.Rid = dbProject.Rid;
 
                 _context.Rag.Add(existingRag);
             }
 
             existingRag.Rid = dbProject.Rid;
             existingRag.RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating.GetDescription();
+            existingRag.RagRatingsGovernanceAndSuitabilityRagSummary = request.GovernanceAndSuitability.Summary;
+
             existingRag.RagRatingsEducationRag = request.Education.RiskRating.GetDescription();
+            existingRag.RagRatingsEducationRagSummary = request.Education.Summary;
+
             existingRag.RagRatingsFinancesRagRating = request.Finance.RiskRating.GetDescription();
             existingRag.RagRatingsFinanceRagSummary = request.Finance.Summary;
             existingRag.RagRatingsOverallRagRating = request.Overall.RiskRating.GetDescription();
             existingRag.RagRatingsOverallRagSummary = request.Overall.Summary;
+
+            existingRag.RagRatingsRiskAppraisalFormSharepointLink = request.RiskAppraisalFormSharepointLink;
 
             await _context.SaveChangesAsync();
 
