@@ -12,6 +12,7 @@ import validationComponent from "cypress/pages/validationComponent";
 import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
 import { v4 } from "uuid";
 import dataGenerator from "cypress/fixtures/dataGenerator";
+import singleProjectTrustIdPage from "cypress/pages/singleProjectTrustIDPage";
 
 
 describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON AND CANNOT ACCESS 'Create individual project' URLs", () => {
@@ -80,6 +81,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
         const theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
+        const validTrustId = "TR03446";
 
         cy.executeAccessibilityTests();
         
@@ -331,12 +333,84 @@ describe("Creating an individual project - Test Create new individual project jo
                                        .selectSomerset()
                                        .selectGloucestershire();
 
-
-
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN BEDFORD AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectSomerset();
-
+                               
         singleProjectLocalAuthorityPage.selectContinue();
+
+        // ***************************** STEP - 5 - TRUST ID SECTION **********************************************
+
+        singleProjectTrustIdPage.checkElementsVisible();
+
+
+        Logger.log("TESTING THAT SUBMITTING A BLANK TRUST REFERENCE NUMBER FAILS");
+        singleProjectTrustIdPage.selectContinue();
+
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyEmptyValidationMessage();
+
+
+        Logger.log("TEST THAT SUBMITTING INVALID CHARS IN TRUST REFERENCE NUMBER FIELD FAILS");
+        singleProjectTrustIdPage.UserEntersAndSubmitsInvalidChars();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyValidTRNFormatMessage();
+
+
+
+
+        Logger.log("TEST THAT SUBMITTING INVALID SPACES IN TRUST REFERENCE NUMBER FAILS");
+        singleProjectTrustIdPage.UserEntersAndSubmitsSpaces();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyTRNTooLongMessage();
+
+
+
+        Logger.log("TEST THAT ATTEMPTING TO SUBMIT A TRN FORMAT THAT IS TOO LONG FAILS");
+        singleProjectTrustIdPage.UserEntersMoreThanSixDigitsAfterTRNPrefixChars();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyTRNTooLongMessage();
+
+
+
+        Logger.log("TEST THAT AN SQL INJECTION ATTACK IN TRUST REFERENCE NUMBER FIELD FAILS");
+        singleProjectTrustIdPage.UserAttemptsSQLInjection();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyTRNTooLongMessage();
+
+
+
+
+        Logger.log("TEST THAT A CROSS-SITE SCRIPTING ATTACK IN TRUST REFERENCE NUMBER FIELD FAILS");
+        singleProjectTrustIdPage.UserAttemptsJavaScriptAttack();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectTrustIdPage.verifyTRNTooLongMessage();
+
+
+
+        Logger.log("TEST THAT A VALID FORMAT TRUST REFERENCE NUMBER (TRNXXXXX) THAT EXISTS AND PASSES");
+        singleProjectTrustIdPage.UserEntersValidTrustReferenceNumber(validTrustId);
+        singleProjectTrustIdPage.selectContinue();
+
+
+
 
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
@@ -357,6 +431,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         Logger.log("TESTING THAT THE singleProjectConfirmationPage DISPLAYS CORRECTLY AND THE temporaryProjectId IS CORRECT");
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
+
 
 
         //--------------------------------------------------------------------------------------------------------------------------
