@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority.EditRegion
 
 @{
-    ViewData["Title"] = $"Edit Region - - Manage free school projects"; //TODO: add school name here
+    ViewData["Title"] = $"Edit Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
     
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var labels = new List<string>();
@@ -14,7 +14,6 @@
         labels.Add(region.ToDescription());
         values.Add(region.ToString());
     }
-    
 }
 
 <div class="govuk-grid-row">
@@ -23,7 +22,7 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            @* <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span> *@
+            <span class="govuk-caption-l">@Model.Project.School.CurrentFreeSchoolName</span>
             Edit Region
         </h1>
 
@@ -36,13 +35,12 @@
                 <div class="govuk-form-group" id="region">
                     <label class="govuk-label govuk-heading-m" for="region">Region</label>
                     <govuk-radios-input
-                        name="school-type"
+                        name="region"
                         asp-for="@Model.Region"
-                        data-testid="school-type"
+                        data-testid="region"
                         labels="@labels.ToArray()"
                         values="@values.ToArray()"/>
                 </div>
-
 
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue

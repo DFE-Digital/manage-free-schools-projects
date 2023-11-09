@@ -17,6 +17,7 @@
 
         public const string ViewRegionAndLocalAuthorityTask = TaskList + "/region-and-localauthority";
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
+        public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit";
 
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
@@ -25,6 +26,5 @@
         public const string CreateProjectLA = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
-        
     }
 }
