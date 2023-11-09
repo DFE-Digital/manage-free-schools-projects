@@ -31,11 +31,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
+            ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
             await _context.SaveChangesAsync();
+        }
+
+        private void ApplyRegionAndLocalAuthorityTaskUpdates(RegionAndLocalAuthorityTask regionAndLocalAuthorityTask, Kpi dbKpi)
+        {
+            if (regionAndLocalAuthorityTask is null)
+            {
+                return;
+            }
+
+            dbKpi.LocalAuthority = regionAndLocalAuthorityTask.LocalAuthority;
+            dbKpi.SchoolDetailsGeographicalRegion = regionAndLocalAuthorityTask.Region;
+            //dbKpi.SchoolDetailsLocalAuthority = 
         }
 
         private static void ApplySchoolTaskUpdates(

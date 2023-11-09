@@ -1,10 +1,10 @@
 ﻿@page "/projects/{projectId}/tasks/region-and-localauthority/region/edit"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionLocalAuthority.EditRegion
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.EditRegion
 
 @{
-    ViewData["Title"] = $"Edit Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
-    
+    ViewData["Title"] = $"Edit Region - {Model.CurrentFreeSchoolName} - Manage free school projects";
+
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var labels = new List<string>();
     var values = new List<string>();
@@ -22,16 +22,14 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">@Model.Project.School.CurrentFreeSchoolName</span>
+            <span class="govuk-caption-l"> @Model.CurrentFreeSchoolName </span>
             Edit Region
         </h1>
-
 
         <div class="govuk-grid-row">
             <partial name="_ErrorSummary"/>
 
             <form method="post">
-
                 <div class="govuk-form-group" id="region">
                     <label class="govuk-label govuk-heading-m" for="region">Region</label>
                     <govuk-radios-input
@@ -45,6 +43,7 @@
                 <button class="govuk-button" data-module="govuk-button">
                     Save and continue
                 </button>
+
             </form>
 
         </div>
