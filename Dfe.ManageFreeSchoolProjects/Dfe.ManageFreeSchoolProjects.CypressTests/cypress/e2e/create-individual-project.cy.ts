@@ -13,6 +13,7 @@ import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
 import { v4 } from "uuid";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import singleProjectTrustIdPage from "cypress/pages/singleProjectTrustIDPage";
+import singleProjectNotifyUserPage from "cypress/pages/singleProjectNotifyUser";
 
 
 describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON AND CANNOT ACCESS 'Create individual project' URLs", () => {
@@ -79,9 +80,12 @@ describe("Creating an individual project - Test Create new individual project jo
 
     it("Should navigate to the project/create/method page and navigate through the 'Create individual project journey' e2e", () => {
 
+        const faker = require("faker");
+
         const temporaryProjectId = dataGenerator.generateTemporaryId();
         const theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         const validTrustId = "TR03446";
+        const validEmail = faker.name.email();
 
         cy.executeAccessibilityTests();
         
@@ -410,6 +414,76 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTrustIdPage.selectContinue();
 
 
+        // STEP 14 - Notify User
+
+        singleProjectNotifyUserPage.checkElementsVisible();
+
+
+        Logger.log("TESTING THAT SUBMITTING A BLANK EMAIL ADDRESS FAILS");
+        singleProjectNotifyUserPage.selectContinue();
+
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyEmptyValidationMessage();
+
+
+        Logger.log("TEST THAT SUBMITTING INVALID EMAIL ADDRESS FORMAT IN EMAIL FIELD FAILS");
+        singleProjectNotifyUserPage.UserEntersAndSubmitsInvalidEmailFormat();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyValidEmailFormatMessage();
+
+
+
+
+        Logger.log("TEST THAT SUBMITTING INVALID SPACES IN AN EMAIL ADDRESS FAILS");
+        singleProjectNotifyUserPage.UserEntersAnInvalidEmailWithSpaces();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyValidEmailFormatMessage();
+
+
+
+        Logger.log("TEST THAT ATTEMPTING TO SUBMIT AN EMAIL ADDRESS TOO LONG FAILS");
+        singleProjectNotifyUserPage.UserEntersEmailMoreThanOneHundredChars();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyEmailTooLongMessage();
+
+
+
+        Logger.log("TEST THAT AN SQL INJECTION ATTACK IN EMAIL ADDRESS FIELD FAILS");
+        singleProjectNotifyUserPage.UserAttemptsSQLInjection();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyValidEmailFormatMessage();
+
+
+
+
+        Logger.log("TEST THAT A CROSS-SITE SCRIPTING ATTACK IN EMAIL ADDRESS FIELD FAILS");
+        singleProjectNotifyUserPage.UserAttemptsJavaScriptAttack();
+
+        cy.executeAccessibilityTests();
+        
+
+        singleProjectNotifyUserPage.verifyValidEmailFormatMessage();
+
+
+
+        Logger.log("TEST THAT A VALID FORMAT EMAIL ADDRESS CAN BE ENTERED INTO THE EMAIL FIELD AND THAT IT IS ACCEPTED AND USER PROCEEDS TO CHECK YOUR ANSWERS PAGE");
+        singleProjectNotifyUserPage.UserEntersValidEmailAddress(validEmail);
+        singleProjectNotifyUserPage.selectContinue();
 
 
         //--------------------------------------------------------------------------------------------------------------------------

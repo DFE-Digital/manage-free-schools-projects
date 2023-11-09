@@ -1,5 +1,3 @@
-import dataGenerator from "cypress/fixtures/dataGenerator";
-
 const validTrustId = "";
 
 class SingleProjectTrustIdPage {
