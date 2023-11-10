@@ -23,7 +23,7 @@
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
         public const string CreateProjectSearchTrust = CreateProject + "/trust/search";
-        public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm";
+        public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         
     }
 }

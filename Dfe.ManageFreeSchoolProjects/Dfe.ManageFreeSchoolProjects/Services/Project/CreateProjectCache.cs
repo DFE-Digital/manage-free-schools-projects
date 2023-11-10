@@ -67,9 +67,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
         public ProjectRegion Region { get; set; }
-        public TrustTask Trust { get; set; }
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
         public string LocalAuthorityCode { get; set; }
+        public string TRN { get; set; }
+        public string TrustName { get; set; }
     }
 }

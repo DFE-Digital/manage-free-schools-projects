@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -18,6 +19,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ICreateProjectCache _createProjectCache;
         private readonly ICreateProjectService _createProjectService;
 
+        public string BackLink { get; set; }
+
         public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService)
         {
             _createProjectCache = createProjectCache;
@@ -25,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _errorService = errorService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
             if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
             {
@@ -33,6 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
+
+            BackLink = string.Format(RouteConstants.CreateProjectConfirmTrust, Project.TRN);
+
             _createProjectCache.Update(Project);
             return Page();
         }
@@ -49,6 +55,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,
                 Region = project.Region.ToDescription(),
+                TRN = project.TRN,
+                TrustName = project.TrustName,
             };
 
             createProjectRequest.Projects.Add(projReq);

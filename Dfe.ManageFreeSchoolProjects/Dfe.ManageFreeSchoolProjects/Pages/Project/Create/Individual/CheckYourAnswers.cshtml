@@ -2,11 +2,11 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
-    ViewData["Title"] = "Check your answers"; 
+    ViewData["Title"] = "Check your answers";
 }
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
-        <a href=@RouteConstants.CreateProjectLA class="govuk-back-link">Back</a>
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
     </div>
 }
 <div class="govuk-grid-row">
@@ -88,7 +88,7 @@
                     Trust
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="trust">
-                    @Model.Project.Trust.ToDescription()
+                    @Model.Project.TrustName
                 </dd>
 
                 <dd class="govuk-summary-list__actions">

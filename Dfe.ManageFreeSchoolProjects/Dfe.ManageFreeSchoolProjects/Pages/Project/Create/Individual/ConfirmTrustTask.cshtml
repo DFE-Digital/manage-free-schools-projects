@@ -1,75 +1,81 @@
-﻿@page "/project/create/trust/confirm"
+﻿@page "/project/create/trust/confirm/{trn}"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.EditTrustTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.ConfirmTrustTaskModel
 @{
-    var backlink = RouteConstants.CreateProjectSearchTrust;
+    ViewData["Title"] = "Confirm Trust";
 
     var labels = new[] { "Yes", "No" };
     var values = new[] { "true", "false" };
 }
-<a href=@backlink class="govuk-back-link">Back</a>
 
-<partial name="_ErrorSummary" />
-
-<h1 class="govuk-heading-xl">
-    <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
-    Confirm the trust
-</h1>
-
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+    </div>
+}
 <div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds">
 
-        <form method="post">
-            <dl class="govuk-summary-list">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Trust ID:
-                    </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trn">
-                        @{
-                            RenderValue(@Model.TRN);
-                        }
-                    </dd>
+        <form class="form" method="post">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
 
+                    <h1 class="govuk-fieldset__heading">
+                        <span class="govuk-caption-l">Creating a new free school project</span>
+                        Confirm the trust
+                    </h1>
+
+                </legend>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Trust ID:
+                            </dt>
+                            <dd class="govuk-summary-list__value" data-testid="trn">
+                                @{
+                                    RenderValue(@Model.TRN);
+                                }
+                            </dd>
+
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Trust name:
+                            </dt>
+                            <dd class="govuk-summary-list__value" data-testid="trust-name">
+                                @{
+                                    RenderValue(Model.TrustName);
+                                }
+
+                            </dd>
+
+                        </div>
+
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Trust type:
+                            </dt>
+                            <dd class="govuk-summary-list__value" data-testid="trust-type">
+                                @{
+                                    RenderValue(Model.TrustType);
+                                }
+                            </dd>
+
+                        </div>
+                    </dl>
+                <div>
+                    <h2 class="govuk-heading-s">Is this the correct trust?</h2>
+                    <govuk-radios-input id="confirm-trust"
+                                        name="confirm-trust"
+                                        asp-for="@Model.ConfirmTrust"
+                                        data-testid="confirm-trust"
+                                        labels="@labels"
+                                        values="@values" />
                 </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Trust name:
-                    </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trust-name">
-                        @{
-                            RenderValue(Model.TrustName);
-                        }
-
-                    </dd>
-
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Trust type:
-                    </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trust-type">
-                        @{
-                            RenderValue(Model.TrustType);
-                        }
-                    </dd>
-
-                </div>
-            </dl>
-            <div>
-                <h3 class="govuk-heading-s">Is this the correct trust?</h3>
-                <govuk-radios-input id="confirm-trust"
-                                    name="confirm-trust"
-                                    asp-for="@Model.ConfirmTrust"
-                                    data-testid="confirm-trust"
-                                    labels="@labels"
-                                    values="@values" />
-            </div>
-            <button class="govuk-button" data-module="govuk-button">
-                Save and continue
-            </button>
+                <button class="govuk-button" data-module="govuk-button">
+                    Continue
+                </button>
         </form>
 
     </div>

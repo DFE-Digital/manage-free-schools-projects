@@ -6,6 +6,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
+using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<ConfirmTrustTaskModel> _logger;
         private readonly ErrorService _errorService;
+
+        public string BackLink { get; set; }
 
         [BindProperty(SupportsGet = true, Name = "trn")]
         [Display(Name = "TRN")]
@@ -65,12 +68,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
+                var project = _createProjectCache.Get();
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
                 TRN = trust.Trust.TRN;
                 TrustName = trust.Trust.TrustName;
                 TrustType = trust.Trust.TrustType;
+
+                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSearchTrust);
 
             }
             catch (Exception ex)
@@ -106,13 +112,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
-                project.Trust = new TrustTask()
-                {
-                    TRN = trust.Trust.TRN,
-                    TrustName = trust.Trust.TrustName,
-                    TrustType = trust.Trust.TrustType
-
-                };
+                project.TRN = trust.Trust.TRN;
+                project.TrustName = trust.Trust.TrustName;
 
                 _createProjectCache.Update(project);
 

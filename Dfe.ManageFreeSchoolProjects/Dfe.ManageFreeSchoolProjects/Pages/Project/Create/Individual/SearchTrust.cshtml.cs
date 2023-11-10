@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Net;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.Text.RegularExpressions;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -25,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ISearchTrustByRefService _searchTrustByRefService;
         private readonly ErrorService _errorService;
 
-        public string CurrentFreeSchoolName { get; set; }
+        public string BackLink { get; set; }
 
         [BindProperty(Name = "trn")]
         [Display(Name = "TRN (trust reference number)")]
@@ -33,24 +34,45 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Enter the TRN.")]
         public string TRN { get; set; }
 
-        //public string Nonce;
-
         public GetTrustByRefResponse Trust { get; set; }
 
         public SearchTrustByRefResponse TrustSearchResults { get; set; }
+
+        private readonly ICreateProjectCache _createProjectCache;
 
         public SearchTrustTaskModel(
             IGetProjectByTaskService getProjectService,
             IGetTrustByRefService getTrustByRefService,
             ISearchTrustByRefService searchTrustByRefService,
+            ICreateProjectCache createProjectCache,
             ILogger<SearchTrustTaskModel> logger,
             ErrorService errorService)
         {
-            _logger = logger;
             _getProjectService = getProjectService;
             _getTrustByRefService = getTrustByRefService;
             _searchTrustByRefService = searchTrustByRefService;
+            _createProjectCache = createProjectCache;
+            _logger = logger;
             _errorService = errorService;
+        }
+
+        public async Task<IActionResult> OnGet()
+        {
+            _logger.LogMethodEntered();
+
+            try
+            {
+                var project = _createProjectCache.Get();
+
+                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectLA);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
@@ -63,9 +85,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return Page();
             }
 
-            if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+            if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(5)).Success)
             {
-                ModelState.AddModelError("trn", "The TRN must be in the format 6 TRXXXXX");
+                ModelState.AddModelError("trn", "The TRN must be in the format TRXXXXX");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
