@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/risk-rating/summary"
+﻿@page "/projects/{projectId}/risk/summary"
 @using Dfe.ManageFreeSchoolProjects.TagHelpers;
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
 @model RiskSummaryModel
@@ -115,7 +115,7 @@
             </div>
         </dl>
 
-        <a class="govuk-button" data-module="govuk-button" href="/projects/@Model.ProjectId/risk-rating/governance-and-suitability/add" data-testid="add-risk-entry">
+        <a class="govuk-button" data-module="govuk-button" href="/projects/@Model.ProjectId/risk/governance-and-suitability/add" data-testid="add-risk-entry">
             Add a risk rating entry
         </a>
     </div>
@@ -149,7 +149,7 @@
                             <td class="govuk-table__cell">
                                 @if (historyIdx != Model.Entry)
                                 {
-                                    <a href="/projects/@Model.ProjectId/risk-rating/summary?entry=@historyIdx" data-testid="project-risk-view-link">View</a>
+                                    <a href="/projects/@Model.ProjectId/risk/summary?entry=@historyIdx" data-testid="project-risk-view-link">View</a>
                                 }
                             </td>
                         </tr>

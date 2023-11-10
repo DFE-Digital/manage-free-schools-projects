@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-            return Redirect($"/projects/{ProjectId}/risk-rating/overall/add");
+            return Redirect($"/projects/{ProjectId}/risk/overall/add");
         }
     }
 }

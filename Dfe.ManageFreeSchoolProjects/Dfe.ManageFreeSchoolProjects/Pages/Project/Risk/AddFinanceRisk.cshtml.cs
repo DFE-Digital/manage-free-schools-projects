@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-            return Redirect($"/projects/{ProjectId}/risk-rating/risk-appraisal-form/add");
+            return Redirect($"/projects/{ProjectId}/risk/risk-appraisal-form/add");
         }
     }
 }

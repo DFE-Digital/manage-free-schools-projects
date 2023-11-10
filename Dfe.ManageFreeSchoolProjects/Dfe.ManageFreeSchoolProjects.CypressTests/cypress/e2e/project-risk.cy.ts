@@ -146,34 +146,7 @@ describe("Testing that we can add a project risk", () => {
             Logger.log("Adding the first project risk");
             projectRiskSummaryPage.addRiskEntry();
 
-            Logger.log("Enter a valid governance and suitability risk");
-            editProjectRiskPage
-                .withGovernanceAndSuitabilityRiskRating("AmberGreen")
-                .withGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
-                .continue();
-
-            Logger.log("Enter a valid education risk");
-            editProjectRiskPage
-                .withEducationRiskRating("Red")
-                .withEducationSummary("This is my education risk summary")
-                .continue();
-
-            Logger.log("Enter a valid finance risk");
-            editProjectRiskPage
-                .withFinanceRiskRating("AmberRed")
-                .withFinanceSummary("This is my finance risk summary")
-                .continue();
-
-            editProjectRiskPage
-                .withRiskAppraisalFormSharePointLink("www.google.co.uk")
-                .continue();
-
-            Logger.log("Enter a valid overall risk");
-            editProjectRiskPage
-                .withOverallRiskRating("Green")
-                .withOverallSummary("This is my overall risk summary")
-                .continue();
-
+            fillProjectRisk();
             projectRiskSummaryPage.createRiskEntry();
 
             Logger.log("Adding the second project risk");
@@ -268,5 +241,53 @@ describe("Testing that we can add a project risk", () => {
                         .hasOverallRiskSummary("This is another of my overall risk summary")
                 });
         });
+
+        it("Should enable the user to change their answers on the confirmation page", () => {
+            Logger.log("Changing project risk")
+            projectOverviewPage.changeProjectRisk();
+
+            Logger.log("Adding the project risk");
+            projectRiskSummaryPage.addRiskEntry();
+
+            fillProjectRisk();
+
+            projectRiskSummaryPage
+                .changeOverallRisk();
+
+            editProjectRiskPage
+                .withGovernanceAndSuitabilityRiskRating("Red")
+                .withGovernanceAndSuitabilityRiskSummary("This is a red overall summary now")
+                .continue();
+        });
     });
+
+    function fillProjectRisk(): void {
+        Logger.log("Enter a valid governance and suitability risk");
+        editProjectRiskPage
+            .withGovernanceAndSuitabilityRiskRating("AmberGreen")
+            .withGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
+            .continue();
+
+        Logger.log("Enter a valid education risk");
+        editProjectRiskPage
+            .withEducationRiskRating("Red")
+            .withEducationSummary("This is my education risk summary")
+            .continue();
+
+        Logger.log("Enter a valid finance risk");
+        editProjectRiskPage
+            .withFinanceRiskRating("AmberRed")
+            .withFinanceSummary("This is my finance risk summary")
+            .continue();
+
+        editProjectRiskPage
+            .withRiskAppraisalFormSharePointLink("www.google.co.uk")
+            .continue();
+
+        Logger.log("Enter a valid overall risk");
+        editProjectRiskPage
+            .withOverallRiskRating("Green")
+            .withOverallSummary("This is my overall risk summary")
+            .continue();
+    }
 });

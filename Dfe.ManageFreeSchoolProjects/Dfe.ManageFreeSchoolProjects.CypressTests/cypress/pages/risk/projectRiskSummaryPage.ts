@@ -13,6 +13,12 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public changeOverallRisk(): this {
+        cy.getByTestId("change-governance-and-suitability-risk").click();
+
+        return this;
+    }
+
     public hasGovernanceAndSuitabilityRiskRating(values: string[]): this {
 
         this.checkRagRating(`governance-and-suitability-risk-rating`, values);
