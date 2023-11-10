@@ -74,8 +74,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 {
                     School = SafeRetrieveTaskSummary(projectTasks, "School"),
                     Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
-                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"),
-                    Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency")
+                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"), 
+                    Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
+                    RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
                 };
             }
             
@@ -84,9 +85,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }
 
-        private TaskSummaryResponse SafeRetrieveTaskSummary(List<TaskSummaryResponse> projectTasks, string taskName)
+        private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
         {
-            return projectTasks.SingleOrDefault(x => x.Name == taskName, new TaskSummaryResponse() { Name = taskName, Status = ProjectTaskStatus.NotStarted });
+            return projectTasks.SingleOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
         }
     }
 }

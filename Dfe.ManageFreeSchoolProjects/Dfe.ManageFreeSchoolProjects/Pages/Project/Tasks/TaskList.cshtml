@@ -1,5 +1,4 @@
 ﻿@page "/projects/{projectId}/tasks"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
@@ -10,6 +9,7 @@
     var datesTaskLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
     var trustTaskLink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
     var constituencyTaskLink = string.Format(RouteConstants.ViewConstituency, Model.ProjectId);
+    var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
 }
 
 <div class="dfe-content-page--header">
@@ -105,12 +105,23 @@
                         RenderStatus(Model.ProjectTaskListSummary.Constituency);
                     }
                 </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@regionAndLocalAuthorityLink" aria-describedby="">
+                            Region and local authority
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.RegionAndLocalAuthority);
+                    }
+                </li>
             </ul>
         </li>
     </ol>
 </div>
 
 @functions {
+
     public void RenderStatus(TaskSummaryResponse task)
     {
         var testId = $"task-{task.Name}-status";

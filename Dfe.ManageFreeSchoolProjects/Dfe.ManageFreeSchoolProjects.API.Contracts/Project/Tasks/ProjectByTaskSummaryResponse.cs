@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+﻿using System.ComponentModel;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class ProjectByTaskSummaryResponse
     {
@@ -9,6 +11,8 @@
         public TaskSummaryResponse Trust { get; set; }
         
         public TaskSummaryResponse Constituency { get; set; }
+        
+        public TaskSummaryResponse RegionAndLocalAuthority { get; set; }
     }
 
     public class TaskSummaryResponse
