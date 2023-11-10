@@ -22,39 +22,42 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         {
             var result = await
                 (from kpi in _context.Kpi
-                where kpi.ProjectStatusProjectId == projectId
-                join kai in _context.Kai on kpi.Rid equals kai.Rid into kaiJoin
-                from kai in kaiJoin.DefaultIfEmpty()
-                join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
-                from property in propertyJoin.DefaultIfEmpty()
-                select new GetProjectByTaskResponse()
-                {
-                    School = new SchoolTask()
+                    where kpi.ProjectStatusProjectId == projectId
+                    join kai in _context.Kai on kpi.Rid equals kai.Rid into kaiJoin
+                    from kai in kaiJoin.DefaultIfEmpty()
+                    join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
+                    from property in propertyJoin.DefaultIfEmpty()
+                    select new GetProjectByTaskResponse
                     {
-                        CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                        SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
-                        SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
-                        AgeRange = kpi.SchoolDetailsAgeRange,
-                        Gender = TaskParsers.ParseGender(kpi.SchoolDetailsGender),
-                        Nursery = kpi.SchoolDetailsNursery,
-                        SixthForm = kpi.SchoolDetailsSixthForm,
-                        FaithStatus = TaskParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
-                        FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
-                        OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
-                    },
-                    Dates = new DatesTask()
-                    {
-                        DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
-                        ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
-                        RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                    },
-                    Trust = new TrustTask()
-                     {
-                         TRN = kpi.TrustId,
-                         TrustName = kpi.TrustName,
-                         TrustType = kpi.TrustType,
-                     }
-                }).FirstOrDefaultAsync();
+                        School = new SchoolTask
+                        {
+                            CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
+                            SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
+                            SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
+                            AgeRange = kpi.SchoolDetailsAgeRange,
+                            Gender = TaskParsers.ParseGender(kpi.SchoolDetailsGender),
+                            Nursery = kpi.SchoolDetailsNursery,
+                            SixthForm = kpi.SchoolDetailsSixthForm,
+                            FaithStatus = TaskParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
+                            FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
+                            OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
+                        },
+                        Dates = new DatesTask
+                        {
+                            DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
+                            ProvisionalOpeningDateAgreedWithTrust =
+                                kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                            RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
+                        },
+                        Trust = new TrustTask
+                        {
+                            TRN = kpi.TrustId, TrustName = kpi.TrustName, TrustType = kpi.TrustType,
+                        },
+                        RegionAndLocalAuthority = new RegionAndLocalAuthorityTask
+                        {
+                            Region = kpi.SchoolDetailsGeographicalRegion, LocalAuthority = kpi.LocalAuthority
+                        }
+                    }).FirstOrDefaultAsync();
 
             return result;
         }

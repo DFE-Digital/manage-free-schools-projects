@@ -75,9 +75,9 @@ class SingleProjectCurrentFreeSchoolNamePage {
 
     public userEntersValidSchool(e2eTestSchool): this {
         //NOTE FOR SCHOOL PAGE FEATURE
-        let theE2eTestSchool = "";
+        let theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         cy.getByTestId("school").clear();
-        cy.getByTestId("school").type("St Dunstan's Abbey, (Plymouth)");
+        cy.getByTestId("school").type(theE2eTestSchool);
         cy.getByTestId("continue").click();
 
         return this;

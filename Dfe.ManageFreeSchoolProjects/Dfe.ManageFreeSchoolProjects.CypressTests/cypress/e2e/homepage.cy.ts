@@ -76,11 +76,11 @@ describe("Testing the home page", () => {
 
         beforeEach(() => {
             firstProject = RequestBuilder.createProjectDetails();
-            firstProject.region = `East Of England`;
+            firstProject.region = `East of England`;
             firstProject.localAuthority = "Bedford";
 
             const secondProject = RequestBuilder.createProjectDetails();
-            firstProject.region = "East Of England";
+            firstProject.region = "East of England";
 
             projectApi.post({
                 projects: [firstProject, secondProject],
@@ -89,7 +89,7 @@ describe("Testing the home page", () => {
 
         it("Should be able to filter projects by local authority", () => {
             homePage
-                .withRegionFilter("East Of England")
+                .withRegionFilter("East of England")
                 .withLocalAuthorityFilter("Bedford")
                 .applyFilters();
 

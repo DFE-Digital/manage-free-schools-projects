@@ -29,6 +29,8 @@ describe("Testing project overview", () => {
 
     it("Should successfully set Tasklist-school information", () => {
 
+        const schoolWithAllValidSpecialChars = "St Dunstan's Abbey, (Plymouth)";
+
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
 
@@ -164,13 +166,13 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.clearSchoolNameField();
 
-        schoolDetailsPage.enterValidSpecialCharsSchoolNameField();
+        schoolDetailsPage.enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars);
 
         schoolDetailsPage.selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
-        schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible();
+        schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible(schoolWithAllValidSpecialChars);
 
         Logger.log("Test that selecting 'Other Religion' And Leaving 'Other religion textfield blank gives correct validation'");
 

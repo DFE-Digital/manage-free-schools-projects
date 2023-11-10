@@ -31,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
+            ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
@@ -38,9 +39,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             await _context.SaveChangesAsync();
         }
 
-        private static void ApplySchoolTaskUpdates(
-            SchoolTask task,
-            Kpi dbKpi)
+        private static void ApplyRegionAndLocalAuthorityTaskUpdates(RegionAndLocalAuthorityTask regionAndLocalAuthorityTask, Kpi dbKpi)
+        {
+            if (regionAndLocalAuthorityTask is null)
+            {
+                return;
+            }
+
+            dbKpi.LocalAuthority = regionAndLocalAuthorityTask.LocalAuthority;
+            dbKpi.SchoolDetailsGeographicalRegion = regionAndLocalAuthorityTask.Region;
+            dbKpi.SchoolDetailsLocalAuthority = regionAndLocalAuthorityTask.LocalAuthorityCode;
+        }
+
+        private static void ApplySchoolTaskUpdates(SchoolTask task, Kpi dbKpi)
         {
             if (task == null)
             {
@@ -64,9 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
         }
 
-        private static void ApplyDatesTaskUpdates(
-            DatesTask task,
-            Kpi dbKpi)
+        private static void ApplyDatesTaskUpdates(DatesTask task, Kpi dbKpi)
         {
             if (task == null)
             {
@@ -89,7 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 
             var trust = await GetTrust(task.TRN);
 
-            dbKpi.TrustId = trust.TrustRef ;
+            dbKpi.TrustId = trust.TrustRef;
             dbKpi.TrustName = trust.TrustsTrustName;
             dbKpi.TrustType = trust.TrustsTrustType;
 
@@ -101,17 +110,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         private async Task<Trust> GetTrust(string trustRef)
         {
             var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
-            
+
             return result;
         }
 
-        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
-            UpdateProjectByTaskRequest updateProjectByTaskRequest)
+        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus, UpdateProjectByTaskRequest updateProjectByTaskRequest)
         {
             var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskToUpdate);
 
-            var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid
-                                                                      && x.TaskName == taskNameToUpdate);
+            var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == taskRid && x.TaskName == taskNameToUpdate);
             if (task is null)
                 return;
 
