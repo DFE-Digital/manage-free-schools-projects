@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IGetProjectRiskService
     {
-        Task<GetProjectRiskResponse> Execute(string projectId);
+        Task<GetProjectRiskResponse> Execute(string projectId, int entry);
     }
 
     public class GetProjectRiskService : IGetProjectRiskService
@@ -18,11 +18,16 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task<GetProjectRiskResponse> Execute(string projectId)
+        public async Task<GetProjectRiskResponse> Execute(string projectId, int entry)
         {
-            var endpoint = $"/api/v1/client/projects/{projectId}/risk";
+            var endpoint = $"/api/v1/client/projects/{projectId}/risk?entry={entry}";
 
             var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectRiskResponse>>(endpoint);
+
+            if (result == null)
+            {
+                return null;
+            }
 
             return result.Data;
         }

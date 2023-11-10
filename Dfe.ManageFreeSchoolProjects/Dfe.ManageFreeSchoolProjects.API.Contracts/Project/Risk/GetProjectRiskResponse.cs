@@ -6,17 +6,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
     {
         public DateTime Date { get; set; }
 
-        public ProjectRiskEntryResponse GovernanceAndSuitability { get; set; }
+        public ProjectRiskEntryResponse GovernanceAndSuitability { get; set; } = new();
 
-        public ProjectRiskEntryResponse Education { get; set; }
+        public ProjectRiskEntryResponse Education { get; set; } = new();
 
-        public ProjectRiskEntryResponse Finance { get; set; }
+        public ProjectRiskEntryResponse Finance { get; set; } = new();
 
-        public ProjectRiskEntryResponse Overall { get; set; }
+        public ProjectRiskEntryResponse Overall { get; set; } = new();
 
         public string RiskAppraisalFormSharepointLink { get; set; }
 
-        public List<ProjectRiskHistoryResponse> History { get; set; }
+        public List<ProjectRiskHistoryResponse> History { get; set; } = new List<ProjectRiskHistoryResponse>();
     }
 
     public class ProjectRiskHistoryResponse

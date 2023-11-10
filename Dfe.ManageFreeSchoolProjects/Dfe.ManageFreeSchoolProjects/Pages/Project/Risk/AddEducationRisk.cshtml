@@ -6,11 +6,13 @@
 
     var labels = new List<string>();
     var values = new List<string>();
+    var names = new List<string>();
 
     ratingLabels.ForEach(entry =>
     {
         labels.Add(entry.Label);
         values.Add(((int)entry.RiskRating).ToString());
+        names.Add(entry.RiskRating.ToString());
     });
 }
 
@@ -36,15 +38,17 @@
                                 data-testid="risk-rating"
                                 label="What is the updated risk rating for education?"
                                 values="@values.ToArray()"
-                                html-labels="@labels.ToArray()" />
+                                html-labels="@labels.ToArray()"
+                                test-ids="@names.ToArray()"/>
 
             <govuk-textarea-input id="summary"
                                   name="summary"
                                   asp-for="@Model.Summary"
                                   data-testid="summary"
-                                  label="What is the updated risk summary for education?" />
+                                  label="What is the updated risk summary for education?"
+                                  test-id="education-risk-summary" />
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
         </form>

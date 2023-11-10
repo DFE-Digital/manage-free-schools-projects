@@ -29,6 +29,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("hints")]
 		public string[] Hints { get; set; }
 
+		[HtmlAttributeName("test-ids")]
+		public string[] TestIds { get; set; } = new string[] { };
+
 		private readonly ErrorService _errorService;
 
 		public RadiosInputTagHelper(IHtmlHelper htmlHelper, ErrorService errorService) : base(htmlHelper) 
@@ -42,6 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 			var model = new RadiosInputViewModel
 			{
 				Id = Id,
+				TestIds = TestIds,
 				Name = Name,
 				Label = Label,
 				Value = For.Model?.ToString(),

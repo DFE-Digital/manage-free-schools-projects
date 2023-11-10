@@ -200,6 +200,12 @@ class ProjectOverviewPage {
 
         return this;
     }
+
+    public changeProjectRisk(): this {
+        cy.getByTestId("change-project-risk").click();
+
+        return this;
+    }
 }
 
 const projectOverviewPage = new ProjectOverviewPage();

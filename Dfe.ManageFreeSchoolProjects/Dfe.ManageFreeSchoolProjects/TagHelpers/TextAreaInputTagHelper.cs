@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 			var model = new TextAreaInputViewModel
 			{
 				Id = Id,
+				TestId = TestId,
 				Name = Name,
 				Label = Label,
 				Value = For.Model?.ToString(),

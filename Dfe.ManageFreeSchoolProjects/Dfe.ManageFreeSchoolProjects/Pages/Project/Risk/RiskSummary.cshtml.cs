@@ -15,14 +15,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public GetProjectRiskResponse ProjectRisk { get; set; }
 
+        public int Entry { get; set; }
+
         public RiskSummaryModel(IGetProjectRiskService getProjectRiskRatingService)
         {
             _getProjectRiskRatingService = getProjectRiskRatingService;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(int entry = 1)
         {
-            ProjectRisk = await _getProjectRiskRatingService.Execute(ProjectId);
+            Entry = entry;
+            ProjectRisk = new GetProjectRiskResponse();
+
+            var projectRiskResponse = await _getProjectRiskRatingService.Execute(ProjectId, entry);
+
+            if (projectRiskResponse != null)
+            {
+                ProjectRisk = projectRiskResponse;
+            }
 
             return Page();
         }

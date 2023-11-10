@@ -18,9 +18,9 @@
 
         <form class="form" method="post">
 
-            <govuk-text-input id="sharepoint-link" name="sharepoint-link" asp-for="@Model.SharepointLink" data-testid="sharepoint-link" label="RAF Sharepoint link" />
+            <govuk-text-input id="sharepoint-link" name="sharepoint-link" asp-for="@Model.SharepointLink" test-id="sharepoint-link" label="RAF Sharepoint link" />
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
         </form>

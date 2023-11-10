@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "risk-rating")]
-        [Display(Name = "Risk rating")]
+        [Display(Name = "risk rating")]
         [Required]
         public string RiskRating { get; set; }
 
         [BindProperty(Name = "summary")]
+        [Display(Name = "summary")]
+        [StringLength(1000, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Summary { get; set; }
 
         public AddOverallRiskModel(ICreateProjectRiskCache createProjectRiskCache, ErrorService errorService)

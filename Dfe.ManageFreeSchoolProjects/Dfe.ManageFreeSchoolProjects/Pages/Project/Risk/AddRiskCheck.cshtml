@@ -21,7 +21,7 @@
                 <dt class="govuk-summary-list__key">
                     Governance and suitability RAG rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.GovernanceAndSuitability.RiskRating" />
                 </dd>
 
@@ -36,7 +36,7 @@
                 <dt class="govuk-summary-list__key">
                     Governance and suitability RAG summary
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-summary">
                     @Model.ProjectRisk.GovernanceAndSuitability.Summary
                 </dd>
 
@@ -53,7 +53,7 @@
                 <dt class="govuk-summary-list__key">
                     Education RAG rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="education-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Education.RiskRating" />
                 </dd>
 
@@ -70,7 +70,7 @@
                 <dt class="govuk-summary-list__key">
                     Education RAG summary
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="education-risk-summary">
                     @Model.ProjectRisk.Education.Summary
                 </dd>
 
@@ -88,7 +88,7 @@
                 <dt class="govuk-summary-list__key">
                     Finance RAG rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Finance.RiskRating" />
                 </dd>
 
@@ -106,7 +106,7 @@
                 <dt class="govuk-summary-list__key">
                     Finance RAG summary
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-summary">
                     @Model.ProjectRisk.Finance.Summary
                 </dd>
 
@@ -124,7 +124,7 @@
                 <dt class="govuk-summary-list__key">
                     RAF Sharepoint link
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
                     @Model.ProjectRisk.RiskAppraisalFormSharepointLink
                 </dd>
 
@@ -141,7 +141,7 @@
                 <dt class="govuk-summary-list__key">
                     Overall RAG rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
                 </dd>
 
@@ -159,7 +159,7 @@
                 <dt class="govuk-summary-list__key">
                     Overall RAG summary
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
                     @Model.ProjectRisk.Overall.Summary
                 </dd>
 
@@ -168,13 +168,12 @@
                     <a class="govuk-link" href="other-info-new-rag-rating-overall?returnToSummary=yes">
                         Change<span class="govuk-visually-hidden"> Overall RAG summary</span>
                     </a>
-
                 </dd>
 
             </div>
         </dl>
         <form method="post">
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="create-risk-entry">
                 Confirm
             </button>
         </form>

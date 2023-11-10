@@ -18,7 +18,7 @@
                 <dt class="govuk-summary-list__key">
                     Overall risk rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
                 </dd>
 
@@ -28,8 +28,10 @@
                 <dt class="govuk-summary-list__key">
                     Overall risk summary
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.ProjectRisk.Overall.Summary
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
+                    @{ 
+                        RenderValue(Model.ProjectRisk.Overall.Summary);
+                    }
                 </dd>
             </div>
 
@@ -37,7 +39,7 @@
                 <dt class="govuk-summary-list__key">
                     Governance and suitability risk rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.GovernanceAndSuitability.RiskRating" />
                 </dd>
 
@@ -47,8 +49,11 @@
                 <dt class="govuk-summary-list__key">
                     Governance and suitability risk summary
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.ProjectRisk.GovernanceAndSuitability.Summary
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-summary">
+                    @{
+                        RenderValue(Model.ProjectRisk.GovernanceAndSuitability.Summary);
+                    }
+
                 </dd>
 
             </div>
@@ -57,7 +62,7 @@
                 <dt class="govuk-summary-list__key">
                     Education risk rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="education-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Education.RiskRating" />
                 </dd>
 
@@ -67,8 +72,10 @@
                 <dt class="govuk-summary-list__key">
                     Education risk summary
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.ProjectRisk.Education.Summary
+                <dd class="govuk-summary-list__value" data-testid="education-risk-summary">
+                    @{
+                        RenderValue(Model.ProjectRisk.Education.Summary);
+                    }
                 </dd>
 
             </div>
@@ -77,7 +84,7 @@
                 <dt class="govuk-summary-list__key">
                     Finances risk rating
                 </dt>
-                <dd class="govuk-summary-list__value">
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-rating">
                     <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Finance.RiskRating" />
                 </dd>
 
@@ -87,8 +94,10 @@
                 <dt class="govuk-summary-list__key">
                     Finances risk summary
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.ProjectRisk.Finance.Summary
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-summary">
+                    @{
+                        RenderValue(Model.ProjectRisk.Finance.Summary);
+                    }
                 </dd>
 
             </div>
@@ -97,43 +106,73 @@
                 <dt class="govuk-summary-list__key">
                     RAF (risk appraisal form) SharePoint link
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.ProjectRisk.RiskAppraisalFormSharepointLink
+                <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
+                    @{
+                        RenderValue(Model.ProjectRisk.RiskAppraisalFormSharepointLink);
+                    }
                 </dd>
 
             </div>
         </dl>
 
-        <a class="govuk-button" data-module="govuk-button" href="/projects/@Model.ProjectId/risk-rating/governance-and-suitability/add">
+        <a class="govuk-button" data-module="govuk-button" href="/projects/@Model.ProjectId/risk-rating/governance-and-suitability/add" data-testid="add-risk-entry">
             Add a risk rating entry
         </a>
     </div>
 </div>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
 
-        <table class="govuk-table">
+@if (Model.ProjectRisk.History != null)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-            <caption class="govuk-table__caption govuk-table__caption--m">Risk ratings history</caption>
-            <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                    <th scope="col" class="govuk-table__header app-custom-class">Overall risk rating</th>
-                    <th scope="col" class="govuk-table__header app-custom-class">Action</th>
-                </tr>
-            </thead>
+            <table class="govuk-table">
 
-            <tbody class="govuk-table__body">
-
-                @foreach (var historyEntry in Model.ProjectRisk.History)
-                {
+                <caption class="govuk-table__caption govuk-table__caption--m">Risk ratings history</caption>
+                <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">@historyEntry.Date</td>
-                        <td class="govuk-table__cell"><govuk-risk-rating-label risk-rating="@historyEntry.RiskRating" /></td>
-                        <td class="govuk-table__cell"></td>
+                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
+                        <th scope="col" class="govuk-table__header app-custom-class">Overall risk rating</th>
+                        <th scope="col" class="govuk-table__header app-custom-class">Action</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody class="govuk-table__body"> 
+                    @{
+                        var historyIdx = 1;
+                    }
+                    @foreach (var historyEntry in Model.ProjectRisk.History)
+                    {
+                        <tr class="govuk-table__row" data-testid="risk-history-row-@historyIdx">
+                            <td class="govuk-table__cell" data-testid="project-risk-history-date">@historyEntry.Date.ToDateString()</td>
+                            <td class="govuk-table__cell" data-testid="project-risk-history-rating"><govuk-risk-rating-label risk-rating="@historyEntry.RiskRating" /></td>
+                            <td class="govuk-table__cell">
+                                @if (historyIdx != Model.Entry)
+                                {
+                                    <a href="/projects/@Model.ProjectId/risk-rating/summary?entry=@historyIdx" data-testid="project-risk-view-link">View</a>
+                                }
+                            </td>
+                        </tr>
+
+                        historyIdx++;
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+}
+
+
+@functions {
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+}
