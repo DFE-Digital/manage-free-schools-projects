@@ -22,11 +22,14 @@ public class EditLocalAuthority : PageModel
     private readonly IUpdateProjectByTaskService _updateProjectByTaskService;
     private readonly ErrorService _errorService;
 
-    [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string ProjectId { get; set; }
 
-    [BindProperty] public List<string> LocalAuthorities { get; set; }
+    [BindProperty] 
+    public List<string> LocalAuthorities { get; set; }
 
-    [FromQuery(Name = "region")] public string Region { get; set; }
+    [FromQuery(Name = "region")] 
+    public string Region { get; set; }
 
     [BindProperty(Name = "local-authority")]
     [Required(ErrorMessage = "Select the local authority of the free school.")]
@@ -80,14 +83,12 @@ public class EditLocalAuthority : PageModel
         localAuthorities = await GetLocalAuthoritiesByRegion();
 
         var localAuthorityCode = localAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
-
-        var region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
-
+        
         await _updateProjectByTaskService.Execute(ProjectId, new UpdateProjectByTaskRequest
         {
             RegionAndLocalAuthorityTask = new RegionAndLocalAuthorityTask
             {
-                Region = region.ToDescription(),
+                Region = Region,
                 LocalAuthority = LocalAuthority,
                 LocalAuthorityCode = localAuthorityCode
             }
@@ -98,9 +99,7 @@ public class EditLocalAuthority : PageModel
 
     private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
     {
-        var projectRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
-
-        var response = await _getLocalAuthoritiesService.Execute(new List<string> { projectRegion.ToDescription() });
+        var response = await _getLocalAuthoritiesService.Execute(new List<string> { Region });
 
         var authorities = new Dictionary<string, string>();
 
