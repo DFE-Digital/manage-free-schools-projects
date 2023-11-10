@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +39,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 						.WithWebHostBuilder(builder =>
 						{
 							var configPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.tests.json");
-
+							builder.ConfigureServices((x) =>
+							{
+								x.AddHttpClient();
+							});
 							builder.ConfigureAppConfiguration((context, config) =>
 							{
 								config.AddJsonFile(configPath)

@@ -74,7 +74,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 {
                     School = SafeRetrieveTaskSummary(projectTasks, "School"),
                     Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
-                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust")
+                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"),
+                    Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency")
                 };
             }
             

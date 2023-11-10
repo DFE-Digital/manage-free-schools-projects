@@ -53,7 +53,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                          TRN = kpi.TrustId,
                          TrustName = kpi.TrustName,
                          TrustType = kpi.TrustType,
-                     }
+                     },
+                    Constituency = new ConstituencyTask()
+                    {
+                        Name = kpi.SchoolDetailsConstituency,
+                    }
+                    
                 }).FirstOrDefaultAsync();
 
             return result;

@@ -15,6 +15,8 @@
         public const string SearchTrustTask = ViewTrustTask + "/search";
         public const string EditTrustTask = ViewTrustTask + "/edit/{1}";
 
+        public const string ViewConstituency = TaskList + "/constituency";
+
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

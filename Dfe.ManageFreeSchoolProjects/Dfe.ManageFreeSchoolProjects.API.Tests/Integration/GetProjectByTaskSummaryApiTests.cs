@@ -40,6 +40,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.School.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.Dates.Name.Should().Be("Dates");
             result.Dates.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.Trust.Name.Should().Be("Trust");
+            result.Trust.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.Constituency.Name.Should().Be("Constituency");
+            result.Constituency.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }
