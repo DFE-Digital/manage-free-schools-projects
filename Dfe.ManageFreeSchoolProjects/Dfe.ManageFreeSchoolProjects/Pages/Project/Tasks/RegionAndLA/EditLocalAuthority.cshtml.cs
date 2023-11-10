@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA;
 
 public class EditLocalAuthority : PageModel
 {
-    private IGetLocalAuthoritiesService _getLocalAuthoritiesService;
+    private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
     private readonly IGetProjectByTaskService _getProjectByTaskService;
     private readonly IUpdateProjectByTaskService _updateProjectByTaskService;
     private readonly ErrorService _errorService;

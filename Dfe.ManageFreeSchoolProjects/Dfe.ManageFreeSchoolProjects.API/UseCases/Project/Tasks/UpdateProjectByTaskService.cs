@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             await _context.SaveChangesAsync();
         }
 
-        private void ApplyRegionAndLocalAuthorityTaskUpdates(RegionAndLocalAuthorityTask regionAndLocalAuthorityTask, Kpi dbKpi)
+        private static void ApplyRegionAndLocalAuthorityTaskUpdates(RegionAndLocalAuthorityTask regionAndLocalAuthorityTask, Kpi dbKpi)
         {
             if (regionAndLocalAuthorityTask is null)
             {
