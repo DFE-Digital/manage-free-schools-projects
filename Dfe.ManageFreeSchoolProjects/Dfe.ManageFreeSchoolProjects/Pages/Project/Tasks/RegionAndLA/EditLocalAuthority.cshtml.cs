@@ -22,11 +22,14 @@ public class EditLocalAuthority : PageModel
     private readonly IUpdateProjectByTaskService _updateProjectByTaskService;
     private readonly ErrorService _errorService;
 
-    [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string ProjectId { get; set; }
 
-    [BindProperty] public List<string> LocalAuthorities { get; set; }
+    [BindProperty] 
+    public List<string> LocalAuthorities { get; set; }
 
-    [FromQuery(Name = "region")] public string Region { get; set; }
+    [FromQuery(Name = "region")] 
+    public string Region { get; set; }
 
     [BindProperty(Name = "local-authority")]
     [Required(ErrorMessage = "Select the local authority of the free school.")]
