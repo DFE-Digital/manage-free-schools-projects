@@ -55,13 +55,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
     public class CreateRiskCacheItem
     {
-        public RiskEntryModel GovernanceAndSuitability { get; set; }
+        public RiskEntryModel GovernanceAndSuitability { get; set; } = new();
 
-        public RiskEntryModel Education { get; set; }
+        public RiskEntryModel Education { get; set; } = new();
 
-        public RiskEntryModel Finance { get; set; }
+        public RiskEntryModel Finance { get; set; } = new();
 
-        public RiskEntryModel Overall { get; set; }
+        public RiskEntryModel Overall { get; set; } = new();
 
         public string RiskAppraisalFormSharepointLink { get; set; }
 

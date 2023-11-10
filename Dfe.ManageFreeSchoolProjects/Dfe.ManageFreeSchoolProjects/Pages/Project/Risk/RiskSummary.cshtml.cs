@@ -10,6 +10,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
     {
         private readonly IGetProjectRiskService _getProjectRiskRatingService;
 
+        private readonly ICreateProjectRiskCache _createProjectRiskCache;
+
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
@@ -17,9 +19,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public int Entry { get; set; }
 
-        public RiskSummaryModel(IGetProjectRiskService getProjectRiskRatingService)
+        public RiskSummaryModel(
+            IGetProjectRiskService getProjectRiskRatingService,
+            ICreateProjectRiskCache createProjectRiskCache)
         {
             _getProjectRiskRatingService = getProjectRiskRatingService;
+            _createProjectRiskCache = createProjectRiskCache;
+        }
+
+        public IActionResult OnGetNewConfigureRiskRating()
+        {
+            _createProjectRiskCache.Delete();
+
+            return Redirect($"/projects/{ProjectId}/risk/governance-and-suitability/add");
         }
 
         public async Task<IActionResult> OnGet(int entry = 1)

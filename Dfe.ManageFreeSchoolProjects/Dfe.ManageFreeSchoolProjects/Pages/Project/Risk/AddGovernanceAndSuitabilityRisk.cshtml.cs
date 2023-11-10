@@ -20,11 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         {
             var existingCacheItem = _createProjectRiskCache.Get();
 
-            if (existingCacheItem.GovernanceAndSuitability != null)
-            {
-                Summary = existingCacheItem.GovernanceAndSuitability.Summary;
-                RiskRating = ((int)existingCacheItem.GovernanceAndSuitability.RiskRating).ToString();
-            }
+            Summary = existingCacheItem.GovernanceAndSuitability.Summary;
+            RiskRating = ((int)existingCacheItem.GovernanceAndSuitability.RiskRating).ToString();
         }
 
         public IActionResult OnPost()
