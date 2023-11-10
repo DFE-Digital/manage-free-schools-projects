@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.ViewRegionAndLocalAuthority
 @{
     var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
-    var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region.Trim().Replace(" ", ""));
+    var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region);
     ViewData["Title"] = $"Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
 }
 

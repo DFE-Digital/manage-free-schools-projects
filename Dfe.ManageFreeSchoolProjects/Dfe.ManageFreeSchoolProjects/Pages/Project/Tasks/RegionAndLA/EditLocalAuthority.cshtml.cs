@@ -84,13 +84,13 @@ public class EditLocalAuthority : PageModel
 
         var localAuthorityCode = localAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
 
-        var region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+        // var region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
 
         await _updateProjectByTaskService.Execute(ProjectId, new UpdateProjectByTaskRequest
         {
             RegionAndLocalAuthorityTask = new RegionAndLocalAuthorityTask
             {
-                Region = region.ToDescription(),
+                Region = Region,
                 LocalAuthority = LocalAuthority,
                 LocalAuthorityCode = localAuthorityCode
             }
@@ -101,9 +101,9 @@ public class EditLocalAuthority : PageModel
 
     private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
     {
-        var projectRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+        // var projectRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
 
-        var response = await _getLocalAuthoritiesService.Execute(new List<string> { projectRegion.ToDescription() });
+        var response = await _getLocalAuthoritiesService.Execute(new List<string> { Region });
 
         var authorities = new Dictionary<string, string>();
 
