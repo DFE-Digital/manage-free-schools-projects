@@ -63,6 +63,6 @@ public class EditRegion : PageModel
             return Page();
         }
         
-        return Redirect(string.Format(RouteConstants.EditLocalAuthority, ProjectId) + $"?region={Region}");
+        return Redirect(string.Format(RouteConstants.EditLocalAuthority, ProjectId, Region));
     }
 }
