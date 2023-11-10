@@ -84,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }
 
-        private TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
+        private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
         {
             return projectTasks.SingleOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
         }
