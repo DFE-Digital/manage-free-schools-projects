@@ -24,7 +24,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public void OnGet()
         {
-            ProjectRisk = _createProjectRiskCache.Get();
+            // From this point on, each step in the wizard will always go back to the confirmation page
+            // The caveat is once you reach this page, the wizard won't work, which is what the change links are for anyway
+            var projectRisk = _createProjectRiskCache.Get();
+            projectRisk.HasReachedCheckRiskPage = true;
+
+            _createProjectRiskCache.Update(projectRisk);
+
+            ProjectRisk = projectRisk;
         }
 
         public async Task<IActionResult> OnPost()

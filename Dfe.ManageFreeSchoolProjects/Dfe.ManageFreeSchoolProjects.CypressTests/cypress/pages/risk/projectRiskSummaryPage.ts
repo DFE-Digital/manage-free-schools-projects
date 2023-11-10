@@ -7,28 +7,31 @@ class ProjectRiskSummaryPage {
     }
 
     public hasOverallRiskSummary(value: string): this {
-
         cy.getByTestId(`overall-risk-summary`).should(`contain.text`, value);
 
         return this;
     }
 
     public changeOverallRisk(): this {
-        cy.getByTestId("change-governance-and-suitability-risk").click();
+        cy.getByTestId("change-overall-risk").click();
 
         return this;
     }
 
     public hasGovernanceAndSuitabilityRiskRating(values: string[]): this {
-
         this.checkRagRating(`governance-and-suitability-risk-rating`, values);
 
         return this;
     }
 
     public hasGovernanceAndSuitabilityRiskSummary(value: string): this {
-
         cy.getByTestId(`governance-and-suitability-risk-summary`).should(`contain.text`, value);
+
+        return this;
+    }
+
+    public changeGovernanceAndSuitabilityRisk(): this {
+        cy.getByTestId("change-governance-and-suitability-risk").click();
 
         return this;
     }
@@ -47,6 +50,12 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public changeEducationRisk(): this {
+        cy.getByTestId("change-education-risk").click();
+
+        return this;
+    }
+
     public hasFinanceRiskRating(values: string[]): this {
 
         this.checkRagRating(`finance-risk-rating`, values);
@@ -61,9 +70,21 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public changeFinanceRisk(): this {
+        cy.getByTestId("change-finance-risk").click();
+
+        return this;
+    }
+
     public hasRiskAppraisalFormSharePointLink(value: string): this {
 
         cy.getByTestId(`risk-appraisal-form-sharepoint-link`).should(`contain.text`, value);
+
+        return this;
+    }
+
+    public changeRiskAppraisalFormSharePointLink(): this {
+        cy.getByTestId("change-risk-appraisal-form-sharepoint-link").click();
 
         return this;
     }

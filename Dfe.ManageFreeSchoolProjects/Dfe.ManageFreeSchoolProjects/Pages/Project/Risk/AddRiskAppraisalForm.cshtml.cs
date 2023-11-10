@@ -1,25 +1,19 @@
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Dfe.ManageFreeSchoolProjects.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 {
-    public class AddRiskAppraisalFormModel : PageModel
+    public class AddRiskAppraisalFormModel : AddRiskBaseModel
     {
-        private readonly ErrorService _errorService;
         private readonly ICreateProjectRiskCache _createProjectRiskCache;
-
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
 
         [BindProperty(Name = "sharepoint-link")]
         public string SharepointLink { get; set; }
 
-        public AddRiskAppraisalFormModel(ICreateProjectRiskCache createProjectRiskCache, ErrorService errorService)
+        public AddRiskAppraisalFormModel(ICreateProjectRiskCache createProjectRiskCache)
         {
             _createProjectRiskCache = createProjectRiskCache;
-            _errorService = errorService;
         }
 
         public void OnGet()
@@ -36,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-            return Redirect($"/projects/{ProjectId}/risk/overall/add");
+            return Redirect(GetNextPage(RiskPageName.SharepointLink, existingCacheItem));
         }
     }
 }

@@ -100,7 +100,7 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("Validate overall risk");
             editProjectRiskPage
-                .withOverallSummaryExceeding()
+                .withOverallRiskSummaryExceeding()
                 .continue();
 
             validationComponent
@@ -110,7 +110,7 @@ describe("Testing that we can add a project risk", () => {
             Logger.log("Enter a valid overall risk");
             editProjectRiskPage
                 .withOverallRiskRating("Green")
-                .withOverallSummary("This is my overall risk summary")
+                .withOverallRiskSummary("This is my overall risk summary")
                 .continue();
 
             projectRiskSummaryPage
@@ -177,7 +177,7 @@ describe("Testing that we can add a project risk", () => {
             Logger.log("Enter a valid overall risk");
             editProjectRiskPage
                 .withOverallRiskRating("AmberGreen")
-                .withOverallSummary("This is another of my overall risk summary")
+                .withOverallRiskSummary("This is another of my overall risk summary")
                 .continue();
 
             projectRiskSummaryPage.createRiskEntry();
@@ -251,13 +251,80 @@ describe("Testing that we can add a project risk", () => {
 
             fillProjectRisk();
 
-            projectRiskSummaryPage
-                .changeOverallRisk();
+            Logger.log("Change governance risk")
+            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
 
             editProjectRiskPage
+                .hasGovernanceAndSuitabilityRiskRating("AmberGreen")
+                .hasGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
                 .withGovernanceAndSuitabilityRiskRating("Red")
-                .withGovernanceAndSuitabilityRiskSummary("This is a red overall summary now")
+                .withGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
                 .continue();
+
+            Logger.log("Change education risk");
+            projectRiskSummaryPage.changeEducationRisk();
+
+            editProjectRiskPage
+                .hasEducationRiskRating("Red")
+                .hasEducationRiskSummary("This is my education risk summary")
+                .withEducationRiskRating("Green")
+                .withEducationSummary("Changing education summary to green")
+                .continue();
+
+            Logger.log("Change finance risk");
+            projectRiskSummaryPage.changeFinanceRisk();
+
+            editProjectRiskPage
+                .hasFinanceRiskRating("AmberRed")
+                .hasFinanceRiskSummary("This is my finance risk summary")
+                .withFinanceRiskRating("Red")
+                .withFinanceSummary("Changing the finance summary to red")
+                .continue();
+
+            Logger.log("Change sharepoint link");
+            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
+
+            editProjectRiskPage
+                .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
+                .withRiskAppraisalFormSharePointLink("www.mynewlink/risk")
+                .continue();
+
+            Logger.log("Change overall risk");
+            projectRiskSummaryPage.changeOverallRisk();
+
+            editProjectRiskPage
+                .hasOverallRiskRating("Green")
+                .hasOverallRiskSummary("This is my overall risk summary")
+                .withOverallRiskRating("AmberGreen")
+                .withOverallRiskSummary("Changing the overall risk summary to amber green")
+                .continue();
+
+            Logger.log("Ensure our changes are reflected in the confirmation");
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Amber", "Green"])
+                .hasOverallRiskSummary("Changing the overall risk summary to amber green")
+                .hasGovernanceAndSuitabilityRiskRating(["Red"])
+                .hasGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
+                .hasEducationRiskRating(["Green"])
+                .hasEducationRiskSummary("Changing education summary to green")
+                .hasFinanceRiskRating(["Red"])
+                .hasFinanceRiskSummary("Changing the finance summary to red")
+                .hasRiskAppraisalFormSharePointLink("www.mynewlink/risk");
+
+            Logger.log("Ensure that when the risk is created it has the edited values");
+            projectRiskSummaryPage.createRiskEntry();
+
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Amber", "Green"])
+                .hasOverallRiskSummary("Changing the overall risk summary to amber green")
+                .hasGovernanceAndSuitabilityRiskRating(["Red"])
+                .hasGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
+                .hasEducationRiskRating(["Green"])
+                .hasEducationRiskSummary("Changing education summary to green")
+                .hasFinanceRiskRating(["Red"])
+                .hasFinanceRiskSummary("Changing the finance summary to red")
+                .hasRiskAppraisalFormSharePointLink("www.mynewlink/risk");
+
         });
     });
 
@@ -287,7 +354,7 @@ describe("Testing that we can add a project risk", () => {
         Logger.log("Enter a valid overall risk");
         editProjectRiskPage
             .withOverallRiskRating("Green")
-            .withOverallSummary("This is my overall risk summary")
+            .withOverallRiskSummary("This is my overall risk summary")
             .continue();
     }
 });
