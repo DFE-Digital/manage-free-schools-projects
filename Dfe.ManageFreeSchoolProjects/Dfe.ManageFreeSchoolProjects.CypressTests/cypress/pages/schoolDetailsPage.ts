@@ -118,8 +118,8 @@ class SchoolDetailsPage {
         return this;
     }
 
-    public enterValidSpecialCharsSchoolNameField(): this {
-        cy.getByTestId("current-free-school-name").type("St Dunstan's Abbey, (Plymouth)");
+    public enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars :string): this {
+        cy.getByTestId("current-free-school-name").type(schoolWithAllValidSpecialChars);
 1
         return this;
     }
@@ -133,6 +133,15 @@ class SchoolDetailsPage {
     public enterNegTestAllInvalidSpecialCharsSchoolNameField(): this {
         cy.getByTestId("current-free-school-name").type("!\"£$%^&-+=[]{}:;@~#?/|.*" + "\\<>");
 1
+        return this;
+    }
+
+    public verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError(): this {
+        cy.getByClass("govuk-error-summary").contains("There is a problem");
+        cy.getByClass("govuk-error-summary").contains("School name must not include special characters other than , ( ) '");
+
+        cy.getByClass("govuk-error-message").contains("School name must not include special characters other than , ( ) '");
+
         return this;
     }
 
