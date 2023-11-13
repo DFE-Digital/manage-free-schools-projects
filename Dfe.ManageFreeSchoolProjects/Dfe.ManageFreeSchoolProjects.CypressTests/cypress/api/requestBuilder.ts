@@ -10,8 +10,8 @@ export class RequestBuilder {
             applicationWave: v4(),
             createdBy: Cypress.env(EnvUsername),
             schoolName: "(" + v4().substring(0, 4) + ")Test School",
-            region: v4(),
-            localAuthority: v4(),
+           // region: v4(),
+          //  localAuthority: v4(),
         };
 
         return result;
