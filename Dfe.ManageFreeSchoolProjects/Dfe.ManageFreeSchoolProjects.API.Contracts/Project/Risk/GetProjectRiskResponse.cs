@@ -4,7 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
 {
     public class GetProjectRiskResponse
     {
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public ProjectRiskEntryResponse GovernanceAndSuitability { get; set; } = new();
 
@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk
 
     public class ProjectRiskHistoryResponse
     {
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public ProjectRiskRating? RiskRating { get; set; }
     }
 

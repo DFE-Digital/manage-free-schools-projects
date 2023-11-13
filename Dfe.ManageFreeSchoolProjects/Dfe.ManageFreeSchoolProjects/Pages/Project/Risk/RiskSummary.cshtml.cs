@@ -56,11 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName;
             ProjectRisk = projectRiskResponse;
-
-            if (projectRiskResponse.Date != DateTime.MinValue)
-            {
-                RiskDate = projectRiskResponse.Date;
-            }
+            RiskDate = projectRiskResponse.Date;
 
             return Page();
         }

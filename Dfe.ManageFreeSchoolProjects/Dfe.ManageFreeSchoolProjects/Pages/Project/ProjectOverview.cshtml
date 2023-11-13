@@ -443,8 +443,10 @@
                         <dt class="govuk-summary-list__key">
                             Date
                         </dt>
-                        <dd class="govuk-summary-list__value">
-                            21 March 2023
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-date">
+                            @{
+                                RenderValue(Model.Project.Risk.Date.ToDateString());
+                            }
                         </dd>
 
                     </div>
@@ -453,20 +455,20 @@
                         <dt class="govuk-summary-list__key">
                             Overall risk rating
                         </dt>
-                        <dd class="govuk-summary-list__value">
-                            <strong class="govuk-tag dfe-tag--amber">Amber</strong>&nbsp;<strong class="govuk-tag govuk-tag--green">Green</strong>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-rating">
+                            <govuk-risk-rating-label risk-rating="@Model.Project.Risk.RiskRating" />
                         </dd>
-
                     </div>
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Overall risk summary
                         </dt>
-                        <dd class="govuk-summary-list__value">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mattis et ex ac egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
+                            @{
+                                RenderValue(Model.Project.Risk.Summary);
+                            }
                         </dd>
-
                     </div>
 
 

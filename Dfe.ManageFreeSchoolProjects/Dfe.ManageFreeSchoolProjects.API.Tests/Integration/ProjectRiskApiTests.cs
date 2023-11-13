@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectRisk.History.Should().HaveCount(1);
             var history = projectRisk.History.First();
             history.RiskRating.Should().Be(createProjectRiskRequest.Overall.RiskRating);
-            history.Date.Date.Should().Be(today.Date);
+            history.Date.Value.Date.Should().Be(today.Date);
         }
 
         [Fact]
@@ -75,11 +75,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var latestHistory = projectRisk.History.First();
             latestHistory.RiskRating.Should().Be(secondCreateProjectRiskRequest.Overall.RiskRating);
-            latestHistory.Date.Date.Should().Be(today.Date);
+            latestHistory.Date.Value.Date.Should().Be(today.Date);
 
             var previousHistory = projectRisk.History.Last();
             previousHistory.RiskRating.Should().Be(firstCreateProjectRiskRequest.Overall.RiskRating);
-            previousHistory.Date.Date.Should().Be(today.Date);
+            previousHistory.Date.Value.Date.Should().Be(today.Date);
         }
 
         [Fact]
@@ -168,7 +168,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var today = DateTime.Now;
 
-            projectRisk.Date.Date.Should().Be(today.Date);
+            projectRisk.Date.Value.Date.Should().Be(today.Date);
             projectRisk.Education.RiskRating.Should().BeNull();
             projectRisk.Education.Summary.Should().BeNull();
             projectRisk.Finance.RiskRating.Should().BeNull();
@@ -182,7 +182,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectRisk.History.Should().HaveCount(1);
             var history = projectRisk.History.First();
             history.RiskRating.Should().BeNull();
-            history.Date.Date.Should().Be(today.Date);
+            history.Date.Value.Date.Should().Be(today.Date);
         }
 
 
@@ -258,7 +258,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var today = DateTime.Now;
 
-            actual.Date.Date.Should().Be(today.Date);
+            actual.Date.Value.Date.Should().Be(today.Date);
 
             actual.Education.RiskRating.Should().Be(expected.Education.RiskRating);
             actual.Education.Summary.Should().Be(expected.Education.Summary);
@@ -277,6 +277,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
         private static void AssertEmptyResponse(GetProjectRiskResponse projectRisk)
         {
+            projectRisk.Date.Should().BeNull();
             projectRisk.GovernanceAndSuitability.RiskRating.Should().BeNull();
             projectRisk.GovernanceAndSuitability.Summary.Should().BeNull();
 

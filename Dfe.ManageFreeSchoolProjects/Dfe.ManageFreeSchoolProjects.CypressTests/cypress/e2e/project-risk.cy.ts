@@ -30,7 +30,13 @@ describe("Testing that we can add a project risk", () => {
     });
 
     describe("Adding a project risk", () => {
-        it.only("Should be able to add project risk", () => {
+        it("Should be able to add project risk", () => {
+
+            projectOverviewPage
+                .hasProjectRiskDate("Empty")
+                .hasProjectRiskRating(["Empty"])
+                .hasProjectRiskSummary("Empty");
+
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -159,6 +165,14 @@ describe("Testing that we can add a project risk", () => {
                 .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
 
             cy.excuteAccessibilityTests();
+
+            Logger.log("Ensure that the project risk has been updated on the overview");
+            cy.visit(`/projects/${project.projectId}/overview`);
+
+            projectOverviewPage
+                .hasProjectRiskDate(toDisplayDate(now))
+                .hasProjectRiskRating(["Green"])
+                .hasProjectRiskSummary("This is my overall risk summary");
         });
 
         it("Should be able to add multiple project risks with the latest being displayed by default", () => {
@@ -261,6 +275,15 @@ describe("Testing that we can add a project risk", () => {
                     projectRiskSummaryPage
                         .hasOverallRiskRating(["Amber", "Green"])
                         .hasOverallRiskSummary("This is another of my overall risk summary")
+
+
+                    Logger.log("Ensure that the latest project risk has been updated on the overview");
+                    cy.visit(`/projects/${project.projectId}/overview`);
+
+                    projectOverviewPage
+                        .hasProjectRiskDate(toDisplayDate(now))
+                        .hasProjectRiskRating(["Amber", "Green"])
+                        .hasProjectRiskSummary("This is another of my overall risk summary");
                 });
         });
 

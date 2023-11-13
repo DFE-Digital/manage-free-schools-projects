@@ -73,7 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);
 
             // Risk
-            result.Data.Risk.Date.Date.Should().Be(DateTime.Now.Date);
+            result.Data.Risk.Date.Value.Date.Should().Be(DateTime.Now.Date);
             result.Data.Risk.RiskRating.Should().Be(createProjectRiskRequest.Overall.RiskRating);
             result.Data.Risk.Summary.Should().Be(createProjectRiskRequest.Overall.Summary);
         }
@@ -109,6 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Risk
             result.Data.Risk.RiskRating.Should().BeNull();
             result.Data.Risk.Summary.Should().BeNull();
+            result.Data.Risk.Date.Should().BeNull();
         }
 
         [Fact]
