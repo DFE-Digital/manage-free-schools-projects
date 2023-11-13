@@ -30,7 +30,7 @@ describe("Testing that we can add a project risk", () => {
     });
 
     describe("Adding a project risk", () => {
-        it("Should be able to add project risk", () => {
+        it.only("Should be able to add project risk", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 

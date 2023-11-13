@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             if (response == null)
             {
-                return new NoContentResult();
+                response = new GetProjectRiskResponse();
             }
 
             return new ObjectResult(new ApiSingleResponseV2<GetProjectRiskResponse>(response))

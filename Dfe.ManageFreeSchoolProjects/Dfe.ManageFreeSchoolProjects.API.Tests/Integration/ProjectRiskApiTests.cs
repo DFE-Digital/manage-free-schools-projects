@@ -120,7 +120,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             firstCreateProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
             var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk?entry=3");
-            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectRiskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectRiskResponse>>();
+            var projectRisk = content.Data;
+
+            AssertEmptyResponse(projectRisk);
         }
 
         [Fact]
@@ -129,7 +134,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = await CreateProject();
 
             var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk");
-            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectRiskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectRiskResponse>>();
+            var projectRisk = content.Data;
+
+            AssertEmptyResponse(projectRisk);
         }
 
         [Fact]
@@ -263,6 +273,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actual.Overall.Summary.Should().Be(expected.Overall.Summary);
 
             actual.RiskAppraisalFormSharepointLink.Should().Be(expected.RiskAppraisalFormSharepointLink);
+        }
+
+        private static void AssertEmptyResponse(GetProjectRiskResponse projectRisk)
+        {
+            projectRisk.GovernanceAndSuitability.RiskRating.Should().BeNull();
+            projectRisk.GovernanceAndSuitability.Summary.Should().BeNull();
+
+            projectRisk.Education.RiskRating.Should().BeNull();
+            projectRisk.Education.Summary.Should().BeNull();
+
+            projectRisk.Finance.RiskRating.Should().BeNull();
+            projectRisk.Finance.Summary.Should().BeNull();
+
+            projectRisk.Overall.RiskRating.Should().BeNull();
+            projectRisk.Overall.Summary.Should().BeNull();
+
+            projectRisk.RiskAppraisalFormSharepointLink.Should().BeNull();
+
+            projectRisk.History.Should().HaveCount(0);
         }
     }
 }

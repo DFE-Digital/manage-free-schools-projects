@@ -55,10 +55,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             var projectOverview = await _getProjectOverviewService.Execute(ProjectId);
 
             SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName;
+            ProjectRisk = projectRiskResponse;
 
-            if (projectRiskResponse != null)
+            if (projectRiskResponse.Date != DateTime.MinValue)
             {
-                ProjectRisk = projectRiskResponse;
                 RiskDate = projectRiskResponse.Date;
             }
 

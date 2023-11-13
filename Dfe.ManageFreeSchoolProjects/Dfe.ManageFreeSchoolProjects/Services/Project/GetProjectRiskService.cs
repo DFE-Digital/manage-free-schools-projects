@@ -24,11 +24,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
             var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectRiskResponse>>(endpoint);
 
-            if (result == null)
-            {
-                return null;
-            }
-
             return result.Data;
         }
     }
