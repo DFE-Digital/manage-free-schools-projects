@@ -10,7 +10,20 @@ class SingleProjectLocalAuthorityPage {
 
         cy.getByTestId("Bath and North East Somerset").should("not.be.checked");
         cy.contains("Bath and North East Somerset");
+        cy.getByTestId("Isles of Scilly").should("not.be.checked");
+        cy.contains("Isles of Scilly");
 
+        cy.getByTestId("Bath and North East Somerset").should("not.be.checked");
+        cy.contains("Bath and North East Somerset");
+
+        cy.getByTestId("Bristol").should("not.be.checked");
+        cy.contains("Bristol");
+
+        cy.getByTestId("North Somerset").should("not.be.checked");
+        cy.contains("North Somerset");
+
+        cy.getByTestId("South Gloucestershire").should("not.be.checked");
+        cy.contains("South Gloucestershire");
         cy.getByTestId("Bristol").should("not.be.checked");
         cy.contains("Bristol");
 
@@ -31,7 +44,26 @@ class SingleProjectLocalAuthorityPage {
 
         cy.getByTestId("Wiltshire").should("not.be.checked");
         cy.contains("Wiltshire");
+        cy.getByTestId("Poole").should("not.be.checked");
+        cy.contains("Poole");
 
+        cy.getByTestId("Dorset").should("not.be.checked");
+        cy.contains("Dorset");
+
+        cy.getByTestId("Bournemouth, Christchurch and Poole").should("not.be.checked");
+        cy.contains("Bournemouth, Christchurch and Poole");
+
+        cy.getByTestId("Wiltshire").should("not.be.checked");
+        cy.contains("Wiltshire");
+
+        cy.getByTestId("Swindon").should("not.be.checked");
+        cy.contains("Swindon");
+
+        cy.getByTestId("Devon").should("not.be.checked");
+        cy.contains("Devon");
+
+        cy.getByTestId("Plymouth").should("not.be.checked");
+        cy.contains("Plymouth");
         cy.getByTestId("Swindon").should("not.be.checked");
         cy.contains("Swindon");
 

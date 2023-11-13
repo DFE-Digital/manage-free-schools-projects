@@ -17,7 +17,11 @@ class SingleProjectCheckYourAnswersPage {
         cy.get("a[href='/project/create/region']").contains("Change");
 
         cy.get("dt").eq(3).contains("Local authority");
+<<<<<<< HEAD
         cy.get("dd").eq(6).contains("Plymouth");
+=======
+        cy.get("dd").eq(6).contains("Somerset");
+>>>>>>> main
         cy.get("a[href='/project/create/localauthority']").contains("Change");
 
         cy.get("dt").eq(4).contains("Provisional opening date agreed with trust");

@@ -53,14 +53,14 @@ class SchoolSummaryPage {
         return this;
     }
 
-    public verifySchoolSummaryValidSpecialCharsElementsVisible(): this {
+    public verifySchoolSummaryValidSpecialCharsElementsVisible(schoolWithAllValidSpecialChars :string): this {
         cy.getByClass("govuk-back-link").contains("Back");
         cy.getByClass("govuk-caption-l").contains("St Dunstan's Abbey, (Plymouth)");
         cy.getByClass("govuk-heading-xl").contains("School");
 
         
         cy.getByClass("govuk-summary-list__key").eq(0).contains("Current free school name");
-        cy.getByClass("govuk-summary-list__value").eq(0).contains("St Dunstan's Abbey, (Plymouth)");
+        cy.getByClass("govuk-summary-list__value").eq(0).contains(schoolWithAllValidSpecialChars);
         cy.getByClass("govuk-link").eq(2).contains("Change");
 
         cy.getByClass("govuk-summary-list__key").eq(1).contains("School type");
