@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _errorService = errorService;
         }
 
-        public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
             if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
             {

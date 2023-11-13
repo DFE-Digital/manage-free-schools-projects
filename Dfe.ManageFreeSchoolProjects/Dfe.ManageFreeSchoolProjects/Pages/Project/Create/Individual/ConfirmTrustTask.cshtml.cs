@@ -18,9 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
     public class ConfirmTrustTaskModel : PageModel
     {
-        private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTrustByRefService _getTrustByRefService;
-        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<ConfirmTrustTaskModel> _logger;
         private readonly ErrorService _errorService;
 
@@ -47,16 +45,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ICreateProjectCache _createProjectCache;
 
         public ConfirmTrustTaskModel(
-            IGetProjectByTaskService getProjectService,
             IGetTrustByRefService getTrustByRefService,
-            IUpdateProjectByTaskService updateProjectTaskService,
             ICreateProjectCache createProjectCache,
             ILogger<ConfirmTrustTaskModel> logger,
             ErrorService errorService)
         {
-            _getProjectService = getProjectService;
             _getTrustByRefService = getTrustByRefService;
-            _updateProjectTaskService = updateProjectTaskService;
             _createProjectCache = createProjectCache;
             _logger = logger;
             _errorService = errorService;

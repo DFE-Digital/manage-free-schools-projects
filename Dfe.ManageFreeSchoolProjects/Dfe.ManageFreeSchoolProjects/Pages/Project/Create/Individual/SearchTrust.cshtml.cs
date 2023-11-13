@@ -21,9 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class SearchTrustTaskModel : PageModel
     {
         private readonly ILogger<SearchTrustTaskModel> _logger;
-        private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTrustByRefService _getTrustByRefService;
-        private readonly ISearchTrustByRefService _searchTrustByRefService;
         private readonly ErrorService _errorService;
 
         public string BackLink { get; set; }
@@ -48,15 +46,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             ILogger<SearchTrustTaskModel> logger,
             ErrorService errorService)
         {
-            _getProjectService = getProjectService;
             _getTrustByRefService = getTrustByRefService;
-            _searchTrustByRefService = searchTrustByRefService;
             _createProjectCache = createProjectCache;
             _logger = logger;
             _errorService = errorService;
         }
 
-        public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
             _logger.LogMethodEntered();
 
