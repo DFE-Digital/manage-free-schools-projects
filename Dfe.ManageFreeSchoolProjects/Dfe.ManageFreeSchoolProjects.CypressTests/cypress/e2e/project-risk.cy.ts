@@ -66,7 +66,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Enter a valid governance and suitability risk");
             editProjectRiskPage
@@ -84,7 +84,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Enter a valid education risk");
             editProjectRiskPage
@@ -102,7 +102,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Enter a valid finance risk");
             editProjectRiskPage
@@ -116,7 +116,7 @@ describe("Testing that we can add a project risk", () => {
                 .withRiskAppraisalFormSharePointLink("www.google.co.uk")
                 .continue();
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Validate overall risk");
             editProjectRiskPage
@@ -127,7 +127,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Enter a valid overall risk");
             editProjectRiskPage
@@ -147,7 +147,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasFinanceRiskSummary("This is my finance risk summary")
                 .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Create the project risk");
             projectRiskSummaryPage.createRiskEntry();
@@ -164,7 +164,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasFinanceRiskSummary("This is my finance risk summary")
                 .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
 
-            cy.excuteAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Ensure that the project risk has been updated on the overview");
             cy.visit(`/projects/${project.projectId}/overview`);
