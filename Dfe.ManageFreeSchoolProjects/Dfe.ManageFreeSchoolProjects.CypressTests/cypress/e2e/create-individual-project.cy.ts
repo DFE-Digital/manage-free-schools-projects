@@ -81,6 +81,7 @@ describe("Creating an individual project - Test Create new individual project jo
     it("Should navigate to project/create/method page", () => {
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
+        const e2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
         cy.executeAccessibilityTests();
@@ -201,7 +202,7 @@ describe("Creating an individual project - Test Create new individual project jo
         cy.executeAccessibilityTests();
         
 
-        singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
+        singleProjectCurrentFreeSchoolNamePage.checkElementsVisible(e2eTestSchool);
 
 
         Logger.log("TESTING THAT SUBMITTING A BLANK SCHOOL NAME FAILS");
@@ -254,7 +255,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
   
         Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 100 CHARS OR LESS PASSES");
-        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool();
+        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool(e2eTestSchool);
 
 
         //------------------------------------------------------------------------------------------------------------------------

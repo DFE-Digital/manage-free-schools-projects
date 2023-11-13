@@ -1,5 +1,5 @@
 class SingleProjectCurrentFreeSchoolNamePage {
-    public checkElementsVisible(): this {
+    public checkElementsVisible(e2eTestSchool): this {
         //cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
