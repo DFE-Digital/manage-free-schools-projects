@@ -14,8 +14,7 @@ public class NotifyUser : PageModel
     private readonly ErrorService _errorService;
     private readonly ICreateProjectCache _createProjectCache;
 
-    //TODO: Error message TBD, talk to A
-    [Required]
+    [Required(ErrorMessage = "Please enter an email.")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
 
@@ -48,7 +47,7 @@ public class NotifyUser : PageModel
     {
         if (!IsEmailValid(Email))
         {
-            ModelState.AddModelError("email", "Email is not valid.");
+            ModelState.AddModelError("email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)
@@ -66,6 +65,6 @@ public class NotifyUser : PageModel
 
     private static bool IsEmailValid(string email)
     {
-        return new EmailAddressAttribute().IsValid(email);
+        return email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email);
     }
 }
