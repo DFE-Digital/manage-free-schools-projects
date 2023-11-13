@@ -5,13 +5,13 @@
 
     var labels = new List<string>();
     var values = new List<string>();
-    var names = new List<string>();
+    var testIds = new List<string>();
 
     ratingLabels.ForEach(entry =>
     {
         labels.Add(entry.Label);
         values.Add(((int)entry.RiskRating).ToString());
-        names.Add(entry.RiskRating.ToString());
+        testIds.Add($"risk-rating-{entry.RiskRating.ToString()}");
     });
 }
 
@@ -35,7 +35,7 @@
                                 asp-for="@Model.RiskRating"
                                 label="@Model.RiskRatingLabel"
                                 values="@values.ToArray()"
-                                test-ids="@names.ToArray()"
+                                test-ids="@testIds.ToArray()"
                                 html-labels="@labels.ToArray()" />
 
             <govuk-textarea-input id="summary"
