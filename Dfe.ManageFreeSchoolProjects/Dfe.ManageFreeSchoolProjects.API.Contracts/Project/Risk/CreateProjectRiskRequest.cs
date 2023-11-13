@@ -2,13 +2,13 @@
 {
     public class CreateProjectRiskRequest
     {
-        public ProjectRiskEntryRequest GovernanceAndSuitability { get; set; }
+        public ProjectRiskEntryRequest GovernanceAndSuitability { get; set; } = new();
 
-        public ProjectRiskEntryRequest Education { get; set; }
+        public ProjectRiskEntryRequest Education { get; set; } = new();
 
-        public ProjectRiskEntryRequest Finance { get; set; }
+        public ProjectRiskEntryRequest Finance { get; set; } = new();
 
-        public ProjectRiskEntryRequest Overall { get; set; }
+        public ProjectRiskEntryRequest Overall { get; set; } = new();
 
         public string RiskAppraisalFormSharepointLink { get; set; }
     }

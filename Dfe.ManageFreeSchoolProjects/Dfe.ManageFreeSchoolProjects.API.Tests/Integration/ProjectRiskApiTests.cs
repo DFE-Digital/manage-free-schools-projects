@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,6 +131,50 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk");
             getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
+
+        [Fact]
+        public async Task When_Get_WithEmptyEntry_Returns_DefaultValues_200()
+        {
+            var project = await CreateProject();
+
+            using var context = _testFixture.GetContext();
+
+            var dbProject = context.Kpi.First(x => x.ProjectStatusProjectId == project.ProjectId);
+
+            Rag risk = new Rag()
+            {
+                Rid = dbProject.Rid
+            };
+
+            context.Rag.Add(risk);
+
+            await context.SaveChangesAsync();
+
+            var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk");
+            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectRiskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectRiskResponse>>();
+            var projectRisk = content.Data;
+
+            var today = DateTime.Now;
+
+            projectRisk.Date.Date.Should().Be(today.Date);
+            projectRisk.Education.RiskRating.Should().BeNull();
+            projectRisk.Education.Summary.Should().BeNull();
+            projectRisk.Finance.RiskRating.Should().BeNull();
+            projectRisk.Finance.Summary.Should().BeNull();
+            projectRisk.GovernanceAndSuitability.RiskRating.Should().BeNull();
+            projectRisk.GovernanceAndSuitability.Summary.Should().BeNull();
+            projectRisk.Overall.RiskRating.Should().BeNull();
+            projectRisk.Overall.Summary.Should().BeNull();
+            projectRisk.RiskAppraisalFormSharepointLink.Should().BeNull();
+
+            projectRisk.History.Should().HaveCount(1);
+            var history = projectRisk.History.First();
+            history.RiskRating.Should().BeNull();
+            history.Date.Date.Should().Be(today.Date);
+        }
+
 
         [Fact]
         public async Task When_Post_NoExistingProject_Returns_404()
