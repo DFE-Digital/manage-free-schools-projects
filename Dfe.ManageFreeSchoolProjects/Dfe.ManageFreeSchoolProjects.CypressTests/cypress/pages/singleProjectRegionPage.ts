@@ -1,6 +1,6 @@
 class SingleProjectRegionPage {
     public checkElementsVisible(): this {
-        //cy.contains("Back");
+        cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
         cy.get("h1").contains("What is the region of the school?");

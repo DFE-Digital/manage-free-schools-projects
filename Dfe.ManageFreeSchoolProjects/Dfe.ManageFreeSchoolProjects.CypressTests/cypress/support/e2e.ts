@@ -23,6 +23,10 @@ declare global {
             getByTestId(id: string): Chainable<Element>;
             containsByTestId(id: string): Chainable<Element>;
             getById(id: string): Chainable<Element>;
+            getByClass(className: string): Chainable<Element>;
+            getByName(name: string): Chainable<Element>;
+            getByRole(role: string): Chainable<Element>;
+            getByLabelFor(labelFor: string): Chainable<Element>;
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
             executeAccessibilityTests(): Chainable<Element>;
