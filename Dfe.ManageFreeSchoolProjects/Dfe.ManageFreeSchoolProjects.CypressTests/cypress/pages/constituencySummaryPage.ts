@@ -1,14 +1,19 @@
 export class ConstituencySummaryPage {
     private summaryCounter = -1;
 
-    public static schoolNameIs(school: string): ConstituencySummaryPage {
-        cy.get(".govuk-heading-xl").get(".govuk-caption-l").should("contains.text", school);
+    public static check(): ConstituencySummaryPage
+    {
         return new ConstituencySummaryPage()
     }
 
     public titleIs(title: string): this {
         cy.get(".govuk-heading-xl").should("contains.text", title)
         return this;
+    }
+
+    public schoolNameIs(school: string): ConstituencySummaryPage {
+        cy.get(".govuk-heading-xl").get(".govuk-caption-l").should("contains.text", school);
+        return new ConstituencySummaryPage()
     }
 
     public summaryShows(key: string): this {
