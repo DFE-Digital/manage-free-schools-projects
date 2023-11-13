@@ -3,52 +3,15 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
 @model AddGovernanceAndSuitabilityRiskModel
 @{
-    var ratingLabels = RiskRatingLabelBuilder.Build();
-
-    var labels = new List<string>();
-    var values = new List<string>();
-    var names = new List<string>();
-
-    ratingLabels.ForEach(entry =>
+    var riskFormModel = new RiskFormModel
     {
-        labels.Add(entry.Label);
-        values.Add(((int)entry.RiskRating).ToString());
-        names.Add(entry.RiskRating.ToString());
-    });
+        SchoolName = Model.SchoolName,
+        Heading = "Governance and suitability",
+        RiskRating = Model.RiskRating,
+        RiskRatingLabel = "What is the updated risk rating for governance and suitability?",
+        RiskSummaryLabel = "What is the updated risk summary for governance and suitability?",
+        Summary = Model.Summary
+    };
 }
 
-<partial name="_ErrorSummary" />
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName - new risk rating entry</span>
-            Governance and suitability
-        </h1>
-    </div>
-</div>
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <form class="form" method="post">
-
-            <govuk-radios-input id="risk-rating"
-                                name="risk-rating"
-                                asp-for="@Model.RiskRating"
-                                label="What is the updated risk rating for governance and suitability?"
-                                values="@values.ToArray()"
-                                test-ids="@names.ToArray()"
-                                html-labels="@labels.ToArray()" />
-
-            <govuk-textarea-input id="summary"
-                                  name="summary"
-                                  asp-for="@Model.Summary"
-                                  label="What is the updated risk summary for governance and suitability?"
-                                  test-id="governance-and-suitability-risk-summary" />
-
-            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
-                Continue
-            </button>
-        </form>
-    </div>
-</div>
+<partial name="_RiskForm" model="@riskFormModel" />

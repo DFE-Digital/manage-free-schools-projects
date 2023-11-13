@@ -2,55 +2,15 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
 @model AddOverallRiskModel
 @{
-    var ratingLabels = RiskRatingLabelBuilder.Build();
-
-    var labels = new List<string>();
-    var values = new List<string>();
-    var names = new List<string>();
-
-    ratingLabels.ForEach(entry =>
+    var riskFormModel = new RiskFormModel
     {
-        labels.Add(entry.Label);
-        values.Add(((int)entry.RiskRating).ToString());
-        names.Add(entry.RiskRating.ToString());
-    });
+        SchoolName = Model.SchoolName,
+        Heading = "Overall",
+        RiskRating = Model.RiskRating,
+        RiskRatingLabel = "What is the updated risk rating?",
+        RiskSummaryLabel = "What is the updated risk summary?",
+        Summary = Model.Summary
+    };
 }
 
-<partial name="_ErrorSummary" />
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName - new risk rating entry</span>
-            Overall
-        </h1>
-    </div>
-</div>
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-
-        <form class="form" method="post">
-
-            <govuk-radios-input id="risk-rating"
-                                name="risk-rating"
-                                asp-for="@Model.RiskRating"
-                                data-testid="risk-rating"
-                                label="What is the updated risk rating?"
-                                values="@values.ToArray()"
-                                html-labels="@labels.ToArray()"
-                                test-ids="@names.ToArray()" />
-
-            <govuk-textarea-input id="summary"
-                                  name="summary"
-                                  asp-for="@Model.Summary"
-                                  data-testid="summary"
-                                  label="What is the updated risk summary?"
-                                  test-id="overall-risk-summary" />
-
-            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
-                Continue
-            </button>
-        </form>
-    </div>
-</div>
+<partial name="_RiskForm" model="@riskFormModel" />
