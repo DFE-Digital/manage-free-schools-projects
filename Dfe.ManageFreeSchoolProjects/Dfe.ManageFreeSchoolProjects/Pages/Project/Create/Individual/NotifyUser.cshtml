@@ -6,7 +6,7 @@
 
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
-        @* <a href=@Model.BackLink class="govuk-back-link">Back</a> *@
+        <a href=@Model.BackLink class="govuk-back-link">Back</a>
     </div>
 }
 
@@ -21,9 +21,9 @@
                     Who do you want to notify about this project?
                 </label>
             </h1>
-            <div class="govuk-form-group">
+            <div class="govuk-form-group" id="email">
                 <p class="govuk-!-font-size-18">This is so they can assign it to someone to manage.</p>
-                <govuk-text-input id="email" name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
+                <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
