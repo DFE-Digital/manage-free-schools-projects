@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
     public record ProjectOverviewResponse
     {
@@ -6,6 +8,7 @@
         public SchoolDetailsResponse SchoolDetails { get; set; }
         public KeyContactsResponse KeyContacts { get; set; }
         public SiteInformationResponse SiteInformation { get; set; }
+        public ProjectRiskOverviewResponse Risk { get; set; }
     }
 
     public record ProjectStatusResponse
@@ -57,5 +60,12 @@
     {
         public string Property { get; set; }
         public string Postcode { get; set; }
+    }
+
+    public record ProjectRiskOverviewResponse
+    {
+        public DateTime Date { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
+        public string Summary { get; set; }
     }
 }
