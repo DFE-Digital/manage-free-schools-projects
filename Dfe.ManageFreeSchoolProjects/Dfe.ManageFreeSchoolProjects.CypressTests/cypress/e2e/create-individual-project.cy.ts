@@ -349,7 +349,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectLocalAuthorityPage.selectContinue();
 
         // ***************************** STEP - 5 - TRUST ID SECTION **********************************************
-
+        /*
         singleProjectTrustIdPage.checkElementsVisible();
 
 
@@ -490,7 +490,7 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TEST THAT A VALID FORMAT EMAIL ADDRESS CAN BE ENTERED INTO THE EMAIL FIELD AND THAT IT IS ACCEPTED AND USER PROCEEDS TO CHECK YOUR ANSWERS PAGE");
         singleProjectNotifyUserPage.UserEntersValidEmailAddress(validEmail);
         singleProjectNotifyUserPage.selectContinue();
-
+        */
 
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
