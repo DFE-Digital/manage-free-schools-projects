@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
 {
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         School,
         Dates,
         RiskAppraisal,
+        RegionAndLocalAuthority,
         Trust
     }
 

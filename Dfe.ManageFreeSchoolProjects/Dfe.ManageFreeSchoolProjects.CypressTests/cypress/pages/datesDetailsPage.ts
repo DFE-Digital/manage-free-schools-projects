@@ -38,7 +38,7 @@ class DatesDetailsPage {
 
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Enter a date for the provisional opening date agreed with trust");
 
-        cy.getById("opening-academic-year-error").should("be.visible").contains("Start date should be in the format: 20XX");
+        cy.getById("opening-academic-years-error").should("be.visible").contains("Start date should be in the format: 20XX");
 
         return this;
     }
@@ -178,12 +178,12 @@ class DatesDetailsPage {
     }
 
     verifyInvalidAcademicStartYearDate(): this {
-        cy.getById('opening-academic-year-error').contains('Start date should be in the format: 20XX') 
+        cy.getById('opening-academic-years-error').contains('Start date should be in the format: 20XX') 
         return this
     }
 
     verifyInvalidAcademicEndYearDate(): this {
-        cy.getById('opening-academic-year-error').contains('End date should be in the format: 20XX') 
+        cy.getById('opening-academic-years-error').contains('End date should be in the format: 20XX') 
         return this
     }
 

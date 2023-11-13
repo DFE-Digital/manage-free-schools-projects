@@ -10417,11 +10417,27 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Rag", b =>
                 {
+                    b.Property<string>("Rid")
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("RID");
+
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodEnd");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodStart");
 
                     b.Property<string>("RagRatingsAllAssessmentConditionsMet")
                         .HasMaxLength(100)
@@ -10483,6 +10499,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Rag Ratings.Education RAG");
 
+                    b.Property<string>("RagRatingsEducationRagSummary")
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("Rag Ratings.Education RAG summary");
+
                     b.Property<string>("RagRatingsFinanceRagSummary")
                         .HasMaxLength(1000)
                         .IsUnicode(false)
@@ -10490,9 +10512,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Finance RAG summary");
 
                     b.Property<string>("RagRatingsFinancesRagRating")
-                        .HasMaxLength(100)
+                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(1000)")
                         .HasColumnName("Rag Ratings.Finances RAG rating");
 
                     b.Property<string>("RagRatingsGovernanceAndSuitabilityRagRating")
@@ -10501,10 +10523,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Rag Ratings.Governance and Suitability RAG rating");
 
-                    b.Property<string>("RagRatingsHasCondition1BeenMet")
-                        .HasMaxLength(100)
+                    b.Property<string>("RagRatingsGovernanceAndSuitabilityRagSummary")
+                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("Rag Ratings.Governance and Suitability RAG summary");
+
+                    b.Property<string>("RagRatingsHasCondition1BeenMet")
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)")
                         .HasColumnName("Rag Ratings.Has condition 1 been met?");
 
                     b.Property<string>("RagRatingsHasCondition2BeenMet")
@@ -10609,6 +10637,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Rag Ratings.Reason for Joint Risk Category");
 
+                    b.Property<string>("RagRatingsRiskAppraisalFormSharepointLink")
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)")
+                        .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
+
                     b.Property<string>("RagRatingsRscStocktakeRecommendationSummary")
                         .HasMaxLength(1000)
                         .IsUnicode(false)
@@ -10621,13 +10655,20 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(999)")
                         .HasColumnName("Rag Ratings.Summary of inclusivity issue");
 
-                    b.Property<string>("Rid")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("RID");
+                    b.HasKey("Rid");
 
                     b.ToTable("RAG", "dbo");
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                            {
+                                ttb.UseHistoryTable("RAGHistory", "dbo");
+                                ttb
+                                    .HasPeriodStart("PeriodStart")
+                                    .HasColumnName("PeriodStart");
+                                ttb
+                                    .HasPeriodEnd("PeriodEnd")
+                                    .HasColumnName("PeriodEnd");
+                            }));
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.RagtempBudget", b =>

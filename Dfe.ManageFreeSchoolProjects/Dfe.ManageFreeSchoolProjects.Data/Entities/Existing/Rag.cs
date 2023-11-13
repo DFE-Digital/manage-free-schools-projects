@@ -68,9 +68,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string RagRatingsGovernanceAndSuitabilityRagRating { get; set; }
 
+        public string RagRatingsGovernanceAndSuitabilityRagSummary { get; set; }
+
         public string RagRatingsLocalContextRagRating { get; set; }
 
         public string RagRatingsEducationRag { get; set; }
+
+        public string RagRatingsEducationRagSummary { get; set; }
 
         public string RagRatingsInclusivityIssue { get; set; }
 
@@ -83,5 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string RagRatingsLinkToRiskAssessmentMatrix { get; set; }
 
         public string RagRatingsOverallRomRagRating { get; set; }
+
+        public string RagRatingsRiskAppraisalFormSharepointLink { get; set; }
     }
 }

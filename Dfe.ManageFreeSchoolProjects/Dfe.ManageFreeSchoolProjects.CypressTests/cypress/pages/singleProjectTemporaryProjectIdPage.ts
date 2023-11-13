@@ -1,4 +1,4 @@
-import dataGenerator from "cypress/fixtures/dataGenerator";
+
 
 //let temporaryProjectId = "";
 
