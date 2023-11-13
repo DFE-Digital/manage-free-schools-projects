@@ -76,7 +76,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Testing that a user can select an option e.g. 'North West' and successfully continue to Local authority Details page");
 
-        regionDetailsPage.selectNorthWest();
+        regionDetailsPage.selectSouthWest();
 
         regionDetailsPage.selectContinue();
 
@@ -86,20 +86,38 @@ describe("Testing project overview", () => {
 
         Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Local authority Details page");
 
-        localAuthorityDetailsPage.selectBedford()
-                                 .selectCambridgeshire()
-                                 .selectCentralBedfordshire()
-                                 .selectEssex()
-                                 .selectHertfordshire();
+        localAuthorityDetailsPage.selectIslesOfScilly()
+                                 .selectBathAndNorthEastSomerset()
+                                 .selectBristol()
+                                 .selectNorthSomerset()
+                                 .selectSouthGloucestershire()
+                                 .selectPoole()
+                                 .selectDorset()
+                                 .selectBournemouthChristchurchAndPoole()
+                                 .selectWiltshire()
+                                 .selectSwindon()
+                                 .selectDevon()
+                                 .selectPlymouth()
+                                 .selectTorbay()
+                                 .selectCornwall()
+                                 .selectGloucestershire()
+                                 .selectSomerset();
         
         Logger.log("Testing that a user can make a selection and save the Region and Local authority data and navigate to the Region and Local authority Summary page");
 
+        localAuthorityDetailsPage.selectPlymouth();
 
-      //  regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
+        localAuthorityDetailsPage.selectContinue();
 
-      //  regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
+        cy.executeAccessibilityTests();
 
-      //  taskListPage.verifySchoolMarkedAsComplete();
+      regionAndLocalAuthoritySummaryPage.verifyRegionAndLASummaryCompleteElementsVisible(project.schoolName);
+
+      regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
+
+      regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
+      
+      taskListPage.verifyRegionAndLAMarkedAsComplete();
 
     });
 });
