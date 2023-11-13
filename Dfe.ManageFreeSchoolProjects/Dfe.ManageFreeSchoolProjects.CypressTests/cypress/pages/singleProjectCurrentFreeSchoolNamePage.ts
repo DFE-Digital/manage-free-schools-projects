@@ -1,6 +1,6 @@
 class SingleProjectCurrentFreeSchoolNamePage {
     public checkElementsVisible(e2eTestSchool): this {
-        //cy.contains("Back");
+        cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
         cy.get("h1").contains("What is the current free school name?");
@@ -73,8 +73,8 @@ class SingleProjectCurrentFreeSchoolNamePage {
         return this;
     }
 
-    public userEntersValidSchool(e2eTestSchool): this {
-        //NOTE FOR SCHOOL PAGE FEATURE
+    public userEntersValidSchool(e2eTestSchool :string): this {
+
         let theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         cy.getByTestId("school").clear();
         cy.getByTestId("school").type(theE2eTestSchool);
