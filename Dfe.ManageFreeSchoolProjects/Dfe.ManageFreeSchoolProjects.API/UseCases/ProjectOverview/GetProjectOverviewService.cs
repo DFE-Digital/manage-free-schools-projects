@@ -1,6 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
@@ -27,6 +29,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             {
                 throw new NotFoundException($"Project {projectId} not found");
             }
+
+            var risk = await GetRisk(project.Rid);
 
             return new ProjectOverviewResponse()
             {
@@ -64,7 +68,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     TrustId = project.SchoolDetailsTrustId,
                     TrustName = project.SchoolDetailsTrustName,
                     TrustType = project.SchoolDetailsTrustType
-                }
+                },
+                Risk = risk
             };
         }
 
@@ -76,6 +81,32 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             }
 
             return date.Value.Date.ToString();
+        }
+
+        private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
+        {
+            var rag = await _context.Rag
+                .Select(e => new 
+                {
+                    e.Rid,
+                    RiskRating = e.RagRatingsOverallRagRating,
+                    Summary = e.RagRatingsOverallRagSummary,
+                    Date = EF.Property<DateTime>(e, "PeriodStart")
+                }).FirstOrDefaultAsync(r => r.Rid == rid);
+
+            if (rag == null) 
+            {
+                return new ProjectRiskOverviewResponse();
+            }
+
+            var result = new ProjectRiskOverviewResponse()
+            {
+                Date = rag.Date,
+                RiskRating = ProjectRiskMapper.ToRiskRating(rag.RiskRating),
+                Summary = rag.Summary
+            };
+
+            return result;
         }
     }
 }

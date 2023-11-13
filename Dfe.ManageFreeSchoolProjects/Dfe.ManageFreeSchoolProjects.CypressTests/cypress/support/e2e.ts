@@ -29,6 +29,7 @@ declare global {
             getByLabelFor(labelFor: string): Chainable<Element>;
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
+            assertChildList(selector: string, values: string[]): Chainable<Element>;
             executeAccessibilityTests(): Chainable<Element>;
         }
     }

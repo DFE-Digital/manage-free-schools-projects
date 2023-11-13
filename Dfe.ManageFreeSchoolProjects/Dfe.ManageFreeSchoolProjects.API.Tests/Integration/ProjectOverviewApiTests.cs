@@ -1,8 +1,10 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -24,6 +26,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
+
+            var createProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();
+
+            var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/risk", createProjectRiskRequest.ConvertToJson());
+            createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
             var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -64,6 +71,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.TrustId.Should().Be(project.SchoolDetailsTrustId);
             schoolDetails.TrustName.Should().Be(project.SchoolDetailsTrustName);
             schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);
+
+            // Risk
+            result.Data.Risk.Date.Value.Date.Should().Be(DateTime.Now.Date);
+            result.Data.Risk.RiskRating.Should().Be(createProjectRiskRequest.Overall.RiskRating);
+            result.Data.Risk.Summary.Should().Be(createProjectRiskRequest.Overall.Summary);
         }
 
         [Fact]
@@ -93,6 +105,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var schoolDetails = result.Data.SchoolDetails;
             schoolDetails.LocalAuthority.Should().BeNull();
             schoolDetails.Region.Should().BeNull();
+
+            // Risk
+            result.Data.Risk.RiskRating.Should().BeNull();
+            result.Data.Risk.Summary.Should().BeNull();
+            result.Data.Risk.Date.Should().BeNull();
         }
 
         [Fact]
