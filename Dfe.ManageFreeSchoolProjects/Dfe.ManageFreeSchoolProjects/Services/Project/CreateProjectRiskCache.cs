@@ -71,6 +71,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         /// Upon confirming their changes, they are taken to the check risk page again and not the next step in the wizard
         /// </summary>
         public bool HasReachedCheckRiskPage { get; set; }
+
+        public string SchoolName { get; set; }
     }
 
     public class RiskEntryModel

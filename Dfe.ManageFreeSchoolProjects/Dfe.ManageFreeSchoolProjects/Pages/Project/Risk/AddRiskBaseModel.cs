@@ -22,6 +22,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         [StringLength(1000, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Summary { get; set; }
 
+        public string SchoolName { get; set; }
+
         public string GetNextPage(RiskPageName currentRiskPageName, CreateRiskCacheItem cacheItem)
         {
             if (cacheItem.HasReachedCheckRiskPage)

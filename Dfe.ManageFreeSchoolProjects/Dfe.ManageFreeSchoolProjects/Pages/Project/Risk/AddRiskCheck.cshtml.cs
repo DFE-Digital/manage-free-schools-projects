@@ -14,6 +14,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        public string SchoolName { get; set; }
+
         public CreateRiskCacheItem ProjectRisk { get; set; }
 
         public AddRiskCheckModel(ICreateProjectRiskCache createProjectRiskCache, ICreateProjectRiskService createProjectRiskService)
@@ -28,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             // The caveat is once you reach this page, the wizard won't work, which is what the change links are for anyway
             var projectRisk = _createProjectRiskCache.Get();
             projectRisk.HasReachedCheckRiskPage = true;
+            SchoolName = projectRisk.SchoolName;
 
             _createProjectRiskCache.Update(projectRisk);
 

@@ -35,9 +35,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             _getProjectOverviewService = getProjectOverviewService;
         }
 
-        public IActionResult OnGetNewConfigureRiskRating()
+        public async Task<IActionResult> OnGetNewConfigureRiskRating()
         {
             _createProjectRiskCache.Delete();
+
+            var projectOverview = await _getProjectOverviewService.Execute(ProjectId);
+
+            _createProjectRiskCache.Update(new CreateRiskCacheItem() { SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName });
 
             return Redirect($"/projects/{ProjectId}/risk/governance-and-suitability/add");
         }

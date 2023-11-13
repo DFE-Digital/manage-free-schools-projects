@@ -64,6 +64,7 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("Enter a valid governance and suitability risk");
             editProjectRiskPage
+                .hasSchoolName(project.schoolName)
                 .withGovernanceAndSuitabilityRiskRating("AmberGreen")
                 .withGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
                 .continue();
@@ -81,6 +82,7 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("Enter a valid education risk");
             editProjectRiskPage
+                .hasSchoolName(project.schoolName)
                 .withEducationRiskRating("Red")
                 .withEducationSummary("This is my education risk summary")
                 .continue();
@@ -98,11 +100,13 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("Enter a valid finance risk");
             editProjectRiskPage
+                .hasSchoolName(project.schoolName)
                 .withFinanceRiskRating("AmberRed")
                 .withFinanceSummary("This is my finance risk summary")
                 .continue();
 
             editProjectRiskPage
+                .hasSchoolName(project.schoolName)
                 .withRiskAppraisalFormSharePointLink("www.google.co.uk")
                 .continue();
 
@@ -121,6 +125,7 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("Enter a valid overall risk");
             editProjectRiskPage
+                .hasSchoolName(project.schoolName)
                 .withOverallRiskRating("Green")
                 .withOverallRiskSummary("This is my overall risk summary")
                 .continue();
@@ -142,7 +147,7 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.createRiskEntry();
 
             projectRiskSummaryPage
-                .hasRiskDate(`${toDisplayDate(now)} - current risk ratings`)
+                .hasRiskDate(`${toDisplayDate(now)}`)
                 .hasOverallRiskRating(["Green"])
                 .hasOverallRiskSummary("This is my overall risk summary")
                 .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])

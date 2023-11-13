@@ -21,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
             var existingCacheItem = _createProjectRiskCache.Get();
 
             SharepointLink = existingCacheItem.RiskAppraisalFormSharepointLink;
+            SchoolName = existingCacheItem.SchoolName;
         }
 
         public IActionResult OnPost()

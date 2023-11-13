@@ -22,17 +22,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             Summary = existingCacheItem.Education.Summary;
             RiskRating = ((int)existingCacheItem.Education.RiskRating).ToString();
+            SchoolName = existingCacheItem.SchoolName;
         }
 
         public IActionResult OnPost()
         {
+            var existingCacheItem = _createProjectRiskCache.Get();
+
             if (!ModelState.IsValid)
             {
+                SchoolName = existingCacheItem.SchoolName;
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-
-            var existingCacheItem = _createProjectRiskCache.Get();
 
             existingCacheItem.Education = new()
             {

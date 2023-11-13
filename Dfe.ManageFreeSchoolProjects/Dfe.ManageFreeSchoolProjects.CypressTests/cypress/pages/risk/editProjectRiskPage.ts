@@ -1,5 +1,11 @@
 class EditProjectRiskPage {
 
+    public hasSchoolName(value: string): this {
+        cy.getByTestId(`school-name`).should("contain.text", value);
+
+        return this;
+    }
+
     public hasGovernanceAndSuitabilityRiskRating(value: string): this {
         cy.getByTestId(`risk-rating-${value}`).should("be.checked");
 
