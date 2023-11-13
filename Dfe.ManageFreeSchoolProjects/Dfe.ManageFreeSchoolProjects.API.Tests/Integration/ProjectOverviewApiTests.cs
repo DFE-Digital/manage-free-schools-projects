@@ -107,7 +107,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.Region.Should().BeNull();
 
             // Risk
-            result.Data.Risk.Should().BeNull();
+            result.Data.Risk.RiskRating.Should().BeNull();
+            result.Data.Risk.Summary.Should().BeNull();
         }
 
         [Fact]

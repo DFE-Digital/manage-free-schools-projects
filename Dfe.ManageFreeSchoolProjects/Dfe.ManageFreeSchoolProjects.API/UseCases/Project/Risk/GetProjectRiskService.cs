@@ -1,8 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
-using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
@@ -39,22 +37,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
                     Date = EF.Property<DateTime>(rag, "PeriodStart"),
                     GovernanceAndSuitability = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsGovernanceAndSuitabilityRagRating),
+                        RiskRating = ProjectRiskMapper.ToRiskRating(rag.RagRatingsGovernanceAndSuitabilityRagRating),
                         Summary = rag.RagRatingsGovernanceAndSuitabilityRagSummary
                     },
                     Education = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsEducationRag),
+                        RiskRating = ProjectRiskMapper.ToRiskRating(rag.RagRatingsEducationRag),
                         Summary = rag.RagRatingsEducationRagSummary
                     },
                     Finance = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsFinancesRagRating),
+                        RiskRating = ProjectRiskMapper.ToRiskRating(rag.RagRatingsFinancesRagRating),
                         Summary = rag.RagRatingsFinanceRagSummary
                     },
                     Overall = new()
                     {
-                        RiskRating = MapToRisk(rag.RagRatingsOverallRagRating),
+                        RiskRating = ProjectRiskMapper.ToRiskRating(rag.RagRatingsOverallRagRating),
                         Summary = rag.RagRatingsOverallRagSummary
                     },
                     RiskAppraisalFormSharepointLink = rag.RagRatingsRiskAppraisalFormSharepointLink
@@ -80,31 +78,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
             };
 
             return result;
-        }
-
-        private static ProjectRiskRating? MapToRisk(string value)
-        {
-            if (value == "Green")
-            {
-                return ProjectRiskRating.Green;
-            }
-
-            if (value == "Amber/Green")
-            {
-                return ProjectRiskRating.AmberGreen;
-            }
-
-            if (value == "Amber/Red")
-            {
-                return ProjectRiskRating.AmberRed;
-            }
-
-            if (value == "Red")
-            {
-                return ProjectRiskRating.Red;
-            }
-
-            return null;
         }
     }
 }
