@@ -32,7 +32,15 @@ class TaskListPage {
 
     public verifyTrustMarkedAsComplete(): this {
         cy.getByClass("app-task-list__item").eq(2).contains("Completed");
+        return this;
     }
+
+    public verifyRegionAndLAMarkedAsComplete(): this {
+        cy.getByClass("app-task-list__item").eq(3).contains("Completed");
+        return this;
+    }
+
+
 }
 
 const taskListPage = new TaskListPage();
