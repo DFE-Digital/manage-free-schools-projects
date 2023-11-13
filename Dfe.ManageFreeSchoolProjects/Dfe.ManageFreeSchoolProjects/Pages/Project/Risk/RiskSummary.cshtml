@@ -8,8 +8,11 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St Marys Catholic Academy</span>
-            21 March 2023 - current risk ratings
+            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+            @if (Model.RiskDate != null)
+            {
+                <span data-testid="risk-date">@Model.RiskDate.ToDateString() - current risk ratings</span>
+            }
         </h1>
 
         <dl class="govuk-summary-list">

@@ -1,4 +1,24 @@
 class ProjectRiskSummaryPage {
+
+    public hasSchoolName(value: string): this {
+
+        cy.getByTestId(`school-name`).should("contain.text", value);
+
+        return this;
+    }
+
+    public hasRiskDate(value: string): this {
+        cy.getByTestId(`risk-date`).should("contain.text", value);
+
+        return this;
+    }
+
+    public hasNoRiskDate(): this {
+        cy.getByTestId(`risk-date`).should("not.exist");
+
+        return this;
+    }
+
     public hasOverallRiskRating(values: string[]): this {
 
         this.checkRagRating(`overall-risk-rating`, values);

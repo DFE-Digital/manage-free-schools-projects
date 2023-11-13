@@ -36,6 +36,8 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("When there is no project risk, it should display empty for all fields");
             projectRiskSummaryPage
+                .hasSchoolName(project.schoolName)
+                .hasNoRiskDate()
                 .hasOverallRiskRating(["Empty"])
                 .hasOverallRiskSummary("Empty")
                 .hasGovernanceAndSuitabilityRiskRating(["Empty"])
@@ -58,6 +60,8 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
+            cy.excuteAccessibilityTests();
+
             Logger.log("Enter a valid governance and suitability risk");
             editProjectRiskPage
                 .withGovernanceAndSuitabilityRiskRating("AmberGreen")
@@ -72,6 +76,8 @@ describe("Testing that we can add a project risk", () => {
             validationComponent
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
+
+            cy.excuteAccessibilityTests();
 
             Logger.log("Enter a valid education risk");
             editProjectRiskPage
@@ -88,6 +94,8 @@ describe("Testing that we can add a project risk", () => {
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
+            cy.excuteAccessibilityTests();
+
             Logger.log("Enter a valid finance risk");
             editProjectRiskPage
                 .withFinanceRiskRating("AmberRed")
@@ -98,6 +106,8 @@ describe("Testing that we can add a project risk", () => {
                 .withRiskAppraisalFormSharePointLink("www.google.co.uk")
                 .continue();
 
+            cy.excuteAccessibilityTests();
+
             Logger.log("Validate overall risk");
             editProjectRiskPage
                 .withOverallRiskSummaryExceeding()
@@ -106,6 +116,8 @@ describe("Testing that we can add a project risk", () => {
             validationComponent
                 .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
+
+            cy.excuteAccessibilityTests();
 
             Logger.log("Enter a valid overall risk");
             editProjectRiskPage
@@ -124,10 +136,13 @@ describe("Testing that we can add a project risk", () => {
                 .hasFinanceRiskSummary("This is my finance risk summary")
                 .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
 
+            cy.excuteAccessibilityTests();
+
             Logger.log("Create the project risk");
             projectRiskSummaryPage.createRiskEntry();
 
             projectRiskSummaryPage
+                .hasRiskDate(`${toDisplayDate(now)} - current risk ratings`)
                 .hasOverallRiskRating(["Green"])
                 .hasOverallRiskSummary("This is my overall risk summary")
                 .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])
@@ -137,6 +152,8 @@ describe("Testing that we can add a project risk", () => {
                 .hasFinanceRiskRating(["Amber", "Red"])
                 .hasFinanceRiskSummary("This is my finance risk summary")
                 .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
+
+            cy.excuteAccessibilityTests();
         });
 
         it("Should be able to add multiple project risks with the latest being displayed by default", () => {
