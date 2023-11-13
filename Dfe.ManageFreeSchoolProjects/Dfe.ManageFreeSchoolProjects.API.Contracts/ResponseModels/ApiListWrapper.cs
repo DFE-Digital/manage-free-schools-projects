@@ -1,6 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
-
-namespace ConcernsCaseWork.Service.Base
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels
 {
 	public sealed class ApiListWrapper<T>
 	{

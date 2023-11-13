@@ -1,9 +1,11 @@
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -12,8 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "school")]
         [Display(Name = "school name")]
         [Required(ErrorMessage = "Enter the current free school name.")]
-        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
-        [RegularExpression(@"[^<>{}=|;.]+", ErrorMessage = "School name must not include < > {{ }} | ; = and .")]
+        [SchoolNameValidator]
         public string School { get; set; }
 
         public string BackLink { get; set; }
@@ -33,10 +34,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
-            BackLink = SetBackLink();
 
             var project = _createProjectCache.Get();
             School = project.SchoolName;
+            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectId); 
+
             return Page();
         }
 
@@ -53,19 +55,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             _createProjectCache.Update(project);
 
             return Redirect(RouteConstants.CreateProjectRegion);
-        }
-
-        private string SetBackLink()
-        {
-            var project = _createProjectCache.Get();
-            if (project.Navigation == CreateProjectNavigation.BackToCheckYourAnswers)
-            {
-                return RouteConstants.CreateProjectCheckYourAnswers;
-            }
-            else
-            {
-                return RouteConstants.CreateProjectId;
-            }
         }
     }
 }

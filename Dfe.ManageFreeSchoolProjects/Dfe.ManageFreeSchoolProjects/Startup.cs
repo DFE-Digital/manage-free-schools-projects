@@ -21,6 +21,7 @@ using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
+using Dfe.ManageFreeSchoolProjects.Services.Trust;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -83,6 +84,8 @@ public class Startup
         services.AddScoped<IGetProjectRiskService, GetProjectRiskService>();
         services.AddScoped<ICreateProjectRiskCache, CreateProjectRiskCache>();
         services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
+        services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
+        services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

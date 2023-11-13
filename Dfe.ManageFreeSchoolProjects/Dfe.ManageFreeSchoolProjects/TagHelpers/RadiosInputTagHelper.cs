@@ -37,7 +37,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		public RadiosInputTagHelper(IHtmlHelper htmlHelper, ErrorService errorService) : base(htmlHelper) 
 		{
             _errorService = errorService;
-
         }
 
 		protected override async Task<IHtmlContent> RenderContentAsync()

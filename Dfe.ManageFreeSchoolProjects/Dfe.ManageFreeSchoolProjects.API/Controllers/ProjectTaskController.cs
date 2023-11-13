@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,14 +72,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             {
                 summary = new ProjectByTaskSummaryResponse
                 {
-                    School = projectTasks.SingleOrDefault(x => x.Name == "School"),
-                    Dates = projectTasks.SingleOrDefault(x => x.Name == "Dates")
+                    School = SafeRetrieveTaskSummary(projectTasks, "School"),
+                    Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
+                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"), 
+                    RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority")
                 };
             }
             
             var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 
             return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
+        }
+
+        private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
+        {
+            return projectTasks.SingleOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
         }
     }
 }

@@ -4,13 +4,8 @@
 }
 
 @functions{
-
 	string Id(string id, int position)
 	{
-		if (position == 0)
-		{
-			return id;
-		}
 		return $"{id}-{position + 1}";
 	}
 }
@@ -52,7 +47,7 @@
 				<div class="govuk-radios__item">
 					<input class="govuk-radios__input" id="@Id(Model.Id, i)" name="@Model.Name" type="radio" value="@Model.Values[i]" checked="@(Model.Values[i].Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@Model.Id-@Model.TestIds.ElementAtOrDefault(i)">
 					
-					<label class="govuk-label govuk-radios__label" for="@Id(Model.Id, i)">
+					<label class="govuk-label govuk-radios__label" id="@Id(Model.Id, i)-label" for="@Id(Model.Id, i)">
 						@if (!string.IsNullOrEmpty(@Model.HtmlLabels[i]))
 						{
 							@Html.Raw(@Model.HtmlLabels[i])

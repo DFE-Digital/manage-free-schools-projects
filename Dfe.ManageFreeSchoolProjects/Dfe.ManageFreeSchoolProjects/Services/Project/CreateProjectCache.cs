@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -65,6 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
         public ProjectRegion Region { get; set; }
-        public ProjectLocalAuthority LocalAuthority { get; set; }
+        public IDictionary<string, string> LocalAuthorities { get; set; }
+        public string LocalAuthority { get; set; }
+        public string LocalAuthorityCode { get; set; }
     }
 }

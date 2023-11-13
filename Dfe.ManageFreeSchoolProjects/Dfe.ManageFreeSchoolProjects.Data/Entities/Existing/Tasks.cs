@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
 {
@@ -24,7 +25,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         Unknown,
         School,
         Dates,
-        RiskAppraisal
+        RiskAppraisal,
+        RegionAndLocalAuthority,
+        Trust
     }
 
     public enum Status

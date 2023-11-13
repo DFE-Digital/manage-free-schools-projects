@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         NotSet = 0,
         [Description("Alternative provision")]
         AlternativeProvision = 1, 
-        [Description("Further edcuation")]
+        [Description("Further education")]
         FurtherEducation = 2,
         [Description("Mainstream")]
         Mainstream = 3, 
@@ -79,10 +79,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum FaithStatus
     {
+        NotSet,
+        None,
         Designation,
         Ethos,
-        None,
-        NotSet
     }
 
     public enum Gender

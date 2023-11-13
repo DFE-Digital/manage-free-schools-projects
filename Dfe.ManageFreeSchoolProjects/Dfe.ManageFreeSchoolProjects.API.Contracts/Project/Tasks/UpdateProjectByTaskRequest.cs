@@ -5,6 +5,9 @@
         public RiskAppraisalTask RiskAppraisal { get; set; }
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
+        public TrustTask Trust { get; set; }
+        
+        public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
 
         public string TaskToUpdate
         {
@@ -16,6 +19,10 @@
                     return "Dates";
                 if (RiskAppraisal != null)
                     return "RiskAppraisal";
+                if (Trust != null)
+                    return "Trust";
+                if (RegionAndLocalAuthorityTask != null)
+                    return "RegionAndLocalAuthority";
                 return null;
             }
         }

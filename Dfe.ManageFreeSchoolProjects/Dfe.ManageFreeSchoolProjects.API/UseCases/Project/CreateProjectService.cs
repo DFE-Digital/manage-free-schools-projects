@@ -61,6 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     MatUnitProjects = "",
                     SponsorUnitProjects = "",
                     SchoolDetailsGeographicalRegion = proj.Region,
+                    SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
                 });
             }
@@ -88,6 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
                 new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
             };
         }
     }

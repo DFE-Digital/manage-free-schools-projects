@@ -55,7 +55,7 @@ Cypress.Commands.add("login", (params) => {
     cy.visit("/");
 });
 
-Cypress.Commands.add("excuteAccessibilityTests", () => {
+Cypress.Commands.add("executeAccessibilityTests", () => {
     Logger.log("Executing the command");
     const continueOnFail = false;
 

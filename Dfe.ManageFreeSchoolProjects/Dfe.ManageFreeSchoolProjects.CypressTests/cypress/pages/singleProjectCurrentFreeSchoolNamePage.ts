@@ -1,6 +1,6 @@
 class SingleProjectCurrentFreeSchoolNamePage {
-    public checkElementsVisible(): this {
-        //cy.contains("Back");
+    public checkElementsVisible(e2eTestSchool): this {
+        cy.contains("Back");
 
         cy.get("h1").contains("Creating a new free school project");
         cy.get("h1").contains("What is the current free school name?");
@@ -36,8 +36,8 @@ class SingleProjectCurrentFreeSchoolNamePage {
     }
 
     public verifyInvalidCharsValidationMessage(): this {
-        cy.getById("school-error-link").contains("School name must not include < > { } | ; = and .");
-        cy.getById("school-error").contains("School name must not include < > { } | ; = and .");
+        cy.getById("school-error-link").contains("School name must not include special characters other than , ( ) '");
+        cy.getById("school-error").contains("School name must not include special characters other than , ( ) '");
 
         return this;
     }
@@ -73,11 +73,11 @@ class SingleProjectCurrentFreeSchoolNamePage {
         return this;
     }
 
-    public userEntersValidSchool(e2eTestSchool): this {
-        //NOTE FOR SCHOOL PAGE FEATURE
-        let theE2eTestSchool = "";
+    public userEntersValidSchool(e2eTestSchool :string): this {
+
+        let theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         cy.getByTestId("school").clear();
-        cy.getByTestId("school").type("St Dunstan's Abbey, (Plymouth)");
+        cy.getByTestId("school").type(theE2eTestSchool);
         cy.getByTestId("continue").click();
 
         return this;

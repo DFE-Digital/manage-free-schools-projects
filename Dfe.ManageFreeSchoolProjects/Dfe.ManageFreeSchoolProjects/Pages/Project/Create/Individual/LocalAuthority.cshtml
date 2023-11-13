@@ -1,22 +1,19 @@
 ﻿@page "/project/create/localauthority"
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.LocalAuthorityModel
 @{
-    var localAuthorities = Enum.GetValues(typeof(ProjectLocalAuthority));
-    var labels = new List<string>();
-    var values = new List<string>();
+    ViewData["Title"] = "What is the local authority?";
+    var localAuthorities = Model.LocalAuthorities.ToArray();
+}
 
-    foreach (var localAuthority in localAuthorities)
-    {
-        labels.Add(localAuthority.ToDescription());
-        values.Add(localAuthority.ToString());
-    }
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+    </div>
 }
 
 <div class="govuk-form-group">
-    <partial name="_ErrorSummary" />
+    <partial name="_ErrorSummary"/>
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-
         <h1 class="govuk-fieldset__heading">
             <span class="govuk-caption-l">Creating a new free school project</span>
             What is the local authority?
@@ -25,13 +22,15 @@
     </legend>
 
     <form method="post">
-        <govuk-radios-input id="local-authority"
-                            name="local-authority"
-                            asp-for="@Model.LocalAuthority"
-                            data-testid="local-authority"
-                            labels="@labels.ToArray()"
-                            values="@values.ToArray()" />
-
+        <div class="govuk-form-group" id="local-authority">
+            <govuk-radios-input
+                asp-for="@Model.LocalAuthority"
+                name="local-authority"
+                data-testid="local-authority"
+                labels="localAuthorities"
+                values="localAuthorities"/>
+        </div>
+        <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
         </button>

@@ -31,12 +31,14 @@ class DatesDetailsPage {
         return this;
     }
 
-    verifyValidationMessagesWhenNoDataSet(): this {
+    verifyValidationMessagesWhenNoDataSet(schoolName: string): this {
+        cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);
+
         cy.getById("entry-into-pre-opening-error").should("be.visible").contains("Enter a date for the entry into pre-opening");
 
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Enter a date for the provisional opening date agreed with trust");
 
-        cy.getById("opening-academic-year-error").should("be.visible").contains("Start date should be in the format: 20XX");
+        cy.getById("opening-academic-years-error").should("be.visible").contains("Start date should be in the format: 20XX");
 
         return this;
     }
@@ -99,14 +101,17 @@ class DatesDetailsPage {
 
     }
 
-    verifyValidationMessagesWhenInvalidDateFormatEntered(): this {
+    verifyValidationMessagesWhenInvalidDateFormatEntered(schoolName: string): this {
+        cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);
+
         cy.getById("entry-into-pre-opening-error").should("be.visible").contains("Enter a date in the correct format");
 
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Enter a date in the correct format")
         return this;
     }
 
-    verifyValidationMessagesWhenInvalidDateEntered(): this {
+    verifyValidationMessagesWhenInvalidDateEntered(schoolName: string): this {
+        cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);
         cy.getById("entry-into-pre-opening-error").should("be.visible").contains("Day must be between 1 and 28");
 
         cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Day must be between 1 and 28");
@@ -173,12 +178,12 @@ class DatesDetailsPage {
     }
 
     verifyInvalidAcademicStartYearDate(): this {
-        cy.getById('opening-academic-year-error').contains('Start date should be in the format: 20XX') 
+        cy.getById('opening-academic-years-error').contains('Start date should be in the format: 20XX') 
         return this
     }
 
     verifyInvalidAcademicEndYearDate(): this {
-        cy.getById('opening-academic-year-error').contains('End date should be in the format: 20XX') 
+        cy.getById('opening-academic-years-error').contains('End date should be in the format: 20XX') 
         return this
     }
 

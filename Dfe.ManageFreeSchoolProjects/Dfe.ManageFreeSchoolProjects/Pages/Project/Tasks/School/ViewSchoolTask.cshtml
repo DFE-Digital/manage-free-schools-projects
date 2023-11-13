@@ -3,10 +3,12 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.ViewSchoolTask
 @{
     var editLink = string.Format(RouteConstants.EditSchoolTask, Model.ProjectId);
+    ViewData["Title"] = $"School - {Model.Project.School.CurrentFreeSchoolName}";
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+        <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l">
@@ -145,7 +147,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Faith Status
+                    Faith status
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
