@@ -315,7 +315,6 @@ describe("Creating an individual project - Test Create new individual project jo
         
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
-        // TEST THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTLOCALAUTHORITY PAGE");
         singleProjectLocalAuthorityPage.selectIslesOfScilly()
                                        .selectBathAndNorthEastSomerset()
@@ -335,7 +334,7 @@ describe("Creating an individual project - Test Create new individual project jo
                                        .selectSomerset();
 
 
-        // TEST THAT A USER CAN MAKE A VALID SELECTION AND PROCEED TO CHECK YOUR ANSWERS PAGE
+
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN PLYMOUTH AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectPlymouth();
         
@@ -346,8 +345,8 @@ describe("Creating an individual project - Test Create new individual project jo
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
-        //Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
-        //cy.executeAccessibilityTests();
+        Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
+        cy.executeAccessibilityTests();
         
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
@@ -358,51 +357,14 @@ describe("Creating an individual project - Test Create new individual project jo
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
-        //Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
-        //cy.executeAccessibilityTests();
+        Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
+        cy.executeAccessibilityTests();
         
 
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
 
 
-        //--------------------------------------------------------------------------------------------------------------------------
-        // MIKE'S LEGACY CODE - LEAVE THIS FOR NOW!
-        //--------------------------------------------------------------------------------------------------------------------------
-/*
-        Logger.log("Selecting method");
-        createProjectPage.continue();
-        validationComponent.hasValidationError("The method field is required");
-        createProjectPage.withMethod("Individual").continue();
 
-        Logger.log("Setting school name");
-        createProjectPage.continue();
-        validationComponent.hasValidationError(
-            "The free school name field is required",
-        );
-        createProjectPage.withSchoolExceedingLimit().continue();
-        validationComponent.hasValidationError(
-            "The free school name must be 80 characters or less",
-        );
-        createProjectPage.withSchool(school).continue();
-
-        Logger.log("Selecting region");
-        createProjectPage.continue();
-        validationComponent.hasValidationError("The region field is required");
-        createProjectPage.withRegion("SouthEast").continue();
-
-        Logger.log("Selecting local authority");
-        createProjectPage.continue();
-        validationComponent.hasValidationError(
-            "The local authority field is required",
-        );
-        createProjectPage.withLocalAuthority("Essex").continue();
-
-        Logger.log("Checking the information on the confirmation page");
-        createProjectPage
-            .hasSchool(school)
-            .hasRegion("South East")
-            .hasLocalAuthority("Essex");
-*/
     });
 });
 
