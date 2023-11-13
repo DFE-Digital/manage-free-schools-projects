@@ -23,8 +23,11 @@ public class EditRegion : PageModel
 
     public string CurrentFreeSchoolName { get; set; }
     
+<<<<<<< HEAD
     public GetProjectByTaskResponse Project { get; set; }
     
+=======
+>>>>>>> main
     private readonly IGetProjectByTaskService _getProjectService;
     private readonly ILogger<ViewSchoolTask> _logger;
     private readonly ErrorService _errorService;
@@ -40,6 +43,7 @@ public class EditRegion : PageModel
     {
         _logger.LogMethodEntered();
 
+<<<<<<< HEAD
         Project = await _getProjectService.Execute(ProjectId);
         CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
         TempData["CurrentFreeSchoolName"] = CurrentFreeSchoolName;
@@ -49,6 +53,14 @@ public class EditRegion : PageModel
             Region = Project.RegionAndLocalAuthority.Region;
         }
 
+=======
+        var project = await _getProjectService.Execute(ProjectId);
+        CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+        Region = project.RegionAndLocalAuthority.Region;
+        
+        TempData["CurrentFreeSchoolName"] = CurrentFreeSchoolName;
+        
+>>>>>>> main
         return Page();
     }
 
@@ -63,6 +75,10 @@ public class EditRegion : PageModel
             return Page();
         }
         
+<<<<<<< HEAD
         return Redirect(string.Format(RouteConstants.EditLocalAuthority, ProjectId) + $"?region={Region}");
+=======
+        return Redirect(string.Format(RouteConstants.EditLocalAuthority, ProjectId, Region));
+>>>>>>> main
     }
 }

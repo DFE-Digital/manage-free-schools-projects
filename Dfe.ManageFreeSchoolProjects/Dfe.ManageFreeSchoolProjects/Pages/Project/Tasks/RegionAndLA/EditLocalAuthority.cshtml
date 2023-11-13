@@ -4,7 +4,11 @@
 @{
     var currentFreeSchoolName = Model.CurrentFreeSchoolName;
     
+<<<<<<< HEAD
     ViewData["Title"] = $"Edit Local authority - {currentFreeSchoolName} - Manage free school projects";
+=======
+    ViewData["Title"] = $"Edit local authority - {currentFreeSchoolName} - Manage free school projects";
+>>>>>>> main
     
     var localAuthorities = Model.LocalAuthorities.ToArray();
 }
@@ -16,7 +20,11 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l">@currentFreeSchoolName</span>
+<<<<<<< HEAD
             Edit Local authority
+=======
+            Edit local authority
+>>>>>>> main
         </h1>
         <div class="govuk-grid-row">
             <partial name="_ErrorSummary"/>

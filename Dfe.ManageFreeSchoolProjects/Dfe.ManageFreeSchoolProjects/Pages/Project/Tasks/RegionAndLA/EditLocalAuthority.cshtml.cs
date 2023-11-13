@@ -22,11 +22,22 @@ public class EditLocalAuthority : PageModel
     private readonly IUpdateProjectByTaskService _updateProjectByTaskService;
     private readonly ErrorService _errorService;
 
+<<<<<<< HEAD
     [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
 
     [BindProperty] public List<string> LocalAuthorities { get; set; }
 
     [FromQuery(Name = "region")] public string Region { get; set; }
+=======
+    [BindProperty(SupportsGet = true)] 
+    public string ProjectId { get; set; }
+
+    [BindProperty] 
+    public List<string> LocalAuthorities { get; set; }
+
+    [FromQuery(Name = "region")] 
+    public string Region { get; set; }
+>>>>>>> main
 
     [BindProperty(Name = "local-authority")]
     [Required(ErrorMessage = "Select the local authority of the free school.")]
@@ -80,14 +91,22 @@ public class EditLocalAuthority : PageModel
         localAuthorities = await GetLocalAuthoritiesByRegion();
 
         var localAuthorityCode = localAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
+<<<<<<< HEAD
 
         var region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
 
+=======
+        
+>>>>>>> main
         await _updateProjectByTaskService.Execute(ProjectId, new UpdateProjectByTaskRequest
         {
             RegionAndLocalAuthorityTask = new RegionAndLocalAuthorityTask
             {
+<<<<<<< HEAD
                 Region = region.ToDescription(),
+=======
+                Region = Region,
+>>>>>>> main
                 LocalAuthority = LocalAuthority,
                 LocalAuthorityCode = localAuthorityCode
             }
@@ -98,9 +117,13 @@ public class EditLocalAuthority : PageModel
 
     private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
     {
+<<<<<<< HEAD
         var projectRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
 
         var response = await _getLocalAuthoritiesService.Execute(new List<string> { projectRegion.ToDescription() });
+=======
+        var response = await _getLocalAuthoritiesService.Execute(new List<string> { Region });
+>>>>>>> main
 
         var authorities = new Dictionary<string, string>();
 

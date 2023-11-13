@@ -15,7 +15,7 @@ import dataGenerator from "cypress/fixtures/dataGenerator";
 import singleProjectTrustIdPage from "cypress/pages/singleProjectTrustIDPage";
 
 
-describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON AND CANNOT ACCESS 'Create individual project' URLs", () => {
+describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
     beforeEach(() => {
         
         cy.login({role: "POTATO"});
@@ -23,7 +23,7 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
         
     });
 
-    it("Should NOT allow a NON-projectrecordcreator user to access 'Create single project' URLs", () => {
+    it("Should NOT allow a NON-projectrecordcreator user to access certain URLs", () => {
 
         Logger.log("Testing that NON-projectrecordcreator role is UNABLE to access Create individual project URLs")
         // Define the URLs that should trigger a failure for the "POTATO"/NON-projectrecordcreator user
@@ -39,11 +39,12 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
         });
     });
 
-    it("Should NOT allow a NON-projectrecordcreator user to view the green 'Create new projects' CTA on the homepage", () => {
+    it("Should NOT allow a NON-projectrecordcreator user to create a new project using the form", () => {
 
             Logger.log("Testing that a NON-projectrecordcreator role DOES NOT have the green Create new projects CTA");
             cy.contains('Create new projects').should('not.exist');
             
+     
             cy.executeAccessibilityTests();
     });
 
@@ -63,6 +64,7 @@ describe("Creating an individual project - Create new project button should disp
         Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
         cy.contains('Create new projects').should('be.visible');
 
+      
         cy.executeAccessibilityTests();
         
 
@@ -77,45 +79,56 @@ describe("Creating an individual project - Test Create new individual project jo
         
     });
 
-    it("Should navigate to the project/create/method page and navigate through the 'Create individual project journey' e2e", () => {
+    it("Should navigate to project/create/method page", () => {
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
+<<<<<<< HEAD
         const theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         const validTrustId = "TR03446";
+=======
+        const e2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
+>>>>>>> main
 
+        Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
         cy.executeAccessibilityTests();
         
+
+        Logger.log("Clicking on Create new projects CTA as projectrecordcreator")
         homePage.createNewProjects();
 
         whichProjectMethodPage.checkElementsVisible();
 
+        Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator");
         cy.executeAccessibilityTests();
         
 
+ 
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
         whichProjectMethodPage.selectContinue();
 
+        Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator when validation error occurs");
         cy.executeAccessibilityTests();
         
+
+     
         whichProjectMethodPage.verifyValidationMessage();
 
-
-
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
+
         whichProjectMethodPage.selectIndividualProject();
         whichProjectMethodPage.selectBulkUploadProject();
-
-
-
         
         Logger.log("TEST WE CAN PROCEED SELECTING CREATING AN INDIVIDUAL PROJECT OPTION");
+
         whichProjectMethodPage.selectIndividualProject();
+
 
         cy.executeAccessibilityTests();
         
 
 
         whichProjectMethodPage.selectContinue();
+
 
         cy.executeAccessibilityTests();
         
@@ -136,36 +149,36 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TEST THAT SUBMITTING INVALID CHARS IN TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsInvalidChars();
 
+
         cy.executeAccessibilityTests();
         
 
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
 
-
-
         Logger.log("TESTING THAT SUBMITTING INVALID SPACES IN TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersAndSubmitsSpaces();
+
 
         cy.executeAccessibilityTests();
         
 
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
-
 
 
         Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 25 CHARS TEMPORARY ID FAILS");
         singleProjectTemporaryProjectIdPage.UserEntersMoreThanTwentyFiveChars();
 
+
         cy.executeAccessibilityTests();
         
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
 
-
         Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN TEMPORARY ID FIELD FAILS");
         singleProjectTemporaryProjectIdPage.UserAttemptsSQLInjection();
+
 
         cy.executeAccessibilityTests();
         
@@ -173,16 +186,14 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
 
-
-
         Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN TEMPORARY ID FIELD FAILS");
         singleProjectTemporaryProjectIdPage.UserAttemptsJavaScriptAttack();
+
 
         cy.executeAccessibilityTests();
         
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
-
 
 
         Logger.log("TESTING THAT A VALID FORMAT OF TEMPORARY ID OF 25 CHARS OR LESS PASSES");
@@ -193,12 +204,11 @@ describe("Creating an individual project - Test Create new individual project jo
         // FREE SCHOOL NAME PAGE
         //--------------------------------------------------------------
 
+
         cy.executeAccessibilityTests();
         
 
-        singleProjectCurrentFreeSchoolNamePage.checkElementsVisible();
-
-
+        singleProjectCurrentFreeSchoolNamePage.checkElementsVisible(e2eTestSchool);
 
 
         Logger.log("TESTING THAT SUBMITTING A BLANK SCHOOL NAME FAILS");
@@ -208,9 +218,6 @@ describe("Creating an individual project - Test Create new individual project jo
         
 
         singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
-
-
-
 
         Logger.log("TESTING THAT SUBMITTING INVALID CHARS IN SCHOOL NAME FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserEntersAndSubmitsInvalidChars();
@@ -224,8 +231,10 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
 
+   
         Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 100 CHARS SCHOOL NAME FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanOneHundredChars();
+
 
         cy.executeAccessibilityTests();
 
@@ -233,48 +242,45 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
 
-
         Logger.log("TESTING THAT AN SQL INJECTION ATTACK IN SCHOOL NAME FIELD FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsSQLInjection();
 
+        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of an SQL injection attempt");
         cy.executeAccessibilityTests();
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
-
-
 
 
         Logger.log("TESTING THAT A JAVASCRIPT ATTACK IN SCHOOL NAME FIELD FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserAttemptsJavaScriptAttack();
 
+        Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs as part of a JavaScript attack attempt");
         cy.executeAccessibilityTests();
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
-
-
-
-        
+  
         Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 100 CHARS OR LESS PASSES");
-        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool(theE2eTestSchool);
+        singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool(e2eTestSchool);
+
 
         //------------------------------------------------------------------------------------------------------------------------
         //REGION PAGE
         //------------------------------------------------------------------------------------------------------------------------
+
+        cy.executeAccessibilityTests();
         
 
         singleProjectRegionPage.checkElementsVisible();
 
-        
-
+    
         Logger.log("TESTING THAT A USER IS UNABLE TO PROCEED ON SINGLEPROJECTREGIONPAGE WITHOUT MAKING A SELECTION");
         singleProjectRegionPage.selectContinue();
 
+        cy.executeAccessibilityTests();
         
 
         singleProjectRegionPage.verifyValidationMessage();
-
-
 
 
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTREGION PAGE");
@@ -288,11 +294,11 @@ describe("Creating an individual project - Test Create new individual project jo
                                .selectYorkshireAndHumber();
 
 
-
-
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN SOUTH WEST AND PROCEED TO LOCAL AUTHORITY PAGE");
         singleProjectRegionPage.selectSouthWest();
 
+
+        cy.executeAccessibilityTests();
         
 
         singleProjectRegionPage.selectContinue();
@@ -302,19 +308,19 @@ describe("Creating an individual project - Test Create new individual project jo
         //------------------------------------------------------------------------------------------------------------------------
 
         cy.executeAccessibilityTests();
+        
 
         singleProjectLocalAuthorityPage.checkElementsVisible();
-
 
         Logger.log("TESTING THAT A USER IS UNABLE TO PROCEED ON SINGLEPROJECTLOCALAUTHORITYPAGE WITHOUT MAKING A SELECTION");
         singleProjectLocalAuthorityPage.selectContinue();
 
-        cy.executeAccessibilityTests();
 
+        cy.executeAccessibilityTests();
+        
+        
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
-
-        
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTLOCALAUTHORITY PAGE");
         singleProjectLocalAuthorityPage.selectIslesOfScilly()
                                        .selectBathAndNorthEastSomerset()
@@ -330,12 +336,21 @@ describe("Creating an individual project - Test Create new individual project jo
                                        .selectPlymouth()
                                        .selectTorbay()
                                        .selectCornwall()
-                                       .selectSomerset()
-                                       .selectGloucestershire();
+                                       .selectGloucestershire()
+                                       .selectSomerset();
 
+<<<<<<< HEAD
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN BEDFORD AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectSomerset();
                                
+=======
+
+
+        Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN PLYMOUTH AND PROCEED TO CHECK YOUR ANSWERS PAGE");
+        singleProjectLocalAuthorityPage.selectPlymouth();
+        
+
+>>>>>>> main
         singleProjectLocalAuthorityPage.selectContinue();
 
         // ***************************** STEP - 5 - TRUST ID SECTION **********************************************
@@ -415,24 +430,27 @@ describe("Creating an individual project - Test Create new individual project jo
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
-        
+
+        Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
         cy.executeAccessibilityTests();
+        
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
-        Logger.log("TESTING THAT A USER CAN SUBMIT THE PREVIEW OF ANSWERS FROM THE 'Check Your Answers page' and Create a New Project");
         singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
 
         //--------------------------------------------------------------------------------------------------------------------------
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
-        
-        cy.executeAccessibilityTests();
 
-        Logger.log("TESTING THAT THE singleProjectConfirmationPage DISPLAYS CORRECTLY AND THE temporaryProjectId IS CORRECT");
+        Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
+        cy.executeAccessibilityTests();
+        
+
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
 
 
+<<<<<<< HEAD
 
         //--------------------------------------------------------------------------------------------------------------------------
         // MIKE'S LEGACY CODE - LEAVE THIS FOR NOW!
@@ -442,36 +460,9 @@ describe("Creating an individual project - Test Create new individual project jo
         createProjectPage.continue();
         validationComponent.hasValidationError("The method field is required");
         createProjectPage.withMethod("Individual").continue();
+=======
+>>>>>>> main
 
-        Logger.log("Setting school name");
-        createProjectPage.continue();
-        validationComponent.hasValidationError(
-            "The free school name field is required",
-        );
-        createProjectPage.withSchoolExceedingLimit().continue();
-        validationComponent.hasValidationError(
-            "The free school name must be 80 characters or less",
-        );
-        createProjectPage.withSchool(school).continue();
-
-        Logger.log("Selecting region");
-        createProjectPage.continue();
-        validationComponent.hasValidationError("The region field is required");
-        createProjectPage.withRegion("SouthEast").continue();
-
-        Logger.log("Selecting local authority");
-        createProjectPage.continue();
-        validationComponent.hasValidationError(
-            "The local authority field is required",
-        );
-        createProjectPage.withLocalAuthority("Essex").continue();
-
-        Logger.log("Checking the information on the confirmation page");
-        createProjectPage
-            .hasSchool(school)
-            .hasRegion("South East")
-            .hasLocalAuthority("Essex");
-*/
     });
 });
 

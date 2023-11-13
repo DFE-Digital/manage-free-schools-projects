@@ -23,8 +23,14 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("labels")]
 		public string[] Labels { get; set; }
 
+		[HtmlAttributeName("html-labels")]
+		public string[] HtmlLabels { get; set; }
+
 		[HtmlAttributeName("hints")]
 		public string[] Hints { get; set; }
+
+		[HtmlAttributeName("test-ids")]
+		public string[] TestIds { get; set; } = new string[] { };
 
 		private readonly ErrorService _errorService;
 
@@ -38,11 +44,13 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 			var model = new RadiosInputViewModel
 			{
 				Id = Id,
+				TestIds = TestIds,
 				Name = Name,
 				Label = Label,
 				Value = For.Model?.ToString(),
 				Values = Values,
 				Labels = Labels,
+				HtmlLabels = HtmlLabels,
 				HeadingLabel = HeadingLabel,
 				LeadingParagraph = LeadingParagraph,
                 Hints = Hints

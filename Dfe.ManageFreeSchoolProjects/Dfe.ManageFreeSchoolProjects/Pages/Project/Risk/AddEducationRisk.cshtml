@@ -1,0 +1,16 @@
+﻿@page "/projects/{projectId}/risk/education/add"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@model AddEducationRiskModel
+@{
+    var riskFormModel = new RiskFormModel
+    {
+        SchoolName = Model.SchoolName,
+        Heading = "Education",
+        RiskRating = Model.RiskRating,
+        RiskRatingLabel = "What is the updated risk rating for education?",
+        RiskSummaryLabel = "What is the updated risk summary for education?",
+        Summary = Model.Summary
+    };
+}
+
+<partial name="_RiskForm" model="@riskFormModel" />

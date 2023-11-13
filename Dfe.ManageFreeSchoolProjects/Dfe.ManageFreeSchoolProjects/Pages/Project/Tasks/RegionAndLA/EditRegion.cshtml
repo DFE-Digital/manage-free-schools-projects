@@ -3,7 +3,11 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.EditRegion
 
 @{
+<<<<<<< HEAD
     ViewData["Title"] = $"Edit Region - {Model.CurrentFreeSchoolName} - Manage free school projects";
+=======
+    ViewData["Title"] = $"Edit region - {Model.CurrentFreeSchoolName} - Manage free school projects";
+>>>>>>> main
 
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var labels = new List<string>();
@@ -12,7 +16,11 @@
     foreach (var region in regions)
     {
         labels.Add(region.ToDescription());
+<<<<<<< HEAD
         values.Add(region.ToString());
+=======
+        values.Add(region.ToDescription());
+>>>>>>> main
     }
 }
 
@@ -23,7 +31,11 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l"> @Model.CurrentFreeSchoolName </span>
+<<<<<<< HEAD
             Edit Region
+=======
+            Edit region
+>>>>>>> main
         </h1>
 
         <div class="govuk-grid-row">
@@ -31,7 +43,10 @@
 
             <form method="post">
                 <div class="govuk-form-group" id="region">
+<<<<<<< HEAD
                     <label class="govuk-label govuk-heading-m" for="region">Region</label>
+=======
+>>>>>>> main
                     <govuk-radios-input
                         name="region"
                         asp-for="@Model.Region"

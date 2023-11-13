@@ -3,6 +3,10 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.ViewRegionAndLocalAuthority
 @{
     var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
+<<<<<<< HEAD
+=======
+    var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region);
+>>>>>>> main
     ViewData["Title"] = $"Region - {Model.Project.School.CurrentFreeSchoolName} - Manage free school projects";
 }
 
@@ -11,7 +15,11 @@
         <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
 
         <h1 class="govuk-heading-xl">
+<<<<<<< HEAD
             <span class="govuk-caption-l">
+=======
+            <span class="govuk-caption-l">  
+>>>>>>> main
                 @{
                     RenderValue(Model.Project.School.CurrentFreeSchoolName);
                 }
@@ -50,7 +58,11 @@
 
                 <dd class="govuk-summary-list__actions">
 
+<<<<<<< HEAD
                     <a class="govuk-link" href="@regionEditLink">
+=======
+                    <a class="govuk-link" href="@localAuthorityEditLink">
+>>>>>>> main
                         Change<span class="govuk-visually-hidden">Local authority</span>
                     </a>
 
