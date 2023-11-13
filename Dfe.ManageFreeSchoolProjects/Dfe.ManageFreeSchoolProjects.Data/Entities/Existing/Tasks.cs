@@ -26,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         School,
         Dates,
         RiskAppraisal,
+        Trust,
         RegionAndLocalAuthority,
         Constituency,
     }
