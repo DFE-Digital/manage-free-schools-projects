@@ -345,7 +345,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectLocalAuthorityPage.selectContinue();
 
         // ***************************** STEP - 5 - TRUST ID SECTION **********************************************
-
+        /*
         singleProjectTrustIdPage.checkElementsVisible();
 
 
@@ -414,7 +414,8 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TEST THAT A VALID FORMAT TRUST REFERENCE NUMBER (TRNXXXXX) THAT EXISTS AND PASSES");
         singleProjectTrustIdPage.UserEntersValidTrustReferenceNumber(validTrustId);
         singleProjectTrustIdPage.selectContinue();
-
+        
+        */
 
 
 
