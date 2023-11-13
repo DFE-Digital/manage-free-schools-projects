@@ -82,12 +82,9 @@ describe("Creating an individual project - Test Create new individual project jo
     it("Should navigate to project/create/method page", () => {
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
-<<<<<<< HEAD
-        const theE2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
-        const validTrustId = "TR03446";
-=======
         const e2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
->>>>>>> main
+        const validTrustId = "TR03446";
+
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
         cy.executeAccessibilityTests();
@@ -339,18 +336,12 @@ describe("Creating an individual project - Test Create new individual project jo
                                        .selectGloucestershire()
                                        .selectSomerset();
 
-<<<<<<< HEAD
-        Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN BEDFORD AND PROCEED TO CHECK YOUR ANSWERS PAGE");
-        singleProjectLocalAuthorityPage.selectSomerset();
-                               
-=======
 
 
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN PLYMOUTH AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectPlymouth();
         
 
->>>>>>> main
         singleProjectLocalAuthorityPage.selectContinue();
 
         // ***************************** STEP - 5 - TRUST ID SECTION **********************************************
@@ -450,18 +441,8 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
 
 
-<<<<<<< HEAD
 
-        //--------------------------------------------------------------------------------------------------------------------------
-        // MIKE'S LEGACY CODE - LEAVE THIS FOR NOW!
-        //--------------------------------------------------------------------------------------------------------------------------
-/*
-        Logger.log("Selecting method");
-        createProjectPage.continue();
-        validationComponent.hasValidationError("The method field is required");
-        createProjectPage.withMethod("Individual").continue();
-=======
->>>>>>> main
+        
 
     });
 });
