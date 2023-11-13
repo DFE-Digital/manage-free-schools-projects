@@ -14,6 +14,7 @@ import { v4 } from "uuid";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import singleProjectTrustIdPage from "cypress/pages/singleProjectTrustIDPage";
 import singleProjectNotifyUserPage from "cypress/pages/singleProjectNotifyUser";
+import { faker } from '@faker-js/faker';
 
 
 describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
@@ -82,12 +83,12 @@ describe("Creating an individual project - Test Create new individual project jo
 
     it("Should navigate to the project/create/method page and navigate through the 'Create individual project journey' e2e", () => {
 
-        const faker = require("faker");
+        
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
         const e2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
         const validTrustId = "TR03446";
-        const validEmail = faker.name.email();
+        const validEmail = faker.internet.email();
 
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
