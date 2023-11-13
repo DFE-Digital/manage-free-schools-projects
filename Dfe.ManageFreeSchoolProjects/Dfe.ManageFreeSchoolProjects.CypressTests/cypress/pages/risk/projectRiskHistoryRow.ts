@@ -13,12 +13,7 @@ export class ProjectRiskHistoryRow {
 
         cy.wrap(this.element)
             .within(() => {
-                cy.getByTestId("project-risk-history-rating")
-                    .children()
-                    .should("have.length", values.length)
-                    .each((el, i) => {
-                        expect(el.text()).to.equal(values[i]);
-                    });
+                cy.assertChildList("project-risk-history-rating", values);
             });
 
         return this;

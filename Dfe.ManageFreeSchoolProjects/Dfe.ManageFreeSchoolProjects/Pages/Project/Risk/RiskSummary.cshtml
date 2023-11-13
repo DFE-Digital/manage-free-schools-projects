@@ -32,9 +32,7 @@
                     Overall risk summary
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
-                    @{ 
-                        RenderValue(Model.ProjectRisk.Overall.Summary);
-                    }
+                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
                 </dd>
             </div>
 
@@ -53,10 +51,7 @@
                     Governance and suitability risk summary
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-summary">
-                    @{
-                        RenderValue(Model.ProjectRisk.GovernanceAndSuitability.Summary);
-                    }
-
+                    <govuk-display-value value="@Model.ProjectRisk.GovernanceAndSuitability.Summary" />
                 </dd>
 
             </div>
@@ -76,9 +71,7 @@
                     Education risk summary
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="education-risk-summary">
-                    @{
-                        RenderValue(Model.ProjectRisk.Education.Summary);
-                    }
+                    <govuk-display-value value="@Model.ProjectRisk.Education.Summary" />
                 </dd>
 
             </div>
@@ -98,9 +91,7 @@
                     Finances risk summary
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="finance-risk-summary">
-                    @{
-                        RenderValue(Model.ProjectRisk.Finance.Summary);
-                    }
+                    <govuk-display-value value="@Model.ProjectRisk.Finance.Summary" />
                 </dd>
 
             </div>
@@ -110,9 +101,7 @@
                     RAF (risk appraisal form) SharePoint link
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
-                    @{
-                        RenderValue(Model.ProjectRisk.RiskAppraisalFormSharepointLink);
-                    }
+                    <govuk-display-value value="@Model.ProjectRisk.RiskAppraisalFormSharepointLink" />
                 </dd>
 
             </div>
@@ -163,19 +152,4 @@
             </table>
         </div>
     </div>
-}
-
-
-@functions {
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
 }

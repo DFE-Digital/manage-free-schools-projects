@@ -35,6 +35,15 @@ Cypress.Commands.add("getByLabelFor", (labelFor) => {
     cy.get(`[for="${labelFor}"]`);
 })
 
+Cypress.Commands.add("assertChildList", (selector: string, values: string[]) => {
+    cy.getByTestId(selector)
+        .children()
+        .should("have.length", values.length)
+        .each((el, i) => {
+            expect(el.text()).to.equal(values[i]);
+        });
+});
+
 Cypress.Commands.add("login", (params) => {
     cy.clearCookies();
     cy.clearLocalStorage();
@@ -55,7 +64,7 @@ Cypress.Commands.add("excuteAccessibilityTests", () => {
     cy.injectAxe();
 
     Logger.log("Checking accessibility");
-    cy.checkA11y(undefined,  {
+    cy.checkA11y(undefined, {
         // These will be fixed one by one
         rules: {
             region: { enabled: false },

@@ -444,9 +444,7 @@
                             Date
                         </dt>
                         <dd class="govuk-summary-list__value" data-testid="project-risk-date">
-                            @{
-                                RenderValue(Model.Project.Risk.Date.ToDateString());
-                            }
+                            <govuk-display-value value="@Model.Project.Risk.Date.ToDateString()" />
                         </dd>
 
                     </div>
@@ -465,9 +463,7 @@
                             Overall risk summary
                         </dt>
                         <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
-                            @{
-                                RenderValue(Model.Project.Risk.Summary);
-                            }
+                            <govuk-display-value value="@Model.Project.Risk.Summary" />
                         </dd>
                     </div>
 

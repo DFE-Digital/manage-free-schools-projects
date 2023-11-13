@@ -226,12 +226,7 @@ class ProjectOverviewPage {
     }
 
     private checkRagRating(selector: string, values: string[]): void {
-        cy.getByTestId(selector)
-            .children()
-            .should("have.length", values.length)
-            .each((el, i) => {
-                expect(el.text()).to.equal(values[i]);
-            });
+        cy.assertChildList(selector, values);
     }
 }
 

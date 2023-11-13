@@ -26,6 +26,7 @@ declare global {
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
             excuteAccessibilityTests(): Chainable<Element>;
+            assertChildList(selector: string, values: string[]): Chainable<Element>;
         }
     }
 }
