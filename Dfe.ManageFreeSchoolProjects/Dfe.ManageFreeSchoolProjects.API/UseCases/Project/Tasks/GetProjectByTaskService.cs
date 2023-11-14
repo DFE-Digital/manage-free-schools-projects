@@ -56,6 +56,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         RegionAndLocalAuthority = new RegionAndLocalAuthorityTask
                         {
                             Region = kpi.SchoolDetailsGeographicalRegion, LocalAuthority = kpi.LocalAuthority
+                        },
+                        RiskAppraisalMeeting = new RiskAppraisalMeetingTask
+                        {
+                            Region = kpi.SchoolDetailsGeographicalRegion,
+                            LocalAuthority = kpi.LocalAuthority
                         }
                     }).FirstOrDefaultAsync();
 
