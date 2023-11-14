@@ -1,6 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.ViewModels;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
-	[HtmlTargetElement("govuk-radios-input", TagStructure = TagStructure.WithoutEndTag)]
+    [HtmlTargetElement("govuk-radios-input", TagStructure = TagStructure.WithoutEndTag)]
 	public class RadiosInputTagHelper : InputTagHelperBase
 	{
 		[HtmlAttributeName("leading-paragraph")]
@@ -18,13 +17,13 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		public bool HeadingLabel { get; set; }
 		
 		[HtmlAttributeName("values")]
-		public string[] Values { get; set; }
+		public string[] Values { get; set; } = new string[] { };
 
 		[HtmlAttributeName("labels")]
-		public string[] Labels { get; set; }
+		public string[] Labels { get; set; } = new string[] { };
 
 		[HtmlAttributeName("html-labels")]
-		public string[] HtmlLabels { get; set; }
+		public string[] HtmlLabels { get; set; } = new string[] { };
 
 		[HtmlAttributeName("hints")]
 		public string[] Hints { get; set; }
