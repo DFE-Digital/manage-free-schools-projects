@@ -10,6 +10,7 @@ using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -77,6 +78,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
 			services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>();
 			services.AddScoped<ICreateTasksService, CreateTasksService>();
+			services.AddScoped<ICreateProjectRiskService,  CreateProjectRiskService>();
+			services.AddScoped<IGetProjectRiskService,  GetProjectRiskService>();
 			services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
             services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
 

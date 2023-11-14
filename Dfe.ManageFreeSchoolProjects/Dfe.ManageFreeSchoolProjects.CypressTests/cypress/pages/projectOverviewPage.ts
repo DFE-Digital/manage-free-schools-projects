@@ -2,7 +2,7 @@ class ProjectOverviewPage {
 
     public selectTaskListTab(): this {
         cy.contains("Task list").click()
-        
+
         return this;
     }
 
@@ -199,6 +199,34 @@ class ProjectOverviewPage {
         cy.getByTestId(`trust-type`).should(`contain.text`, value);
 
         return this;
+    }
+
+    public changeProjectRisk(): this {
+        cy.getByTestId("change-project-risk").click();
+
+        return this;
+    }
+
+    public hasProjectRiskRating(values: string[]): this {
+        this.checkRagRating(`project-risk-rating`, values);
+
+        return this;
+    }
+
+    public hasProjectRiskSummary(value: string): this {
+        cy.getByTestId("project-risk-summary").should("contain.text", value);
+
+        return this;
+    }
+
+    public hasProjectRiskDate(value: string): this {
+        cy.getByTestId("project-risk-date").should("contain.text", value);
+
+        return this;
+    }
+
+    private checkRagRating(selector: string, values: string[]): void {
+        cy.assertChildList(selector, values);
     }
 }
 

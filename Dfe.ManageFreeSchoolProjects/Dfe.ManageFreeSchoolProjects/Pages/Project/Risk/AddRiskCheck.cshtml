@@ -1,0 +1,163 @@
+﻿@page "/projects/{projectId}/risk/check/add"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@model AddRiskCheckModel
+@{
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName - new risk rating entry</span>
+            Check your answers
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Governance and suitability risk rating
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-rating">
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.GovernanceAndSuitability.RiskRating" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/governance-and-suitability/add" data-testid="change-governance-and-suitability-risk">
+                        Change<span class="govuk-visually-hidden"> Governance and suitability risk rating</span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Governance and suitability risk summary
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="governance-and-suitability-risk-summary">
+                   <govuk-display-value value="@Model.ProjectRisk.GovernanceAndSuitability.Summary" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Education risk rating
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="education-risk-rating">
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Education.RiskRating" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/education/add" data-testid="change-education-risk">
+                        Change<span class="govuk-visually-hidden"> Education risk rating</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Education risk summary
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="education-risk-summary">
+                    <govuk-display-value value="@Model.ProjectRisk.Education.Summary" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Finance risk rating
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-rating">
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Finance.RiskRating" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/finance/add" data-testid="change-finance-risk">
+                        Change<span class="govuk-visually-hidden"> Finance risk rating</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Finance risk summary
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="finance-risk-summary">
+                    <govuk-display-value value="@Model.ProjectRisk.Finance.Summary" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    RAF Sharepoint link
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
+                    <govuk-display-value value="@Model.ProjectRisk.RiskAppraisalFormSharepointLink" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/risk-appraisal-form/add" data-testid="change-risk-appraisal-form-sharepoint-link">
+                        Change<span class="govuk-visually-hidden"> RAF Sharepoint link</span>
+                    </a>
+
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Overall risk rating
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-rating">
+                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/overall/add" data-testid="change-overall-risk">
+                        Change<span class="govuk-visually-hidden"> Overall risk rating</span>
+                    </a>
+
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Overall risk summary
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
+                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                </dd>
+
+            </div>
+        </dl>
+        <form method="post">
+            <button class="govuk-button" data-module="govuk-button" data-testid="create-risk-entry">
+                Confirm
+            </button>
+        </form>
+
+    </div>
+</div>
