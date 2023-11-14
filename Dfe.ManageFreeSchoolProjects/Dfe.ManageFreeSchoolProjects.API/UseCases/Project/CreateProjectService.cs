@@ -63,6 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
+                    SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(proj.SchoolType),
                 });
             }
 

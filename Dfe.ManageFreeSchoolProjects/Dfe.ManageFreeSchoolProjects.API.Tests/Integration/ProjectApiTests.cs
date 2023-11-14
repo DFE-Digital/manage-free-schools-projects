@@ -21,31 +21,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_NewProjectFields_201()
         {
-            var proj = _autoFixture.Create<ProjectDetails>();
+            var projectDetails = _autoFixture.Create<ProjectDetails>();
             var request = new CreateProjectRequest();
-            request.Projects.Add(proj);
+            request.Projects.Add(projectDetails);
 
-            request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
+            var projectId = DatabaseModelBuilder.CreateProjectId();
+            request.Projects[0].ProjectId = projectId;
 
             var createProjectResponse = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             createProjectResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-            var apiProjects  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
+            var createProjectContent  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
 
-            apiProjects.Data.Projects.Should().HaveCount(1);
-            apiProjects.Data.Projects[0].ProjectId.Should().Be(request.Projects[0].ProjectId);
+            createProjectContent.Data.Projects.Should().HaveCount(1);
+            createProjectContent.Data.Projects[0].ProjectId.Should().Be(projectId);
 
-            using var context = _testFixture.GetContext();
+            var projectOverivewResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/overview");
+            projectOverivewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var createdProject = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[0].ProjectId);
+            var projectOverivewContent = await projectOverivewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
+            var projectOverview = projectOverivewContent.Data;
 
-            createdProject.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
-            createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
-            createdProject.SchoolDetailsGeographicalRegion.Should().Be(request.Projects[0].Region);
-            createdProject.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
-            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeNullOrEmpty();
+            projectOverview.ProjectStatus.ProjectId.Should().Be(projectDetails.ProjectId);
+            projectOverview.ProjectStatus.CurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
+            projectOverview.SchoolDetails.Region.Should().Be(request.Projects[0].Region);
+            projectOverview.SchoolDetails.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
+            projectOverview.ProjectStatus.FreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
+            projectOverview.ProjectStatus.ApplicationWave.Should().BeNullOrEmpty();
+            projectOverview.SchoolDetails.SchoolType.Should().Be(request.Projects[0].SchoolType);
 
         }
 

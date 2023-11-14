@@ -13,6 +13,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         [Description("Studio school")]
         StudioSchool = 4,
         [Description("University technical college")]
-        UniversityTechnicalCollege = 5,
+        UniversityTechnicalCollege = 5
     }
 }

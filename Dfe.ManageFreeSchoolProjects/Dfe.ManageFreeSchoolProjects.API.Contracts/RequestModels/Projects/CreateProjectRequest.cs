@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
 {
@@ -20,5 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string LocalAuthorityCode { get; set; }
         [Required]
         public string CreatedBy { get; set; }
+
+        public SchoolType SchoolType { get; set; }
     }
 }
