@@ -29,9 +29,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
+            var dbRiskAppraisalTask = await _context.RiskAppraisalTask.FirstOrDefaultAsync(r => r.rid == projectId);
+
+            if (dbRiskAppraisalTask == null)
+            {
+                throw new NotFoundException($"Risk appraisal task for project {projectId} not found");
+            }
+
+
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
             ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
+            ApplyRiskAppraisalMeetingTaskUpdates(request.RiskAppraisalMeeting, dbRiskAppraisalTask);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
@@ -49,6 +58,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.LocalAuthority = regionAndLocalAuthorityTask.LocalAuthority;
             dbKpi.SchoolDetailsGeographicalRegion = regionAndLocalAuthorityTask.Region;
             dbKpi.SchoolDetailsLocalAuthority = regionAndLocalAuthorityTask.LocalAuthorityCode;
+        }
+
+        private static void ApplyRiskAppraisalMeetingTaskUpdates(RiskAppraisalMeetingTask riskAppraisalMeetingTask, RiskAppraisalTask dbRiskAppraisalTask)
+        {
+            if (riskAppraisalMeetingTask is null)
+            {
+                return;
+            }
+
+            dbRiskAppraisalTask.MeetingCompleted = riskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted;
+            dbRiskAppraisalTask.ForecastDate = riskAppraisalMeetingTask.ForecastDate;
+            dbRiskAppraisalTask.ActualDate = riskAppraisalMeetingTask.ActualDate;
+            dbRiskAppraisalTask.CommentOnDecision = riskAppraisalMeetingTask.CommentsOnDecisionToApprove;
+            dbRiskAppraisalTask.ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable;
         }
 
         private static void ApplySchoolTaskUpdates(SchoolTask task, Kpi dbKpi)

@@ -19,7 +19,6 @@
 	  <EmbeddedResource Remove="ViewComponents\**" />
 	  <None Remove="ViewComponents\**" />
 	  <None Remove="Pages\Project\Tasks\RiskAppraisalMeeting\" />
-	  <Content Remove="Pages\Project\Tasks\RiskAppraisalMeeting\ViewRiskAppraisalMeetingTask.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
