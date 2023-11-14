@@ -1,0 +1,44 @@
+﻿@page "/projects/{projectId}/tasks/constituency/edit/"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency.EditConstituencyModel
+@{
+    ViewData["Title"] = $"Constituency - {Model.CurrentFreeSchoolName}";
+    var backlink = string.Format(RouteConstants.SearchConstituency, Model.ProjectId);
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <form method="post">
+                    <div class="govuk-form-group">
+                        <div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-9">
+                                    <h1 class="govuk-fieldset__heading">
+                                        <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>Confirm the constituency
+                                    </h1>
+                                </legend>
+                                <govuk-radios-input asp-for="@Model.Constituency"
+                                                    name="constituency"
+                                                    data-testid="constituency"
+                                                    labels="@Model.Labels"
+                                                    values="@Model.Values"
+                                                    hints="@Model.Hints"/>
+                            </fieldset>
+                        </div>
+                        <br><br>
+                        <button class="govuk-button" data-module="govuk-button">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

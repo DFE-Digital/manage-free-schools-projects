@@ -1,7 +1,7 @@
 export class ConstituencySummaryPage {
     private summaryCounter = -1;
 
-    public static check(): ConstituencySummaryPage
+    public static inOrder(): ConstituencySummaryPage
     {
         return new ConstituencySummaryPage()
     }

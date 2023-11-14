@@ -33,7 +33,7 @@ describe("Testing project overview", () => {
                 
         Logger.log("Confirm empty constituency");
         ConstituencySummaryPage
-            .check().schoolNameIs(project.schoolName)
+            .inOrder().schoolNameIs(project.schoolName)
             .titleIs("Constituency")
             .summaryShows("Name").IsEmpty().HasChangeLink()
             .summaryShows("MP").IsEmpty().HasNoChangeLink()
@@ -66,7 +66,7 @@ describe("Testing project overview", () => {
         constituencySearchPage.clickBack();
 
         ConstituencySummaryPage
-            .check().schoolNameIs(project.schoolName)
+            .inOrder().schoolNameIs(project.schoolName)
             .titleIs("Constituency")
             .summaryShows("Name").IsEmpty().HasChangeLink()
             .summaryShows("MP").IsEmpty().HasNoChangeLink()

@@ -22,6 +22,7 @@ using System;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
+using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -84,6 +85,7 @@ public class Startup
         services.AddScoped<ICreateTasksService, CreateTasksService>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
+        services.AddScoped<ISearchConstituency, SearchConstituency>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
