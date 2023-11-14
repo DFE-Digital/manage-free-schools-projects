@@ -69,5 +69,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
         public string LocalAuthorityCode { get; set; }
+        public SchoolType? SchoolType { get; set; }
     }
 }

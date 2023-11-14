@@ -64,7 +64,6 @@
                     </a>
 
                 </dd>
-
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -120,18 +119,16 @@
                 <dt class="govuk-summary-list__key">
                     School type
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    AP
+                <dd class="govuk-summary-list__value" data-testid="school-type">
+                    @Model.Project.SchoolType.ToDescription()
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="#">
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectSchoolType" data-testid="change-school-type">
                         Change<span class="govuk-visually-hidden"> School type</span>
                     </a>
-
                 </dd>
-
             </div>
         </dl>
         <h2 class="govuk-heading-m">

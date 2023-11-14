@@ -26,5 +26,6 @@
         public const string CreateProjectLA = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
+        public const string CreateProjectSchoolType = CreateProject + "/school-type";
     }
 }
