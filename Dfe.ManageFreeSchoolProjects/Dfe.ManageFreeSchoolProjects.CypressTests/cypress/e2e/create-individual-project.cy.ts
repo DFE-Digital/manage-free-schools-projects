@@ -27,7 +27,14 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
         Logger.log("Testing that NON-projectrecordcreator role is UNABLE to access Create individual project URLs")
         // Define the URLs that should trigger a failure for the "POTATO"/NON-projectrecordcreator user
-        const unauthorizedUrls = ["/project/create/method", "/project/create/school", "/project/create/region", "/project/create/localauthority", "/project/create/checkyouranswers", "/project/create/confirmation"];
+        const unauthorizedUrls = [
+            "/project/create/method",
+            "/project/create/school",
+            "/project/create/region",
+            "/project/create/localauthority",
+            "project/create/school-type",
+            "/project/create/checkyouranswers",
+            "/project/create/confirmation"];
 
         // Verify that the "NON-Projectrecordcreator" user cannot access unauthorized URLs
         cy.location().should((loc) => {
@@ -43,7 +50,6 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
         Logger.log("Testing that a NON-projectrecordcreator role DOES NOT have the green Create new projects CTA");
         cy.contains('Create new projects').should('not.exist');
-
 
         cy.executeAccessibilityTests();
     });
@@ -77,34 +83,6 @@ describe("Creating an individual project - Test Create new individual project jo
         cy.login({ role: ProjectRecordCreator });
         cy.visit('/');
 
-    });
-
-    it("Should set the school type", () => {
-
-        Logger.log("Filling out the school type")
-        cy.visit("/project/create/school-type");
-
-        Logger.log("Selecting school type");
-        createProjectPage.continue();
-
-        validationComponent.hasValidationError("Select school type");
-
-        createProjectPage
-            .withSchoolType("Studio school")
-            .continue();
-
-        createProjectCheckYourAnswersPage
-            .hasSchoolType("Studio school")
-
-        Logger.log("Change the school type value");
-        createProjectCheckYourAnswersPage.changeSchoolType();
-
-        createProjectPage
-            .hasSchoolType("Studio school")
-            .withSchoolType("Mainstream")
-            .continue();
-
-        createProjectCheckYourAnswersPage.hasSchoolType("Mainstream");
     });
 
     it("Should navigate to project/create/method page", () => {
@@ -222,17 +200,6 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TESTING THAT A VALID FORMAT OF TEMPORARY ID OF 25 CHARS OR LESS PASSES");
         singleProjectTemporaryProjectIdPage.UserEntersValidTempId(temporaryProjectId);
         singleProjectTemporaryProjectIdPage.selectContinue();
-
-        cy.visit("/project/create/school-type");
-
-        Logger.log("Selecting school type");
-        createProjectPage.continue();
-
-        validationComponent.hasValidationError("Select school type");
-
-        createProjectPage
-            .withSchoolType("Studio school")
-            .continue();
 
         //-------------------------------------------------------------
         // FREE SCHOOL NAME PAGE
@@ -382,6 +349,23 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectLocalAuthorityPage.selectContinue();
 
         //--------------------------------------------------------------------------------------------------------------------------
+        // SCHOOL TYPE
+        // -------------------------------------------------------------------------------------------------------------------------
+        Logger.log("Selecting school type");
+        createProjectPage.continue();
+
+        validationComponent.hasValidationError("Select school type");
+
+        cy.executeAccessibilityTests();
+
+        createProjectPage
+            .withSchoolType("Studio school")
+            .continue();
+
+        createProjectCheckYourAnswersPage
+            .hasSchoolType("Studio school")
+
+        //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
@@ -391,11 +375,23 @@ describe("Creating an individual project - Test Create new individual project jo
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
-        singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
+        // -------------------------------------------------------------------------------------------------------------------------
+        // CHANGE ANSWERS
+        // -------------------------------------------------------------------------------------------------------------------------
+        Logger.log("Change the school type value");
+        createProjectCheckYourAnswersPage.changeSchoolType();
+
+        createProjectPage
+            .hasSchoolType("Studio school")
+            .withSchoolType("Mainstream")
+            .continue();
+
+        createProjectCheckYourAnswersPage.hasSchoolType("Mainstream");
 
         //--------------------------------------------------------------------------------------------------------------------------
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
+        singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
 
         Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
         cy.executeAccessibilityTests();

@@ -5,13 +5,12 @@ using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class SchoolTypeModel : PageModel
+    public class SchoolTypeModel : CreateProjectBaseModel
     {
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
@@ -31,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnGet()
         {
-            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!IsUserAuthorised())
             {
                 return new UnauthorizedResult();
             }
@@ -55,12 +54,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var project = _createProjectCache.Get();
             project.SchoolType = (SchoolType)Enum.Parse(typeof(SchoolType), SchoolType);
 
-            project.Region = ProjectRegion.YorkshireAndHumber;
-            project.LocalAuthority = "Barnsley";
-
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
+            return Redirect(GetNextPage(CreateProjectPageName.SchoolType));
         }
     }
 }
