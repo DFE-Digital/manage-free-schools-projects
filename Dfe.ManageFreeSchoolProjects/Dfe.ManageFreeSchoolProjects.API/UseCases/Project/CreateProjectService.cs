@@ -65,12 +65,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
-                    TrustId = trust.TrustRef,
-                    TrustName = trust.TrustsTrustName,
-                    TrustType = trust.TrustsTrustType,
-                    SchoolDetailsTrustId = trust.TrustsTrustRef,
-                    SchoolDetailsTrustName = trust.TrustsTrustName,
-                    SchoolDetailsTrustType = trust.TrustsTrustType,
+                    TrustId = trust?.TrustRef ?? "",
+                    TrustName = trust?.TrustsTrustName ?? "",
+                    TrustType = trust?.TrustsTrustType ?? "",
+                    SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
+                    SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
+                    SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
 
             });
             }
