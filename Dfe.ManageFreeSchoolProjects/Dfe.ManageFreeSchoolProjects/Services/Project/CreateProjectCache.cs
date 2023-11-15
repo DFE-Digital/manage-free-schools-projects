@@ -72,5 +72,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string LocalAuthorityCode { get; set; }
         public string TRN { get; set; }
         public string TrustName { get; set; }
+        public string EmailToNotify { get; set; }
     }
 }
