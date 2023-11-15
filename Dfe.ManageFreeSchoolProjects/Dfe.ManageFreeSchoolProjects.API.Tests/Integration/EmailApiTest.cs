@@ -40,13 +40,13 @@ public class EmailApiTest : ApiTestsBase
     } 
     
     
-    [Fact(Skip = "Reliant on external api.")]
-    public async Task When_Email_Valid_And_Sent_Returns_Ok()
-    {
-        var result = await _client.PostAsync($"/api/v1/email", ConvertToJson("test@education.gov.uk"));
-        result.StatusCode.Should().Be(HttpStatusCode.OK);
-    } 
-    
+    // [Fact(Skip = "Reliant on external api.")]
+    // public async Task When_Email_Valid_And_Sent_Returns_Ok()
+    // {
+    //     var result = await _client.PostAsync($"/api/v1/email", ConvertToJson("test@education.gov.uk"));
+    //     result.StatusCode.Should().Be(HttpStatusCode.OK);
+    // } 
+    //
     private static StringContent ConvertToJson(string email)
     {
         var body = JsonConvert.SerializeObject(email);
