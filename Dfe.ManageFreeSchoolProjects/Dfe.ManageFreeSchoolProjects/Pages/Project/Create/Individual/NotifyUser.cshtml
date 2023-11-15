@@ -1,0 +1,34 @@
+﻿@page "/project/create/notifyuser"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.NotifyUser
+@{
+    ViewData["Title"] = "Who do you want to notify about this project? - Manage free school projects";
+}
+
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <partial name="_ErrorSummary"/>
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--xl" for="email">
+                    <span class="govuk-caption-l">Creating a new free school project</span>
+                    Who do you want to notify about this project?
+                </label>
+            </h1>
+            <div class="govuk-form-group" id="email">
+                <p class="govuk-!-font-size-18">This is so they can assign it to someone to manage.</p>
+                <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

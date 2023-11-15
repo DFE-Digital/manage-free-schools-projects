@@ -17,11 +17,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
         private readonly ICreateProjectService _createProjectService;
+        private readonly MfspApiClient _mfspApiClient;
 
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService)
+        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
         {
             _createProjectCache = createProjectCache;
             _createProjectService = createProjectService;
+            _mfspApiClient = mfspApiClient;
             _errorService = errorService;
         }
 
@@ -70,6 +72,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     throw;
                 }
             }
+
+            var emailToNotify = _createProjectCache.Get().EmailToNotify;
+            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
 
