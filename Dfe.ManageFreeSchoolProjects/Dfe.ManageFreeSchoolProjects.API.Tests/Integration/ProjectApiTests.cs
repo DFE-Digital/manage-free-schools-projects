@@ -21,8 +21,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_NewProjectFields_201()
         {
+            using var setupContext = _testFixture.GetContext();
+            var trust = DatabaseModelBuilder.BuildTrust();
+
+            setupContext.Trust.Add(trust);
+            await setupContext.SaveChangesAsync();
+
             var proj = _autoFixture.Create<ProjectDetails>();
             var request = new CreateProjectRequest();
+            proj.TRN = trust.TrustRef;
             request.Projects.Add(proj);
 
             request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
@@ -46,17 +53,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
             createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeNullOrEmpty();
+            createdProject.TrustId.Should().Be(request.Projects[0].TRN);
 
         }
 
         [Fact]
         public async Task When_CreateProjectBulk_Returns_NewProjectFields_201()
         {
+            using var setupContext = _testFixture.GetContext();
+            var trust1 = DatabaseModelBuilder.BuildTrust();
+            var trust2 = DatabaseModelBuilder.BuildTrust();
+            var trust3 = DatabaseModelBuilder.BuildTrust();
+
+            setupContext.Trust.Add(trust1);
+            setupContext.Trust.Add(trust2);
+            setupContext.Trust.Add(trust3);
+            await setupContext.SaveChangesAsync();
+
             var proj1 = _autoFixture.Create<ProjectDetails>();
             var proj2 = _autoFixture.Create<ProjectDetails>();
             var proj3 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request = new CreateProjectRequest();
+
+            proj1.TRN = trust1.TrustRef;
+            proj2.TRN = trust2.TrustRef;
+            proj3.TRN = trust3.TrustRef;
+
             request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
@@ -88,9 +111,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_Duplicate_422()
         {
+            using var setupContext = _testFixture.GetContext();
+            var trust = DatabaseModelBuilder.BuildTrust();
+
+            setupContext.Trust.Add(trust);
+            await setupContext.SaveChangesAsync();
+
             var proj1 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request = new CreateProjectRequest();
+            proj1.TRN = trust.TrustRef;
             request.Projects.Add(proj1);
 
             //Reduce these string lengths to avoid truncation errors
@@ -110,6 +140,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var proj2 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request2 = new CreateProjectRequest();
+            proj2.TRN = trust.TrustRef;
             request2.Projects.Add(proj2);
             request2.Projects[0].ProjectId = request.Projects[0].ProjectId;
 

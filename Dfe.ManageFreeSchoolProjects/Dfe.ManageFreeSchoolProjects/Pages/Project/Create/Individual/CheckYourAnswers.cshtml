@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
-    ViewData["Title"] = "Check your answers"; 
+    ViewData["Title"] = "Check your answers";
 }
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
@@ -78,6 +78,23 @@
 
                     <a class="govuk-link" href="@RouteConstants.CreateProjectLocalAuthority">
                         Change<span class="govuk-visually-hidden"> Local authority</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="trust">
+                    @Model.Project.TrustName
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href=@RouteConstants.CreateProjectSearchTrust>
+                        Change<span class="govuk-visually-hidden"> Trust</span>
                     </a>
 
                 </dd>

@@ -27,6 +27,8 @@
         public const string CreateProjectLocalAuthority = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
+        public const string CreateProjectSearchTrust = CreateProject + "/trust/search";
+        public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateNotifyUser = CreateProject + "/notifyuser";
     }
 }

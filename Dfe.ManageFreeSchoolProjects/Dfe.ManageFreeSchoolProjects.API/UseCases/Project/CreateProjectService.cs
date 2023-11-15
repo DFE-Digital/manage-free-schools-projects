@@ -46,6 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     ProjectCreateState = projectCreateState
                 });
 
+                var trust = await GetTrust(proj.TRN);
+
                 checkedProjects.Add(new Kpi()
                 {
                     Rid = Guid.NewGuid().ToString().Substring(0, 10),
@@ -63,7 +65,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
-                });
+                    TrustId = trust?.TrustRef ?? "",
+                    TrustName = trust?.TrustsTrustName ?? "",
+                    TrustType = trust?.TrustsTrustType ?? "",
+                    SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
+                    SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
+                    SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
+
+            });
             }
 
             if (duplicatesFound)
@@ -78,6 +87,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             }
             
             await _context.SaveChangesAsync();
+
+            return result;
+        }
+
+        private async Task<Trust> GetTrust(string trustRef)
+        {
+            var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
 
             return result;
         }
