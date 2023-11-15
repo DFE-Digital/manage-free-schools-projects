@@ -36,9 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
-
-            BackLink = string.Format(RouteConstants.CreateProjectConfirmTrust, Project.TRN);
-
             _createProjectCache.Update(Project);
             return Page();
         }
