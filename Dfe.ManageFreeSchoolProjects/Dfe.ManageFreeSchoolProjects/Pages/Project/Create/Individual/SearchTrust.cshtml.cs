@@ -60,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 var project = _createProjectCache.Get();
 
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectLA);
+                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateNotifyUser);
 
             }
             catch (Exception ex)
