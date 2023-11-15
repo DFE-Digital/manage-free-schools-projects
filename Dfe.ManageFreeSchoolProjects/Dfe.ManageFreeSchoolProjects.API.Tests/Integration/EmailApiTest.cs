@@ -39,7 +39,8 @@ public class EmailApiTest : ApiTestsBase
         responseMessage.Should().Be("Email is not valid.");
     } 
     
-    [Fact]
+    
+    [Fact(Skip = "Reliant on external api.")]
     public async Task When_Email_Valid_And_Sent_Returns_Ok()
     {
         var result = await _client.PostAsync($"/api/v1/email", ConvertToJson("test@education.gov.uk"));
