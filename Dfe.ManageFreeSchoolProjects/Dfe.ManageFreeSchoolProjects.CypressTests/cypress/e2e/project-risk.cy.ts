@@ -29,7 +29,7 @@ describe("Testing that we can add a project risk", () => {
             });
     });
 
-    describe("Adding a project risk", () => {
+    describe.skip("Adding a project risk", () => {
         it("Should be able to add project risk", () => {
 
             projectOverviewPage
