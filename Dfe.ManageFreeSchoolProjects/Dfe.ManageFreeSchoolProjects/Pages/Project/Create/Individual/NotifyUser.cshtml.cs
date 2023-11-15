@@ -45,13 +45,15 @@ public class NotifyUser : PageModel
 
     public IActionResult OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+        
         if (!IsEmailValid(Email))
         {
             ModelState.AddModelError("email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
-        if (!ModelState.IsValid)
-        {
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
@@ -65,6 +67,6 @@ public class NotifyUser : PageModel
 
     private static bool IsEmailValid(string email)
     {
-        return email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email);
+        return email != null && email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email);
     }
 }
