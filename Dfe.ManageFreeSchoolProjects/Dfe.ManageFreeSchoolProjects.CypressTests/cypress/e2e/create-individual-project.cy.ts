@@ -1,19 +1,19 @@
-import { Logger } from "cypress/common/logger";
-import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
-import singleProjectConfirmationPage from "cypress/pages/singleProjectConfirmationPage";
-import createProjectPage from "cypress/pages/createProjectPage";
-import homePage from "cypress/pages/homePage";
-import singleProjectCheckYourAnswersPage from "cypress/pages/singleProjectCheckYourAnswersPage";
-import singleProjectCurrentFreeSchoolNamePage from "cypress/pages/singleProjectCurrentFreeSchoolNamePage";
-import singleProjectLocalAuthorityPage from "cypress/pages/singleProjectLocalAuthorityPage";
-import singleProjectRegionPage from "cypress/pages/singleProjectRegionPage";
-import singleProjectTemporaryProjectIdPage from "cypress/pages/singleProjectTemporaryProjectIdPage";
-import validationComponent from "cypress/pages/validationComponent";
-import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
+import { Logger } from "../../cypress/common/logger";
+import { ProjectRecordCreator } from "../../cypress/constants/cypressConstants";
+import singleProjectConfirmationPage from "../../cypress/pages/singleProjectConfirmationPage";
+import createProjectPage from "../../cypress/pages/createProjectPage";
+import homePage from "../../cypress/pages/homePage";
+import singleProjectCheckYourAnswersPage from "../../cypress/pages/singleProjectCheckYourAnswersPage";
+import singleProjectCurrentFreeSchoolNamePage from "../../cypress/pages/singleProjectCurrentFreeSchoolNamePage";
+import singleProjectLocalAuthorityPage from "../../cypress/pages/singleProjectLocalAuthorityPage";
+import singleProjectRegionPage from "../../cypress/pages/singleProjectRegionPage";
+import singleProjectTemporaryProjectIdPage from "../../cypress/pages/singleProjectTemporaryProjectIdPage";
+import validationComponent from "../../cypress/pages/validationComponent";
+import whichProjectMethodPage from "../../cypress/pages/whichProjectMethodPage";
 import { v4 } from "uuid";
-import dataGenerator from "cypress/fixtures/dataGenerator";
-import singleProjectTrustIdPage from "cypress/pages/singleProjectTrustIDPage";
-import singleProjectNotifyUserPage from "cypress/pages/singleProjectNotifyUser";
+import dataGenerator from "../../cypress/fixtures/dataGenerator";
+import singleProjectTrustIdPage from "../../cypress/pages/singleProjectTrustIDPage";
+import singleProjectNotifyUserPage from "../../cypress/pages/singleProjectNotifyUserPage";
 import { faker } from '@faker-js/faker';
 
 
@@ -419,7 +419,7 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TEST THAT A VALID FORMAT TRUST REFERENCE NUMBER (TRNXXXXX) THAT EXISTS AND PASSES");
         singleProjectTrustIdPage.UserEntersValidTrustReferenceNumber(validTrustId);
         singleProjectTrustIdPage.selectContinue();
-
+*/
 
         // STEP 14 - Notify User
 
@@ -491,7 +491,7 @@ describe("Creating an individual project - Test Create new individual project jo
         Logger.log("TEST THAT A VALID FORMAT EMAIL ADDRESS CAN BE ENTERED INTO THE EMAIL FIELD AND THAT IT IS ACCEPTED AND USER PROCEEDS TO CHECK YOUR ANSWERS PAGE");
         singleProjectNotifyUserPage.UserEntersValidEmailAddress(validEmail);
         singleProjectNotifyUserPage.selectContinue();
-        */
+        
 
         //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
