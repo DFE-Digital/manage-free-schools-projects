@@ -422,8 +422,59 @@
         </dl>
     </div>
 </div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
-@functions{
+        <h2 class="govuk-heading-l govuk-!-margin-top-9">Other information</h2>
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">Risk rating and summary</h2><div class="govuk-summary-card__actions">
+                    <a class="govuk-link" href="risk/summary" data-testid="change-project-risk">
+                        Change<span class="govuk-visually-hidden"> Risk rating and summary</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Date
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-date">
+                            <govuk-display-value value="@Model.Project.Risk.Date.ToDateString()" />
+                        </dd>
+
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Overall risk rating
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-rating">
+                            <govuk-risk-rating-label risk-rating="@Model.Project.Risk.RiskRating" />
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Overall risk summary
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
+                            <govuk-display-value value="@Model.Project.Risk.Summary" />
+                        </dd>
+                    </div>
+
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
     public void RenderValue(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -432,7 +483,7 @@
         }
         else
         {
-            @value;
+            @value
         }
     }
 }

@@ -9,8 +9,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="DatabaseModels\**" />
       <Compile Remove="Validators\**" />
+      <EmbeddedResource Remove="DatabaseModels\**" />
       <EmbeddedResource Remove="Validators\**" />
+      <None Remove="DatabaseModels\**" />
       <None Remove="Validators\**" />
     </ItemGroup>
 
@@ -47,10 +50,6 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="DatabaseModels\" />
     </ItemGroup>
 
 </Project>

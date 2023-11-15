@@ -1,0 +1,17 @@
+﻿@page "/projects/{projectId}/risk/governance-and-suitability/add"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@model AddGovernanceAndSuitabilityRiskModel
+@{
+    var riskFormModel = new RiskFormModel
+    {
+        SchoolName = Model.SchoolName,
+        Heading = "Governance and suitability",
+        RiskRating = Model.RiskRating,
+        RiskRatingLabel = "What is the updated risk rating for governance and suitability?",
+        RiskSummaryLabel = "What is the updated risk summary for governance and suitability?",
+        Summary = Model.Summary
+    };
+}
+
+<partial name="_RiskForm" model="@riskFormModel" />

@@ -20,6 +20,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectRegionAndLAFromTaskList(): this {
+        cy.contains("Region and local authority").click()
+        return this;
+    }
+
     public selectTrustFromTaskList(): this {
         cy.contains("Trust").click()
         return this;
@@ -27,7 +32,15 @@ class TaskListPage {
 
     public verifyTrustMarkedAsComplete(): this {
         cy.getByClass("app-task-list__item").eq(2).contains("Completed");
+        return this;
     }
+
+    public verifyRegionAndLAMarkedAsComplete(): this {
+        cy.getByClass("app-task-list__item").eq(3).contains("Completed");
+        return this;
+    }
+
+
 }
 
 const taskListPage = new TaskListPage();

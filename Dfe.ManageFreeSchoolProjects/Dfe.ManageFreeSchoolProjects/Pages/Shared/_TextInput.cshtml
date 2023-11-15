@@ -3,6 +3,7 @@
 	var showHint = !string.IsNullOrWhiteSpace(Model.Hint);
 	var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
 	var width = Model.Width > 0 ? $"govuk-input--width-{Model.Width}" : "";
+	var testId = Model.TestId ?? Model.Id;
 }
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
 	@if (!string.IsNullOrWhiteSpace(Model.Label))
@@ -39,6 +40,6 @@
 	       name="@Model.Name"
 	       value="@Model.Value"
 	       type="text"
-		   data-testid="@Model.Id"
+		   data-testid="@testId"
 	       @(showHint ? $"aria-describedby=\"{Model.Id}-hint\"" : "")>
 </div>

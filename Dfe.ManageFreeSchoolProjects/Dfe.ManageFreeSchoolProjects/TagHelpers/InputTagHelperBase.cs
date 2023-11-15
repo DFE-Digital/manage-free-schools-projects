@@ -28,6 +28,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("hint")]
 		public string Hint { get; set; }
 
+		[HtmlAttributeName("test-id")]
+		public string TestId { get; set; }
+
 		[ViewContext]
 		public ViewContext ViewContext { get; set; }
 

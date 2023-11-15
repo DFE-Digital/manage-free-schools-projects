@@ -1,6 +1,7 @@
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 ﻿using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
