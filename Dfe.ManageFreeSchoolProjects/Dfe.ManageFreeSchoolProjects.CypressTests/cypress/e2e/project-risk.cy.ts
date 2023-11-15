@@ -1,13 +1,13 @@
-import { ProjectDetailsRequest } from "cypress/api/domain";
-import projectApi from "cypress/api/projectApi";
-import { RequestBuilder } from "cypress/api/requestBuilder";
-import { Logger } from "cypress/common/logger";
-import editProjectRiskPage from "cypress/pages/risk/editProjectRiskPage";
-import projectOverviewPage from "cypress/pages/projectOverviewPage";
-import projectRiskSummaryPage from "cypress/pages/risk/projectRiskSummaryPage";
-import validationComponent from "cypress/pages/validationComponent";
-import projectRiskHistoryTable from "cypress/pages/risk/projectRiskHistoryTable";
-import { toDisplayDate } from "cypress/support/formatDate";
+import { ProjectDetailsRequest } from "../../cypress/api/domain";
+import projectApi from "../../cypress/api/projectApi";
+import { RequestBuilder } from "../../cypress/api/requestBuilder";
+import { Logger } from "../../cypress/common/logger";
+import editProjectRiskPage from "../../cypress/pages/risk/editProjectRiskPage";
+import projectOverviewPage from "../../cypress/pages/projectOverviewPage";
+import projectRiskSummaryPage from "../../cypress/pages/risk/projectRiskSummaryPage";
+import validationComponent from "../../cypress/pages/validationComponent";
+import projectRiskHistoryTable from "../../cypress/pages/risk/projectRiskHistoryTable";
+import { toDisplayDate } from "../../cypress/support/formatDate";
 
 describe("Testing that we can add a project risk", () => {
     let project: ProjectDetailsRequest;

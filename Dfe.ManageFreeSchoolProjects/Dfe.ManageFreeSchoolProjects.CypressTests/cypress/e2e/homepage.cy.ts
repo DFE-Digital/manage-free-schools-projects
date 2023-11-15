@@ -1,11 +1,11 @@
-import dashboardApi from "cypress/api/dashboardApi";
-import { ProjectDetailsRequest } from "cypress/api/domain";
-import projectApi from "cypress/api/projectApi";
-import { RequestBuilder } from "cypress/api/requestBuilder";
-import { Logger } from "cypress/common/logger";
-import homePage from "cypress/pages/homePage";
-import paginationComponent from "cypress/pages/paginationComponent";
-import projectTable from "cypress/pages/projectTable";
+import dashboardApi from "../../cypress/api/dashboardApi";
+import { ProjectDetailsRequest } from "../../cypress/api/domain";
+import projectApi from "../../cypress/api/projectApi";
+import { RequestBuilder } from "../../cypress/api/requestBuilder";
+import { Logger } from "../../cypress/common/logger";
+import homePage from "../../cypress/pages/homePage";
+import paginationComponent from "../../cypress/pages/paginationComponent";
+import projectTable from "../../cypress/pages/projectTable";
 
 describe("Testing the home page", () => {
     beforeEach(() => {

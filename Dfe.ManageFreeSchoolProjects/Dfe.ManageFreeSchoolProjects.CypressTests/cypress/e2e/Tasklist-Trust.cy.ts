@@ -1,12 +1,12 @@
-import { ProjectDetailsRequest } from "cypress/api/domain";
-import projectApi from "cypress/api/projectApi";
-import { RequestBuilder } from "cypress/api/requestBuilder";
-import { Logger } from "cypress/common/logger";
-import trustDetailsPage from "cypress/pages/trustDetailsPage";
-import trustSummaryPage from "cypress/pages/trustSummaryPage";
-import projectOverviewPage from "cypress/pages/projectOverviewPage";
-import taskListPage from "cypress/pages/taskListPage";
-import confirmTrustPage from "cypress/pages/confirmTrustPage";
+import { ProjectDetailsRequest } from "../../cypress/api/domain";
+import projectApi from "../../cypress/api/projectApi";
+import { RequestBuilder } from "../../cypress/api/requestBuilder";
+import { Logger } from "../../cypress/common/logger";
+import trustDetailsPage from "../../cypress/pages/trustDetailsPage";
+import trustSummaryPage from "../../cypress/pages/trustSummaryPage";
+import projectOverviewPage from "../../cypress/pages/projectOverviewPage";
+import taskListPage from "../../cypress/pages/taskListPage";
+import confirmTrustPage from "../../cypress/pages/confirmTrustPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;

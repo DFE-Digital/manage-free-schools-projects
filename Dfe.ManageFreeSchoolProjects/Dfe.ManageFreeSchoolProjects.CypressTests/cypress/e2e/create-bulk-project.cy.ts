@@ -1,5 +1,5 @@
-import { BulkProjectTable, BulkProjectRow } from "cypress/api/domain";
-import bulkCreateProjectPage from "cypress/pages/bulkCreateProjectPage";
+import { BulkProjectTable, BulkProjectRow } from "../../cypress/api/domain";
+import bulkCreateProjectPage from "../../cypress/pages/bulkCreateProjectPage";
 import { v4 } from "uuid";
 import { stringify } from "csv-stringify/sync";
 
