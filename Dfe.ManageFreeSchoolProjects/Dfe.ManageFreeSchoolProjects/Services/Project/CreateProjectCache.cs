@@ -68,6 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public ProjectRegion Region { get; set; }
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
-        public string LocalAuthorityCode { get; set; }
+        public string LocalAuthorityCode { get; set; }   
+        public string EmailToNotify { get; set; }
     }
 }

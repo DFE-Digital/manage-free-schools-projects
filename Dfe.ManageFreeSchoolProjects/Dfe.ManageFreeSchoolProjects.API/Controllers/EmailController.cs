@@ -20,7 +20,7 @@ public class EmailController : ControllerBase
     }
 
      [HttpPost]
-     public async Task<ActionResult> SendEmail(string email)
+     public async Task<ActionResult> SendEmail([FromBody] string email)
      {
          _logger.LogMethodEntered();
 
