@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public string TrustType { get; set; }
 
         [BindProperty(Name = "confirm-trust")]
-        [Display(Name = "confirm trust")]
+        [Display(Name = "confirm-trust")]
         [Required(ErrorMessage = "Confirm that the trust displayed is correct.")]
         public string ConfirmTrust { get; set; }
 
