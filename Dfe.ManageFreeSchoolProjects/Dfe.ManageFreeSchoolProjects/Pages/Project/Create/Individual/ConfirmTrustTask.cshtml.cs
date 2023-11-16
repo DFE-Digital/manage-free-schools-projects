@@ -62,15 +62,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var project = _createProjectCache.Get();
+                var projectCache = _createProjectCache.Get();
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
                 TRN = trust.Trust.TRN;
                 TrustName = trust.Trust.TrustName;
                 TrustType = trust.Trust.TrustType;
-
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSearchTrust);
+                ConfirmTrust = projectCache.ConfirmTrust;
+                
+                BackLink = CreateProjectBackLinkHelper.GetBackLink(projectCache.Navigation, RouteConstants.CreateProjectSearchTrust);
 
             }
             catch (Exception ex)
@@ -102,16 +103,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var project = _createProjectCache.Get();
+                var projectCache = _createProjectCache.Get();
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
-                project.TRN = trust.Trust.TRN;
-                project.TrustName = trust.Trust.TrustName;
+                projectCache.TRN = trust.Trust.TRN;
+                projectCache.TrustName = trust.Trust.TrustName;
+                projectCache.ConfirmTrust = ConfirmTrust;
 
-                _createProjectCache.Update(project);
+                _createProjectCache.Update(projectCache);
 
-                return Redirect(GetNextPage(CreateProjectPageName.NotifyUser));
+                return Redirect(GetNextPage(CreateProjectPageName.ConfirmTrustSearch));
             }
             catch (Exception ex)
             {

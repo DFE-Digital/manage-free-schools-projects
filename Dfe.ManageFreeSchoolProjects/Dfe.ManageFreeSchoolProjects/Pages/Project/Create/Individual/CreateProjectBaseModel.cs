@@ -12,16 +12,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
         }
 
-        public string GetNextPage(CreateProjectPageName pageName)
+        public string GetNextPage(CreateProjectPageName pageName, string routeParameter = "")
         {
             //TODO: add the rest of create journey pages
             return pageName switch
             {
+                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
+                CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
+                CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.SchoolType => RouteConstants.CreateProjectCheckYourAnswers,
-                CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectConfirmTrust, 
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSearchTrust,
+                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
+                CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}")
             };
         }

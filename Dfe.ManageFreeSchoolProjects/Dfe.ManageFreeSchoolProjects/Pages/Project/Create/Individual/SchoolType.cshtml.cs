@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             var project = _createProjectCache.Get();
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectId);
+            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectLocalAuthority);
 
             SchoolType = project.SchoolType.ToIntString();
 

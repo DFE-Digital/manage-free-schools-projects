@@ -7,9 +7,10 @@
         SchoolName = 3,
         Region = 4,
         LocalAuthority = 5,
-        SearchTrust = 6,
-        ConfirmTrustSearch = 7,
-        NotifyUser = 8,
-        SchoolType = 9
+        SchoolType = 6,
+        SearchTrust = 7,
+        ConfirmTrustSearch = 8,
+        NotifyUser = 9,
+        CheckYourAnswers = 10
     }
 }

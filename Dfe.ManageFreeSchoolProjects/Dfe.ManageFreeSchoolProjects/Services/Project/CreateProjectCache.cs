@@ -70,9 +70,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
         public string LocalAuthorityCode { get; set; }
-        public string TRN { get; set; }
-        public string TrustName { get; set; }
         public string EmailToNotify { get; set; }
         public SchoolType? SchoolType { get; set; }
+        public string TrustName { get; set; }
+        public string TRN { get; set; }
+        public string ConfirmTrust { get; set; }
     }
 }

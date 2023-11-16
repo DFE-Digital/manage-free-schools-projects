@@ -17,7 +17,7 @@ public class NotifyUser : PageModel
     [Required(ErrorMessage = "Please enter an email.")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
-
+    
     public string BackLink { get; set; }
 
     public NotifyUser(ErrorService errorService, ICreateProjectCache createProjectCache)
@@ -35,7 +35,7 @@ public class NotifyUser : PageModel
 
         var projectCache = _createProjectCache.Get();
         BackLink = CreateProjectBackLinkHelper.GetBackLink(projectCache.Navigation,
-            RouteConstants.CreateProjectLocalAuthority);
+            string.Format(RouteConstants.CreateProjectConfirmTrust, projectCache.TRN));
 
         Email = projectCache.EmailToNotify;
 
