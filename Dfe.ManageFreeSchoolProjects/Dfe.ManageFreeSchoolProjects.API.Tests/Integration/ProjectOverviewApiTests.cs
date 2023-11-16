@@ -24,6 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             using var context = _testFixture.GetContext();
 
             var trust = DatabaseModelBuilder.BuildTrust();
+            context.Trust.Add(trust);
             await context.SaveChangesAsync();
             
             var project = DatabaseModelBuilder.BuildProject();
