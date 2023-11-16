@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string Constituency { get; set; }
         public string ConstituencyMp { get; set; }
         public string NumberOfEntryForms { get; set; }
-        public string SchoolType { get; set; }
+        public SchoolType? SchoolType { get; set; }
         public string SchoolPhase { get; set; }
         public string AgeRange { get; set; }
         public string Gender { get; set; }

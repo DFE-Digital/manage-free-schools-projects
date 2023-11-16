@@ -47,6 +47,18 @@ class CreateProjectPage {
         return this;
     }
 
+    public hasSchoolType(value: string): this {
+        cy.getByTestId(value).should("be.checked");
+
+        return this;
+    }
+
+    public withSchoolType(value: string): this {
+        cy.getByTestId(value).check();
+
+        return this;
+    }
+
     public continue(): this {
         cy.getByTestId("continue").click();
 
