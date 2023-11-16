@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -51,6 +52,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,
                 Region = project.Region.ToDescription(),
+                TRN = project.TRN,
+                TrustName = project.TrustName,
             };
 
             createProjectRequest.Projects.Add(projReq);

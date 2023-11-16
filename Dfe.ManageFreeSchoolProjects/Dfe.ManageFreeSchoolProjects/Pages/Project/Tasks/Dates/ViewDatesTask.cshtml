@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewDatesTaskModel
 @{
+    ViewData["Title"] = $"Dates - {Model.CurrentFreeSchoolName}";
     var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
