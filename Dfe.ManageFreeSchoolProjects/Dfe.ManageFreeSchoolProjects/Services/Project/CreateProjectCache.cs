@@ -66,6 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public CreateProjectNavigation Navigation { get; set; }
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
         public ProjectRegion Region { get; set; }
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }

@@ -48,6 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 ProjectId = project.ProjectId,
                 SchoolName = project.SchoolName,
+                SchoolPhase = project.SchoolPhase.ToDescription(),
                 CreatedBy = User.Identity.Name,
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,
@@ -77,7 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var emailToNotify = _createProjectCache.Get().EmailToNotify;
-            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
+            //await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
 

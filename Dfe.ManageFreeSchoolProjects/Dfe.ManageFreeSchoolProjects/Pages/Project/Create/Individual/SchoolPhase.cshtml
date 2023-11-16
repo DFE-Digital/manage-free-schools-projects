@@ -1,0 +1,55 @@
+﻿@page "/project/create/schoolphase"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.SchoolPhaseModel
+@{
+    ViewData["Title"] = "What is the school phase?";
+
+    var phases = Enum.GetValues(typeof(SchoolPhase));
+    //phases = Array.FindAll(phases, p => p > 0);
+
+    var labels = new List<string>();
+    var values = new List<string>();
+
+    foreach (var phase in phases)
+    {
+        labels.Add(phase.ToDescription());
+        values.Add(phase.ToString());
+    }
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <partial name="_ErrorSummary"/>
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <div class="govuk-form-group">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+
+                    <h1 class="govuk-fieldset__heading">
+                        <span class="govuk-caption-l">Creating a new free school project</span>
+                        What is the school phase?
+                    </h1>
+
+                </legend>
+            <div class="govuk-form-group" id="school-phase">
+                <govuk-radios-input 
+                    name="school-phase"
+                    asp-for="@Model.SchoolPhase"
+                    data-testid="school-phase"
+                    labels="@labels.ToArray()"
+                    values="@values.ToArray()"/>
+                </div>
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Continue
+            </button>
+
+        </form>
+    </div>
+</div>

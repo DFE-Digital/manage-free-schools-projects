@@ -71,6 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
                     SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
                     SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
+                    SchoolDetailsSchoolPhasePrimarySecondary = proj.SchoolPhase ?? ""
 
             });
             }

@@ -111,7 +111,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
                 _createProjectCache.Update(project);
 
-                return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
+                return Redirect(RouteConstants.CreateProjectSchoolPhase);
             }
             catch (Exception ex)
             {

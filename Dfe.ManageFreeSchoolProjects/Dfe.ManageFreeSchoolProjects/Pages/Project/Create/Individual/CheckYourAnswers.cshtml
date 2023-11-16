@@ -118,6 +118,23 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
+                    School phase
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="school-phase">
+                    @Model.Project.SchoolPhase.ToDescription()
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectSchoolPhase">
+                        Change<span class="govuk-visually-hidden"> School phase</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                     Number of forms of entry
                 </dt>
                 <dd class="govuk-summary-list__value">
