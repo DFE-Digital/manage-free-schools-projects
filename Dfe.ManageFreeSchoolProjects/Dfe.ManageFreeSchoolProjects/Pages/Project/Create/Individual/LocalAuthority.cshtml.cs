@@ -76,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             _createProjectCache.Update(project);
 
-            return Redirect(GetNextPage(CreateProjectPageName.LocalAuthority));
+            return Redirect(GetNextPage(CreateProjectPageName.CreateProjectSearchTrust));
         }
 
         private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
