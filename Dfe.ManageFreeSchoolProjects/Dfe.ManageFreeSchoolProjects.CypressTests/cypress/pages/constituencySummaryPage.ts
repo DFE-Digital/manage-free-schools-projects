@@ -1,19 +1,20 @@
 export class ConstituencySummaryPage {
     private summaryCounter = -1;
 
-    public static inOrder(): ConstituencySummaryPage
+    public inOrder(): this
     {
-        return new ConstituencySummaryPage()
-    }
-
-    public titleIs(title: string): this {
-        cy.get(".govuk-heading-xl").should("contains.text", title)
+        this.summaryCounter = -1
         return this;
     }
 
-    public schoolNameIs(school: string): ConstituencySummaryPage {
-        cy.get(".govuk-heading-xl").get(".govuk-caption-l").should("contains.text", school);
-        return new ConstituencySummaryPage()
+    public titleIs(title: string): this {
+        cy.getByTestId("title").should("contains.text", title)
+        return this;
+    }
+
+    public schoolNameIs(school: string): this {
+        cy.getByTestId("school-name").should("contains.text", school);
+        return this;
     }
 
     public summaryShows(key: string): this {
@@ -24,6 +25,11 @@ export class ConstituencySummaryPage {
 
     public IsEmpty(): this {
         cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", "Empty");
+        return this;
+    }
+
+    public HasValue(value): this {
+        cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", value);
         return this;
     }
 
@@ -42,39 +48,23 @@ export class ConstituencySummaryPage {
         return this;
     }
  
-    public verifyDatesSummaryElementsVisible(schoolName: string): this {
-        cy.get(".govuk-heading-xl").get(".govuk-caption-l").contains(schoolName);
-        cy.get(".govuk-heading-xl").contains("Dates");
-
-        cy.get(".govuk-summary-list__key").eq(0).contains("Entry into pre-opening");
-        cy.get(".govuk-summary-list__value").eq(0).contains("Empty");
-        cy.get(".govuk-link").eq(2).contains("Change");
-
-        cy.get(".govuk-summary-list__key").eq(1).contains("Provisional opening date agreed with trust");
-        cy.get(".govuk-summary-list__value").eq(1).contains("Empty");
-        cy.get(".govuk-link").eq(3).contains("Change");
-
-        cy.get(".govuk-summary-list__key").eq(2).contains("Opening academic year");
-        cy.get(".govuk-summary-list__value").eq(2).contains("Empty");
-        cy.get(".govuk-link").eq(4).contains("Change");
-
-        cy.getById("mark-as-complete").should("not.be.checked");
-        cy.contains("Mark this section as complete, you can still make changes later");
-
-        cy.get(".govuk-button").should("be.visible").contains("Confirm and continue");
-        
+    public MarkAsComplete() {
+        cy.getByTestId("mark-as-complete").click();
         return this;
     }
-
-    public static clickBack() {
+ 
+    public clickBack() {
         cy.get(".govuk-back-link").click();
     }
 
-    public static clickConfirmAndContinue() {
+    public clickConfirmAndContinue() {
         cy.getByTestId("confirm").click();
     }
 
-    public static clickChange() {
+    public clickChange() {
         cy.contains("Change").click();
     }
 }
+
+const constituencySummaryPage = new ConstituencySummaryPage();
+export default constituencySummaryPage;

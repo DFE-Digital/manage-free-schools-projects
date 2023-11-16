@@ -2,12 +2,12 @@ import validationComponent from "./validationComponent";
 
 class ConstituencySearchPage {
     public schoolNameIs(school: string): this {
-        cy.get(".govuk-label--xl").get(".govuk-caption-l").should("contains.text", school);
+        cy.getByTestId("school-name").should("contains.text", school);
         return this;
     }
 
     public titleIs(title: string): this {
-        cy.get(".govuk-label--xl").should("contains.text", title)
+        cy.getByTestId("title").should("contains.text", title)
         return this;
     }
 

@@ -15,8 +15,8 @@
     
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
                 @{
                     RenderValue(Model.Project.School.CurrentFreeSchoolName);
                 }
