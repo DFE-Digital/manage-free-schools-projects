@@ -14,7 +14,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public string GetNextPage(CreateProjectPageName pageName, string routeParameter = "")
         {
-            //TODO: add the rest of create journey pages
             return pageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
