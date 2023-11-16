@@ -27,8 +27,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     from kai in kaiJoin.DefaultIfEmpty()
                     join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
                     from property in propertyJoin.DefaultIfEmpty()
-                    //join riskAppraisalTask in _context.RiskAppraisalTask on kpi.Rid equals riskAppraisalTask.Rid into riskAppraisalTaskJoin
-                    //from riskAppraisalTask in riskAppraisalTaskJoin.DefaultIfEmpty()
+                    join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
+                 from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                     select new GetProjectByTaskResponse
                     {
                         School = new SchoolTask
@@ -58,10 +58,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         RegionAndLocalAuthority = new RegionAndLocalAuthorityTask
                         {
                             Region = kpi.SchoolDetailsGeographicalRegion, LocalAuthority = kpi.LocalAuthority
+                        },
+                        RiskAppraisalMeeting = new RiskAppraisalMeetingTask
+                        {
+                            InitialRiskAppraisalMeetingCompleted = riskAppraisalMeetingTask.MeetingCompleted,
+                            ForecastDate = riskAppraisalMeetingTask.ForecastDate,
+                            ActualDate = riskAppraisalMeetingTask.ActualDate,
+                            CommentsOnDecisionToApprove = riskAppraisalMeetingTask.CommentOnDecision,
+                            ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable
                         }
-                        //RiskAppraisalMeeting = new RiskAppraisalMeetingTask
-                        //{
-                        //}
                     }).FirstOrDefaultAsync();
 
             return result;

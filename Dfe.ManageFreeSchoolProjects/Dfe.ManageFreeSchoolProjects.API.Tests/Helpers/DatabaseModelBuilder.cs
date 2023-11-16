@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using System;
 using System.Diagnostics.Contracts;
 
@@ -73,5 +74,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return _fixture.Create<string>().Substring(0, 24);
 
         }
+
+        public static RiskAppraisalMeetingTask BuildRiskAppraisalMeetingTask(string rid)
+        {
+            var result = new RiskAppraisalMeetingTask();
+
+            result.RID = rid;
+
+            return result;
+        }
+
     }
 }

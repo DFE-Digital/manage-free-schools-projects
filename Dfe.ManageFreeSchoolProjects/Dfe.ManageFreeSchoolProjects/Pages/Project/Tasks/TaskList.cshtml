@@ -9,6 +9,7 @@
     var datesTaskLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
     var trustTaskLink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
     var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
+    var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
 }
 
 <div class="dfe-content-page--header">
@@ -102,6 +103,16 @@
                     </span>
                     @{
                         RenderStatus(Model.ProjectTaskListSummary.RegionAndLocalAuthority);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@riskAppraisalMeetingLink" aria-describedby="">
+                            Risk appraisal meeting
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.RiskAppraisalMeeting);
                     }
                 </li>
             </ul>

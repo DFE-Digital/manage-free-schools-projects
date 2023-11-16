@@ -2,18 +2,22 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting.ViewRiskAppraisalMeetingTaskModel
 @{
-    ViewData["Title"] = $"View Risk Appraisal Meeting - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Risk appraisal meeting - {Model.CurrentFreeSchoolName}";
     var editLink = string.Format(RouteConstants.EditRiskAppraisalMeetingTask, Model.ProjectId);
-    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
 
-<a href=@backlink class="govuk-back-link">Back</a>
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
-            Risk Appraisal Meeting
+            Risk appraisal meeting
         </h1>
         <dl class="govuk-summary-list">
 
@@ -23,7 +27,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{
-                        RenderValue(Model.Project.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted);
+                        RenderValue(Model.Project.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted.ToYesNoString());
                     }
                 </dd>
 
@@ -91,7 +95,7 @@
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                   Reason not applicable
+                    Reason not applicable
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @{

@@ -75,6 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             {
                 _context.Add(proj);
                 _context.AddRange(CreateTasks(proj.Rid));
+                _context.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = proj.Rid });
             }
             
             await _context.SaveChangesAsync();
@@ -90,7 +91,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted },
             };
         }
+
     }
 }

@@ -50,8 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
 
+            var riskAppraisalMeetingTask = DatabaseModelBuilder.BuildRiskAppraisalMeetingTask(project.Rid);
+
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+            context.RiskAppraisalMeetingTask.Add(riskAppraisalMeetingTask);
 
             var tasks = TasksStub.BuildListOfTasks(project.Rid);
             context.Tasks.AddRange(tasks);
@@ -90,8 +93,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
 
+            var riskAppraisalMeetingTask = DatabaseModelBuilder.BuildRiskAppraisalMeetingTask(project.Rid);
+
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+            context.RiskAppraisalMeetingTask.Add(riskAppraisalMeetingTask);
             await context.SaveChangesAsync();
 
             var DateTenDaysInFuture = new DateTime().AddDays(10);

@@ -25,16 +25,9 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			{
 				if (modelType == typeof(DateTime?))
 				{
-					if (IsEmptyDate(dayValueProviderResult, monthValueProviderResult, yearValueProviderResult))
-					{
-						var date = default(DateTime);
-						bindingContext.Result = ModelBindingResult.Success(date);
-					}
-					else
-					{
-						bindingContext.Result = ModelBindingResult.Success(null);
-					}
+					bindingContext.Result = ModelBindingResult.Success(null);
 				}
+
 				else
 				{
 					bindingContext.Result = ModelBindingResult.Failed();
