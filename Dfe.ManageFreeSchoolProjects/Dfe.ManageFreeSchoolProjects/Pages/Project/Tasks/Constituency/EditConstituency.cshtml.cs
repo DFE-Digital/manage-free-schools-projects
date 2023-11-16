@@ -71,6 +71,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 
 			CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
             var response = await _searchConstituency.Execute(SearchTerm);
+            
+            if(response.Data.Constituencies.Count == 0)
+            {
+                return Page();
+            }
+
 			await LoadPage(response.Data.Constituencies);
 
 			return Page();
