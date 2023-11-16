@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -17,11 +18,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
         private readonly ICreateProjectService _createProjectService;
+        private readonly MfspApiClient _mfspApiClient;
 
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService)
+        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
         {
             _createProjectCache = createProjectCache;
             _createProjectService = createProjectService;
+            _mfspApiClient = mfspApiClient;
             _errorService = errorService;
         }
 
@@ -49,6 +52,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,
                 Region = project.Region.ToDescription(),
+                TRN = project.TRN,
+                TrustName = project.TrustName,
             };
 
             createProjectRequest.Projects.Add(projReq);
@@ -70,6 +75,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     throw;
                 }
             }
+
+            var emailToNotify = _createProjectCache.Get().EmailToNotify;
+            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
 

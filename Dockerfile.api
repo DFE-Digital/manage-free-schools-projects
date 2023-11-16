@@ -14,7 +14,7 @@ RUN dotnet restore Dfe.ManageFreeSchoolProjects.API
 RUN dotnet build Dfe.ManageFreeSchoolProjects.API -c Release
 
 RUN dotnet new tool-manifest
-RUN dotnet tool install dotnet-ef
+RUN dotnet tool install dotnet-ef --version 7.0.13
 
 RUN mkdir -p /app/SQL
 RUN dotnet ef migrations script --output /app/SQL/DbMigrationScript.sql --idempotent -p /build/Dfe.ManageFreeSchoolProjects.Data

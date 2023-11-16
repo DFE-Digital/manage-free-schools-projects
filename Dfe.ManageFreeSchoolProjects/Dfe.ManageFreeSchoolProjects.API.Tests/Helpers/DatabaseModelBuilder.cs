@@ -69,6 +69,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
+        public static Trust BuildTrust()
+        {
+            var result = new Trust();
+
+            result.Rid = _fixture.Create<string>().Substring(0, 10);
+            result.TrustRef = _fixture.Create<string>().Substring(0, 6);
+            result.TrustsTrustName= _fixture.Create<string>();
+            result.TrustsTrustType = _fixture.Create<string>();
+
+            return result;
+        }
+
         public static string CreateProjectId()
         {
             return _fixture.Create<string>().Substring(0, 24);
