@@ -51,7 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
                 int month = int.Parse(monthValueProviderResult.FirstValue);
                 int year = int.Parse(yearValueProviderResult.FirstValue);
 
-                var date = DateTime.SpecifyKind(new DateTime(year, month, day), DateTimeKind.Unspecified);
+                var date = new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Unspecified);
                 (bool validDateRange, string message) = IsInValidDateRange(date, bindingContext, displayName);
 
                 if (validDateRange)
