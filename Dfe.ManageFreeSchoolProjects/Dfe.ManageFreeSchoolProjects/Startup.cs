@@ -83,6 +83,9 @@ public class Startup
         services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
         services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
         services.AddScoped<ICreateTasksService, CreateTasksService>();
+        services.AddScoped<IGetProjectRiskService, GetProjectRiskService>();
+        services.AddScoped<ICreateProjectRiskCache, CreateProjectRiskCache>();
+        services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
         services.AddScoped<ISearchConstituency, SearchConstituency>();

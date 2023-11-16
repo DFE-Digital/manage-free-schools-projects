@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Mime;
+using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 {
@@ -46,6 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 							builder.ConfigureAppConfiguration((context, config) =>
 							{
 								config.AddJsonFile(configPath)
+									.AddUserSecrets(Assembly.GetExecutingAssembly(), true)
 									.AddEnvironmentVariables();
 
 								connectionString = BuildDatabaseConnectionString(config);

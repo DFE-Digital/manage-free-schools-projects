@@ -1,6 +1,8 @@
 ﻿@model Dfe.ManageFreeSchoolProjects.ViewModels.RadiosInputViewModel
 @{
 	var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
+
+	var testIds = Model.TestIds.Any() ? Model.TestIds : Model.Values;
 }
 
 @functions{
@@ -75,9 +77,18 @@
 			@for (var i = 0; i < Model.Values.Length; i++)
 			{
 				<div class="govuk-radios__item">
-					<input class="govuk-radios__input" id="@Id(Model.Id, i)" name="@Model.Name" type="radio" value="@Model.Values[i]" checked="@(Model.Values[i].Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@Model.Values[i]">
+					<input class="govuk-radios__input" id="@Id(Model.Id, i)" name="@Model.Name" type="radio" value="@Model.Values[i]" checked="@(Model.Values[i].Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@testIds.ElementAtOrDefault(i)">
+					
 					<label class="govuk-label govuk-radios__label" id="@Id(Model.Id, i)-label" for="@Id(Model.Id, i)">
-						@Model.Labels[i]
+						@if (Model.HtmlLabels.Any())
+						{
+							@Html.Raw(@Model.HtmlLabels[i])
+						}
+						else
+						{
+							@Model.Labels[i]
+						}
+
 					</label>
 					@if (Model.Hints != null)
 					{
