@@ -66,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     SpecialistResourceProvision = project.SchoolDetailsSpecialistResourceProvision,
                     FaithStatus = project.SchoolDetailsFaithStatus,
                     FaithType = project.SchoolDetailsFaithType,
-                    TrustId = project.SchoolDetailsTrustId,
+                    TrustId = project.TrustId,
                     TrustName = project.SchoolDetailsTrustName,
                     TrustType = project.SchoolDetailsTrustType
                 },

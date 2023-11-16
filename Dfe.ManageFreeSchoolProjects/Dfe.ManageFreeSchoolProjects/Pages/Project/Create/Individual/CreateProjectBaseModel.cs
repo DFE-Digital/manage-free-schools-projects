@@ -14,15 +14,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public string GetNextPage(CreateProjectPageName pageName)
         {
-            switch (pageName)
+            return pageName switch
             {
-                case CreateProjectPageName.LocalAuthority:
-                    return RouteConstants.CreateProjectSchoolType;
-                case CreateProjectPageName.SchoolType:
-                    return RouteConstants.CreateProjectCheckYourAnswers;
-                default:
-                    throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}");
-            }
+                CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSchoolType,
+                CreateProjectPageName.SchoolType => RouteConstants.CreateProjectCheckYourAnswers,
+                CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectSearchTrust,
+                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}")
+            };
         }
 
     }

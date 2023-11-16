@@ -50,7 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectOverivewContent = await projectOverivewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
             var projectOverview = projectOverivewContent.Data;
             
-            createdProject.TrustId.Should().Be(request.Projects[0].TRN);
+
+            projectOverview.SchoolDetails.TrustId.Should().Be(request.Projects[0].TRN);
             projectOverview.ProjectStatus.ProjectId.Should().Be(projectDetails.ProjectId);
             projectOverview.ProjectStatus.CurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
             projectOverview.SchoolDetails.Region.Should().Be(request.Projects[0].Region);

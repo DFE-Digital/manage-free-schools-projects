@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {

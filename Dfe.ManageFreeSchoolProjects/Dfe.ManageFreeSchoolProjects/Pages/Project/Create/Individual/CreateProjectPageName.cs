@@ -7,6 +7,7 @@
         SchoolName = 3,
         Region = 4,
         LocalAuthority = 5,
-        SchoolType = 6
+        SearchTrust = 6,
+        SchoolType = 7
     }
 }

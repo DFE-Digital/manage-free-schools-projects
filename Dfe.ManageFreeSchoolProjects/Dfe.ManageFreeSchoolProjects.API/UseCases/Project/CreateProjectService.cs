@@ -66,12 +66,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
                     SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(proj.SchoolType),
-                    TrustId = trust?.TrustRef ?? "",
-                    TrustName = trust?.TrustsTrustName ?? "",
-                    TrustType = trust?.TrustsTrustType ?? "",
-                    SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
-                    SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
-                    SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
+                    TrustId = trust.TrustRef,
+                    TrustName = trust.TrustsTrustName,
+                    TrustType = trust.TrustsTrustType,
+                    SchoolDetailsTrustId = trust.TrustsTrustRef,
+                    SchoolDetailsTrustName = trust.TrustsTrustName,
+                    SchoolDetailsTrustType = trust.TrustsTrustType,
             });
             }
 
