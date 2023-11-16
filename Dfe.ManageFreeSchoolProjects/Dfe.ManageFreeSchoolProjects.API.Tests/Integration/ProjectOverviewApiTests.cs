@@ -22,7 +22,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task When_Get_AllFieldsSet_Returns_200()
         {
             using var context = _testFixture.GetContext();
+
+            var trust = DatabaseModelBuilder.BuildTrust();
+            context.Trust.Add(trust);
+            await context.SaveChangesAsync();
+            
             var project = DatabaseModelBuilder.BuildProject();
+            project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
 
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
@@ -58,7 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.Constituency.Should().Be(project.SchoolDetailsConstituency);
             schoolDetails.ConstituencyMp.Should().Be(project.SchoolDetailsConstituencyMp);
             schoolDetails.NumberOfEntryForms.Should().Be(project.SchoolDetailsNumberOfFormsOfEntry);
-            schoolDetails.SchoolType.Should().Be(project.SchoolDetailsSchoolTypeMainstreamApEtc);
+            schoolDetails.SchoolType.Should().Be(SchoolType.AlternativePosition);
             schoolDetails.SchoolPhase.Should().Be(project.SchoolDetailsSchoolPhasePrimarySecondary);
             schoolDetails.AgeRange.Should().Be(project.SchoolDetailsAgeRange);
             schoolDetails.Gender.Should().Be(project.SchoolDetailsGender);
@@ -68,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.SpecialistResourceProvision.Should().Be(project.SchoolDetailsSpecialistResourceProvision);
             schoolDetails.FaithStatus.Should().Be(project.SchoolDetailsFaithStatus);
             schoolDetails.FaithType.Should().Be(project.SchoolDetailsFaithType);
-            schoolDetails.TrustId.Should().Be(project.SchoolDetailsTrustId);
+            schoolDetails.TrustId.Should().Be(project.TrustId);
             schoolDetails.TrustName.Should().Be(project.SchoolDetailsTrustName);
             schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);
 

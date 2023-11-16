@@ -12,7 +12,7 @@ using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class ProjectIdModel : PageModel
+    public class ProjectIdModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "projectid")]
         [Display(Name = "temporary project id")]
@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             project.ProjectId = ProjectId;
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectSchool);
+            return Redirect(GetNextPage(CreateProjectPageName.ProjectId));
         }
     }
 }

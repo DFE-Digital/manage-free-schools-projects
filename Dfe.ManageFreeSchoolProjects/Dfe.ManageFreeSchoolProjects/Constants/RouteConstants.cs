@@ -22,7 +22,6 @@
         public const string ViewRegionAndLocalAuthorityTask = TaskList + "/region-and-localauthority";
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
-
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
@@ -31,6 +30,7 @@
         public const string CreateProjectLocalAuthority = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";
         public const string CreateProjectConfirmation = CreateProject + "/confirmation";
+        public const string CreateProjectSchoolType = CreateProject + "/school-type";
         public const string CreateProjectSearchTrust = CreateProject + "/trust/search";
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateNotifyUser = CreateProject + "/notifyuser";

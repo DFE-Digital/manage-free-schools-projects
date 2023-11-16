@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         public async Task<ActionResult> CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();
-
+            
             var createResult = await _createProjectService.Execute(createProjectRequest);
 
             foreach (ProjectResponseDetails proj in createResult.Projects)
