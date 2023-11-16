@@ -11,8 +11,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
-using System.Net;
-using Dfe.ManageFreeSchoolProjects.Models;
 using System.Text.RegularExpressions;
 using Dfe.ManageFreeSchoolProjects.Utils;
 
@@ -103,10 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     return Page();
                 }
 
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return Redirect(string.Format(RouteConstants.CreateProjectConfirmTrust, TRN));

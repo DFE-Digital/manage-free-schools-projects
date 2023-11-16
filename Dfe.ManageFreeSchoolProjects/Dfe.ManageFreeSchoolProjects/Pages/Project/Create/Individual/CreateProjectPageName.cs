@@ -8,6 +8,8 @@
         Region = 4,
         LocalAuthority = 5,
         SearchTrust = 6,
-        SchoolType = 7
+        ConfirmTrustSearch = 7,
+        NotifyUser = 8,
+        SchoolType = 9
     }
 }

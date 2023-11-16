@@ -8,15 +8,15 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class ConfirmTrustTaskModel : PageModel
+    public class ConfirmTrustTaskModel : CreateProjectBaseModel
     {
         private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly ILogger<ConfirmTrustTaskModel> _logger;
@@ -111,7 +111,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
                 _createProjectCache.Update(project);
 
-                return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
+                return Redirect(GetNextPage(CreateProjectPageName.NotifyUser));
             }
             catch (Exception ex)
             {
