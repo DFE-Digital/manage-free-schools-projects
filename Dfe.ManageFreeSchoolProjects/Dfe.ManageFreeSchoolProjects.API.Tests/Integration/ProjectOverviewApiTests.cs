@@ -22,6 +22,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task When_Get_AllFieldsSet_Returns_200()
         {
             using var context = _testFixture.GetContext();
+
+            var trust = DatabaseModelBuilder.BuildTrust();
+            await context.SaveChangesAsync();
+            
             var project = DatabaseModelBuilder.BuildProject();
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
 
@@ -69,7 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.SpecialistResourceProvision.Should().Be(project.SchoolDetailsSpecialistResourceProvision);
             schoolDetails.FaithStatus.Should().Be(project.SchoolDetailsFaithStatus);
             schoolDetails.FaithType.Should().Be(project.SchoolDetailsFaithType);
-            schoolDetails.TrustId.Should().Be(project.SchoolDetailsTrustId);
+            schoolDetails.TrustId.Should().Be(project.TrustId);
             schoolDetails.TrustName.Should().Be(project.SchoolDetailsTrustName);
             schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);
 
