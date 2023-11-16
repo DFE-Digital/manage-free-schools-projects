@@ -77,12 +77,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
                 return Page();
             }
 
-			await LoadPage(response.Data.Constituencies);
+			LoadPage(response.Data.Constituencies);
 
 			return Page();
 		}
 
-		private async System.Threading.Tasks.Task LoadPage(List<SearchConstituencyResponse> constituencyResponses)
+		private void LoadPage(List<SearchConstituencyResponse> constituencyResponses)
 		{
 			Labels = constituencyResponses.Select(x => x.Name).Append("None of the above - I want to search again").ToArray();
 			Values = constituencyResponses.Select(x => x.Name).Append(None).ToArray();
@@ -101,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
             if (!ModelState.IsValid)
 			{
 				_errorService.AddErrors(ModelState.Keys, ModelState);
-				await LoadPage(constituencyResponses);
+				LoadPage(constituencyResponses);
 				return Page();
 			}
 

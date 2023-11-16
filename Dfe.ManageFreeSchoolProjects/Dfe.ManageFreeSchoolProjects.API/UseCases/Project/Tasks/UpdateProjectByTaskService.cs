@@ -107,7 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsTrustType = trust.TrustsTrustType;
         }
 
-        private void ApplyConstituencyTaskUpdates(ConstituencyTask task, Kpi dbKpi)
+        private static void ApplyConstituencyTaskUpdates(ConstituencyTask task, Kpi dbKpi)
 		{
 			if (task == null)
 			{
