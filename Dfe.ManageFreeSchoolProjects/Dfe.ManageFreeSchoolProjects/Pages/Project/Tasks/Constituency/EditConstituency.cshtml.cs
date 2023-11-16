@@ -1,3 +1,5 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Constituency;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +33,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
         [Required]
         public string Constituency { get; set; }
 
-        public string[] Labels { get; set; }
+
+		[BindProperty(Name = "constituencyResults")]
+		public string ConstituencyResults { get; set; }
+
+		public string[] Labels { get; set; }
         public string[] Values { get; set; }
         public string[] Hints { get; set; }
 
@@ -39,18 +46,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 		private readonly ILogger<ViewSchoolTask> _logger;
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly ISearchConstituency _searchConstituency;
+        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ErrorService _errorService;
 
         public EditConstituencyModel(
             IGetProjectByTaskService getProjectService,
             ISearchConstituency searchConstituency,
             ILogger<ViewSchoolTask> logger,
+            IUpdateProjectByTaskService updateProjectTaskService,
             ErrorService errorService)
         {
             _logger = logger;
             _errorService = errorService;
             _getProjectService = getProjectService;
             _searchConstituency = searchConstituency;
+            _updateProjectTaskService = updateProjectTaskService;
         }
 
         public async Task<ActionResult> OnGet()
@@ -60,38 +70,55 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 			var project = await _getProjectService.Execute(ProjectId);
 
 			CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
-
-			await LoadPage();
+            var response = await _searchConstituency.Execute(SearchTerm);
+			await LoadPage(response.Data.Constituencies);
 
 			return Page();
 		}
 
-		private async System.Threading.Tasks.Task LoadPage()
+		private async System.Threading.Tasks.Task LoadPage(List<SearchConstituencyResponse> constituencyResponses)
 		{
-			var response = await _searchConstituency.Execute(SearchTerm);
+			Labels = constituencyResponses.Select(x => x.Name).Append("None of the above - I want to search again").ToArray();
+			Values = constituencyResponses.Select(x => x.Name).Append(None).ToArray();
+			Hints = constituencyResponses.Select(x => $"MP - {x.MPName}{Environment.NewLine}Political Party - {x.Party}").Append("").ToArray();
 
-			Labels = response.Data.Constituencies.Select(x => x.Name).Append("None of the above - I want to search again").ToArray();
-			Values = response.Data.Constituencies.Select(x => x.Name).Append(None).ToArray();
-			Hints = response.Data.Constituencies.Select(x => $"MP - {x.MPName}{Environment.NewLine}Political Party - {x.Party}").Append("").ToArray();
+            ConstituencyResults = constituencyResponses.Select(x => $"{x.Name}~{x.MPName}~{x.Party}").Aggregate((acc, next) => acc + "|" + next);
 		}
 
 		public async Task<ActionResult> OnPost()
         {
             _logger.LogMethodEntered();
 
-			if (!ModelState.IsValid)
+            List<SearchConstituencyResponse> constituencyResponses = ConstituencyResults.Split("|")
+                .Select(x => new SearchConstituencyResponse() { Name = x.Split("~")[0], MPName = x.Split("~")[1], Party = x.Split("~")[2]}).ToList();
+
+            if (!ModelState.IsValid)
 			{
 				_errorService.AddErrors(ModelState.Keys, ModelState);
-				await LoadPage();
+				await LoadPage(constituencyResponses);
 				return Page();
 			}
 
-            if(Constituency == None)
+			if (Constituency == None)
             {
 				return Redirect(string.Format(RouteConstants.SearchConstituency, ProjectId));
 			}
 
-			return Redirect(string.Format(RouteConstants.ViewConstituency, ProjectId));
+            var selected = constituencyResponses.First(x => x.Name == Constituency);
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                Constituency = new ConstituencyTask()
+                {
+                    Name = selected.Name,
+                    MPName = selected.MPName,
+                    Party = selected.Party,
+                }
+            };
+
+            await _updateProjectTaskService.Execute(ProjectId, request);
+
+            return Redirect(string.Format(RouteConstants.ViewConstituency, ProjectId));
 		}
 
 	}

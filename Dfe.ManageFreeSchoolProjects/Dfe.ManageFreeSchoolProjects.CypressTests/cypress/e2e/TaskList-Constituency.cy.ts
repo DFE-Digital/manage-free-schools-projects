@@ -3,6 +3,7 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import dataGenerator from "cypress/fixtures/dataGenerator";
+import constituencyEditPage from "cypress/pages/constituencyEditPage";
 import constituencySearchPage from "cypress/pages/constituencySearchPage";
 import { ConstituencySummaryPage } from "cypress/pages/constituencySummaryPage";
 import taskListPage from "cypress/pages/taskListPage";
@@ -96,6 +97,12 @@ describe("Testing project overview", () => {
             .enterSearch("SW1P")
             .clickContinue()
 
-        
+        constituencyEditPage
+            .hasResult("Battersea")
+            .hasResult("Cities of London and Westminster")
+            .hasResult("Hammersmith")
+            .hasNone()
+            .selectNone()
+            .clickContinue()
     });
 });

@@ -62,6 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         Constituency = new ConstituencyTask()
                         {
                             Name = kpi.SchoolDetailsConstituency,
+                            MPName = kpi.SchoolDetailsConstituencyMp,
+                            Party = kpi.SchoolDetailsPoliticalParty,
                         }
                     }).FirstOrDefaultAsync();
             return result;

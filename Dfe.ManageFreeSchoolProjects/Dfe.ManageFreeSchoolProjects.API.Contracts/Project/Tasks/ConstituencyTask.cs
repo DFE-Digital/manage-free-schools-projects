@@ -8,8 +8,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class ConstituencyTask
     {
-        public string Name;
-        public string MPName;
-        public string Party;
+        public string Name { get; set; }
+        public string MPName { get; set; }
+        public string Party { get; set; }
     }
 }
