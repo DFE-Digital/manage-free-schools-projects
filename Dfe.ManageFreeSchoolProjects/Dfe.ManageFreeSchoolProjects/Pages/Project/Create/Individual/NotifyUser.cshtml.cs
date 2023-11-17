@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
-public class NotifyUser : PageModel
+public class NotifyUser : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
     private readonly ICreateProjectCache _createProjectCache;
@@ -34,8 +34,8 @@ public class NotifyUser : PageModel
         }
 
         var projectCache = _createProjectCache.Get();
-        BackLink = CreateProjectBackLinkHelper.GetBackLink(projectCache.Navigation,
-            string.Format(RouteConstants.CreateProjectConfirmTrust, projectCache.TRN));
+
+        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation, projectCache.TRN);
 
         Email = projectCache.EmailToNotify;
 

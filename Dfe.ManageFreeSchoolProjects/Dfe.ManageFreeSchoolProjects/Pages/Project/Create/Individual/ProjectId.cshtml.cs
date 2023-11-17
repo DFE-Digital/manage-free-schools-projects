@@ -42,7 +42,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectMethod); 
+            
+            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId, project.Navigation);
+           
             return Page();
         }
         
