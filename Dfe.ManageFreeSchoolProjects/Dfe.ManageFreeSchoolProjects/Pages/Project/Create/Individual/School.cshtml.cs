@@ -5,11 +5,12 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class SchoolModel : PageModel
+    public class SchoolModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "school")]
         [Display(Name = "school name")]
@@ -37,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             var project = _createProjectCache.Get();
             School = project.SchoolName;
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectId); 
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName, project.Navigation);
 
             return Page();
         }

@@ -57,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 var project = _createProjectCache.Get();
 
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSchoolType);
+                BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust, project.Navigation);
             }
             catch (Exception ex)
             {
