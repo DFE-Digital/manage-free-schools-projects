@@ -35,7 +35,7 @@ public class NotifyUser : CreateProjectBaseModel
 
         var projectCache = _createProjectCache.Get();
 
-        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation, projectCache.TRN);
+        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation);
 
         Email = projectCache.EmailToNotify;
 
