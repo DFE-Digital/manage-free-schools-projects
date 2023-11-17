@@ -133,13 +133,12 @@ public class Startup
 
         if (!string.IsNullOrEmpty(Configuration["ConnectionStrings:BlobStorage"]))
         {
-            string blobName = "mfspkeys.xml";
+            string blobName = "keys.xml";
             BlobContainerClient container = new BlobContainerClient(new Uri(Configuration["ConnectionStrings:BlobStorage"]));
 
             BlobClient blobClient = container.GetBlobClient(blobName);
 
             services.AddDataProtection()
-                .SetApplicationName("MFSP")
                 .PersistKeysToAzureBlobStorage(blobClient);
         }
     }
