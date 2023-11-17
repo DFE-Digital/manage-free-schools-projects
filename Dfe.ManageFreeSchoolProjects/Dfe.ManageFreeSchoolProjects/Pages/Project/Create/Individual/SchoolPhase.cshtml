@@ -4,17 +4,11 @@
 @{
     ViewData["Title"] = "What is the school phase?";
 
-    var phases = Enum.GetValues(typeof(SchoolPhase));
-    //phases = Array.FindAll(phases, p => p > 0);
+    var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new[] { SchoolPhase.NotSet });
 
-    var labels = new List<string>();
-    var values = new List<string>();
+    var labels = schoolPhases.Select(x => x.ToDescription()).ToArray();
+    var values = schoolPhases.Select(x => x.ToString()).ToArray();
 
-    foreach (var phase in phases)
-    {
-        labels.Add(phase.ToDescription());
-        values.Add(phase.ToString());
-    }
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
