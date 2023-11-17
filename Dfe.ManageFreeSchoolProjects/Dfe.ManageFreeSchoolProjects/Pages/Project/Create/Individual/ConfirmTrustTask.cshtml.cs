@@ -71,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 TrustType = trust.Trust.TrustType;
                 ConfirmTrust = projectCache.ConfirmTrust;
                 
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(projectCache.Navigation, RouteConstants.CreateProjectSearchTrust);
+                BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch, projectCache.Navigation);
 
             }
             catch (Exception ex)
