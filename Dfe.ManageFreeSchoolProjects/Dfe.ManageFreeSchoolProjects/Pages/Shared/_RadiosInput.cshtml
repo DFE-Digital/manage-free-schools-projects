@@ -6,10 +6,40 @@
 }
 
 @functions{
-	string Id(string id, int position)
-	{
-		return $"{id}-{position + 1}";
-	}
+		string Id(string id, int position)
+		{
+			return $"{id}-{position + 1}";
+		}
+
+		void RenderHint(string hint)
+		{
+			if(string.IsNullOrEmpty(hint))
+			{
+				return;
+			}
+
+			var splitHint = hint.Split(Environment.NewLine);
+
+			if(splitHint.Length == 1)
+			{
+				<div class="govuk-hint govuk-radios__hint">
+					@hint
+				</div>
+			}
+			else
+			{
+				<div class="govuk-hint govuk-radios__hint govuk-!-margin-bottom-6">
+					@for (var i = 0; i < splitHint.Length; i++)
+					{
+						@splitHint[i]
+						@if (i < splitHint.Length -1)
+						{
+							<br />
+						}
+					}
+				</div>
+			}
+		}
 }
 
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
@@ -62,9 +92,7 @@
 					</label>
 					@if (Model.Hints != null)
 					{
-						<div class="govuk-hint govuk-radios__hint">
-							@Model.Hints[i]
-						</div>
+						RenderHint(Model.Hints[i]);
 					}
 				</div>
 			}

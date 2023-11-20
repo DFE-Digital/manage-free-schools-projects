@@ -10,10 +10,11 @@ using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Utils;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class LocalAuthorityModel : PageModel
+    public class LocalAuthorityModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "local-authority")]
         [Display(Name = "Local Authority")]
@@ -38,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public async Task<ActionResult> OnGet()
         {
-            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!IsUserAuthorised())
             {
                 return new UnauthorizedResult();
             }
@@ -54,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             _createProjectCache.Update(project);
 
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectRegion);
+            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority, project.Navigation);
             
             return Page();
         }
@@ -75,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectSearchTrust);
+            return Redirect(GetNextPage(CreateProjectPageName.LocalAuthority));
         }
 
         private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()

@@ -35,12 +35,30 @@ class TaskListPage {
         return this;
     }
 
+    public selectConstituencyFromTaskList(): this {
+        cy.contains("Constituency").click()
+        return this;
+    }
+    
     public verifyRegionAndLAMarkedAsComplete(): this {
         cy.getByClass("app-task-list__item").eq(3).contains("Completed");
         return this;
     }
 
+    public isTaskStatusIsNotStarted(taskName: string): this {
+        cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
+        return this;
+    }
 
+    public isTaskStatusInProgress(taskName: string): this {
+        cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "In progress");
+        return this;
+    }
+
+    public isTaskStatusIsCompleted(taskName: string): this {
+        cy.get(`[data-testid="task-${taskName}-status"]`).contains("Completed");
+        return this;
+    }
 }
 
 const taskListPage = new TaskListPage();

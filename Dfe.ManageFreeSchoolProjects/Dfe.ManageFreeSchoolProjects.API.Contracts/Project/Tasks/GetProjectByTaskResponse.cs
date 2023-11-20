@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
         public TrustTask Trust { get; set; }
-        
+        public ConstituencyTask Constituency { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthority { get; set; }
     }
 }

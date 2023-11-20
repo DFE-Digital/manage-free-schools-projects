@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
     public class DatabaseModelBuilder
     {
-        private static Fixture _fixture = new Fixture();
+        private static Fixture _fixture = new();
 
         public static Kpi BuildProject()
         {
@@ -53,29 +53,31 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
         public static Kpi BuildProjectMandatoryFieldsOnly()
         {
-            var result = new Kpi();
-
-            result.Rid = _fixture.Create<string>().Substring(0, 10);
-
-            result.AprilIndicator = _fixture.Create<string>().Substring(0, 9);
-            result.Wave = _fixture.Create<string>().Substring(0, 15);
-            result.UpperStatus = _fixture.Create<string>().Substring(0, 10);
-            result.FsType = _fixture.Create<string>().Substring(0, 13);
-            result.FsType1 = _fixture.Create<string>().Substring(0, 15);
-            result.MatUnitProjects = _fixture.Create<string>().Substring(0, 31);
-            result.SponsorUnitProjects = _fixture.Create<string>();
+            var result = new Kpi
+            {
+                Rid = _fixture.Create<string>().Substring(0, 10),
+                AprilIndicator = _fixture.Create<string>().Substring(0, 9),
+                Wave = _fixture.Create<string>().Substring(0, 15),
+                UpperStatus = _fixture.Create<string>().Substring(0, 10),
+                FsType = _fixture.Create<string>().Substring(0, 13),
+                FsType1 = _fixture.Create<string>().Substring(0, 15),
+                MatUnitProjects = _fixture.Create<string>().Substring(0, 31),
+                SponsorUnitProjects = _fixture.Create<string>()
+            };
 
             return result;
         }
 
         public static Trust BuildTrust()
         {
-            var result = new Trust();
-
-            result.Rid = _fixture.Create<string>().Substring(0, 10);
-            result.TrustRef = _fixture.Create<string>().Substring(0, 6);
-            result.TrustsTrustName= _fixture.Create<string>();
-            result.TrustsTrustType = _fixture.Create<string>();
+            var result = new Trust
+            {
+                Rid = _fixture.Create<string>().Substring(0, 10),
+                TrustRef = _fixture.Create<string>().Substring(0, 7),
+                TrustsTrustRef = _fixture.Create<string>().Substring(0, 5),
+                TrustsTrustName = _fixture.Create<string>(),
+                TrustsTrustType = _fixture.Create<string>()
+            };
 
             return result;
         }

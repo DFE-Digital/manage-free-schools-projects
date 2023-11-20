@@ -15,21 +15,30 @@ import dataGenerator from "../../cypress/fixtures/dataGenerator";
 import singleProjectTrustIdPage from "../../cypress/pages/singleProjectTrustIDPage";
 import singleProjectNotifyUserPage from "../../cypress/pages/singleProjectNotifyUserPage";
 import { faker } from '@faker-js/faker';
+import createProjectCheckYourAnswersPage from "cypress/pages/createProject/createProjectCheckYourAnswersPage";
+
 
 
 describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
     beforeEach(() => {
-        
-        cy.login({role: "POTATO"});
+
+        cy.login({ role: "POTATO" });
         cy.visit(Cypress.env('url'));
-        
+
     });
 
     it("Should NOT allow a NON-projectrecordcreator user to access certain URLs", () => {
 
         Logger.log("Testing that NON-projectrecordcreator role is UNABLE to access Create individual project URLs")
         // Define the URLs that should trigger a failure for the "POTATO"/NON-projectrecordcreator user
-        const unauthorizedUrls = ["/project/create/method", "/project/create/school", "/project/create/region", "/project/create/localauthority", "/project/create/checkyouranswers", "/project/create/confirmation"];
+        const unauthorizedUrls = [
+            "/project/create/method",
+            "/project/create/school",
+            "/project/create/region",
+            "/project/create/localauthority",
+            "project/create/school-type",
+            "/project/create/checkyouranswers",
+            "/project/create/confirmation"];
 
         // Verify that the "NON-Projectrecordcreator" user cannot access unauthorized URLs
         cy.location().should((loc) => {
@@ -43,11 +52,10 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
     it("Should NOT allow a NON-projectrecordcreator user to create a new project using the form", () => {
 
-            Logger.log("Testing that a NON-projectrecordcreator role DOES NOT have the green Create new projects CTA");
-            cy.contains('Create new projects').should('not.exist');
-            
-     
-            cy.executeAccessibilityTests();
+        Logger.log("Testing that a NON-projectrecordcreator role DOES NOT have the green Create new projects CTA");
+        cy.contains('Create new projects').should('not.exist');
+
+        cy.executeAccessibilityTests();
     });
 
 });
@@ -56,29 +64,29 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
 describe("Creating an individual project - Create new project button should display for projectrecordcreator role", () => {
     beforeEach(() => {
-        
-        cy.login({role: ProjectRecordCreator});
+
+        cy.login({ role: ProjectRecordCreator });
         cy.visit('/');
-        
+
     });
 
     it("Should display Create new projects button for projectRecordCreator role", () => {
         Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
         cy.contains('Create new projects').should('be.visible');
 
-      
+
         cy.executeAccessibilityTests();
-        
+
 
     });
 });
 
 describe("Creating an individual project - Test Create new individual project journey for projectRecordCreator role", () => {
     beforeEach(() => {
-        
-        cy.login({role: ProjectRecordCreator});
+
+        cy.login({ role: ProjectRecordCreator });
         cy.visit('/');
-        
+
     });
 
     it("Should navigate to the project/create/method page and navigate through the 'Create individual project journey' e2e", () => {
@@ -93,7 +101,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
         cy.executeAccessibilityTests();
-        
+
 
         Logger.log("Clicking on Create new projects CTA as projectrecordcreator")
         homePage.createNewProjects();
@@ -102,38 +110,38 @@ describe("Creating an individual project - Test Create new individual project jo
 
         Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator");
         cy.executeAccessibilityTests();
-        
 
- 
+
+
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
         whichProjectMethodPage.selectContinue();
 
         Logger.log("Checking accessibility of whichProjectMethodPage for a projectrecordcreator when validation error occurs");
         cy.executeAccessibilityTests();
-        
 
-     
+
+
         whichProjectMethodPage.verifyValidationMessage();
 
         Logger.log("TEST WE CANNOT PROCEED WITHOUT SELECTING AN OPTION");
 
         whichProjectMethodPage.selectIndividualProject();
         whichProjectMethodPage.selectBulkUploadProject();
-        
+
         Logger.log("TEST WE CAN PROCEED SELECTING CREATING AN INDIVIDUAL PROJECT OPTION");
 
         whichProjectMethodPage.selectIndividualProject();
 
 
         cy.executeAccessibilityTests();
-        
+
 
 
         whichProjectMethodPage.selectContinue();
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.checkElementsVisible();
 
@@ -143,7 +151,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifyEmptyValidationMessage();
 
@@ -153,7 +161,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifyInvalidCharsValidationMessage();
 
@@ -163,7 +171,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
@@ -173,7 +181,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
@@ -183,7 +191,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifySpacesValidationMessage();
 
@@ -193,7 +201,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectTemporaryProjectIdPage.verifyMoreThanTwentyFiveCharsValidationMessage();
 
@@ -208,7 +216,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectCurrentFreeSchoolNamePage.checkElementsVisible(e2eTestSchool);
 
@@ -217,7 +225,7 @@ describe("Creating an individual project - Test Create new individual project jo
         singleProjectCurrentFreeSchoolNamePage.selectContinue();
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectCurrentFreeSchoolNamePage.verifyEmptyValidationMessage();
 
@@ -226,14 +234,14 @@ describe("Creating an individual project - Test Create new individual project jo
 
         Logger.log("Checking accessibility of singleProjectSchoolName page for a projectrecordcreator when invalid chars validation message occurs");
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
 
 
 
-   
+
         Logger.log("TESTING THAT ATTEMPTING TO SUBMIT A VALID FORMAT BUT > 100 CHARS SCHOOL NAME FAILS");
         singleProjectCurrentFreeSchoolNamePage.UserEntersMoreThanOneHundredChars();
 
@@ -261,7 +269,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
         singleProjectCurrentFreeSchoolNamePage.verifyInvalidCharsValidationMessage();
 
-  
+
         Logger.log("TESTING THAT A VALID FORMAT OF SCHOOLNAME OF 100 CHARS OR LESS PASSES");
         singleProjectCurrentFreeSchoolNamePage.userEntersValidSchool(e2eTestSchool);
 
@@ -271,29 +279,29 @@ describe("Creating an individual project - Test Create new individual project jo
         //------------------------------------------------------------------------------------------------------------------------
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectRegionPage.checkElementsVisible();
 
-    
+
         Logger.log("TESTING THAT A USER IS UNABLE TO PROCEED ON SINGLEPROJECTREGIONPAGE WITHOUT MAKING A SELECTION");
         singleProjectRegionPage.selectContinue();
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectRegionPage.verifyValidationMessage();
 
 
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTREGION PAGE");
         singleProjectRegionPage.selectEastMidlands()
-                               .selectEastOfEngland()
-                               .selectLondon()
-                               .selectNorthEast()
-                               .selectNorthWest()
-                               .selectSouthEast()
-                               .selectWestMidlands()
-                               .selectYorkshireAndHumber();
+            .selectEastOfEngland()
+            .selectLondon()
+            .selectNorthEast()
+            .selectNorthWest()
+            .selectSouthEast()
+            .selectWestMidlands()
+            .selectYorkshireAndHumber();
 
 
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN SOUTH WEST AND PROCEED TO LOCAL AUTHORITY PAGE");
@@ -301,7 +309,7 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectRegionPage.selectContinue();
 
@@ -310,7 +318,7 @@ describe("Creating an individual project - Test Create new individual project jo
         //------------------------------------------------------------------------------------------------------------------------
 
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectLocalAuthorityPage.checkElementsVisible();
 
@@ -319,33 +327,33 @@ describe("Creating an individual project - Test Create new individual project jo
 
 
         cy.executeAccessibilityTests();
-        
-        
+
+
         singleProjectLocalAuthorityPage.verifyValidationMessage();
 
         Logger.log("TESTING THAT A USER IS UNABLE TO HAVE >1 RADIO BUTTON CHECKED AT ONE TIME ON SINGLEPROJECTLOCALAUTHORITY PAGE");
         singleProjectLocalAuthorityPage.selectIslesOfScilly()
-                                       .selectBathAndNorthEastSomerset()
-                                       .selectBristol()
-                                       .selectNorthSomerset()
-                                       .selectSouthGloucestershire()
-                                       .selectPoole()
-                                       .selectDorset()
-                                       .selectBournemouthChristchurchAndPoole()
-                                       .selectWiltshire()
-                                       .selectSwindon()
-                                       .selectDevon()
-                                       .selectPlymouth()
-                                       .selectTorbay()
-                                       .selectCornwall()
-                                       .selectGloucestershire()
-                                       .selectSomerset();
+            .selectBathAndNorthEastSomerset()
+            .selectBristol()
+            .selectNorthSomerset()
+            .selectSouthGloucestershire()
+            .selectPoole()
+            .selectDorset()
+            .selectBournemouthChristchurchAndPoole()
+            .selectWiltshire()
+            .selectSwindon()
+            .selectDevon()
+            .selectPlymouth()
+            .selectTorbay()
+            .selectCornwall()
+            .selectGloucestershire()
+            .selectSomerset();
 
 
 
         Logger.log("TESTING THAT A USER CAN MAKE A VALID SELECTION IN PLYMOUTH AND PROCEED TO CHECK YOUR ANSWERS PAGE");
         singleProjectLocalAuthorityPage.selectPlymouth();
-        
+
 
         singleProjectLocalAuthorityPage.selectContinue();
 
@@ -494,30 +502,54 @@ describe("Creating an individual project - Test Create new individual project jo
         
 
         //--------------------------------------------------------------------------------------------------------------------------
+        // SCHOOL TYPE
+        // -------------------------------------------------------------------------------------------------------------------------
+        Logger.log("Selecting school type");
+        createProjectPage.continue();
+
+        validationComponent.hasValidationError("Select school type");
+
+        cy.executeAccessibilityTests();
+
+        createProjectPage
+            .withSchoolType("Studio school")
+            .continue();
+
+        createProjectCheckYourAnswersPage
+            .hasSchoolType("Studio school")
+
+        //--------------------------------------------------------------------------------------------------------------------------
         //CHECK YOUR ANSWERS PAGE
         //--------------------------------------------------------------------------------------------------------------------------
 
         Logger.log("Checking accessibility of singleProjectCreateCheckYourAnswers page for a projectrecordcreator");
         cy.executeAccessibilityTests();
-        
+
 
         singleProjectCheckYourAnswersPage.checkElementsVisible();
 
-        singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
+        // -------------------------------------------------------------------------------------------------------------------------
+        // CHANGE ANSWERS
+        // -------------------------------------------------------------------------------------------------------------------------
+        Logger.log("Change the school type value");
+        createProjectCheckYourAnswersPage.changeSchoolType();
+
+        createProjectPage
+            .hasSchoolType("Studio school")
+            .withSchoolType("Mainstream")
+            .continue();
+
+        createProjectCheckYourAnswersPage.hasSchoolType("Mainstream");
 
         //--------------------------------------------------------------------------------------------------------------------------
         //PROJECT CREATED CONFIRMATION PAGE
         //--------------------------------------------------------------------------------------------------------------------------
+        singleProjectCheckYourAnswersPage.submitAnswersAndGenerateProject();
 
         Logger.log("Checking accessibility of singleProjectCreateConfirmation page for a projectrecordcreator");
         cy.executeAccessibilityTests();
-        
 
         singleProjectConfirmationPage.checkElementsVisible(temporaryProjectId);
-
-
-
-
 
     });
 });

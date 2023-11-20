@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using DocumentFormat.OpenXml;
+using System;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.Extensions
@@ -18,5 +20,13 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 				? attributes[0].Description 
 				: source.ToString();
 		}
+
+		public static string ToIntString(this Enum value)
+        {
+			if (value == null) return string.Empty;
+
+			return value.ToString("D");
+        }
+
 	}
 }

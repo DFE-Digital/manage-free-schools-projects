@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -55,7 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     Constituency = project.SchoolDetailsConstituency,
                     ConstituencyMp = project.SchoolDetailsConstituencyMp,
                     NumberOfEntryForms = project.SchoolDetailsNumberOfFormsOfEntry,
-                    SchoolType = project.SchoolDetailsSchoolTypeMainstreamApEtc,
+                    SchoolType = ProjectMapper.ToSchoolType(project.SchoolDetailsSchoolTypeMainstreamApEtc),
                     SchoolPhase = project.SchoolDetailsSchoolPhasePrimarySecondary,
                     AgeRange = project.SchoolDetailsAgeRange,
                     Gender = project.SchoolDetailsGender,
@@ -65,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     SpecialistResourceProvision = project.SchoolDetailsSpecialistResourceProvision,
                     FaithStatus = project.SchoolDetailsFaithStatus,
                     FaithType = project.SchoolDetailsFaithType,
-                    TrustId = project.SchoolDetailsTrustId,
+                    TrustId = project.TrustId,
                     TrustName = project.SchoolDetailsTrustName,
                     TrustType = project.SchoolDetailsTrustType
                 },
