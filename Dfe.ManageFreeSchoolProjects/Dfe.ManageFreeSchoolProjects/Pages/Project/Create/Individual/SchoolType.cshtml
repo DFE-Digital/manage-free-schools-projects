@@ -31,12 +31,14 @@
     </legend>
 
     <form method="post">
+        <div class="govuk-form-group" id="school-type">
         <govuk-radios-input asp-for="@Model.SchoolType"
                             name="school-type"
                             labels="@labels.ToArray()"
                             values="@values.ToArray()"
                             test-ids="@testIds.ToArray()"/>
-        <br />
+        </div>
+        <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
         </button>
