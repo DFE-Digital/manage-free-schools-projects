@@ -29,18 +29,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
-            var dbRiskAppraisalMeetingTask = await _context.RiskAppraisalMeetingTask.FirstOrDefaultAsync(r => r.RID == dbKpi.Rid);
-
-            if (dbRiskAppraisalMeetingTask == null)
-            {
-                throw new NotFoundException($"Risk appraisal task for project {projectId} not found");
-            }
-
-
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
             ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
-            ApplyRiskAppraisalMeetingTaskUpdates(request.RiskAppraisalMeeting, dbRiskAppraisalMeetingTask);
+            await ApplyRiskAppraisalMeetingTaskUpdates(request.RiskAppraisalMeeting, dbKpi);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
             ApplyConstituencyTaskUpdates(request.Constituency, dbKpi);
@@ -60,13 +52,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsLocalAuthority = regionAndLocalAuthorityTask.LocalAuthorityCode;
         }
 
-        private static void ApplyRiskAppraisalMeetingTaskUpdates(RiskAppraisalMeetingTask riskAppraisalMeetingTask, Data.Entities.RiskAppraisalMeetingTask dbRiskAppraisalMeetingTask)
+        private async Task ApplyRiskAppraisalMeetingTaskUpdates(RiskAppraisalMeetingTask riskAppraisalMeetingTask, Kpi dbKpi)
         {
             if (riskAppraisalMeetingTask is null)
             {
                 return;
             }
 
+            var dbRiskAppraisalMeetingTask = await _context.RiskAppraisalMeetingTask.FirstOrDefaultAsync(r => r.RID == dbKpi.Rid);
+
+            if (dbRiskAppraisalMeetingTask == null)
+            {
+                dbRiskAppraisalMeetingTask = new Data.Entities.RiskAppraisalMeetingTask();
+                dbRiskAppraisalMeetingTask.RID = dbKpi.Rid;
+                setRiskAppraisalMeeting(riskAppraisalMeetingTask, dbRiskAppraisalMeetingTask);
+                _context.Add(dbRiskAppraisalMeetingTask);
+                return;
+            }
+
+            setRiskAppraisalMeeting(riskAppraisalMeetingTask, dbRiskAppraisalMeetingTask);
+        }
+
+        private static void setRiskAppraisalMeeting(RiskAppraisalMeetingTask riskAppraisalMeetingTask, Data.Entities.RiskAppraisalMeetingTask dbRiskAppraisalMeetingTask)
+        {
             dbRiskAppraisalMeetingTask.MeetingCompleted = riskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted;
             dbRiskAppraisalMeetingTask.ForecastDate = riskAppraisalMeetingTask.ForecastDate;
             dbRiskAppraisalMeetingTask.ActualDate = riskAppraisalMeetingTask.ActualDate;
