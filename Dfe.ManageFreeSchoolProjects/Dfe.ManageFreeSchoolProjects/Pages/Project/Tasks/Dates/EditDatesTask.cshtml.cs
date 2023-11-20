@@ -28,13 +28,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
         [BindProperty(Name = "entry-into-pre-opening", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Entry into pre-opening")]
-        [Required]
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? EntryIntoPreOpening { get; set; }
 
         [BindProperty(Name = "provisional-opening-date-agreed-with-trust", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Provisional opening date agreed with trust")]
-        [Required]
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
 

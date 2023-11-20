@@ -65,13 +65,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
-                    TrustId = trust?.TrustRef ?? "",
-                    TrustName = trust?.TrustsTrustName ?? "",
-                    TrustType = trust?.TrustsTrustType ?? "",
-                    SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
-                    SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
-                    SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
-
+                    SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(proj.SchoolType),
+                    TrustId = trust.TrustRef,
+                    TrustName = trust.TrustsTrustName,
+                    TrustType = trust.TrustsTrustType,
+                    SchoolDetailsTrustId = trust.TrustsTrustRef,
+                    SchoolDetailsTrustName = trust.TrustsTrustName,
+                    SchoolDetailsTrustType = trust.TrustsTrustType,
             });
             }
 
@@ -108,6 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted },
             };
         }
 

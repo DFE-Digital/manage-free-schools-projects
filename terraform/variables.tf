@@ -344,3 +344,18 @@ variable "statuscake_contact_group_email_addresses" {
   type        = list(string)
   default     = []
 }
+
+variable "enable_container_app_blob_storage" {
+  description = "Create an Azure Storage Account and Storage Container to be accessed by the Container App"
+  type        = bool
+}
+
+variable "storage_account_ipv4_allow_list" {
+  description = "A list of public IPv4 address to grant access to the Blob Storage Account"
+  type        = list(string)
+}
+
+variable "storage_account_public_access_enabled" {
+  description = "Should the Azure Storage Account have Public visibility?"
+  type        = bool
+}

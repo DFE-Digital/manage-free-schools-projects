@@ -237,12 +237,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
         private async Task<ProjectResponseDetails> CreateProject()
         {
-            var createProjectRequest = new CreateProjectRequest()
+            var createProjectRequest = new CreateProjectRequest
             {
                 Projects = new List<ProjectDetails>()
             };
 
             var project = _autoFixture.Create<ProjectDetails>();
+            
+            using var context = _testFixture.GetContext();
+            
+            var trust = DatabaseModelBuilder.BuildTrust();
+            
+            var truncatedTRN = project.TRN.Substring(0, 5);
+            
+            project.TRN = truncatedTRN;
+            trust.TrustRef = truncatedTRN;
+            
+            context.Trust.Add(trust);
+            await context.SaveChangesAsync();
+            
             project.ProjectId = DatabaseModelBuilder.CreateProjectId();
             createProjectRequest.Projects.Add(project);
 

@@ -1,0 +1,44 @@
+﻿@page "/project/create/school-type"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@using Dfe.ManageFreeSchoolProjects.Utils;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.SchoolTypeModel
+@{
+    var labels = new List<string>();
+    var values = new List<string>();
+    var testIds = new List<string>();
+
+    foreach (var schoolType in Enum.GetValues(typeof(SchoolType)))
+    {
+        labels.Add(schoolType.ToDescription());
+        values.Add(((int)schoolType).ToString());
+        testIds.Add(schoolType.ToDescription().ToString());
+    }
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-form-group">
+    <partial name="_ErrorSummary" />
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+        <h1 class="govuk-fieldset__heading">
+            <span class="govuk-caption-l">Creating a new free school project</span>
+            What is the school type?
+        </h1>
+    </legend>
+
+    <form method="post">
+        <govuk-radios-input asp-for="@Model.SchoolType"
+                            name="school-type"
+                            labels="@labels.ToArray()"
+                            values="@values.ToArray()"
+                            test-ids="@testIds.ToArray()"/>
+        <br />
+        <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+            Continue
+        </button>
+    </form>
+</div>

@@ -42,8 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
             ApplyRiskAppraisalMeetingTaskUpdates(request.RiskAppraisalMeeting, dbRiskAppraisalMeetingTask);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
-
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
+            ApplyConstituencyTaskUpdates(request.Constituency, dbKpi);
 
             await _context.SaveChangesAsync();
         }
@@ -130,7 +130,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsTrustType = trust.TrustsTrustType;
         }
 
-        private async Task<Trust> GetTrust(string trustRef)
+        private static void ApplyConstituencyTaskUpdates(ConstituencyTask task, Kpi dbKpi)
+		{
+			if (task == null)
+			{
+				return;
+			}
+
+			dbKpi.SchoolDetailsConstituency = task.Name;
+			dbKpi.SchoolDetailsConstituencyMp = task.MPName;
+			dbKpi.SchoolDetailsPoliticalParty = task.Party;
+		}
+
+
+		private async Task<Trust> GetTrust(string trustRef)
         {
             var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
 

@@ -11,14 +11,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
-using System.Net;
-using Dfe.ManageFreeSchoolProjects.Models;
 using System.Text.RegularExpressions;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class SearchTrustTaskModel : PageModel
+    public class SearchTrustTaskModel : CreateProjectBaseModel
     {
         private readonly ILogger<SearchTrustTaskModel> _logger;
         private readonly IGetTrustByRefService _getTrustByRefService;
@@ -33,8 +32,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public string TRN { get; set; }
 
         public GetTrustByRefResponse Trust { get; set; }
-
-        public SearchTrustByRefResponse TrustSearchResults { get; set; }
 
         private readonly ICreateProjectCache _createProjectCache;
 
@@ -60,8 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 var project = _createProjectCache.Get();
 
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateNotifyUser);
-
+                BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust, project.Navigation);
             }
             catch (Exception ex)
             {
@@ -103,14 +99,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     return Page();
                 }
 
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
-            return Redirect(string.Format(RouteConstants.CreateProjectConfirmTrust, TRN));
-
+            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, TRN));
         }
     }
 }

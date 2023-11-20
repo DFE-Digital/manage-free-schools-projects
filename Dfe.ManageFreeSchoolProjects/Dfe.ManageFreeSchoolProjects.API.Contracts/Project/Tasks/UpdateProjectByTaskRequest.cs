@@ -6,9 +6,9 @@
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
         public TrustTask Trust { get; set; }
-        public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
-        
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
+        public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
+		public ConstituencyTask Constituency { get; set; }
 
         public string TaskToUpdate
         {
@@ -26,7 +26,9 @@
                     return "RegionAndLocalAuthority";
                 if (RiskAppraisalMeeting != null)
                     return "RiskAppraisalMeeting";
-                return null;
+				if (Constituency != null)
+					return "Constituency";
+				return null;
             }
         }
     }

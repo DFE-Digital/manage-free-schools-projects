@@ -51,6 +51,10 @@ module "azure_container_apps_hosting" {
   enable_container_health_probe       = local.enable_container_health_probe
   cdn_frontdoor_health_probe_protocol = local.cdn_frontdoor_health_probe_protocol
 
+  enable_container_app_blob_storage     = local.enable_container_app_blob_storage
+  storage_account_ipv4_allow_list       = local.storage_account_ipv4_allow_list
+  storage_account_public_access_enabled = local.storage_account_public_access_enabled
+
   existing_logic_app_workflow                  = local.existing_logic_app_workflow
   existing_network_watcher_name                = local.existing_network_watcher_name
   existing_network_watcher_resource_group_name = local.existing_network_watcher_resource_group_name

@@ -11,71 +11,68 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-    [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class ProjectTaskApiTests : ApiTestsBase
-    {
-        public ProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
-        {
-        }
+	[Collection(ApiTestCollection.ApiTestCollectionName)]
+	public class ProjectTaskApiTests : ApiTestsBase
+	{
+		public ProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
+		{
+		}
 
-        [Fact]
-        public async Task Get_ProjectByTask_NoDependentDataCreated_Returns_200()
-        {
-            // Ensures that if the child tables for the tasks are not populated, the api still works
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
+		[Fact]
+		public async Task Get_ProjectByTask_NoDependentDataCreated_Returns_200()
+		{
+			// Ensures that if the child tables for the tasks are not populated, the api still works
+			var project = DatabaseModelBuilder.BuildProject();
+			var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
+			using var context = _testFixture.GetContext();
+			context.Kpi.Add(project);
 
-            var tasks = TasksStub.BuildListOfTasks(project.Rid);
-            context.Tasks.AddRange(tasks);
+			var tasks = TasksStub.BuildListOfTasks(project.Rid);
+			context.Tasks.AddRange(tasks);
 
-            await context.SaveChangesAsync();
-            
-            var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
-            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
+			await context.SaveChangesAsync();
 
-        [Fact]
-        public async Task Get_ProjectByTask_DoesNotExist_Returns_404()
-        {
-            var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks");
-            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
+			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+		}
 
-        [Fact]
-        public async Task Patch_SchoolTask_Returns_201()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
+		[Fact]
+		public async Task Get_ProjectByTask_DoesNotExist_Returns_404()
+		{
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks");
+			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+		}
 
-            var riskAppraisalMeetingTask = DatabaseModelBuilder.BuildRiskAppraisalMeetingTask(project.Rid);
+		[Fact]
+		public async Task Patch_SchoolTask_Returns_201()
+		{
+			var project = DatabaseModelBuilder.BuildProject();
+			var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            context.RiskAppraisalMeetingTask.Add(riskAppraisalMeetingTask);
+			using var context = _testFixture.GetContext();
+			context.Kpi.Add(project);
 
-            var tasks = TasksStub.BuildListOfTasks(project.Rid);
-            context.Tasks.AddRange(tasks);
+			var tasks = TasksStub.BuildListOfTasks(project.Rid);
+			context.Tasks.AddRange(tasks);
 
-            await context.SaveChangesAsync();
+			await context.SaveChangesAsync();
 
-            var request = new UpdateProjectByTaskRequest()
-            {
-                School = new SchoolTask()
-                {
-                    CurrentFreeSchoolName = "Test High School",
-                    SchoolType = SchoolType.Mainstream,
-                    AgeRange = "11-18",
-                    SchoolPhase = SchoolPhase.Primary,
-                    Nursery = "No",
-                    SixthForm = "No",
-                    FaithStatus = FaithStatus.NotSet,
-                    FaithType = FaithType.Other,
-                    Gender = Gender.Mixed
-                }
-            };
+			var request = new UpdateProjectByTaskRequest()
+			{
+				School = new SchoolTask()
+				{
+					CurrentFreeSchoolName = "Test High School",
+					SchoolType = SchoolType.Mainstream,
+					AgeRange = "11-18",
+					SchoolPhase = SchoolPhase.Primary,
+					Nursery = "No",
+					SixthForm = "No",
+					FaithStatus = FaithStatus.NotSet,
+					FaithType = FaithType.Other,
+					Gender = Gender.Mixed
+				}
+			};
 
             var projectResponse = await UpdateProjectTask(projectId, request);
 
@@ -87,61 +84,93 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.SixthForm.Should().Be("No");
         }
 
-        [Fact]
-        public async Task Patch_DatesTask_Returns_201()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
+		[Fact]
+		public async Task Patch_ConstituencyTask_Returns_201()
+		{
+			var project = DatabaseModelBuilder.BuildProject();
+			var projectId = project.ProjectStatusProjectId;
 
-            var riskAppraisalMeetingTask = DatabaseModelBuilder.BuildRiskAppraisalMeetingTask(project.Rid);
+			using var context = _testFixture.GetContext();
+			context.Kpi.Add(project);
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            context.RiskAppraisalMeetingTask.Add(riskAppraisalMeetingTask);
-            await context.SaveChangesAsync();
+			var tasks = TasksStub.BuildListOfTasks(project.Rid);
+			context.Tasks.AddRange(tasks);
 
-            var DateTenDaysInFuture = new DateTime().AddDays(10);
-            var DateNineDaysInFuture = new DateTime().AddDays(9);
+			await context.SaveChangesAsync();
 
-            var request = new UpdateProjectByTaskRequest()
-            {
-                Dates = new DatesTask()
-                {
-                    DateOfEntryIntoPreopening = DateTenDaysInFuture,
-                    ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
-                    RealisticYearOfOpening = "2023 2024",
-                }
-            };
+			const string Battersea = "Battersea";
+			const string TeddyBones = "RT Hon Theodore Bones";
+			const string MRL = "Monster Raving Loony";
+			var request = new UpdateProjectByTaskRequest()
+			{
+				Constituency = new ConstituencyTask()
+				{
+					Name = Battersea,
+					MPName = TeddyBones,
+					Party = MRL,
+				}
+			};
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+			var projectResponse = await UpdateProjectTask(projectId, request);
 
-            projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
-            projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
-            projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
-        }
+			projectResponse.Constituency.Name.Should().Be(Battersea);
+			projectResponse.Constituency.MPName.Should().Be(TeddyBones);
+			projectResponse.Constituency.Party.Should().Be(MRL);
 
-        [Fact]
-        public async Task Patch_Task_NoProjectExists_Returns_404()
-        {
-            var request = new UpdateProjectByTaskRequest()
-            {
-            };
+		}
 
-            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
-            updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
+		[Fact]
+		public async Task Patch_DatesTask_Returns_201()
+		{
+			var project = DatabaseModelBuilder.BuildProject();
+			var projectId = project.ProjectStatusProjectId;
 
-        private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request)
-        {
-            var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
-            updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+			using var context = _testFixture.GetContext();
+			context.Kpi.Add(project);
+			await context.SaveChangesAsync();
 
-            var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
-            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+			var DateTenDaysInFuture = new DateTime().AddDays(10);
+			var DateNineDaysInFuture = new DateTime().AddDays(9);
 
-            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+			var request = new UpdateProjectByTaskRequest()
+			{
+				Dates = new DatesTask()
+				{
+					DateOfEntryIntoPreopening = DateTenDaysInFuture,
+					ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
+					RealisticYearOfOpening = "2023 2024",
+				}
+			};
 
-            return result.Data;
-        }
-    }
+			var projectResponse = await UpdateProjectTask(projectId, request);
+
+			projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
+			projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
+			projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
+		}
+
+		[Fact]
+		public async Task Patch_Task_NoProjectExists_Returns_404()
+		{
+			var request = new UpdateProjectByTaskRequest()
+			{
+			};
+
+			var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/NotExist/tasks", request.ConvertToJson());
+			updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+		}
+
+		private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request)
+		{
+			var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
+			updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
+			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+			var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+
+			return result.Data;
+		}
+	}
 }
