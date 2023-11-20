@@ -96,34 +96,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 return Page();
             }
 
-            //if (!Regex.Match(CommentsOnDecision, @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(30)).Success)
-            //{
-            //    ModelState.AddModelError("comments-on-decision", "Comments must not include special characters other than , ( ) '");
-            //    _errorService.AddErrors(ModelState.Keys, ModelState);
-            //    return Page();
-            //}
-
-            //if (CommentsOnDecision.Length > 100)
-            //{
-            //    ModelState.AddModelError("comments-on-decision", "Comments must be 100 characters or less");
-            //    _errorService.AddErrors(ModelState.Keys, ModelState);
-            //    return Page();
-            //}
-
-            //if (ReasonNotApplicable.Length > 100)
-            //{
-            //    ModelState.AddModelError("reason-not-applicable", "Reason must be 100 characters or less");
-            //    _errorService.AddErrors(ModelState.Keys, ModelState);
-            //    return Page();
-            //}
-
-            //if (!Regex.Match(ReasonNotApplicable, @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(30)).Success)
-            //{
-            //    ModelState.AddModelError("reason-not-applicable", "Reason must not include special characters other than , ( ) '");
-            //    _errorService.AddErrors(ModelState.Keys, ModelState);
-            //    return Page();
-            //}
-
             try
             {
                 var request = new UpdateProjectByTaskRequest()

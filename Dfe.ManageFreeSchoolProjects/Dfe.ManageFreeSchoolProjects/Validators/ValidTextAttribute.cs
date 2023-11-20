@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models;
 public class ValidTextAttribute : ValidationAttribute
 {
     private const string AllowSpecialCharactersPattern = @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$";
-    private int _maxLength;
+    private readonly int _maxLength;
 
     public ValidTextAttribute(int maxLength)
     {
