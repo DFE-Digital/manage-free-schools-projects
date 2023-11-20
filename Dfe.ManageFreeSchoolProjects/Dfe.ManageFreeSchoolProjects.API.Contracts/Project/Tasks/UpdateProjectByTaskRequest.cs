@@ -6,8 +6,9 @@
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
         public TrustTask Trust { get; set; }
-        
-        public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
+		public ConstituencyTask Constituency { get; set; }
+
+		public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
 
         public string TaskToUpdate
         {
@@ -23,7 +24,9 @@
                     return "Trust";
                 if (RegionAndLocalAuthorityTask != null)
                     return "RegionAndLocalAuthority";
-                return null;
+				if (Constituency != null)
+					return "Constituency";
+				return null;
             }
         }
     }

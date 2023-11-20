@@ -22,6 +22,7 @@ using System;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
+using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection;
 using Azure.Storage.Blobs;
@@ -54,6 +55,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddHttpClient();
         services.AddFeatureManagement();
         services.AddHealthChecks();
         services
@@ -89,6 +91,7 @@ public class Startup
         services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
+        services.AddScoped<ISearchConstituency, SearchConstituency>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

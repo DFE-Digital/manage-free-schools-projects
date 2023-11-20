@@ -15,6 +15,10 @@
         public const string SearchTrustTask = ViewTrustTask + "/search";
         public const string EditTrustTask = ViewTrustTask + "/edit/{1}";
 
+        public const string ViewConstituency = TaskList + "/constituency";
+        public const string SearchConstituency = ViewConstituency + "/search";
+        public const string EditConstituency = ViewConstituency + "/edit?search={1}";
+
         public const string ViewRegionAndLocalAuthorityTask = TaskList + "/region-and-localauthority";
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
