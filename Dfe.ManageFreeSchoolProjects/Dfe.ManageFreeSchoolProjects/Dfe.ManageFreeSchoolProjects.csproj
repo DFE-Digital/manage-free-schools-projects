@@ -18,6 +18,7 @@
 	  <Content Remove="ViewComponents\**" />
 	  <EmbeddedResource Remove="ViewComponents\**" />
 	  <None Remove="ViewComponents\**" />
+	  <None Remove="Pages\Project\Tasks\RiskAppraisalMeeting\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -75,6 +76,7 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\src\images" />
 	  <Folder Include="Services\Trust\" />
+	  <Folder Include="Pages\Project\Tasks\RiskAppraisalMeeting\" />
 	</ItemGroup>
 
 	<ItemGroup>

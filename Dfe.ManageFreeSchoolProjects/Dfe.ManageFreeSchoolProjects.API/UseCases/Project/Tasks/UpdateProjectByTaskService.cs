@@ -32,6 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             ApplySchoolTaskUpdates(request.School, dbKpi);
             ApplyDatesTaskUpdates(request.Dates, dbKpi);
             ApplyRegionAndLocalAuthorityTaskUpdates(request.RegionAndLocalAuthorityTask, dbKpi);
+            await ApplyRiskAppraisalMeetingTaskUpdates(request.RiskAppraisalMeeting, dbKpi);
             await ApplyTrustTaskUpdates(request.Trust, dbKpi);
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
             ApplyConstituencyTaskUpdates(request.Constituency, dbKpi);
@@ -49,6 +50,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.LocalAuthority = regionAndLocalAuthorityTask.LocalAuthority;
             dbKpi.SchoolDetailsGeographicalRegion = regionAndLocalAuthorityTask.Region;
             dbKpi.SchoolDetailsLocalAuthority = regionAndLocalAuthorityTask.LocalAuthorityCode;
+        }
+
+        private async Task ApplyRiskAppraisalMeetingTaskUpdates(RiskAppraisalMeetingTask riskAppraisalMeetingTask, Kpi dbKpi)
+        {
+            if (riskAppraisalMeetingTask is null)
+            {
+                return;
+            }
+
+            var dbRiskAppraisalMeetingTask = await _context.RiskAppraisalMeetingTask.FirstOrDefaultAsync(r => r.RID == dbKpi.Rid);
+
+            if (dbRiskAppraisalMeetingTask == null)
+            {
+                dbRiskAppraisalMeetingTask = new Data.Entities.RiskAppraisalMeetingTask();
+                dbRiskAppraisalMeetingTask.RID = dbKpi.Rid;
+                setRiskAppraisalMeeting(riskAppraisalMeetingTask, dbRiskAppraisalMeetingTask);
+                _context.Add(dbRiskAppraisalMeetingTask);
+                return;
+            }
+
+            setRiskAppraisalMeeting(riskAppraisalMeetingTask, dbRiskAppraisalMeetingTask);
+        }
+
+        private static void setRiskAppraisalMeeting(RiskAppraisalMeetingTask riskAppraisalMeetingTask, Data.Entities.RiskAppraisalMeetingTask dbRiskAppraisalMeetingTask)
+        {
+            dbRiskAppraisalMeetingTask.MeetingCompleted = riskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted;
+            dbRiskAppraisalMeetingTask.ForecastDate = riskAppraisalMeetingTask.ForecastDate;
+            dbRiskAppraisalMeetingTask.ActualDate = riskAppraisalMeetingTask.ActualDate;
+            dbRiskAppraisalMeetingTask.CommentOnDecision = riskAppraisalMeetingTask.CommentsOnDecisionToApprove;
+            dbRiskAppraisalMeetingTask.ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable;
         }
 
         private static void ApplySchoolTaskUpdates(SchoolTask task, Kpi dbKpi)
