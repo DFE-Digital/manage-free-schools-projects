@@ -111,14 +111,40 @@ describe("Testing project overview", () => {
 
         Logger.log("Perform a search which yields no results");
             
-            constituencySearchPage
-                .enterSearch("Potato")
-                .clickContinue()
-    
-            constituencyEditPage
-                .schoolNameIs(project.schoolName)
-                .titleIs("0 results for Potato")
-                .clickSearchAgain()
+        constituencySearchPage
+            .enterSearch("Potato")
+            .clickContinue()
+
+        constituencyEditPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("0 results for Potato")
+            .clickSearchAgain()
+        /*
+        Logger.log("Check MySQL injection attack attempt fails to execute");
+
+        constituencySearchPage
+            .enterSearch("' OR 1=1")
+            .clickContinue()
+            
+        constituencyEditPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("0 results for ' OR 1=1")
+            .clickSearchAgain()
+        
+*/
+
+
+        Logger.log("Check cross-site scripting attack attempt fails to execute");
+
+        constituencySearchPage
+            .enterSearch("<script>window.alert('Hello World!')</script>")
+            .clickContinue()
+            
+        constituencyEditPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("0 results for <script>window.alert('Hello World!')</script>")
+            .clickSearchAgain()
+        
 
         Logger.log("Perform valid search and pick option and save");
             
