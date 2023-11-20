@@ -23,6 +23,9 @@ using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Services.Constituency;
+using Azure.Identity;
+using Microsoft.AspNetCore.DataProtection;
+using Azure.Storage.Blobs;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -124,13 +127,23 @@ public class Startup
         });
 
         services.Configure<ServiceLinkOptions>(GetConfigurationSectionFor<ServiceLinkOptions>());
-        //services.Configure<AzureAdOptions>(GetConfigurationSectionFor<AzureAdOptions>());
 
         services.AddScoped<ErrorService>();
         services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+        if (!string.IsNullOrEmpty(Configuration["ConnectionStrings:BlobStorage"]))
+        {
+            string blobName = "keys.xml";
+            BlobContainerClient container = new BlobContainerClient(new Uri(Configuration["ConnectionStrings:BlobStorage"]));
+
+            BlobClient blobClient = container.GetBlobClient(blobName);
+
+            services.AddDataProtection()
+                .PersistKeysToAzureBlobStorage(blobClient);
+        }
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
