@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     select new GetProjectByTaskResponse
                     {
                         School = new SchoolTask
-                        {
+                            {    
                             CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                             SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
                             SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
@@ -42,23 +42,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                             FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
                             OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
                         },
-                        Dates = new DatesTask
+                        Dates = new DatesTask()
                         {
                             DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
-                            ProvisionalOpeningDateAgreedWithTrust =
-                                kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                            ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                             RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
                         },
-                        Trust = new TrustTask
+                        Trust = new TrustTask()
                         {
-                            TRN = kpi.TrustId, TrustName = kpi.TrustName, TrustType = kpi.TrustType,
+                            TRN = kpi.TrustId,
+                            TrustName = kpi.TrustName,
+                            TrustType = kpi.TrustType,
                         },
                         RegionAndLocalAuthority = new RegionAndLocalAuthorityTask
                         {
-                            Region = kpi.SchoolDetailsGeographicalRegion, LocalAuthority = kpi.LocalAuthority
+                            Region = kpi.SchoolDetailsGeographicalRegion, 
+                            LocalAuthority = kpi.LocalAuthority,
+                        },
+                        Constituency = new ConstituencyTask()
+                        {
+                            Name = kpi.SchoolDetailsConstituency,
+                            MPName = kpi.SchoolDetailsConstituencyMp,
+                            Party = kpi.SchoolDetailsPoliticalParty,
                         }
                     }).FirstOrDefaultAsync();
-
             return result;
         }
     }

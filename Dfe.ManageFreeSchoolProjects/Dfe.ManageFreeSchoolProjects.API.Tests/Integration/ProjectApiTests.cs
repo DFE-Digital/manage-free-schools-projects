@@ -21,42 +21,70 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_NewProjectFields_201()
         {
-            var proj = _autoFixture.Create<ProjectDetails>();
-            var request = new CreateProjectRequest();
-            request.Projects.Add(proj);
+            using var setupContext = _testFixture.GetContext();
+            var trust = DatabaseModelBuilder.BuildTrust();
 
-            request.Projects[0].ProjectId = DatabaseModelBuilder.CreateProjectId();
+            setupContext.Trust.Add(trust);
+            await setupContext.SaveChangesAsync();
+
+            var projectDetails = _autoFixture.Create<ProjectDetails>();
+            var request = new CreateProjectRequest();
+            projectDetails.TRN = trust.TrustRef;
+            request.Projects.Add(projectDetails);
+
+            var projectId = DatabaseModelBuilder.CreateProjectId();
+            request.Projects[0].ProjectId = projectId;
 
             var createProjectResponse = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             createProjectResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-            var apiProjects  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
+            var createProjectContent  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
 
-            apiProjects.Data.Projects.Should().HaveCount(1);
-            apiProjects.Data.Projects[0].ProjectId.Should().Be(request.Projects[0].ProjectId);
+            createProjectContent.Data.Projects.Should().HaveCount(1);
+            createProjectContent.Data.Projects[0].ProjectId.Should().Be(projectId);
 
-            using var context = _testFixture.GetContext();
+            var projectOverivewResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/overview");
+            projectOverivewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var createdProject = context.Kpi.First(p => p.ProjectStatusProjectId == request.Projects[0].ProjectId);
+            var projectOverivewContent = await projectOverivewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
+            var projectOverview = projectOverivewContent.Data;
+            
 
-            createdProject.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
-            createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(request.Projects[0].SchoolName);
-            createdProject.SchoolDetailsGeographicalRegion.Should().Be(request.Projects[0].Region);
-            createdProject.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
-            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeNullOrEmpty();
+            projectOverview.SchoolDetails.TrustId.Should().Be(request.Projects[0].TRN);
+            projectOverview.ProjectStatus.ProjectId.Should().Be(projectDetails.ProjectId);
+            projectOverview.ProjectStatus.CurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
+            projectOverview.SchoolDetails.Region.Should().Be(request.Projects[0].Region);
+            projectOverview.SchoolDetails.LocalAuthority.Should().Be(request.Projects[0].LocalAuthority);
+            projectOverview.ProjectStatus.FreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
+            projectOverview.ProjectStatus.ApplicationWave.Should().BeNullOrEmpty();
+            projectOverview.SchoolDetails.SchoolType.Should().Be(request.Projects[0].SchoolType);
 
         }
 
         [Fact]
         public async Task When_CreateProjectBulk_Returns_NewProjectFields_201()
         {
+            using var setupContext = _testFixture.GetContext();
+            var trust1 = DatabaseModelBuilder.BuildTrust();
+            var trust2 = DatabaseModelBuilder.BuildTrust();
+            var trust3 = DatabaseModelBuilder.BuildTrust();
+
+            setupContext.Trust.Add(trust1);
+            setupContext.Trust.Add(trust2);
+            setupContext.Trust.Add(trust3);
+            await setupContext.SaveChangesAsync();
+
             var proj1 = _autoFixture.Create<ProjectDetails>();
             var proj2 = _autoFixture.Create<ProjectDetails>();
             var proj3 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request = new CreateProjectRequest();
+
+            proj1.TRN = trust1.TrustRef;
+            proj2.TRN = trust2.TrustRef;
+            proj3.TRN = trust3.TrustRef;
+
             request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
@@ -88,9 +116,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_Returns_Duplicate_422()
         {
+            using var setupContext = _testFixture.GetContext();
+            var trust = DatabaseModelBuilder.BuildTrust();
+
+            setupContext.Trust.Add(trust);
+            await setupContext.SaveChangesAsync();
+
             var proj1 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request = new CreateProjectRequest();
+            proj1.TRN = trust.TrustRef;
             request.Projects.Add(proj1);
 
             //Reduce these string lengths to avoid truncation errors
@@ -110,6 +145,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var proj2 = _autoFixture.Create<ProjectDetails>();
 
             CreateProjectRequest request2 = new CreateProjectRequest();
+            proj2.TRN = trust.TrustRef;
             request2.Projects.Add(proj2);
             request2.Projects[0].ProjectId = request.Projects[0].ProjectId;
 

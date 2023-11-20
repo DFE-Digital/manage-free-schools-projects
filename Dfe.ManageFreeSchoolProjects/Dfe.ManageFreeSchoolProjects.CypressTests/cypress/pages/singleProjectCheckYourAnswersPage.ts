@@ -22,23 +22,19 @@ class SingleProjectCheckYourAnswersPage {
         cy.get("a[href='/project/create/localauthority']").contains("Change");
 
         cy.get("dt").eq(4).contains("Provisional opening date agreed with trust");
-    
+
         cy.get(".govuk-summary-list__actions").eq(4).contains("Change");
-        
+
         cy.get("dt").eq(5).contains("Number of forms of entry");
         cy.get("dd").eq(10).contains("1");
         cy.get(".govuk-summary-list__actions").eq(5).contains("Change");
-        
-        cy.get("dt").eq(6).contains("School type");
-        cy.get("dd").eq(12).contains("AP");
-        cy.get(".govuk-summary-list__actions").eq(6).contains("Change");
 
         cy.get("h2").contains("Now create your project");
 
         cy.contains("By selecting the Create project button, you are confirming that you have approval to create projects.");
-        
+
         cy.get(".govuk-button").contains("Create project");
-        
+
         return this;
     }
 

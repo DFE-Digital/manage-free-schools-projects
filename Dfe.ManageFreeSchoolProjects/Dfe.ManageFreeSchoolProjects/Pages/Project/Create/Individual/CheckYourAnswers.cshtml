@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
-    ViewData["Title"] = "Check your answers"; 
+    ViewData["Title"] = "Check your answers";
 }
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
@@ -64,7 +64,6 @@
                     </a>
 
                 </dd>
-
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
@@ -78,6 +77,23 @@
 
                     <a class="govuk-link" href="@RouteConstants.CreateProjectLocalAuthority">
                         Change<span class="govuk-visually-hidden"> Local authority</span>
+                    </a>
+
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Trust
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="trust">
+                    @Model.Project.TrustName
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+
+                    <a class="govuk-link" href=@RouteConstants.CreateProjectSearchTrust>
+                        Change<span class="govuk-visually-hidden"> Trust</span>
                     </a>
 
                 </dd>
@@ -120,18 +136,16 @@
                 <dt class="govuk-summary-list__key">
                     School type
                 </dt>
-                <dd class="govuk-summary-list__value">
-                    AP
+                <dd class="govuk-summary-list__value" data-testid="school-type">
+                    @Model.Project.SchoolType.ToDescription()
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="#">
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectSchoolType" data-testid="change-school-type">
                         Change<span class="govuk-visually-hidden"> School type</span>
                     </a>
-
                 </dd>
-
             </div>
         </dl>
         <h2 class="govuk-heading-m">

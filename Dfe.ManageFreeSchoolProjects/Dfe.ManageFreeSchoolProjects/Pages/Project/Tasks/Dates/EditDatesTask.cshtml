@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditDatesTaskModel
 @{
+    ViewData["Title"] = $"Edit dates - {Model.CurrentFreeSchoolName}";
     var backlink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
 }
 <a href=@backlink class="govuk-back-link">Back</a>

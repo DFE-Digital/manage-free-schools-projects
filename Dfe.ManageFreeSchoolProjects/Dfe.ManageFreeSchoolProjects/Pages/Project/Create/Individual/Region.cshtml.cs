@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Utils;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class RegionModel : PageModel
+    public class RegionModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "region")]
         [Display(Name = "region")]
@@ -41,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             if (project.Region != 0)
                 Region = _createProjectCache.Get().Region.ToString();
 
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSchool); 
+            BackLink = GetPreviousPage(CreateProjectPageName.Region, project.Navigation); 
             return Page();
         }
 

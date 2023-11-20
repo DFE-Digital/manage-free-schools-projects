@@ -10,6 +10,7 @@ using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -82,6 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetProjectRiskService,  GetProjectRiskService>();
 			services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
             services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
+            services.AddScoped<ISearchConstituencyService, SearchConstituencyService>(); 
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

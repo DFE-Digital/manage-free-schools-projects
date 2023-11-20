@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
@@ -68,7 +69,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public ProjectRegion Region { get; set; }
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
-        public string LocalAuthorityCode { get; set; }   
+        public string LocalAuthorityCode { get; set; }
         public string EmailToNotify { get; set; }
+        public SchoolType? SchoolType { get; set; }
+        public string TrustName { get; set; }
+        public string TRN { get; set; }
+        public string ConfirmTrust { get; set; }
     }
 }

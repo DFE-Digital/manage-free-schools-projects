@@ -12,7 +12,7 @@ using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class ProjectIdModel : PageModel
+    public class ProjectIdModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "projectid")]
         [Display(Name = "temporary project id")]
@@ -42,7 +42,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectMethod); 
+            
+            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId, project.Navigation);
+           
             return Page();
         }
         
@@ -88,7 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             project.ProjectId = ProjectId;
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectSchool);
+            return Redirect(GetNextPage(CreateProjectPageName.ProjectId));
         }
     }
 }
