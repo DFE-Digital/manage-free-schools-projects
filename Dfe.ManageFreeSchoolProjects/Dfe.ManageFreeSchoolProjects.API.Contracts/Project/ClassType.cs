@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
-public class ClassType
+public abstract class ClassType
 {
     public enum Nursery
     {

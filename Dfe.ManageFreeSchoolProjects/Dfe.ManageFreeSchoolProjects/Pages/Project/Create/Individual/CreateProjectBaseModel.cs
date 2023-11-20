@@ -35,9 +35,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             };
         }
 
-        public string GetNextPage(CreateProjectPageName pageName, string routeParameter = "")
+        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "")
         {
-            return pageName switch
+            return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolType => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
-                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}")
+                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
     }

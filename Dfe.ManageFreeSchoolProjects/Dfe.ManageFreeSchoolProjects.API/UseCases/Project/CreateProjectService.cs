@@ -22,17 +22,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
         public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
         {
-            CreateProjectResponse result = new CreateProjectResponse();
-            List<Kpi> checkedProjects = new List<Kpi>();
+            var result = new CreateProjectResponse();
+            var checkedProjects = new List<Kpi>();
 
-            bool duplicatesFound = false;
+            var duplicatesFound = false;
 
             foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
                 var existingProject = await _context.Kpi
                     .FirstOrDefaultAsync(k => k.ProjectStatusProjectId == proj.ProjectId);
 
-                ProjectCreateState projectCreateState = ProjectCreateState.New;
+                var projectCreateState = ProjectCreateState.New;
 
                 if (existingProject != null)
                 {
@@ -48,7 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
                 var trust = await GetTrust(proj.TRN);
 
-                checkedProjects.Add(new Kpi()
+                checkedProjects.Add(new Kpi
                 {
                     Rid = Guid.NewGuid().ToString().Substring(0, 10),
                     ProjectStatusProjectId = proj.ProjectId,
@@ -72,6 +72,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustId = trust.TrustsTrustRef,
                     SchoolDetailsTrustName = trust.TrustsTrustName,
                     SchoolDetailsTrustType = trust.TrustsTrustType,
+                    SchoolDetailsSixthForm = proj.SixthForm.ToString(), 
+                    SchoolDetailsNursery = proj.Nursery.ToString()
             });
             }
 
@@ -98,9 +100,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return result;
         }
 
-        private List<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
+        private IList<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
         {
-            return new List<Data.Entities.Existing.Tasks>()
+            return new List<Data.Entities.Existing.Tasks>
             {
                 new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
                 new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },

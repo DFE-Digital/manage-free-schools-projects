@@ -1,9 +1,8 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -15,12 +14,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required(ErrorMessage = "Select yes if it will have a nursery.")]
-        public string Nursery { get; set; }
+        public ClassType.Nursery Nursery { get; set; }
         
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
         [Required(ErrorMessage = "Select yes if it will have a sixth form.")]
-        public string SixthForm { get; set; }
+        public ClassType.SixthForm SixthForm { get; set; }
 
         public string BackLink { get; set; }
 
@@ -41,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             Nursery = project.Nursery;
             SixthForm = project.SixthForm;
             
-            BackLink = GetPreviousPage(CreateProjectPageName.SchoolType, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ClassType, project.Navigation);
             
             return Page();
         }
@@ -55,7 +54,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             var project = _createProjectCache.Get();
-            project.SchoolType = (SchoolType)Enum.Parse(typeof(SchoolType), Nursery);
+            project.Nursery = Nursery;
+            project.SixthForm = SixthForm;
 
             _createProjectCache.Update(project);
 

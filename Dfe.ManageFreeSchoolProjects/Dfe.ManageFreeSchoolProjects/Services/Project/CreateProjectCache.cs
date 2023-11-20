@@ -76,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string TRN { get; set; }
         public string ConfirmTrust { get; set; }
 
-        public string SixthForm { get; set; }
-        public string Nursery { get; set; }
+        public ClassType.SixthForm SixthForm { get; set; }
+        public ClassType.Nursery Nursery { get; set; }
     }
 }

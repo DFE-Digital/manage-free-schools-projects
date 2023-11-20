@@ -10,7 +10,8 @@
         SchoolType = 6,
         SearchTrust = 7,
         ConfirmTrustSearch = 8,
+        ClassType = 8,
         NotifyUser = 9,
-        CheckYourAnswers = 10
+        CheckYourAnswers = 10,
     }
 }
