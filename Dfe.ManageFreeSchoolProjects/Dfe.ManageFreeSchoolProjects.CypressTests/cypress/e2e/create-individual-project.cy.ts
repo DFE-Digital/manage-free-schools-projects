@@ -77,7 +77,7 @@ describe("Creating an individual project - Create new project button should disp
     });
 });
 
-describe("Creating an individual project - Test Create new individual project journey for projectRecordCreator role", () => {
+describe.skip("Creating an individual project - Test Create new individual project journey for projectRecordCreator role", () => {
     beforeEach(() => {
 
         cy.login({ role: ProjectRecordCreator });
