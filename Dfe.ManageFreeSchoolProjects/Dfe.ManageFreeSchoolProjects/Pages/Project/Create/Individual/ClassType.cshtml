@@ -1,0 +1,52 @@
+﻿@page "/project/create/class-type"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@using Dfe.ManageFreeSchoolProjects.Utils;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ClassTypeModel
+@{
+    ViewData["Title"] = "What is the class type? - Manage free school projects";
+
+    var nurseryOptions = Enum.GetValues<ClassType.Nursery>().Except(new[] { ClassType.Nursery.Default }).Select(x => x.ToString()).ToArray();
+    var sixthFormOptions = Enum.GetValues<ClassType.SixthForm>().Except(new[] { ClassType.SixthForm.Default }).Select(x => x.ToString()).ToArray();
+    ;
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-form-group">
+    <partial name="_ErrorSummary"/>
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+        <h1 class="govuk-fieldset__heading">
+            <span class="govuk-caption-l">Creating a new free school project</span>
+            What is the school type?
+        </h1>
+    </legend>
+
+    <form method="post">
+        <div class="govuk-form-group" id="nursery">
+            <label class="govuk-label govuk-heading-m" for="nursery">Nursery</label>
+            <govuk-radios-input asp-for="@Model.Nursery"
+                                name="nursery"
+                                labels="@nurseryOptions"
+                                values="@nurseryOptions"
+                                test-ids="@nurseryOptions"/>
+        </div>
+
+        <div class="govuk-form-group" id="sixth-form">
+            <label class="govuk-label govuk-heading-m" for="sixth-form">Sixth form</label>
+            <govuk-radios-input asp-for="@Model.SixthForm"
+                                name="sixth-form"
+                                labels="@sixthFormOptions"
+                                values="@sixthFormOptions"
+                                test-ids="@sixthFormOptions"/>
+        </div>
+
+        <br/>
+        <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+            Continue
+        </button>
+    </form>
+</div>
