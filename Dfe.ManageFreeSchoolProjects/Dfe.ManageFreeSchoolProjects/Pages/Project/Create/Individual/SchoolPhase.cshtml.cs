@@ -7,10 +7,11 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class SchoolPhaseModel : PageModel
+    public class SchoolPhaseModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "school-phase")]
         [Display(Name = "school-phase")]
@@ -37,11 +38,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
+            BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);
 
-            if (project.SchoolPhase != 0)
-                SchoolPhase = _createProjectCache.Get().SchoolPhase.ToString();
+            SchoolPhase = project.SchoolPhase.ToIntString();
 
-            BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSchool); 
             return Page();
         }
 
@@ -55,9 +55,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             var project = _createProjectCache.Get();
             project.SchoolPhase = (SchoolPhase)Enum.Parse(typeof(SchoolPhase), SchoolPhase);
+
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
+            return Redirect(GetNextPage(CreateProjectPageName.SchoolPhase));
         }
     }
 }

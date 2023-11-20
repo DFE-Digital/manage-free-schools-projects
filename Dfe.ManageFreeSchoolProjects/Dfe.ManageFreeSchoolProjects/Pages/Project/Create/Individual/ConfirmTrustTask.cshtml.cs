@@ -8,15 +8,15 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class ConfirmTrustTaskModel : PageModel
+    public class ConfirmTrustTaskModel : CreateProjectBaseModel
     {
         private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly ILogger<ConfirmTrustTaskModel> _logger;
@@ -62,15 +62,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var project = _createProjectCache.Get();
+                var projectCache = _createProjectCache.Get();
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
                 TRN = trust.Trust.TRN;
                 TrustName = trust.Trust.TrustName;
                 TrustType = trust.Trust.TrustType;
-
-                BackLink = CreateProjectBackLinkHelper.GetBackLink(project.Navigation, RouteConstants.CreateProjectSearchTrust);
+                ConfirmTrust = projectCache.ConfirmTrust;
+                
+                BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch, projectCache.Navigation);
 
             }
             catch (Exception ex)
@@ -102,16 +103,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var project = _createProjectCache.Get();
+                var projectCache = _createProjectCache.Get();
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
-                project.TRN = trust.Trust.TRN;
-                project.TrustName = trust.Trust.TrustName;
+                projectCache.TRN = trust.Trust.TRN;
+                projectCache.TrustName = trust.Trust.TrustName;
+                projectCache.ConfirmTrust = ConfirmTrust;
 
-                _createProjectCache.Update(project);
+                _createProjectCache.Update(projectCache);
 
-                return Redirect(RouteConstants.CreateProjectSchoolPhase);
+                return Redirect(GetNextPage(CreateProjectPageName.ConfirmTrustSearch));
             }
             catch (Exception ex)
             {

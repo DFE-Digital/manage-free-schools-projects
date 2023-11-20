@@ -65,14 +65,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsGeographicalRegion = proj.Region,
                     SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                     LocalAuthority = proj.LocalAuthority,
-                    TrustId = trust?.TrustRef ?? "",
-                    TrustName = trust?.TrustsTrustName ?? "",
-                    TrustType = trust?.TrustsTrustType ?? "",
-                    SchoolDetailsTrustId = trust?.TrustsTrustRef ?? "",
-                    SchoolDetailsTrustName = trust?.TrustsTrustName ?? "",
-                    SchoolDetailsTrustType = trust?.TrustsTrustType ?? "",
-                    SchoolDetailsSchoolPhasePrimarySecondary = proj.SchoolPhase ?? ""
-
+                    SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(proj.SchoolType),
+                    SchoolDetailsSchoolPhasePrimarySecondary = ProjectMapper.ToSchoolPhase(proj.SchoolPhase),
+                    TrustId = trust.TrustRef,
+                    TrustName = trust.TrustsTrustName,
+                    TrustType = trust.TrustsTrustType,
+                    SchoolDetailsTrustId = trust.TrustsTrustRef,
+                    SchoolDetailsTrustName = trust.TrustsTrustName,
+                    SchoolDetailsTrustType = trust.TrustsTrustType
             });
             }
 
@@ -107,6 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisal, Status = Status.NotStarted },
                 new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
+                new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted },
             };
         }
     }
