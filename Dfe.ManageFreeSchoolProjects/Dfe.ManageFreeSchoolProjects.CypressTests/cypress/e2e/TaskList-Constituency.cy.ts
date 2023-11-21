@@ -2,6 +2,7 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
+import { specialCharsTestString } from "cypress/constants/stringTestConstants";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import constituencyEditPage from "cypress/pages/constituencyEditPage";
 import constituencySearchPage from "cypress/pages/constituencySearchPage";
@@ -90,11 +91,20 @@ describe("Testing Constituency Task", () => {
         constituencySearchPage
             .enterSearch(dataGenerator.generateAlphaNumeric(51))
             .clickContinue()
-            .errorMessage("Name or postcode must be 50 characters or less.")
-            .errorHint("Name or postcode must be 50 characters or less.");
+            .errorMessage("The name or postcode must be 50 characters or less")
+            .errorHint("The name or postcode must be 50 characters or less");
 
         Logger.log("Perform valid search and use None option to navigate back to search");
             
+        constituencySearchPage
+            .enterSearch(specialCharsTestString)
+            .clickContinue()
+            .errorMessage("Name or postcode must not include special characters other than , ( ) '")
+            .errorHint("Name or postcode must not include special characters other than , ( ) '");
+
+        Logger.log("Perform valid search and use None option to navigate back to search");
+            
+
         constituencySearchPage
             .enterSearch("SW1P")
             .clickContinue()
