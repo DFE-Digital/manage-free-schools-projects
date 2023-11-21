@@ -19,6 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        [BindProperty(Name = "schoolName")]
+        public string SchoolName { get; set; }
+
         public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
 
         public TaskListModel(
@@ -38,11 +41,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
             ProjectTaskListSummary = await _getProjectTaskListSummaryService.Execute(ProjectId);
 
-            if (ProjectTaskListSummary is not null) 
+            if (ProjectTaskListSummary is not null)
+            {
+                SchoolName = ProjectTaskListSummary.School.Name;
                 return Page();
+            }                
             
             await _createTasksService.Execute(ProjectId);
             ProjectTaskListSummary = await _getProjectTaskListSummaryService.Execute(ProjectId);
+            SchoolName = ProjectTaskListSummary.School.Name;
 
             return Page();
         }

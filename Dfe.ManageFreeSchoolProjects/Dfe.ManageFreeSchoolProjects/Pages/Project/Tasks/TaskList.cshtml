@@ -12,29 +12,30 @@
     var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
 }
+@section BeforeMain
+{
+    <div class="dfe-content-page--header">
+        <div class="dfe-width-container ">
+            <div class="govuk-grid-row ">
+                <div class="govuk-grid-column-three-quarters">
+                    <a href="/" class="govuk-back-link">Back to all projects</a>
 
-<div class="dfe-content-page--header">
-    <div class="dfe-width-container ">
-        <div class="govuk-grid-row ">
-            <div class="govuk-grid-column-three-quarters">
-                <a href="/" class="govuk-back-link">Back to all projects</a>
-
+                </div>
             </div>
-        </div>
-        <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
-            <div class="govuk-grid-column-three-quarters">
-                <span class="govuk-body-s" data-testid="project-id-header">Project ID: 123</span>
-                <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">My schools</h1>
-                <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
+            <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
+                <div class="govuk-grid-column-three-quarters">
+                    <span class="govuk-body-s" data-testid="project-id-header">Project ID: 123</span>
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.SchoolName</h1>
+                    <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
+                </div>
             </div>
-        </div>
-        <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
-            <div class="govuk-grid-column-full">
+            <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
+                <div class="govuk-grid-column-full">
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <nav class="app-sub-navigation" aria-label="sub menu">
@@ -68,17 +69,7 @@
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="@schoolTaskLink" aria-describedby="">
-                            @Model.ProjectTaskListSummary.School.Name
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.School);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@datesTaskLink" aria-describedby="">
+                        <a href="@datesTaskLink" aria-describedby="" class="govuk-link">
                             @Model.ProjectTaskListSummary.Dates.Name
                         </a>
                     </span>
@@ -88,7 +79,17 @@
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="@trustTaskLink" aria-describedby="">
+                        <a href="@schoolTaskLink" aria-describedby="" class="govuk-link">
+                            @Model.ProjectTaskListSummary.School.Name
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.School);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@trustTaskLink" aria-describedby="" class="govuk-link">
                             @Model.ProjectTaskListSummary.Trust.Name
                         </a>
                     </span>
@@ -98,17 +99,7 @@
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="@constituencyTaskLink" aria-describedby="">
-                            @Model.ProjectTaskListSummary.Constituency.Name
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.Constituency);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@regionAndLocalAuthorityLink" aria-describedby="">
+                        <a href="@regionAndLocalAuthorityLink" aria-describedby="" class="govuk-link">
                             Region and local authority
                         </a>
                     </span>
@@ -118,7 +109,17 @@
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="@riskAppraisalMeetingLink" aria-describedby="">
+                        <a href="@constituencyTaskLink" aria-describedby="" class="govuk-link">
+                            @Model.ProjectTaskListSummary.Constituency.Name
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.Constituency);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@riskAppraisalMeetingLink" aria-describedby="" class="govuk-link">
                             Risk appraisal meeting
                         </a>
                     </span>
