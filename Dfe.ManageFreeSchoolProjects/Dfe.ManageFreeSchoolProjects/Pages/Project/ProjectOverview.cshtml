@@ -477,7 +477,7 @@
 @functions {
     public void RenderValue(string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value) || value == "Not set")
         {
             <span class="empty">Empty</span>
         }
