@@ -103,14 +103,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
         private static IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
         {
-            return new List<Data.Entities.Existing.Tasks>
-            {
-                new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
-                new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted },
-            };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted };
         }
     }
 }
