@@ -16,6 +16,12 @@
 				</label>
 			</h1>
 		}
+		if (Model.BoldLabel)
+		{
+			<label class="govuk-label govuk-label--s" for="@Model.Id">
+				@Model.Label
+			</label>
+		}
 		else
 		{
 			<label class="govuk-label" for="@Model.Id">
