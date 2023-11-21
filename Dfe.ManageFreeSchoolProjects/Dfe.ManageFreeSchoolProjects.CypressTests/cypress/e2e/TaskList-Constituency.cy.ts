@@ -2,6 +2,7 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
+import { specialCharsTestString } from "cypress/constants/stringTestConstants";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import constituencyEditPage from "cypress/pages/constituencyEditPage";
 import constituencySearchPage from "cypress/pages/constituencySearchPage";
@@ -41,7 +42,8 @@ describe("Testing Constituency Task", () => {
             .summaryShows("MP").IsEmpty().HasNoChangeLink()
             .summaryShows("Political party").IsEmpty().HasNoChangeLink()
             .isNotMarkedAsComplete();
-
+        
+        cy.executeAccessibilityTests();
         Logger.log("Go back to task list");
         summaryPage.clickBack();
 
@@ -62,7 +64,9 @@ describe("Testing Constituency Task", () => {
         constituencySearchPage
             .schoolNameIs(project.schoolName)
             .titleIs("Search for a constituency")
-            .searchHintIs("Enter a name or postcode");
+            .searchLabelIs("Enter a name or postcode");
+        
+        cy.executeAccessibilityTests();
 
         Logger.log("Check back link");
         constituencySearchPage.clickBack();
@@ -85,19 +89,32 @@ describe("Testing Constituency Task", () => {
             .errorMessage("Enter a name or postcode. For example, South London or W1A 1AA")
             .errorHint("Enter a name or postcode. For example, South London or W1A 1AA");
 
+        cy.executeAccessibilityTests();
         Logger.log("Check validation for long string (50 chars)");
 
         constituencySearchPage
             .enterSearch(dataGenerator.generateAlphaNumeric(51))
             .clickContinue()
-            .errorMessage("Name or postcode must be 50 characters or less.")
-            .errorHint("Name or postcode must be 50 characters or less.");
-
+            .errorMessage("The name or postcode must be 50 characters or less")
+            .errorHint("The name or postcode must be 50 characters or less");
+        
+        cy.executeAccessibilityTests();
         Logger.log("Perform valid search and use None option to navigate back to search");
             
         constituencySearchPage
+            .enterSearch(specialCharsTestString)
+            .clickContinue()
+            .errorMessage("Name or postcode must not include special characters other than , ( ) '")
+            .errorHint("Name or postcode must not include special characters other than , ( ) '");
+
+        Logger.log("Perform valid search and use None option to navigate back to search");
+            
+
+        constituencySearchPage
             .enterSearch("SW1P")
             .clickContinue()
+
+        cy.executeAccessibilityTests();
 
         constituencyEditPage
             .schoolNameIs(project.schoolName)
@@ -111,15 +128,17 @@ describe("Testing Constituency Task", () => {
 
         Logger.log("Perform a search which yields no results");
             
-            constituencySearchPage
-                .enterSearch("Potato")
-                .clickContinue()
-    
-            constituencyEditPage
-                .schoolNameIs(project.schoolName)
-                .titleIs("0 results for Potato")
-                .clickSearchAgain()
+        constituencySearchPage
+            .enterSearch("Potato")
+            .clickContinue()
 
+        cy.executeAccessibilityTests();
+
+        constituencyEditPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("0 results for Potato")
+            .clickSearchAgain()
+        
         Logger.log("Perform valid search and pick option and save");
             
         constituencySearchPage
