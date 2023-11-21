@@ -280,7 +280,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="school-phase">
                     @{
-                        RenderValue(Model.Project.SchoolDetails.SchoolPhase);
+                        RenderValue(Model.Project.SchoolDetails.SchoolPhase?.ToDescription());
                     }
                 </dd>
 

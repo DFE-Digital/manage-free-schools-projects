@@ -30,6 +30,7 @@
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
+        public const string CreateProjectSchoolPhase = CreateProject + "/schoolphase";
         public const string CreateProjectRegion = CreateProject + "/region";
         public const string CreateProjectLocalAuthority = CreateProject + "/localauthority";
         public const string CreateProjectCheckYourAnswers = CreateProject + "/checkyouranswers";

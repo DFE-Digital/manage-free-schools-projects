@@ -28,7 +28,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectSchoolType,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
@@ -44,7 +45,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.SchoolType => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}")

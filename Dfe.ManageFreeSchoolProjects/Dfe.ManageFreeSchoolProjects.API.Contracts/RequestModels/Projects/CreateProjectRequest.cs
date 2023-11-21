@@ -1,5 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using System.ComponentModel.DataAnnotations;
+using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
 {
@@ -25,5 +27,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string CreatedBy { get; set; }
 
         public SchoolType SchoolType { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -52,6 +53,61 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             }
 
             return null;
+        }
+
+        public static SchoolPhase? ToSchoolPhase(string schoolPhase)
+        {
+            if (schoolPhase == "Not set")
+            {
+                return SchoolPhase.NotSet;
+            }
+
+            if (schoolPhase == "Primary")
+            {
+                return SchoolPhase.Primary;
+            }
+
+            if (schoolPhase == "Secondary")
+            {
+                return SchoolPhase.Secondary;
+            }
+
+            if (schoolPhase == "16 to 19")
+            {
+                return SchoolPhase.SixteenToNineteen;
+            }
+
+            if (schoolPhase == "All-through")
+            {
+                return SchoolPhase.SixteenToNineteen;
+            }
+
+            return SchoolPhase.NotSet;
+        }
+
+        public static string ToSchoolPhase(SchoolPhase? schoolPhase)
+        {
+            if (schoolPhase == SchoolPhase.Primary)
+            {
+                return "Primary";
+            }
+
+            if (schoolPhase == SchoolPhase.Secondary)
+            {
+                return "Secondary";
+            }
+
+            if (schoolPhase == SchoolPhase.SixteenToNineteen)
+            {
+                return "16 to 19";
+            }
+
+            if (schoolPhase == SchoolPhase.AllThrough)
+            {
+                return "All-through";
+            }
+
+            return "Not set";
         }
     }
 }
