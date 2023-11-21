@@ -20,7 +20,7 @@ describe("Testing project overview", () => {
                 projects: [project],
             })
             .then(() => {
-                cy.visit(`/projects/${project.projectId}/overview`);
+                cy.visit(`/projects/${project.projectId}/tasks`);
             });
     });
 
