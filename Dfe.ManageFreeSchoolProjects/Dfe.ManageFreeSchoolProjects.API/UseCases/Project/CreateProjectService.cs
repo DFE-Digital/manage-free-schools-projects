@@ -98,7 +98,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         private async Task<Trust> GetTrust(string trustRef)
         {
             var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
-
             return result;
         }
 
