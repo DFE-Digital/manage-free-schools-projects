@@ -280,7 +280,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="school-phase">
                     @{
-                        RenderValue(Model.Project.SchoolDetails.SchoolPhase?.ToDescription());
+                        RenderValue(Model.Project.SchoolDetails.SchoolPhase.ToDescription());
                     }
                 </dd>
 
@@ -477,7 +477,7 @@
 @functions {
     public void RenderValue(string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value) || value == "Not set")
         {
             <span class="empty">Empty</span>
         }

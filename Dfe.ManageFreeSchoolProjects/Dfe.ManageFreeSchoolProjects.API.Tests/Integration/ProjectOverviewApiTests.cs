@@ -29,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             
             var project = DatabaseModelBuilder.BuildProject();
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
+            project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
 
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
@@ -65,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.ConstituencyMp.Should().Be(project.SchoolDetailsConstituencyMp);
             schoolDetails.NumberOfEntryForms.Should().Be(project.SchoolDetailsNumberOfFormsOfEntry);
             schoolDetails.SchoolType.Should().Be(SchoolType.AlternativePosition);
-            schoolDetails.SchoolPhase.Should().Be(project.SchoolDetailsSchoolPhasePrimarySecondary);
+            schoolDetails.SchoolPhase.Should().Be(Contracts.Project.Tasks.SchoolPhase.Primary);
             schoolDetails.AgeRange.Should().Be(project.SchoolDetailsAgeRange);
             schoolDetails.Gender.Should().Be(project.SchoolDetailsGender);
             schoolDetails.Nursery.Should().Be(project.SchoolDetailsNursery);
