@@ -101,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return result;
         }
 
-        private IList<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
+        private static IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
         {
             return new List<Data.Entities.Existing.Tasks>
             {
