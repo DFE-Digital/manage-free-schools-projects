@@ -8,6 +8,7 @@
 
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
+
         public const string ViewDatesTask = TaskList + "/dates";
         public const string EditDatesTask = ViewDatesTask + "/edit";
 
@@ -22,6 +23,9 @@
         public const string ViewRegionAndLocalAuthorityTask = TaskList + "/region-and-localauthority";
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
+
+        public const string ViewRiskAppraisalMeetingTask = TaskList + "/risk-appraisal-meeting";
+        public const string EditRiskAppraisalMeetingTask = ViewRiskAppraisalMeetingTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";

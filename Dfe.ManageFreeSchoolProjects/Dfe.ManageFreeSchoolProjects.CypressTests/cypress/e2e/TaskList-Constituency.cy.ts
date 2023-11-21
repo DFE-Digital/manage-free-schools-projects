@@ -5,10 +5,10 @@ import { Logger } from "cypress/common/logger";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import constituencyEditPage from "cypress/pages/constituencyEditPage";
 import constituencySearchPage from "cypress/pages/constituencySearchPage";
-import constituencySummaryPage from "cypress/pages/constituencySummaryPage";
+import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 
-describe("Testing project overview", () => {
+describe("Testing Constituency Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
@@ -33,7 +33,7 @@ describe("Testing project overview", () => {
             .selectConstituencyFromTaskList();
                 
         Logger.log("Confirm empty constituency");
-        constituencySummaryPage
+        summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Constituency")
             .inOrder()
@@ -43,21 +43,21 @@ describe("Testing project overview", () => {
             .isNotMarkedAsComplete();
 
         Logger.log("Go back to task list");
-        constituencySummaryPage.clickBack();
+        summaryPage.clickBack();
 
         Logger.log("Confirm not started and open constituency");
         taskListPage.isTaskStatusIsNotStarted("Constituency")
             .selectConstituencyFromTaskList();
 
         Logger.log("Check confirm puts project in In Progress");
-        constituencySummaryPage.clickConfirmAndContinue();
+        summaryPage.clickConfirmAndContinue();
 
         taskListPage.isTaskStatusInProgress("Constituency")
             .selectConstituencyFromTaskList();
 
         Logger.log("Check search page");
 
-        constituencySummaryPage.clickChange();
+        summaryPage.clickChange();
 
         constituencySearchPage
             .schoolNameIs(project.schoolName)
@@ -67,7 +67,7 @@ describe("Testing project overview", () => {
         Logger.log("Check back link");
         constituencySearchPage.clickBack();
 
-        constituencySummaryPage
+        summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Constituency")
             .inOrder()
@@ -76,7 +76,7 @@ describe("Testing project overview", () => {
             .summaryShows("Political party").IsEmpty().HasNoChangeLink()
             .isNotMarkedAsComplete();
 
-        constituencySummaryPage.clickChange();
+        summaryPage.clickChange();
 
         Logger.log("Check validation for no input");
 
@@ -134,7 +134,7 @@ describe("Testing project overview", () => {
             .selectOption("Battersea")
             .clickContinue()
 
-        constituencySummaryPage
+        summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Constituency")
             .inOrder()
@@ -145,7 +145,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Mark as complete");
 
-        constituencySummaryPage
+        summaryPage
             .MarkAsComplete()
             .clickConfirmAndContinue();
 

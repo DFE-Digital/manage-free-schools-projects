@@ -3,9 +3,14 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditDatesTaskModel
 @{
     ViewData["Title"] = $"Edit dates - {Model.CurrentFreeSchoolName}";
-    var backlink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
 }
-<a href=@backlink class="govuk-back-link">Back</a>
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
 
 <partial name="_ErrorSummary" />
 

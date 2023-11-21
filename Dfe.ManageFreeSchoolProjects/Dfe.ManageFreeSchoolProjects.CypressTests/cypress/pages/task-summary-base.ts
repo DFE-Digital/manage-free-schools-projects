@@ -1,4 +1,4 @@
-export class ConstituencySummaryPage {
+export class SummaryPage {
     private summaryCounter = -1;
 
     public inOrder(): this
@@ -66,5 +66,5 @@ export class ConstituencySummaryPage {
     }
 }
 
-const constituencySummaryPage = new ConstituencySummaryPage();
-export default constituencySummaryPage;
+const summaryPage = new SummaryPage();
+export default summaryPage;

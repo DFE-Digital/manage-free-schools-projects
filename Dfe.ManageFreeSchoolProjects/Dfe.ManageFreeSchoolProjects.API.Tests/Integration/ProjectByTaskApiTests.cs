@@ -8,6 +8,8 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using Microsoft.EntityFrameworkCore;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -149,7 +151,81 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 			projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
 		}
 
-		[Fact]
+        [Fact]
+        public async Task Patch_NewRiskAppraisalMeetingTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var DateTenDaysInFuture = new DateTime().AddDays(10);
+            var DateNineDaysInFuture = new DateTime().AddDays(9);
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                RiskAppraisalMeeting = new RiskAppraisalMeetingTask()
+                {
+					ForecastDate = DateTenDaysInFuture,
+					ActualDate = DateNineDaysInFuture,
+					CommentsOnDecisionToApprove = "CommentsOnDecisionToApprove",
+					InitialRiskAppraisalMeetingCompleted= true,
+					ReasonNotApplicable= "ReasonNotApplicable"
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.RiskAppraisalMeeting.ForecastDate.Should().Be(DateTenDaysInFuture);
+            projectResponse.RiskAppraisalMeeting.ActualDate.Should().Be(DateNineDaysInFuture);
+            projectResponse.RiskAppraisalMeeting.CommentsOnDecisionToApprove.Should().Be("CommentsOnDecisionToApprove");
+            projectResponse.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted.Should().Be(true);
+            projectResponse.RiskAppraisalMeeting.ReasonNotApplicable.Should().Be("ReasonNotApplicable");
+        }
+
+        [Fact]
+        public async Task Patch_ExistingRiskAppraisalMeetingTask_Returns_201()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+
+            var riskAppraisalMeetingTask = DatabaseModelBuilder.BuildRiskAppraisalMeetingTask(project.Rid);
+            context.RiskAppraisalMeetingTask.Add(riskAppraisalMeetingTask);
+
+            await context.SaveChangesAsync();
+
+            var DateTenDaysInFuture = new DateTime().AddDays(10);
+            var DateNineDaysInFuture = new DateTime().AddDays(9);
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                RiskAppraisalMeeting = new RiskAppraisalMeetingTask()
+                {
+                    ForecastDate = DateTenDaysInFuture,
+                    ActualDate = DateNineDaysInFuture,
+                    CommentsOnDecisionToApprove = "CommentsOnDecisionToApprove",
+                    InitialRiskAppraisalMeetingCompleted = true,
+                    ReasonNotApplicable = "ReasonNotApplicable"
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+            projectResponse.RiskAppraisalMeeting.ForecastDate.Should().Be(DateTenDaysInFuture);
+            projectResponse.RiskAppraisalMeeting.ActualDate.Should().Be(DateNineDaysInFuture);
+            projectResponse.RiskAppraisalMeeting.CommentsOnDecisionToApprove.Should().Be("CommentsOnDecisionToApprove");
+            projectResponse.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted.Should().Be(true);
+            projectResponse.RiskAppraisalMeeting.ReasonNotApplicable.Should().Be("ReasonNotApplicable");
+
+			context.RiskAppraisalMeetingTask.Count(r => r.RID == project.Rid).Should().Be(1);
+        }
+
+        [Fact]
 		public async Task Patch_Task_NoProjectExists_Returns_404()
 		{
 			var request = new UpdateProjectByTaskRequest()

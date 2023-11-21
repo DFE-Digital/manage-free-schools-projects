@@ -9,5 +9,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TrustTask Trust { get; set; }
         public ConstituencyTask Constituency { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthority { get; set; }
+        public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
     }
 }
