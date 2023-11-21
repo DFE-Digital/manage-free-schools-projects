@@ -79,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var emailToNotify = _createProjectCache.Get().EmailToNotify;
-            //await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
+            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
 
