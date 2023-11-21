@@ -59,7 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             _createProjectCache.Update(project);
 
-            return Redirect(GetNextPage(CreateProjectPageName.SchoolType));
+            return Redirect(GetNextPage(CreateProjectPageName.ClassType));
         }
     }
 }
