@@ -1,3 +1,5 @@
+import { specialCharsTestString } from "cypress/constants/stringTestConstants";
+
 class SingleProjectCurrentFreeSchoolNamePage {
     public checkElementsVisible(e2eTestSchool): this {
         cy.contains("Back");
@@ -29,7 +31,7 @@ class SingleProjectCurrentFreeSchoolNamePage {
 
     public UserEntersAndSubmitsInvalidChars(): this {
         cy.getByTestId("school").clear();
-        cy.getByTestId("school").type(",\"(){}<>,!@£$%^&*+-");
+        cy.getByTestId("school").type(specialCharsTestString);
         cy.getByTestId("continue").click();
 
         return this;

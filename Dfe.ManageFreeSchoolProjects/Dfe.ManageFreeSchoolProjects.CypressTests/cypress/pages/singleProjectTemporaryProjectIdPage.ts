@@ -2,6 +2,8 @@
 
 //let temporaryProjectId = "";
 
+import { specialCharsTestString } from "cypress/constants/stringTestConstants";
+
 class SingleProjectTemporaryProjectIdPage {
     public checkElementsVisible(): this {
         cy.contains("Back");
@@ -32,7 +34,7 @@ class SingleProjectTemporaryProjectIdPage {
     }
 
     public UserEntersAndSubmitsInvalidChars(): this {
-        cy.getByTestId("projectid").type(",\"(){}<>,!@£$%^&*+-");
+        cy.getByTestId("projectid").type(specialCharsTestString);
         cy.getByTestId("continue").click();
 
         return this;

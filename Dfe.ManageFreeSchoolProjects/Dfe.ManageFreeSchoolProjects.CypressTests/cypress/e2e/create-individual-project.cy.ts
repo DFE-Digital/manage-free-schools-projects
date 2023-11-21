@@ -10,7 +10,6 @@ import singleProjectRegionPage from "cypress/pages/singleProjectRegionPage";
 import singleProjectTemporaryProjectIdPage from "cypress/pages/singleProjectTemporaryProjectIdPage";
 import validationComponent from "cypress/pages/validationComponent";
 import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
-import { v4 } from "uuid";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import createProjectCheckYourAnswersPage from "cypress/pages/createProject/createProjectCheckYourAnswersPage";
 
