@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
@@ -34,7 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string ConstituencyMp { get; set; }
         public string NumberOfEntryForms { get; set; }
         public SchoolType? SchoolType { get; set; }
-        public string SchoolPhase { get; set; }
+        public SchoolPhase SchoolPhase { get; set; }
         public string AgeRange { get; set; }
         public string Gender { get; set; }
         public string Nursery { get; set; }
