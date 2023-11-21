@@ -47,6 +47,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 ProjectId = project.ProjectId,
                 SchoolName = project.SchoolName,
+                SchoolType = project.SchoolType,
+                SchoolPhase = project.SchoolPhase,
                 CreatedBy = User.Identity.Name,
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,

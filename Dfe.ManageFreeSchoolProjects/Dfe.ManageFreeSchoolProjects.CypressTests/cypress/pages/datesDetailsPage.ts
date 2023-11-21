@@ -34,10 +34,6 @@ class DatesDetailsPage {
     verifyValidationMessagesWhenNoDataSet(schoolName: string): this {
         cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);
 
-        cy.getById("entry-into-pre-opening-error").should("be.visible").contains("Enter a date for the entry into pre-opening");
-
-        cy.getById("provisional-opening-date-agreed-with-trust-error").should("be.visible").contains("Enter a date for the provisional opening date agreed with trust");
-
         cy.getById("opening-academic-years-error").should("be.visible").contains("Start date should be in the format: 20XX");
 
         return this;

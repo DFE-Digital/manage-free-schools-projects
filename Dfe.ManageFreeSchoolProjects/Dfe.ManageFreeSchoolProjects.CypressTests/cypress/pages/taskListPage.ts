@@ -39,9 +39,14 @@ class TaskListPage {
         cy.contains("Constituency").click()
         return this;
     }
+
+    public selectRiskAppraisalMeetingFromTaskList(): this {
+        cy.contains("Risk appraisal meeting").click()
+        return this;
+    }
     
     public verifyRegionAndLAMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(3).contains("Completed");
+        cy.getByClass("app-task-list__item").eq(4).contains("Completed");
         return this;
     }
 

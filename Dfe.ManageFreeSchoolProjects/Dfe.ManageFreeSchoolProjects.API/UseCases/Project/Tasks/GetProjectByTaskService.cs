@@ -27,6 +27,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     from kai in kaiJoin.DefaultIfEmpty()
                     join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
                     from property in propertyJoin.DefaultIfEmpty()
+                    join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
+                 from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                     select new GetProjectByTaskResponse
                     {
                         School = new SchoolTask
@@ -58,6 +60,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         {
                             Region = kpi.SchoolDetailsGeographicalRegion, 
                             LocalAuthority = kpi.LocalAuthority,
+                        },
+                        RiskAppraisalMeeting = new RiskAppraisalMeetingTask
+                        {
+                            InitialRiskAppraisalMeetingCompleted = riskAppraisalMeetingTask.MeetingCompleted,
+                            ForecastDate = riskAppraisalMeetingTask.ForecastDate,
+                            ActualDate = riskAppraisalMeetingTask.ActualDate,
+                            CommentsOnDecisionToApprove = riskAppraisalMeetingTask.CommentOnDecision,
+                            ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable
                         },
                         Constituency = new ConstituencyTask()
                         {
