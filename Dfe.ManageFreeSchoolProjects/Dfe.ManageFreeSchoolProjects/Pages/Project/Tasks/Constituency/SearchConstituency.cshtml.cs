@@ -18,9 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
         public string ProjectId { get; set; }
 
         [BindProperty(Name="search-constituency")]
-        [Display(Name = "search constituency")]
+        [Display(Name = "Name or postcode")]
         [Required(ErrorMessage = "Enter a name or postcode. For example, South London or W1A 1AA")]
-        [StringLength(50, ErrorMessage = "Name or postcode must be 50 characters or less.")]
+        [ValidText(50)]
         public string SearchConstituency { get; set; }
 
         [BindProperty]
