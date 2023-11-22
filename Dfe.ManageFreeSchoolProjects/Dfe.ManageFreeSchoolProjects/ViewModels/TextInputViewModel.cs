@@ -10,6 +10,7 @@
 		public int Width { get; set; }
 		public string Hint { get; set; }
 		public bool HeadingLabel { get; set; }
+		public bool BoldLabel { get; set; }
 		public string TestId { get; set; }
 	}
 }
