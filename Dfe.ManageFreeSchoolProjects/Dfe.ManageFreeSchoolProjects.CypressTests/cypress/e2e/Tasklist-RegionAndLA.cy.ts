@@ -2,13 +2,8 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import trustDetailsPage from "cypress/pages/trustDetailsPage";
-import trustSummaryPage from "cypress/pages/trustSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskListPage";
-import confirmTrustPage from "cypress/pages/confirmTrustPage";
-import schoolSummaryPage from "cypress/pages/schoolSummaryPage";
-import schoolDetailsPage from "cypress/pages/schoolDetailsPage";
 import regionAndLocalAuthoritySummaryPage from "cypress/pages/regionAndLocalAuthoritySummaryPage";
 import regionDetailsPage from "cypress/pages/regionDetailsPage";
 import localAuthorityDetailsPage from "cypress/pages/localAuthorityDetailsPage";
@@ -117,7 +112,7 @@ describe("Testing project overview", () => {
 
       regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
       
-      taskListPage.verifyRegionAndLAMarkedAsComplete();
+      taskListPage.isTaskStatusIsCompleted("RegionAndLocalAuthority");
 
     });
 });

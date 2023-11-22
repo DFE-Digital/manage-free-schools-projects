@@ -4,6 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class ProjectByTaskSummaryResponse
     {
+        public string SchoolName { get; set; }
         public TaskSummaryResponse School { get; set; }
         
         public TaskSummaryResponse Dates { get; set; }
