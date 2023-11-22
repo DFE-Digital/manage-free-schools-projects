@@ -10,6 +10,7 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -68,8 +69,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 					SchoolType = SchoolType.Mainstream,
 					AgeRange = "11-18",
 					SchoolPhase = SchoolPhase.Primary,
-					Nursery = "No",
-					SixthForm = "No",
+					Nursery = ClassType.Nursery.No,
+					SixthForm = ClassType.SixthForm.No,
 					FaithStatus = FaithStatus.NotSet,
 					FaithType = FaithType.Other,
 					Gender = Gender.Mixed
@@ -82,8 +83,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.SchoolType.Should().Be(SchoolType.Mainstream);
             projectResponse.School.SchoolPhase.Should().Be(SchoolPhase.Primary);
             projectResponse.School.AgeRange.Should().Be("11-18");
-            projectResponse.School.Nursery.Should().Be("No");
-            projectResponse.School.SixthForm.Should().Be("No");
+            projectResponse.School.Nursery.Should().Be(ClassType.Nursery.No);
+            projectResponse.School.SixthForm.Should().Be(ClassType.SixthForm.No);
         }
 
 		[Fact]

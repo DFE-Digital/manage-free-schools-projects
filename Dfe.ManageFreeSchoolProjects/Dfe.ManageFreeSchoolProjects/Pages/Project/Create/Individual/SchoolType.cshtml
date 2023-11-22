@@ -9,11 +9,11 @@
     var values = new List<string>();
     var testIds = new List<string>();
 
-    foreach (var schoolType in Enum.GetValues(typeof(SchoolType)))
+    foreach (var schoolType in Enum.GetValues<SchoolType>().Except(new [] { SchoolType.NotSet }))
     {
         labels.Add(schoolType.ToDescription());
         values.Add(((int)schoolType).ToString());
-        testIds.Add(schoolType.ToDescription().ToString());
+        testIds.Add(schoolType.ToDescription());
     }
 }
 
