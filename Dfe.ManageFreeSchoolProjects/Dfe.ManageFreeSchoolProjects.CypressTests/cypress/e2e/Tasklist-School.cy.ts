@@ -276,7 +276,7 @@ describe("Testing project overview", () => {
 
         schoolSummaryPage.selectConfirmAndContinue();
 
-        taskListPage.verifySchoolMarkedAsComplete();
+        taskListPage.isTaskStatusIsCompleted("School");
 
     });
 });

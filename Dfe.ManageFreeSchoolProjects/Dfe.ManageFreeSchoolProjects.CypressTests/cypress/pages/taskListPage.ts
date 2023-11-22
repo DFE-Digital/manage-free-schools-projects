@@ -1,55 +1,35 @@
 class TaskListPage {
 
     public selectDatesFromTaskList(): this {
-        cy.contains("Dates").click()
+        cy.getByTestId("dates-task").click()
         return this;
-    }
-
-    public verifyDatesMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(1).contains("Completed");
     }
 
     public selectSchoolFromTaskList(): this {
-        cy.contains("School").click()
-        return this;
-    }
-
-    public verifySchoolMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(0).contains("Completed");
-
+        cy.getByTestId("school-task").click()
         return this;
     }
 
     public selectRegionAndLAFromTaskList(): this {
-        cy.contains("Region and local authority").click()
+        cy.getByTestId("region-la-task").click()
         return this;
     }
 
     public selectTrustFromTaskList(): this {
-        cy.contains("Trust").click()
-        return this;
-    }
-
-    public verifyTrustMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(2).contains("Completed");
+        cy.getByTestId("trust-task").click()
         return this;
     }
 
     public selectConstituencyFromTaskList(): this {
-        cy.contains("Constituency").click()
+        cy.getByTestId("constituency-task").click()
         return this;
     }
 
     public selectRiskAppraisalMeetingFromTaskList(): this {
-        cy.contains("Risk appraisal meeting").click()
+        cy.getByTestId("risk-appraisal-meeting-task").click()
         return this;
     }
     
-    public verifyRegionAndLAMarkedAsComplete(): this {
-        cy.getByClass("app-task-list__item").eq(4).contains("Completed");
-        return this;
-    }
-
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
         return this;

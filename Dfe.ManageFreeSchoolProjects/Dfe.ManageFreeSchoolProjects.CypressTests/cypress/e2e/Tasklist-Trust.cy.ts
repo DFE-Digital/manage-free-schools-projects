@@ -150,7 +150,7 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        taskListPage.verifyTrustMarkedAsComplete();
+        taskListPage.isTaskStatusIsCompleted("Trust");
 
     });
 });

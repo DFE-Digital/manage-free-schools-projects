@@ -118,7 +118,7 @@ describe("Testing project overview", () => {
         datesSummaryPage.selectMarkItemAsComplete();
         datesSummaryPage.selectConfirmAndContinue();
 
-        taskListPage.verifyDatesMarkedAsComplete();
+        taskListPage.isTaskStatusIsCompleted("Dates");
 
     });
 });
