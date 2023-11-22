@@ -55,13 +55,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return null;
         }
 
-        public static SchoolPhase? ToSchoolPhase(string schoolPhase)
+        public static SchoolPhase ToSchoolPhase(string schoolPhase)
         {
-            if (schoolPhase == "Not set")
-            {
-                return SchoolPhase.NotSet;
-            }
-
             if (schoolPhase == "Primary")
             {
                 return SchoolPhase.Primary;
@@ -85,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return SchoolPhase.NotSet;
         }
 
-        public static string ToSchoolPhase(SchoolPhase? schoolPhase)
+        public static string ToSchoolPhase(SchoolPhase schoolPhase)
         {
             if (schoolPhase == SchoolPhase.Primary)
             {

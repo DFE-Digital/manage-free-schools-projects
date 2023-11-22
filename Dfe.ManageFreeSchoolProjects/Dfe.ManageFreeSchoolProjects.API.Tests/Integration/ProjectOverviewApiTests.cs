@@ -3,7 +3,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Net;
 using System.Net.Http.Json;
@@ -29,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             
             var project = DatabaseModelBuilder.BuildProject();
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
+            project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
 
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
@@ -64,8 +64,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.Constituency.Should().Be(project.SchoolDetailsConstituency);
             schoolDetails.ConstituencyMp.Should().Be(project.SchoolDetailsConstituencyMp);
             schoolDetails.NumberOfEntryForms.Should().Be(project.SchoolDetailsNumberOfFormsOfEntry);
-            schoolDetails.SchoolType.Should().Be(SchoolType.AlternativeProvision);
-            schoolDetails.SchoolPhase.Should().Be(project.SchoolDetailsSchoolPhasePrimarySecondary);
+            schoolDetails.SchoolType.Should().Be(SchoolType.AlternativePosition);
+            schoolDetails.SchoolPhase.Should().Be(Contracts.Project.Tasks.SchoolPhase.Primary);
             schoolDetails.AgeRange.Should().Be(project.SchoolDetailsAgeRange);
             schoolDetails.Gender.Should().Be(project.SchoolDetailsGender);
             schoolDetails.Nursery.Should().Be(project.SchoolDetailsNursery);

@@ -11,8 +11,8 @@ class ConstituencySearchPage {
         return this;
     }
 
-    public searchHintIs(hint: string): this {
-        cy.get("#search-constituency-hint").should("contains.text", hint);
+    public searchLabelIs(hint: string): this {
+        cy.get(`[for="search-constituency"]`).should("contains.text", hint);
         return this;
     }
 

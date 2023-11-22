@@ -43,7 +43,8 @@ describe("Testing Risk appraisal meeting Task", () => {
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Reason not applicable").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
-
+        
+        cy.executeAccessibilityTests();
         Logger.log("Go back to task list");
         summaryPage.clickBack();
 
@@ -61,6 +62,8 @@ describe("Testing Risk appraisal meeting Task", () => {
 
         summaryPage.clickChange();
     
+        cy.executeAccessibilityTests();
+
         Logger.log("Check all fields optional");
         riskAppraisalMeetingEditPage
             .schoolNameIs(project.schoolName)
@@ -106,7 +109,8 @@ describe("Testing Risk appraisal meeting Task", () => {
             .clickContinue()
             .errorForActualDate().showsError("Enter a date in the correct format")
             .withActualDate("21", "6", "2024");
-
+        
+        cy.executeAccessibilityTests();
         Logger.log("Valid fields save");
 
         riskAppraisalMeetingEditPage
