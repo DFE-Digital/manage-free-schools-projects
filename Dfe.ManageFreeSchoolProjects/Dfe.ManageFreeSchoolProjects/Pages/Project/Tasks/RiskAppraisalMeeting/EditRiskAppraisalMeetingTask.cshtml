@@ -20,23 +20,19 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
         <form method="post">
             <govuk-yesno-input id="meeting-completed" name="meeting-completed" label="Initial risk appraisal meeting completed" asp-for="@Model.MeetingCompleted" data-testid="meeting-completed" />
             <govuk-date-input id="forecast-date" name="forecast-date" asp-for="@Model.ForecastDate" data-testid="forecast-date" label="Forecast date" hint="For example, 27 3 2021" />
             <govuk-date-input id="actual-date" name="actual-date" asp-for="@Model.ActualDate" data-testid="actual-date" label="Actual date" hint="For example, 27 3 2021" />
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--s" for="current-free-school-name">Comments on decision to approve (if applicable)</label>
-                <govuk-text-input id="comments-on-decision" name="comments-on-decision" asp-for="@Model.CommentsOnDecision" data-testid="comments-on-decision" />
+                <govuk-text-input id="comments-on-decision" name="comments-on-decision" bold-label="true" label="Comments on decision to approve (if applicable)" asp-for="@Model.CommentsOnDecision" data-testid="comments-on-decision" />
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--s" for="reason-not-applicable">Reason not applicable</label>
-                <govuk-text-input id="reason-not-applicable" name="reason-not-applicable" asp-for="@Model.ReasonNotApplicable" data-testid="reason-not-applicable" />
+                <govuk-text-input id="reason-not-applicable" name="reason-not-applicable" bold-label="true" label="Reason not applicable" asp-for="@Model.ReasonNotApplicable" data-testid="reason-not-applicable" />
             </div>
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                     Save and continue
             </button>
         </form>
-
     </div>
 </div>

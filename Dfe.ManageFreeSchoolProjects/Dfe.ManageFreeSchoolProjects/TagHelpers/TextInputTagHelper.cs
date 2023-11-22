@@ -14,6 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		
 		public bool HeadingLabel { get; set; }
 
+		[HtmlAttributeName("bold-label")]
+		public bool BoldLabel { get; set; }
+
 		public TextInputTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
 
 		protected override async Task<IHtmlContent> RenderContentAsync()
@@ -27,7 +30,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Value = For.Model?.ToString(),
 				Width = Width,
 				Hint = Hint,
-				HeadingLabel = HeadingLabel
+				HeadingLabel = HeadingLabel,
+				BoldLabel = BoldLabel,
 			};
 
 			if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)
