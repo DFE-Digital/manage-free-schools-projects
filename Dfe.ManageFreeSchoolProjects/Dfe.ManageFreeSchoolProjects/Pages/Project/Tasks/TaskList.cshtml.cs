@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
             if (ProjectTaskListSummary is not null)
             {
-                SchoolName = ProjectTaskListSummary.School.Name;
+                SchoolName = ProjectTaskListSummary.SchoolName;
                 return Page();
             }                
             

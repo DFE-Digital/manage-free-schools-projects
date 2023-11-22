@@ -66,24 +66,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             ProjectByTaskSummaryResponse summary = null;
             
-            var projectTasks = await _getTasksService.Execute(projectId);
-
-            if (projectTasks.Any())
-            {
-                summary = new ProjectByTaskSummaryResponse
-                {
-                    School = SafeRetrieveTaskSummary(projectTasks, "School"),
-                    Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
-                    Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"), 
-                    RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
-                    RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
-                    Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
-                };
-            }
+            var result = await _getTasksService.Execute(projectId);
             
-            var result = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
+            var projectTasks = result.taskSummaryResponses;
 
-            return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
+            summary = new ProjectByTaskSummaryResponse
+            {
+                SchoolName = result.CurrentFreeSchoolName,
+                School = SafeRetrieveTaskSummary(projectTasks, "School"),
+                Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
+                Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"), 
+                RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
+                RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
+                Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
+            };
+           
+            var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
+
+            return new ObjectResult(response) { StatusCode = StatusCodes.Status200OK };
         }
 
         private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)

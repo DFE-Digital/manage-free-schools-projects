@@ -4,9 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 
+public record GetTasksServiceResult
+{
+    public string CurrentFreeSchoolName { get; set; }
+    public List<TaskSummaryResponse> taskSummaryResponses { get; set; }
+
+}
+
 public interface IGetTasksService
 { 
-    Task<List<TaskSummaryResponse>> Execute(string projectId);
+    Task<GetTasksServiceResult> Execute(string projectId);
 }
 
 public class GetAllTasksStatusService : IGetTasksService
@@ -18,7 +25,7 @@ public class GetAllTasksStatusService : IGetTasksService
         _context = context;
     }
 
-    public async Task<List<TaskSummaryResponse>> Execute(string projectId)
+    public async Task<GetTasksServiceResult> Execute(string projectId)
     {
         var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
@@ -30,7 +37,10 @@ public class GetAllTasksStatusService : IGetTasksService
             Status = task.Status.Map()
         });
     
-        return response.ToList();
+        return new GetTasksServiceResult() { 
+            CurrentFreeSchoolName = dbKpi.ProjectStatusCurrentFreeSchoolName,
+            taskSummaryResponses = response.ToList() 
+        };
     }
 }
 
