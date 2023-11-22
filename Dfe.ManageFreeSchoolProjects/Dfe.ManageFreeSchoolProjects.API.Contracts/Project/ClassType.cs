@@ -4,14 +4,14 @@ public abstract class ClassType
 {
     public enum Nursery
     {
-        Default,
-        No,
-        Yes
+        NotSet,
+        Yes,
+        No
     }
     public enum SixthForm
     {
-        Default,
-        No,
-        Yes
+        NotSet,
+        Yes,
+        No
     }
 }

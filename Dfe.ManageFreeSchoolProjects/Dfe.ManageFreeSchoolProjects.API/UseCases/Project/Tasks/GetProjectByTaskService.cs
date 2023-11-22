@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,8 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                             SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
                             AgeRange = kpi.SchoolDetailsAgeRange,
                             Gender = TaskParsers.ParseGender(kpi.SchoolDetailsGender),
-                            Nursery = kpi.SchoolDetailsNursery,
-                            SixthForm = kpi.SchoolDetailsSixthForm,
+                            Nursery = Enum.TryParse<ClassType.Nursery>(kpi.SchoolDetailsNursery, out var nursery) ? nursery : ClassType.Nursery.NotSet,
+                            SixthForm = Enum.TryParse<ClassType.SixthForm>(kpi.SchoolDetailsSixthForm, out var sixthForm) ? sixthForm : ClassType.SixthForm.NotSet,
                             FaithStatus = TaskParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
                             FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
                             OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType

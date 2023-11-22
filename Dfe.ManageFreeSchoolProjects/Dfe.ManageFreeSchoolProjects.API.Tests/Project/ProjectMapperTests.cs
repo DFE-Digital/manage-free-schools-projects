@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
     public class ProjectMapperTests
     {
         [Theory]
-        [InlineData("FS - AP", SchoolType.AlternativePosition)]
+        [InlineData("FS - AP", SchoolType.AlternativeProvision)]
         [InlineData("FS - Special", SchoolType.Special)]
         [InlineData("SS", SchoolType.StudioSchool)]
         [InlineData("UTC", SchoolType.UniversityTechnicalCollege)]
@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         }
 
         [Theory]
-        [InlineData(SchoolType.AlternativePosition, "FS - AP")]
+        [InlineData(SchoolType.AlternativeProvision, "FS - AP")]
         [InlineData(SchoolType.Special, "FS - Special")]
         [InlineData(SchoolType.StudioSchool, "SS")]
         [InlineData(SchoolType.UniversityTechnicalCollege, "UTC")]

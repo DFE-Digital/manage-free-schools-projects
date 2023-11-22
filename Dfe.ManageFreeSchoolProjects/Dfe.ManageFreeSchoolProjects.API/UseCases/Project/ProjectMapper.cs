@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             if (schoolType == "FS - AP")
             {
-                return SchoolType.AlternativePosition;
+                return SchoolType.AlternativeProvision;
             }
 
             if (schoolType == "FS - Special")
@@ -32,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
         public static string ToSchoolType(SchoolType? schoolType)
         {
-            if (schoolType == SchoolType.AlternativePosition)
+            if (schoolType == SchoolType.AlternativeProvision)
             {
                 return "FS - AP";
             }
