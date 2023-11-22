@@ -38,11 +38,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                             SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
                             SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
                             AgeRange = kpi.SchoolDetailsAgeRange,
-                            Gender = TaskParsers.ParseGender(kpi.SchoolDetailsGender),
-                            Nursery = Enum.TryParse<ClassType.Nursery>(kpi.SchoolDetailsNursery, out var nursery) ? nursery : ClassType.Nursery.NotSet,
-                            SixthForm = Enum.TryParse<ClassType.SixthForm>(kpi.SchoolDetailsSixthForm, out var sixthForm) ? sixthForm : ClassType.SixthForm.NotSet,
-                            FaithStatus = TaskParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
-                            FaithType = TaskParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
+                            Gender = EnumParsers.ParseGender(kpi.SchoolDetailsGender),
+                            Nursery = EnumParsers.ParseNursery(kpi.SchoolDetailsNursery),
+                            SixthForm = EnumParsers.ParseSixthForm(kpi.SchoolDetailsSixthForm),
+                            FaithStatus = EnumParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
+                            FaithType = EnumParsers.ParseFaithType(kpi.SchoolDetailsFaithType),
                             OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
                         },
                         Dates = new DatesTask()

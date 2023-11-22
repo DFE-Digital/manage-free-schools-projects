@@ -7,102 +7,50 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
     {
         public static SchoolType? ToSchoolType(string schoolType)
         {
-            if (schoolType == "FS - AP")
+            return schoolType switch
             {
-                return SchoolType.AlternativeProvision;
-            }
-
-            if (schoolType == "FS - Special")
-            {
-                return SchoolType.Special;
-            }
-
-            if (schoolType == "SS")
-            {
-                return SchoolType.StudioSchool;
-            }
-
-            if (schoolType == "UTC")
-            {
-                return SchoolType.UniversityTechnicalCollege;
-            }
-
-            return null;
+                "FS - AP" => SchoolType.AlternativeProvision,
+                "FS - Special" => SchoolType.Special,
+                "SS" => SchoolType.StudioSchool,
+                "UTC" => SchoolType.UniversityTechnicalCollege,
+                _ => SchoolType.NotSet
+            };
         }
 
         public static string ToSchoolType(SchoolType? schoolType)
         {
-            if (schoolType == SchoolType.AlternativeProvision)
+            return schoolType switch
             {
-                return "FS - AP";
-            }
-
-            if (schoolType == SchoolType.Special)
-            {
-                return "FS - Special";
-            }
-
-            if (schoolType == SchoolType.StudioSchool)
-            {
-                return "SS";
-            }
-
-            if (schoolType == SchoolType.UniversityTechnicalCollege)
-            {
-                return "UTC";
-            }
-
-            return null;
+                SchoolType.AlternativeProvision => "FS - AP",
+                SchoolType.Special => "FS - Special",
+                SchoolType.StudioSchool => "SS",
+                SchoolType.UniversityTechnicalCollege => "UTC",
+                _ => string.Empty
+            };
         }
 
         public static SchoolPhase ToSchoolPhase(string schoolPhase)
         {
-            if (schoolPhase == "Primary")
+            return schoolPhase switch
             {
-                return SchoolPhase.Primary;
-            }
-
-            if (schoolPhase == "Secondary")
-            {
-                return SchoolPhase.Secondary;
-            }
-
-            if (schoolPhase == "16 to 19")
-            {
-                return SchoolPhase.SixteenToNineteen;
-            }
-
-            if (schoolPhase == "All-through")
-            {
-                return SchoolPhase.SixteenToNineteen;
-            }
-
-            return SchoolPhase.NotSet;
+                "Primary" => SchoolPhase.Primary,
+                "Secondary" => SchoolPhase.Secondary,
+                "16 to 19" => SchoolPhase.SixteenToNineteen,
+                "All-through" => SchoolPhase.SixteenToNineteen,
+                _ => SchoolPhase.NotSet
+            };
         }
 
         public static string ToSchoolPhase(SchoolPhase schoolPhase)
         {
-            if (schoolPhase == SchoolPhase.Primary)
+            return schoolPhase switch
             {
-                return "Primary";
-            }
-
-            if (schoolPhase == SchoolPhase.Secondary)
-            {
-                return "Secondary";
-            }
-
-            if (schoolPhase == SchoolPhase.SixteenToNineteen)
-            {
-                return "16 to 19";
-            }
-
-            if (schoolPhase == SchoolPhase.AllThrough)
-            {
-                return "All-through";
-            }
-
-            return "Not set";
+                SchoolPhase.Primary => "Primary",
+                SchoolPhase.Secondary => "Secondary",
+                SchoolPhase.SixteenToNineteen => "16 to 19",
+                SchoolPhase.AllThrough => "All-through",
+                _ => "Not set"
+            };
         }
     }
 }

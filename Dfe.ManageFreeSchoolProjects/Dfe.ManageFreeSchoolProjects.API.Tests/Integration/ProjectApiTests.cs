@@ -28,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await setupContext.SaveChangesAsync();
 
             var projectDetails = _autoFixture.Create<ProjectDetails>();
+            
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
             request.Projects.Add(projectDetails);
