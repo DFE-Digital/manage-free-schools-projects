@@ -8,6 +8,7 @@ using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using System.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -40,7 +41,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var project = _createProjectCache.Get();
             BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);
 
-            SchoolPhase = project.SchoolPhase.ToIntString();
+            if (project.SchoolPhase != 0)
+                SchoolPhase = _createProjectCache.Get().SchoolPhase.ToString();
 
             return Page();
         }
