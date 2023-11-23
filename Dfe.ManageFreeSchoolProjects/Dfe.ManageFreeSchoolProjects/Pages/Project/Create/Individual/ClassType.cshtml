@@ -3,7 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.Utils;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ClassTypeModel
 @{
-    ViewData["Title"] = "What is the class type? - Manage free school projects";
+    ViewData["Title"] = "What is the class type?";
 
     var nurseryOptions = Enum.GetValues<ClassType.Nursery>().Except(new[] { ClassType.Nursery.NotSet }).Select(x => x.ToString()).ToArray();
     var sixthFormOptions = Enum.GetValues<ClassType.SixthForm>().Except(new[] { ClassType.SixthForm.NotSet }).Select(x => x.ToString()).ToArray();
