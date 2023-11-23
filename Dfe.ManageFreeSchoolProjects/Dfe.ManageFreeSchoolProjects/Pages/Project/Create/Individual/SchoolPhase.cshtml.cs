@@ -8,7 +8,6 @@ using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Dfe.ManageFreeSchoolProjects.Extensions;
-using System.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
