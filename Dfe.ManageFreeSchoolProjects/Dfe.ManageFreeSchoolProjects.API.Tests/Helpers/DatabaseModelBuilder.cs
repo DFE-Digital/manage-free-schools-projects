@@ -86,7 +86,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
         public static string CreateProjectId()
         {
             return _fixture.Create<string>().Substring(0, 24);
-
         }
 
         public static RiskAppraisalMeetingTask BuildRiskAppraisalMeetingTask(string rid)

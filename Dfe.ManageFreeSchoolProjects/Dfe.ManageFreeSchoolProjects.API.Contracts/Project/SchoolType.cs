@@ -4,10 +4,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
     public enum SchoolType
     {
-        [Description("Alternative position")]
-        AlternativePosition = 1,
+        NotSet = 0,
+        [Description("Alternative provision")]
+        AlternativeProvision = 1,
         [Description("Mainstream")]
-        MainStream = 2,
+        Mainstream = 2,
         [Description("Special")]
         Special = 3,
         [Description("Studio school")]

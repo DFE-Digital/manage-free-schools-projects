@@ -98,8 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
             dbKpi.SchoolDetailsGender = gender;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
-            dbKpi.SchoolDetailsNursery = task.Nursery;
-            dbKpi.SchoolDetailsSixthForm = task.SixthForm;
+            dbKpi.SchoolDetailsNursery = task.Nursery.ToString();
+            dbKpi.SchoolDetailsSixthForm = task.SixthForm.ToString();
 
             dbKpi.SchoolDetailsFaithStatus = faithStatus;
             dbKpi.SchoolDetailsFaithType = faithType;
