@@ -15,11 +15,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
     public abstract class CookieCacheService<T> : ICookieCacheService<T> where T : new()
     {
-        private string _key;
-        private IHttpContextAccessor _httpContextAccessor;
-        private IDataProtector _dataProtector;
+        private readonly string _key;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IDataProtector _dataProtector;
 
-        public CookieCacheService(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider, string key)
+        protected CookieCacheService(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider, string key)
         {
             _httpContextAccessor = httpContextAccessor;
             _dataProtector = DataProtectionProvider.CreateProtector(nameof(CreateProjectCache));
@@ -51,14 +51,16 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(_key);
         }
 
-        public void Update(T project)
+        public void Update(T item)
         {
-            var json = JsonConvert.SerializeObject(project);
+            var json = JsonConvert.SerializeObject(item);
 
             CookieOptions options = new CookieOptions
             {
                 IsEssential = true,
                 Expires = DateTime.Now.AddDays(1),
+                HttpOnly = true,
+                Secure = true,
             };
 
             _httpContextAccessor.HttpContext.Response.Cookies.Append(_key, _dataProtector.Protect(json), options);
