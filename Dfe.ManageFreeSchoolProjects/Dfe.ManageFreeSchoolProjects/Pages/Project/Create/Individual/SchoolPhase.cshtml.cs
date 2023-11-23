@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var project = _createProjectCache.Get();
             BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);
 
-            SchoolPhase = project.SchoolPhase.ToIntString();
+            SchoolPhase = project.SchoolPhase.ToDescription();
 
             return Page();
         }

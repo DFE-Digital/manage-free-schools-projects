@@ -77,5 +77,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string TrustName { get; set; }
         public string TRN { get; set; }
         public string ConfirmTrust { get; set; }
+        public int YrY6Capacity { get; set; }
+        public int Y7Y11Capacity { get; set; }
+        public int Y12Y14Capacity { get; set; }
     }
 }

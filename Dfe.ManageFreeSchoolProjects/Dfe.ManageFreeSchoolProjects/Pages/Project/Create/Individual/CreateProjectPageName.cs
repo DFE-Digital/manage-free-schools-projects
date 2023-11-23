@@ -11,7 +11,8 @@
         SchoolPhase = 7,
         SearchTrust = 8,
         ConfirmTrustSearch = 9,
-        NotifyUser = 10,
-        CheckYourAnswers = 11
+        Capacity = 10,
+        NotifyUser = 11,
+        CheckYourAnswers = 12
     }
 }
