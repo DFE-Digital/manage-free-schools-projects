@@ -70,7 +70,7 @@ public class Startup
 
         services.AddControllersWithViews()
            .AddMicrosoftIdentityUI();
-
+        SetupDataprotection(services);
         services.AddScoped<IGetDashboardService, GetDashboardService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICreateUserService, CreateUserService>();
@@ -83,8 +83,8 @@ public class Startup
         services.AddScoped<IGetProjectByTaskSummaryService, GetProjectByTaskSummaryService>();
         services.AddScoped<IGetLocalAuthoritiesService, GetLocalAuthoritiesService>();
         services.AddScoped<ICreateProjectService, CreateProjectService>();
-        services.AddScoped<IGetTaskStatusService, GetTaskStatusService>(); 
-        services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>(); 
+        services.AddScoped<IGetTaskStatusService, GetTaskStatusService>();
+        services.AddScoped<IUpdateTaskStatusService, UpdateTaskStatusService>();
         services.AddScoped<ICreateTasksService, CreateTasksService>();
         services.AddScoped<IGetProjectRiskService, GetProjectRiskService>();
         services.AddScoped<ICreateProjectRiskCache, CreateProjectRiskCache>();
@@ -133,7 +133,11 @@ public class Startup
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+ 
+    }
 
+    private void SetupDataprotection(IServiceCollection services)
+    {
         if (!string.IsNullOrEmpty(Configuration["ConnectionStrings:BlobStorage"]))
         {
             string blobName = "keys.xml";
@@ -143,6 +147,10 @@ public class Startup
 
             services.AddDataProtection()
                 .PersistKeysToAzureBlobStorage(blobClient);
+        }
+        else
+        {
+            services.AddDataProtection();
         }
     }
 
