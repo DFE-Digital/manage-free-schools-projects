@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "Primary" => SchoolPhase.Primary,
                 "Secondary" => SchoolPhase.Secondary,
                 "16 to 19" => SchoolPhase.SixteenToNineteen,
-                "All-through" => SchoolPhase.SixteenToNineteen,
+                "All-through" => SchoolPhase.AllThrough,
                 _ => SchoolPhase.NotSet
             };
         }
