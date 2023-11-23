@@ -5,7 +5,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
     public record CreateProjectResponse
     {
-        public List<ProjectResponseDetails> Projects { get; set; } = new List<ProjectResponseDetails>();
+        public List<ProjectResponseDetails> Projects { get; set; } = new();
     }
 
     public enum ProjectCreateState

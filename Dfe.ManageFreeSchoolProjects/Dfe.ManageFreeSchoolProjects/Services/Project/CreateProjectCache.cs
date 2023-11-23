@@ -80,5 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public int YrY6Capacity { get; set; }
         public int Y7Y11Capacity { get; set; }
         public int Y12Y14Capacity { get; set; }
+        public ClassType.SixthForm SixthForm { get; set; }
+        public ClassType.Nursery Nursery { get; set; }
     }
 }

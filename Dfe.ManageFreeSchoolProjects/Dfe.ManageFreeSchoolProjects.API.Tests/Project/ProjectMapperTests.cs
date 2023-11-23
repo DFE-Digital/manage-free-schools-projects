@@ -6,11 +6,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
     public class ProjectMapperTests
     {
         [Theory]
-        [InlineData("FS - AP", SchoolType.AlternativePosition)]
+        [InlineData("FS - AP", SchoolType.AlternativeProvision)]
         [InlineData("FS - Special", SchoolType.Special)]
         [InlineData("SS", SchoolType.StudioSchool)]
         [InlineData("UTC", SchoolType.UniversityTechnicalCollege)]
-        [InlineData("InvalidType", null)]
+        [InlineData("InvalidType", SchoolType.NotSet)]
         public void ToSchoolType_Returns_ExpectedString(string input, SchoolType? expectedResult)
         {
             var result = ProjectMapper.ToSchoolType(input);
@@ -19,11 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         }
 
         [Theory]
-        [InlineData(SchoolType.AlternativePosition, "FS - AP")]
+        [InlineData(SchoolType.AlternativeProvision, "FS - AP")]
         [InlineData(SchoolType.Special, "FS - Special")]
         [InlineData(SchoolType.StudioSchool, "SS")]
         [InlineData(SchoolType.UniversityTechnicalCollege, "UTC")]
-        [InlineData(null, null)]
+        [InlineData(null, "")]
         public void ToSchoolType_ReturnsExpectedEnum(SchoolType? input, string expectedResult)
         {
             var result = ProjectMapper.ToSchoolType(input);

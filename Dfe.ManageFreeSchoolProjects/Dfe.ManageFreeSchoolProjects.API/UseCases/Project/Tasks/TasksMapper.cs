@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 
@@ -6,7 +7,6 @@ public static class TasksMapper
 {
     private const string Special = "FS - Special";
     private const string AlternativeProvision = "FS - AP";
-    private const string FurtherEducation = "FE";
     private const string Mainstream = "FS - Mainstream";
     private const string StudioSchool = "SS";
     private const string UniversityTechnicalCollege = "UTC";
@@ -21,7 +21,6 @@ public static class TasksMapper
         {
             SchoolType.Special => Special,
             SchoolType.AlternativeProvision => AlternativeProvision,
-            SchoolType.FurtherEducation => FurtherEducation,
             SchoolType.Mainstream => Mainstream,
             SchoolType.StudioSchool => StudioSchool,
             SchoolType.UniversityTechnicalCollege => UniversityTechnicalCollege,
@@ -33,7 +32,6 @@ public static class TasksMapper
     {
         Special => SchoolType.Special,
         AlternativeProvision => SchoolType.AlternativeProvision,
-        FurtherEducation => SchoolType.FurtherEducation,
         Mainstream => SchoolType.Mainstream,
         StudioSchool => SchoolType.StudioSchool,
         UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,

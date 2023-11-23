@@ -28,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await setupContext.SaveChangesAsync();
 
             var projectDetails = _autoFixture.Create<ProjectDetails>();
+            
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
             request.Projects.Add(projectDetails);
@@ -50,7 +51,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectOverivewContent = await projectOverivewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
             var projectOverview = projectOverivewContent.Data;
             
-
             projectOverview.SchoolDetails.TrustId.Should().Be(request.Projects[0].TRN);
             projectOverview.ProjectStatus.ProjectId.Should().Be(projectDetails.ProjectId);
             projectOverview.ProjectStatus.CurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
@@ -59,7 +59,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectOverview.ProjectStatus.FreeSchoolsApplicationNumber.Should().BeNullOrEmpty();
             projectOverview.ProjectStatus.ApplicationWave.Should().BeNullOrEmpty();
             projectOverview.SchoolDetails.SchoolType.Should().Be(request.Projects[0].SchoolType);
-
         }
 
         [Fact]

@@ -30,6 +30,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string CreatedBy { get; set; }
 
         public SchoolType SchoolType { get; set; }
+
+        public ClassType.Nursery Nursery { get; set; }
+        
+        public ClassType.SixthForm SixthForm { get; set; }
+
         public SchoolPhase SchoolPhase { get; set; }
     }
 }

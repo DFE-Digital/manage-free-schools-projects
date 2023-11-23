@@ -22,18 +22,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
         public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
         {
-            CreateProjectResponse result = new CreateProjectResponse();
-            List<Kpi> checkedProjects = new List<Kpi>();
-            List<Po> checkedProjectsPO = new List<Po>();
+            var result = new CreateProjectResponse();
+            var checkedProjects = new List<Kpi>();
+            var checkedProjectsPO = new List<Po>();
 
-            bool duplicatesFound = false;
+            var duplicatesFound = false;
 
             foreach (ProjectDetails proj in createProjectRequest.Projects)
             {
                 var existingProject = await _context.Kpi
                     .FirstOrDefaultAsync(k => k.ProjectStatusProjectId == proj.ProjectId);
 
-                ProjectCreateState projectCreateState = ProjectCreateState.New;
+                var projectCreateState = ProjectCreateState.New;
 
                 if (existingProject != null)
                 {
@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 var rid = Guid.NewGuid().ToString().Substring(0, 10);
                 var trust = await GetTrust(proj.TRN);
 
-                checkedProjects.Add(new Kpi()
+                checkedProjects.Add(new Kpi
                 {
                     Rid = rid,
                     ProjectStatusProjectId = proj.ProjectId,
@@ -74,7 +74,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     TrustType = trust.TrustsTrustType,
                     SchoolDetailsTrustId = trust.TrustsTrustRef,
                     SchoolDetailsTrustName = trust.TrustsTrustName,
-                    SchoolDetailsTrustType = trust.TrustsTrustType
+                    SchoolDetailsTrustType = trust.TrustsTrustType,
+                    SchoolDetailsSixthForm = proj.SixthForm.ToString(),
+                    SchoolDetailsNursery = proj.Nursery.ToString()
                 });
 
                 checkedProjectsPO.Add(new Po()
@@ -112,21 +114,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         private async Task<Trust> GetTrust(string trustRef)
         {
             var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
-
             return result;
         }
 
-        private List<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
+        private static IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
         {
-            return new List<Data.Entities.Existing.Tasks>()
-            {
-                new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted  },
-                new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted },
-                new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted },
-            };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted };
+            yield return new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted };
         }
-
     }
 }

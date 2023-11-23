@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.Text.RegularExpressions;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
 {
@@ -62,12 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required]
-        public string Nursery { get; set; }
+        public ClassType.Nursery Nursery { get; set; }
 
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
         [Required]
-        public string SixthForm { get; set; }
+        public ClassType.SixthForm SixthForm { get; set; }
 
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]

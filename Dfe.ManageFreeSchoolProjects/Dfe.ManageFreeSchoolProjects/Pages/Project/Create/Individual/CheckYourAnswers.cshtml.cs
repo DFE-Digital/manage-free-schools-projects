@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
-using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -58,7 +57,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 TrustName = project.TrustName,
                 YrY6Capacity = project.YrY6Capacity,
                 Y7Y11Capacity = project.Y7Y11Capacity,
-                Y12Y14Capacity = project.Y12Y14Capacity
+                Y12Y14Capacity = project.Y12Y14Capacity,
+                Nursery = project.Nursery, 
+                SixthForm = project.SixthForm
             };
 
             createProjectRequest.Projects.Add(projReq);

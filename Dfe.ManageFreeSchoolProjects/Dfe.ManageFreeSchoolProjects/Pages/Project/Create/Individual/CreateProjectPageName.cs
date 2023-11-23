@@ -7,12 +7,13 @@
         SchoolName = 3,
         Region = 4,
         LocalAuthority = 5,
-        SchoolType = 6,
-        SchoolPhase = 7,
-        SearchTrust = 8,
-        ConfirmTrustSearch = 9,
-        Capacity = 10,
-        NotifyUser = 11,
-        CheckYourAnswers = 12
+        SearchTrust = 6,
+        ConfirmTrustSearch = 7,
+        SchoolType = 8,
+        SchoolPhase = 9,
+        ClassType = 10,
+        Capacity = 11,
+        NotifyUser = 12,
+        CheckYourAnswers = 13
     }
 }

@@ -29,16 +29,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.Capacity => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectSchoolPhase,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.Capacity => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateClassType,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
-        public string GetNextPage(CreateProjectPageName pageName, string routeParameter = "")
+        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "")
         {
-            return pageName switch
+            return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
@@ -47,11 +48,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
-                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {pageName}")
+                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
     }
