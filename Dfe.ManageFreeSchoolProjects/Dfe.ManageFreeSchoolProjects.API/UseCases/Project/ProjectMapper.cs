@@ -13,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "FS - Special" => SchoolType.Special,
                 "SS" => SchoolType.StudioSchool,
                 "UTC" => SchoolType.UniversityTechnicalCollege,
+                "FE" => SchoolType.FurtherEducation,
                 _ => SchoolType.NotSet
             };
         }
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolType.Special => "FS - Special",
                 SchoolType.StudioSchool => "SS",
                 SchoolType.UniversityTechnicalCollege => "UTC",
+                SchoolType.FurtherEducation => "FE",
                 _ => string.Empty
             };
         }

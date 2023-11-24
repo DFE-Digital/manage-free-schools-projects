@@ -1,19 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Models;
-using System.Text.RegularExpressions;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 {
     public class EditSchoolTaskModel : PageModel
     {
@@ -82,6 +84,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
         [BindProperty(Name = "other-faith-type")]
         [Display(Name = "Other faith type")]
         public string OtherFaithType { get; set; }
+        
+        public IEnumerable<SchoolType> SchoolTypes { get; set; } = Enum.GetValues<SchoolType>().Except(new[] { SchoolType.NotSet });
 
         public EditSchoolTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -103,7 +107,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
             {
                 var project = await _getProjectService.Execute(ProjectId);
                 CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
-                SchoolType = project.School.SchoolType;
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
@@ -113,6 +116,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School
                 FaithType = project.School.FaithType;
                 OtherFaithType = project.School.OtherFaithType;
 
+                if (project.School.SchoolType != SchoolType.FurtherEducation)
+                {
+                    SchoolTypes = SchoolTypes.Except(new[] { SchoolType.FurtherEducation });
+                }
+                
+                SchoolType = project.School.SchoolType;
+                
                 if (!string.IsNullOrEmpty(project.School.AgeRange))
                 {
                     var ageRanges = SplitAgeRange(project.School.AgeRange);
