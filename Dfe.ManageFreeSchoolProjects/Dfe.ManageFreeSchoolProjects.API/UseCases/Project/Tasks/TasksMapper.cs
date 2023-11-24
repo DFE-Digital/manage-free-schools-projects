@@ -10,11 +10,13 @@ public static class TasksMapper
     private const string Mainstream = "FS - Mainstream";
     private const string StudioSchool = "SS";
     private const string UniversityTechnicalCollege = "UTC";
+    private const string FurtherEducation = "FE";
 
     private const string Primary = "Primary";
     private const string Secondary = "Secondary";
     private const string SixteenToNineteen = "16-19";
     private const string AllThrough = "All-Through";
+    
     public static string MapSchoolType(this SchoolType schoolType)
     {
         return schoolType switch
@@ -23,6 +25,7 @@ public static class TasksMapper
             SchoolType.AlternativeProvision => AlternativeProvision,
             SchoolType.Mainstream => Mainstream,
             SchoolType.StudioSchool => StudioSchool,
+            SchoolType.FurtherEducation => FurtherEducation,
             SchoolType.UniversityTechnicalCollege => UniversityTechnicalCollege,
             _ => ""
         };
@@ -34,6 +37,7 @@ public static class TasksMapper
         AlternativeProvision => SchoolType.AlternativeProvision,
         Mainstream => SchoolType.Mainstream,
         StudioSchool => SchoolType.StudioSchool,
+        FurtherEducation => SchoolType.FurtherEducation,
         UniversityTechnicalCollege => SchoolType.UniversityTechnicalCollege,
         _ => SchoolType.NotSet
     };
