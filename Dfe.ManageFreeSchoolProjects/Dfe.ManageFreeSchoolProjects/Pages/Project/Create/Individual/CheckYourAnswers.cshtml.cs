@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             var createProjectRequest = new CreateProjectRequest();
             var project = _createProjectCache.Get();
-            
+
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
@@ -55,6 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 Region = project.Region.ToDescription(),
                 TRN = project.TRN,
                 TrustName = project.TrustName,
+                AgeRange = project.AgeRange,
                 YRY6Capacity = (int)project.YRY6Capacity,
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
