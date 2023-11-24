@@ -13,20 +13,17 @@ class SchoolDetailsPage {
         cy.getByTestId("AlternativeProvision").should("not.be.checked");
         cy.get("label[for='school-type-1']").contains("Alternative provision");
 
-        cy.getByTestId("FurtherEducation").should("not.be.checked");
-        cy.get("label[for='school-type-2']").contains("Further education");
-
         cy.getByTestId("Mainstream").should("not.be.checked");
-        cy.get("label[for='school-type-3']").contains("Mainstream");
+        cy.get("label[for='school-type-2']").contains("Mainstream");
 
         cy.getByTestId("Special").should("not.be.checked");
-        cy.get("label[for='school-type-4']").contains("Special");
+        cy.get("label[for='school-type-3']").contains("Special");
 
         cy.getByTestId("StudioSchool").should("not.be.checked");
-        cy.get("label[for='school-type-5']").contains("Studio school");
+        cy.get("label[for='school-type-4']").contains("Studio school");
 
         cy.getByTestId("UniversityTechnicalCollege").should("not.be.checked");
-        cy.get("label[for='school-type-6']").contains("University technical college");
+        cy.get("label[for='school-type-5']").contains("University technical college");
 
 
         cy.get("label[for='school-phase'").contains("School phase");
