@@ -1,7 +1,7 @@
 import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
 import BasePage from "./BasePage";
 
-class HomePage extends BasePage{
+class HomePage extends BasePage {
 
     public createNewProjects(): this {
         cy.contains("Create new projects").click();
