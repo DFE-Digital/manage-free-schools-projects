@@ -1,4 +1,6 @@
-class SingleProjectRegionPage extends BasePage {
+import BasePage from "./BasePage";
+
+class SingleProjectRegionPage extends BasePage{
     public checkElementsVisible(): this {
         cy.contains("Back");
 
