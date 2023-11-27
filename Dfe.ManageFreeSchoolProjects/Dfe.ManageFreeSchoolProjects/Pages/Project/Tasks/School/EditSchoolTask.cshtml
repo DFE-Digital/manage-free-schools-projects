@@ -1,12 +1,12 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Task.School.EditSchoolTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
-    var schoolTypes = Enum.GetValues<SchoolType>().Except(new[] { SchoolType.NotSet });
-    var schoolTypeLabels = schoolTypes.Select(x => x.ToDescription()).ToArray();
-    var schoolTypeValues = schoolTypes.Select(x => x.ToString()).ToArray();
+    
+    var schoolTypeLabels = Model.SchoolTypes.Select(x => x.ToDescription()).ToArray();
+    var schoolTypeValues = Model.SchoolTypes.Select(x => x.ToString()).ToArray();
 
     var schoolPhases = Enum.GetValues<SchoolPhase>().Except(new[] { SchoolPhase.NotSet });
     var schoolPhaseLabels = schoolPhases.Select(x => x.ToDescription()).ToArray();

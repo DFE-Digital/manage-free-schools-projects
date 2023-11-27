@@ -5,14 +5,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
     public static class ProjectMapper
     {
-        public static SchoolType? ToSchoolType(string schoolType)
+        public static SchoolType ToSchoolType(string schoolType)
         {
             return schoolType switch
             {
                 "FS - AP" => SchoolType.AlternativeProvision,
                 "FS - Special" => SchoolType.Special,
                 "SS" => SchoolType.StudioSchool,
+                "FS - Mainstream" => SchoolType.Mainstream,
                 "UTC" => SchoolType.UniversityTechnicalCollege,
+                "FE" => SchoolType.FurtherEducation,
                 _ => SchoolType.NotSet
             };
         }
@@ -24,8 +26,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolType.AlternativeProvision => "FS - AP",
                 SchoolType.Special => "FS - Special",
                 SchoolType.StudioSchool => "SS",
+                SchoolType.Mainstream => "FS - Mainstream",
                 SchoolType.UniversityTechnicalCollege => "UTC",
-                _ => string.Empty
+                SchoolType.FurtherEducation => "FE",
+                _ => "NotSet"
             };
         }
 
@@ -36,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "Primary" => SchoolPhase.Primary,
                 "Secondary" => SchoolPhase.Secondary,
                 "16 to 19" => SchoolPhase.SixteenToNineteen,
-                "All-through" => SchoolPhase.SixteenToNineteen,
+                "All-through" => SchoolPhase.AllThrough,
                 _ => SchoolPhase.NotSet
             };
         }
@@ -49,7 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolPhase.Secondary => "Secondary",
                 SchoolPhase.SixteenToNineteen => "16 to 19",
                 SchoolPhase.AllThrough => "All-through",
-                _ => "Not set"
+                _ => "NotSet"
             };
         }
     }
