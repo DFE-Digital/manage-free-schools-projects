@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/overview"
+﻿ @page "/projects/{projectId}/overview"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 
@@ -479,7 +479,7 @@
 @functions {
     public void RenderValue(string value)
     {
-        if (string.IsNullOrEmpty(value) || value == "Not set")
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
             <span class="empty">Empty</span>
         }

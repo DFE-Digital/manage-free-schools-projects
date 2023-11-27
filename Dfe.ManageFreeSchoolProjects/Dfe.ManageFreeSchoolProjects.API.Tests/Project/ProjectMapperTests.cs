@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         [InlineData(SchoolType.Special, "FS - Special")]
         [InlineData(SchoolType.StudioSchool, "SS")]
         [InlineData(SchoolType.UniversityTechnicalCollege, "UTC")]
-        [InlineData(null, "")]
+        [InlineData(null, "NotSet")]
         public void ToSchoolType_ReturnsExpectedEnum(SchoolType? input, string expectedResult)
         {
             var result = ProjectMapper.ToSchoolType(input);
