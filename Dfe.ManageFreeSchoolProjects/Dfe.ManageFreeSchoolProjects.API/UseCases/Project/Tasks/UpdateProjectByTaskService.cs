@@ -94,8 +94,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
 
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
-            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = task.SchoolType.MapSchoolType();
-            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = task.SchoolPhase.MapSchoolPhase();
+            dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(task.SchoolType);
+            dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = ProjectMapper.ToSchoolPhase(task.SchoolPhase);
             dbKpi.SchoolDetailsGender = gender;
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery.ToString();

@@ -4,6 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
     public enum SchoolType
     {
+        [Description("NotSet")]
         NotSet = 0,
         [Description("Alternative provision")]
         AlternativeProvision = 1,
