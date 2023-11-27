@@ -1,6 +1,6 @@
 import BasePage from "./BasePage";
 
-export class PaginationComponent extends BasePage {
+export class PaginationComponent {
     constructor(private prefix: string = "") {}
 
     public next(): this {
