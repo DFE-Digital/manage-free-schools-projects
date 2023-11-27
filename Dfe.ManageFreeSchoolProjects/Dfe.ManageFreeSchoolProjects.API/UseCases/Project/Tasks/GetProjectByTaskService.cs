@@ -35,8 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                         School = new SchoolTask
                             {    
                             CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                            SchoolType = kpi.SchoolDetailsSchoolTypeMainstreamApEtc.MapSchoolType(),
-                            SchoolPhase = kpi.SchoolDetailsSchoolPhasePrimarySecondary.MapSchoolPhase(),
+                            SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
+                            SchoolPhase = ProjectMapper.ToSchoolPhase(kpi.SchoolDetailsSchoolPhasePrimarySecondary),
                             AgeRange = kpi.SchoolDetailsAgeRange,
                             Gender = EnumParsers.ParseGender(kpi.SchoolDetailsGender),
                             Nursery = EnumParsers.ParseNursery(kpi.SchoolDetailsNursery),
