@@ -1,6 +1,7 @@
+import BasePage from "./BasePage";
 
 
-class WhichProjectMethodPage {
+class WhichProjectMethodPage extends BasePage {
     public checkElementsVisible(): this {
         cy.getByClass("govuk-back-link").contains("Back");
 

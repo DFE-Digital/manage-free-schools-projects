@@ -1,4 +1,6 @@
-class SingleProjectConfirmationPage {
+import BasePage from "./BasePage";
+
+class SingleProjectConfirmationPage extends BasePage {
     public checkElementsVisible(temporaryProjectId): this {
 
         cy.get("h1").contains("Free school project created");

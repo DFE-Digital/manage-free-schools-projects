@@ -1,4 +1,6 @@
-class TrustSummaryPage {
+import BasePage from "./BasePage";
+
+class TrustSummaryPage extends BasePage{
 
     public verifyTrustSummaryElementsVisible(schoolName: string): this {
         cy.getByClass("govuk-back-link").contains("Back");

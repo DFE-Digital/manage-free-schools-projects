@@ -1,4 +1,6 @@
-class ProjectOverviewPage {
+import BasePage from "./BasePage";
+
+class ProjectOverviewPage extends BasePage {
 
     public selectTaskListTab(): this {
         cy.contains("Task list").click()

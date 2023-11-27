@@ -1,4 +1,6 @@
-class ConfirmTrustPage {
+import BasePage from "./BasePage";
+
+class ConfirmTrustPage extends BasePage {
     public verifyConfirmTrustElementsVisible(schoolName: string, validTrustId: string): this {
         cy.getByClass("govuk-back-link").contains("Back");
         cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);

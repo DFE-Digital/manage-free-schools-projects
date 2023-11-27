@@ -1,4 +1,4 @@
-class SingleProjectRegionPage {
+class SingleProjectRegionPage extends BasePage {
     public checkElementsVisible(): this {
         cy.contains("Back");
 

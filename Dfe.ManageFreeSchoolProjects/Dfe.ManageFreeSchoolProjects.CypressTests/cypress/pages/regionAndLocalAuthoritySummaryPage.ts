@@ -1,4 +1,6 @@
-class RegionAndLocalAuthoritySummaryPage {
+import BasePage from "./BasePage";
+
+class RegionAndLocalAuthoritySummaryPage extends BasePage {
 
     public verifyRegionAndLASummaryElementsVisible(schoolName: string): this {
         cy.getByClass("govuk-back-link").contains("Back");

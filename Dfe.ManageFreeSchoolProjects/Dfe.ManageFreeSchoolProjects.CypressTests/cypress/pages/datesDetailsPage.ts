@@ -1,9 +1,11 @@
+import BasePage from "./BasePage";
+
 const invalidDateFormatData = "POTATOES";
 const invalidDateDay = "31";
 const dateDay = "28";
 const dateMonth = "2";
 const dateYear = "2025";
-class DatesDetailsPage {
+class DatesDetailsPage extends BasePage{
     
     
     selectSaveAndContinueButton(): this {

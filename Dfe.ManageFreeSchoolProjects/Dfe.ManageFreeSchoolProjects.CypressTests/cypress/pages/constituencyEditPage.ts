@@ -1,4 +1,6 @@
-class ConstituencyEditPage {
+import BasePage from "./BasePage";
+
+class ConstituencyEditPage extends BasePage {
 
     titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)

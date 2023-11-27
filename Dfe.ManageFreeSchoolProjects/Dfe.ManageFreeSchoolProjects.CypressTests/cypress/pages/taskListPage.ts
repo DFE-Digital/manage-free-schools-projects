@@ -1,4 +1,6 @@
-class TaskListPage {
+import BasePage from "./BasePage";
+
+class TaskListPage extends BasePage {
 
     public selectDatesFromTaskList(): this {
         cy.getByTestId("dates-task").click()

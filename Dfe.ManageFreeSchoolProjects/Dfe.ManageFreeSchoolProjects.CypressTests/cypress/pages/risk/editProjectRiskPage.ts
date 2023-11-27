@@ -1,4 +1,6 @@
-class EditProjectRiskPage {
+import BasePage from "../BasePage";
+
+class EditProjectRiskPage extends BasePage{
 
     public hasSchoolName(value: string): this {
         cy.getByTestId(`school-name`).should("contain.text", value);

@@ -3,8 +3,9 @@
 //let temporaryProjectId = "";
 
 import { specialCharsTestString } from "cypress/constants/stringTestConstants";
+import BasePage from "./BasePage";
 
-class SingleProjectTemporaryProjectIdPage {
+class SingleProjectTemporaryProjectIdPage extends BasePage {
     public checkElementsVisible(): this {
         cy.contains("Back");
 

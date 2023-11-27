@@ -1,4 +1,6 @@
-class SchoolDetailsPage {
+import BasePage from "./BasePage";
+
+class SchoolDetailsPage extends BasePage {
 
     public verifySchoolDetailsElementsVisible(schoolName: string): this {
         cy.getByClass("govuk-back-link").contains("Back");

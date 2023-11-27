@@ -1,6 +1,7 @@
 import { specialCharsTestString } from "cypress/constants/stringTestConstants";
+import BasePage from "./BasePage";
 
-class SingleProjectCurrentFreeSchoolNamePage {
+class SingleProjectCurrentFreeSchoolNamePage extends BasePage {
     public checkElementsVisible(e2eTestSchool): this {
         cy.contains("Back");
 

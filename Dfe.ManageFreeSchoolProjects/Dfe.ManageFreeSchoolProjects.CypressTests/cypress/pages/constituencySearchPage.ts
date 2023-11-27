@@ -1,6 +1,7 @@
+import BasePage from "./BasePage";
 import validationComponent from "./validationComponent";
 
-class ConstituencySearchPage {
+class ConstituencySearchPage extends BasePage {
     public schoolNameIs(school: string): this {
         cy.getByTestId("school-name").should("contains.text", school);
         return this;

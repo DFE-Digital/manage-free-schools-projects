@@ -1,4 +1,6 @@
-class LocalAuthorityDetailsPage {
+import BasePage from "./BasePage";
+
+class LocalAuthorityDetailsPage extends BasePage {
     public checkElementsVisible(schoolName :string): this {
         cy.contains("Back");
 

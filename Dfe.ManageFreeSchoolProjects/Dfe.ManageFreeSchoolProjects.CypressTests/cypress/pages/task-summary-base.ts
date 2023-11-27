@@ -1,4 +1,6 @@
-export class SummaryPage {
+import BasePage from "./BasePage";
+
+export class SummaryPage extends BasePage {
     private summaryCounter = -1;
 
     public inOrder(): this

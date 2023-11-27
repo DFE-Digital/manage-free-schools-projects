@@ -1,3 +1,5 @@
+import BasePage from "./BasePage";
+
 const invalidTRNString = "POTATO";
 const invalidTRNStringWithSpaces = "P O T A T O";
 const invalidTRNNumbersString = "1234567";
@@ -6,7 +8,7 @@ const nonExistentTrustId = "TR09999";
 const SQLInjectionAttempt = "' OR 1=1";
 const crossSiteScriptingAttempt = "<script>window.alert('Hello World!')</script>";
 
-class TrustDetailsPage {
+class TrustDetailsPage extends BasePage {
     
     
     public selectSaveAndContinue(): this {

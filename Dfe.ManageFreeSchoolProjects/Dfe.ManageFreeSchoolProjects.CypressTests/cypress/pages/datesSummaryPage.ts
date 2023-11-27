@@ -1,4 +1,6 @@
-class DatesSummaryPage {
+import BasePage from "./BasePage";
+
+class DatesSummaryPage extends BasePage {
 
     public verifyDatesSummaryElementsVisible(schoolName: string): this {
         cy.getByClass("govuk-heading-xl").getByClass("govuk-caption-l").contains(schoolName);

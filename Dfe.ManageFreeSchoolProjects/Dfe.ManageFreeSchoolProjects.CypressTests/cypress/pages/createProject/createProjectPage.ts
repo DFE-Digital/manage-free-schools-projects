@@ -1,4 +1,6 @@
-class CreateProjectPage {
+import BasePage from "../BasePage";
+
+class CreateProjectPage extends BasePage {
     public withMethod(method: string): this {
         cy.getByTestId(method).check();
 

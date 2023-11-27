@@ -1,4 +1,6 @@
-class SingleProjectCheckYourAnswersPage {
+import BasePage from "./BasePage";
+
+class SingleProjectCheckYourAnswersPage extends BasePage {
     public checkElementsVisible(): this {
         cy.contains("Back");
 

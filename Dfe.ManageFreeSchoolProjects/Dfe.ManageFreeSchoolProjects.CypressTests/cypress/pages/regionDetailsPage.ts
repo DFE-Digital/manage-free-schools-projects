@@ -1,4 +1,6 @@
-class RegionDetailsPage {
+import BasePage from "./BasePage";
+
+class RegionDetailsPage extends BasePage {
     public checkElementsVisible(schoolName :string): this {
         cy.contains("Back");
 

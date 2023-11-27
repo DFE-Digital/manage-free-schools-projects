@@ -1,4 +1,6 @@
-class CreateProjectCheckYourAnswersPage {
+import BasePage from "../BasePage";
+
+class CreateProjectCheckYourAnswersPage extends BasePage {
     public hasSchoolType(value: string): this {
         cy.getByTestId("school-type").should("contain.text", value);
 

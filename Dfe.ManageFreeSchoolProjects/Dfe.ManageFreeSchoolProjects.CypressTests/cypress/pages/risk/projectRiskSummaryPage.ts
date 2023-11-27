@@ -1,4 +1,6 @@
-class ProjectRiskSummaryPage {
+import BasePage from "../BasePage";
+
+class ProjectRiskSummaryPage extends BasePage {
 
     public hasSchoolName(value: string): this {
 

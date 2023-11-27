@@ -1,4 +1,6 @@
-class BulkCreateProjectPage {
+import BasePage from "./BasePage";
+
+class BulkCreateProjectPage extends BasePage {
     public upload(file: Buffer, filename: string): this {
         cy.getByTestId("upload").selectFile({
             contents: file,

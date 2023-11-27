@@ -1,4 +1,6 @@
-class RiskAppraisalMeetingEditPage {
+import BasePage from "./BasePage";
+
+class RiskAppraisalMeetingEditPage extends BasePage {
     private errorTracking = "";
     
     titleIs(title: string): this {

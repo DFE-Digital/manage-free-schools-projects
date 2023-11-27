@@ -1,4 +1,6 @@
-class SingleProjectLocalAuthorityPage {
+import BasePage from "./BasePage";
+
+class SingleProjectLocalAuthorityPage extends BasePage {
     public checkElementsVisible(): this {
         cy.contains("Back");
 
