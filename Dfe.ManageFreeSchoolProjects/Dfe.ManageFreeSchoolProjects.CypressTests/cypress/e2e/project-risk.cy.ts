@@ -182,7 +182,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasProjectRiskSummary("This is my overall risk summary");
         });
 
-        it.only("Should be able to add multiple project risks with the latest being displayed by default", () => {
+        it("Should be able to add multiple project risks with the latest being displayed by default", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -196,28 +196,39 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.addRiskEntry();
 
             Logger.log("Enter a valid governance and suitability risk");
+            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
+
             editProjectRiskPage
                 .withGovernanceAndSuitabilityRiskRating("Green")
                 .withGovernanceAndSuitabilityRiskSummary("This is another governance and suitability risk summary")
                 .continue();
 
             Logger.log("Enter a valid education risk");
+            projectRiskSummaryPage.changeEducationRisk();
+
             editProjectRiskPage
                 .withEducationRiskRating("AmberRed")
                 .withEducationSummary("This is another of my education risk summary")
                 .continue();
 
             Logger.log("Enter a valid finance risk");
+            projectRiskSummaryPage.changeFinanceRisk();
+
             editProjectRiskPage
                 .withFinanceRiskRating("Red")
                 .withFinanceSummary("This is another of my finance risk summary")
                 .continue();
+
+            Logger.log("Enter a valid risk appraisal form sharepoint link");
+            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
             editProjectRiskPage
                 .withRiskAppraisalFormSharePointLink("www.yahoo.com")
                 .continue();
 
             Logger.log("Enter a valid overall risk");
+            projectRiskSummaryPage.changeOverallRisk();
+
             editProjectRiskPage
                 .withOverallRiskRating("AmberGreen")
                 .withOverallRiskSummary("This is another of my overall risk summary")
