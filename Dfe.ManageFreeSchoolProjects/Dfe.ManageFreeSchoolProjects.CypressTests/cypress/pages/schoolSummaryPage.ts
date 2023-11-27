@@ -16,7 +16,7 @@ class SchoolSummaryPage extends BasePage {
         cy.getByClass("govuk-link").eq(3).contains("Change");
 
         cy.getByClass("govuk-summary-list__key").eq(2).contains("School phase");
-        cy.getByClass("govuk-summary-list__value").eq(2).contains("Not set");
+        cy.getByClass("govuk-summary-list__value").eq(2).contains("Empty");
         cy.getByClass("govuk-link").eq(4).contains("Change");
 
         cy.getByClass("govuk-summary-list__key").eq(3).contains("Age range");
