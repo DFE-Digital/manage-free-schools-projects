@@ -79,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string ConfirmTrust { get; set; }
         public FaithStatus FaithStatus { get; set; }
         public FaithType FaithType { get; set; }
+        public string OtherFaithType { get; set; }
         public ClassType.SixthForm SixthForm { get; set; }
         public ClassType.Nursery Nursery { get; set; }
     }

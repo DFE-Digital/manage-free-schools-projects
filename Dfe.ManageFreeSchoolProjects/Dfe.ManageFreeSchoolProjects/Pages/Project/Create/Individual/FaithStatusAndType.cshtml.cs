@@ -56,6 +56,7 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
 
         project.FaithType = FaithType;
         project.FaithStatus = FaithStatus;
+        project.OtherFaithType = OtherFaithType;
         
         _createProjectCache.Update(project);
 

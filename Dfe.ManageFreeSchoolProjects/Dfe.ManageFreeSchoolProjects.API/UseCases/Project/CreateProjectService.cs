@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
@@ -74,7 +75,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustName = trust.TrustsTrustName,
                     SchoolDetailsTrustType = trust.TrustsTrustType,
                     SchoolDetailsSixthForm = proj.SixthForm.ToString(), 
-                    SchoolDetailsNursery = proj.Nursery.ToString()
+                    SchoolDetailsNursery = proj.Nursery.ToString(), 
+                    SchoolDetailsFaithStatus = proj.FaithStatus.ToString(), 
+                    SchoolDetailsFaithType = proj.FaithType.ToDescription(),
+                    SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType
             });
             }
 
