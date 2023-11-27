@@ -40,5 +40,8 @@
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateNotifyUser = CreateProject + "/notifyuser";
         public const string CreateClassType = CreateProject + "/class-type";
+
+        public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
+        public const string ProjectRiskCheck = "/projects/{0}/risk/check/add";
     }
 }

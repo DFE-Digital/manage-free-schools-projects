@@ -58,12 +58,13 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.addRiskEntry();
 
             Logger.log("Validate Governance and suitability");
+            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
+
             editProjectRiskPage
                 .withGovernanceAndSuitabilityRiskSummaryExceeding()
                 .continue();
 
             validationComponent
-                .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
@@ -76,12 +77,13 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             Logger.log("Validate education");
+            projectRiskSummaryPage.changeEducationRisk()
+
             editProjectRiskPage
                 .withEducationSummaryExceeding()
                 .continue();
 
             validationComponent
-                .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
@@ -94,12 +96,13 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             Logger.log("Validate finance");
+            projectRiskSummaryPage.changeFinanceRisk();
+
             editProjectRiskPage
                 .withFinanceSummaryExceeding()
                 .continue();
 
             validationComponent
-                .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
@@ -111,6 +114,9 @@ describe("Testing that we can add a project risk", () => {
                 .withFinanceSummary("This is my finance risk summary")
                 .continue();
 
+            Logger.log("Enter a valid risk appraisal form sharepoint link");
+            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
+
             editProjectRiskPage
                 .hasSchoolName(project.schoolName)
                 .withRiskAppraisalFormSharePointLink("www.google.co.uk")
@@ -119,12 +125,13 @@ describe("Testing that we can add a project risk", () => {
             cy.executeAccessibilityTests();
 
             Logger.log("Validate overall risk");
+            projectRiskSummaryPage.changeOverallRisk();
+
             editProjectRiskPage
                 .withOverallRiskSummaryExceeding()
                 .continue();
 
             validationComponent
-                .hasValidationError("The risk rating field is required")
                 .hasValidationError("The summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
@@ -175,7 +182,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasProjectRiskSummary("This is my overall risk summary");
         });
 
-        it("Should be able to add multiple project risks with the latest being displayed by default", () => {
+        it.only("Should be able to add multiple project risks with the latest being displayed by default", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -287,6 +294,38 @@ describe("Testing that we can add a project risk", () => {
                 });
         });
 
+        it("Should make every field optional on the forms", () =>
+        {
+            Logger.log("Changing project risk")
+            projectOverviewPage.changeProjectRisk();
+
+            Logger.log("Add risk entry");
+            projectRiskSummaryPage.addRiskEntry();
+
+            Logger.log("Ensure that all fields are optional in the forms");
+            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
+            editProjectRiskPage.continue();
+            projectRiskSummaryPage.changeEducationRisk();
+            editProjectRiskPage.continue();
+            projectRiskSummaryPage.changeFinanceRisk();
+            editProjectRiskPage.continue();
+            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
+            editProjectRiskPage.continue();
+            projectRiskSummaryPage.changeOverallRisk();
+            editProjectRiskPage.continue();
+
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Empty"])
+                .hasOverallRiskSummary("Empty")
+                .hasGovernanceAndSuitabilityRiskRating(["Empty"])
+                .hasGovernanceAndSuitabilityRiskSummary("Empty")
+                .hasEducationRiskRating(["Empty"])
+                .hasEducationRiskSummary("Empty")
+                .hasFinanceRiskRating(["Empty"])
+                .hasFinanceRiskSummary("Empty")
+                .hasRiskAppraisalFormSharePointLink("Empty");
+        });
+
         it("Should enable the user to change their answers on the confirmation page", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
@@ -375,28 +414,39 @@ describe("Testing that we can add a project risk", () => {
 
     function fillProjectRisk(): void {
         Logger.log("Enter a valid governance and suitability risk");
+        projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
+
         editProjectRiskPage
             .withGovernanceAndSuitabilityRiskRating("AmberGreen")
             .withGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
             .continue();
 
         Logger.log("Enter a valid education risk");
+        projectRiskSummaryPage.changeEducationRisk();
+
         editProjectRiskPage
             .withEducationRiskRating("Red")
             .withEducationSummary("This is my education risk summary")
             .continue();
 
         Logger.log("Enter a valid finance risk");
+        projectRiskSummaryPage.changeFinanceRisk();
+
         editProjectRiskPage
             .withFinanceRiskRating("AmberRed")
             .withFinanceSummary("This is my finance risk summary")
             .continue();
+
+        Logger.log("Enter a valid risk appraisal form sharepoint link");
+        projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
         editProjectRiskPage
             .withRiskAppraisalFormSharePointLink("www.google.co.uk")
             .continue();
 
         Logger.log("Enter a valid overall risk");
+        projectRiskSummaryPage.changeOverallRisk();
+
         editProjectRiskPage
             .withOverallRiskRating("Green")
             .withOverallRiskSummary("This is my overall risk summary")

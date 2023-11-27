@@ -5,8 +5,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Extensions
 {
 	public static class EnumExtensions
 	{
-		public static string GetDescription<T>(this T e) where T : IConvertible
+		public static string GetDescription<T>(this T? e) where T : IConvertible
 		{
+			if (e == null)
+			{
+				return null;
+			}
+
 			if (e is Enum)
 			{
 				Type type = e.GetType();

@@ -15,7 +15,7 @@
 
     public class ProjectRiskEntryRequest
     {
-        public ProjectRiskRating RiskRating { get; set; }
+        public ProjectRiskRating? RiskRating { get; set; }
         public string Summary { get; set; }
     }
 }

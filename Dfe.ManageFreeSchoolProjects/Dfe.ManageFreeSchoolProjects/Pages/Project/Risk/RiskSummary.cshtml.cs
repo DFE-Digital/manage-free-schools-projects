@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             _createProjectRiskCache.Update(new CreateRiskCacheItem() { SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName });
 
-            return Redirect($"/projects/{ProjectId}/risk/governance-and-suitability/add");
+            return Redirect($"/projects/{ProjectId}/risk/check/add");
         }
 
         public async Task<IActionResult> OnGet(int entry = 1)

@@ -15,27 +15,15 @@
             }
         </h1>
 
+        <div class="risk-rating-landing-page__overall-box">
+            <h2 class="govuk-heading-m">Overall rating and summary</h2>
+            <p class="govuk-body" data-testid="overall-risk-rating"><govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" /></p>
+            <p class="govuk-body-l" data-testid="overall-risk-summary"><govuk-display-value value="@Model.ProjectRisk.Overall.Summary" /></p>
+        </div>
+
+        <h2 class="govuk-heading-m">Individual risks</h2>
+
         <dl class="govuk-summary-list">
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Overall risk rating
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="overall-risk-rating">
-                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
-                </dd>
-
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Overall risk summary
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
-                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
-                </dd>
-            </div>
-
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Governance and suitability risk rating
@@ -108,7 +96,7 @@
         </dl>
 
         <a class="govuk-button" data-module="govuk-button" asp-page-handler="NewConfigureRiskRating" data-testid="add-risk-entry">
-            Add a risk rating entry
+            Update risk rating and summary
         </a>
     </div>
 </div>
