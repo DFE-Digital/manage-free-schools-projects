@@ -40,5 +40,6 @@
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateNotifyUser = CreateProject + "/notifyuser";
         public const string CreateClassType = CreateProject + "/class-type";
+        public const string CreateFaithStatusAndType = CreateProject + "/faith-status-and-type";
     }
 }

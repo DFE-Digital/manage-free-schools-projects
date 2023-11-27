@@ -8,6 +8,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class CreateProjectBaseModel : PageModel
     {
+        protected internal string BackLink { get; set; }
+        
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
@@ -30,7 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateClassType,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateClassType,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatusAndType,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
@@ -48,7 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.ClassType => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
