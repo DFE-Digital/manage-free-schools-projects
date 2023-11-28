@@ -14,7 +14,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         [BindProperty(Name = "risk-rating")]
         [Display(Name = "risk rating")]
-        [Required]
         public string RiskRating { get; set; }
 
         [BindProperty(Name = "summary")]
@@ -24,28 +23,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public string SchoolName { get; set; }
 
-        public string GetNextPage(RiskPageName currentRiskPageName, CreateRiskCacheItem cacheItem)
+        public string GetNextPage()
         {
-            if (cacheItem.HasReachedCheckRiskPage)
-            {
-                return $"/projects/{ProjectId}/risk/check/add";
-            }
-
-            switch (currentRiskPageName)
-            {
-                case RiskPageName.GovernanceAndSuitability:
-                    return $"/projects/{ProjectId}/risk/education/add";
-                case RiskPageName.Overall:
-                    return $"/projects/{ProjectId}/risk/check/add";
-                case RiskPageName.Finance:
-                    return $"/projects/{ProjectId}/risk/risk-appraisal-form/add";
-                case RiskPageName.Education:
-                    return $"/projects/{ProjectId}/risk/finance/add";
-                case RiskPageName.SharepointLink:
-                    return $"/projects/{ProjectId}/risk/overall/add";
-                default:
-                    throw new ArgumentOutOfRangeException($"Unsupported risk page {currentRiskPageName}");
-            }
+            return string.Format(RouteConstants.ProjectRiskReview, ProjectId);
         }
     }
 }

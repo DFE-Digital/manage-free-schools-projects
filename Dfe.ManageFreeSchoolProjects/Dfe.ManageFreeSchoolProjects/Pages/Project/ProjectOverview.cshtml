@@ -6,6 +6,7 @@
     ViewData["Title"] = "Project overview";
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var riskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 @section BeforeMain
 {
@@ -432,8 +433,8 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Risk rating and summary</h2><div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="risk/summary" data-testid="change-project-risk">
-                        Change<span class="govuk-visually-hidden"> Risk rating and summary</span>
+                    <a class="govuk-link" href="@riskSummaryLink" data-testid="change-project-risk">
+                        View details<span class="govuk-visually-hidden"> Risk rating and summary</span>
                     </a>
                 </div>
             </div>

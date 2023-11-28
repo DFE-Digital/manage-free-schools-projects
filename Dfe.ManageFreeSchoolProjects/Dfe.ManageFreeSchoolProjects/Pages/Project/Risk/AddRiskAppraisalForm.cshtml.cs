@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-            return Redirect(GetNextPage(RiskPageName.SharepointLink, existingCacheItem));
+            return Redirect(GetNextPage());
         }
     }
 }

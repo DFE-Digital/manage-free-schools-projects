@@ -1,4 +1,6 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -40,10 +42,54 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             _createProjectRiskCache.Delete();
 
             var projectOverview = await _getProjectOverviewService.Execute(ProjectId);
+            var existingProjectRisk = await _getProjectRiskRatingService.Execute(ProjectId, 1);
 
-            _createProjectRiskCache.Update(new CreateRiskCacheItem() { SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName });
+            var createRiskCacheItem = CreateProjectRiskItem(projectOverview, existingProjectRisk);
 
-            return Redirect($"/projects/{ProjectId}/risk/governance-and-suitability/add");
+            _createProjectRiskCache.Update(createRiskCacheItem);
+
+            return Redirect(string.Format(RouteConstants.ProjectRiskReview, ProjectId));
+        }
+
+        private static CreateRiskCacheItem CreateProjectRiskItem(ProjectOverviewResponse projectOverview, GetProjectRiskResponse existingProjectRisk)
+        {
+            var result = new CreateRiskCacheItem()
+            {
+                SchoolName = projectOverview.ProjectStatus.CurrentFreeSchoolName
+            };
+
+            if (existingProjectRisk == null)
+            {
+                return result;
+            }
+
+            result.GovernanceAndSuitability = new()
+            {
+                Summary = existingProjectRisk.GovernanceAndSuitability.Summary,
+                RiskRating = existingProjectRisk.GovernanceAndSuitability.RiskRating
+            };
+
+            result.Education = new()
+            {
+                Summary = existingProjectRisk.Education.Summary,
+                RiskRating = existingProjectRisk.Education.RiskRating
+            };
+
+            result.Finance = new()
+            {
+                Summary = existingProjectRisk.Finance.Summary,
+                RiskRating = existingProjectRisk.Finance.RiskRating
+            };
+
+            result.Overall = new()
+            {
+                Summary = existingProjectRisk.Overall.Summary,
+                RiskRating = existingProjectRisk.Overall.RiskRating
+            };
+
+            result.RiskAppraisalFormSharepointLink = existingProjectRisk.RiskAppraisalFormSharepointLink;
+
+            return result;
         }
 
         public async Task<IActionResult> OnGet(int entry = 1)
