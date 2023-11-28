@@ -101,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 _context.AddRange(CreateTasks(proj.Rid));
                 _context.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = proj.Rid });
 
-                var po = checkedProjectsPO.FirstOrDefault(p => p.Rid == proj.Rid);
+                var po = checkedProjectsPO.Find(p => p.Rid == proj.Rid);
                 _context.Add(po);
             }
             
