@@ -33,6 +33,11 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
     public void OnGet()
     {
         var project = _createProjectCache.Get();
+
+        FaithType = project.FaithType;
+        FaithStatus = project.FaithStatus;
+        OtherFaithType = project.OtherFaithType;
+        
         BackLink = GetPreviousPage(CreateProjectPageName.FaithStatusAndType, project.Navigation);
     }
 
@@ -67,7 +72,7 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
     {
         if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation) && (FaithType == FaithType.NotSet))
         {
-            ModelState.AddModelError("faith-type", "Faith type is required.");
+            ModelState.AddModelError("faith-type", "Select the faith type of the free school.");
         }
 
         if (FaithStatus == FaithStatus.None)
