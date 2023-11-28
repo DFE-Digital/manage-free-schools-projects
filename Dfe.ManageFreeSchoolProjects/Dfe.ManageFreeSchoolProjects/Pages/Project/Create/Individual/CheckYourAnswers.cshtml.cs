@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 Region = project.Region.ToDescription(),
                 TRN = project.TRN,
                 TrustName = project.TrustName,
-                YrY6Capacity = (int)project.YrY6Capacity,
+                YRY6Capacity = (int)project.YRY6Capacity,
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
                 Nursery = project.Nursery, 

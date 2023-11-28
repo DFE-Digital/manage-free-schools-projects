@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using Dfe.ManageFreeSchoolProjects.Constants;
 
 namespace Dfe.ManageFreeSchoolProjects.Models;
@@ -9,11 +8,12 @@ namespace Dfe.ManageFreeSchoolProjects.Models;
     AllowMultiple = false)]
 public class ValidNumberAttribute : ValidationAttribute
 {
-    private const string AllowSpecialCharactersPattern = "^[0-9]*$";
+    private readonly int _minValue;
     private readonly int _maxValue;
 
-    public ValidNumberAttribute(int maxValue)
+    public ValidNumberAttribute(int minValue, int maxValue)
     {
+        _minValue = minValue;
         _maxValue = maxValue;
     }
 
@@ -24,14 +24,13 @@ public class ValidNumberAttribute : ValidationAttribute
 
         var valueAsString = (string)value;
 
-        if (int.Parse(valueAsString) > _maxValue)
-            return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, validationContext.DisplayName.ToLower(), _maxValue));
+        bool success = int.TryParse(valueAsString, out int valueAsInt);
+        if (!success)
+            return new ValidationResult($"Please enter a valid number");
 
-        var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(30));
-        var match = specialCharactersRegex.Match(valueAsString);
+        if (valueAsInt < _minValue || valueAsInt > _maxValue)
+            return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, validationContext.DisplayName.ToLower(), _minValue, _maxValue));
 
-        return match.Success
-            ? ValidationResult.Success
-            : new ValidationResult($"Please enter a valid number");
+        return ValidationResult.Success;
     }
 }

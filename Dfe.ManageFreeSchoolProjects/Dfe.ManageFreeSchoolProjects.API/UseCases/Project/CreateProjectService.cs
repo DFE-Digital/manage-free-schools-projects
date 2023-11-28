@@ -82,11 +82,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 checkedProjectsPO.Add(new Po()
                 {
                     Rid = rid,
-                    PupilNumbersAndCapacityYrY6Capacity = proj.YrY6Capacity.ToString(),
+                    PupilNumbersAndCapacityYrY6Capacity = proj.YRY6Capacity.ToString(),
                     PupilNumbersAndCapacityY7Y11Capacity = proj.Y7Y11Capacity.ToString(),
-                    PupilNumbersAndCapacityYrY11Pre16Capacity = (proj.YrY6Capacity + proj.Y7Y11Capacity).ToString(),
+                    PupilNumbersAndCapacityYrY11Pre16Capacity = (proj.YRY6Capacity + proj.Y7Y11Capacity).ToString(),
                     PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
-                    PupilNumbersAndCapacityTotalOfCapacityTotals = (proj.YrY6Capacity + proj.Y7Y11Capacity + proj.Y12Y14Capacity).ToString()
+                    PupilNumbersAndCapacityTotalOfCapacityTotals = (proj.YRY6Capacity + proj.Y7Y11Capacity + proj.Y12Y14Capacity).ToString()
                 });
             }
 
