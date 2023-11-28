@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public enum CreateProjectPageName
+    public enum  CreateProjectPageName
     {
         SelectProjectType = 1,
         ProjectId = 2,
@@ -12,7 +12,9 @@
         SchoolType = 8,
         SchoolPhase = 9,
         ClassType = 10,
-        NotifyUser = 11,
-        CheckYourAnswers = 12,
+        FaithStatusAndType = 11, 
+        FormsOfEntry = 12,
+        NotifyUser = 13,
+        CheckYourAnswers = 14,
     }
 }
