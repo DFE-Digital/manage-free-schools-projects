@@ -135,6 +135,18 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public goToRiskSummary(): this {
+        cy.getByTestId("link-risk-summary").click();
+
+        return this;
+    }
+
+    public goToProjectOverview(): this {
+        cy.getByTestId("link-project-overview").click();
+
+        return this;
+    }
+
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);
     }

@@ -162,8 +162,10 @@ describe("Testing that we can add a project risk", () => {
             validationComponent.hasValidationError("Confirm that you have reviewed the ratings and summaries")
 
             Logger.log("Create the project risk");
-            projectRiskSummaryPage.markRiskAsReviewed();
-            projectRiskSummaryPage.createRiskEntry();
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry()
+                .goToRiskSummary();
 
             projectRiskSummaryPage
                 .hasRiskDate(`${toDisplayDate(now)}`)
@@ -196,8 +198,10 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.addRiskEntry();
 
             fillProjectRisk();
-            projectRiskSummaryPage.markRiskAsReviewed();
-            projectRiskSummaryPage.createRiskEntry();
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry()
+                .goToRiskSummary();
 
             Logger.log("Adding the second project risk");
             projectRiskSummaryPage.addRiskEntry();
@@ -250,8 +254,10 @@ describe("Testing that we can add a project risk", () => {
                 .withOverallRiskSummary("This is another of my overall risk summary")
                 .continue();
 
-            projectRiskSummaryPage.markRiskAsReviewed();
-            projectRiskSummaryPage.createRiskEntry();
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry()
+                .goToRiskSummary();
 
             projectRiskSummaryPage
                 .hasOverallRiskRating(["Amber", "Green"])
@@ -365,7 +371,8 @@ describe("Testing that we can add a project risk", () => {
 
             projectRiskSummaryPage
                 .markRiskAsReviewed()
-                .createRiskEntry();
+                .createRiskEntry()
+                .goToRiskSummary();
 
             projectRiskSummaryPage
                 .hasOverallRiskRating(["Green"])
@@ -457,7 +464,10 @@ describe("Testing that we can add a project risk", () => {
                 .hasRiskAppraisalFormSharePointLink("www.mynewlink/risk");
 
             Logger.log("Ensure that when the risk is created it has the edited values");
-            projectRiskSummaryPage.createRiskEntry();
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry()
+                .goToRiskSummary();
 
             projectRiskSummaryPage
                 .hasOverallRiskRating(["Amber", "Green"])

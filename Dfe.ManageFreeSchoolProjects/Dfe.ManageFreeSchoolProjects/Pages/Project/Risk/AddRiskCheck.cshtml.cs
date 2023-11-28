@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -87,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             await _createProjectRiskService.Execute(ProjectId, request);
 
-            return Redirect($"/projects/{ProjectId}/risk/summary");
+            return Redirect(string.Format(RouteConstants.ProjectRiskConfirmation, ProjectId));
         }
     }
 }

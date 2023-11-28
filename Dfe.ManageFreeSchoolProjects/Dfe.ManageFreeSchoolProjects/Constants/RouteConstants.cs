@@ -43,5 +43,6 @@
 
         public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
         public const string ProjectRiskCheck = "/projects/{0}/risk/check/add";
+        public const string ProjectRiskConfirmation = "/projects/{0}/risk/confirmation/add";
     }
 }
