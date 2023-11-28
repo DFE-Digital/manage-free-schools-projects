@@ -83,6 +83,32 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
+        public async Task When_Post_MinimumFields_Returns_200()
+        {
+            var projectRiskRequest = new CreateProjectRiskRequest()
+            {
+                Overall = new()
+                {
+                    RiskRating = ProjectRiskRating.Green
+                }
+            };
+
+            var project = await CreateProject();
+
+            var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectId}/risk", projectRiskRequest.ConvertToJson());
+            createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk");
+            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectRiskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectRiskResponse>>();
+            var projectRisk = content.Data;
+
+            projectRisk.Overall.RiskRating.Should().Be(projectRiskRequest.Overall.RiskRating);
+            projectRisk.Overall.Summary.Should().BeNull();
+        }
+
+        [Fact]
         public async Task When_Get_ByEntry_Returns_RiskByEntry_200() 
         {
             var firstCreateProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();
@@ -233,6 +259,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             error.Should().Contain("'Overall Summary' must be 1000 characters");
 
             error.Should().Contain("'Risk Appraisal Form Sharepoint Link' must be 1000 characters");
+        }
+
+        [Fact]
+        public async Task When_Post_InvalidRequest_MissingRequired_Returns_400()
+        {
+            var createProjectRiskRequest = new CreateProjectRiskRequest();
+
+            var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/1/risk", createProjectRiskRequest.ConvertToJson());
+            createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var error = await createProjectRiskResponse.Content.ReadAsStringAsync();
+            error.Should().Contain("'Overall Risk Rating' must not be empty");
         }
 
         private async Task<ProjectResponseDetails> CreateProject()

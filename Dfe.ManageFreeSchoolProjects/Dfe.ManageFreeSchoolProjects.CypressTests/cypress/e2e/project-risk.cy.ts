@@ -156,7 +156,13 @@ describe("Testing that we can add a project risk", () => {
 
             cy.executeAccessibilityTests();
 
+            Logger.log("Cannot create a project risk without confirming");
+            projectRiskSummaryPage.createRiskEntry();
+
+            validationComponent.hasValidationError("Confirm that you have reviewed the ratings and summaries")
+
             Logger.log("Create the project risk");
+            projectRiskSummaryPage.markRiskAsReviewed();
             projectRiskSummaryPage.createRiskEntry();
 
             projectRiskSummaryPage
@@ -190,6 +196,7 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.addRiskEntry();
 
             fillProjectRisk();
+            projectRiskSummaryPage.markRiskAsReviewed();
             projectRiskSummaryPage.createRiskEntry();
 
             Logger.log("Adding the second project risk");
@@ -199,6 +206,8 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
 
             editProjectRiskPage
+                .hasGovernanceAndSuitabilityRiskRating("AmberGreen")
+                .hasGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
                 .withGovernanceAndSuitabilityRiskRating("Green")
                 .withGovernanceAndSuitabilityRiskSummary("This is another governance and suitability risk summary")
                 .continue();
@@ -207,6 +216,8 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeEducationRisk();
 
             editProjectRiskPage
+                .hasEducationRiskRating("Red")
+                .hasEducationRiskSummary("This is my education risk summary")
                 .withEducationRiskRating("AmberRed")
                 .withEducationSummary("This is another of my education risk summary")
                 .continue();
@@ -215,6 +226,8 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeFinanceRisk();
 
             editProjectRiskPage
+                .hasFinanceRiskRating("AmberRed")
+                .hasFinanceRiskSummary("This is my finance risk summary")
                 .withFinanceRiskRating("Red")
                 .withFinanceSummary("This is another of my finance risk summary")
                 .continue();
@@ -223,6 +236,7 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
             editProjectRiskPage
+                .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
                 .withRiskAppraisalFormSharePointLink("www.yahoo.com")
                 .continue();
 
@@ -230,10 +244,13 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeOverallRisk();
 
             editProjectRiskPage
+                .hasOverallRiskRating("Green")
+                .hasOverallRiskSummary("This is my overall risk summary")
                 .withOverallRiskRating("AmberGreen")
                 .withOverallRiskSummary("This is another of my overall risk summary")
                 .continue();
 
+            projectRiskSummaryPage.markRiskAsReviewed();
             projectRiskSummaryPage.createRiskEntry();
 
             projectRiskSummaryPage
@@ -305,7 +322,7 @@ describe("Testing that we can add a project risk", () => {
                 });
         });
 
-        it("Should make every field optional on the forms", () =>
+        it("Should be able to add a project risk with the minimum values set", () =>
         {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
@@ -335,6 +352,39 @@ describe("Testing that we can add a project risk", () => {
                 .hasFinanceRiskRating(["Empty"])
                 .hasFinanceRiskSummary("Empty")
                 .hasRiskAppraisalFormSharePointLink("Empty");
+
+            projectRiskSummaryPage.createRiskEntry();
+
+            validationComponent
+                .hasValidationError("Enter an overall risk")
+                .hasValidationError("Confirm that you have reviewed the ratings and summaries");
+
+            Logger.log("Enter an overall risk");
+            projectRiskSummaryPage.changeOverallRisk();
+            editProjectRiskPage.withOverallRiskRating("Green").continue();
+
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry();
+
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Green"])
+                .hasOverallRiskSummary("Empty")
+                .hasGovernanceAndSuitabilityRiskRating(["Empty"])
+                .hasGovernanceAndSuitabilityRiskSummary("Empty")
+                .hasEducationRiskRating(["Empty"])
+                .hasEducationRiskSummary("Empty")
+                .hasFinanceRiskRating(["Empty"])
+                .hasFinanceRiskSummary("Empty")
+                .hasRiskAppraisalFormSharePointLink("Empty");
+
+            projectRiskHistoryTable
+                .getRowByIndex(1)
+                .then((firstRow) => {
+                    firstRow
+                        .hasDate(toDisplayDate(now))
+                        .hasRiskRating(["Green"]);
+                })
         });
 
         it("Should enable the user to change their answers on the confirmation page", () => {

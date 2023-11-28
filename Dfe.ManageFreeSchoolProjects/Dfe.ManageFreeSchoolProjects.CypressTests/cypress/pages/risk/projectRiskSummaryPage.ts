@@ -98,7 +98,15 @@ class ProjectRiskSummaryPage {
 
     public hasRiskAppraisalFormSharePointLink(value: string): this {
 
-        cy.getByTestId(`risk-appraisal-form-sharepoint-link`).should(`contain.text`, value);
+        const selector = `risk-appraisal-form-sharepoint-link`;
+
+        if (value == "Empty")
+        {
+            cy.getByTestId(selector).should("contain.text", value);
+            return this;
+        }
+
+        cy.getByTestId(selector).find("a").should(`have.attr`, `href`, value);
 
         return this;
     }
@@ -117,6 +125,12 @@ class ProjectRiskSummaryPage {
 
     public createRiskEntry(): this {
         cy.getByTestId("create-risk-entry").click();
+
+        return this;
+    }
+
+    public markRiskAsReviewed(): this {
+        cy.getByTestId("risk-reviewed").check();
 
         return this;
     }

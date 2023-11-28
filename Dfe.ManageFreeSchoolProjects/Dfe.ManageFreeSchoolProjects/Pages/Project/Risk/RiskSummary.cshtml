@@ -89,7 +89,14 @@
                     RAF (risk appraisal form) SharePoint link
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
-                    <govuk-display-value value="@Model.ProjectRisk.RiskAppraisalFormSharepointLink" />
+                    @if (string.IsNullOrEmpty(Model.ProjectRisk.RiskAppraisalFormSharepointLink))
+                    {
+                        <span class="empty">Empty</span>
+                    }
+                    else
+                    {
+                        <a class="govuk-link" target="_blank" href="@Model.ProjectRisk.RiskAppraisalFormSharepointLink">RAF (risk appraisal form) - open in new tab</a>
+                    }
                 </dd>
 
             </div>
@@ -129,7 +136,7 @@
                             <td class="govuk-table__cell">
                                 @if (historyIdx != Model.Entry)
                                 {
-                                    <a href="/projects/@Model.ProjectId/risk/summary?entry=@historyIdx" data-testid="project-risk-view-link">View</a>
+                                    <a href="/projects/@Model.ProjectId/risk/summary?entry=@historyIdx" data-testid="project-risk-view-link">View details</a>
                                 }
                             </td>
                         </tr>

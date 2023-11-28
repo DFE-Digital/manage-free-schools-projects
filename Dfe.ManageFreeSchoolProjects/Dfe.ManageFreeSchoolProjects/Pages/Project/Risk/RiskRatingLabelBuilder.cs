@@ -17,12 +17,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
                 new RiskRatingLabel()
                 {
                     RiskRating = ProjectRiskRating.AmberGreen,
-                    Label = "<strong class=\"govuk-tag govuk-tag--yellow\">Amber</strong><strong class=\"govuk-tag govuk-tag--green\">Green</strong>"
+                    Label = "<strong class=\"govuk-tag govuk-tag--yellow\">Amber</strong>&nbsp;<strong class=\"govuk-tag govuk-tag--green\">Green</strong>"
                 },
                 new RiskRatingLabel()
                 {
                     RiskRating = ProjectRiskRating.AmberRed,
-                    Label = "<strong class=\"govuk-tag govuk-tag--yellow\">Amber</strong><strong class=\"govuk-tag govuk-tag--red\">Red</strong>"
+                    Label = "<strong class=\"govuk-tag govuk-tag--yellow\">Amber</strong>&nbsp;<strong class=\"govuk-tag govuk-tag--red\">Red</strong>"
                 },
                 new RiskRatingLabel()
                 {
