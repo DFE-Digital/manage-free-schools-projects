@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
@@ -18,8 +15,6 @@ public class NotifyUser : CreateProjectBaseModel
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
-    public string BackLink { get; set; }
-
     public NotifyUser(ErrorService errorService, ICreateProjectCache createProjectCache)
     {
         _errorService = errorService;

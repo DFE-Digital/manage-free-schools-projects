@@ -17,9 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Required]
         [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
         private readonly IGetProjectOverviewService _getProjectOverviewService;

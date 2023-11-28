@@ -21,9 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly ILogger<ConfirmTrustTaskModel> _logger;
         private readonly ErrorService _errorService;
-
-        public string BackLink { get; set; }
-
+        
         [BindProperty(SupportsGet = true, Name = "trn")]
         [Display(Name = "TRN")]
         [Required]

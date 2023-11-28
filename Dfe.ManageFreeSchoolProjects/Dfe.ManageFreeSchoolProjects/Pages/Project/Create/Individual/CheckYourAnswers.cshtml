@@ -1,5 +1,6 @@
 ﻿@page "/project/create/checkyouranswers"
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CheckYourAnswersModel
 @{
     ViewData["Title"] = "Check your answers";
@@ -202,6 +203,56 @@
             </a>
         </dd>
     </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Faith status
+        </dt>
+        <dd class="govuk-summary-list__value" data-testid="faith-status">
+            @Model.Project.FaithStatus.ToString()
+        </dd>
+    
+        <dd class="govuk-summary-list__actions">
+    
+            <a class="govuk-link" href="@RouteConstants.CreateFaithStatusAndType" data-testid="change-faith-status">
+                Change<span class="govuk-visually-hidden">Faith type</span>
+            </a>
+        </dd>
+    </div>
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+        Faith type
+    </dt>
+    <dd class="govuk-summary-list__value" data-testid="faith-type">
+        @Model.Project.FaithType.ToDescription()
+    </dd>
+        
+    <dd class="govuk-summary-list__actions">
+        
+        <a class="govuk-link" href="@RouteConstants.CreateFaithStatusAndType" data-testid="change-faith-type">
+            Change<span class="govuk-visually-hidden">Faith type</span>
+        </a>
+    </dd>
+</div>
+@{
+    if (Model.Project.FaithType is FaithType.Other)
+    {
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Other faith type
+            </dt>
+            <dd class="govuk-summary-list__value" data-testid="other-faith-type">
+                @Model.Project.OtherFaithType
+            </dd>
+        
+            <dd class="govuk-summary-list__actions">
+        
+                <a class="govuk-link" href="@RouteConstants.CreateFaithStatusAndType" data-testid="change-other-faith-type">
+                    Change<span class="govuk-visually-hidden">Other faith type</span>
+                </a>
+            </dd>
+        </div>
+    } 
+}
 </dl>
 <h2 class="govuk-heading-m">
     Now create your project
