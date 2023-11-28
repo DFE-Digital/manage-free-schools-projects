@@ -109,6 +109,45 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
+        public async Task When_Post_NoChange_CreatesEntry_Returns_200()
+        {
+            var today = DateTime.Now;
+
+            var projectRiskRequest = new CreateProjectRiskRequest()
+            {
+                Overall = new()
+                {
+                    RiskRating = ProjectRiskRating.Green
+                }
+            };
+
+            var project = await CreateProject();
+
+            var firstCreateProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectId}/risk", projectRiskRequest.ConvertToJson());
+            firstCreateProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var secondCreateProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectId}/risk", projectRiskRequest.ConvertToJson());
+            secondCreateProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var getProjectRiskResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectId}/risk");
+            getProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectRiskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectRiskResponse>>();
+            var projectRisk = content.Data;
+
+            projectRisk.Overall.RiskRating.Should().Be(projectRiskRequest.Overall.RiskRating);
+            projectRisk.History.Should().HaveCount(2);
+
+            var latestHistory = projectRisk.History.First();
+            latestHistory.RiskRating.Should().Be(projectRiskRequest.Overall.RiskRating);
+            latestHistory.Date.Value.Date.Should().Be(today.Date);
+
+            var previousHistory = projectRisk.History.Last();
+            previousHistory.RiskRating.Should().Be(projectRiskRequest.Overall.RiskRating);
+            previousHistory.Date.Value.Date.Should().Be(today.Date);
+        }
+
+        [Fact]
         public async Task When_Get_ByEntry_Returns_RiskByEntry_200() 
         {
             var firstCreateProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();

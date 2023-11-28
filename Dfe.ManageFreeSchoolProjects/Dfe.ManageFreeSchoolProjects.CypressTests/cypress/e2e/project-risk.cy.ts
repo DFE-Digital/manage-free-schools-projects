@@ -254,6 +254,18 @@ describe("Testing that we can add a project risk", () => {
                 .withOverallRiskSummary("This is another of my overall risk summary")
                 .continue();
 
+            Logger.log("Check our changes have been applied to the check page");
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Amber", "Green"])
+                .hasOverallRiskSummary("This is another of my overall risk summary")
+                .hasGovernanceAndSuitabilityRiskRating(["Green"])
+                .hasGovernanceAndSuitabilityRiskSummary("This is another governance and suitability risk summary")
+                .hasEducationRiskRating(["Amber", "Red"])
+                .hasEducationRiskSummary("This is another of my education risk summary")
+                .hasFinanceRiskRating(["Red"])
+                .hasFinanceRiskSummary("This is another of my finance risk summary")
+                .hasRiskAppraisalFormSharePointLink("www.yahoo.com");
+
             projectRiskSummaryPage
                 .markRiskAsReviewed()
                 .createRiskEntry()
@@ -394,92 +406,48 @@ describe("Testing that we can add a project risk", () => {
                 })
         });
 
-        it("Should enable the user to change their answers on the confirmation page", () => {
+        it("Should add a project risk entry even if none of the data changes", () =>
+        {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
-            Logger.log("Adding the project risk");
+            Logger.log("Add risk entry");
             projectRiskSummaryPage.addRiskEntry();
 
-            fillProjectRisk();
-
-            Logger.log("Change governance risk")
-            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
-
-            editProjectRiskPage
-                .hasGovernanceAndSuitabilityRiskRating("AmberGreen")
-                .hasGovernanceAndSuitabilityRiskSummary("This is my governance and suitability risk summary")
-                .withGovernanceAndSuitabilityRiskRating("Red")
-                .withGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
-                .continue();
-
-            Logger.log("Change education risk");
-            projectRiskSummaryPage.changeEducationRisk();
-
-            editProjectRiskPage
-                .hasEducationRiskRating("Red")
-                .hasEducationRiskSummary("This is my education risk summary")
-                .withEducationRiskRating("Green")
-                .withEducationSummary("Changing education summary to green")
-                .continue();
-
-            Logger.log("Change finance risk");
-            projectRiskSummaryPage.changeFinanceRisk();
-
-            editProjectRiskPage
-                .hasFinanceRiskRating("AmberRed")
-                .hasFinanceRiskSummary("This is my finance risk summary")
-                .withFinanceRiskRating("Red")
-                .withFinanceSummary("Changing the finance summary to red")
-                .continue();
-
-            Logger.log("Change sharepoint link");
-            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
-
-            editProjectRiskPage
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
-                .withRiskAppraisalFormSharePointLink("www.mynewlink/risk")
-                .continue();
-
-            Logger.log("Change overall risk");
+            Logger.log("Enter an overall risk");
             projectRiskSummaryPage.changeOverallRisk();
+            editProjectRiskPage.withOverallRiskRating("Green").continue();
 
-            editProjectRiskPage
-                .hasOverallRiskRating("Green")
-                .hasOverallRiskSummary("This is my overall risk summary")
-                .withOverallRiskRating("AmberGreen")
-                .withOverallRiskSummary("Changing the overall risk summary to amber green")
-                .continue();
-
-            Logger.log("Ensure our changes are reflected in the confirmation");
-            projectRiskSummaryPage
-                .hasOverallRiskRating(["Amber", "Green"])
-                .hasOverallRiskSummary("Changing the overall risk summary to amber green")
-                .hasGovernanceAndSuitabilityRiskRating(["Red"])
-                .hasGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
-                .hasEducationRiskRating(["Green"])
-                .hasEducationRiskSummary("Changing education summary to green")
-                .hasFinanceRiskRating(["Red"])
-                .hasFinanceRiskSummary("Changing the finance summary to red")
-                .hasRiskAppraisalFormSharePointLink("www.mynewlink/risk");
-
-            Logger.log("Ensure that when the risk is created it has the edited values");
             projectRiskSummaryPage
                 .markRiskAsReviewed()
                 .createRiskEntry()
                 .goToRiskSummary();
 
-            projectRiskSummaryPage
-                .hasOverallRiskRating(["Amber", "Green"])
-                .hasOverallRiskSummary("Changing the overall risk summary to amber green")
-                .hasGovernanceAndSuitabilityRiskRating(["Red"])
-                .hasGovernanceAndSuitabilityRiskSummary("This is a red governance and suitability risk now")
-                .hasEducationRiskRating(["Green"])
-                .hasEducationRiskSummary("Changing education summary to green")
-                .hasFinanceRiskRating(["Red"])
-                .hasFinanceRiskSummary("Changing the finance summary to red")
-                .hasRiskAppraisalFormSharePointLink("www.mynewlink/risk");
+            Logger.log("Add another risk and change nothing")
+            projectRiskSummaryPage.addRiskEntry();
 
+            projectRiskSummaryPage
+                .markRiskAsReviewed()
+                .createRiskEntry()
+                .goToRiskSummary();
+
+            Logger.log("Check the entry has been added");
+            projectRiskSummaryPage
+                .hasOverallRiskRating(["Green"]);
+
+            projectRiskHistoryTable
+            .getRowByIndex(1)
+            .then((firstRow) => {
+                firstRow
+                    .hasDate(toDisplayDate(now))
+                    .hasRiskRating(["Green"]);
+
+                return projectRiskHistoryTable.getRowByIndex(2);
+            }).then((secondRow) => {
+                secondRow
+                    .hasDate(toDisplayDate(now))
+                    .hasRiskRating(["Green"]);
+            });
         });
     });
 

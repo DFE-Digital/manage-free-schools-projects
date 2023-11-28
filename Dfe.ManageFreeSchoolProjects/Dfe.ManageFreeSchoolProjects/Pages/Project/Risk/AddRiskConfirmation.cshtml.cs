@@ -8,8 +8,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         [BindProperty(Name = "projectId", SupportsGet = true)]
         public string ProjectId { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
     }
 }

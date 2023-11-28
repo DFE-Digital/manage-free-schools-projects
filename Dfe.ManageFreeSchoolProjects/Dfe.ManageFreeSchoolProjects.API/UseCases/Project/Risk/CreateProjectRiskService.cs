@@ -40,6 +40,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
                 _context.Rag.Add(existingRag);
             }
 
+            // Set a revision marker to force an update, even if nothing has changed
+            existingRag.RevisionMarker = Guid.NewGuid();
+
             existingRag.Rid = dbProject.Rid;
             existingRag.RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating?.GetDescription();
             existingRag.RagRatingsGovernanceAndSuitabilityRagSummary = request.GovernanceAndSuitability.Summary;
