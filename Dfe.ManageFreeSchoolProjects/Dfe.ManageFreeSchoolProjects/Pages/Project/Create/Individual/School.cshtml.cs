@@ -17,9 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Enter the current free school name.")]
         [SchoolNameValidator]
         public string School { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
 

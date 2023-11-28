@@ -17,9 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Display(Name = "region")]
         [Required(ErrorMessage = "Select the region of the free school.")]
         public string Region { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         private readonly ErrorService _errorService;
 
         private readonly ICreateProjectCache _createProjectCache;

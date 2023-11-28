@@ -23,7 +23,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         [BindProperty(Name = "local-authorities")]
         public List<string> LocalAuthorities { get; set; }
-        public string BackLink { get; set; }
         
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;

@@ -20,9 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Display(Name = "Sixth form")]
         [Required(ErrorMessage = "Select yes if it will have a sixth form.")]
         public ClassType.SixthForm SixthForm { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {
             _errorService = errorService;

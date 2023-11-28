@@ -19,9 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Display(Name = "School type")]
         [Required(ErrorMessage = "Select school type")]
         public string SchoolType { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         public SchoolTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
         {
             _errorService = errorService;

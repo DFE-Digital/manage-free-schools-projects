@@ -18,8 +18,6 @@ public class NotifyUser : CreateProjectBaseModel
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
-    public string BackLink { get; set; }
-
     public NotifyUser(ErrorService errorService, ICreateProjectCache createProjectCache)
     {
         _errorService = errorService;
