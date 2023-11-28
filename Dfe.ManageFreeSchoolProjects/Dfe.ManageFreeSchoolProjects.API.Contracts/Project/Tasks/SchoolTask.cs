@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     
     public enum SchoolPhase
     {
-        [Description("Not set")]
+        [Description("NotSet")]
         NotSet,
         [Description("Primary")]
         Primary,
