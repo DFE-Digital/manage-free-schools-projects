@@ -10,11 +10,11 @@ namespace Dfe.ManageFreeSchoolProjects.Models;
 public class ValidNumberAttribute : ValidationAttribute
 {
     private const string AllowSpecialCharactersPattern = "^[0-9]*$";
-    private readonly int _maxLength;
+    private readonly int _maxValue;
 
-    public ValidNumberAttribute(int maxLength)
+    public ValidNumberAttribute(int maxValue)
     {
-        _maxLength = maxLength;
+        _maxValue = maxValue;
     }
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -24,8 +24,8 @@ public class ValidNumberAttribute : ValidationAttribute
 
         var valueAsString = (string)value;
 
-        if (valueAsString.Length > _maxLength)
-            return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, validationContext.DisplayName.ToLower(), _maxLength));
+        if (int.Parse(valueAsString) > _maxValue)
+            return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, validationContext.DisplayName.ToLower(), _maxValue));
 
         var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(30));
         var match = specialCharactersRegex.Match(valueAsString);

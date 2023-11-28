@@ -67,9 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
-            project.YrY6Capacity = (int)Extensions.IntegerExtensions.ToInt(YRY6Capacity);
-            project.Y7Y11Capacity = (int)Extensions.IntegerExtensions.ToInt(Y7Y11Capacity);
-            project.Y12Y14Capacity = (int)Extensions.IntegerExtensions.ToInt(Y12Y14Capacity);
+            project.YrY6Capacity = int.Parse(YRY6Capacity);
+            project.Y7Y11Capacity = int.Parse(Y7Y11Capacity);
+            project.Y12Y14Capacity = int.Parse(Y12Y14Capacity);
             _createProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.Capacity));
