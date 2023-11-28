@@ -7,6 +7,7 @@ export default defineConfig({
     watchForFileChanges: false,
     chromeWebSecurity: false,
     video: false,
+    userAgent: 'ManageFreeSchoolProjects/1.0 Cypress',
     reporter: "cypress-multi-reporters",
     reporterOptions: {
         reporterEnabled: "mochawesome",
