@@ -1,13 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.RegularExpressions;
-using AngleSharp.Text;
 using Dfe.ManageFreeSchoolProjects.Constants;
 
-namespace Dfe.ManageFreeSchoolProjects.Models;
+namespace Dfe.ManageFreeSchoolProjects.Validators;
 
-public class SchoolNameValidatorAttribute : ValidationAttribute
+public class SpecialCharacterValidatorAttribute : ValidationAttribute
 {
     private const string AllowSpecialCharactersPattern = @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$";
     private const int MaxLength = 100;
@@ -22,7 +20,7 @@ public class SchoolNameValidatorAttribute : ValidationAttribute
         if(valueAsString.Length > MaxLength)
             return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, "school name", MaxLength));
 
-        var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(30));
+        var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(5));
         var match = specialCharactersRegex.Match(valueAsString);
         
         return match.Success

@@ -59,7 +59,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 SixthForm = project.SixthForm, 
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType
+                OtherFaithType = project.OtherFaithType, 
+                FormsOfEntry = project.FormsOfEntry
             };
 
             createProjectRequest.Projects.Add(projReq);

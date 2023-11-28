@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using FluentAssertions;
 
 namespace Dfe.ManageFreeSchoolProjects.Tests.Tasks;
@@ -13,7 +14,7 @@ public class FreeSchoolNameValidatorTests
     {
         var validationContext = new ValidationContext(schoolName);
 
-        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
+        var freeSchoolNameValidator = new SpecialCharacterValidatorAttribute();
         var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
 
         validationResult.Should().Be(ValidationResult.Success);
@@ -28,7 +29,7 @@ public class FreeSchoolNameValidatorTests
         
         var validationContext = new ValidationContext(schoolName);
 
-        var freeSchoolNameValidator = new SchoolNameValidatorAttribute();
+        var freeSchoolNameValidator = new SpecialCharacterValidatorAttribute();
         var validationResult = freeSchoolNameValidator.GetValidationResult(schoolName, validationContext);
 
         validationResult.Should().NotBe(ValidationResult.Success);
