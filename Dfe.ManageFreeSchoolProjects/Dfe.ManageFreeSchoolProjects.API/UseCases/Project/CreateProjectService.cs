@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
                 var trust = await GetTrust(proj.TRN);
 
-                checkedProjects.Add(new Kpi
+                var kpi = new Kpi
                 {
                     Rid = Guid.NewGuid().ToString().Substring(0, 10),
                     ProjectStatusProjectId = proj.ProjectId,
@@ -74,12 +74,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustId = trust.TrustsTrustRef,
                     SchoolDetailsTrustName = trust.TrustsTrustName,
                     SchoolDetailsTrustType = trust.TrustsTrustType,
-                    SchoolDetailsSixthForm = proj.SixthForm.ToString(), 
-                    SchoolDetailsNursery = proj.Nursery.ToString(), 
-                    SchoolDetailsFaithStatus = proj.FaithStatus.ToString(), 
+                    SchoolDetailsSixthForm = proj.SixthForm.ToString(),
+                    SchoolDetailsNursery = proj.Nursery.ToString(),
+                    SchoolDetailsFaithStatus = proj.FaithStatus.ToString(),
                     SchoolDetailsFaithType = proj.FaithType.ToDescription(),
                     SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType
-            });
+                };
+
+                checkedProjects.Add(kpi);
             }
 
             if (duplicatesFound)
@@ -93,7 +95,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 _context.AddRange(CreateTasks(proj.Rid));
                 _context.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = proj.Rid });
             }
-            
+
             await _context.SaveChangesAsync();
 
             return result;
