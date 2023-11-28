@@ -13,8 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     public class CapacityModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "yr-y6-capacity")]
-        [Display(Name = "year R to year 6 capacity")]
-        [Required(ErrorMessage = "Enter the Year R - Year 6 Capacity.")]
+        [Display(Name = "year Reception to year 6 capacity")]
+        [Required(ErrorMessage = "Enter the Year Reception - Year 6 Capacity.")]
         [ValidNumber(4)]
         public string YRY6Capacity { get; set; }
 
