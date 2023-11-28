@@ -1,6 +1,6 @@
-﻿@page "/projects/{projectId}/risk/check/add"
+﻿@page "/projects/{projectId}/risk/add/review"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
-@model AddRiskCheckModel
+@model AddRiskReviewModel
 @{
 }
 
@@ -28,7 +28,7 @@
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/overall/add" data-testid="change-overall-risk">
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/add/overall" data-testid="change-overall-risk">
                         Change<span class="govuk-visually-hidden"> Overall risk rating</span>
                     </a>
                 </dd>
@@ -56,7 +56,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/governance-and-suitability/add" data-testid="change-governance-and-suitability-risk">
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/add/governance-and-suitability" data-testid="change-governance-and-suitability-risk">
                         Change<span class="govuk-visually-hidden"> Governance and suitability risk rating</span>
                     </a>
                 </dd>
@@ -83,7 +83,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/education/add" data-testid="change-education-risk">
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/add/education" data-testid="change-education-risk">
                         Change<span class="govuk-visually-hidden"> Education risk rating</span>
                     </a>
 
@@ -113,7 +113,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/finance/add" data-testid="change-finance-risk">
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/add/finance" data-testid="change-finance-risk">
                         Change<span class="govuk-visually-hidden"> Finance risk rating</span>
                     </a>
 
@@ -151,7 +151,7 @@
 
                 <dd class="govuk-summary-list__actions">
 
-                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/risk-appraisal-form/add" data-testid="change-risk-appraisal-form-sharepoint-link">
+                    <a class="govuk-link" href="/projects/@Model.ProjectId/risk/add/risk-appraisal-form" data-testid="change-risk-appraisal-form-sharepoint-link">
                         Change<span class="govuk-visually-hidden"> RAF Sharepoint link</span>
                     </a>
 

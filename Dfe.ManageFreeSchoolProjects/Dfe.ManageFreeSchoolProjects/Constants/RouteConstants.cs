@@ -42,7 +42,7 @@
         public const string CreateClassType = CreateProject + "/class-type";
 
         public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
-        public const string ProjectRiskCheck = "/projects/{0}/risk/check/add";
-        public const string ProjectRiskConfirmation = "/projects/{0}/risk/confirmation/add";
+        public const string ProjectRiskReview = "/projects/{0}/risk/add/review";
+        public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation";
     }
 }

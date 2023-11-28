@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
-    public class AddRiskCheckModel : PageModel
+    public class AddRiskReviewModel : PageModel
     {
         private readonly ICreateProjectRiskCache _createProjectRiskCache;
         private readonly ICreateProjectRiskService _createProjectRiskService;
@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public CreateRiskCacheItem ProjectRisk { get; set; }
 
-        public AddRiskCheckModel(ICreateProjectRiskCache createProjectRiskCache, ICreateProjectRiskService createProjectRiskService, ErrorService errorService)
+        public AddRiskReviewModel(ICreateProjectRiskCache createProjectRiskCache, ICreateProjectRiskService createProjectRiskService, ErrorService errorService)
         {
             _createProjectRiskCache = createProjectRiskCache;
             _createProjectRiskService = createProjectRiskService;

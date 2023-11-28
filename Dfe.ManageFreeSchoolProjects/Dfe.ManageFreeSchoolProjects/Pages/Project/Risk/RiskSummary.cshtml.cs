@@ -1,5 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -47,7 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             _createProjectRiskCache.Update(createRiskCacheItem);
 
-            return Redirect($"/projects/{ProjectId}/risk/check/add");
+            return Redirect(string.Format(RouteConstants.ProjectRiskReview, ProjectId));
         }
 
         private static CreateRiskCacheItem CreateProjectRiskItem(ProjectOverviewResponse projectOverview, GetProjectRiskResponse existingProjectRisk)

@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
         public string GetNextPage()
         {
-            return string.Format(RouteConstants.ProjectRiskCheck, ProjectId);
+            return string.Format(RouteConstants.ProjectRiskReview, ProjectId);
         }
     }
 }
