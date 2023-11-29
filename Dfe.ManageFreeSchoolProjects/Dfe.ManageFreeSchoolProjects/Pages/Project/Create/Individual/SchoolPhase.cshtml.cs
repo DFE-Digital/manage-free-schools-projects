@@ -17,9 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Display(Name = "school-phase")]
         [Required(ErrorMessage = "Select the school phase.")]
         public string SchoolPhase { get; set; }
-
-        public string BackLink { get; set; }
-
+        
         private readonly ErrorService _errorService;
 
         private readonly ICreateProjectCache _createProjectCache;

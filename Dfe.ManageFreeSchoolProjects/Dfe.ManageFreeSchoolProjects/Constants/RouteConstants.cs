@@ -41,5 +41,10 @@
         public const string CreateProjectCapacity = CreateProject + "/capacity";
         public const string CreateNotifyUser = CreateProject + "/notifyuser";
         public const string CreateClassType = CreateProject + "/class-type";
+        public const string CreateFaithStatusAndType = CreateProject + "/faith-status-and-type";
+
+        public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
+        public const string ProjectRiskReview = "/projects/{0}/risk/add/review";
+        public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation";
     }
 }

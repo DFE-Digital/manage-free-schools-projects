@@ -15,27 +15,15 @@
             }
         </h1>
 
+        <div class="risk-rating-landing-page__overall-box">
+            <h2 class="govuk-heading-m">Overall rating and summary</h2>
+            <p class="govuk-body" data-testid="overall-risk-rating"><govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" /></p>
+            <p class="govuk-body-l" data-testid="overall-risk-summary"><govuk-display-value value="@Model.ProjectRisk.Overall.Summary" /></p>
+        </div>
+
+        <h2 class="govuk-heading-m">Individual risks</h2>
+
         <dl class="govuk-summary-list">
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Overall risk rating
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="overall-risk-rating">
-                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
-                </dd>
-
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Overall risk summary
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="overall-risk-summary">
-                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
-                </dd>
-            </div>
-
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
                     Governance and suitability risk rating
@@ -101,14 +89,21 @@
                     RAF (risk appraisal form) SharePoint link
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
-                    <govuk-display-value value="@Model.ProjectRisk.RiskAppraisalFormSharepointLink" />
+                    @if (string.IsNullOrEmpty(Model.ProjectRisk.RiskAppraisalFormSharepointLink))
+                    {
+                        <span class="empty">Empty</span>
+                    }
+                    else
+                    {
+                        <a class="govuk-link" target="_blank" href="@Model.ProjectRisk.RiskAppraisalFormSharepointLink">RAF (risk appraisal form) - open in new tab</a>
+                    }
                 </dd>
 
             </div>
         </dl>
 
         <a class="govuk-button" data-module="govuk-button" asp-page-handler="NewConfigureRiskRating" data-testid="add-risk-entry">
-            Add a risk rating entry
+            Update risk rating and summary
         </a>
     </div>
 </div>
@@ -141,7 +136,7 @@
                             <td class="govuk-table__cell">
                                 @if (historyIdx != Model.Entry)
                                 {
-                                    <a href="/projects/@Model.ProjectId/risk/summary?entry=@historyIdx" data-testid="project-risk-view-link">View</a>
+                                    <a href="/projects/@Model.ProjectId/risk/summary?entry=@historyIdx" data-testid="project-risk-view-link">View details</a>
                                 }
                             </td>
                         </tr>

@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 SchoolName = project.SchoolName,
                 SchoolType = project.SchoolType,
                 SchoolPhase = project.SchoolPhase,
-                CreatedBy = User.Identity.Name,
+                CreatedBy = User.Identity?.Name,
                 LocalAuthority = project.LocalAuthority,
                 LocalAuthorityCode = project.LocalAuthorityCode,
                 Region = project.Region.ToDescription(),
@@ -59,7 +59,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
                 Nursery = project.Nursery, 
-                SixthForm = project.SixthForm
+                SixthForm = project.SixthForm, 
+                FaithStatus = project.FaithStatus,
+                FaithType = project.FaithType, 
+                OtherFaithType = project.OtherFaithType
             };
 
             createProjectRequest.Projects.Add(projReq);
@@ -70,16 +73,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
             catch(HttpRequestException e)
             {
-                if(e.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
+                if (e.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
                 {
                     _errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
                     Project = project;
                     return Page();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             var emailToNotify = _createProjectCache.Get().EmailToNotify;

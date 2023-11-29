@@ -22,9 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         private readonly ILogger<SearchTrustTaskModel> _logger;
         private readonly IGetTrustByRefService _getTrustByRefService;
         private readonly ErrorService _errorService;
-
-        public string BackLink { get; set; }
-
+        
         [BindProperty(Name = "trn")]
         [Display(Name = "TRN (trust reference number)")]
         [StringLength(7, ErrorMessage = ValidationConstants.TextValidationMessage)]

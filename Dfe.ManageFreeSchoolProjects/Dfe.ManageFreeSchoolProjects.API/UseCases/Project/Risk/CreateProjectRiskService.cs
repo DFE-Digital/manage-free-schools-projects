@@ -40,16 +40,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
                 _context.Rag.Add(existingRag);
             }
 
+            // Set a revision marker to force an update, even if nothing has changed
+            existingRag.RevisionMarker = Guid.NewGuid();
+
             existingRag.Rid = dbProject.Rid;
-            existingRag.RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating.GetDescription();
+            existingRag.RagRatingsGovernanceAndSuitabilityRagRating = request.GovernanceAndSuitability.RiskRating?.GetDescription();
             existingRag.RagRatingsGovernanceAndSuitabilityRagSummary = request.GovernanceAndSuitability.Summary;
 
-            existingRag.RagRatingsEducationRag = request.Education.RiskRating.GetDescription();
+            existingRag.RagRatingsEducationRag = request.Education.RiskRating?.GetDescription();
             existingRag.RagRatingsEducationRagSummary = request.Education.Summary;
 
-            existingRag.RagRatingsFinancesRagRating = request.Finance.RiskRating.GetDescription();
+            existingRag.RagRatingsFinancesRagRating = request.Finance.RiskRating?.GetDescription();
             existingRag.RagRatingsFinanceRagSummary = request.Finance.Summary;
-            existingRag.RagRatingsOverallRagRating = request.Overall.RiskRating.GetDescription();
+            existingRag.RagRatingsOverallRagRating = request.Overall.RiskRating?.GetDescription();
             existingRag.RagRatingsOverallRagSummary = request.Overall.Summary;
 
             existingRag.RagRatingsRiskAppraisalFormSharepointLink = request.RiskAppraisalFormSharepointLink;

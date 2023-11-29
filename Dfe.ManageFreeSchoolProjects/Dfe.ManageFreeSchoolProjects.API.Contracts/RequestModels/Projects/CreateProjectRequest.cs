@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
 {
     public class CreateProjectRequest
     {
-        public List<ProjectDetails> Projects { get; set; } = new List<ProjectDetails>();
+        public List<ProjectDetails> Projects { get; set; } = new();
     }
 
     public class ProjectDetails
@@ -36,5 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public ClassType.SixthForm SixthForm { get; set; }
 
         public SchoolPhase SchoolPhase { get; set; }
+        
+        public FaithStatus FaithStatus { get; set; }
+        public FaithType FaithType { get; set; }
+        public string OtherFaithType { get; set; }
     }
 }

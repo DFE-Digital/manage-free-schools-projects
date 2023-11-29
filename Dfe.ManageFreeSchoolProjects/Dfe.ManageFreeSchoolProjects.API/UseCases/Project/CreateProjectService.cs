@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 var rid = Guid.NewGuid().ToString().Substring(0, 10);
                 var trust = await GetTrust(proj.TRN);
 
-                checkedProjects.Add(new Kpi
+                var kpi = new Kpi
                 {
                     Rid = rid,
                     ProjectStatusProjectId = proj.ProjectId,
@@ -76,8 +77,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustName = trust.TrustsTrustName,
                     SchoolDetailsTrustType = trust.TrustsTrustType,
                     SchoolDetailsSixthForm = proj.SixthForm.ToString(),
-                    SchoolDetailsNursery = proj.Nursery.ToString()
-                });
+                    SchoolDetailsNursery = proj.Nursery.ToString(),
+                    SchoolDetailsFaithStatus = proj.FaithStatus.ToString(),
+                    SchoolDetailsFaithType = proj.FaithType.ToDescription(),
+                    SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType
+                };
+
+                checkedProjects.Add(kpi);
 
                 checkedProjectsPO.Add(new Po()
                 {
@@ -104,7 +110,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 var po = checkedProjectsPO.Find(p => p.Rid == proj.Rid);
                 _context.Add(po);
             }
-            
+
             await _context.SaveChangesAsync();
 
             return result;

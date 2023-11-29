@@ -1,35 +1,42 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
-    public class AddRiskCheckModel : PageModel
+    public class AddRiskReviewModel : PageModel
     {
         private readonly ICreateProjectRiskCache _createProjectRiskCache;
         private readonly ICreateProjectRiskService _createProjectRiskService;
+        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
         public string SchoolName { get; set; }
 
+        [BindProperty(Name = "risk-reviewed", BinderType = typeof(CheckboxInputModelBinder))]
+        [Required(ErrorMessage = "Confirm that you have reviewed the ratings and summaries")]
+        public bool RiskReviewed { get; set; }
+
         public CreateRiskCacheItem ProjectRisk { get; set; }
 
-        public AddRiskCheckModel(ICreateProjectRiskCache createProjectRiskCache, ICreateProjectRiskService createProjectRiskService)
+        public AddRiskReviewModel(ICreateProjectRiskCache createProjectRiskCache, ICreateProjectRiskService createProjectRiskService, ErrorService errorService)
         {
             _createProjectRiskCache = createProjectRiskCache;
             _createProjectRiskService = createProjectRiskService;
+            _errorService = errorService;
         }
 
         public void OnGet()
         {
-            // From this point on, each step in the wizard will always go back to the confirmation page
-            // The caveat is once you reach this page, the wizard won't work, which is what the change links are for anyway
             var projectRisk = _createProjectRiskCache.Get();
-            projectRisk.HasReachedCheckRiskPage = true;
             SchoolName = projectRisk.SchoolName;
 
             _createProjectRiskCache.Update(projectRisk);
@@ -40,6 +47,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         public async Task<IActionResult> OnPost()
         {
             var riskToCreate = _createProjectRiskCache.Get();
+
+            if (riskToCreate.Overall.RiskRating == null)
+            {
+                ModelState.AddModelError("overall-risk-missing", "Enter an overall risk");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                SchoolName = riskToCreate.SchoolName;
+                ProjectRisk = riskToCreate;
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
 
             var request = new CreateProjectRiskRequest()
             {
@@ -68,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             await _createProjectRiskService.Execute(ProjectId, request);
 
-            return Redirect($"/projects/{ProjectId}/risk/summary");
+            return Redirect(string.Format(RouteConstants.ProjectRiskConfirmation, ProjectId));
         }
     }
 }

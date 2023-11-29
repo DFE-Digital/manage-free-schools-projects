@@ -8,6 +8,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class CreateProjectBaseModel : PageModel
     {
+        protected internal string BackLink { get; set; }
+        
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
@@ -31,7 +33,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.Capacity => RouteConstants.CreateClassType,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatusAndType,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
@@ -50,7 +53,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.Capacity => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")

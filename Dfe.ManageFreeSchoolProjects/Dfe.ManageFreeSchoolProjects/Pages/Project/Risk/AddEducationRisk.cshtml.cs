@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             var existingCacheItem = _createProjectRiskCache.Get();
 
             Summary = existingCacheItem.Education.Summary;
-            RiskRating = ((int)existingCacheItem.Education.RiskRating).ToString();
+            RiskRating = existingCacheItem.Education.RiskRating.ToIntString();
             SchoolName = existingCacheItem.SchoolName;
         }
 
@@ -39,12 +40,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
             existingCacheItem.Education = new()
             {
                 Summary = Summary,
-                RiskRating = (ProjectRiskRating)int.Parse(RiskRating)
+                RiskRating = RiskRating.ToEnum<ProjectRiskRating>()
             };
 
             _createProjectRiskCache.Update(existingCacheItem);
 
-            return Redirect(GetNextPage(RiskPageName.Education, existingCacheItem));
+            return Redirect(GetNextPage());
         }
     }
 }
