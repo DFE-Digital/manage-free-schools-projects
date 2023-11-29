@@ -42,8 +42,8 @@ describe("Testing that we can add a project risk", () => {
 
             Logger.log("When there is no project risk, it should display empty for all fields");
             projectRiskSummaryPage
+                .hasTitle("Current risk ratings")
                 .hasSchoolName(project.schoolName)
-                .hasNoRiskDate()
                 .hasOverallRiskRating(["Empty"])
                 .hasOverallRiskSummary("Empty")
                 .hasGovernanceAndSuitabilityRiskRating(["Empty"])
@@ -168,7 +168,7 @@ describe("Testing that we can add a project risk", () => {
                 .goToRiskSummary();
 
             projectRiskSummaryPage
-                .hasRiskDate(`${toDisplayDate(now)}`)
+                .hasTitle(`${toDisplayDate(now)} - current risk ratings`)
                 .hasOverallRiskRating(["Green"])
                 .hasOverallRiskSummary("This is my overall risk summary")
                 .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])
@@ -304,6 +304,7 @@ describe("Testing that we can add a project risk", () => {
 
                     Logger.log("Should the information for the previous risk")
                     projectRiskSummaryPage
+                        .hasTitle(`${toDisplayDate(now)} - past risk ratings`)
                         .hasOverallRiskRating(["Green"])
                         .hasOverallRiskSummary("This is my overall risk summary")
                         .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])
@@ -312,7 +313,8 @@ describe("Testing that we can add a project risk", () => {
                         .hasEducationRiskSummary("This is my education risk summary")
                         .hasFinanceRiskRating(["Amber", "Red"])
                         .hasFinanceRiskSummary("This is my finance risk summary")
-                        .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
+                        .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
+                        .cannotAddRiskEntry();
 
                     Logger.log("Checking the change links are updated");
                     return projectRiskHistoryTable.getRowByIndex(2);

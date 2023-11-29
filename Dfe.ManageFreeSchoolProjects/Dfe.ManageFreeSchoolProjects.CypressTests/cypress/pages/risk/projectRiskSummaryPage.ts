@@ -7,14 +7,8 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
-    public hasRiskDate(value: string): this {
+    public hasTitle(value: string): this {
         cy.getByTestId(`risk-date`).should("contain.text", value);
-
-        return this;
-    }
-
-    public hasNoRiskDate(): this {
-        cy.getByTestId(`risk-date`).should("not.exist");
 
         return this;
     }
@@ -118,7 +112,13 @@ class ProjectRiskSummaryPage {
     }
 
     public addRiskEntry(): this {
-        cy.getByTestId("add-risk-entry").click();
+        this.getAddRiskEntry().click();
+
+        return this;
+    }
+
+    public cannotAddRiskEntry(): this {
+        this.getAddRiskEntry().should("not.exist");
 
         return this;
     }
@@ -149,6 +149,10 @@ class ProjectRiskSummaryPage {
 
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);
+    }
+
+    private getAddRiskEntry() {
+        return cy.getByTestId("add-risk-entry");
     }
 }
 
