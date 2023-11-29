@@ -3,6 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
 @model RiskSummaryModel
 @{
+    var isPastRiskRating = Model.Entry > 1;
 }
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
@@ -11,7 +12,18 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             @if (Model.RiskDate != null)
             {
-                <span data-testid="risk-date">@Model.RiskDate.ToDateString() - current risk ratings</span>
+                if (isPastRiskRating)
+                {
+                    <span data-testid="risk-date">@Model.RiskDate.ToDateString() - past risk ratings</span>
+                }
+                else
+                {
+                    <span data-testid="risk-date">@Model.RiskDate.ToDateString() - current risk ratings</span>
+                }
+            }
+            else
+            {
+                <span data-testid="risk-date">Current risk ratings</span>
             }
         </h1>
 
@@ -101,10 +113,14 @@
 
             </div>
         </dl>
+        
+        @if (!isPastRiskRating)
+        {
+            <a class="govuk-button" data-module="govuk-button" asp-page-handler="NewConfigureRiskRating" data-testid="add-risk-entry">
+                Update risk rating and summary
+            </a>
+        }
 
-        <a class="govuk-button" data-module="govuk-button" asp-page-handler="NewConfigureRiskRating" data-testid="add-risk-entry">
-            Update risk rating and summary
-        </a>
     </div>
 </div>
 
