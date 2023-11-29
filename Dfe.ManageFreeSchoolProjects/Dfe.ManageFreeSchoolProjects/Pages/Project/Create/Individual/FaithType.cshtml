@@ -47,15 +47,8 @@
 <script type="application/javascript" asp-add-nonce>
     const setVisibility = () =>
     {
-        const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
-        if(faithStatus === 'None' || faithStatus == null)
-        {
-            $('#faith-type').hide();
-            $('#other-faith-type').parent().hide();
-        }
-        else
-        {
-            $('#faith-type').show();
+            $('#faith-type').parent().show();
+            
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();
@@ -64,17 +57,11 @@
             {
                 $('#other-faith-type').parent().hide();
             }
-
-        }
     }
 
 
     $(document).ready(() => {
         setVisibility();
-
-        $("input[type='radio'][name='faith-status']").click((e) => {
-            setVisibility();
-        });
 
         $("input[type='radio'][name='faith-type']").click((e) => {
             setVisibility();

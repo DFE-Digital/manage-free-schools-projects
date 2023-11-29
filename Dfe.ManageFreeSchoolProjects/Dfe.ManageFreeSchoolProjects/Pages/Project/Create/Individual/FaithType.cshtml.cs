@@ -35,7 +35,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         FaithType = project.FaithType;
         OtherFaithType = project.OtherFaithType;
         
-        BackLink = RouteConstants.CreateFaithStatus;
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithType, project.Navigation);
     }
 
     public IActionResult OnPost()

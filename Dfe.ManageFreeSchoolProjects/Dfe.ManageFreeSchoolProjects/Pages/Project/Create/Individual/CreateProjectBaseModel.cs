@@ -22,8 +22,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return RouteConstants.CreateProjectCheckYourAnswers;
 
             if (navigationCache == CreateProjectNavigation.GoToFaithType &&
-                currentPageName == CreateProjectPageName.FaithStatus)
-                return RouteConstants.CreateFaithStatus;
+                currentPageName == CreateProjectPageName.NotifyUser)
+                return RouteConstants.CreateFaithType;
 
             return currentPageName switch
             {
@@ -48,8 +48,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             CreateProjectNavigation navigationCache = CreateProjectNavigation.Default)
         {
             if (navigationCache == CreateProjectNavigation.GoToFaithType &&
-                currentPageName == CreateProjectPageName.FaithType)
+                currentPageName == CreateProjectPageName.FaithStatus)
+            {
                 return RouteConstants.CreateFaithType;
+            }
 
             return currentPageName switch
             {

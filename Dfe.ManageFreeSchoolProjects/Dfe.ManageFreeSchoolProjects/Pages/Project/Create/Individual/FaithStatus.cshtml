@@ -1,4 +1,4 @@
-﻿@page "/project/create/faith-status-and-type"
+﻿@page "/project/create/faith-status"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithStatusModel
 
@@ -6,10 +6,6 @@
     ViewData["Title"] = "What is the faith status?";
 
     var faithStatuses = Enum.GetValues<FaithStatus>().Except(new[] { FaithStatus.NotSet }).Select(x => x.ToString()).ToArray();
-
-    var faithTypes = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet }).ToList();
-    var faithTypeLabels = faithTypes.Select(x => x.ToDescription()).ToArray();
-    var faithTypeValues = faithTypes.Select(x => x.ToString()).ToArray();
 }
 
 @section BeforeMain {
