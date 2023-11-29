@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             var result = new CreateProjectResponse();
             var checkedProjects = new List<Kpi>();
+            var checkedProjectsPO = new List<Po>();
 
             var duplicatesFound = false;
 
@@ -47,11 +48,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     ProjectCreateState = projectCreateState
                 });
 
+                var rid = Guid.NewGuid().ToString().Substring(0, 10);
                 var trust = await GetTrust(proj.TRN);
 
                 var kpi = new Kpi
                 {
-                    Rid = Guid.NewGuid().ToString().Substring(0, 10),
+                    Rid = rid,
                     ProjectStatusProjectId = proj.ProjectId,
                     ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
                     ProjectStatusFreeSchoolApplicationWave = "",
@@ -83,6 +85,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 };
 
                 checkedProjects.Add(kpi);
+
+                checkedProjectsPO.Add(new Po()
+                {
+                    Rid = rid,
+                    PupilNumbersAndCapacityYrY6Capacity = proj.YRY6Capacity.ToString(),
+                    PupilNumbersAndCapacityY7Y11Capacity = proj.Y7Y11Capacity.ToString(),
+                    PupilNumbersAndCapacityYrY11Pre16Capacity = (proj.YRY6Capacity + proj.Y7Y11Capacity).ToString(),
+                    PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
+                    PupilNumbersAndCapacityTotalOfCapacityTotals = (proj.YRY6Capacity + proj.Y7Y11Capacity + proj.Y12Y14Capacity).ToString()
+                });
             }
 
             if (duplicatesFound)
@@ -95,6 +107,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 _context.Add(proj);
                 _context.AddRange(CreateTasks(proj.Rid));
                 _context.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = proj.Rid });
+
+                var po = checkedProjectsPO.Find(p => p.Rid == proj.Rid);
+                _context.Add(po);
             }
 
             await _context.SaveChangesAsync();

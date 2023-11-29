@@ -23,6 +23,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string LocalAuthorityCode { get; set; }
         public string TRN { get; set; }
         public string TrustName { get; set; }
+        public int YRY6Capacity { get; set; }
+        public int Y7Y11Capacity { get; set; }
+        public int Y12Y14Capacity { get; set; }
         [Required]
         public string CreatedBy { get; set; }
 
