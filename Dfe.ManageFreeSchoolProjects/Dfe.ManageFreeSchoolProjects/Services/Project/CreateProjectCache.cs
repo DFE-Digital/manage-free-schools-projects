@@ -22,7 +22,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public enum CreateProjectNavigation
     {
         Default,
-        BackToCheckYourAnswers
+        BackToCheckYourAnswers,
+        GoToFaithType
     }
 
     public record CreateProjectCacheItem

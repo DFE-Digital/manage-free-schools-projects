@@ -2,18 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
-public class FaithStatusAndTypeModel : CreateProjectBaseModel
+public class FaithTypeModel : CreateProjectBaseModel
 {
-    [BindProperty(Name = "faith-status")]
-    [Required(ErrorMessage = "Select the faith status of the free school.")]
-    public FaithStatus FaithStatus { get; set; }
-    
+
     [BindProperty(Name = "faith-type")]
     public FaithType FaithType { get; set; }
     
@@ -24,7 +22,7 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
     private readonly ICreateProjectCache _createProjectCache;
     private readonly ErrorService _errorService;
 
-    public FaithStatusAndTypeModel(ICreateProjectCache createProjectCache, ErrorService errorService)
+    public FaithTypeModel(ICreateProjectCache createProjectCache, ErrorService errorService)
     {
         _createProjectCache = createProjectCache;
         _errorService = errorService;
@@ -35,10 +33,9 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
         var project = _createProjectCache.Get();
 
         FaithType = project.FaithType;
-        FaithStatus = project.FaithStatus;
         OtherFaithType = project.OtherFaithType;
         
-        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatusAndType, project.Navigation);
+        BackLink = RouteConstants.CreateFaithStatus;
     }
 
     public IActionResult OnPost()
@@ -60,24 +57,18 @@ public class FaithStatusAndTypeModel : CreateProjectBaseModel
         var project = _createProjectCache.Get();
 
         project.FaithType = FaithType;
-        project.FaithStatus = FaithStatus;
         project.OtherFaithType = OtherFaithType;
         
         _createProjectCache.Update(project);
 
-        return Redirect(GetNextPage(CreateProjectPageName.FaithStatusAndType));
+        return Redirect(RouteConstants.CreateNotifyUser);
     }
 
     private void ValidateFaithFields()
     {
-        if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation) && (FaithType == FaithType.NotSet))
+        if (FaithType == FaithType.NotSet)
         {
             ModelState.AddModelError("faith-type", "Select the faith type of the free school.");
-        }
-
-        if (FaithStatus == FaithStatus.None)
-        {
-            FaithType = FaithType.NotSet;
         }
 
         if (FaithType == FaithType.Other)

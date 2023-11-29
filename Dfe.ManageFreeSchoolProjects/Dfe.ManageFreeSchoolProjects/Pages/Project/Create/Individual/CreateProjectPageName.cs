@@ -12,9 +12,10 @@
         SchoolType = 8,
         SchoolPhase = 9,
         ClassType = 10,
-        FaithStatusAndType = 11, 
+        FaithStatus = 11, 
         FormsOfEntry = 12,
         NotifyUser = 13,
         CheckYourAnswers = 14,
+        FaithType
     }
 }

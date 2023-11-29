@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class CreateProjectBaseModel : PageModel
     {
         protected internal string BackLink { get; set; }
-        
+
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
@@ -21,6 +21,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             if (navigationCache == CreateProjectNavigation.BackToCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
 
+            if (navigationCache == CreateProjectNavigation.GoToFaithType &&
+                currentPageName == CreateProjectPageName.FaithStatus)
+                return RouteConstants.CreateFaithStatus;
+
             return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectMethod,
@@ -29,30 +33,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust,
+                    routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateClassType,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.FaithStatus => RouteConstants.CreateClassType,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
-        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "")
+        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "",
+            CreateProjectNavigation navigationCache = CreateProjectNavigation.Default)
         {
+            if (navigationCache == CreateProjectNavigation.GoToFaithType &&
+                currentPageName == CreateProjectPageName.FaithType)
+                return RouteConstants.CreateFaithType;
+
             return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
+                    routeParameter),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateFaithStatusAndType,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.ClassType => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.FaithStatus => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")

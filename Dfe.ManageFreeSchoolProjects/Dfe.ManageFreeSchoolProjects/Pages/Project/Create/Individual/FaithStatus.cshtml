@@ -1,6 +1,6 @@
 ﻿@page "/project/create/faith-status-and-type"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithStatusAndTypeModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithStatusModel
 
 @{
     ViewData["Title"] = "What is the faith status?";
@@ -37,60 +37,10 @@
                                 labels="@faithStatuses"
                                 values="@faithStatuses"/>
         </div>
-
-        <div class="govuk-form-group" id="faith-type">
-            <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
-            <govuk-radios-input name="faith-type"
-                                asp-for="@Model.FaithType"
-                                data-testid="faith-type"
-                                labels="@faithTypeLabels"
-                                values="@faithTypeValues"/>
-        </div>
-
-        <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type"/>
-
+        
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
         </button>
     </form>
 </div>
-
-<script type="application/javascript" asp-add-nonce>
-    const setVisibility = () =>
-    {
-        const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
-        if(faithStatus === 'None' || faithStatus == null)
-        {
-            $('#faith-type').hide();
-            $('#other-faith-type').parent().hide();
-        }
-        else
-        {
-            $('#faith-type').show();
-            if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
-            {
-                $('#other-faith-type').parent().show();
-            }
-            else
-            {
-                $('#other-faith-type').parent().hide();
-            }
-
-        }
-    }
-
-
-    $(document).ready(() => {
-        setVisibility();
-
-        $("input[type='radio'][name='faith-status']").click((e) => {
-            setVisibility();
-        });
-
-        $("input[type='radio'][name='faith-type']").click((e) => {
-            setVisibility();
-        });
-    });
-
-</script>
