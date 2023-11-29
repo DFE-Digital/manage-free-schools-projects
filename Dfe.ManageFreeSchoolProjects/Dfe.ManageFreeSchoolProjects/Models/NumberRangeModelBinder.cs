@@ -1,9 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.Services;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dfe.ManageFreeSchoolProjects.Models
 {
@@ -40,13 +37,11 @@ namespace Dfe.ManageFreeSchoolProjects.Models
                 return Task.CompletedTask;
             }
 
-            if(bindingContext.ModelMetadata.IsRequired)
+            if(bindingContext.ModelMetadata.IsRequired 
+                && IsEmpty(fromProviderResult, toProviderResult))
             {
-				if (IsEmpty(fromProviderResult, toProviderResult))
-				{
 					bindingContext.Result = ModelBindingResult.Success("");
 					return Task.CompletedTask;
-				}
 			}
 
             if (FieldsAreValid(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult))
@@ -59,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
             return Task.CompletedTask;
         }
 
-        private bool FieldsAreValid(ModelBindingContext bindingContext, string fromModelName, string toModelName, ValueProviderResult fromProviderResult, ValueProviderResult toProviderResult)
+        private static bool FieldsAreValid(ModelBindingContext bindingContext, string fromModelName, string toModelName, ValueProviderResult fromProviderResult, ValueProviderResult toProviderResult)
         {
             var displayName = bindingContext.ModelMetadata.DisplayName;
 
@@ -118,11 +113,8 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
         private static Type ValidateBindingContext(ModelBindingContext bindingContext)
         {
-            if (bindingContext == null)
-            {
-                throw new ArgumentNullException(nameof(bindingContext));
-            }
-
+            ArgumentNullException.ThrowIfNull(bindingContext, nameof(bindingContext));
+            
             var modelType = bindingContext.ModelType;
             if (modelType != typeof(string))
             {
