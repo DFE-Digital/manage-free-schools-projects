@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
-            var project = _createProjectCache.Get();
+               var project = _createProjectCache.Get();
             
             var projReq = new ProjectDetails
             {

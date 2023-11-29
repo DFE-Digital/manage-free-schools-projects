@@ -41,13 +41,21 @@ public class FaithStatusModel : CreateProjectBaseModel
 
         var project = _createProjectCache.Get();
 
-        if (FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation)
+        if (FaithStatus is FaithStatus.None)
+        {
+            project.FaithType = FaithType.NotSet;
+            project.Navigation = CreateProjectNavigation.Default;
+        }
+        else
+        {
             project.Navigation = CreateProjectNavigation.GoToFaithType;
-        
+        }
+
+
         project.FaithStatus = FaithStatus;
 
         _createProjectCache.Update(project);
 
-        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus,string.Empty, project.Navigation));
+        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus, string.Empty, project.Navigation));
     }
 }
