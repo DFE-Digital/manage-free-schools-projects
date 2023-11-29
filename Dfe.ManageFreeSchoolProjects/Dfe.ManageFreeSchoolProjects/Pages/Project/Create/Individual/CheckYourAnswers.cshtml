@@ -58,7 +58,7 @@
     </dt>
     <dd class="govuk-summary-list__value" data-testid="region">
         @{
-            RenderValue(Model.Project.Region.ToDescription()); 
+            RenderValue(Model.Project.Region.ToDescription());
         }
     </dd>
 
@@ -109,9 +109,9 @@
         Sixth form
     </dt>
     <dd class="govuk-summary-list__value" data-testid="sixth-form">
-       @{
-           RenderValue(Model.Project.SixthForm.ToString());
-       }
+        @{
+            RenderValue(Model.Project.SixthForm.ToString());
+        }
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -128,8 +128,8 @@
     </dt>
     <dd class="govuk-summary-list__value" data-testid="nursery ">
         @{
-          RenderValue(@Model.Project.Nursery.ToString());  
-        } 
+            RenderValue(@Model.Project.Nursery.ToString());
+        }
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -165,8 +165,8 @@
     </dt>
     <dd class="govuk-summary-list__value" data-testid="school-phase">
         @{
-          RenderValue(@Model.Project.SchoolPhase.ToDescription());  
-        } 
+            RenderValue(@Model.Project.SchoolPhase.ToDescription());
+        }
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -200,9 +200,9 @@
         School type
     </dt>
     <dd class="govuk-summary-list__value" data-testid="school-type">
-     @{
-         RenderValue(@Model.Project.SchoolType.ToDescription());
-     }   
+        @{
+            RenderValue(@Model.Project.SchoolType.ToDescription());
+        }
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -219,7 +219,7 @@
     <dd class="govuk-summary-list__value" data-testid="faith-status">
         @{
             RenderValue(@Model.Project.FaithStatus.ToString());
-        } 
+        }
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -229,28 +229,25 @@
         </a>
     </dd>
 </div>
-@{
-    if (Model.Project.FaithStatus is FaithStatus.Designation or FaithStatus.Ethos)
-    {
-        <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-                Faith type
-            </dt>
-            <dd class="govuk-summary-list__value" data-testid="faith-type">
-                @{
-                    RenderValue(@Model.Project.FaithType.ToDescription());
-                }   
-            </dd>
 
-            <dd class="govuk-summary-list__actions">
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+        Faith type
+    </dt>
+    <dd class="govuk-summary-list__value" data-testid="faith-type">
+        @{
+            RenderValue(@Model.Project.FaithType.ToDescription());
+        }
+    </dd>
 
-                <a class="govuk-link" href="@RouteConstants.CreateFaithType" data-testid="change-faith-type">
-                    Change<span class="govuk-visually-hidden">Faith type</span>
-                </a>
-            </dd>
-        </div>
-    }
-}
+    <dd class="govuk-summary-list__actions">
+
+        <a class="govuk-link" href="@RouteConstants.CreateFaithType" data-testid="change-faith-type">
+            Change<span class="govuk-visually-hidden">Faith type</span>
+        </a>
+    </dd>
+</div>
+
 @{
     if (Model.Project.FaithType is FaithType.Other)
     {
@@ -289,6 +286,7 @@
 </div>
 
 @functions {
+
     public void RenderValue(string value)
     {
         if (string.IsNullOrEmpty(value) || value == "NotSet")
@@ -300,4 +298,5 @@
             @value
         }
     }
+
 }
