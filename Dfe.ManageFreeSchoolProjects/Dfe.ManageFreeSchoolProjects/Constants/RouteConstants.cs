@@ -42,6 +42,7 @@
         public const string CreateNotifyUser = CreateProject + "/notifyuser";
         public const string CreateClassType = CreateProject + "/class-type";
         public const string CreateFaithStatusAndType = CreateProject + "/faith-status-and-type";
+        public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
 
         public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
         public const string ProjectRiskReview = "/projects/{0}/risk/add/review";

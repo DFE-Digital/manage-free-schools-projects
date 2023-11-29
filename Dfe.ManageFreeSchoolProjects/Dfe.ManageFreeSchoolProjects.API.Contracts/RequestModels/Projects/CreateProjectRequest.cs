@@ -40,5 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public FaithStatus FaithStatus { get; set; }
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }
+
+        public string FormsOfEntry { get; set; }
     }
 }

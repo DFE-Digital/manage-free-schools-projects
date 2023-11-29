@@ -11,6 +11,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -29,9 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current free school name")]
-        [SchoolNameValidator]
+        [ValidText(100)]
         [Required]
-        public string CurrentFreeSchoolName { get; set; }
+        public  string CurrentFreeSchoolName { get; set; }
 
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
