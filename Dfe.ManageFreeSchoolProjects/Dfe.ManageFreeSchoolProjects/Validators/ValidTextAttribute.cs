@@ -8,23 +8,18 @@ namespace Dfe.ManageFreeSchoolProjects.Validators;
     AllowMultiple = false)]
 public class ValidTextAttribute : ValidationAttribute
 {
-    private const string AllowSpecialCharactersPattern = @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$";
+    private const string AllowSpecialCharactersPattern = @"[^a-zA-Z0-9'(),\s]";
     private readonly int _maxLength;
-    private string _nameOfProperty;
 
-    public ValidTextAttribute(int maxLength, string nameOfProperty = "")
+    public ValidTextAttribute(int maxLength)
     {
         _maxLength = maxLength;
-        _nameOfProperty = nameOfProperty;
     }
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         if (value is null)
             return ValidationResult.Success;
-        
-        if (string.IsNullOrEmpty(_nameOfProperty))
-            _nameOfProperty = validationContext.DisplayName;
         
         var valueAsString = (string) value;
 
@@ -35,7 +30,7 @@ public class ValidTextAttribute : ValidationAttribute
         var match = specialCharactersRegex.Match(valueAsString);
         
         return match.Success
-            ? ValidationResult.Success
-            : new ValidationResult($"{_nameOfProperty} must not include special characters other than , ( ) '");
+            ? new ValidationResult($"{validationContext.DisplayName} must not include special characters other than , ( ) '")
+            : ValidationResult.Success; 
     }
 }
