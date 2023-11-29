@@ -1,22 +1,18 @@
+using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Dfe.ManageFreeSchoolProjects.Validators;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class SchoolModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "school")]
         [Display(Name = "school name")]
         [Required(ErrorMessage = "Enter the current free school name.")]
-        [SpecialCharacterValidator]
+        [ValidText(100, ErrorMessage = "test")]
         public string School { get; set; }
         
         private readonly ErrorService _errorService;

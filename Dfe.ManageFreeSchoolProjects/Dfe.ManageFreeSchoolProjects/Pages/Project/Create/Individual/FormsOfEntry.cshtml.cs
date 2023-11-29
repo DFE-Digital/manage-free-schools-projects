@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Validators;
@@ -14,7 +15,7 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "forms-of-entry")]
-    [SpecialCharacterValidator]
+    [ValidText(100, "Forms of entry")]
     [Required]
     public string FormsOfEntry { get; set; }
     

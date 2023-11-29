@@ -30,9 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "current-free-school-name")]
         [Display(Name = "Current free school name")]
-        [SpecialCharacterValidator]
+        [ValidText(100)]
         [Required]
-        public string CurrentFreeSchoolName { get; set; }
+        public  string CurrentFreeSchoolName { get; set; }
 
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
