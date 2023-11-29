@@ -30,8 +30,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [ValidNumber(0,9999)]
         public string Y12Y14Capacity { get; set; }
 
-        public string BackLink { get; set; }
-
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
 
