@@ -15,7 +15,8 @@
         Capacity = 11,
         FaithStatusAndType = 12, 
         FormsOfEntry = 13,
-        NotifyUser = 14,
-        CheckYourAnswers = 15,
+        ProvisionalOpeningDate = 14,
+        NotifyUser = 15,
+        CheckYourAnswers = 16,
     }
 }

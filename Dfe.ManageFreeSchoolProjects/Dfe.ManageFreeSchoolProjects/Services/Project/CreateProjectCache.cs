@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Microsoft.AspNetCore.DataProtection;
@@ -48,5 +49,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public FaithStatus FaithStatus { get; set; }
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }
+        public DateTime? ProvisionalOpeningDate { get; set; }
     }
 }

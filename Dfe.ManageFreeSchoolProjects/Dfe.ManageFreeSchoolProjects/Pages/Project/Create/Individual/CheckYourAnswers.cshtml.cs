@@ -62,7 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 SixthForm = project.SixthForm, 
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType
+                OtherFaithType = project.OtherFaithType,
+                ProvisionalOpeningDate = project.ProvisionalOpeningDate
             };
 
             createProjectRequest.Projects.Add(projReq);

@@ -142,8 +142,8 @@
         <dt class="govuk-summary-list__key">
             Provisional opening date agreed with trust
         </dt>
-        <dd class="govuk-summary-list__value">
-            5 August 2023
+        <dd class="govuk-summary-list__value" data-test-id="provisional-opening-date">
+            @Model.Project.ProvisionalOpeningDate.ToDateString()
         </dd>
 
         <dd class="govuk-summary-list__actions">
@@ -297,7 +297,6 @@
             </div>
         }
     }
-</dl>
 <h2 class="govuk-heading-m">
     Now create your project
 </h2>
