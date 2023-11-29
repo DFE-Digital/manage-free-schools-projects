@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -29,11 +30,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust,
+                    routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.Capacity => RouteConstants.CreateClassType,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateProjectCapacity,
+				CreateProjectPageName.Capacity => RouteConstants.CreateClassType,
+				CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateFormsOfEntry,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithStatusAndType,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
@@ -54,7 +57,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.Capacity => RouteConstants.CreateFormsOfEntry,
+                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatusAndType,
                 CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,

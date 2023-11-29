@@ -2,14 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Dfe.ManageFreeSchoolProjects.Constants;
-
-namespace Dfe.ManageFreeSchoolProjects.Models;
+namespace Dfe.ManageFreeSchoolProjects.Validators;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
     AllowMultiple = false)]
 public class ValidTextAttribute : ValidationAttribute
 {
-    private const string AllowSpecialCharactersPattern = @"^(?=.*[a-zA-Z])[a-zA-Z0-9'(),\s]*$";
+    private const string AllowSpecialCharactersPattern = @"[^a-zA-Z0-9'(),\s]";
     private readonly int _maxLength;
 
     public ValidTextAttribute(int maxLength)
@@ -21,7 +20,7 @@ public class ValidTextAttribute : ValidationAttribute
     {
         if (value is null)
             return ValidationResult.Success;
-
+        
         var valueAsString = (string) value;
 
         if(valueAsString.Length > _maxLength)
@@ -31,7 +30,7 @@ public class ValidTextAttribute : ValidationAttribute
         var match = specialCharactersRegex.Match(valueAsString);
         
         return match.Success
-            ? ValidationResult.Success
-            : new ValidationResult($"{validationContext.DisplayName} must not include special characters other than , ( ) '");
+            ? new ValidationResult($"{validationContext.DisplayName} must not include special characters other than , ( ) '")
+            : ValidationResult.Success; 
     }
 }

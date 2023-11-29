@@ -46,6 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public int? Y12Y14Capacity { get; set; }
         public ClassType.SixthForm SixthForm { get; set; }
         public ClassType.Nursery Nursery { get; set; }
+        public string FormsOfEntry { get; set; }
         public FaithStatus FaithStatus { get; set; }
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }

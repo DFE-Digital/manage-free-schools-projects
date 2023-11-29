@@ -59,10 +59,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
                 Nursery = project.Nursery, 
-                SixthForm = project.SixthForm, 
+                SixthForm = project.SixthForm,
+                FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType,
+                OtherFaithType = project.OtherFaithType, 
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate
             };
 

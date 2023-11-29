@@ -135,9 +135,9 @@ class SchoolDetailsPage {
 
     public verifyNegTestAllNumbersOrAllInvalidSpecialCharsErrorSummaryAndError(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("School name must not include special characters other than , ( ) '");
+        cy.getByClass("govuk-error-summary").contains("Current free school name must not include special characters other than , ( ) '");
 
-        cy.getByClass("govuk-error-message").contains("School name must not include special characters other than , ( ) '");
+        cy.getByClass("govuk-error-message").contains("Current free school name must not include special characters other than , ( ) '");
 
         return this;
     }
@@ -150,9 +150,9 @@ class SchoolDetailsPage {
 
     public verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("School name must not include special characters other than , ( ) '");
+        cy.getByClass("govuk-error-summary").contains("Current free school name must not include special characters other than , ( ) '");
 
-        cy.getByClass("govuk-error-message").contains("School name must not include special characters other than , ( ) '");
+        cy.getByClass("govuk-error-message").contains("Current free school name must not include special characters other than , ( ) '");
 
         return this;
     }
@@ -178,9 +178,9 @@ class SchoolDetailsPage {
 
     public verifyNegTestMoreThanOneHundredCharsSchoolName(): this {
         cy.getByClass("govuk-error-summary").contains("There is a problem");
-        cy.getByClass("govuk-error-summary").contains("The school name must be 100 characters or less");
+        cy.getByClass("govuk-error-summary").contains("The current free school name must be 100 characters or less");
 
-        cy.getByClass("govuk-error-message").contains("The school name must be 100 characters or less");
+        cy.getByClass("govuk-error-message").contains("The current free school name must be 100 characters or less");
 
         return this;
     }

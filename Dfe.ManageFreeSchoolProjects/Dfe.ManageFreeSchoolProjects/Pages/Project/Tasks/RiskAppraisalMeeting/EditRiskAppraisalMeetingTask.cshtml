@@ -1,6 +1,6 @@
 ﻿@page "/projects/{projectId}/tasks/risk-appraisal-meeting/edit"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditRiskAppraisalMeetingModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting.EditRiskAppraisalMeetingModel
 @{
     ViewData["Title"] = $"Edit risk appraisal meeting - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
