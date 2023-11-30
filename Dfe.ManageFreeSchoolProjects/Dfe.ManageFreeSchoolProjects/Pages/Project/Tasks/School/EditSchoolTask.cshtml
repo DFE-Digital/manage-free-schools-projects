@@ -66,12 +66,7 @@
                         values="@schoolPhaseValues"/>
                 </div>
 
-                <div class="govuk-form-group" id="age-range">
-                    <label class="govuk-label govuk-heading-m" for="age-range">Age range</label>
-                    <govuk-text-input width="2" id="age-range-from" name="age-range-from" asp-for="@Model.AgeRangeFrom" type="text" label="From"/>
-                    <govuk-text-input width="2" id="age-range-to" name="age-range-to" asp-for="@Model.AgeRangeTo" type="text" label="To"/>
-
-                </div>
+                <govuk-number-range id="age-range" asp-for="@Model.AgeRange" label="Age range" heading-medium-label="true" />
 
 
                 <div class="govuk-form-group" id="gender">

@@ -2,11 +2,12 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.MethodModel
 @{
-    var labels = new[] { "Creating an individual project", "Bulk upload" };
+    ViewData["Title"] = "Create new free school projects";
+    var labels = new[] { "Create one project", "Upload multiple projects" };
     var values = new[] { ProjectCreateMethod.Individual.ToString(), ProjectCreateMethod.Bulk.ToString() };
     var hints = new[] {
-        "This is where you create projects for the presumption route.",
-        "This is where you create projects for the wave route."
+        "Presumption or wave route.",
+        "Wave route only."
     };
 }
 @section BeforeMain {
@@ -19,7 +20,7 @@
     <div class="govuk-grid-column-two-thirds">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
             <h1 class="govuk-fieldset__heading">
-                Which method do you want to use?
+                What do you want to do?
             </h1>
         </legend>
         <form class="govuk-form-group" method="post">
