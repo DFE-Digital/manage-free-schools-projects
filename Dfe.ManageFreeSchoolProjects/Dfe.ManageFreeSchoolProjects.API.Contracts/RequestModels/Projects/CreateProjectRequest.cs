@@ -36,11 +36,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public ClassType.SixthForm SixthForm { get; set; }
 
         public SchoolPhase SchoolPhase { get; set; }
-        
+
+        public string FormsOfEntry { get; set; }
+
         public FaithStatus FaithStatus { get; set; }
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }
 
-        public string FormsOfEntry { get; set; }
+        public DateTime? ProvisionalOpeningDate { get; set; }
+
     }
 }

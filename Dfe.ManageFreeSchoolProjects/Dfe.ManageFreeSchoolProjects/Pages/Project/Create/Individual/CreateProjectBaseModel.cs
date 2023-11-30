@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -36,7 +37,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 				CreateProjectPageName.Capacity => RouteConstants.CreateClassType,
 				CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateFormsOfEntry,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
@@ -57,7 +59,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFormsOfEntry,
                 CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatusAndType,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateProjectProvisionalOpeningDate,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
