@@ -1,14 +1,14 @@
+using System.Net.Http;
+using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Extensions;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class CheckYourAnswersModel : PageModel
     {
@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
+            
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
             _createProjectCache.Update(Project);
@@ -42,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             var createProjectRequest = new CreateProjectRequest();
             var project = _createProjectCache.Get();
-
+            
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,

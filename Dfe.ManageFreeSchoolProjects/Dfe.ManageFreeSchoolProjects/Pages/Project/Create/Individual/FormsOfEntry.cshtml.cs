@@ -30,10 +30,11 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     
     public IActionResult OnGet()
     {
-        if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+        if (!IsUserAuthorised())
         {
             return new UnauthorizedResult();
         }
+
         
         var project = _createProjectCache.Get();
 

@@ -31,10 +31,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnGet()
         {
-            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!IsUserAuthorised())
             {
                 return new UnauthorizedResult();
             }
+
 
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
