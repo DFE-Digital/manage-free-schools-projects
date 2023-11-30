@@ -23,10 +23,11 @@ public class NotifyUser : CreateProjectBaseModel
 
     public IActionResult OnGet()
     {
-        if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+        if (!IsUserAuthorised())
         {
             return new UnauthorizedResult();
         }
+
 
         var projectCache = _createProjectCache.Get();
 

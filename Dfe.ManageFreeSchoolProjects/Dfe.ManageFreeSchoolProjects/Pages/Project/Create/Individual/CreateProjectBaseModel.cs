@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class CreateProjectBaseModel : PageModel
     {
         protected internal string BackLink { get; set; }
-        
+
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
@@ -21,6 +20,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             if (navigationCache == CreateProjectNavigation.BackToCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
+
+            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
+                ? RouteConstants.CreateFaithType
+                : RouteConstants.CreateFaithStatus;
 
             return currentPageName switch
             {
@@ -35,33 +38,41 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.AgeRange => RouteConstants.CreateClassType,
-				CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
-				CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateFormsOfEntry,
-                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithStatusAndType,
+                CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
+                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.FaithStatus => RouteConstants.CreateClassType,
+                CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.ProvisionalOpeningDate => faithTypeOrFaithStatusRoute,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
-        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "")
+        public string GetNextPage(CreateProjectPageName currentPageName,
+            CreateProjectNavigation navigationCache = CreateProjectNavigation.Default, string routeParameter = "")
         {
+            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
+                ? RouteConstants.CreateFaithType
+                : RouteConstants.CreateProjectProvisionalOpeningDate;
+
             return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
+                    routeParameter),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFormsOfEntry,
-                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatusAndType,
-                CreateProjectPageName.FaithStatusAndType => RouteConstants.CreateProjectProvisionalOpeningDate,
+                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.FaithStatus => faithTypeOrFaithStatusRoute,
+                CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
