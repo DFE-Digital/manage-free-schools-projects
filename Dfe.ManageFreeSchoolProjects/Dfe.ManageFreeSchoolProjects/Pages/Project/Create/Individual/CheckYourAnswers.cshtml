@@ -155,6 +155,19 @@
     </div>
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
+            Age range
+        </dt>
+        <dd class="govuk-summary-list__value" data-testid="age-range">
+            @Model.Project.AgeRange
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="@RouteConstants.CreateProjectAgeRange">
+                Change<span class="govuk-visually-hidden"> Age range</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
             School type
         </dt>
         <dd class="govuk-summary-list__value" data-testid="school-type">

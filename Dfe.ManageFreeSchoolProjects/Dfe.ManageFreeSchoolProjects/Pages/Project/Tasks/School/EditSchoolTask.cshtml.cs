@@ -44,19 +44,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
         [Required]
         public SchoolPhase SchoolPhase { get; set; }
 
-        [BindProperty(Name = "age-range-from")]
-        [Display(Name = "Age range from")]
-        [StringLengthValidator(2, ErrorMessage = "Age range from must be 2 characters or less.")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number.")]
-        [Required]
-        public string AgeRangeFrom { get; set; }
-
-        [BindProperty(Name = "age-range-to")]
-        [Display(Name = "Age range to")]
-        [StringLengthValidator(2, ErrorMessage = "Age range from must be 2 characters or less.")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a valid number")]
-        [Required]
-        public string AgeRangeTo { get; set; }
+        [BindProperty(Name = "age-range", BinderType = typeof(NumberRangeModelBinder))]
+        [Display(Name = "Age range")]
+		[Required]
+		public string AgeRange { get; set; }
 
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
@@ -126,9 +117,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 
                 if (!string.IsNullOrEmpty(project.School.AgeRange))
                 {
-                    var ageRanges = SplitAgeRange(project.School.AgeRange);
-                    AgeRangeFrom = ageRanges[0];
-                    AgeRangeTo = ageRanges[1];
+                    AgeRange = project.School.AgeRange;
                 }
             }
             catch (Exception ex)
@@ -147,7 +136,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 return Page();
             }
 
-            ValidateAgeRange();
             ValidateFaithFields();
 
             if (!ModelState.IsValid)
@@ -207,16 +195,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             }
         }
 
-        private void ValidateAgeRange()
-        {
-            if (int.TryParse(AgeRangeTo, out var ageRangeTo)
-                && int.TryParse(AgeRangeFrom, out var ageRangeFrom)
-                && ageRangeFrom > ageRangeTo)
-            {
-                ModelState.AddModelError("age-range-from", "'Age range from' must be less than 'Age range to'");
-            }
-        }
-
         private SchoolTask CreateUpdatedSchoolTask()
         {
             return new SchoolTask
@@ -230,13 +208,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 FaithStatus = FaithStatus,
                 FaithType = FaithType,
                 OtherFaithType = OtherFaithType,
-                AgeRange = string.Concat(AgeRangeFrom, "-", AgeRangeTo)
+                AgeRange = AgeRange,
             };
-        }
-
-        private static string[] SplitAgeRange(string ageRange)
-        {
-            return ageRange.Split('-');
         }
     }
 }
