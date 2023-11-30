@@ -100,7 +100,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 throw;
             }
 
-            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, TRN));
+            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, CreateProjectNavigation.Default, TRN));
         }
     }
 }

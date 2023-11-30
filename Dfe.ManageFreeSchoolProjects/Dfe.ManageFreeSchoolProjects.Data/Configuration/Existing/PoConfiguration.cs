@@ -11,8 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Po> builder)
 		{
             builder
-                .HasNoKey()
-                .ToTable("PO", "dbo");
+                .ToTable("PO", "dbo")
+                .HasKey(e => e.Rid);
 
             builder.Property(e => e.FinancialPlanningOptInToRpa)
                 .HasMaxLength(100)

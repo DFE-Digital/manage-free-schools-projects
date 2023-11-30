@@ -7,14 +7,8 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
-    public hasRiskDate(value: string): this {
+    public hasTitle(value: string): this {
         cy.getByTestId(`risk-date`).should("contain.text", value);
-
-        return this;
-    }
-
-    public hasNoRiskDate(): this {
-        cy.getByTestId(`risk-date`).should("not.exist");
 
         return this;
     }
@@ -98,7 +92,15 @@ class ProjectRiskSummaryPage {
 
     public hasRiskAppraisalFormSharePointLink(value: string): this {
 
-        cy.getByTestId(`risk-appraisal-form-sharepoint-link`).should(`contain.text`, value);
+        const selector = `risk-appraisal-form-sharepoint-link`;
+
+        if (value == "Empty")
+        {
+            cy.getByTestId(selector).should("contain.text", value);
+            return this;
+        }
+
+        cy.getByTestId(selector).find("a").should(`have.attr`, `href`, value);
 
         return this;
     }
@@ -110,7 +112,13 @@ class ProjectRiskSummaryPage {
     }
 
     public addRiskEntry(): this {
-        cy.getByTestId("add-risk-entry").click();
+        this.getAddRiskEntry().click();
+
+        return this;
+    }
+
+    public cannotAddRiskEntry(): this {
+        this.getAddRiskEntry().should("not.exist");
 
         return this;
     }
@@ -121,8 +129,30 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public markRiskAsReviewed(): this {
+        cy.getByTestId("risk-reviewed").check();
+
+        return this;
+    }
+
+    public goToRiskSummary(): this {
+        cy.getByTestId("link-risk-summary").click();
+
+        return this;
+    }
+
+    public goToProjectOverview(): this {
+        cy.getByTestId("link-project-overview").click();
+
+        return this;
+    }
+
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);
+    }
+
+    private getAddRiskEntry() {
+        return cy.getByTestId("add-risk-entry");
     }
 }
 

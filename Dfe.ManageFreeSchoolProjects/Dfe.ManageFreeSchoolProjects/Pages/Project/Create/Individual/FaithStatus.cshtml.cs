@@ -56,6 +56,6 @@ public class FaithStatusModel : CreateProjectBaseModel
 
         _createProjectCache.Update(project);
 
-        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus, string.Empty, project.Navigation));
+        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus, project.Navigation, string.Empty ));
     }
 }

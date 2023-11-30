@@ -2,11 +2,8 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import trustDetailsPage from "cypress/pages/trustDetailsPage";
-import trustSummaryPage from "cypress/pages/trustSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskListPage";
-import confirmTrustPage from "cypress/pages/confirmTrustPage";
 import schoolSummaryPage from "cypress/pages/schoolSummaryPage";
 import schoolDetailsPage from "cypress/pages/schoolDetailsPage";
 
@@ -51,51 +48,33 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage.verifySchoolDetailsElementsVisible(project.schoolName);
 
-
-
         Logger.log("Test that submitting a blank form results in all validation errors displaying (except faith type)");
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .selectSaveAndContinue()
+            .verifyValidationSummaryAndErrorsVisible();
 
         cy.executeAccessibilityTests();
 
-        schoolDetailsPage.verifyValidationSummaryAndErrorsVisible();
-
-
-
         Logger.log("Test that submitting a form with all fields complete apart from Faith type when Designation selected results in error summary and error");
-        schoolDetailsPage.enterSchoolNameField(project.schoolName);
-
-        schoolDetailsPage.selectMainstream();
-
-        schoolDetailsPage.selectSecondary();
-
-        schoolDetailsPage.enterAgeRangeFromEleven();
-
-        schoolDetailsPage.enterAgeRangeToSixteen();
-
-        schoolDetailsPage.selectGenderMixed();
-
-        schoolDetailsPage.selectNurseryNo();
-
-        schoolDetailsPage.selectSixthFormYes();
-
-        schoolDetailsPage.selectFaithDesignation();
-
-        schoolDetailsPage.selectSaveAndContinue();
-
-        schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
+        schoolDetailsPage.enterSchoolNameField(project.schoolName)
+            .selectMainstream()
+            .selectSecondary()
+            .enterAgeRangeFrom("11")
+            .enterAgeRangeTo("16")
+            .selectGenderMixed()
+            .selectNurseryNo()
+            .selectSixthFormYes()
+            .selectFaithDesignation()
+            .selectSaveAndContinue()
+            .verifyFaithTypeErrorSummaryAndErrorVisible();
 
         cy.executeAccessibilityTests();
 
         Logger.log("Test that submitting a form with all fields complete apart from Faith type when Ethos selected results in error summary and error");
 
-        schoolDetailsPage.selectFaithEthos();
-
-        schoolDetailsPage.selectSaveAndContinue();
-
-        schoolDetailsPage.verifyFaithTypeErrorSummaryAndErrorVisible();
+        schoolDetailsPage.selectFaithEthos()
+            .selectSaveAndContinue()
+            .verifyFaithTypeErrorSummaryAndErrorVisible();
 
         cy.executeAccessibilityTests();
 
@@ -103,11 +82,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering only disallowed special chars into schoolname field fails");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestAllInvalidSpecialCharsSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterNegTestAllInvalidSpecialCharsSchoolNameField()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -115,11 +92,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering a mixture of letters and disallowed special chars into schoolname field fails");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -127,24 +102,19 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering an SQL injection attempt in the schoolname field fails to execute");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestSQLInjectionAttemptSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterNegTestSQLInjectionAttemptSchoolNameField()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
         
         schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
 
-
         Logger.log("Test that entering a cross-site scripting attempt in the schoolname field fails to execute");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestCrossSiteScriptAttemptSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterNegTestCrossSiteScriptAttemptSchoolNameField()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
         
@@ -152,11 +122,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering more than 100 chars in the schoolname fields fails and gives correct validation");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterNegTestMoreThanOneHundredCharsSchoolNameField();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterNegTestMoreThanOneHundredCharsSchoolNameField()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -164,11 +132,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering a school name with all VALID SPECIAL CHARS in schoolname field passes");
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars);
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars)
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -178,13 +144,10 @@ describe("Testing project overview", () => {
 
         schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
-        schoolDetailsPage.clearSchoolNameField();
-
-        schoolDetailsPage.enterSchoolNameField(project.schoolName);
-
-        schoolDetailsPage.selectFaithTypeOther();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearSchoolNameField()
+            .enterSchoolNameField(project.schoolName)
+            .selectFaithTypeOther()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -192,9 +155,8 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that selecting 'Other Religion' And entering all numbers in 'Other religion' textfield gives correct validation'");
 
-        schoolDetailsPage.enterNegTestAllNumbersOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.enterNegTestAllNumbersOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -202,11 +164,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that selecting 'Other Religion' And entering all special chars in 'Other religion' textfield gives correct validation'");
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterNegTestAllSpecialCharsOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearOtherFaithTypeField()
+            .enterNegTestAllSpecialCharsOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -214,11 +174,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that selecting 'Other Religion' And entering SOME special chars AS WELL AS VALID CHARS in 'Other religion' textfield gives correct validation'");
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterNegTestSomeValidSomeSpecialCharsOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearOtherFaithTypeField()
+            .enterNegTestSomeValidSomeSpecialCharsOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -226,11 +184,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterNegTestSQLInjectionAttemptOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearOtherFaithTypeField()
+            .enterNegTestSQLInjectionAttemptOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -238,11 +194,9 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering a Cross-site scripting attack attempt in 'Other religion' textfield gives correct validation and Cross-site scripting attack attempt fails to execute'");
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterNegTestCrossSiteScriptAttackAttemptOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearOtherFaithTypeField()
+            .enterNegTestCrossSiteScriptAttackAttemptOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
@@ -250,33 +204,125 @@ describe("Testing project overview", () => {
 
         Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
+        schoolDetailsPage.clearOtherFaithTypeField()
+            .enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType()
+            .selectSaveAndContinue();
 
         cy.executeAccessibilityTests();
 
         Logger.log("Test that entering more than 100 chars in the 'Other religion' textfield fails and gives correct validation");
 
-        schoolDetailsPage.verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible();
+        schoolDetailsPage.verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible()
+            .clearOtherFaithTypeField()
+            .enterOtherFaithType()
+            .selectSaveAndContinue();
 
-        schoolDetailsPage.clearOtherFaithTypeField();
-
-        schoolDetailsPage.enterOtherFaithType();
-
-        schoolDetailsPage.selectSaveAndContinue();
-
-        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName);
-
-        cy.executeAccessibilityTests();
-
-        schoolSummaryPage.selectMarkItemAsComplete();
-
-        schoolSummaryPage.selectConfirmAndContinue();
+        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName)
+            .selectMarkItemAsComplete()
+            .selectConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("School");
+
+    });
+
+    
+    it("Should validate age range correctly", () => {
+
+        Logger.log("Navigate to details");
+
+        projectOverviewPage.selectTaskListTab();
+        taskListPage.selectSchoolFromTaskList();
+        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+
+        Logger.log("Set all fields valid");
+        schoolDetailsPage.enterSchoolNameField(project.schoolName)
+            .selectMainstream()
+            .selectSecondary()
+            .enterAgeRangeFrom("11")
+            .enterAgeRangeTo("16")
+            .selectGenderMixed()
+            .selectNurseryNo()
+            .selectSixthFormYes()
+            .selectFaithStatusNone()
+            .selectSaveAndContinue()
+
+        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+        schoolDetailsPage
+            .enterAgeRangeFrom("")
+            .enterAgeRangeTo("")
+            .selectSaveAndContinue()
+            .errorMessage("The Age range field is required.")
+            .ageRangeErrorHint("The Age range field is required.");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("A")
+            .enterAgeRangeTo("")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("")
+            .enterAgeRangeTo("A")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("1")
+            .enterAgeRangeTo("")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("")
+            .enterAgeRangeTo("1")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+    
+        schoolDetailsPage
+            .enterAgeRangeFrom("1")
+            .enterAgeRangeTo("1")
+            .selectSaveAndContinue()
+            .errorMessage("'Age range from' must be less than 'Age range to'")
+            .ageRangeErrorHint("'Age range from' must be less than 'Age range to'");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("-1")
+            .enterAgeRangeTo("10")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+      
+        schoolDetailsPage
+            .enterAgeRangeFrom("10")
+            .enterAgeRangeTo("-1")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+        
+        schoolDetailsPage
+            .enterAgeRangeFrom("10")
+            .enterAgeRangeTo("-1")
+            .selectSaveAndContinue()
+            .errorMessage("Please enter a valid number")
+            .ageRangeErrorHint("Please enter a valid number");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("999")
+            .enterAgeRangeTo("10")
+            .selectSaveAndContinue()
+            .errorMessage("'Age range from' must be 2 characters or less.")
+            .ageRangeErrorHint("'Age range from' must be 2 characters or less.");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("10")
+            .enterAgeRangeTo("999")
+            .selectSaveAndContinue()
+            .errorMessage("'Age range to' must be 2 characters or less.")
+            .ageRangeErrorHint("'Age range to' must be 2 characters or less.");
 
     });
 });

@@ -61,7 +61,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         
         _createProjectCache.Update(project);
 
-        return Redirect(RouteConstants.CreateNotifyUser);
+        return Redirect(GetNextPage(CreateProjectPageName.FaithType, project.Navigation));
     }
 
     private void ValidateFaithFields()

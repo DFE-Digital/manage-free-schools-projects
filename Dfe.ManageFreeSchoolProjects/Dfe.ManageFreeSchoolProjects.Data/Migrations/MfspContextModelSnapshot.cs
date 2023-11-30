@@ -7868,6 +7868,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Po", b =>
                 {
+                    b.Property<string>("Rid")
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("RID");
+
                     b.Property<string>("FinancialPlanningOptInToRpa")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -9642,11 +9648,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(4)")
                         .HasColumnName("Pupil numbers and capacity.YR-Y6 capacity");
 
-                    b.Property<string>("Rid")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("RID");
+                    b.HasKey("Rid");
 
                     b.ToTable("PO", "dbo");
                 });
@@ -10654,6 +10656,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(999)")
                         .HasColumnName("Rag Ratings.Summary of inclusivity issue");
+
+                    b.Property<Guid>("RevisionMarker")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Rid");
 

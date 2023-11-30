@@ -21,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             if (navigationCache == CreateProjectNavigation.BackToCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
 
-            if (navigationCache == CreateProjectNavigation.GoToFaithType &&
-                currentPageName == CreateProjectPageName.NotifyUser)
-                return RouteConstants.CreateFaithType;
+            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
+                ? RouteConstants.CreateFaithType
+                : RouteConstants.CreateFaithStatus;
 
             return currentPageName switch
             {
@@ -37,22 +37,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                     routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
+                CreateProjectPageName.AgeRange => RouteConstants.CreateClassType,
+                CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
+                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateClassType,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.NotifyUser => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.ProvisionalOpeningDate => faithTypeOrFaithStatusRoute,
+                CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
-        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "",
-            CreateProjectNavigation navigationCache = CreateProjectNavigation.Default)
+        public string GetNextPage(CreateProjectPageName currentPageName,
+            CreateProjectNavigation navigationCache = CreateProjectNavigation.Default, string routeParameter = "")
         {
-            if (navigationCache == CreateProjectNavigation.GoToFaithType &&
-                currentPageName == CreateProjectPageName.FaithStatus)
-            {
-                return RouteConstants.CreateFaithType;
-            }
+            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
+                ? RouteConstants.CreateFaithType
+                : RouteConstants.CreateProjectProvisionalOpeningDate;
 
             return currentPageName switch
             {
@@ -65,9 +67,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.FaithStatus => RouteConstants.CreateNotifyUser,
-                CreateProjectPageName.FaithType => RouteConstants.CreateNotifyUser,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectAgeRange,
+                CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.Capacity => RouteConstants.CreateFormsOfEntry,
+                CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.FaithStatus => faithTypeOrFaithStatusRoute,
+                CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")

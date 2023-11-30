@@ -89,5 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string RagRatingsOverallRomRagRating { get; set; }
 
         public string RagRatingsRiskAppraisalFormSharepointLink { get; set; }
+
+        public Guid RevisionMarker { get; set; }
     }
 }

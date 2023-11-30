@@ -1,14 +1,14 @@
+using System.Net.Http;
+using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Extensions;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
     public class CheckYourAnswersModel : PageModel
     {
@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
-               var project = _createProjectCache.Get();
+            var project = _createProjectCache.Get();
             
             var projReq = new ProjectDetails
             {
@@ -55,11 +55,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 Region = project.Region.ToDescription(),
                 TRN = project.TRN,
                 TrustName = project.TrustName,
+                AgeRange = project.AgeRange,
+                YRY6Capacity = (int)project.YRY6Capacity,
+                Y7Y11Capacity = (int)project.Y7Y11Capacity,
+                Y12Y14Capacity = (int)project.Y12Y14Capacity,
                 Nursery = project.Nursery, 
-                SixthForm = project.SixthForm, 
+                SixthForm = project.SixthForm,
+                FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType
+                OtherFaithType = project.OtherFaithType, 
+                ProvisionalOpeningDate = project.ProvisionalOpeningDate
             };
 
             createProjectRequest.Projects.Add(projReq);
