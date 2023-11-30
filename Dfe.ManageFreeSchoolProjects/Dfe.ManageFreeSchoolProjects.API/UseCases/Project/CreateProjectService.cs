@@ -78,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsTrustType = trust.TrustsTrustType,
                     SchoolDetailsSixthForm = proj.SixthForm.ToString(),
                     SchoolDetailsNursery = proj.Nursery.ToString(),
+                    SchoolDetailsAgeRange = proj.AgeRange,
                     SchoolDetailsNumberOfFormsOfEntry = proj.FormsOfEntry,
                     SchoolDetailsFaithStatus = proj.FaithStatus.ToString(),
                     SchoolDetailsFaithType = proj.FaithType.ToDescription(),

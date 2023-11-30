@@ -1,3 +1,5 @@
+import validationComponent from "./validationComponent";
+
 class SchoolDetailsPage {
 
     public verifySchoolDetailsElementsVisible(schoolName: string): this {
@@ -199,15 +201,21 @@ class SchoolDetailsPage {
         return this;
     }
 
-    public enterAgeRangeFromEleven(): this {
-        cy.getByTestId("age-range-from").type("11");
-
+    public enterAgeRangeFrom(value: string): this {
+        cy.getByTestId("age-range-from").clear()
+        if(value)
+        {
+            cy.getByTestId("age-range-from").type(value);
+        }
         return this;
     }
 
-    public enterAgeRangeToSixteen(): this {
-        cy.getByTestId("age-range-to").type("16");
-
+    public enterAgeRangeTo(value: string): this {
+        cy.getByTestId("age-range-to").clear()
+        if(value)
+        {
+            cy.getByTestId("age-range-to").type(value);
+        }
         return this;
     }
 
@@ -364,13 +372,10 @@ class SchoolDetailsPage {
         cy.getById("nursery-error-link").contains("The Nursery field is required");
         cy.getById("sixth-form-error-link").contains("The Sixth form field is required");
         cy.getById("school-type-error-link").contains("The School type field is required");
-        cy.getById("age-range-to-error-link").contains("The Age range to field is required");
+        cy.getById("age-range-error-link").contains("The Age range field is required");
         cy.getById("faith-status-error-link").contains("The Faith status field is required");
         cy.getById("school-phase-error-link").contains("The School phase field is required");
-        cy.getById("age-range-from-error-link").contains("The Age range from field is required");
         cy.getById("current-free-school-name-error-link").contains("The Current free school name field is required");
-
-
 
         cy.getById("current-free-school-name-error").contains("The Current free school name field is required");
         
@@ -378,9 +383,7 @@ class SchoolDetailsPage {
 
         cy.getById("school-phase-error").contains("The School phase field is required");
 
-        cy.getById("age-range-from-error").contains("The Age range from field is required");
-
-        cy.getById("age-range-to-error").contains("The Age range to field is required");
+        cy.getById("age-range-error").contains("The Age range field is required");
 
         cy.getById("gender-error").contains("The Gender field is required");
         
@@ -392,6 +395,17 @@ class SchoolDetailsPage {
 
         return this;
     }
+
+    public errorMessage(error: string): this {
+        validationComponent.hasValidationError(error);
+        return this;
+    }
+
+    public ageRangeErrorHint(error: string): this {
+        cy.get("#age-range-error").should("contains.text", error);
+        return this;
+    }
+
 }
 
 const schoolDetailsPage = new SchoolDetailsPage();
