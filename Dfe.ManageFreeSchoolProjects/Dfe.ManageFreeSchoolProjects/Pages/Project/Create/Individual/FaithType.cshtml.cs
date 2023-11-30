@@ -28,14 +28,22 @@ public class FaithTypeModel : CreateProjectBaseModel
         _errorService = errorService;
     }
     
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (!IsUserAuthorised())
+        {
+            return new UnauthorizedResult();
+        }
+
+        
         var project = _createProjectCache.Get();
 
         FaithType = project.FaithType;
         OtherFaithType = project.OtherFaithType;
         
         BackLink = GetPreviousPage(CreateProjectPageName.FaithType, project.Navigation);
+
+        return Page();
     }
 
     public IActionResult OnPost()

@@ -30,10 +30,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnGet()
         {
-            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!IsUserAuthorised())
             {
                 return new UnauthorizedResult();
             }
+
 
             var project = _createProjectCache.Get();
             BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);

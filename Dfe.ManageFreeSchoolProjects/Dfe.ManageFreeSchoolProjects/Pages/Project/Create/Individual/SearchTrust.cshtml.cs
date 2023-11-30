@@ -50,6 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public IActionResult OnGet()
         {
             _logger.LogMethodEntered();
+            
+            if (!IsUserAuthorised())
+            {
+                return new UnauthorizedResult();
+            }
 
             try
             {

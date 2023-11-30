@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 return new UnauthorizedResult();
             }
+            
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
             _createProjectCache.Update(Project);

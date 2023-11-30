@@ -23,12 +23,19 @@ public class FaithStatusModel : CreateProjectBaseModel
         _errorService = errorService;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (!IsUserAuthorised())
+        {
+            return new UnauthorizedResult();
+        }
+        
         var project = _createProjectCache.Get();
         FaithStatus = project.FaithStatus;
 
         BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus, project.Navigation);
+
+        return Page();
     }
 
     public IActionResult OnPost()
