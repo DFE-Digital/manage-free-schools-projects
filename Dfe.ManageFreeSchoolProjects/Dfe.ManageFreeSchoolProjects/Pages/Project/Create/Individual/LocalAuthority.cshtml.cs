@@ -84,8 +84,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             var response = await _getLocalAuthoritiesService.Execute(new List<string> { region });
 
             var authorities = new Dictionary<string, string>();
-            
-            response.LocalAuthorities.ForEach(authority =>
+
+            response.Regions.FirstOrDefault().LocalAuthorities.ForEach(authority =>
             {
                 authorities.Add(authority.LACode, authority.Name);
             });

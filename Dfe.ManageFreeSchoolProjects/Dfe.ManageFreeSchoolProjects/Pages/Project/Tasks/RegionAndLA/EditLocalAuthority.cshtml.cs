@@ -103,7 +103,7 @@ public class EditLocalAuthority : PageModel
 
         var authorities = new Dictionary<string, string>();
 
-        response.LocalAuthorities.ForEach(authority => { authorities.Add(authority.LACode, authority.Name); });
+        response.Regions.FirstOrDefault().LocalAuthorities.ForEach(authority => { authorities.Add(authority.LACode, authority.Name); });
 
         return authorities;
     }

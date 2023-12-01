@@ -2,6 +2,12 @@
 {
     public record GetLocalAuthoritiesResponse
     {
+        public List<RegionResponse> Regions { get; set; }
+    }
+
+    public record RegionResponse
+    {
+        public string RegionName { get; set; }
         public List<LocalAuthorityResponse> LocalAuthorities { get; set; }
     }
 
