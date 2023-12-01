@@ -56,5 +56,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 _ => "NotSet"
             };
         }
+
+        public static FaithType ToFaithType(string faithTypeDescription)
+        {
+            return faithTypeDescription switch
+            {
+                "Church of England" => FaithType.ChurchOfEngland,
+                "Greek Orthodox" => FaithType.GreekOrthodox,
+                "Roman Catholic" => FaithType.RomanCatholic,
+                _ => EnumParsers.ParseFaithType(faithTypeDescription)
+            };
+        }
     }
 }
