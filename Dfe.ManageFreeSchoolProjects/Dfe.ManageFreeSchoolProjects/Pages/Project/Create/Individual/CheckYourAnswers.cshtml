@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Check your answers";
 
-    var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" : Model.Project.FaithType.ToDescription();
+    var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" :  Model.Project.FaithType.ToDescription();
 }
 
 @section BeforeMain {
@@ -234,7 +234,9 @@
             Faith type
         </dt>
         <dd class="govuk-summary-list__value" data-testid="faith-type">
-            @faithType
+            @{
+                RenderValue(faithType);
+            }
         </dd>
         <dd class="govuk-summary-list__actions">
 
