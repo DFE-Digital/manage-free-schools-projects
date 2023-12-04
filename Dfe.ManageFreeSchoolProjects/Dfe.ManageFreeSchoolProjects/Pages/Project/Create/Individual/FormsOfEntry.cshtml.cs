@@ -18,8 +18,7 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     [BindProperty(Name = "forms-of-entry")]
     [DisplayName("Forms of entry")]
     [ValidText(100)]
-    [Required]
-    public string FormsOfEntry { get; set; }
+    public string? FormsOfEntry { get; set; }
     
 
     public FormsOfEntryModel(ICreateProjectCache createProjectCache, ErrorService errorService)
