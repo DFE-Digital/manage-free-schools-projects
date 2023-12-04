@@ -2,7 +2,7 @@
 {
     public record GetLocalAuthoritiesResponse
     {
-        public List<RegionResponse> Regions { get; set; }
+        public List<RegionResponse> Regions { get; set; } = new();
     }
 
     public record RegionResponse

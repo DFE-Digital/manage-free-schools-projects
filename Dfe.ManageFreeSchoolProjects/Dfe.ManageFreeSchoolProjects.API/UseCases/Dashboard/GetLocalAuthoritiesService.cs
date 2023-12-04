@@ -20,11 +20,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
         public async Task<GetLocalAuthoritiesResponse> Execute(List<string> regions)
         {
-            GetLocalAuthoritiesResponse localAuthorities = new();
+            GetLocalAuthoritiesResponse localAuthorities = new GetLocalAuthoritiesResponse();
 
             foreach (string region in regions)
             {
-                var recordsForRegion = await _context.LaData.Where(e => regions.Contains(e.LocalAuthoritiesGeographicalRegion))
+                var recordsForRegion = await _context.LaData.Where(la => region.Contains(la.LocalAuthoritiesGeographicalRegion))
                     .ToListAsync();
 
                 var localAuthoritiesForRegion = recordsForRegion.Select(r => new LocalAuthorityResponse
@@ -33,9 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                     LACode = r.LocalAuthoritiesLaCode
                 }).ToList();
 
-                RegionResponse regionResponse = new RegionResponse { RegionName = region, LocalAuthorities = localAuthoritiesForRegion };
-
-                localAuthorities.Regions.Add(regionResponse);
+                localAuthorities.Regions.Add(new RegionResponse { RegionName = region, LocalAuthorities = localAuthoritiesForRegion });
             }
 
             return localAuthorities;

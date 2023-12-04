@@ -56,14 +56,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             var localAuthoritiesResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
 
-            var localAuthoritiesList = new List<string>();
+            //var localAuthoritiesList = new List<string>();
 
-            foreach (RegionResponse regionResponse in localAuthoritiesResponse.Regions)
-            {
-                localAuthoritiesList.AddRange(regionResponse.LocalAuthorities.Select(l => l.Name).ToList());
-            }
+            //var regionsList = new List<(string, List<string>)>();
 
-            var result = new JsonResult(localAuthoritiesList);
+            //foreach (RegionResponse regionResponse in localAuthoritiesResponse.Regions)
+            //{
+            //    localAuthoritiesList.AddRange(regionResponse.LocalAuthorities.Select(l => l.Name).ToList());
+                
+            //    regionsList.Add(regionResponse.RegionName, localAuthoritiesList);
+            //}
+
+            var result = new JsonResult(localAuthoritiesResponse.Regions);
 
             return result;
         }
