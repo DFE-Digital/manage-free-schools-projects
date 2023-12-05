@@ -11,6 +11,7 @@ using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Utils;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -85,9 +86,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             var authorities = new Dictionary<string, string>();
 
-            response.Regions.FirstOrDefault().LocalAuthorities.ForEach(authority =>
+            response.Regions.ForEach(region =>
             {
-                authorities.Add(authority.LACode, authority.Name);
+                region.LocalAuthorities.ForEach(authority =>
+                {
+                    authorities.Add(authority.LACode, authority.Name);
+                });
             });
 
             return authorities;
