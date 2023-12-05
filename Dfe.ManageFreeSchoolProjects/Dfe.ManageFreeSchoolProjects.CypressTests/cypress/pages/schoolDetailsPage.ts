@@ -372,7 +372,7 @@ class SchoolDetailsPage {
         cy.getById("nursery-error-link").contains("The Nursery field is required");
         cy.getById("sixth-form-error-link").contains("The Sixth form field is required");
         cy.getById("school-type-error-link").contains("The School type field is required");
-        cy.getById("age-range-error-link").contains("The Age range field is required");
+        cy.getById("age-range-error-link").contains("Enter a 'from' and 'to' age range");
         cy.getById("faith-status-error-link").contains("The Faith status field is required");
         cy.getById("school-phase-error-link").contains("The School phase field is required");
         cy.getById("current-free-school-name-error-link").contains("The Current free school name field is required");
@@ -383,7 +383,7 @@ class SchoolDetailsPage {
 
         cy.getById("school-phase-error").contains("The School phase field is required");
 
-        cy.getById("age-range-error").contains("The Age range field is required");
+        cy.getById("age-range-error").contains("Enter a 'from' and 'to' age range");
 
         cy.getById("gender-error").contains("The Gender field is required");
         

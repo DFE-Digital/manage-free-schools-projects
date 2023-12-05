@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithTypeModel
 
 @{
-    ViewData["Title"] = "What is the faith status?";
+    ViewData["Title"] = "What is the faith type?";
     
     var faithTypes = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet }).ToList();
     var faithTypeLabels = faithTypes.Select(x => x.ToDescription()).ToArray();
@@ -21,7 +21,7 @@
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
         <h1 class="govuk-fieldset__heading">
             <span class="govuk-caption-l">Creating a new free school project</span>
-            What is the faith status?
+            What is the faith type?
         </h1>
     </legend>
 

@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "yr-y6-capacity")]
         [Display(Name = "Reception to year 6 capacity")]
-        [Required(ErrorMessage = "Enter the Year Reception - Year 6 Capacity.")]
+        [Required(ErrorMessage = "Enter the Reception - Year 6 Capacity.")]
         [ValidNumber(0,9999)]
         public string YRY6Capacity { get; set; }
 
