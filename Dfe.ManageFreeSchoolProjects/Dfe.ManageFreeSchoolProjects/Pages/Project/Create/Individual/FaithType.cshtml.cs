@@ -83,7 +83,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         {
             if (string.IsNullOrEmpty(OtherFaithType))
             {
-                ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+                ModelState.AddModelError("other-faith-type", "Enter the other faith type.");
             }
             else if (OtherFaithType.Length > 100)
             {
