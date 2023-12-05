@@ -14,6 +14,21 @@
 <!DOCTYPE html>
 <html class="govuk-template" lang="en">
 <head>
+    @if (showAnalytics)
+    {
+        <!-- Google Tag Manager -->
+        <script asp-add-nonce>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5H6G773');</script>
+        <!-- End Google Tag Manager -->
+    }
+
     <meta charset="utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -32,22 +47,10 @@
     <link rel="stylesheet" href="~/dist/site.css" />
     <link rel="stylesheet" href="~/dist/dfefrontend.css" />
     <link rel="stylesheet" href="~/dist/accessible-autocomplete.min.css" asp-add-nonce />
-    @if (showAnalytics)
-    {
-        <!-- Google Tag Manager -->
-        <script asp-add-nonce>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-5H6G773');</script>
-        <!-- End Google Tag Manager -->
-    }
+</head>
+<body class="govuk-template__body mfsp-wider-page">
 
-    @if (analyticsConsent)
+    @if (showAnalytics)
     {
         <!-- Google Tag Manager (noscript) -->
         <noscript asp-add-nonce>
@@ -56,8 +59,6 @@
         <!-- End Google Tag Manager (noscript) -->
     }
 
-</head>
-<body class="govuk-template__body mfsp-wider-page">
 
     <script asp-add-nonce>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');

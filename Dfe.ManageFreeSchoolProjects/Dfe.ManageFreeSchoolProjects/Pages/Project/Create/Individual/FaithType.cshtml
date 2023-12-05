@@ -1,12 +1,10 @@
-﻿@page "/project/create/faith-status-and-type"
+﻿@page "/project/create/faith-type"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithStatusAndTypeModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.FaithTypeModel
 
 @{
     ViewData["Title"] = "What is the faith status?";
-
-    var faithStatuses = Enum.GetValues<FaithStatus>().Except(new[] { FaithStatus.NotSet }).Select(x => x.ToString()).ToArray();
-
+    
     var faithTypes = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet }).ToList();
     var faithTypeLabels = faithTypes.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faithTypes.Select(x => x.ToString()).ToArray();
@@ -28,16 +26,6 @@
     </legend>
 
     <form method="post">
-
-        <div class="govuk-form-group" id="faith-status">
-            <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
-            <govuk-radios-input name="faith-status"
-                                asp-for="@Model.FaithStatus"
-                                data-testid="faith-status"
-                                labels="@faithStatuses"
-                                values="@faithStatuses"/>
-        </div>
-
         <div class="govuk-form-group" id="faith-type">
             <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
             <govuk-radios-input name="faith-type"
@@ -59,15 +47,8 @@
 <script type="application/javascript" asp-add-nonce>
     const setVisibility = () =>
     {
-        const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
-        if(faithStatus === 'None' || faithStatus == null)
-        {
-            $('#faith-type').hide();
-            $('#other-faith-type').parent().hide();
-        }
-        else
-        {
-            $('#faith-type').show();
+            $('#faith-type').parent().show();
+            
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();
@@ -76,17 +57,11 @@
             {
                 $('#other-faith-type').parent().hide();
             }
-
-        }
     }
 
 
     $(document).ready(() => {
         setVisibility();
-
-        $("input[type='radio'][name='faith-status']").click((e) => {
-            setVisibility();
-        });
 
         $("input[type='radio'][name='faith-type']").click((e) => {
             setVisibility();

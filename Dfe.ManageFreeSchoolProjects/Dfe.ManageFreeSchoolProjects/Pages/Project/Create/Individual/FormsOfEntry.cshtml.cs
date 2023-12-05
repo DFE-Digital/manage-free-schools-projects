@@ -18,7 +18,6 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     [BindProperty(Name = "forms-of-entry")]
     [DisplayName("Forms of entry")]
     [ValidText(100)]
-    [Required]
     public string FormsOfEntry { get; set; }
     
 
@@ -30,10 +29,11 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     
     public IActionResult OnGet()
     {
-        if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+        if (!IsUserAuthorised())
         {
             return new UnauthorizedResult();
         }
+
         
         var project = _createProjectCache.Get();
 
@@ -53,6 +53,10 @@ public class FormsOfEntryModel : CreateProjectBaseModel
         }
 
         var project = _createProjectCache.Get();
+
+        if (string.IsNullOrEmpty(FormsOfEntry))
+            FormsOfEntry = string.Empty;
+        
         project.FormsOfEntry = FormsOfEntry;
         _createProjectCache.Update(project);
         

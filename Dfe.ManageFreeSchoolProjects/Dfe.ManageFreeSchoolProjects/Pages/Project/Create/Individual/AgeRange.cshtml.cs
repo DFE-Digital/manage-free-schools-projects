@@ -11,8 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     {
         [BindProperty(Name = "age-range", BinderType = typeof(NumberRangeModelBinder))]
         [Display(Name = "Age range")]
-        [Required]
-        public string AgeRange { get; set; }
+		[Required(ErrorMessage = "Enter a 'from' and 'to' age range")]
+		public string AgeRange { get; set; }
 
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;

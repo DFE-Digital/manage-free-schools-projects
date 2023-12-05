@@ -17,14 +17,14 @@
         <form class="form" method="post">
 
             <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--xl">
+                <label class="govuk-label govuk-label--xl" for="forms-of-entry">
                     <span class="govuk-caption-l">Creating a new free school project</span>
                     How many forms of entry are there?
                 </label>
             </h1>
             <div class="govuk-form-group" id="forms-of-entry">
-                <p class="govuk-!-font-size-18">For example, 3 in primary and 6 in secondary.</p>
-                <govuk-textarea-input name="forms-of-entry" asp-for="@Model.FormsOfEntry" data-testid="forms-of-entry"/>
+                <p class="govuk-!-font-size-18">For example, 3 in primary and 6 in secondary</p>
+                <govuk-textarea-input name="forms-of-entry" rows="5" asp-for="@Model.FormsOfEntry" data-testid="forms-of-entry"/>
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
