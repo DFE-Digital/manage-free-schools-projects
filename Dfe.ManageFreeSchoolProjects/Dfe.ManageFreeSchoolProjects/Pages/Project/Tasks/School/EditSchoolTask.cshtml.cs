@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "age-range", BinderType = typeof(NumberRangeModelBinder))]
         [Display(Name = "Age range")]
-		[Required]
+		[Required(ErrorMessage = "Enter a 'from' and 'to' age range")]
 		public string AgeRange { get; set; }
 
         [BindProperty(Name = "gender")]
