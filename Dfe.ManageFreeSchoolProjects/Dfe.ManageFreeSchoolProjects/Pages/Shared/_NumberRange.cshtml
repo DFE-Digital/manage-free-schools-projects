@@ -16,8 +16,8 @@
 		else if (Model.HeadingLabelMedium)
 		{
 			<label class="govuk-label govuk-heading-m" for="@Model.Id">@Model.Label</label>
-		}
-		else
+		}		
+		else if(!string.IsNullOrEmpty(Model.Label))
 		{
 			<legend class="govuk-fieldset__legend govuk-fieldset__legend--s" for="@Model.Id">
 				<label for="@Model.Id">@Model.Label</label>
@@ -49,7 +49,7 @@
 			<div class="govuk-date-input__item">
 				<div class="govuk-form-group">
 					<p class="govuk-label">
-						To
+						to
 					</p>
 				</div>
 			</div>
