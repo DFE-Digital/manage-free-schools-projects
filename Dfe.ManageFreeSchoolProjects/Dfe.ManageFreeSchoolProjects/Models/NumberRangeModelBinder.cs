@@ -63,14 +63,14 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
             if(bindingContext.ModelMetadata.IsRequired && string.IsNullOrEmpty(fromResult))
             {
-				string ErrorMessage = $"'Enter a 'from' {displayName.ToLower()}";
+				string ErrorMessage = $"Enter a 'from' {displayName.ToLower()}";
 				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
 				return false;
 			}
 
 			if (bindingContext.ModelMetadata.IsRequired && string.IsNullOrEmpty(toResult))
 			{
-				string ErrorMessage = $"'Enter a 'to' {displayName.ToLower()}";
+				string ErrorMessage = $"Enter a 'to' {displayName.ToLower()}";
 				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
 				return false;
 			}
@@ -94,21 +94,21 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
             if (!int.TryParse(fromResult, out from) || !int.TryParse(toResult, out to))
             {
-                string ErrorMessage = $"The {displayName.ToLower()} must be numbers, like 2 and 5.";
+                string ErrorMessage = $"The {displayName.ToLower()} must be numbers, like 2 and 5";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }
 
             if(to < 5)
             {
-				string ErrorMessage = $"'To' {displayName.ToLower()} must be 5 or above.";
+				string ErrorMessage = $"'To' {displayName.ToLower()} must be 5 or above";
 				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
 				return false;
 			}
 
             if (from < 2)
             {
-                var ErrorMessage = $"'From' {displayName.ToLower()} must be 2 or above'";
+                var ErrorMessage = $"'From' {displayName.ToLower()} must be 2 or above";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }

@@ -24,7 +24,7 @@ describe("Testing project overview", () => {
             });
     });
 
-    it.skip("Should successfully set Tasklist-school information", () => {
+    it("Should successfully set Tasklist-school information", () => {
 
         const schoolWithAllValidSpecialChars = "St Dunstan's Abbey, (Plymouth)";
 
