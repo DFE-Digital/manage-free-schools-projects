@@ -241,9 +241,9 @@
 
                 if (data.length > 0) {
 
-                    const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
-                        return $(this).val();
-                    }).get();
+                    const existingCheckedLas = @Html.Raw(Json.Serialize(Model.LocalAuthoritySearchTerm));
+
+                    console.log(`LAs: ${existingCheckedLas}`);
 
                     
 
