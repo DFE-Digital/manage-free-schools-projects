@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 localAuthorityCount += regionResponse.LocalAuthorities.Count;
             }
 
-            _logger.LogInformation("Found {count} local authorities for region {region}", localAuthorityCount, string.Join(",", regionQuery));
+            _logger.LogInformation("Found {count} local authorities for region(s) {region}", localAuthorityCount, string.Join(",", regionQuery));
 
             var result = new ApiSingleResponseV2<GetLocalAuthoritiesResponse>(response);
 

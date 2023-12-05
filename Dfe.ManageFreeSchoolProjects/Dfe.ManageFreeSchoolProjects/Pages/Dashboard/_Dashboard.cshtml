@@ -237,15 +237,9 @@
 
                 let checkboxHtml = '<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>';
 
-                console.log(data);
-
                 if (data.length > 0) {
 
                     const existingCheckedLas = @Html.Raw(Json.Serialize(Model.LocalAuthoritySearchTerm));
-
-                    console.log(`LAs: ${existingCheckedLas}`);
-
-                    
 
                     checkboxHtml = $.map(data, function (region) {
                         
