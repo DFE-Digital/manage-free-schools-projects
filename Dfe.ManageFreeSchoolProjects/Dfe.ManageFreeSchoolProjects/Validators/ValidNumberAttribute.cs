@@ -26,10 +26,10 @@ public class ValidNumberAttribute : ValidationAttribute
 
         bool success = int.TryParse(valueAsString, out int valueAsInt);
         if (!success)
-            return new ValidationResult($"Please enter a valid number");
+            return new ValidationResult($"{validationContext.DisplayName} must be a number");
 
         if (valueAsInt < _minValue || valueAsInt > _maxValue)
-            return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, validationContext.DisplayName.ToLower(), _minValue, _maxValue));
+            return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, validationContext.DisplayName, _minValue, _maxValue));
 
         return ValidationResult.Success;
     }

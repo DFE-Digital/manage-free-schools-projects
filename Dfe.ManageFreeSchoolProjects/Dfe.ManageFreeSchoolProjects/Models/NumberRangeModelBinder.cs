@@ -61,46 +61,66 @@ namespace Dfe.ManageFreeSchoolProjects.Models
             string fromResult = fromProviderResult.FirstValue;
             string toResult = toProviderResult.FirstValue;
 
-            if (fromResult.Length > 2)
+            if(bindingContext.ModelMetadata.IsRequired && string.IsNullOrEmpty(fromResult))
             {
-                string ErrorMessage = $"'{displayName} from' must be 2 characters or less.";
+				string ErrorMessage = $"Enter a 'from' {displayName.ToLower()}";
+				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
+				return false;
+			}
+
+			if (bindingContext.ModelMetadata.IsRequired && string.IsNullOrEmpty(toResult))
+			{
+				string ErrorMessage = $"Enter a 'to' {displayName.ToLower()}";
+				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
+				return false;
+			}
+
+			if (fromResult.Length > 2)
+            {
+                string ErrorMessage = $"'From' {displayName.ToLower()} must be 2 characters or less";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }
 
-            int from;
+			if (toResult.Length > 2)
+			{
+				string ErrorMessage = $"'To' {displayName.ToLower()} must be 2 characters or less";
+				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
+				return false;
+			}
 
-            if (!int.TryParse(fromResult, out from) || from < 0)
-            {
-                string ErrorMessage = $"Please enter a valid number";
-                AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
-                return false;
-            }
-
-            if (toResult.Length > 2)
-            {
-                string ErrorMessage = $"'{displayName} to' must be 2 characters or less.";
-                AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
-                return false;
-            }
-
+			int from;
             int to;
 
-            if (!int.TryParse(toResult, out to) || to < 0)
+            if (!int.TryParse(fromResult, out from) || !int.TryParse(toResult, out to))
             {
-                string ErrorMessage = $"Please enter a valid number";
+                string ErrorMessage = $"The {displayName.ToLower()} must be numbers, like 2 and 5";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }
 
-            if (from >= to)
+            if(to < 5)
             {
-                var ErrorMessage = $"'{displayName} from' must be less than '{displayName} to'";
+				string ErrorMessage = $"'To' {displayName.ToLower()} must be 5 or above";
+				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
+				return false;
+			}
+
+            if (from < 2)
+            {
+                var ErrorMessage = $"'From' {displayName.ToLower()} must be 2 or above";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }
 
-            return true;
+			if (from >= to)
+			{
+				var ErrorMessage = $"'From' {displayName.ToLower()} must be less than 'to' {displayName.ToLower()}";
+				AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
+				return false;
+			}
+
+			return true;
         }
 
         private static void AddError(ModelBindingContext bindingContext, string fromModelName, string toModelName, ValueProviderResult fromProviderResult, ValueProviderResult toProviderResult, string ErrorMessage)

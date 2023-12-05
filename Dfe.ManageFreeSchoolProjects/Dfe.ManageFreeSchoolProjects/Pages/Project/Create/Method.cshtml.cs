@@ -32,6 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 return new UnauthorizedResult();
             }
+            
             return Page();
         }
 

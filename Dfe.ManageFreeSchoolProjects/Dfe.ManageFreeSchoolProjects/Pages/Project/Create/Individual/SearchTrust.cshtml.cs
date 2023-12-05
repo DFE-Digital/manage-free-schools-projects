@@ -50,6 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public IActionResult OnGet()
         {
             _logger.LogMethodEntered();
+            
+            if (!IsUserAuthorised())
+            {
+                return new UnauthorizedResult();
+            }
 
             try
             {
@@ -100,7 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 throw;
             }
 
-            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, TRN));
+            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, CreateProjectNavigation.Default, TRN));
         }
     }
 }

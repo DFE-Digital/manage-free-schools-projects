@@ -37,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
     public enum FaithType
     {
+        [Description("NotSet")]
         NotSet,
         [Description("Church of England")]
         ChurchOfEngland,

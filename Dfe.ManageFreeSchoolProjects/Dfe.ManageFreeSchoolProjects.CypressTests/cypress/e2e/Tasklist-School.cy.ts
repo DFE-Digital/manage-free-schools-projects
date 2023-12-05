@@ -251,78 +251,86 @@ describe("Testing project overview", () => {
             .enterAgeRangeFrom("")
             .enterAgeRangeTo("")
             .selectSaveAndContinue()
-            .errorMessage("The Age range field is required.")
-            .ageRangeErrorHint("The Age range field is required.");
+            .errorMessage("Enter a 'from' and 'to' age range")
+            .ageRangeErrorHint("Enter a 'from' and 'to' age range");
 
         schoolDetailsPage
             .enterAgeRangeFrom("A")
             .enterAgeRangeTo("")
             .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
+            .errorMessage("Enter a 'to' age range")
+            .ageRangeErrorHint("Enter a 'to' age range");
 
         schoolDetailsPage
             .enterAgeRangeFrom("")
             .enterAgeRangeTo("A")
             .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
+            .errorMessage("Enter a 'from' age range")
+            .ageRangeErrorHint("Enter a 'from' age range");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("A")
+            .enterAgeRangeTo("1")
+            .selectSaveAndContinue()
+            .errorMessage("The age range must be numbers, like 2 and 5")
+            .ageRangeErrorHint("The age range must be numbers, like 2 and 5");
 
         schoolDetailsPage
             .enterAgeRangeFrom("1")
-            .enterAgeRangeTo("")
+            .enterAgeRangeTo("A")
             .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("")
-            .enterAgeRangeTo("1")
-            .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
+            .errorMessage("The age range must be numbers, like 2 and 5")
+            .ageRangeErrorHint("The age range must be numbers, like 2 and 5");
     
         schoolDetailsPage
-            .enterAgeRangeFrom("1")
-            .enterAgeRangeTo("1")
+            .enterAgeRangeFrom("7")
+            .enterAgeRangeTo("7")
             .selectSaveAndContinue()
-            .errorMessage("'Age range from' must be less than 'Age range to'")
-            .ageRangeErrorHint("'Age range from' must be less than 'Age range to'");
+            .errorMessage("'From' age range must be less than 'to' age range")
+            .ageRangeErrorHint("'From' age range must be less than 'to' age range");
 
         schoolDetailsPage
             .enterAgeRangeFrom("-1")
             .enterAgeRangeTo("10")
             .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
-      
+            .errorMessage("'From' age range must be 2 or above")
+            .ageRangeErrorHint("'From' age range must be 2 or above");
+            
         schoolDetailsPage
-            .enterAgeRangeFrom("10")
-            .enterAgeRangeTo("-1")
+            .enterAgeRangeFrom("1")
+            .enterAgeRangeTo("10")
             .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
-        
-        schoolDetailsPage
-            .enterAgeRangeFrom("10")
-            .enterAgeRangeTo("-1")
-            .selectSaveAndContinue()
-            .errorMessage("Please enter a valid number")
-            .ageRangeErrorHint("Please enter a valid number");
+            .errorMessage("'From' age range must be 2 or above")
+            .ageRangeErrorHint("'From' age range must be 2 or above");
 
+        schoolDetailsPage
+            .enterAgeRangeFrom("10")
+            .enterAgeRangeTo("-1")
+            .selectSaveAndContinue()
+            .errorMessage("'To' age range must be 5 or above")
+            .ageRangeErrorHint("'To' age range must be 5 or above");
+
+        schoolDetailsPage
+            .enterAgeRangeFrom("2")
+            .enterAgeRangeTo("4")
+            .selectSaveAndContinue()
+            .errorMessage("'To' age range must be 5 or above")
+            .ageRangeErrorHint("'To' age range must be 5 or above");
+
+            
         schoolDetailsPage
             .enterAgeRangeFrom("999")
             .enterAgeRangeTo("10")
             .selectSaveAndContinue()
-            .errorMessage("'Age range from' must be 2 characters or less.")
-            .ageRangeErrorHint("'Age range from' must be 2 characters or less.");
+            .errorMessage("'From' age range must be 2 characters or less")
+            .ageRangeErrorHint("'From' age range must be 2 characters or less");
 
         schoolDetailsPage
             .enterAgeRangeFrom("10")
             .enterAgeRangeTo("999")
             .selectSaveAndContinue()
-            .errorMessage("'Age range to' must be 2 characters or less.")
-            .ageRangeErrorHint("'Age range to' must be 2 characters or less.");
+            .errorMessage("'To' age range must be 2 characters or less")
+            .ageRangeErrorHint("'To' age range must be 2 characters or less");
 
     });
 });
