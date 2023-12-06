@@ -13,12 +13,8 @@
     <div class="govuk-grid-column-full">
         <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
 
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">
-                @{
-                    RenderValue(Model.Project.School.CurrentFreeSchoolName);
-                }
-            </span>
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.School.CurrentFreeSchoolName</span>
             School
         </h1>
         <dl class="govuk-summary-list">
@@ -199,7 +195,7 @@
 
             </div>
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
             </button>
         </form>
