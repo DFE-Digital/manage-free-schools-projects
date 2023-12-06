@@ -4,8 +4,8 @@ import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskListPage";
-import schoolSummaryPage from "cypress/pages/schoolSummaryPage";
 import schoolDetailsPage from "cypress/pages/schoolDetailsPage";
+import summaryPage from "cypress/pages/task-summary-base";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -39,10 +39,21 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Checking School Summary page elements present");
-        schoolSummaryPage.verifySchoolSummaryElementsVisible(project.schoolName);
 
-        Logger.log("Selecting first Change link from first 'Current free school name' line");
-        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+        summaryPage
+            .titleIs("School")
+            .schoolNameIs(project.schoolName)
+            .inOrder()
+            .summaryShows("Current free school name").HasValue(project.schoolName).HasChangeLink()
+            .summaryShows("School type").IsEmpty().HasChangeLink()
+            .summaryShows("School phase").IsEmpty().HasChangeLink()
+            .summaryShows("Age range").IsEmpty().HasChangeLink()
+            .summaryShows("Gender").IsEmpty().HasChangeLink()
+            .summaryShows("Nursery").IsEmpty().HasChangeLink()
+            .summaryShows("Sixth form").IsEmpty().HasChangeLink()
+            .summaryShows("Faith status").IsEmpty().HasChangeLink()
+            .summaryShows("Faith type").IsEmpty().HasChangeLink()
+            .clickChange();
 
         cy.executeAccessibilityTests();
 
@@ -138,11 +149,22 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        schoolSummaryPage.verifySchoolSummaryValidSpecialCharsElementsVisible(schoolWithAllValidSpecialChars);
+        summaryPage
+        .titleIs("School")
+        .schoolNameIs(schoolWithAllValidSpecialChars)
+        .inOrder()
+        .summaryShows("Current free school name").HasValue(schoolWithAllValidSpecialChars).HasChangeLink()
+        .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
+        .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
+        .summaryShows("Age range").HasValue("11-16").HasChangeLink()
+        .summaryShows("Gender").HasValue("Mixed").HasChangeLink()
+        .summaryShows("Nursery").HasValue("No").HasChangeLink()
+        .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+        .summaryShows("Faith status").HasValue("Ethos").HasChangeLink()
+        .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
+        .clickChange();
 
         Logger.log("Test that selecting 'Other Religion' And Leaving 'Other religion textfield blank gives correct validation'");
-
-        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
 
         schoolDetailsPage.clearSchoolNameField()
             .enterSchoolNameField(project.schoolName)
@@ -217,9 +239,21 @@ describe("Testing project overview", () => {
             .enterOtherFaithType()
             .selectSaveAndContinue();
 
-        schoolSummaryPage.verifySchoolSummaryCompleteElementsVisible(project.schoolName)
-            .selectMarkItemAsComplete()
-            .selectConfirmAndContinue();
+        summaryPage
+            .titleIs("School")
+            .schoolNameIs(project.schoolName)
+            .inOrder()
+            .summaryShows("Current free school name").HasValue(project.schoolName).HasChangeLink()
+            .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
+            .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
+            .summaryShows("Age range").HasValue("11-16").HasChangeLink()
+            .summaryShows("Gender").HasValue("Mixed").HasChangeLink()
+            .summaryShows("Nursery").HasValue("No").HasChangeLink()
+            .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+            .summaryShows("Faith status").HasValue("Ethos").HasChangeLink()
+            .summaryShows("Faith type").HasValue("Other - Jane").HasChangeLink()
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("School");
 
@@ -232,7 +266,7 @@ describe("Testing project overview", () => {
 
         projectOverviewPage.selectTaskListTab();
         taskListPage.selectSchoolFromTaskList();
-        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+        summaryPage.clickChange();
 
         Logger.log("Set all fields valid");
         schoolDetailsPage.enterSchoolNameField(project.schoolName)
@@ -246,7 +280,7 @@ describe("Testing project overview", () => {
             .selectFaithStatusNone()
             .selectSaveAndContinue()
 
-        schoolSummaryPage.selectChangeCurrrentFreeSchoolNameToGoToSchoolDetails();
+        summaryPage.clickChange();
         schoolDetailsPage
             .enterAgeRangeFrom("")
             .enterAgeRangeTo("")
@@ -317,7 +351,6 @@ describe("Testing project overview", () => {
             .errorMessage("'To' age range must be 5 or above")
             .ageRangeErrorHint("'To' age range must be 5 or above");
 
-            
         schoolDetailsPage
             .enterAgeRangeFrom("999")
             .enterAgeRangeTo("10")
