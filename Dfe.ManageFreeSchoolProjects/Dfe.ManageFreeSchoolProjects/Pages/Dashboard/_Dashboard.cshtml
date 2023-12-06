@@ -159,11 +159,11 @@
                     <span>There are no projects available.</span>
                 </td>
             </tr>
-        }
-        else
-        {
-            foreach (var project in Model.Projects)
+            }
+            else
             {
+                foreach (var project in Model.Projects)
+                {
                 <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
                     <td class="govuk-table__cell" data-testid="project-title">
                         @project.ProjectTitle
@@ -181,7 +181,9 @@
                         @project.LocalAuthority
                     </td>
                     <td class="govuk-table__cell" data-testid="realistic-opening-date">
-                        @project.RealisticOpeningDate
+                        @{
+                            RenderValue(project.RealisticOpeningDate);
+                        }
                     </td>
                     <td class="govuk-table__cell" data-testid="status">
                         <strong class="govuk-tag govuk-tag--grey">Not started</strong>
@@ -242,7 +244,7 @@
                     const existingCheckedLas = @Html.Raw(Json.Serialize(Model.LocalAuthoritySearchTerm));
 
                     checkboxHtml = $.map(data, function (region) {
-                        
+
                         return `<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">${region.regionName}</div>` +
                         $.map(region.localAuthorities, function (localAuthority) {
                             const laIsChecked = existingCheckedLas.includes(localAuthority.name) ? 'checked' : '';
@@ -269,3 +271,19 @@
     }
 
 </script>
+
+@functions {
+
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+
+}
