@@ -239,21 +239,22 @@
 
                 if (data.length > 0) {
 
-                    const existingCheckedLas = $('#la-checkbox-container').find('.govuk-checkboxes__input:checked').map(function() {
-                        return $(this).val();
-                    }).get();
+                    const existingCheckedLas = @Html.Raw(Json.Serialize(Model.LocalAuthoritySearchTerm));
 
-                    checkboxHtml = $.map(data, function (localAuthority) {
+                    checkboxHtml = $.map(data, function (region) {
+                        
+                        return `<div class="govuk-checkboxes__divider govuk-!-font-weight-bold">${region.regionName}</div>` +
+                        $.map(region.localAuthorities, function (localAuthority) {
+                            const laIsChecked = existingCheckedLas.includes(localAuthority.name) ? 'checked' : '';
 
-                        const laIsChecked = existingCheckedLas.includes(localAuthority) ? 'checked' : '';
-
-                        return `
-                            <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="${localAuthority}" data-testid="${localAuthority}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority}" ${laIsChecked}>
-                            <label class="govuk-label govuk-checkboxes__label" for="${localAuthority}">${localAuthority}</label>
-                            </div>
-                        `
-                    }).join('');
+                            return `
+                                <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="${localAuthority.name}" data-testid="${localAuthority.name}-option" name="search-by-local-authority" type="checkbox" value="${localAuthority.name}" ${laIsChecked}>
+                                <label class="govuk-label govuk-checkboxes__label" for="${localAuthority.name}">${localAuthority.name}</label>
+                                </div>
+                            `
+                            }).join('');
+                    });
                 }
 
                 updateLocalAuthorityHtml(checkboxHtml);
