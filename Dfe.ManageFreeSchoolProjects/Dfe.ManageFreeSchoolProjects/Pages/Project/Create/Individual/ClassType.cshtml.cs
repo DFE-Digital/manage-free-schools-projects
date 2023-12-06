@@ -45,13 +45,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.ClassType, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
             project.Nursery = Nursery;
             project.SixthForm = SixthForm;
 

@@ -58,13 +58,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.Capacity, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
             project.YRY6Capacity = int.Parse(YRY6Capacity);
             project.Y7Y11Capacity = int.Parse(Y7Y11Capacity);
             project.Y12Y14Capacity = int.Parse(Y12Y14Capacity);

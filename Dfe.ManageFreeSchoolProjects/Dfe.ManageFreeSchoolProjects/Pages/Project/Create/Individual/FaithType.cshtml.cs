@@ -48,6 +48,9 @@ public class FaithTypeModel : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
+        var project = _createProjectCache.Get();
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithType, project.Navigation);
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -61,8 +64,6 @@ public class FaithTypeModel : CreateProjectBaseModel
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
-        
-        var project = _createProjectCache.Get();
 
         project.FaithType = FaithType;
         project.OtherFaithType = OtherFaithType;

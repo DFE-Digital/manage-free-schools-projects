@@ -62,14 +62,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public ActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 LocalAuthorities = _createProjectCache.Get().LocalAuthorities.Values.ToList();
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-
-            var project = _createProjectCache.Get();
             
             project.LocalAuthority = LocalAuthority;
             project.LocalAuthorityCode = project.LocalAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;

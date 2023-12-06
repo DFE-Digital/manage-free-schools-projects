@@ -47,6 +47,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         
         public async Task<IActionResult> OnPostAsync()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -83,7 +86,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 }
             }
 
-            var project = _createProjectCache.Get();
             project.ProjectId = ProjectId;
             _createProjectCache.Update(project);
 
