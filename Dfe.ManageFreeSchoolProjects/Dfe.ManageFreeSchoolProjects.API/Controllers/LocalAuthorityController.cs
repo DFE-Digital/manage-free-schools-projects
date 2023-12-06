@@ -36,7 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var response = await _getLocalAuthoritiesService.Execute(regions);
 
-            _logger.LogInformation("Found {count} local authorities for region {region}", response.LocalAuthorities.Count, string.Join(",", regionQuery));
+            var localAuthorityCount = response.Regions.Sum(regionResponse => regionResponse.LocalAuthorities.Count);
+
+            _logger.LogInformation("Found {count} local authorities for region(s) {region}", localAuthorityCount, string.Join(",", regionQuery));
 
             var result = new ApiSingleResponseV2<GetLocalAuthoritiesResponse>(response);
 

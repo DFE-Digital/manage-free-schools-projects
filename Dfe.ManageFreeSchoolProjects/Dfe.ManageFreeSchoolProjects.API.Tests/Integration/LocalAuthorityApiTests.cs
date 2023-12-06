@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var firstResponseContent = await firstLaResponse.Content
                 .ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
-            var firstRegionLocalAuthorities = firstResponseContent.Data.LocalAuthorities;
+            var firstRegionLocalAuthorities = firstResponseContent.Data.Regions.FirstOrDefault().LocalAuthorities;
 
             var expectedFirstRegionLocalAuthorities = new List<LocalAuthorityResponse>()
             {
@@ -49,13 +49,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var allResponseContent =
                 await allLaResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
-            var allRegionLocalAuthorities = allResponseContent.Data.LocalAuthorities;
+            var allRegionLocalAuthorities = allResponseContent.Data.Regions;
 
-            var expectedAllRegionLocalAuthorities = new List<LocalAuthorityResponse>()
+            var expectedSecondRegionLocalAuthorities = new List<LocalAuthorityResponse>()
             {
-                new() { Name = firstLa.LocalAuthoritiesLaName, LACode = firstLa.LocalAuthoritiesLaCode },
-                new() { Name = secondLa.LocalAuthoritiesLaName, LACode = secondLa.LocalAuthoritiesLaCode },
-                new() { Name = thirdLa.LocalAuthoritiesLaName, LACode = thirdLa.LocalAuthoritiesLaCode }
+                new() { Name = thirdLa.LocalAuthoritiesLaName, LACode = thirdLa.LocalAuthoritiesLaCode },
+            };
+
+            var expectedAllRegionLocalAuthorities = new List<RegionResponse>()
+            {
+                new() { RegionName = firstRegion, LocalAuthorities = expectedFirstRegionLocalAuthorities },
+                new() { RegionName = secondRegion, LocalAuthorities = expectedSecondRegionLocalAuthorities }
             };
 
             allRegionLocalAuthorities.Should().BeEquivalentTo(expectedAllRegionLocalAuthorities);
@@ -68,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var content = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetLocalAuthoritiesResponse>>();
-            content.Data.LocalAuthorities.Should().HaveCount(0);
+            content.Data.Regions.Should().HaveCount(0);
         }
 
         private async Task<List<LaData>> CreateLocalAuthorityData()

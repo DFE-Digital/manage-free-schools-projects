@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.Constants;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
@@ -53,11 +54,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             var regionsToSearch = regions.Split(",").ToList();
 
-            var regionResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
+            var localAuthoritiesResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
 
-            var regionList = regionResponse.LocalAuthorities.Select(l => l.Name).ToList();
-
-            var result = new JsonResult(regionList);
+            var result = new JsonResult(localAuthoritiesResponse.Regions);
 
             return result;
         }
