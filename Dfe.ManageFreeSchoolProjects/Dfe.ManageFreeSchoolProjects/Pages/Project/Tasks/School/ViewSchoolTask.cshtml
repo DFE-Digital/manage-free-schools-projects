@@ -172,7 +172,9 @@
                     Faith type
                 </dt>
                 <dd class="govuk-summary-list__value">
-                   @faithType
+                   @{
+                    RenderValue(faithType);   
+                   }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">

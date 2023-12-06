@@ -1,6 +1,5 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
@@ -67,7 +66,6 @@
                 </div>
 
                 <govuk-number-range id="age-range" asp-for="@Model.AgeRange" label="Age range" heading-medium-label="true" />
-
 
                 <div class="govuk-form-group" id="gender">
                     <label class="govuk-label govuk-heading-m" for="gender">Gender</label>
