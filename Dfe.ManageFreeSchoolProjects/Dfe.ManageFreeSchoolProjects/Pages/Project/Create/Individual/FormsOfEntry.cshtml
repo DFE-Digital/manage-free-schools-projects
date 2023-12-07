@@ -15,16 +15,9 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-
-            <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--xl" for="forms-of-entry">
-                    <span class="govuk-caption-l">Creating a new free school project</span>
-                    How many forms of entry are there?
-                </label>
-            </h1>
+            <govuk-create-title label="How many forms of entry are there?" for="forms-of-entry" />
             <div class="govuk-form-group" id="forms-of-entry">
-                <p class="govuk-!-font-size-18">For example, 3 in primary and 6 in secondary</p>
-                <govuk-textarea-input name="forms-of-entry" rows="5" asp-for="@Model.FormsOfEntry" data-testid="forms-of-entry"/>
+                <govuk-textarea-input name="forms-of-entry" rows="5" asp-for="@Model.FormsOfEntry" data-testid="forms-of-entry" hint="For example, 3 in primary and 6 in secondary" />
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

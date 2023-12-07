@@ -16,12 +16,7 @@
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl" for="provisional-opening-date">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the provisional opening date?
-                    </label>
-                </h1>
+                <govuk-create-title label="What is the provisional opening date?" for="provisional-opening-date" />
                 <govuk-date-input id="provisional-opening-date" name="provisional-opening-date" asp-for="@Model.ProvisionalOpeningDate" data-testid="provisional-opening-date" hint="For example, 1 9 2023"/>
             </div>
 

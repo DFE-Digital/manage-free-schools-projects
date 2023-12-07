@@ -18,16 +18,9 @@
 
 <div class="govuk-form-group">
     <partial name="_ErrorSummary"/>
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-        <h1 class="govuk-fieldset__heading">
-            <span class="govuk-caption-l">Creating a new free school project</span>
-            What is the faith type?
-        </h1>
-    </legend>
-
+    <govuk-create-title label="What is the faith type?" add-margin="true" />
     <form method="post">
         <div class="govuk-form-group" id="faith-type">
-            <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
             <govuk-radios-input name="faith-type"
                                 asp-for="@Model.FaithType"
                                 data-testid="faith-type"

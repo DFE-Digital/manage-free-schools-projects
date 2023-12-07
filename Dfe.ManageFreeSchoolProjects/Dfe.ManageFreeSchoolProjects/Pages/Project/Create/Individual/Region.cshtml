@@ -24,30 +24,20 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-
             <div class="govuk-form-group">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-
-                    <h1 class="govuk-fieldset__heading">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the region of the school?
-                    </h1>
-
-                </legend>
-            <div class="govuk-form-group" id="region">
-                <govuk-radios-input 
-                    name="region"
-                    asp-for="@Model.Region"
-                    data-testid="region"
-                    labels="@labels.ToArray()"
-                    values="@values.ToArray()"/>
+                <govuk-create-title label="What is the region of the school?" add-margin="true" />
+                <div class="govuk-form-group" id="region">
+                    <govuk-radios-input 
+                        name="region"
+                        asp-for="@Model.Region"
+                        data-testid="region"
+                        labels="@labels.ToArray()"
+                        values="@values.ToArray()"/>
                 </div>
             </div>
-
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
-
         </form>
     </div>
 </div>

@@ -22,22 +22,15 @@
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-
-                    <h1 class="govuk-fieldset__heading">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the school phase?
-                    </h1>
-
-                </legend>
-            <div class="govuk-form-group" id="school-phase">
-                <govuk-radios-input 
-                    name="school-phase"
-                    asp-for="@Model.SchoolPhase"
-                    data-testid="school-phase"
-                    labels="@labels.ToArray()"
-                    values="@values.ToArray()"/>
-                </div>
+                <govuk-create-title label="What is the school phase?" for="school-phase" add-margin="true" />
+                <div class="govuk-form-group" id="school-phase">
+                    <govuk-radios-input 
+                        name="school-phase"
+                        asp-for="@Model.SchoolPhase"
+                        data-testid="school-phase"
+                        labels="@labels.ToArray()"
+                        values="@values.ToArray()"/>
+                    </div>
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

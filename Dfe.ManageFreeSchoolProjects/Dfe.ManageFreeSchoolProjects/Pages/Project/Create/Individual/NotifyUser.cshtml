@@ -14,13 +14,7 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-
-            <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--xl">
-                    <span class="govuk-caption-l">Creating a new free school project</span>
-                    Who do you want to notify about this project?
-                </label>
-            </h1>
+            <govuk-create-title label="Who do you want to notify about this project?" />
             <div class="govuk-form-group" id="email">
                 <p class="govuk-hint">This is so they can assign it to someone to manage</p>
                 <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>

@@ -16,13 +16,7 @@
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the capacity?
-                    </label>
-                </h1>
-
+                <govuk-create-title label="What is the capacity?" />
                 <div class="govuk-form-group">
                     <govuk-text-input id="yr-y6-capacity" name="yr-y6-capacity" label="Reception to year 6" asp-for="@Model.YRY6Capacity" data-testid="yr-y6-capacity" hint="For example, 150" />
                 </div>
