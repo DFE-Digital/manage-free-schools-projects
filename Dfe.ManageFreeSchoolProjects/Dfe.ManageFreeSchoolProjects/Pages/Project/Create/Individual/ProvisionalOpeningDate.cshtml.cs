@@ -45,13 +45,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
             project.ProvisionalOpeningDate = ProvisionalOpeningDate;
             _createProjectCache.Update(project);
 

@@ -74,6 +74,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             _logger.LogMethodEntered();
 
+            var project = _createProjectCache.Get();
+
+            BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);

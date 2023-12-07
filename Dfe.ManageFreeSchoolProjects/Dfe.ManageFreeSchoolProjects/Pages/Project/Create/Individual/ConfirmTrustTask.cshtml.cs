@@ -82,11 +82,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public async Task<ActionResult> OnPost()
         {
+            var projectCache = _createProjectCache.Get();
+            var trust = await _getTrustByRefService.Execute(TRN);
+
+            BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch, projectCache.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
-
-                var trust = await _getTrustByRefService.Execute(TRN);
 
                 TRN = trust.Trust.TRN;
                 TrustName = trust.Trust.TrustName;
@@ -101,9 +104,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var projectCache = _createProjectCache.Get();
-
-                var trust = await _getTrustByRefService.Execute(TRN);
 
                 projectCache.TRN = trust.Trust.TRN;
                 projectCache.TrustName = trust.Trust.TrustName;

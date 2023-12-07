@@ -40,13 +40,14 @@ public class FaithStatusModel : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
+        var project = _createProjectCache.Get();
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus, project.Navigation);
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
-
-        var project = _createProjectCache.Get();
 
         if (FaithStatus is FaithStatus.None)
         {

@@ -47,13 +47,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.Region, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
             project.Region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
             _createProjectCache.Update(project);
 

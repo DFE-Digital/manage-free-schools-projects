@@ -41,6 +41,9 @@ public class NotifyUser : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
+        var projectCache = _createProjectCache.Get();
+        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation);
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -54,7 +57,6 @@ public class NotifyUser : CreateProjectBaseModel
             return Page();
         }
 
-        var projectCache = _createProjectCache.Get();
         projectCache.EmailToNotify = Email;
         _createProjectCache.Update(projectCache);
         

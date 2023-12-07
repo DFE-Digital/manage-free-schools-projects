@@ -46,13 +46,15 @@ public class FormsOfEntryModel : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
+        var project = _createProjectCache.Get();
+
+        BackLink = GetPreviousPage(CreateProjectPageName.FormsOfEntry, project.Navigation);
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
-
-        var project = _createProjectCache.Get();
 
         if (string.IsNullOrEmpty(FormsOfEntry))
             FormsOfEntry = string.Empty;

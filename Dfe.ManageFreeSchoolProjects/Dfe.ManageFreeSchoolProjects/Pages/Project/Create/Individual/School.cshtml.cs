@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [BindProperty(Name = "school")]
         [Display(Name = "school name")]
         [Required(ErrorMessage = "Enter the current free school name.")]
-        [ValidText(100, ErrorMessage = "test")]
+        [ValidText(100, ErrorMessage = "The school name must be 100 characters or less.")]
         public string School { get; set; }
         
         private readonly ErrorService _errorService;
@@ -41,13 +41,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName, project.Navigation);
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
             project.SchoolName = School;
             _createProjectCache.Update(project);
 
