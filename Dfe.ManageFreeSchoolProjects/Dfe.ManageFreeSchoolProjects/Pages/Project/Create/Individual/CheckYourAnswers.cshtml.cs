@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
@@ -87,8 +88,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 throw;
             }
 
-            var emailToNotify = _createProjectCache.Get().EmailToNotify;
-            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
+            var notifyEmailRequest = new EmailNotifyRequest
+            {
+                Email = _createProjectCache.Get().EmailToNotify,
+                FirstName = "Jeff",
+                ProjectUrl = string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)
+            };
+            
+            await _mfspApiClient.Post<EmailNotifyRequest, string>("/api/v1.0/email", notifyEmailRequest);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
 

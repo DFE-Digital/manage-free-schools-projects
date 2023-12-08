@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Notify.Client;
 using Notify.Models.Responses;
 
@@ -8,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 public interface IEmailService
 {
     bool IsEmailValid(string email);
-    Task<EmailNotificationResponse> SendEmail(string email);
+    Task<EmailNotificationResponse> SendEmail(EmailNotifyRequest request);
 }
 
 public class EmailService : IEmailService
@@ -22,7 +23,7 @@ public class EmailService : IEmailService
         _logger = logger;
     }
 
-    public Task<EmailNotificationResponse> SendEmail(string email)
+    public Task<EmailNotificationResponse> SendEmail(EmailNotifyRequest request)
     {
         var apiKey = _configuration.GetValue<string>("GovNotify:ApiKey");
 
@@ -35,7 +36,14 @@ public class EmailService : IEmailService
         var templateId = _configuration.GetValue<string>("GovNotify:TemplateId");
         
         var client = new NotificationClient(apiKey);
-        return client.SendEmailAsync(email, templateId);
+
+        var personalisation = new Dictionary<string, dynamic>
+        {
+            { "first_name", request.FirstName },
+            { "project_url", request.ProjectUrl }
+        };
+
+        return client.SendEmailAsync(request.Email, templateId, personalisation);
     }
 
     public bool IsEmailValid(string email)
