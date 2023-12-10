@@ -1,4 +1,5 @@
-import readSummaryComponent from "cypress/pages/read" 
+import readSummaryComponent from "cypress/pages/readSummaryComponent" 
+import { read } from "fs";
 
 class RegionAndLocalAuthoritySummaryPage {
 
@@ -7,14 +8,14 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-caption-l").contains(schoolName);
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
-        this.readSummaryLine("Region", "Empty", 0);
+        readSummaryComponent.readSummaryLine("Region", "Empty", 0);
 
         //cy.getByClass("govuk-summary-list__key").eq(0).contains("Region");
         //cy.getByClass("govuk-summary-list__value").eq(0).contains("Empty");
         //cy.getByClass("govuk-link").eq(2).contains("Change");
 
         // POSSIBLE HOMEWORK
-        this.readSummaryLine("Local authority", "Empty", 1);
+        readSummaryComponent.readSummaryLine("Local authority", "Empty", 1);
 
         //cy.getByClass("govuk-summary-list__key").eq(1).contains("Local authority");
         //cy.getByClass("govuk-summary-list__value").eq(1).contains("Empty");
@@ -35,8 +36,8 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
         // CALLING OUR readSummaryLine FUNCTION POST FILLING OUR TASKLIST REGION AND LA SECTION
-        this.readSummaryLine("Region", "South West", 0);
-        this.readSummaryLine("Local authority", "Plymouth", 1);
+        readSummaryComponent.readSummaryLine("Region", "South West", 0)
+                            .readSummaryLine("Local authority", "Plymouth", 1);
 
         cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
