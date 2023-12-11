@@ -18,11 +18,6 @@
 <div class="govuk-grid-row">
     <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-            <h1 class="govuk-fieldset__heading">
-                What do you want to do?
-            </h1>
-        </legend>
         <form class="govuk-form-group" method="post">
 
             <govuk-radios-input id="method"
@@ -30,7 +25,9 @@
                                 asp-for="@Model.Method"
                                 labels="@labels"
                                 values="@values"
-                                hints="@hints" />
+                                hints="@hints"
+                                label="What do you want to do?" 
+                                xl-heading-label="true"/>
             <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>

@@ -1,3 +1,5 @@
+import { v4 } from "uuid"
+
 class DataGenerator {
     generateTemporaryId():string {
         const values:string = 'abcdefghijklmnopqrstuvwxyz0123456789'
@@ -27,6 +29,10 @@ class DataGenerator {
         temp = ''
 
         return tempId;
+    }
+
+    generateSchoolName(): string {
+        return "(" + v4().substring(0, 4) + ")Test School"
     }
 }
 

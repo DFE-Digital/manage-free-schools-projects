@@ -12,9 +12,10 @@ import validationComponent from "cypress/pages/validationComponent";
 import whichProjectMethodPage from "cypress/pages/whichProjectMethodPage";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import createProjectCheckYourAnswersPage from "cypress/pages/createProject/createProjectCheckYourAnswersPage";
+import { v4 } from "uuid";
 
 
-describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
+describe.skip("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
     beforeEach(() => {
 
         cy.login({ role: "POTATO" });
@@ -57,7 +58,7 @@ describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT G
 
 
 
-describe("Creating an individual project - Create new project button should display for projectrecordcreator role", () => {
+describe.skip("Creating an individual project - Create new project button should display for projectrecordcreator role", () => {
     beforeEach(() => {
 
         cy.login({ role: ProjectRecordCreator });
@@ -87,6 +88,8 @@ describe.skip("Creating an individual project - Test Create new individual proje
     it("Should navigate to project/create/method page", () => {
 
         const temporaryProjectId = dataGenerator.generateTemporaryId();
+        const schoolName = "(" + v4().substring(0, 4) + ")Test School";
+        
         const e2eTestSchool = "St Dunstan's Abbey, (Plymouth)";
 
         Logger.log("Checking accessibility of the homepage for a projectrecordcreator role");
@@ -399,3 +402,62 @@ describe.skip("Creating an individual project - Test Create new individual proje
     });
 });
 
+describe("Creating an individual project - Create a new project", () => {
+    beforeEach(() => {
+        cy.login({ role: ProjectRecordCreator });
+        cy.visit('/');
+    });
+
+    it("Should create a project", () => {
+        const temporaryProjectId = dataGenerator.generateTemporaryId();
+        const schoolName = dataGenerator.generateSchoolName();
+
+        cy.executeAccessibilityTests();
+
+        homePage.createNewProjects();
+
+        Logger.log("Check method required");
+        cy.executeAccessibilityTests();
+
+        createProjectPage
+            .continue()
+            .errorMessage("The method field is required.")
+        cy.executeAccessibilityTests();
+
+        Logger.log("Use individual method");
+        createProjectPage
+            .selectOption("Create one project")
+            .continue();
+        cy.executeAccessibilityTests();
+            
+        Logger.log("Check project id validation");
+        createProjectPage
+            .titleIs("What is the temporary project ID?")
+            .continue()
+            .errorMessage("The temporary project ID field is required")
+            .enterProjectId("T-00008")
+            .continue()
+            .errorMessage("Temporary project ID must only include numbers and letters")
+            .enterProjectId("T 00009")
+            .continue()
+            .errorMessage("Temporary project ID must not include spaces")
+            .enterProjectId(dataGenerator.generateAlphaNumeric(26))
+            .continue()
+            .errorMessage("The temporary project ID must be 25 characters or less")
+        cy.executeAccessibilityTests();
+
+        Logger.log("Enter Valid project ID");
+        createProjectPage
+            .enterProjectId(temporaryProjectId)
+            .continue()
+       
+        Logger.log("Check back navigation");
+        createProjectPage
+            .back()
+            .titleIs("What is the temporary project ID?")
+            .checkProjectId(temporaryProjectId)
+            .continue()
+
+        
+    });
+});

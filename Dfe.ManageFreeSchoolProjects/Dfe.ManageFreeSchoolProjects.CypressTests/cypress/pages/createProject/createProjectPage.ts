@@ -1,13 +1,41 @@
-class CreateProjectPage {
-    public withMethod(method: string): this {
-        cy.getByTestId(method).check();
+import validationComponent from "../validationComponent";
 
+class CreateProjectPage {
+
+    public errorMessage(error: string): this {
+        validationComponent.hasValidationError(error);
+        validationComponent.hasLinkedValidationError();
         return this;
     }
 
+    public selectOption(method: string): this {
+        cy.getByRadioOption(method).check();
+        return this;
+    }
+
+    public titleIs(title: string) {
+        cy.getByTestId("title-heading").should("contain.text", title);
+        return this;
+    }
+
+    public enterProjectId(value: string) {
+        cy.getByTestId("projectid").clear().type(value);
+        return this;
+    }
+
+    public checkProjectId(value: string) {
+        cy.getByTestId("projectid").should("have.value", value);
+        return this;
+    }
+
+    public projectIDErrorMessage(error: string): this {
+        cy.getById("projectid-error").should("contain.text", error);
+        return this;
+    }
+
+
     public withSchool(value: string): this {
         cy.getByTestId("school").clear().type(value);
-
         return this;
     }
 
@@ -61,7 +89,11 @@ class CreateProjectPage {
 
     public continue(): this {
         cy.getByTestId("continue").click();
+        return this;
+    }
 
+    public back(): this {
+        cy.getByTestId("back").click();
         return this;
     }
 }
