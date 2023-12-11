@@ -2,7 +2,7 @@
 Internal service for managing free schools projects
 
 ## Requirements
-- .NET 6.0
+- .NET 8.0
 - NodeJS (for frontend build tools)
 
 ## Development Setup
