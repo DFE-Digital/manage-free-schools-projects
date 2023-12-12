@@ -65,7 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
                     TrustName = ParseColumn(row.ItemArray[2]),
                     Region = ParseColumn(row.ItemArray[3]),
                     LocalAuthority = ParseColumn(row.ItemArray[4]),
-                    RealisticOpeningDate = ParseColumn(row.ItemArray[5]),
+                    RealisticOpeningDate = DateTime.Parse(ParseColumn(row.ItemArray[5])),
                     Status = ParseColumn(row.ItemArray[6]),
                     SourceData = row.ItemArray.Take(7).Select(value => ParseColumn(value)).ToList()
                 };
@@ -82,6 +82,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         {
             return column != DBNull.Value ? column.ToString() : null;
         }
+
     }
 
     public record ProjectTable
@@ -97,7 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string TrustName { get; set; }
         public string Region { get; set; }
         public string LocalAuthority { get; set; }
-        public string RealisticOpeningDate { get; set; }
+        public DateTime? RealisticOpeningDate { get; set; }
         public string Status { get; set; }
         public List<string> SourceData { get; set; }
     }

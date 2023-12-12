@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                     ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
                     TrustName = record.TrustName,
                     LocalAuthority = record.LocalAuthority,
-                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust != null ? record.RatProvisionalOpeningDateAgreedWithTrust.Value.ToLongDateString() : null,
+                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust,
                     Region = record.SchoolDetailsGeographicalRegion,
                     Status = "1"
                 };
