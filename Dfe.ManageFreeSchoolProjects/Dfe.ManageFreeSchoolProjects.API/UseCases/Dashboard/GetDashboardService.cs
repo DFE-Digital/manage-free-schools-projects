@@ -41,18 +41,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var projectRecords = await query.Paginate(parameters.Page, parameters.Count).ToListAsync();
 
-            var result = projectRecords.Select(record =>
+            var result = projectRecords.Select(record => new GetDashboardResponse
             {
-                return new GetDashboardResponse()
-                {
-                    ProjectId = record.ProjectStatusProjectId,
-                    ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
-                    TrustName = record.TrustName,
-                    LocalAuthority = record.LocalAuthority,
-                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust != null ? record.RatProvisionalOpeningDateAgreedWithTrust.Value.ToLongDateString() : null,
-                    Region = record.SchoolDetailsGeographicalRegion,
-                    Status = "1"
-                };
+                ProjectId = record.ProjectStatusProjectId,
+                ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
+                TrustName = record.TrustName,
+                LocalAuthority = record.LocalAuthority,
+                RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust != null ? record.RatProvisionalOpeningDateAgreedWithTrust.Value.ToLongDateString() : null,
+                Region = record.SchoolDetailsGeographicalRegion,
+                ProjectManagedBy = record.KeyContactsFsgLeadContact, 
+                Status = "1"
             }).ToList();
 
             return (result, count);
