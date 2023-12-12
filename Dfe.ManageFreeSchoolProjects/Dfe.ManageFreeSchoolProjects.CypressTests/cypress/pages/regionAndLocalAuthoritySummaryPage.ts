@@ -8,14 +8,15 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-caption-l").contains(schoolName);
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
-        readSummaryComponent.readSummaryLine("Region", "Empty", 0);
+        readSummaryComponent.readSummaryLine("Region", "Empty", 0)
+                            .readSummaryLine("Local authority", "Empty", 1);
 
         //cy.getByClass("govuk-summary-list__key").eq(0).contains("Region");
         //cy.getByClass("govuk-summary-list__value").eq(0).contains("Empty");
         //cy.getByClass("govuk-link").eq(2).contains("Change");
 
         // POSSIBLE HOMEWORK
-        readSummaryComponent.readSummaryLine("Local authority", "Empty", 1);
+        
 
         //cy.getByClass("govuk-summary-list__key").eq(1).contains("Local authority");
         //cy.getByClass("govuk-summary-list__value").eq(1).contains("Empty");
