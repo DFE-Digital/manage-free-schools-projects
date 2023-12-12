@@ -32,7 +32,7 @@ export class ProjectRow {
     }
 
     public hasRealisticOpeningdate(value: string): this {
-        this.containsText("realistic-opening-date", value);
+        this.containsText("provisional-opening-date", value);
 
         return this;
     }
