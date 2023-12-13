@@ -39,7 +39,6 @@ public class EmailService : IEmailService
 
         var personalisation = new Dictionary<string, dynamic>
         {
-            { "first_name", request.FirstName },
             { "project_url", request.ProjectUrl }
         };
 

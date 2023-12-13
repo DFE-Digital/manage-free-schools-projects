@@ -20,7 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         private readonly ICreateProjectService _createProjectService;
         private readonly MfspApiClient _mfspApiClient;
 
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
+        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache,
+            ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
         {
             _createProjectCache = createProjectCache;
             _createProjectService = createProjectService;
@@ -34,17 +35,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 return new UnauthorizedResult();
             }
-            
+
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
             _createProjectCache.Update(Project);
             return Page();
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
             var project = _createProjectCache.Get();
-            
+
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
@@ -61,12 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 YRY6Capacity = (int)project.YRY6Capacity,
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
-                Nursery = project.Nursery, 
+                Nursery = project.Nursery,
                 SixthForm = project.SixthForm,
                 FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
-                FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType, 
+                FaithType = project.FaithType,
+                OtherFaithType = project.OtherFaithType,
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate
             };
 
@@ -76,7 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 await _createProjectService.Execute(createProjectRequest);
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 if (e.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
                 {
@@ -87,18 +89,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
                 throw;
             }
+            
+            var projectUrl =
+                $"{HttpContext.Request.Scheme}://" +
+                $"{HttpContext.Request.Host}" +
+                $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
 
             var notifyEmailRequest = new EmailNotifyRequest
             {
                 Email = _createProjectCache.Get().EmailToNotify,
-                FirstName = "Jeff",
-                ProjectUrl = string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)
+                ProjectUrl = projectUrl
             };
-            
+
             await _mfspApiClient.Post<EmailNotifyRequest, string>("/api/v1.0/email", notifyEmailRequest);
 
             return Redirect(RouteConstants.CreateProjectConfirmation);
-
         }
     }
 }

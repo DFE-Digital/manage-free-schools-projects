@@ -3,6 +3,5 @@
 public record EmailNotifyRequest
 {
     public string Email { get; init; }
-    public string FirstName { get; init; }
     public string ProjectUrl { get; init; }
 }
