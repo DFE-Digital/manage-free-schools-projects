@@ -30,7 +30,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
             project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
 
+            var property = DatabaseModelBuilder.BuildProperty();
+            property.Rid = project.Rid;
+
             context.Kpi.Add(project);
+            context.Property.Add(property);
             await context.SaveChangesAsync();
 
             var createProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();
@@ -82,6 +86,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.Risk.Date.Value.Date.Should().Be(DateTime.Now.Date);
             result.Data.Risk.RiskRating.Should().Be(createProjectRiskRequest.Overall.RiskRating);
             result.Data.Risk.Summary.Should().Be(createProjectRiskRequest.Overall.Summary);
+
+            // Key contacts
+            result.Data.KeyContacts.TeamLeader.Should().Be(project.KeyContactsFsgTeamLeader);
+            result.Data.KeyContacts.Grade6.Should().Be(project.KeyContactsFsgGrade6);
+            result.Data.KeyContacts.ProjectDirector.Should().Be(project.KeyContactsEsfaCapitalProjectDirector);
+            result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsEsfaCapitalProjectManager);
+
+            // Site
+            result.Data.SiteInformation.Postcode.Should().Be(property.SitePostcodeOfSite);
+            result.Data.SiteInformation.Property.Should().Be(property.SiteNameOfSite);
         }
 
         [Fact]
@@ -116,6 +130,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.Risk.RiskRating.Should().BeNull();
             result.Data.Risk.Summary.Should().BeNull();
             result.Data.Risk.Date.Should().BeNull();
+
+            // Key contacts
+            result.Data.KeyContacts.Should().NotBeNull();
+
+            // Site information
+            result.Data.SiteInformation.Should().NotBeNull();
         }
 
         [Fact]
