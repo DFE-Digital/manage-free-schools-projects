@@ -29,31 +29,40 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Selecting Dates link from Tasklist");
-        //taskListPage.selectDatesFromTaskList();
+
         taskListPage.isTaskStatusIsNotStarted("Dates")
                     .selectDatesFromTaskList();
         
         Logger.log("Confirm empty dates");
         summaryPage
-            .schoolNameIs(project.schoolName)
-            .titleIs("dates");
-
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Checking Dates Summary page elements present");
-     //   datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
-
-        Logger.log("Selecting first Change link from first 'Pre-opening' line");
-       // datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
+         //   .schoolNameIs(project.schoolName)
+         //   .titleIs("Dates")
+            .inOrder()
+            .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
+            .summaryShows("Opening academic year").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
 
+        Logger.log("Go back to task list");
+        summaryPage.clickBack();
 
-        Logger.log("Attempting to save Dates Details page with no values");
-        datesDetailsPage.selectSaveAndContinueButton()
+        cy.executeAccessibilityTests();
+
+        Logger.log("Confirm not started and open Dates");
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+            .selectDatesFromTaskList();
         
         cy.executeAccessibilityTests();
+
+        Logger.log("Check confirm puts project in In Progress");
+        summaryPage.clickConfirmAndContinue();
+        
+        cy.executeAccessibilityTests();
+
+        taskListPage.isTaskStatusInProgress("Dates")
+            .selectDatesFromTaskList();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
@@ -118,8 +127,19 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Verify Dates Summary Page Complete Elements Visible");
-      //  datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
+        Logger.log("Confirm Dates Summary Page Complete");
+        summaryPage
+         //   .schoolNameIs(project.schoolName)
+         //   .titleIs("Dates")
+            .inOrder()
+            .summaryShows("Entry into pre-opening").HasValue("28/2/2025").HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").HasValue("28/2/2025").HasChangeLink()
+            .summaryShows("Opening academic year").HasValue("2025/26").HasChangeLink()
+            .isNotMarkedAsComplete();
+
+        cy.executeAccessibilityTests();
+      
+        //  datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
 
         //datesSummaryPage.selectMarkItemAsComplete();
        // datesSummaryPage.selectConfirmAndContinue();
