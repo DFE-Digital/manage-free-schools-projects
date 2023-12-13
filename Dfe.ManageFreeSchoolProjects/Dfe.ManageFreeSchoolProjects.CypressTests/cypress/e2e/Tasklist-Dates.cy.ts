@@ -25,9 +25,6 @@ describe("Testing project overview", () => {
     });
 
     it("Should successfully set project dates", () => {
-        Logger.log("Clicking on Task list tab");
-        projectOverviewPage.selectTaskListTab();
-
         cy.executeAccessibilityTests();
 
         Logger.log("Selecting Dates link from Tasklist");
