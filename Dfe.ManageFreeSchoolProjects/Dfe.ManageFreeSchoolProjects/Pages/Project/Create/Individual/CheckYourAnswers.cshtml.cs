@@ -1,6 +1,7 @@
+using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
@@ -18,13 +19,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
         private readonly ICreateProjectService _createProjectService;
+        private readonly INotifyUserService _notifyUserService;
         private readonly MfspApiClient _mfspApiClient;
 
         public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache,
-            ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
+            ICreateProjectService createProjectService, INotifyUserService notifyUserService, MfspApiClient mfspApiClient)
         {
             _createProjectCache = createProjectCache;
             _createProjectService = createProjectService;
+            _notifyUserService = notifyUserService;
             _mfspApiClient = mfspApiClient;
             _errorService = errorService;
         }
@@ -77,33 +80,35 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             try
             {
                 await _createProjectService.Execute(createProjectRequest);
+
+                await SendEmail();
             }
             catch (HttpRequestException e)
             {
-                if (e.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
+                if (e.StatusCode == HttpStatusCode.UnprocessableEntity)
                 {
                     _errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
                     Project = project;
                     return Page();
                 }
 
+                if (e.StatusCode == HttpStatusCode.InternalServerError) 
+                    return Redirect(RouteConstants.CreateProjectConfirmation);
+
                 throw;
             }
             
+            return Redirect(RouteConstants.CreateProjectConfirmation);
+        }
+
+        private async Task SendEmail()
+        {
             var projectUrl =
                 $"{HttpContext.Request.Scheme}://" +
                 $"{HttpContext.Request.Host}" +
                 $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
 
-            var notifyEmailRequest = new EmailNotifyRequest
-            {
-                Email = _createProjectCache.Get().EmailToNotify,
-                ProjectUrl = projectUrl
-            };
-
-            await _mfspApiClient.Post<EmailNotifyRequest, string>("/api/v1.0/email", notifyEmailRequest);
-
-            return Redirect(RouteConstants.CreateProjectConfirmation);
+            await _notifyUserService.Execute(_createProjectCache.Get().EmailToNotify, projectUrl);
         }
     }
 }
