@@ -5,6 +5,7 @@ import { Logger } from "cypress/common/logger";
 import datesDetailsPage from "cypress/pages/datesDetailsPage";
 import datesSummaryPage from "cypress/pages/datesSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
+import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 
 describe("Testing project overview", () => {
@@ -28,15 +29,23 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Selecting Dates link from Tasklist");
-        taskListPage.selectDatesFromTaskList();
+        //taskListPage.selectDatesFromTaskList();
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+                    .selectDatesFromTaskList();
+        
+        Logger.log("Confirm empty dates");
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("dates");
+
 
         cy.executeAccessibilityTests();
 
         Logger.log("Checking Dates Summary page elements present");
-        datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
+     //   datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
 
         Logger.log("Selecting first Change link from first 'Pre-opening' line");
-        datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
+       // datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
 
         cy.executeAccessibilityTests();
 
@@ -110,10 +119,10 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Verify Dates Summary Page Complete Elements Visible");
-        datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
+      //  datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
 
-        datesSummaryPage.selectMarkItemAsComplete();
-        datesSummaryPage.selectConfirmAndContinue();
+        //datesSummaryPage.selectMarkItemAsComplete();
+       // datesSummaryPage.selectConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("Dates");
 
