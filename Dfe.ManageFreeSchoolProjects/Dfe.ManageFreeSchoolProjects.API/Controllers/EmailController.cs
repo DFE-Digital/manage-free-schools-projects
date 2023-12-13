@@ -31,6 +31,9 @@ public class EmailController : ControllerBase
          if (!_emailService.IsEmailValid(request.Email)) 
              return BadRequest("Email is not valid.");
          
+         if (string.IsNullOrEmpty(request.ProjectUrl))
+             return BadRequest("Project Url is required.");
+         
          try
          {
              await _emailService.SendEmail(request);
