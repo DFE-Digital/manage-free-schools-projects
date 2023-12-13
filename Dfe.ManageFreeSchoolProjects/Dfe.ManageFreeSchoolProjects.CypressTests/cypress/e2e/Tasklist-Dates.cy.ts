@@ -35,8 +35,8 @@ describe("Testing project overview", () => {
         
         Logger.log("Confirm empty dates");
         summaryPage
-         //   .schoolNameIs(project.schoolName)
-         //   .titleIs("Dates")
+            .schoolNameIs(project.schoolName)
+            .titleIs("Dates")
             .inOrder()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
@@ -129,8 +129,8 @@ describe("Testing project overview", () => {
 
         Logger.log("Confirm Dates Summary Page Complete");
         summaryPage
-         //   .schoolNameIs(project.schoolName)
-         //   .titleIs("Dates")
+            .schoolNameIs(project.schoolName)
+            .titleIs("Dates")
             .inOrder()
             .summaryShows("Entry into pre-opening").HasValue("28/2/2025").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("28/2/2025").HasChangeLink()
@@ -139,10 +139,10 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
       
-        //  datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
 
-        //datesSummaryPage.selectMarkItemAsComplete();
-       // datesSummaryPage.selectConfirmAndContinue();
+       summaryPage
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("Dates");
 
