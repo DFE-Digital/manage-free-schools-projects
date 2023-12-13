@@ -1,5 +1,3 @@
-import readSummaryComponent from "cypress/pages/readSummaryComponent" 
-import { read } from "fs";
 
 class RegionAndLocalAuthoritySummaryPage {
 
