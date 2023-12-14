@@ -93,6 +93,7 @@ public class Startup
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
         services.AddScoped<ISearchConstituency, SearchConstituency>();
         services.AddScoped<IAgeRangeCleanerService, AgeRangeCleanerService>();
+        services.AddScoped<INotifyUserService, NotifyUserService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
