@@ -5,7 +5,7 @@ import homePage from "cypress/pages/homePage";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import summaryPage from "cypress/pages/task-summary-base";
 
-describe.skip("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
+describe("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES NOT GET GREEN CREATE NEW PROJECT BUTTON", () => {
     beforeEach(() => {
         cy.login({ role: "POTATO" });
         cy.visit(Cypress.env('url'));
@@ -42,7 +42,7 @@ describe.skip("Creating an individual project - NEGATIVE ROLE TESTS - USER DOES 
 
 });
 
-describe.skip("Creating an individual project - Create new project button should display for projectrecordcreator role", () => {
+describe("Creating an individual project - Create new project button should display for projectrecordcreator role", () => {
     beforeEach(() => {
         cy.login({ role: ProjectRecordCreator });
         cy.visit('/');
