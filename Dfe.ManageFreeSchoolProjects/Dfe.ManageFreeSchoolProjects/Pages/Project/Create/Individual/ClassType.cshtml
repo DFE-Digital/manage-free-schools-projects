@@ -20,7 +20,7 @@
     <govuk-create-title label="Will it have any of these class types?" />
 
     <form method="post">
-        <div class="govuk-form-group" id="nursery">
+        <div class="govuk-form-group">
             <label class="govuk-label govuk-heading-m" for="nursery">Nursery</label>
             <govuk-radios-input asp-for="@Model.Nursery"
                                 name="nursery"
@@ -29,7 +29,7 @@
                                 test-ids="@nurseryOptions"/>
         </div>
 
-        <div class="govuk-form-group" id="sixth-form">
+        <div class="govuk-form-group">
             <label class="govuk-label govuk-heading-m" for="sixth-form">Sixth form</label>
             <govuk-radios-input asp-for="@Model.SixthForm"
                                 name="sixth-form"

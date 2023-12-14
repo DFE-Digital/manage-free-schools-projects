@@ -20,13 +20,11 @@
     <partial name="_ErrorSummary"/>
     <govuk-create-title label="What is the faith type?" add-margin="true" />
     <form method="post">
-        <div class="govuk-form-group" id="faith-type">
-            <govuk-radios-input name="faith-type"
-                                asp-for="@Model.FaithType"
-                                data-testid="faith-type"
-                                labels="@faithTypeLabels"
-                                values="@faithTypeValues"/>
-        </div>
+        <govuk-radios-input name="faith-type"
+                            asp-for="@Model.FaithType"
+                            data-testid="faith-type"
+                            labels="@faithTypeLabels"
+                            values="@faithTypeValues"/>
 
         <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type"/>
 

@@ -19,13 +19,11 @@
     <govuk-create-title label="What is the faith status?" add-margin="true" />
     <form method="post">
 
-        <div class="govuk-form-group" id="faith-status">
-            <govuk-radios-input name="faith-status"
-                                asp-for="@Model.FaithStatus"
-                                data-testid="faith-status"
-                                labels="@faithStatuses"
-                                values="@faithStatuses"/>
-        </div>
+        <govuk-radios-input name="faith-status"
+                            asp-for="@Model.FaithStatus"
+                            data-testid="faith-status"
+                            labels="@faithStatuses"
+                            values="@faithStatuses"/>
         
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">

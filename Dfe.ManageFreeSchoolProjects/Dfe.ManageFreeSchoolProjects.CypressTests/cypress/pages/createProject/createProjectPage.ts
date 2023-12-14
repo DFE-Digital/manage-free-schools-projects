@@ -1,15 +1,21 @@
+import dateComponent from "../dateComponent";
 import validationComponent from "../validationComponent";
 
 class CreateProjectPage {
 
     public errorMessage(error: string): this {
         validationComponent.hasValidationError(error);
-        validationComponent.hasLinkedValidationError();
+        validationComponent.hasLinkedValidationError(error);
         return this;
     }
 
     public selectOption(method: string): this {
         cy.getByRadioOption(method).check();
+        return this;
+    }
+
+    public isOptionChecked(method: string): this {
+        cy.getByRadioOption(method).should("be.checked");
         return this;
     }
 
@@ -23,7 +29,7 @@ class CreateProjectPage {
         return this;
     }
 
-    public checkProjectId(value: string) {
+    public hasProjectId(value: string) {
         cy.getByTestId("projectid").should("have.value", value);
         return this;
     }
@@ -34,43 +40,23 @@ class CreateProjectPage {
     }
 
 
-    public withSchool(value: string): this {
+    public enterSchoolName(value: string): this {
         cy.getByTestId("school").clear().type(value);
         return this;
     }
 
-    public hasSchool(value: string): this {
-        cy.getByTestId("school").should("contain.text", value);
-
+    public hasSchoolName(value: string): this {
+        cy.getByTestId("school").should("have.value", value);
         return this;
     }
 
-    public withSchoolExceedingLimit(): this {
-        cy.getByTestId("school").clear().invoke("val", "abcde".repeat(20));
-
+    public enterTRN(value: string): this {
+        cy.getByTestId("trn").clear().type(value);
         return this;
     }
-
-    public withRegion(region: string): this {
-        cy.getByTestId(region).check();
-
-        return this;
-    }
-
-    public hasRegion(value: string): this {
-        cy.getByTestId("region").should("contain.text", value);
-
-        return this;
-    }
-
+  
     public withLocalAuthority(localAuthority: string): this {
         cy.getByTestId(localAuthority).check();
-
-        return this;
-    }
-
-    public hasLocalAuthority(value: string): this {
-        cy.getByTestId("local-authority").should("contain.text", value);
 
         return this;
     }
@@ -84,6 +70,139 @@ class CreateProjectPage {
     public withSchoolType(value: string): this {
         cy.getByTestId(value).check();
 
+        return this;
+    }
+
+    public setNurseryTo(option: "Yes"|"No"): this {
+        if(option == "Yes")
+        {
+            cy.getById("nursery-1").check()
+        }
+
+        if(option == "No")
+        {
+            cy.getById("nursery-2").check()
+        }
+        return this;
+    }
+
+    public setSixthFormTo(option: "Yes"|"No"): this {
+        if(option == "Yes")
+        {
+            cy.getById("sixth-form-1").check()
+        }
+
+        if(option == "No")
+        {
+            cy.getById("sixth-form-2").check()
+        }
+        return this;
+    }
+
+    public enterAgeRangeFrom(value: string): this {
+        cy.getByTestId("age-range-from").clear().type(value)
+        return this;
+    }
+
+    public enterAgeRangeTo(value: string): this {
+        cy.getByTestId("age-range-to").clear().type(value)
+        return this;
+    }
+
+    public hasAgeRangeFrom(value: string): this {
+        cy.getByTestId("age-range-from").should("have.value", value);
+        return this;
+    }
+
+    public hasAgeRangeTo(value: string): this {
+        cy.getByTestId("age-range-to").should("have.value", value);
+        return this;
+    }
+
+    public enterReceptionToYear6(value: string): this {
+        if(value == "") {
+            cy.getByTestId("yr-y6-capacity").clear();
+        }
+        else {
+            cy.getByTestId("yr-y6-capacity").clear().type(value);
+        }
+        return this;
+    }
+
+    public hasReceptionToYear6(value: string): this {
+        cy.getByTestId("yr-y6-capacity").should("have.value", value);
+        return this;
+    }
+
+    public enterYear7ToYear11(value: string): this {
+        if(value == "") {
+            cy.getByTestId("y7-y11-capacity").clear();
+        }
+        else {
+            cy.getByTestId("y7-y11-capacity").clear().type(value);
+        }
+        return this;
+    }
+
+    public hasYear7ToYear11(value: string): this {
+        cy.getByTestId("y7-y11-capacity").should("have.value", value);
+        return this;
+    }
+
+    public enterYear12ToYear14(value: string): this {
+        if(value == "") {
+            cy.getByTestId("y12-y14-capacity").clear();
+        }
+        else {
+            cy.getByTestId("y12-y14-capacity").clear().type(value);
+        }
+        return this;
+    }
+
+    public hasYear12ToYear14(value: string): this {
+        cy.getByTestId("y12-y14-capacity").should("have.value", value);
+        return this;
+    }
+    
+    public enterFormsOfEntry(value: string): this {
+        cy.get("#forms-of-entry").clear().type(value)
+        return this;
+    }
+
+    public hasFormsOfEntry(value: string): this {
+        cy.get("#forms-of-entry").should("have.value", value);
+        return this;
+    }
+
+    public enterOtherFaith(value: string): this {
+        cy.getByTestId("other-faith-type").clear().type(value)
+        return this;
+    }
+
+    public hasOtherFaith(value: string): this {
+        cy.getByTestId("other-faith-type").should("have.value", value);
+        return this;
+    }
+
+    public setProvisionalOpeningDate(day: string, month: string, year: string): this {
+        const key = "provisional-opening-date";
+        dateComponent.setDate(key, day, month, year);
+        return this
+    }
+
+    public hasProvisionalOpeningDate(day: string, month: string, year: string): this {
+        const key = "provisional-opening-date";
+        dateComponent.checkDate(key, day, month, year);
+        return this
+    }
+
+    public enterNotifyEmail(value: string) {
+        cy.getByTestId("email").clear().type(value)
+        return this;
+    }
+
+    public hasNotifyEmail(value: string) {
+        cy.getByTestId("email").should("have.value", value);
         return this;
     }
 

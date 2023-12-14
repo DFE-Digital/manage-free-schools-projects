@@ -15,7 +15,7 @@
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
             <govuk-create-title label="Who do you want to notify about this project?" />
-            <div class="govuk-form-group" id="email">
+            <div class="govuk-form-group">
                 <p class="govuk-hint">This is so they can assign it to someone to manage</p>
                 <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
             </div>

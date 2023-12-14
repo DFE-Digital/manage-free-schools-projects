@@ -26,14 +26,12 @@
         <form class="form" method="post">
             <div class="govuk-form-group">
                 <govuk-create-title label="What is the region of the school?" add-margin="true" />
-                <div class="govuk-form-group" id="region">
-                    <govuk-radios-input 
-                        name="region"
-                        asp-for="@Model.Region"
-                        data-testid="region"
-                        labels="@labels.ToArray()"
-                        values="@values.ToArray()"/>
-                </div>
+                <govuk-radios-input 
+                    name="region"
+                    asp-for="@Model.Region"
+                    data-testid="region"
+                    labels="@labels.ToArray()"
+                    values="@values.ToArray()"/>
             </div>
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue

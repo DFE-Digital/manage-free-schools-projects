@@ -14,19 +14,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "yr-y6-capacity")]
         [Display(Name = "Reception to year 6 capacity")]
-        [Required(ErrorMessage = "Enter the Reception - Year 6 Capacity.")]
+        [Required(ErrorMessage = "Enter the Reception - Year 6 Capacity")]
         [ValidNumber(0,9999)]
         public string YRY6Capacity { get; set; }
 
         [BindProperty(Name = "y7-y11-capacity")]
         [Display(Name = "Year 7 to year 11 capacity")]
-        [Required(ErrorMessage = "Enter the Year 7 - Year 11 Capacity.")]
+        [Required(ErrorMessage = "Enter the Year 7 - Year 11 Capacity")]
         [ValidNumber(0,9999)]
         public string Y7Y11Capacity { get; set; }
 
         [BindProperty(Name = "y12-y14-capacity")]
         [Display(Name = "Year 12 to year 14 capacity")]
-        [Required(ErrorMessage = "Enter the Year 12 - Year 14 Capacity.")]
+        [Required(ErrorMessage = "Enter the Year 12 - Year 14 Capacity")]
         [ValidNumber(0,9999)]
         public string Y12Y14Capacity { get; set; }
 

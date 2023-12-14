@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "trn")]
         [Display(Name = "TRN (trust reference number)")]
         [StringLength(7, ErrorMessage = ValidationConstants.TextValidationMessage)]
-        [Required(ErrorMessage = "Enter the TRN.")]
+        [Required(ErrorMessage = "Enter the TRN")]
         public string TRN { get; set; }
 
         public GetTrustByRefResponse Trust { get; set; }

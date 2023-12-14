@@ -27,13 +27,11 @@
     <partial name="_ErrorSummary" />
     <govuk-create-title label=" What is the school type?" for="school-type" add-margin="true" />
     <form method="post">
-        <div class="govuk-form-group" id="school-type">
         <govuk-radios-input asp-for="@Model.SchoolType"
                             name="school-type"
                             labels="@labels.ToArray()"
                             values="@values.ToArray()"
                             test-ids="@testIds.ToArray()"/>
-        </div>
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
