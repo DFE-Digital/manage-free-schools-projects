@@ -13,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public string ProjectSearchTerm { get; set; }
         public List<string> RegionSearchTerm { get; set; } = new();
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
+        public string ProjectManagedBySearchTerm { get; set; }
         public bool UserCanCreateProject { get; set; } = false;
         public PaginationModel Pagination { get; set; } = new();
 

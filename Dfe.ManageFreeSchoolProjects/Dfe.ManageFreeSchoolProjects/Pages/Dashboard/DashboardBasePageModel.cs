@@ -26,6 +26,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-local-authority", SupportsGet = true)]
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
 
+        [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
+        public string ProjectManagedBySearchTerm { get; set; }
+
         [BindProperty]
         public bool UserCanCreateProject { get; set; }
 
@@ -74,6 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             getDashboardServiceParameters.Project = ProjectSearchTerm;
 			getDashboardServiceParameters.Regions = RegionSearchTerm;
             getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
             getDashboardServiceParameters.Page = PageNumber;
 
             var response = await _getDashboardService.Execute(getDashboardServiceParameters);
@@ -88,6 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 ProjectSearchTerm = ProjectSearchTerm,
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
+                ProjectManagedBySearchTerm = ProjectManagedBySearchTerm,
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
             };  
@@ -110,6 +115,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             if (LocalAuthoritySearchTerm.Any())
             {
                 LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
+            }
+
+            if (!string.IsNullOrEmpty(ProjectManagedBySearchTerm))
+            {
+                query = query.Add("search-by-pmb", ProjectManagedBySearchTerm);
             }
 
             return query.ToString();

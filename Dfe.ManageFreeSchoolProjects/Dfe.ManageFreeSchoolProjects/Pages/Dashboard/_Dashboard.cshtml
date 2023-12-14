@@ -103,6 +103,20 @@
                     </div>
 
                 </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <div class="govuk-form-group">
+                        <h2 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--m" for="search-by-pmb">
+                                Project managed by
+                            </label>
+                        </h2>
+                        <div id="dashboardSearch-hint" class="govuk-hint">
+                            For example, Joe Bloggs.
+                        </div>
+                        <input class="govuk-input" id="search-by-pmb" name="search-by-pmb" type="text" value="@Model.ProjectManagedBySearchTerm" data-testid="search-by-pmb">
+                    </div>
+                </div>
             </div>
 
             <div class="govuk-grid-row">
