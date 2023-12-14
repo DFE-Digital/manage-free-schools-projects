@@ -17,8 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.TrustName = _fixture.Create<string>();
 
-            result.ProjectStatusProvisionalOpeningDateAgreedWithTrust = _fixture.Create<DateTime>();
-
             result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.ProjectStatusProjectStatus = _fixture.Create<string>();
             result.ProjectStatusFreeSchoolsApplicationNumber = _fixture.Create<string>().Substring(0, 9);
