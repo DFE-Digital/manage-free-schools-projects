@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     {
         [BindProperty(Name = "school-phase")]
         [Display(Name = "school-phase")]
-        [Required(ErrorMessage = "Select the school phase.")]
+        [Required(ErrorMessage = "Select the school phase")]
         public string SchoolPhase { get; set; }
         
         private readonly ErrorService _errorService;
