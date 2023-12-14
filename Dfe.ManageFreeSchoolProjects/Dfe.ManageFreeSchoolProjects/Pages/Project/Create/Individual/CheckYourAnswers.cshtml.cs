@@ -1,3 +1,5 @@
+using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
@@ -17,12 +19,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
         private readonly ICreateProjectService _createProjectService;
+        private readonly INotifyUserService _notifyUserService;
         private readonly MfspApiClient _mfspApiClient;
 
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache, ICreateProjectService createProjectService, MfspApiClient mfspApiClient)
+        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache,
+            ICreateProjectService createProjectService, INotifyUserService notifyUserService, MfspApiClient mfspApiClient)
         {
             _createProjectCache = createProjectCache;
             _createProjectService = createProjectService;
+            _notifyUserService = notifyUserService;
             _mfspApiClient = mfspApiClient;
             _errorService = errorService;
         }
@@ -33,17 +38,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 return new UnauthorizedResult();
             }
-            
+
             Project = _createProjectCache.Get();
             Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
             _createProjectCache.Update(Project);
             return Page();
         }
+
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
             var project = _createProjectCache.Get();
-            
+
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
@@ -60,12 +66,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 YRY6Capacity = (int)project.YRY6Capacity,
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
-                Nursery = project.Nursery, 
+                Nursery = project.Nursery,
                 SixthForm = project.SixthForm,
                 FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
-                FaithType = project.FaithType, 
-                OtherFaithType = project.OtherFaithType, 
+                FaithType = project.FaithType,
+                OtherFaithType = project.OtherFaithType,
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate
             };
 
@@ -74,24 +80,35 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             try
             {
                 await _createProjectService.Execute(createProjectRequest);
+
+                await SendEmail();
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
-                if (e.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity)
+                if (e.StatusCode == HttpStatusCode.UnprocessableEntity)
                 {
                     _errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
                     Project = project;
                     return Page();
                 }
 
+                if (e.StatusCode == HttpStatusCode.InternalServerError) 
+                    return Redirect(RouteConstants.CreateProjectConfirmation);
+
                 throw;
             }
-
-            var emailToNotify = _createProjectCache.Get().EmailToNotify;
-            await _mfspApiClient.Post<string, string>("/api/v1.0/email", emailToNotify);
-
+            
             return Redirect(RouteConstants.CreateProjectConfirmation);
+        }
 
+        private async Task SendEmail()
+        {
+            var projectUrl =
+                $"{HttpContext.Request.Scheme}://" +
+                $"{HttpContext.Request.Host}" +
+                $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
+
+            await _notifyUserService.Execute(_createProjectCache.Get().EmailToNotify, projectUrl);
         }
     }
 }
