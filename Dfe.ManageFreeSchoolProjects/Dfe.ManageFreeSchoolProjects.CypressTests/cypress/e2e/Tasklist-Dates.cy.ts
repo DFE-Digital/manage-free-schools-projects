@@ -62,6 +62,15 @@ describe("Testing project overview", () => {
 
         taskListPage.isTaskStatusInProgress("Dates")
             .selectDatesFromTaskList();
+        
+        cy.executeAccessibilityTests();
+
+
+        summaryPage.clickChange();
+
+        cy.executeAccessibilityTests();
+
+        datesDetailsPage.selectSaveAndContinueButton();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
