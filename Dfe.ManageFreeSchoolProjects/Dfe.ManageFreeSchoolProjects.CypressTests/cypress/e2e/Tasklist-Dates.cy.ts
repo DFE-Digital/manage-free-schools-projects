@@ -140,8 +140,8 @@ describe("Testing project overview", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Dates")
             .inOrder()
-            .summaryShows("Entry into pre-opening").HasValue("28/2/2025").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("28/2/2025").HasChangeLink()
+            .summaryShows("Entry into pre-opening").HasValue("28 February 2025").HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").HasValue("28 February 2025").HasChangeLink()
             .summaryShows("Opening academic year").HasValue("2025/26").HasChangeLink()
             .isNotMarkedAsComplete();
 
