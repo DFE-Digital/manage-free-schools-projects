@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -65,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
                     TrustName = ParseColumn(row.ItemArray[2]),
                     Region = ParseColumn(row.ItemArray[3]),
                     LocalAuthority = ParseColumn(row.ItemArray[4]),
-                    RealisticOpeningDate = DateTime.Parse(ParseColumn(row.ItemArray[5])),
+                    RealisticOpeningDate = DateTime.Parse(ParseColumn(row.ItemArray[5]), new CultureInfo("en-GB")),
                     Status = ParseColumn(row.ItemArray[6]),
                     SourceData = row.ItemArray.Take(7).Select(value => ParseColumn(value)).ToList()
                 };
