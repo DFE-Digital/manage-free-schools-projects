@@ -13,8 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class ProjectIdModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "projectid")]
-        [Display(Name = "temporary project id")]
-        [Required]
+        [Display(Name = "temporary project ID")]
+        [Required(ErrorMessage = "The temporary project ID field is required")]
         [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
         

@@ -6,7 +6,7 @@
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
-        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
 
@@ -16,17 +16,8 @@
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl" for="school">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the current free school name?
-                    </label>
-                </h1>
-
-                <div id="create-new-project-school-name-hint" class="govuk-hint">
-                    You can still edit it anytime.
-                </div>
-                <govuk-text-input id="school" name="school" asp-for="@Model.School" data-testid="school" />
+                <govuk-create-title label="What is the current free school name?" for="school" />
+                <govuk-text-input id="school" name="school" asp-for="@Model.School" data-testid="school" hint="You can still edit it anytime" />
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

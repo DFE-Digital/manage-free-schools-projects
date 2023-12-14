@@ -31,8 +31,8 @@ export type ProjectDetailsRequest = {
     schoolName: string;
     applicationNumber: string;
     applicationWave: string;
-    region: string;
-    localAuthority: string;
+    region?: string;
+    localAuthority?: string;
     createdBy: string;
 };
 

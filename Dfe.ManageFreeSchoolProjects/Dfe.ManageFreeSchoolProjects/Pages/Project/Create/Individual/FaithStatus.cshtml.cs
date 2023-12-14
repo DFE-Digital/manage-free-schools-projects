@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 public class FaithStatusModel : CreateProjectBaseModel
 {
     [BindProperty(Name = "faith-status")]
-    [Required(ErrorMessage = "Select the faith status of the free school.")]
+    [Required(ErrorMessage = "Select the faith status of the free school")]
     public FaithStatus FaithStatus { get; set; }
 
     private readonly ICreateProjectCache _createProjectCache;

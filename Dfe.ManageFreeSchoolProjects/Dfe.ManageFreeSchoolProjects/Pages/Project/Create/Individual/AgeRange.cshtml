@@ -6,7 +6,7 @@
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
-        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
 
@@ -14,14 +14,8 @@
     <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-                <h1 class="govuk-fieldset__heading">
-                    <span class="govuk-caption-l">Creating a new free school project</span>
-                    What is the age range?
-                </h1>
-
-            </legend>
             <div class="govuk-form-group">
+                <govuk-create-title label="What is the age range?" for="age-range" />
                 <govuk-number-range id="age-range" asp-for="@Model.AgeRange" hint="For example, 2 to 5" />
             </div>
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
