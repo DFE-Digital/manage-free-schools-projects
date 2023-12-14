@@ -13,12 +13,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
-        [Required(ErrorMessage = "Select yes if it will have a nursery.")]
+        [Required(ErrorMessage = "Select yes if it will have a nursery")]
         public ClassType.Nursery Nursery { get; set; }
         
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
-        [Required(ErrorMessage = "Select yes if it will have a sixth form.")]
+        [Required(ErrorMessage = "Select yes if it will have a sixth form")]
         public ClassType.SixthForm SixthForm { get; set; }
         
         public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)

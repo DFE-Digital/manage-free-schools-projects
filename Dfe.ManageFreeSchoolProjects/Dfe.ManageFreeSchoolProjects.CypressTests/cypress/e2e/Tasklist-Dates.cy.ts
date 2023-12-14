@@ -3,8 +3,8 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import datesDetailsPage from "cypress/pages/datesDetailsPage";
-import datesSummaryPage from "cypress/pages/datesSummaryPage";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
+import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 
 describe("Testing project overview", () => {
@@ -25,29 +25,52 @@ describe("Testing project overview", () => {
     });
 
     it("Should successfully set project dates", () => {
-        Logger.log("Clicking on Task list tab");
-        projectOverviewPage.selectTaskListTab();
-
         cy.executeAccessibilityTests();
 
         Logger.log("Selecting Dates link from Tasklist");
-        taskListPage.selectDatesFromTaskList();
+
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+                    .selectDatesFromTaskList();
+        
+        Logger.log("Confirm empty dates");
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Dates")
+            .inOrder()
+            .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
+            .summaryShows("Opening academic year").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Checking Dates Summary page elements present");
-        datesSummaryPage.verifyDatesSummaryElementsVisible(project.schoolName);
-
-        Logger.log("Selecting first Change link from first 'Pre-opening' line");
-        datesSummaryPage.selectChangePreopeningToGoToDatesDetails();
+        Logger.log("Go back to task list");
+        summaryPage.clickBack();
 
         cy.executeAccessibilityTests();
 
-
-        Logger.log("Attempting to save Dates Details page with no values");
-        datesDetailsPage.selectSaveAndContinueButton()
+        Logger.log("Confirm not started and open Dates");
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+            .selectDatesFromTaskList();
         
         cy.executeAccessibilityTests();
+
+        Logger.log("Check confirm puts project in In Progress");
+        summaryPage.clickConfirmAndContinue();
+        
+        cy.executeAccessibilityTests();
+
+        taskListPage.isTaskStatusInProgress("Dates")
+            .selectDatesFromTaskList();
+        
+        cy.executeAccessibilityTests();
+
+
+        summaryPage.clickChange();
+
+        cy.executeAccessibilityTests();
+
+        datesDetailsPage.selectSaveAndContinueButton();
 
         Logger.log("Check we get the correct validation messages coming back when no data entered");
         datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
@@ -112,11 +135,22 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Verify Dates Summary Page Complete Elements Visible");
-        datesSummaryPage.verifyDatesSummaryCompleteElementsVisible();
+        Logger.log("Confirm Dates Summary Page Complete");
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Dates")
+            .inOrder()
+            .summaryShows("Entry into pre-opening").HasValue("28/2/2025").HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").HasValue("28/2/2025").HasChangeLink()
+            .summaryShows("Opening academic year").HasValue("2025/26").HasChangeLink()
+            .isNotMarkedAsComplete();
 
-        datesSummaryPage.selectMarkItemAsComplete();
-        datesSummaryPage.selectConfirmAndContinue();
+        cy.executeAccessibilityTests();
+      
+
+       summaryPage
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("Dates");
 
