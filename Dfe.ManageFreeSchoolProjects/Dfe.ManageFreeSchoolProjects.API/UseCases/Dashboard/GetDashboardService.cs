@@ -85,7 +85,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             if (!string.IsNullOrEmpty(parameters.ProjectManagedBy))
             {
-                query = query.Where(kpi => kpi.KeyContactsFsgLeadContact.Contains(parameters.Project));
+                query = query.Where(kpi => kpi.KeyContactsFsgLeadContact.Contains(parameters.ProjectManagedBy));
             }
 
             return query;
