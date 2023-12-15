@@ -141,7 +141,7 @@
                 Local authority
             </th>
             <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-                Realistic opening date
+                Provisional opening date
             </th>
             <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
                 Status
@@ -180,9 +180,9 @@
                     <td class="govuk-table__cell" data-testid="local-authority">
                         @project.LocalAuthority
                     </td>
-                    <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                    <td class="govuk-table__cell" data-testid="provisional-opening-date">
                         @{
-                            RenderValue(project.RealisticOpeningDate);
+                            RenderValue(project.RealisticOpeningDate.ToDateString());
                         }
                     </td>
                     <td class="govuk-table__cell" data-testid="status">

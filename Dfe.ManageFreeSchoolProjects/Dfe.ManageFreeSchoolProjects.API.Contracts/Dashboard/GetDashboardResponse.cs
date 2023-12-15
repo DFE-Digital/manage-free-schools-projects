@@ -12,7 +12,7 @@
 
         public string LocalAuthority { get; set; }
 
-        public string RealisticOpeningDate { get; set; }
+        public DateTime? RealisticOpeningDate { get; set; }
 
         public string Status { get; set; }
     }
