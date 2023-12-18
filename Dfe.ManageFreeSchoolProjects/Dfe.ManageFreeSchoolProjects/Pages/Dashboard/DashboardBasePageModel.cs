@@ -26,23 +26,32 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-local-authority", SupportsGet = true)]
         public List<string> LocalAuthoritySearchTerm { get; set; } = new();
 
+        [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
+        public List<string> ProjectManagedBySearchTerm { get; set; }
+
         [BindProperty]
         public bool UserCanCreateProject { get; set; }
+
+        [BindProperty]
+        public List<string> ProjectManagers { get; set; }
 
         public DashboardModel Dashboard { get; set; } = new();
 
         protected readonly ICreateUserService _createUserService;
         protected readonly IGetDashboardService _getDashboardService;
         private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
+        private readonly IGetProjectManagersService _getProjectManagersService;
 
         public DashboardBasePageModel(
             ICreateUserService createUserService,
             IGetDashboardService getDashboardAllService,
-            IGetLocalAuthoritiesService getLocalAuthoritiesService)
+            IGetLocalAuthoritiesService getLocalAuthoritiesService,
+            IGetProjectManagersService getProjectManagersService)
         {
             _createUserService = createUserService;
             _getDashboardService = getDashboardAllService;
             _getLocalAuthoritiesService = getLocalAuthoritiesService;
+            _getProjectManagersService = getProjectManagersService;
         }
 
         public async Task<JsonResult> OnGetLocalAuthoritiesByRegion(string regions)
@@ -74,9 +83,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             getDashboardServiceParameters.Project = ProjectSearchTerm;
 			getDashboardServiceParameters.Regions = RegionSearchTerm;
             getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
             getDashboardServiceParameters.Page = PageNumber;
 
             var response = await _getDashboardService.Execute(getDashboardServiceParameters);
+
+            var projectManagersResponse = _getProjectManagersService.Execute();
 
             var paginationModel = PaginationMapping.ToModel(response.Paging);
             var query = BuildPaginationQuery();
@@ -88,8 +100,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 ProjectSearchTerm = ProjectSearchTerm,
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
+                ProjectManagedBySearchTerm = ProjectManagedBySearchTerm,
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
+                ProjectManagers = projectManagersResponse.Result.ProjectManagers,
             };  
         }
 
@@ -110,6 +124,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             if (LocalAuthoritySearchTerm.Any())
             {
                 LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
+            }
+
+            if (ProjectManagedBySearchTerm.Count > 0)
+            {
+               ProjectManagedBySearchTerm.ForEach((m => query = query.Add("search-by-pmb", m)));
             }
 
             return query.ToString();

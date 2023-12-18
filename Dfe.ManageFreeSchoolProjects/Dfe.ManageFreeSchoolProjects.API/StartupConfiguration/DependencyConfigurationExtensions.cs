@@ -83,7 +83,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetProjectRiskService,  GetProjectRiskService>();
 			services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
             services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
-            services.AddScoped<ISearchConstituencyService, SearchConstituencyService>(); 
+            services.AddScoped<ISearchConstituencyService, SearchConstituencyService>();
+            services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

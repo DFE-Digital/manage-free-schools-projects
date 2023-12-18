@@ -17,7 +17,8 @@ namespace Dfe.BuildFreeSchools.Pages
 			IGetDashboardService getDashboardService, 
 			ICreateUserService createUserService,
 			IGetLocalAuthoritiesService getLocalAuthoritiesService,
-            ILogger<IndexModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
+            IGetProjectManagersService getProjectManagersService,
+            ILogger<IndexModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService, getProjectManagersService)
         {
 			_logger = logger;
         }
