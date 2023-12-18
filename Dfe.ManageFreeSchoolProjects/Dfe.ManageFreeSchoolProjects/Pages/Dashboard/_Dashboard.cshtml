@@ -12,6 +12,8 @@
         regionLabels.Add(region.ToDescription());
     }
 
+    var projectManagerLabels = Model.ProjectManagers;
+
     var createProjectLink = RouteConstants.CreateProjectMethod;
 }
 
@@ -106,17 +108,40 @@
 
                 <div class="govuk-grid-column-one-quarter">
                     <div class="govuk-form-group">
-                        <h2 class="govuk-label-wrapper">
-                            <label class="govuk-label govuk-label--m" for="search-by-pmb">
+
+                        <fieldset class="govuk-fieldset" aria-describedby="filter-pmb-hint">
+
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
                                 Project managed by
-                            </label>
-                        </h2>
-                        <div id="dashboardSearch-hint" class="govuk-hint">
-                            For example, Joe Bloggs.
-                        </div>
-                        <input class="govuk-input" id="search-by-pmb" name="search-by-pmb" type="text" value="@Model.ProjectManagedBySearchTerm" data-testid="search-by-pmb">
+
+                            </legend>
+
+                            <div id="filter-pmb-hint" class="govuk-hint">
+                                Select all that apply.
+                            </div>
+
+                            <div id="search-by-pmb-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+
+                                @foreach (var manager in projectManagerLabels)
+                                {
+                                    var checkedStatus = Model.ProjectManagedBySearchTerm.Contains(manager) ? "checked" : "";
+
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="@manager" data-testid="@manager-option" name="search-by-pmb" type="checkbox" value="@manager" @checkedStatus>
+                                        <label class="govuk-label govuk-checkboxes__label" for="@manager">
+                                            @manager
+                                        </label>
+
+                                    </div>
+                                }
+
+                            </div>
+
+                        </fieldset>
                     </div>
                 </div>
+
             </div>
 
             <div class="govuk-grid-row">

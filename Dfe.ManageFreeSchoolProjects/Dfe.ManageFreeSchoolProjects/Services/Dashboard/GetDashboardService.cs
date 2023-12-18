@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public string Project { get; set; }
         public List<string> Regions { get; set; }
         public List<string> LocalAuthorities { get; set; }
-        public string ProjectManagedBy { get; set; }
+        public List<string> ProjectManagedBy { get; set; }
         public int Page { get; set; }
     }
 
@@ -57,9 +57,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
                 query = query.Add("localAuthorities", string.Join(",", parameters.LocalAuthorities));
             }
 
-            if (!string.IsNullOrEmpty(parameters.ProjectManagedBy))
+            if (parameters.ProjectManagedBy.Any())
             {
-                query = query.Add("projectManagedBy", parameters.ProjectManagedBy);
+                query = query.Add("projectManagedBy", string.Join(",", parameters.ProjectManagedBy));
             }
 
             query = query.Add("page", parameters.Page.ToString());

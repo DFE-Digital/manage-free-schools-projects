@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string UserId { get; set; }
         public List<string> Regions { get; set; }
         public List<string> LocalAuthority { get; set; }
-        public string ProjectManagedBy { get; set; }
+        public List<string> ProjectManagedBy { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
     }
@@ -83,9 +83,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
             }
 
-            if (!string.IsNullOrEmpty(parameters.ProjectManagedBy))
+            if (parameters.ProjectManagedBy.Any())
             {
-                query = query.Where(kpi => kpi.KeyContactsFsgLeadContact.Contains(parameters.ProjectManagedBy));
+                query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
             }
 
             return query;
