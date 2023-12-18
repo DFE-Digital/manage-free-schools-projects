@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public async Task<GetProjectManagersResponse> Execute()
         {
             GetProjectManagersResponse projectManagers = new GetProjectManagersResponse();
-            projectManagers.ProjectManagers = await _context.Kpi.Where(k => k.KeyContactsFsgLeadContact != null)
+            projectManagers.ProjectManagers = await _context.Kpi.Where(k => !string.IsNullOrEmpty(k.KeyContactsFsgLeadContact))
                                                                 .OrderBy(k => k.KeyContactsFsgLeadContact)
                                                                 .Select(k => k.KeyContactsFsgLeadContact)
                                                                 .Distinct()
