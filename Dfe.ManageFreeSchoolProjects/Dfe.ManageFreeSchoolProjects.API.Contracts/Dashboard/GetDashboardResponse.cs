@@ -15,5 +15,7 @@
         public DateTime? RealisticOpeningDate { get; set; }
 
         public string Status { get; set; }
+
+        public string ProjectManagedBy { get; set; }
     }
 }
