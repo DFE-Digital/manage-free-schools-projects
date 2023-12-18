@@ -81,7 +81,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
             }
 
-            if (parameters.ProjectManagedBy.Any())
+            if (parameters.ProjectManagedBy.Count > 0)
             {
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
             }

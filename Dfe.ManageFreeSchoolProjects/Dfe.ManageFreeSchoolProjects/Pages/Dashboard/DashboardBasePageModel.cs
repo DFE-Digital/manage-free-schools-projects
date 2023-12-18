@@ -126,7 +126,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
             }
 
-            if (ProjectManagedBySearchTerm.Any())
+            if (ProjectManagedBySearchTerm.Count > 0)
             {
                ProjectManagedBySearchTerm.ForEach((m => query = query.Add("search-by-pmb", m)));
             }

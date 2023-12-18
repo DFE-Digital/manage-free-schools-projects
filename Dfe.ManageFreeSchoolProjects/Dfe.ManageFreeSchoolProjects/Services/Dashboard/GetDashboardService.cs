@@ -57,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
                 query = query.Add("localAuthorities", string.Join(",", parameters.LocalAuthorities));
             }
 
-            if (parameters.ProjectManagedBy.Any())
+            if (parameters.ProjectManagedBy.Count > 0)
             {
                 query = query.Add("projectManagedBy", string.Join(",", parameters.ProjectManagedBy));
             }
