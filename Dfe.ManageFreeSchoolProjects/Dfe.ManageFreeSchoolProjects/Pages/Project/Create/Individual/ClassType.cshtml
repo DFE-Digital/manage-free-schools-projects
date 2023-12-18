@@ -11,21 +11,16 @@
 
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
-        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
 
 <div class="govuk-form-group">
     <partial name="_ErrorSummary"/>
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-        <h1 class="govuk-fieldset__heading">
-            <span class="govuk-caption-l">Creating a new free school project</span>
-            What is the class type?
-        </h1>
-    </legend>
+    <govuk-create-title label="Will it have any of these class types?" />
 
     <form method="post">
-        <div class="govuk-form-group" id="nursery">
+        <div class="govuk-form-group">
             <label class="govuk-label govuk-heading-m" for="nursery">Nursery</label>
             <govuk-radios-input asp-for="@Model.Nursery"
                                 name="nursery"
@@ -34,7 +29,7 @@
                                 test-ids="@nurseryOptions"/>
         </div>
 
-        <div class="govuk-form-group" id="sixth-form">
+        <div class="govuk-form-group">
             <label class="govuk-label govuk-heading-m" for="sixth-form">Sixth form</label>
             <govuk-radios-input asp-for="@Model.SixthForm"
                                 name="sixth-form"

@@ -7,17 +7,13 @@
 			There is a problem
 		</h2>
 		<div class="govuk-error-summary__body">
-			<ul class="govuk-list govuk-error-summary__list" data-cy="error-summary">
+			<ul class="govuk-list govuk-error-summary__list" data-testid="error-summary-link">
 				@foreach (var error in errorService.GetErrors())
 				{
 					<li>
-						@if (error.Key?.Contains("/advisory-board-date") ?? false)
+						@if (!string.IsNullOrWhiteSpace(error.Key))
 						{
-							<a id="@($"{error.Key}-error-link")"  href=@error.Key>@error.Message</a>
-						}
-						else if (!string.IsNullOrWhiteSpace(error.Key))
-						{
-							<a  id="@($"{error.Key}-error-link")" href="#@error.Key">@error.Message</a>
+							<a id="@($"{error.Key}-error-link")"  href=#@error.Key>@error.Message</a>
 						}
 						else
 						{

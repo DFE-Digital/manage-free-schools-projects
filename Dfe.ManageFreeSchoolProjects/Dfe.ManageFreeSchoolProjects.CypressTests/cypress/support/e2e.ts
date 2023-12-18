@@ -27,6 +27,7 @@ declare global {
             getByName(name: string): Chainable<Element>;
             getByRole(role: string): Chainable<Element>;
             getByLabelFor(labelFor: string): Chainable<Element>;
+            getByRadioOption(radioText: string): Chainable<Element>;
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
             assertChildList(selector: string, values: string[]): Chainable<Element>;

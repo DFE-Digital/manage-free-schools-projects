@@ -1,4 +1,5 @@
 ﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+@using NetEscapades.AspNetCore.SecurityHeaders;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
@@ -47,7 +48,9 @@
                         <fieldset class="govuk-fieldset" aria-describedby="filter-regions-hint">
 
                             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
                                 Regions
+
                             </legend>
 
                             <div id="filter-regions-hint" class="govuk-hint">
@@ -81,21 +84,21 @@
                         <fieldset class="govuk-fieldset" aria-describedby="filter-la-hint">
 
                             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                                Local Authority
+
+                                Local authority
+
                             </legend>
 
                             <div id="filter-la-hint" class="govuk-hint">
                                 Select all that apply.
                             </div>
 
-                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
-                                <div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Please select a region</div>
-                            </div>
+                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes"><div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Select a region</div></div>
                         </fieldset>
                     </div>
+
                 </div>
             </div>
-
 
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
@@ -136,7 +139,7 @@
             Project managed by
         </th>
         <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
-            Realistic opening date
+            Provisional opening date
         </th>
         <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
             Status
@@ -178,9 +181,9 @@
                 <td class="govuk-table__cell" data-testid="local-authority">
                     @project.ProjectManagedBy
                 </td>
-                <td class="govuk-table__cell" data-testid="realistic-opening-date">
+                <td class="govuk-table__cell" data-testid="provisional-opening-date">
                     @{
-                        RenderValue(project.RealisticOpeningDate);
+                        RenderValue(project.RealisticOpeningDate.ToDateString());
                     }
                 </td>
                 <td class="govuk-table__cell" data-testid="status">
@@ -195,7 +198,7 @@
     </tbody>
 </table>
 
-<partial name="./Pagination/_Pagination" model="Model.Pagination"/>
+<partial name="./Pagination/_Pagination" model="Model.Pagination" />
 
 <script type="application/javascript" asp-add-nonce>
     $(function () {
