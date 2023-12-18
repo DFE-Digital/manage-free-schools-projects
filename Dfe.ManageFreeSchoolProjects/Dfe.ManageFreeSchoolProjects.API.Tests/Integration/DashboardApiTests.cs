@@ -45,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             dashboard.ProjectTitle.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
             dashboard.TrustName.Should().Be(project.TrustName);
             dashboard.LocalAuthority.Should().Be(project.LocalAuthority);
-            dashboard.RealisticOpeningDate.Should().NotBeNullOrEmpty();
+            dashboard.RealisticOpeningDate.Should().NotBeNull();
             dashboard.Region.Should().Be(project.SchoolDetailsGeographicalRegion);
             dashboard.Status.Should().Be("1");
         }
