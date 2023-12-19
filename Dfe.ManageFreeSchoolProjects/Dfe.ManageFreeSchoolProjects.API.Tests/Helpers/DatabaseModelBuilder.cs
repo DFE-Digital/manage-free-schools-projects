@@ -45,12 +45,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsFaithType = _fixture.Create<string>();
             result.SchoolDetailsTrustId = _fixture.Create<string>().Substring(0, 4);
             result.SchoolDetailsTrustName = _fixture.Create<string>();
+            result.SchoolDetailsTrustType = _fixture.Create<string>();
 
             result.KeyContactsFsgTeamLeader = _fixture.Create<string>();
             result.KeyContactsFsgGrade6 = _fixture.Create<string>();
             result.KeyContactsEsfaCapitalProjectManager = _fixture.Create<string>();
             result.KeyContactsEsfaCapitalProjectDirector = _fixture.Create<string>();
-            result.SchoolDetailsTrustType = _fixture.Create<string>();
             result.KeyContactsFsgLeadContact = _fixture.Create<string>();
 
             return result;
