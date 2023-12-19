@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var query = BuildPaginationQuery();
             paginationModel.Url = $"{loadDashboardParameters.Url}{query}";
 
-            Dashboard = new DashboardModel()
+            Dashboard = new DashboardModel
             {
                 Projects = response.Data.ToList(),
                 ProjectSearchTerm = ProjectSearchTerm,
@@ -104,6 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
                 ProjectManagers = projectManagersResponse.Result.ProjectManagers,
+                IsMyProjectsPage = loadDashboardParameters.Url.Contains("/my")
             };  
         }
 
