@@ -91,11 +91,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         private async Task LoadPage()
         {
-            var username = User.Identity.Name.ToString();
+            var username = User.Identity.Name;
 
-            var parameters = new LoadDashboardParameters()
+            var parameters = new LoadDashboardParameters
             {
-                GetDashboardServiceParameters = new GetDashboardServiceParameters()
+                GetDashboardServiceParameters = new GetDashboardServiceParameters
                 {
                     UserId = username
                 },

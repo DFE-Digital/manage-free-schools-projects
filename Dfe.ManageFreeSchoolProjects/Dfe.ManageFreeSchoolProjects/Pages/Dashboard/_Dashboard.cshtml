@@ -1,5 +1,4 @@
 ﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-@using NetEscapades.AspNetCore.SecurityHeaders;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
@@ -93,7 +92,9 @@
                                 Select all that apply.
                             </div>
 
-                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes"><div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Select a region</div></div>
+                            <div id="la-checkbox-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__divider govuk-!-font-weight-bold">Select a region</div>
+                            </div>
                         </fieldset>
                     </div>
 
@@ -135,9 +136,15 @@
         <th class="govuk-table__header govuk-table__cell__cases" scope="col">
             Local authority
         </th>
-        <th class="govuk-table__header govuk-table__cell__cases" scope="col">
-            Project managed by
-        </th>
+
+        @{
+            if (!Model.IsMyProjectsPage)
+            {
+                <th class="govuk-table__header govuk-table__cell__cases" scope="col">
+                    Project managed by
+                </th>
+            }
+        }
         <th class="govuk-table__header govuk-table__cell__cases govuk-table__header__width_14" scope="col" aria-sort="none">
             Provisional opening date
         </th>
@@ -178,9 +185,15 @@
                 <td class="govuk-table__cell" data-testid="local-authority">
                     @project.LocalAuthority
                 </td>
-                <td class="govuk-table__cell" data-testid="local-authority">
-                    @project.ProjectManagedBy
-                </td>
+                @{
+                    if (!Model.IsMyProjectsPage)
+                    {
+                        <td class="govuk-table__cell" data-testid="local-authority">
+                            @project.ProjectManagedBy
+                        </td>
+                    }
+                }
+
                 <td class="govuk-table__cell" data-testid="provisional-opening-date">
                     @{
                         RenderValue(project.RealisticOpeningDate.ToDateString());
@@ -198,7 +211,7 @@
     </tbody>
 </table>
 
-<partial name="./Pagination/_Pagination" model="Model.Pagination" />
+<partial name="./Pagination/_Pagination" model="Model.Pagination"/>
 
 <script type="application/javascript" asp-add-nonce>
     $(function () {
@@ -216,9 +229,8 @@
 
     function getRegionCheckboxes() {
         const regionCheckboxContainer = $('#search-by-region-container');
-        const result = regionCheckboxContainer.find('.govuk-checkboxes__input');
-
-        return result;
+        
+        return regionCheckboxContainer.find('.govuk-checkboxes__input');
     }
 
     function updateLocalAuthorityHtml(checkboxHtml) {
