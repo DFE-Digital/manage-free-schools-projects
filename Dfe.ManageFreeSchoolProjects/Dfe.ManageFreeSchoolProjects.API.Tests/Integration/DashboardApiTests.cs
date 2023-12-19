@@ -234,6 +234,44 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
+        public async Task When_Get_WithProjectManager_Returns_DashboardForSpecifiedProjectManager_200()
+        {
+            using var context = _testFixture.GetContext();
+            var projectOne = DatabaseModelBuilder.BuildProject();
+            var projectTwo = DatabaseModelBuilder.BuildProject();
+            projectTwo.KeyContactsFsgLeadContact = projectOne.KeyContactsFsgLeadContact;
+            var firstProjectManager = projectOne.KeyContactsFsgLeadContact;
+
+            var projectThree = DatabaseModelBuilder.BuildProject();
+            var projectFour = DatabaseModelBuilder.BuildProject();
+
+            context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
+
+            await context.SaveChangesAsync();
+
+
+            var firstProjectManagerResponse = await _client.GetAsync($"/api/v1/client/dashboard?projectManagedBy={firstProjectManager}");
+            firstProjectManagerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var firstProjectManagerProjects = await firstProjectManagerResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            firstProjectManagerProjects.Data.Should().HaveCount(2);
+            firstProjectManagerProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            firstProjectManagerProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+
+            var secondProjectManager = projectThree.KeyContactsFsgLeadContact;
+            var secondProjectManagerResponse = await _client.GetAsync($"/api/v1/client/dashboard?projectManagedBy={firstProjectManager},{secondProjectManager}");
+            secondProjectManagerResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var secondProjectManagerProjects = await secondProjectManagerResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            secondProjectManagerProjects.Data.Should().HaveCount(3);
+            secondProjectManagerProjects.Data.Should().Contain(r => r.ProjectId == projectOne.ProjectStatusProjectId);
+            secondProjectManagerProjects.Data.Should().Contain(r => r.ProjectId == projectTwo.ProjectStatusProjectId);
+            secondProjectManagerProjects.Data.Should().Contain(r => r.ProjectId == projectThree.ProjectStatusProjectId);
+        }
+
+        [Fact]
         public async Task When_Get_UserDoesNotExist_Returns_EmptyDashboard_200()
         {
             var firstUserDashboardResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId=NotExist");
