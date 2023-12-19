@@ -65,19 +65,19 @@
                 <h3 class="govuk-heading-s project-overview-menu__section-heading govuk-!-margin-bottom-1">Project details</h3>
                 <ul class="govuk-list">
                     <li class="govuk-body">
-                        <a class="govuk-link-s" href="#dates">Dates</a>
+                        <a class="govuk-link" href="#dates" data-link-scroll>Dates</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link active" href="#trust">Trust</a>
+                        <a class="govuk-link" href="#trust" data-link-scroll>Trust</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link" href="#reference-numbers">Reference numbers</a>
+                        <a class="govuk-link" href="#reference-numbers" data-link-scroll>Reference numbers</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link active" href="#school">School</a>
+                        <a class="govuk-link" href="#school" data-link-scroll>School</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link active" href="#region">Region and local authority</a>
+                        <a class="govuk-link" href="#region" data-link-scroll>Region and local authority</a>
                     </li>
                 </ul>
             </li>
@@ -86,16 +86,16 @@
                 <h3 class="govuk-heading-s project-overview-menu__section-heading govuk-!-margin-bottom-1">Other information</h3>
                 <ul class="govuk-list">
                     <li class="govuk-body">
-                        <a class="govuk-link" href="#risk-rating">risk rating and summary</a>
+                        <a class="govuk-link" href="#risk-rating" data-link-scroll>Risk rating and summary</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link" href="#contacts">Contacts</a>
+                        <a class="govuk-link" href="#contacts" data-link-scroll>Contacts</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link" href="#site-information">Site information</a>
+                        <a class="govuk-link" href="#site-information" data-link-scroll>Site information</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link" href="#pupil-numbers">Pupil numbers</a>
+                        <a class="govuk-link" href="#pupil-numbers" data-link-scroll>Pupil numbers</a>
                     </li>
                 </ul>
             </li>
@@ -528,16 +528,36 @@
     </div>
 </div>
 
+<script asp-add-nonce>
+    const handleScroll = () => { 
+        let found = false; 
+        document.querySelectorAll("a[data-link-scroll]")
+            .forEach(x => {
+                const yy = document.querySelector('#' + x.href.split("#")[1]).getBoundingClientRect().y;
+                if (found == false && yy > -10) {
+                    x.style.fontWeight = "600";
+                    found = true;
+                }
+                else {
+                    x.style.fontWeight = ""
+                }
+            }); 
+    }
+
+    document.onscroll = handleScroll;
+
+</script>
+
 @functions {
     public void RenderValue(string value)
     {
         if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
-            <span class="empty">Empty</span>
+                <span class="empty">Empty</span>
         }
         else
         {
-            @value
+    @value
         }
     }
 }
