@@ -48,6 +48,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsTrustType = _fixture.Create<string>();
             result.KeyContactsFsgLeadContact = _fixture.Create<string>();
 
+            result.KeyContactsFsgTeamLeader = _fixture.Create<string>();
+            result.KeyContactsFsgGrade6 = _fixture.Create<string>();
+            result.KeyContactsEsfaCapitalProjectManager = _fixture.Create<string>();
+            result.KeyContactsEsfaCapitalProjectDirector = _fixture.Create<string>();
+
             return result;
         }
 
@@ -77,6 +82,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 TrustsTrustRef = _fixture.Create<string>().Substring(0, 5),
                 TrustsTrustName = _fixture.Create<string>(),
                 TrustsTrustType = _fixture.Create<string>()
+            };
+
+            return result;
+        }
+
+        public static Property BuildProperty()
+        {
+            var result = new Property
+            {
+                Rid = _fixture.Create<string>().Substring(0, 10),
+                SiteNameOfSite = _fixture.Create<string>(),
+                SitePostcodeOfSite = _fixture.Create<string>(),
+                Tos = _fixture.Create<string>().Substring(0, 8),
             };
 
             return result;

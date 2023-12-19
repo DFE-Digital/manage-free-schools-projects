@@ -51,10 +51,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public record KeyContactsResponse
     {
-        public string LeadContact { get; set; }
         public string TeamLeader { get; set; }
         public string Grade6 { get; set; }
         public string ProjectDirector { get; set; }
+        public string ProjectManager { get; set; }
     }
 
     public record SiteInformationResponse

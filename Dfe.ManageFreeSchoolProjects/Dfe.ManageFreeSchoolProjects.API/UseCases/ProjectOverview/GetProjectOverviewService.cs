@@ -31,6 +31,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
+            Property? property = await _context.Property.FirstOrDefaultAsync(p => p.Rid == project.Rid);
+
             var risk = await GetRisk(project.Rid);
 
             return new ProjectOverviewResponse()
@@ -70,7 +72,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     TrustName = project.SchoolDetailsTrustName,
                     TrustType = project.SchoolDetailsTrustType
                 },
-                Risk = risk
+                Risk = risk,
+                KeyContacts = new()
+                {
+                    TeamLeader = project.KeyContactsFsgTeamLeader,
+                    Grade6 = project.KeyContactsFsgGrade6,
+                    ProjectDirector = project.KeyContactsEsfaCapitalProjectDirector,
+                    ProjectManager = project.KeyContactsEsfaCapitalProjectManager
+                },
+                SiteInformation = new()
+                {
+                    Property = property?.SiteNameOfSite,
+                    Postcode = property?.SitePostcodeOfSite
+                }
             };
         }
 
