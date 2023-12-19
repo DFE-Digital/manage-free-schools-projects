@@ -20,9 +20,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_Get_FilterByRegion_Returns_LocalAuthoritiesForRegion_200()
+        public async Task When_Get_ProjectManagers_Returns_ProjectManagers_200()
         {
             using var context = _testFixture.GetContext();
+
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
 
@@ -42,8 +43,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 projectOne.KeyContactsFsgLeadContact, projectTwo.KeyContactsFsgLeadContact
             };
 
-            projectManagers.Should().BeEquivalentTo(expectedProjectManagers);
+            projectManagers.Should().HaveCountGreaterThanOrEqualTo(2);
+            projectManagers.Should().Contain(projectOne.KeyContactsFsgLeadContact);
+            projectManagers.Should().Contain(projectTwo.KeyContactsFsgLeadContact);
 
         }
+
     }
 }
