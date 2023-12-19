@@ -17,5 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public bool UserCanCreateProject { get; set; } = false;
         public PaginationModel Pagination { get; set; } = new();
         public List<string> ProjectManagers { get; set; } = new();
+        public bool IsMyProjectsPage { get; init; }
     }
 }
