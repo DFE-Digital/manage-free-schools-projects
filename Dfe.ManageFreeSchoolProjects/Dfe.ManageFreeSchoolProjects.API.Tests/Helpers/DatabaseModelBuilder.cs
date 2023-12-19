@@ -46,6 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsTrustId = _fixture.Create<string>().Substring(0, 4);
             result.SchoolDetailsTrustName = _fixture.Create<string>();
             result.SchoolDetailsTrustType = _fixture.Create<string>();
+            result.KeyContactsFsgLeadContact = _fixture.Create<string>();
 
             return result;
         }
