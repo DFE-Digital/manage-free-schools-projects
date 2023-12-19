@@ -15,7 +15,10 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		
 		[HtmlAttributeName("heading-label")]
 		public bool HeadingLabel { get; set; }
-		
+
+		[HtmlAttributeName("xl-heading-label")]
+		public bool XLHeadingLabel { get; set; }
+
 		[HtmlAttributeName("values")]
 		public string[] Values { get; set; } = new string[] { };
 
@@ -51,6 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Labels = Labels,
 				HtmlLabels = HtmlLabels,
 				HeadingLabel = HeadingLabel,
+				XLHeadingLabel = XLHeadingLabel,
 				LeadingParagraph = LeadingParagraph,
                 Hints = Hints
             };

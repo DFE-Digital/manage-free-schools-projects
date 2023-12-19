@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class SchoolModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "school")]
-        [Display(Name = "school name")]
-        [Required(ErrorMessage = "Enter the current free school name.")]
-        [ValidText(100, ErrorMessage = "The school name must be 100 characters or less.")]
+        [Display(Name = "School name")]
+        [Required(ErrorMessage = "Enter the current free school name")]
+        [ValidText(100)]
         public string School { get; set; }
         
         private readonly ErrorService _errorService;

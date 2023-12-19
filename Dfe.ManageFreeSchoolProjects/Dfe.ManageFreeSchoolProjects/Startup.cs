@@ -26,6 +26,7 @@ using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection;
 using Azure.Storage.Blobs;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -93,6 +94,8 @@ public class Startup
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
         services.AddScoped<ISearchConstituency, SearchConstituency>();
         services.AddScoped<IAgeRangeCleanerService, AgeRangeCleanerService>();
+        services.AddScoped<INotifyUserService, NotifyUserService>();
+        services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

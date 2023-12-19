@@ -16,7 +16,7 @@
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
-        <a href="@Model.BackLink" class="govuk-back-link">Back</a>
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
 
@@ -24,30 +24,18 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-
             <div class="govuk-form-group">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-
-                    <h1 class="govuk-fieldset__heading">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the region of the school?
-                    </h1>
-
-                </legend>
-            <div class="govuk-form-group" id="region">
+                <govuk-create-title label="What is the region of the school?" add-margin="true" />
                 <govuk-radios-input 
                     name="region"
                     asp-for="@Model.Region"
                     data-testid="region"
                     labels="@labels.ToArray()"
                     values="@values.ToArray()"/>
-                </div>
             </div>
-
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
-
         </form>
     </div>
 </div>

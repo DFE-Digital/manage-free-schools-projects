@@ -2,9 +2,6 @@ import "cypress-localstorage-commands";
 import "cypress-axe";
 import { AuthenticationInterceptor } from "../auth/authenticationInterceptor";
 import { Logger } from "../common/logger";
-import { RequestBuilder } from "cypress/api/requestBuilder";
-import projectApi from "cypress/api/projectApi";
-import { CreateProjectRequest } from "cypress/api/domain";
 
 Cypress.Commands.add("getByTestId", (id) => {
     cy.get(`[data-testid="${id}"]`);
@@ -26,13 +23,20 @@ Cypress.Commands.add("getByName", (name) => {
     cy.get(`[name="${name}"]`);
 });
 
-
 Cypress.Commands.add("getByRole", (role) => {
     cy.get(`[role="${role}"]`);
 });
 
 Cypress.Commands.add("getByLabelFor", (labelFor) => {
     cy.get(`[for="${labelFor}"]`);
+})
+
+Cypress.Commands.add("getByRadioOption", (radioText: string) => {
+    cy.contains(radioText)
+    .invoke('attr', 'for')
+    .then((id) => {
+        cy.get('#' + id);
+    });
 })
 
 Cypress.Commands.add("assertChildList", (selector: string, values: string[]) => {

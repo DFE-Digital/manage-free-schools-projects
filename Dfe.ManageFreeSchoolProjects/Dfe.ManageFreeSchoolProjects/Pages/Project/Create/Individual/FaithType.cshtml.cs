@@ -77,22 +77,22 @@ public class FaithTypeModel : CreateProjectBaseModel
     {
         if (FaithType == FaithType.NotSet)
         {
-            ModelState.AddModelError("faith-type", "Select the faith type of the free school.");
+            ModelState.AddModelError("faith-type", "Select the faith type of the free school");
         }
 
         if (FaithType == FaithType.Other)
         {
             if (string.IsNullOrEmpty(OtherFaithType))
             {
-                ModelState.AddModelError("other-faith-type", "Enter the other faith type.");
+                ModelState.AddModelError("other-faith-type", "Enter the other faith type");
             }
             else if (OtherFaithType.Length > 100)
             {
-                ModelState.AddModelError("other-faith-type", "Other faith type must be 100 characters or less.");
+                ModelState.AddModelError("other-faith-type", "Other faith type must be 100 characters or less");
             }
             else if (Regex.Match(OtherFaithType, "[^a-zA-Z\\s]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
             {
-                ModelState.AddModelError("other-faith-type", "Other faith type must only contain letters and spaces.");
+                ModelState.AddModelError("other-faith-type", "Other faith type must only contain letters and spaces");
             }
         }
         else if (FaithType != FaithType.Other && !string.IsNullOrEmpty(OtherFaithType))

@@ -43,7 +43,7 @@
 }
 
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
-	<fieldset class="govuk-fieldset">
+	<fieldset class="govuk-fieldset" id=@Model.Id>
 		@if (!string.IsNullOrWhiteSpace(Model.Label))
 		{
 			if (Model.HeadingLabel)
@@ -53,6 +53,14 @@
 						@Model.Label
 					</h1>
 				</legend>
+			}
+			else if (Model.XLHeadingLabel)
+			{
+				<legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+					<h1 class="govuk-fieldset__heading">
+						@Model.Label
+					</h1>
+				</legend>	
 			}
 			else
 			{

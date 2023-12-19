@@ -4,28 +4,18 @@
     ViewData["Title"] = "What is the temporary project ID?";
 }
 @section BeforeMain {
-    <div class="govuk-width-container msfp-wider-page">
-        <a href=@Model.BackLink class="govuk-back-link">Back</a>
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
-
 <div class="govuk-grid-row">
     <partial name="_ErrorSummary" />
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl" for="projectid">
-                        <span class="govuk-caption-l">Creating a new free school project</span>
-                        What is the temporary project ID?
-                    </label>
-                </h1>
-
-                <div id="create-new-project-id-hint" class="govuk-hint">
-                    For example, W3456
-                </div>
-                <govuk-text-input id="projectid" name="projectid" asp-for="@Model.ProjectId" data-testid="projectid" />
+                <govuk-create-title label="What is the temporary project ID?" for="projectid" />
+                <govuk-text-input id="projectid" name="projectid" asp-for="@Model.ProjectId" data-testid="projectid" hint="For example, W3456" />
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

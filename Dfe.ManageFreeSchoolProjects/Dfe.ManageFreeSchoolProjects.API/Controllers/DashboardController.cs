@@ -30,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string regions,
             string localAuthorities,
             string project,
+            string projectManagedBy,
             int? page = 1,
             int? count = 5)
         {
@@ -37,12 +38,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
             var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
+            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? new List<string>();
 
             var parameters = new GetDashboardParameters()
             {
                 UserId = userId,
                 Regions = regionsToSearch,
                 Project = project,
+                ProjectManagedBy = projectManagedByToSearch,
                 LocalAuthority = localAuthoritiesToSearch,
                 Page = page.Value,
                 Count = count.Value

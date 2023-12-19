@@ -16,7 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             ICreateUserService createUserService,
             IGetDashboardService getDashboardService,
             IGetLocalAuthoritiesService getLocalAuthoritiesService,
-            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService)
+            IGetProjectManagersService getProjectManagersService,
+            ILogger<DashboardGetByUserModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService, getProjectManagersService)
         {
             _logger = logger;
         }
@@ -91,11 +92,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         private async Task LoadPage()
         {
-            var username = User.Identity.Name.ToString();
+            var username = User.Identity.Name;
 
-            var parameters = new LoadDashboardParameters()
+            var parameters = new LoadDashboardParameters
             {
-                GetDashboardServiceParameters = new GetDashboardServiceParameters()
+                GetDashboardServiceParameters = new GetDashboardServiceParameters
                 {
                     UserId = username
                 },

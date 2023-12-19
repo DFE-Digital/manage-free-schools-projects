@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string UserId { get; set; }
         public List<string> Regions { get; set; }
         public List<string> LocalAuthority { get; set; }
+        public List<string> ProjectManagedBy { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
     }
@@ -41,18 +42,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var projectRecords = await query.Paginate(parameters.Page, parameters.Count).ToListAsync();
 
-            var result = projectRecords.Select(record =>
+            var result = projectRecords.Select(record => new GetDashboardResponse
             {
-                return new GetDashboardResponse()
-                {
-                    ProjectId = record.ProjectStatusProjectId,
-                    ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
-                    TrustName = record.TrustName,
-                    LocalAuthority = record.LocalAuthority,
-                    RealisticOpeningDate = record.RatProvisionalOpeningDateAgreedWithTrust != null ? record.RatProvisionalOpeningDateAgreedWithTrust.Value.ToLongDateString() : null,
-                    Region = record.SchoolDetailsGeographicalRegion,
-                    Status = "1"
-                };
+                ProjectId = record.ProjectStatusProjectId,
+                ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
+                TrustName = record.TrustName,
+                LocalAuthority = record.LocalAuthority,
+                RealisticOpeningDate = record.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                Region = record.SchoolDetailsGeographicalRegion,
+                ProjectManagedBy = record.KeyContactsFsgLeadContact, 
+                Status = "1"
             }).ToList();
 
             return (result, count);
@@ -80,6 +79,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             if (parameters.LocalAuthority.Any())
             {
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
+            }
+
+            if (parameters.ProjectManagedBy.Count > 0)
+            {
+                query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
             }
 
             return query;
