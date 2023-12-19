@@ -15,12 +15,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 		public string AgeRange { get; set; }
 
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
 
         public AgeRangeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -32,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             var project = _createProjectCache.Get();
             AgeRange = project.AgeRange;
-            BackLink = GetPreviousPage(CreateProjectPageName.AgeRange, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.AgeRange);
 
             return Page();
         }
@@ -40,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.AgeRange, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.AgeRange);
 
             if (!ModelState.IsValid)
             {

@@ -215,6 +215,12 @@ class CreateProjectPage {
         cy.getByTestId("back").click();
         return this;
     }
+
+    public clickCreateProject()
+    {
+        cy.getByTestId("create-project").click();
+        return this;
+    }
 }
 
 const createProjectPage = new CreateProjectPage();

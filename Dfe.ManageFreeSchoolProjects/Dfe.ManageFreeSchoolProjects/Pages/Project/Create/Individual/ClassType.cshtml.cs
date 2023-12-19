@@ -9,8 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class ClassTypeModel : CreateProjectBaseModel
     {
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
-        
+                
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
         [Required(ErrorMessage = "Select yes if it will have a nursery")]
@@ -22,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public ClassType.SixthForm SixthForm { get; set; }
         
         public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -38,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             Nursery = project.Nursery;
             SixthForm = project.SixthForm;
             
-            BackLink = GetPreviousPage(CreateProjectPageName.ClassType, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
             
             return Page();
         }
@@ -46,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.ClassType, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
 
             if (!ModelState.IsValid)
             {

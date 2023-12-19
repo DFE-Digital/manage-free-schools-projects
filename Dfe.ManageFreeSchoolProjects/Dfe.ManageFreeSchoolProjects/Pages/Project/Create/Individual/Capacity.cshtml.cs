@@ -31,12 +31,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public string Y12Y14Capacity { get; set; }
 
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
 
         public CapacityModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            : base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -51,15 +50,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             Y7Y11Capacity = project.Y7Y11Capacity.ToString();
             Y12Y14Capacity = project.Y12Y14Capacity.ToString();
 
-            BackLink = GetPreviousPage(CreateProjectPageName.Capacity, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.Capacity);
 
             return Page();
         }
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.Capacity, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.Capacity);
 
             if (!ModelState.IsValid)
             {
@@ -67,6 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return Page();
             }
 
+            var project = _createProjectCache.Get();
             project.YRY6Capacity = int.Parse(YRY6Capacity);
             project.Y7Y11Capacity = int.Parse(Y7Y11Capacity);
             project.Y12Y14Capacity = int.Parse(Y12Y14Capacity);

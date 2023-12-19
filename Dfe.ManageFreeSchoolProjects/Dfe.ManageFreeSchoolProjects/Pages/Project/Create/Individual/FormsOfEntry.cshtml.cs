@@ -12,7 +12,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 public class FormsOfEntryModel : CreateProjectBaseModel
     
 {
-    private readonly ICreateProjectCache _createProjectCache;
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "forms-of-entry")]
@@ -22,8 +21,8 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     
 
     public FormsOfEntryModel(ICreateProjectCache createProjectCache, ErrorService errorService)
+        :base(createProjectCache)
     {
-        _createProjectCache = createProjectCache;
         _errorService = errorService;
     }
     
@@ -39,7 +38,7 @@ public class FormsOfEntryModel : CreateProjectBaseModel
 
         FormsOfEntry = project.FormsOfEntry;
 
-        BackLink = GetPreviousPage(CreateProjectPageName.FormsOfEntry, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FormsOfEntry);
 
         return Page();
     }
@@ -48,7 +47,7 @@ public class FormsOfEntryModel : CreateProjectBaseModel
     {
         var project = _createProjectCache.Get();
 
-        BackLink = GetPreviousPage(CreateProjectPageName.FormsOfEntry, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FormsOfEntry);
 
         if (!ModelState.IsValid)
         {
