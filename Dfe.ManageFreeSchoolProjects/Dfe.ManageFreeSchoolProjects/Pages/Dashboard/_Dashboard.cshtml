@@ -103,41 +103,46 @@
 
                 </div>
 
-                <div class="govuk-grid-column-one-quarter">
-                    <div class="govuk-form-group">
+                @{
+                    if (!Model.IsMyProjectsPage)
+                    {
+                        <div class="govuk-grid-column-one-quarter">
+                            <div class="govuk-form-group">
 
-                        <fieldset class="govuk-fieldset" aria-describedby="filter-pmb-hint">
+                                <fieldset class="govuk-fieldset" aria-describedby="filter-pmb-hint">
 
-                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
 
-                                Project managed by
+                                        Project managed by
 
-                            </legend>
+                                    </legend>
 
-                            <div id="filter-pmb-hint" class="govuk-hint">
-                                Select all that apply.
-                            </div>
+                                    <div id="filter-pmb-hint" class="govuk-hint">
+                                        Select all that apply.
+                                    </div>
 
-                            <div id="search-by-pmb-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+                                    <div id="search-by-pmb-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
 
-                                @foreach (var manager in projectManagerLabels)
-                                {
-                                    var checkedStatus = Model.ProjectManagedBySearchTerm.Contains(manager) ? "checked" : "";
+                                        @foreach (var manager in projectManagerLabels)
+                                        {
+                                            var checkedStatus = Model.ProjectManagedBySearchTerm.Contains(manager) ? "checked" : "";
 
-                                    <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="@manager" data-testid="@manager-option" name="search-by-pmb" type="checkbox" value="@manager" @checkedStatus>
-                                        <label class="govuk-label govuk-checkboxes__label" for="@manager">
-                                            @manager
-                                        </label>
+                                            <div class="govuk-checkboxes__item">
+                                                <input class="govuk-checkboxes__input" id="@manager" data-testid="@manager-option" name="search-by-pmb" type="checkbox" value="@manager" @checkedStatus>
+                                                <label class="govuk-label govuk-checkboxes__label" for="@manager">
+                                                    @manager
+                                                </label>
+
+                                            </div>
+                                        }
 
                                     </div>
-                                }
 
+                                </fieldset>
                             </div>
-
-                        </fieldset>
-                    </div>
-                </div>
+                        </div>
+                    }
+                }
 
             </div>
 
