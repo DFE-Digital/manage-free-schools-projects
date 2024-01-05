@@ -32,26 +32,21 @@ module.exports = {
 					}
 				]
 			},
-			// {
-			// 	test: /\.(jpe?g|png|gif|svg)$/i,
-			// 	use: [
-			// 		{
-			// 			loader: 'file-loader',
-			// 			options: {
-			// 				emitFile: false,
-			// 				name: '/assets/images/[name].[ext]'
-			// 			}
-			// 		}
-			// 	]
-			// },
 			{
-				test: /\.(png|svg|jpg|jpe?g|gif)$/i,
-				type: "asset/resource"
-			}
+				test: /\.(gif|svg)$/i,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							emitFile: false,
+							name: '/assets/images/[name].[ext]'
+						}
+					}
+				]
+			},
 		]
 	},
 	output: {
-		assetModuleFilename: 'images/[name][ext]',
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'site.js',
 	}
