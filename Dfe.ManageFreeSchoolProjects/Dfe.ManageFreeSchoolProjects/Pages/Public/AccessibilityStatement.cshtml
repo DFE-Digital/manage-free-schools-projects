@@ -7,6 +7,12 @@
 	Layout = "_Layout";
 }
 
+@section BeforeMain {
+	<div role="navigation" class="govuk-width-container msfp-wider-page">
+		<a href="/" class="govuk-back-link">Back to projects</a>
+	</div>
+}
+
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
 		<h1 class="govuk-heading-xl">
@@ -14,7 +20,7 @@
 		</h1>
 
 		<p class="govuk-body-m">
-			This accessibility statement applies to Open free schools.
+			This accessibility statement applies to Manage free school projects.
 		</p>
 		<p class="govuk-body-m">
 			This website is run by the Department for Education. We want as many people as possible to be able to use this website. For example, that means you should be able to:
@@ -35,26 +41,30 @@
 
 		<h2 class="govuk-heading-l">Feedback and contact information </h2>
 		<p class="govuk-body">
-			If you need information on this website in a different format like accessible PDF, large print, easy read, audio recording or braille:
+			Email <a class="govuk-link" href="mailto:regionalservices.rg@education.gov.uk">regionalservices.rg@education.gov.uk</a> if you need information on this website in a different format like:
 		</p>
 		<ul class="govuk-list govuk-list--bullet">
-			<li>
-            email <a class="govuk-link" href="mailto:@_configuration["SupportEmail"]?subject=Prepare%20conversions%20and%20transfers:%20support%20query">@_configuration["SupportEmail"]</a>
-			</li>
-			<li>call 0370 000 2288 </li>
+			<li>accessible PDF</li>
+			<li>large print</li>
+			<li>easy read</li>
+			<li>audio recording</li>
+			<li>braille</li>
 		</ul>
 		<p class="govuk-body">
-			We'll consider your request and get back to you in 2 working days.
+			We'll consider your request and get back to you in 5 working days.
 		</p>
 
 		<h2 class="govuk-heading-l">Reporting accessibility problems with this website</h2>
 		<p class="govuk-body">
-         We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, email us at: <a class="govuk-link" href="mailto:@_configuration["SupportEmail"]?subject=Prepare%20conversions%20and%20transfers:%20support%20query">@_configuration["SupportEmail"]</a>.
+			We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, email us at: <a class="govuk-link" href="mailto:regionalservices.rg@education.gov.uk">regionalservices.rg@education.gov.uk</a>
 		</p>
 
 		<h2 class="govuk-heading-l">Enforcement procedure</h2>
 		<p class="govuk-body">
-			The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint,
+			The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).
+		</p>
+		<p class="govuk-body">
+			If you’re not happy with how we respond to your complaint,
 			<a class="govuk-link" target="_blank" rel="noopener" href="https://www.equalityadvisoryservice.com/">
 				contact the Equality Advisory and Support Service (EASS) (opens in new tab)
 			</a>.
@@ -67,34 +77,38 @@
 
 		<h2 class="govuk-heading-l">Compliance status</h2>
 		<p class="govuk-body">
-			This website is partially compliant with the Web Content Accessibility Guidelines (WCAG) version 2.1 AA standard, due to the following non-compliances and exemptions.
+			This website is partially compliant with the Web Content Accessibility Guidelines (WCAG) version 2.2 AA standard, due to the following non-compliances and exemptions.
 		</p>
 
 		<h3 class="govuk-heading-m">Non-accessible content </h3>
 		<p class="govuk-body">
-			The content is non-accessible for the following reason(s):
+			The content is non-accessible for the following reasons:
 		</p>
 		<h4 class="govuk-heading-s">
 		Non-compliance with the accessibility regulations
 		</h4>
 		<ul class="govuk-list govuk-list--bullet">
-			<li>main headings on some pages are contained within groups of elements and so may not be read out correctly by some screen readers. This fails WCAG 2.1 AA success criteria 2.4.6 (Headings and Labels) </li>
-			<li>error summaries and messages do not appear for all mistakes users make on certain conversions project pages. This fails WCAG 2.1 A success criteria 3.3.1 (Error Identification) </li>
-			<li>only an error summary appears and no error message when users experience an error on certain transfers project pages. This fails WCAG 2.1 A success criteria 3.3.2 (Labels or Instructions)</li>
+			<li>
+				links to projects on the your / all projects page have the same link text. This fails WCAG 2.2 AA success criterion <a class="govuk-link" href="https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" target="_blank">4.1.2 - Link Purpose (In Context)</a>
+			</li>
+			<li>
+				when changing the age range of a school, it is not clear what information to put in the 2 fields. This fails WCAG 2.2 AA success criterion <a class="govuk-link" href="https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html" target="_blank"> 2.4.6 - Headings and Labels</a>
+			</li>
+			<li>
+				when a problem is found, it is not clear how many there are or where on the page they are. This fails WCAG 2.2 AA success criterion <a class="govuk-link" href="https://www.w3.org/WAI/WCAG21/Understanding/error-identification.html" target="_blank">3.3.1 - Error Identification</a>
+			</li>
 		</ul>
 
-		<h4 class="govuk-heading-s">
-			Disproportionate burden
-		</h4>
-		<p class="govuk-body">
-			We have determined that there is disproportionate burden to meet all the requirements. Making improvements would leave us unable to provide a minimum viable product (MVP). We will meet the requirements as soon as we can.
-		</p>
 		<h4 class="govuk-heading-s">
 			The content is not within the scope of this accessibility statement
 		</h4>
 		<ul class="govuk-list govuk-list--bullet">
-			<li>data that is populated into our website from <a class="govuk-link" href="https://apply-convert-academy.service.gov.uk/">Apply to become an academy</a> and other Department for Education websites </li>
-			<li>content hosted on other Department for Education websites, such as <a class="govuk-link" href="https://apply-convert-academy.service.gov.uk/">Apply to become an academy</a></li>
+			<li>
+				data that is populated into our website from other websites. For example, <a class="govuk-link" href="https://apply-convert-academy.service.gov.uk/">Find your MP</a>
+			</li>
+			<li>
+				content hosted on other websites, like <a class="govuk-link" href="https://apply-convert-academy.service.gov.uk/">Find your MP</a>
+			</li>
 		</ul>
 
 
@@ -105,13 +119,15 @@
 
 		<h2 class="govuk-heading-l">Preparation of this accessibility statement</h2>
 		<p class="govuk-body">
-			This statement was prepared on 19 August 2022. It was last reviewed on 14 December 2022.
+			This statement was prepared on 21 December 2023. It was last reviewed on 21 December 2023.
 		</p>
 		<p class="govuk-body">
-			This website was last tested on 26 April 2022. The test was carried out by a Senior Accessibility Advisor at the Department for Education.
+			This website was last tested on 15 December 2023. The test was carried out by a Senior Accessibility Advisor at the Department for Education using:
 		</p>
-		<p class="govuk-body">
-			We used this approach to deciding on a sample of pages to test: <a class="govuk-link" href="https://docs.google.com/presentation/d/1jBLCXNLE-hAu7MwQxRHfU10o4vG74bUj/edit#slide=id.p1">testing your product with an accessibility expert - Google Slides</a>.
-		</p>
+		<ul class="govuk-list govuk-list--bullet">
+			<li>Dragon NaturallySpeaking (V15.71)</li>
+			<li>JAWS (2023)</li>
+			<li>Zoomtext (2023)</li>
+		</ul>
 	</div>
 </div>
