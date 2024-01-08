@@ -12,6 +12,13 @@ using System.Reflection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
+using System.ComponentModel;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -85,6 +92,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
             services.AddScoped<ISearchConstituencyService, SearchConstituencyService>();
             services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
+
+			services.AddScoped<IUpdateTaskService, UpdateSchoolTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateDatesTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateRegionAndLocalAuthorityTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateRiskAppraisalMeetingTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateConstituencyTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateTrustTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
