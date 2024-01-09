@@ -1,7 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;

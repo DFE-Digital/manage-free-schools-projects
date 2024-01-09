@@ -2,7 +2,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,13 +39,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiSingleResponseV2<GetProjectByTaskResponse>>> GetProjectByTask(string projectId)
+        [Route("{taskName}")]
+        public async Task<ActionResult<ApiSingleResponseV2<GetProjectByTaskResponse>>> GetProjectByTask(string projectId, TaskName taskName)
         {
             _logger.LogMethodEntered();
 
-            var projectByTask = await _getProjectByTaskService.Execute(projectId);
+            var projectByTask = await _getProjectByTaskService.Execute(projectId, taskName);
 
-            if (projectByTask == null) 
+            if (projectByTask == null)
             {
                 _logger.LogInformation("No project could be found for the given project id {projectId}", projectId);
                 return new NotFoundResult();
