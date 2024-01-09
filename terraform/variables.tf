@@ -48,6 +48,24 @@ variable "image_name" {
   type        = string
 }
 
+variable "registry_admin_enabled" {
+  description = "Do you want to enable access key based authentication for your Container Registry?"
+  type        = bool
+  default     = true
+}
+
+variable "registry_use_managed_identity" {
+  description = "Create a User-Assigned Managed Identity for the Container App. Note: If you do not have 'Microsoft.Authorization/roleAssignments/write' permission, you will need to manually assign the 'AcrPull' Role to the identity"
+  type        = bool
+  default     = true
+}
+
+variable "registry_managed_identity_assign_role" {
+  description = "Assign the 'AcrPull' Role to the Container App User-Assigned Managed Identity. Note: If you do not have 'Microsoft.Authorization/roleAssignments/write' permission, you will need to manually assign the 'AcrPull' Role to the identity"
+  type        = bool
+  default     = false
+}
+
 variable "container_command" {
   description = "Container command"
   type        = list(any)
