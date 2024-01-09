@@ -34,42 +34,39 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 BaseQuery = query
             };
 
-            // Could use a factory to do this?
+            GetProjectByTaskResponse result = null;
+
             switch (taskName)
             {
                 case TaskName.School:
-                    return await new GetSchoolTaskService().Get(parameters);
+                    result = await new GetSchoolTaskService().Get(parameters);
+                    break;
                 case TaskName.Dates:
-                    return await new GetDatesTaskService().Get(parameters);
+                    result = await new GetDatesTaskService().Get(parameters);
+                    break;
                 case TaskName.RiskAppraisalMeeting:
-                    return await new GetRiskAppraisalMeetingTaskService(_context).Get(parameters);
+                    result = await new GetRiskAppraisalMeetingTaskService(_context).Get(parameters);
+                    break;
                 case TaskName.Trust:
-                    return await new GetTrustTaskService().Get(parameters);
+                    result = await new GetTrustTaskService().Get(parameters);
+                    break;
                 case TaskName.RegionAndLocalAuthority:
-                    return await new GetRegionAndLocalAuthorityTaskService().Get(parameters);
+                    result = await new GetRegionAndLocalAuthorityTaskService().Get(parameters);
+                    break;
                 case TaskName.Constituency:
-                    return await new GetConstituencyTaskService().Get(parameters);
+                    result = await new GetConstituencyTaskService().Get(parameters);
+                    break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
             }
 
-            //var result = await
-            //    (from kpi in _context.Kpi
-            //        where kpi.ProjectStatusProjectId == projectId
-            //        join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals
-            //            riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
-            //        from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
-            //        select new GetProjectByTaskResponse
-            //        {
-            //            School = SchoolTaskMapper.Map(kpi),
-            //            Dates = DatesTaskMapper.Map(kpi),
-            //            Trust = TrustTaskMapper.Map(kpi),
-            //            RegionAndLocalAuthority = RegionAndLocalAuthorityTaskMapper.Map(kpi),
-            //            RiskAppraisalMeeting = RiskAppraisalTaskMapper.Map(riskAppraisalMeetingTask),
-            //            Constituency = ConstituencyTaskMapper.Map(kpi)
-            //        }).FirstOrDefaultAsync();
+            if (result != null)
+            {
+                var schoolName = await query.Select(kpi => kpi.ProjectStatusCurrentFreeSchoolName).FirstOrDefaultAsync();
+                result.SchoolName = schoolName;
+            }
 
-            //return result;
+            return result;
         }
     }
 }
