@@ -1,20 +1,18 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
-using Microsoft.EntityFrameworkCore;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using System.Linq;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-	[Collection(ApiTestCollection.ApiTestCollectionName)]
+    [Collection(ApiTestCollection.ApiTestCollectionName)]
 	public class ProjectTaskApiTests : ApiTestsBase
 	{
 		public ProjectTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
@@ -152,6 +150,31 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 			projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
 		}
 
+		[Fact]
+		public async Task Patch_LocalAuthorityAndRegionTask_Returns_201()
+		{
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+			var request = new UpdateProjectByTaskRequest()
+			{
+				RegionAndLocalAuthorityTask = new()
+				{
+                    LocalAuthority = "LocalAuthority",
+                    Region = "Region"
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+			projectResponse.RegionAndLocalAuthority.LocalAuthority.Should().Be("LocalAuthority");
+			projectResponse.RegionAndLocalAuthority.Region.Should().Be("Region");
+        }
+
         [Fact]
         public async Task Patch_NewRiskAppraisalMeetingTask_Returns_201()
         {
@@ -224,6 +247,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.RiskAppraisalMeeting.ReasonNotApplicable.Should().Be("ReasonNotApplicable");
 
 			context.RiskAppraisalMeetingTask.Count(r => r.RID == project.Rid).Should().Be(1);
+        }
+
+		[Fact]
+		public async Task Patch_TrustTask_Returns_201()
+		{
+            var project = DatabaseModelBuilder.BuildProject();
+			var trust = DatabaseModelBuilder.BuildTrust();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+			context.Trust.Add(trust);
+            await context.SaveChangesAsync();
+
+			var request = new UpdateProjectByTaskRequest()
+			{
+				Trust = new TrustTask()
+				{
+					TRN = trust.TrustRef
+				}
+			};
+
+            var projectResponse = await UpdateProjectTask(projectId, request);
+
+			projectResponse.Trust.TRN.Should().Be(trust.TrustRef);
+			projectResponse.Trust.TrustName.Should().Be(trust.TrustsTrustName);
+			projectResponse.Trust.TrustType.Should().Be(trust.TrustsTrustType);
         }
 
         [Fact]
