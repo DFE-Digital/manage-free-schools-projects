@@ -11,30 +11,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
-	public class CookiePreferences : PageModel
+	public class CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options,
+			IConfiguration configuration)
+		: PageModel
 	{
-		private readonly string cookieDomain;
+		private readonly string cookieDomain = configuration["Google:CookieDomain"];
 		
 		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
 		public bool PreferencesSet { get; set; } = false;
 		public string returnPath { get; set; }
-		
-		private readonly ILogger<CookiePreferences> _logger;
-		private readonly IOptions<ServiceLinkOptions> _options;
-
-		public CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options)
-		{
-			_logger = logger;
-			_options = options;
-		}
 
 		public string TransfersCookiesUrl { get; set; }
 
 		public ActionResult OnGet(bool? consent, string returnUrl)
 		{
 			returnPath = returnUrl;
-			TransfersCookiesUrl = $"{_options.Value.TransfersUrl}/cookie-preferences?returnUrl=%2Fhome";
+			TransfersCookiesUrl = $"{options.Value.TransfersUrl}/cookie-preferences?returnUrl=%2Fhome";
 
 			if (Request.Cookies.ContainsKey(ConsentCookieName))
 			{
@@ -100,20 +93,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 				{
 					if (cookie.StartsWith("_ga") || cookie.Equals("_ga_"))
 					{
-						_logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
-						Response.Cookies.Delete(cookie, new CookieOptions { Domain = "", Path = "/" });
+						
+						logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
+						Response.Cookies.Append(cookie, string.Empty, new CookieOptions
+						{
+							Expires = DateTime.Now.AddDays(-1),
+							Secure = true,
+							SameSite = SameSiteMode.Lax,							
+							HttpOnly = true,
+							Domain = cookieDomain
+						});
 
-						var gaCookie = Request.Cookies.FirstOrDefault(cookie => cookie.Key.StartsWith("_ga"));
-						if (gaCookie.Key != null)
-							Response.Cookies.Delete(gaCookie.Key,
-								new CookieOptions
-								{
-									Expires = DateTime.Now.AddHours(-120),
-									Path = "/",
-									HttpOnly = true,
-									Secure = this.Request.IsHttps,
-									IsEssential = true
-								});
+						
 					}
 				}
 			}
