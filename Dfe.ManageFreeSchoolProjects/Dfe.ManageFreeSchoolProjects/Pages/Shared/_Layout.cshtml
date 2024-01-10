@@ -3,12 +3,16 @@
 @{
     var analyticsConsent = Context.Request.Cookies.ContainsKey(".ManageFreeSchoolProjects.Consent")
                            && bool.Parse(Context.Request.Cookies[".ManageFreeSchoolProjects.Consent"]);
-
-    var showAnalytics = _configuration["GoogleAnalytics:Enable"] == "Yes" && analyticsConsent;
+    
+    var cookiePreferenceChanged = TempData["cookiePreferenceChanged"] ?? false;
+    
+    var showAnalytics = _configuration["GoogleAnalytics:Enable"] == "Yes" && analyticsConsent && !(bool)cookiePreferenceChanged;
 
     var titleDescription = Context.Request.Path == "/project-type"
         ? string.Empty
         : "- Manage free school projects";
+
+  
 }
 
 <!DOCTYPE html>
@@ -27,6 +31,7 @@
                         'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-5TFNH73B');</script>
         <!-- End Google Tag Manager -->
+        TempData["cookiePreferenceChanged"] = false;
     }
 
     <meta charset="utf-8"/>

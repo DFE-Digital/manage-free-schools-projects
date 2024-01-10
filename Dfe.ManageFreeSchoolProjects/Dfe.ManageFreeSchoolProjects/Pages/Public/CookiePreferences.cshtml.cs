@@ -6,15 +6,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
 	public class CookiePreferences : PageModel
 	{
+		private readonly string cookieDomain;
+		
 		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
 		public bool PreferencesSet { get; set; } = false;
 		public string returnPath { get; set; }
+		
 		private readonly ILogger<CookiePreferences> _logger;
 		private readonly IOptions<ServiceLinkOptions> _options;
 
@@ -73,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 				if (!consent.Value)
 				{
 					ApplyCookieConsent(consent);
+					
 				}
 				return Page();
 			}
@@ -92,13 +98,26 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 			{
 				foreach (var cookie in Request.Cookies.Keys)
 				{
-					if (cookie.StartsWith("_ga") || cookie.Equals("_gid"))
+					if (cookie.StartsWith("_ga") || cookie.Equals("_ga_"))
 					{
-						_logger.LogInformation("Deleting Google analytics cookie: {cookie}", cookie);
-						Response.Cookies.Delete(cookie);
+						_logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
+						Response.Cookies.Delete(cookie, new CookieOptions { Domain = "", Path = "/" });
+
+						var gaCookie = Request.Cookies.FirstOrDefault(cookie => cookie.Key.StartsWith("_ga"));
+						if (gaCookie.Key != null)
+							Response.Cookies.Delete(gaCookie.Key,
+								new CookieOptions
+								{
+									Expires = DateTime.Now.AddHours(-120),
+									Path = "/",
+									HttpOnly = true,
+									Secure = this.Request.IsHttps,
+									IsEssential = true
+								});
 					}
 				}
 			}
+			TempData["cookiePreferenceChanged"] = true;
 		}
 	}
 }
