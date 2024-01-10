@@ -61,7 +61,7 @@ describe("Creating an individual project - Create a new project", () => {
         cy.visit('/');
     });
 
-    it.skip("Should create a project", () => {
+    it("Should create a project", () => {
         const temporaryProjectId = dataGenerator.generateTemporaryId();
         const schoolName = dataGenerator.generateSchoolName();
         const TestTrn = "TR00111";
@@ -445,7 +445,7 @@ describe("Creating an individual project - Create a new project", () => {
         Logger.log("Enter valid provisional opening date");
         cy.executeAccessibilityTests();	       
         createProjectPage       
-            .setProvisionalOpeningDate("1", "10", "2025")
+            .setProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
         Logger.log("Back returns to previous page");
@@ -453,7 +453,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage
             .back()
             .titleIs("What is the provisional opening date?")
-            .hasProvisionalOpeningDate("1", "10", "2025")
+            .hasProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
         Logger.log("Check notify email validation");
@@ -503,14 +503,15 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
             .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
             .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2025").HasChangeLink();
+            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
         createProjectPage.clickCreateProject();
 
         Logger.log("Confirm created");
         cy.executeAccessibilityTests();
 
-
+        createProjectPage.hasConfirmedProjectId(temporaryProjectId)
+        .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
 
     });
 
@@ -618,7 +619,7 @@ describe("Creating an individual project - Create a new project", () => {
         Logger.log("Enter valid provisional opening date");
         cy.executeAccessibilityTests();	       
         createProjectPage       
-            .setProvisionalOpeningDate("1", "10", "2025")
+            .setProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
         Logger.log("Set email");
@@ -647,200 +648,200 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Faith status").HasValue("None").HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
             .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2025").HasChangeLink();
+            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
-        // cy.log("Check back behaviour Temporary Project ID")
-        // summaryPage.clickChangeFor("Temporary Project ID");
-        // createProjectPage.back()
-        // summaryPage.SummaryHasValue("Temporary Project ID", temporaryProjectId);
+        cy.log("Check back behaviour Temporary Project ID")
+        summaryPage.clickChangeFor("Temporary Project ID");
+        createProjectPage.back()
+        summaryPage.SummaryHasValue("Temporary Project ID", temporaryProjectId);
 
-        // cy.log("Update Temporary Project ID")
-        // summaryPage.clickChangeFor("Temporary Project ID");
-        // createProjectPage.enterProjectId(updatedTemporaryProjectId)
-        //     .continue()
-        // summaryPage.SummaryHasValue("Temporary Project ID", updatedTemporaryProjectId);
+        cy.log("Update Temporary Project ID")
+        summaryPage.clickChangeFor("Temporary Project ID");
+        createProjectPage.enterProjectId(updatedTemporaryProjectId)
+            .continue()
+        summaryPage.SummaryHasValue("Temporary Project ID", updatedTemporaryProjectId);
         
-        // cy.log("Check back behaviour Current free school name")
-        // summaryPage.clickChangeFor(" Current free school name");
-        // createProjectPage.back()
-        // summaryPage.SummaryHasValue(" Current free school name", schoolName);
+        cy.log("Check back behaviour Current free school name")
+        summaryPage.clickChangeFor(" Current free school name");
+        createProjectPage.back()
+        summaryPage.SummaryHasValue(" Current free school name", schoolName);
 
-        // cy.log("Update Current free school name")
-        // summaryPage.clickChangeFor("Current free school name");
-        // createProjectPage.enterSchoolName(updatedSchoolName)
-        //     .continue()
-        // summaryPage.SummaryHasValue("Current free school name", updatedSchoolName);
+        cy.log("Update Current free school name")
+        summaryPage.clickChangeFor("Current free school name");
+        createProjectPage.enterSchoolName(updatedSchoolName)
+            .continue()
+        summaryPage.SummaryHasValue("Current free school name", updatedSchoolName);
 
-        // cy.log("Check back behaviour for region and local authority")
-        // summaryPage.clickChangeFor("Region");
-        // createProjectPage.selectOption("London")
-        //     .back()
-        // summaryPage.SummaryHasValue("Region", "East of England");
+        cy.log("Check back behaviour for region and local authority")
+        summaryPage.clickChangeFor("Region");
+        createProjectPage.selectOption("London")
+            .back()
+        summaryPage.SummaryHasValue("Region", "East of England");
         
-        // summaryPage.clickChangeFor("Region");
-        // createProjectPage.selectOption("London")
-        //     .continue()
-        //     .selectOption("Camden")
-        //     .back()
-        //     .selectOption("London")
-        //     .continue()
-        //     .selectOption("Camden")
-        //     .back()
-        //     .back()
-        // summaryPage
-        //     .SummaryHasValue("Region", "East of England")
-        //     .SummaryHasValue("Local authority", "Luton");   
+        summaryPage.clickChangeFor("Region");
+        createProjectPage.selectOption("London")
+            .continue()
+            .selectOption("Camden")
+            .back()
+            .selectOption("London")
+            .continue()
+            .selectOption("Camden")
+            .back()
+            .back()
+        summaryPage
+            .SummaryHasValue("Region", "East of England")
+            .SummaryHasValue("Local authority", "Luton");   
         
-        // cy.log("Update region and local authority")
-        // summaryPage.clickChangeFor("Region");
-        // createProjectPage.selectOption("London")
-        //     .continue()
-        //     .selectOption("Camden")
-        //     .continue();
-        // summaryPage.SummaryHasValue("Region", "London");
-        // summaryPage.SummaryHasValue("Local authority", "Camden");
+        cy.log("Update region and local authority")
+        summaryPage.clickChangeFor("Region");
+        createProjectPage.selectOption("London")
+            .continue()
+            .selectOption("Camden")
+            .continue();
+        summaryPage.SummaryHasValue("Region", "London");
+        summaryPage.SummaryHasValue("Local authority", "Camden");
 
-        // cy.log("Update local authority")
-        // summaryPage.clickChangeFor("Local authority");
-        // createProjectPage.selectOption("Hackney")
-        //     .continue();
-        // summaryPage.SummaryHasValue("Local authority", "Hackney");
+        cy.log("Update local authority")
+        summaryPage.clickChangeFor("Local authority");
+        createProjectPage.selectOption("Hackney")
+            .continue();
+        summaryPage.SummaryHasValue("Local authority", "Hackney");
 
-        // cy.log("Update Trust")
+        cy.log("Update Trust")
         
-        // cy.log("Check back behaviour Trust")
-        // summaryPage.clickChangeFor("Trust");
-        // createProjectPage.back()
-        // summaryPage.SummaryHasValue("Trust", "Aurora Academies Trust");
-        // summaryPage.clickChangeFor("Trust")
-        // createProjectPage.enterTRN("TR00012")
-        //     .continue()
-        //     .back()
-        //     .enterTRN("TR00012")
-        //     .continue()
-        //     .selectOption("No")
-        //     .continue()
-        //     .back()
-        // summaryPage.SummaryHasValue("Trust", "Aurora Academies Trust");
+        cy.log("Check back behaviour Trust")
+        summaryPage.clickChangeFor("Trust");
+        createProjectPage.back()
+        summaryPage.SummaryHasValue("Trust", "Aurora Academies Trust");
+        summaryPage.clickChangeFor("Trust")
+        createProjectPage.enterTRN("TR00012")
+            .continue()
+            .back()
+            .enterTRN("TR00012")
+            .continue()
+            .selectOption("No")
+            .continue()
+            .back()
+        summaryPage.SummaryHasValue("Trust", "Aurora Academies Trust");
 
-        // cy.log("Update Trust")
-        // summaryPage.clickChangeFor("Trust");
-        // createProjectPage.enterTRN("TR00012")
-        //     .continue()
-        //     .selectOption("Yes")
-        //     .continue()
-        // summaryPage.SummaryHasValue("Trust", "The Academy of Central Bedfordshire");
+        cy.log("Update Trust")
+        summaryPage.clickChangeFor("Trust");
+        createProjectPage.enterTRN("TR00012")
+            .continue()
+            .selectOption("Yes")
+            .continue()
+        summaryPage.SummaryHasValue("Trust", "The Academy of Central Bedfordshire");
 
-        // cy.log("Check back behaviour for Sixth Form")
-        // summaryPage.clickChangeFor("Sixth form");
-        // createProjectPage.setSixthFormTo("No")
-        //     .setNurseryTo("Yes")
-        //     .back()
-        // summaryPage
-        //     .SummaryHasValue("Sixth form", "Yes")
-        //     .SummaryHasValue("Nursery", "No")
+        cy.log("Check back behaviour for Sixth Form")
+        summaryPage.clickChangeFor("Sixth form");
+        createProjectPage.setSixthFormTo("No")
+            .setNurseryTo("Yes")
+            .back()
+        summaryPage
+            .SummaryHasValue("Sixth form", "Yes")
+            .SummaryHasValue("Nursery", "No")
         
-        // cy.log("Check back behaviour for Nursery")
-        // summaryPage.clickChangeFor("Nursery");
-        // createProjectPage.setSixthFormTo("No")
-        //     .setNurseryTo("Yes")
-        //     .back()
-        // summaryPage
-        //     .SummaryHasValue("Sixth form", "Yes")
-        //     .SummaryHasValue("Nursery", "No")
+        cy.log("Check back behaviour for Nursery")
+        summaryPage.clickChangeFor("Nursery");
+        createProjectPage.setSixthFormTo("No")
+            .setNurseryTo("Yes")
+            .back()
+        summaryPage
+            .SummaryHasValue("Sixth form", "Yes")
+            .SummaryHasValue("Nursery", "No")
 
-        // cy.log("Change Sixth Form")
-        // summaryPage.clickChangeFor("Sixth form");
-        // createProjectPage.setSixthFormTo("No")
-        //     .setNurseryTo("Yes")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("Sixth form", "No")
-        //     .SummaryHasValue("Nursery", "Yes");
+        cy.log("Change Sixth Form")
+        summaryPage.clickChangeFor("Sixth form");
+        createProjectPage.setSixthFormTo("No")
+            .setNurseryTo("Yes")
+            .continue();
+        summaryPage
+            .SummaryHasValue("Sixth form", "No")
+            .SummaryHasValue("Nursery", "Yes");
 
-        // cy.log("Change Nursery")
-        // summaryPage.clickChangeFor("Nursery");
-        // createProjectPage.setSixthFormTo("Yes")
-        //     .setNurseryTo("No")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("Sixth form", "Yes")
-        //     .SummaryHasValue("Nursery", "No");
+        cy.log("Change Nursery")
+        summaryPage.clickChangeFor("Nursery");
+        createProjectPage.setSixthFormTo("Yes")
+            .setNurseryTo("No")
+            .continue();
+        summaryPage
+            .SummaryHasValue("Sixth form", "Yes")
+            .SummaryHasValue("Nursery", "No");
 
-        // cy.log("Check back behaviour for School phase")
-        // summaryPage.clickChangeFor("School phase");
-        // createProjectPage.selectOption("Primary")
-        //     .back()
-        // summaryPage
-        //     .SummaryHasValue("School phase", "Secondary");
+        cy.log("Check back behaviour for School phase")
+        summaryPage.clickChangeFor("School phase");
+        createProjectPage.selectOption("Primary")
+            .back()
+        summaryPage
+            .SummaryHasValue("School phase", "Secondary");
 
-        // cy.log("Change School phase")
-        // summaryPage.clickChangeFor("School phase");
-        // createProjectPage.selectOption("All-through")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("School phase", "All-through");
+        cy.log("Change School phase")
+        summaryPage.clickChangeFor("School phase");
+        createProjectPage.selectOption("All-through")
+            .continue();
+        summaryPage
+            .SummaryHasValue("School phase", "All-through");
         
-        // cy.log("Check back behaviour for Age range")
-        // summaryPage.clickChangeFor("Age range");
-        // createProjectPage.enterAgeRangeFrom("4")
-        //     .enterAgeRangeTo("11")
-        //     .back();
-        // summaryPage
-        //     .SummaryHasValue("Age range", "2-7");
+        cy.log("Check back behaviour for Age range")
+        summaryPage.clickChangeFor("Age range");
+        createProjectPage.enterAgeRangeFrom("4")
+            .enterAgeRangeTo("11")
+            .back();
+        summaryPage
+            .SummaryHasValue("Age range", "2-7");
 
-        // cy.log("Change Age range")
-        // summaryPage.clickChangeFor("Age range");
-        // createProjectPage.enterAgeRangeFrom("4")
-        //     .enterAgeRangeTo("11")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("Age range", "4-11");
+        cy.log("Change Age range")
+        summaryPage.clickChangeFor("Age range");
+        createProjectPage.enterAgeRangeFrom("4")
+            .enterAgeRangeTo("11")
+            .continue();
+        summaryPage
+            .SummaryHasValue("Age range", "4-11");
             
-        // cy.log("Check back behaviour for School type")
-        // summaryPage.clickChangeFor("School type");
-        // createProjectPage.selectOption("Special")
-        //     .back();
-        // summaryPage
-        //     .SummaryHasValue("School type", "Mainstream");
+        cy.log("Check back behaviour for School type")
+        summaryPage.clickChangeFor("School type");
+        createProjectPage.selectOption("Special")
+            .back();
+        summaryPage
+            .SummaryHasValue("School type", "Mainstream");
 
-        // cy.log("Change School type")
-        // summaryPage.clickChangeFor("School type");
-        // createProjectPage.selectOption("Special")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("School type", "Special");
+        cy.log("Change School type")
+        summaryPage.clickChangeFor("School type");
+        createProjectPage.selectOption("Special")
+            .continue();
+        summaryPage
+            .SummaryHasValue("School type", "Special");
         
-        // cy.log("Check back behaviour for capacity")
-        // summaryPage.clickChangeFor("Reception to year 6 capacity");
-        // createProjectPage.enterReceptionToYear6("120")
-        //     .back();
-        // summaryPage
-        //     .SummaryHasValue("Reception to year 6 capacity", "0");
+        cy.log("Check back behaviour for capacity")
+        summaryPage.clickChangeFor("Reception to year 6 capacity");
+        createProjectPage.enterReceptionToYear6("120")
+            .back();
+        summaryPage
+            .SummaryHasValue("Reception to year 6 capacity", "0");
 
-        // summaryPage.clickChangeFor("Year 7 to year 11 capacity");
-        // createProjectPage.enterYear7ToYear11("120")
-        //     .back();
-        // summaryPage
-        //     .SummaryHasValue("Year 7 to year 11 capacity", "400");
+        summaryPage.clickChangeFor("Year 7 to year 11 capacity");
+        createProjectPage.enterYear7ToYear11("120")
+            .back();
+        summaryPage
+            .SummaryHasValue("Year 7 to year 11 capacity", "400");
 
-        // summaryPage.clickChangeFor("Year 12 to year 14 capacity");
-        // createProjectPage.enterYear12ToYear14("120")
-        //     .back();
-        // summaryPage
-        //     .SummaryHasValue("Year 12 to year 14 capacity", "150");
+        summaryPage.clickChangeFor("Year 12 to year 14 capacity");
+        createProjectPage.enterYear12ToYear14("120")
+            .back();
+        summaryPage
+            .SummaryHasValue("Year 12 to year 14 capacity", "150");
 
-        // cy.log("Change capacity")
-        // summaryPage.clickChangeFor("Year 12 to year 14 capacity");
-        // createProjectPage
-        //     .enterReceptionToYear6("120")
-        //     .enterYear7ToYear11("600")
-        //     .enterYear12ToYear14("100")
-        //     .continue();
-        // summaryPage
-        //     .SummaryHasValue("Reception to year 6 capacity", "0")
-        //     .SummaryHasValue("Year 7 to year 11 capacity", "600")
-        //     .SummaryHasValue("Year 12 to year 14 capacity", "100");
+        cy.log("Change capacity")
+        summaryPage.clickChangeFor("Year 12 to year 14 capacity");
+        createProjectPage
+            .enterReceptionToYear6("120")
+            .enterYear7ToYear11("600")
+            .enterYear12ToYear14("100")
+            .continue();
+        summaryPage
+            .SummaryHasValue("Reception to year 6 capacity", "0")
+            .SummaryHasValue("Year 7 to year 11 capacity", "600")
+            .SummaryHasValue("Year 12 to year 14 capacity", "100");
 
         cy.log("Check back behaviour for faith status")
         summaryPage.clickChangeFor("Faith status");
@@ -869,8 +870,49 @@ describe("Creating an individual project - Create a new project", () => {
         summaryPage.SummaryHasValue("Faith status", "Ethos")
             .SummaryHasValue("Faith type", "Roman Catholic");
 
-    // .summaryShows("Faith status").HasValue("None").HasChangeLink()
-    // .summaryShows("Faith type").IsEmpty().HasChangeLink()
+        cy.log("Change other faith type")
+        summaryPage.clickChangeFor("Faith status");
+        createProjectPage.selectOption("Designation")
+            .continue()
+            .selectOption("Other")
+            .enterOtherFaith("Test Faith")
+            .continue();
+        summaryPage.SummaryHasValue("Faith status", "Designation")
+            .SummaryHasValue("Faith type", "Other - Test Faith")
 
+        cy.log("Check back behaviour for Forms of entry")
+        summaryPage.clickChangeFor("Forms of entry");
+        createProjectPage.enterFormsOfEntry("4")
+            .back()
+        summaryPage
+            .SummaryHasValue("Forms of entry", "3");
+
+        cy.log("Change Forms of entry")
+        summaryPage.clickChangeFor("Forms of entry");
+        createProjectPage.enterFormsOfEntry("4")
+            .continue()
+        summaryPage
+            .SummaryHasValue("Forms of entry", "4");
+
+        cy.log("Check back behaviour for Provisional opening date")
+        summaryPage.clickChangeFor("Provisional opening date");
+        createProjectPage.setProvisionalOpeningDate("12", "11", "2034")
+            .back()
+        summaryPage
+            .SummaryHasValue("Provisional opening date agreed with trust", "1 October 2035");
+
+        cy.log("Change Provisional opening date agreed with trust")
+        summaryPage.clickChangeFor("Provisional opening date agreed with trust");
+        createProjectPage.setProvisionalOpeningDate("12", "11", "2034")
+            .continue()
+        summaryPage
+            .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
+        
+        createProjectPage.clickCreateProject();
+
+        Logger.log("Confirm created");
+        cy.executeAccessibilityTests();
+        createProjectPage.hasConfirmedProjectId(updatedTemporaryProjectId)
+        .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
     });
 });
