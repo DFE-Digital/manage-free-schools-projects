@@ -1,18 +1,15 @@
+import summaryPage from "./task-summary-base";
+
 class TrustSummaryPage {
 
-    public verifyTrustSummaryElementsVisible(schoolName: string): this {
+    public verifyTrustSummaryElementsVisible(): this {
         cy.getByClass("govuk-back-link").contains("Back");
         cy.getByClass("govuk-heading-xl").contains("Trust");
 
-        cy.getByClass("govuk-summary-list__key").eq(0).contains("TRN (trust reference number)");
-        cy.getByClass("govuk-summary-list__value").eq(0).contains("Empty");
-        cy.getByClass("govuk-link").eq(2).contains("Change");
-
-        cy.getByClass("govuk-summary-list__key").eq(1).contains("Trust name");
-        cy.getByClass("govuk-summary-list__value").eq(1).contains("Empty");
-
-        cy.getByClass("govuk-summary-list__key").eq(2).contains("Trust type");
-        cy.getByClass("govuk-summary-list__value").eq(2).contains("Empty");
+        summaryPage.inOrder()
+        .summaryShows("TRN (trust reference number)").IsEmpty().HasChangeLink()
+        .summaryShows("Trust name").IsEmpty().HasNoChangeLink()
+        .summaryShows("Trust type").IsEmpty().HasNoChangeLink();
 
         cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
@@ -22,19 +19,14 @@ class TrustSummaryPage {
         return this;
     }
 
-    public verifyTrustSummaryCompleteElementsVisible(schoolName: string, validTrustId: string): this {
+    public verifyTrustSummaryCompleteElementsVisible(validTrustId: string): this {
         cy.getByClass("govuk-back-link").contains("Back");
         cy.getByClass("govuk-heading-xl").contains("Trust");
 
-        cy.getByClass("govuk-summary-list__key").eq(0).contains("TRN (trust reference number)");
-        cy.getByClass("govuk-summary-list__value").eq(0).contains(validTrustId);
-        cy.getByClass("govuk-link").eq(2).contains("Change");
-
-        cy.getByClass("govuk-summary-list__key").eq(1).contains("Trust name");
-        cy.getByClass("govuk-summary-list__value").eq(1).contains("King's Group Academies");
-
-        cy.getByClass("govuk-summary-list__key").eq(2).contains("Trust type");
-        cy.getByClass("govuk-summary-list__value").eq(2).contains("MAT");
+        summaryPage.inOrder()
+        .summaryShows("TRN (trust reference number)").HasValue(validTrustId).HasChangeLink()
+        .summaryShows("Trust name").HasValue("King's Group Academies").HasNoChangeLink()
+        .summaryShows("Trust type").HasValue("MAT").HasNoChangeLink();
 
         cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
@@ -59,6 +51,7 @@ class TrustSummaryPage {
 
     public selectConfirmAndContinue(): this {
         cy.contains("Confirm and continue").click();
+        return this;
     }
 }
 

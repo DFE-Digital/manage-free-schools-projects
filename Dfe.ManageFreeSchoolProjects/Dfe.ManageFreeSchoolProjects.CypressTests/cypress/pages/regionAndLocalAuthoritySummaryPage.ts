@@ -1,3 +1,5 @@
+import summaryPage from "./task-summary-base";
+
 class RegionAndLocalAuthoritySummaryPage {
 
     public verifyRegionAndLASummaryElementsVisible(schoolName: string): this {
@@ -5,14 +7,9 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-caption-l").contains(schoolName);
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
-        cy.getByClass("govuk-summary-list__key").eq(0).contains("Region");
-        cy.getByClass("govuk-summary-list__value").eq(0).contains("Empty");
-        cy.getByClass("govuk-link").eq(2).contains("Change");
-
-        cy.getByClass("govuk-summary-list__key").eq(1).contains("Local authority");
-        cy.getByClass("govuk-summary-list__value").eq(1).contains("Empty");
-        cy.getByClass("govuk-link").eq(3).contains("Change");
-
+        summaryPage.inOrder()
+        .summaryShows("Region").IsEmpty().HasChangeLink()
+        .summaryShows("Local authority").IsEmpty().HasChangeLink();
 
         cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
@@ -27,14 +24,10 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-caption-l").contains(schoolName);
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
-        cy.getByClass("govuk-summary-list__key").eq(0).contains("Region");
-        cy.getByClass("govuk-summary-list__value").eq(0).contains("South West");
-        cy.getByClass("govuk-link").eq(2).contains("Change");
 
-        cy.getByClass("govuk-summary-list__key").eq(1).contains("Local authority");
-        cy.getByClass("govuk-summary-list__value").eq(1).contains("Plymouth");
-        cy.getByClass("govuk-link").eq(3).contains("Change");
-
+        summaryPage.inOrder()
+        .summaryShows("Region").HasValue("South West").HasChangeLink()
+        .summaryShows("Local authority").HasValue("Plymouth").HasChangeLink();
 
         cy.getById("mark-as-complete").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
@@ -64,6 +57,7 @@ class RegionAndLocalAuthoritySummaryPage {
 
     public selectConfirmAndContinue(): this {
         cy.contains("Confirm and continue").click();
+        return this;
     }
 }
 
