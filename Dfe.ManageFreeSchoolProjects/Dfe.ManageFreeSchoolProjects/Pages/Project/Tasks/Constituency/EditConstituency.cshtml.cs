@@ -67,9 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 		{
 			_logger.LogMethodEntered();
 
-			var project = await _getProjectService.Execute(ProjectId);
+			var project = await _getProjectService.Execute(ProjectId, TaskName.Constituency);
 
-			CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+			CurrentFreeSchoolName = project.SchoolName;
             var response = await _searchConstituency.Execute(SearchTerm);
             
             if(response.Data.Constituencies.Count == 0)

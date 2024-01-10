@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts
@@ -11,7 +12,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                Trust = TrustTaskMapper.Map(kpi)
+                Trust =
+                {
+                    TRN = kpi.TrustId,
+                    TrustName = kpi.TrustName,
+                    TrustType = kpi.TrustType
+                }
             }).FirstOrDefaultAsync();
 
             return result;

@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
         private readonly IGetProjectByTaskService _getProjectService;
-        private const string TaskName = "Trust";
+        private const string TrustTaskName = "Trust";
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -52,10 +52,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         {
             _logger.LogMethodEntered();
 
-            Project = await _getProjectService.Execute(ProjectId);
-            CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
+            Project = await _getProjectService.Execute(ProjectId, TaskName.Trust);
+            CurrentFreeSchoolName = Project.SchoolName;
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TrustTaskName);
 
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
@@ -69,8 +69,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
 
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.Trust);
+                CurrentFreeSchoolName = project.SchoolName;
 
                 return Page();
             }
@@ -79,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
-                TaskName = TaskName,
+                TaskName = TrustTaskName,
                 ProjectTaskStatus = ProjectTaskStatus
             });
 

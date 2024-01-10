@@ -67,8 +67,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
             try
             {
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.Trust);
+                CurrentFreeSchoolName = project.SchoolName;
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 
@@ -91,8 +91,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
 
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.Trust);
+                CurrentFreeSchoolName = project.SchoolName;
 
                 var trust = await _getTrustByRefService.Execute(TRN);
 

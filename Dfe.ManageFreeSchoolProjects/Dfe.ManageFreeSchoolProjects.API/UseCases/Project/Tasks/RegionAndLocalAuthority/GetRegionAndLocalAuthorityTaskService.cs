@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority
@@ -11,7 +12,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocal
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                RegionAndLocalAuthority = RegionAndLocalAuthorityTaskMapper.Map(kpi)
+                RegionAndLocalAuthority =
+                {
+                    Region = kpi.SchoolDetailsGeographicalRegion,
+                    LocalAuthority = kpi.LocalAuthority
+                }
             }).FirstOrDefaultAsync();
 
             return result;

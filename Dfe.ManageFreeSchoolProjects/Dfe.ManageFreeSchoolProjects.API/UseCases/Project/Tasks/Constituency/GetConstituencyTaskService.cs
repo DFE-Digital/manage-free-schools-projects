@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency
@@ -11,7 +12,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency
 
             var result = query.Select(kpi => new GetProjectByTaskResponse()
             {
-                Constituency = ConstituencyTaskMapper.Map(kpi)
+                Constituency =
+                {
+                    Name = kpi.SchoolDetailsConstituency,
+                    MPName = kpi.SchoolDetailsConstituencyMp,
+                    Party = kpi.SchoolDetailsPoliticalParty,
+                }
             }).FirstOrDefaultAsync();
 
             return result;

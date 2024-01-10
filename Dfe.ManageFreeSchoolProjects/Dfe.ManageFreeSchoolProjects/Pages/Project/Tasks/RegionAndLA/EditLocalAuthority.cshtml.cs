@@ -51,9 +51,9 @@ public class EditLocalAuthority : PageModel
 
     public async Task<ActionResult> OnGet()
     {
-        Project = await _getProjectByTaskService.Execute(ProjectId);
+        Project = await _getProjectByTaskService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
 
-        CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
+        CurrentFreeSchoolName = Project.SchoolName;
         TempData["CurrentFreeSchoolName"] = CurrentFreeSchoolName;
 
         var localAuthoritiesAndCodes = await GetLocalAuthoritiesByRegion();

@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IGetProjectByTaskService
     {
-        public Task<GetProjectByTaskResponse> Execute(string projectId);
+        public Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName);
     }
 
     public class GetProjectByTaskService : IGetProjectByTaskService
@@ -19,9 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task<GetProjectByTaskResponse> Execute(string projectId)
+        public async Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName)
         {
-            var endpoint = $"/api/v1/client/projects/{projectId}/tasks";
+            var endpoint = $"/api/v1/client/projects/{projectId}/tasks/{taskName}";
 
             var result = await _apiClient.Get<ApiSingleResponseV2<GetProjectByTaskResponse>>(endpoint);
 

@@ -21,7 +21,7 @@ public class ViewRegionAndLocalAuthority : PageModel
     private readonly IUpdateTaskStatusService _updateTaskStatusService;
     private readonly ErrorService _errorService;
     
-    private const string TaskName = "RegionAndLocalAuthority";
+    private const string RegionAndLocalAuthorityTaskName = "RegionAndLocalAuthority";
     
     public GetProjectByTaskResponse Project { get; set; }
     
@@ -49,9 +49,9 @@ public class ViewRegionAndLocalAuthority : PageModel
     {
         _logger.LogMethodEntered();
         
-        Project = await _getProjectService.Execute(ProjectId);
+        Project = await _getProjectService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
         
-        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RegionAndLocalAuthorityTaskName);
 
         ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
         MarkAsComplete = ProjectTaskStatus == ProjectTaskStatus.Completed;
@@ -71,7 +71,7 @@ public class ViewRegionAndLocalAuthority : PageModel
 
         await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
         {
-            TaskName = TaskName, ProjectTaskStatus = ProjectTaskStatus
+            TaskName = RegionAndLocalAuthorityTaskName, ProjectTaskStatus = ProjectTaskStatus
         });
         return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
     }

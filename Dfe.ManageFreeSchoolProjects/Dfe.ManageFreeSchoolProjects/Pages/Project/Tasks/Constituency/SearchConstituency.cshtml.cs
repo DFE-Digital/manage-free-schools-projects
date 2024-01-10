@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Validators;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 {
@@ -44,9 +45,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
         {
             _logger.LogMethodEntered();
 
-            var project = await _getProjectService.Execute(ProjectId);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Constituency);
 
-            CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+            CurrentFreeSchoolName = project.SchoolName;
 
             return Page();
         }
