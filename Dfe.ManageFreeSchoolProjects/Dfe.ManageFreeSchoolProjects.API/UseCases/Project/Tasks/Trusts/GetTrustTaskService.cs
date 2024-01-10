@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                Trust =
+                Trust = new()
                 {
                     TRN = kpi.TrustId,
                     TrustName = kpi.TrustName,

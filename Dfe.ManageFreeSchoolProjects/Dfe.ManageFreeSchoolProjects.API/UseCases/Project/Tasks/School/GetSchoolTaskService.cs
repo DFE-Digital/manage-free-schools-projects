@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                School =
+                School = new()
                 {
                     CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                     SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),

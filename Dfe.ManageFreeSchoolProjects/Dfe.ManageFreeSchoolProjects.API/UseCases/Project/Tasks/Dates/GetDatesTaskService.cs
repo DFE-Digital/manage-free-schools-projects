@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                Dates =
+                Dates = new()
                 {
                     DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                     ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,

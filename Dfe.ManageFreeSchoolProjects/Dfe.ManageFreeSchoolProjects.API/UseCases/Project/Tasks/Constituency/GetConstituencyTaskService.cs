@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency
 
             var result = query.Select(kpi => new GetProjectByTaskResponse()
             {
-                Constituency =
+                Constituency = new()
                 {
                     Name = kpi.SchoolDetailsConstituency,
                     MPName = kpi.SchoolDetailsConstituencyMp,

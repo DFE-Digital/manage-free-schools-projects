@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocal
 
             var result = await query.Select(kpi => new GetProjectByTaskResponse()
             {
-                RegionAndLocalAuthority =
+                RegionAndLocalAuthority = new()
                 {
                     Region = kpi.SchoolDetailsGeographicalRegion,
                     LocalAuthority = kpi.LocalAuthority
