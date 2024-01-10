@@ -16,12 +16,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public string School { get; set; }
         
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
 
         public SchoolModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -31,10 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return new UnauthorizedResult();
             }
 
-
             var project = _createProjectCache.Get();
             School = project.SchoolName;
-            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName);
 
             return Page();
         }
@@ -42,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolName);
 
             if (!ModelState.IsValid)
             {
@@ -53,7 +51,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             project.SchoolName = School;
             _createProjectCache.Update(project);
 
-            return Redirect(RouteConstants.CreateProjectRegion);
+            return Redirect(GetNextPage(CreateProjectPageName.SchoolName));
         }
     }
 }

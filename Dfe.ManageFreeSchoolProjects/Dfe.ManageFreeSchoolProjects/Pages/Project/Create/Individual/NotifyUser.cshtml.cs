@@ -9,16 +9,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 public class NotifyUser : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
-    private readonly ICreateProjectCache _createProjectCache;
 
     [Required(ErrorMessage = "Please enter an email.")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
     public NotifyUser(ErrorService errorService, ICreateProjectCache createProjectCache)
+        :base(createProjectCache)
     {
         _errorService = errorService;
-        _createProjectCache = createProjectCache;
     }
 
     public IActionResult OnGet()
@@ -31,7 +30,7 @@ public class NotifyUser : CreateProjectBaseModel
 
         var projectCache = _createProjectCache.Get();
 
-        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser);
 
         Email = projectCache.EmailToNotify;
 
@@ -42,7 +41,7 @@ public class NotifyUser : CreateProjectBaseModel
     public IActionResult OnPost()
     {
         var projectCache = _createProjectCache.Get();
-        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser, projectCache.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser);
 
         if (!ModelState.IsValid)
         {

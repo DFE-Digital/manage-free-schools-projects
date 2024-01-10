@@ -61,8 +61,14 @@ export class SummaryPage {
         cy.getByTestId("confirm").click();
     }
 
-    public clickChange() {
-        cy.contains("Change").click();
+    public SummaryHasValue(name: string, value: string): this {
+        cy.get(".govuk-summary-list__key").contains(name).parent().should("contains.text", value);
+        return this;
+    }
+
+    public clickChangeFor(name: string): this {
+        cy.get(".govuk-summary-list__key").contains(name).parent().contains("Change").click();
+        return this;
     }
 }
 
