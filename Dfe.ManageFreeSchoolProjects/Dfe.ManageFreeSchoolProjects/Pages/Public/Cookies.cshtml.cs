@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 			IConfiguration configuration)
 		: PageModel
 	{
-		private readonly string cookieDomain = configuration["Google:CookieDomain"];
+		private readonly string cookieDomain = ".education.gov.uk";
 		
 		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
