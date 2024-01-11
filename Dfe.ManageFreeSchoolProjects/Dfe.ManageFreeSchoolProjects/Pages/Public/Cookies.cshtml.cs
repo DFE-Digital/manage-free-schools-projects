@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
-	public class CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options,
+	public class Cookies(ILogger<Cookies> logger, IOptions<ServiceLinkOptions> options,
 			IConfiguration configuration)
 		: PageModel
 	{
@@ -91,20 +91,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 			{
 				foreach (var cookie in Request.Cookies.Keys)
 				{
-					if (cookie.StartsWith("_ga") || cookie.Equals("_ga_"))
+					if (cookie.StartsWith("_ga") || cookie.StartsWith("_ga_"))
 					{
-						
-						logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
-						Response.Cookies.Append(cookie, string.Empty, new CookieOptions
+						var cookieOptions =new CookieOptions
 						{
 							Expires = DateTime.Now.AddDays(-1),
-							Secure = true,
-							SameSite = SameSiteMode.Lax,							
-							HttpOnly = true,
-							Domain = cookieDomain
-						});
-
+							Domain = cookieDomain,
+							Path = "/" 
+						};
+						logger.LogInformation("Deleting Google analytics cookie: {cookie}", cookie);
+						Response.Cookies.Delete(cookie,cookieOptions);
 						
+						var gaCookie = Request.Cookies.FirstOrDefault(cookie => cookie.Key.StartsWith("_ga"));
+						if (gaCookie.Key != null)
+							Response.Cookies.Delete(gaCookie.Key,cookieOptions);
+						
+						var gatCookie = Request.Cookies.Keys.FirstOrDefault(key => key.StartsWith("_ga_"));
+						if (!string.IsNullOrEmpty(gatCookie))
+							Response.Cookies.Delete(gatCookie, cookieOptions);
 					}
 				}
 			}
