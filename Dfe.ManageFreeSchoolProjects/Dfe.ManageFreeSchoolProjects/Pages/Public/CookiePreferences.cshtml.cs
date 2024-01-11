@@ -1,5 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.Configuration;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,11 +18,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 		public string returnPath { get; set; }
 		private readonly ILogger<CookiePreferences> _logger;
 		private readonly IOptions<ServiceLinkOptions> _options;
+		private readonly IAnalyticsConsentService _analyticsConsentService;
 
-		public CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options)
+		public CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options, IAnalyticsConsentService analyticsConsentService)
 		{
 			_logger = logger;
 			_options = options;
+			_analyticsConsentService = analyticsConsentService;
 		}
 
 		public string TransfersCookiesUrl { get; set; }
@@ -31,16 +34,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 			returnPath = returnUrl;
 			TransfersCookiesUrl = $"{_options.Value.TransfersUrl}/cookie-preferences?returnUrl=%2Fhome";
 
-			if (Request.Cookies.ContainsKey(ConsentCookieName))
-			{
-				Consent = bool.Parse(Request.Cookies[ConsentCookieName]);
-			}
+			Consent = _analyticsConsentService.ConsentValue();
 
-			if (consent.HasValue)
+            if (consent.HasValue)
 			{
 				PreferencesSet = true;
 
-				ApplyCookieConsent(consent);
+				ApplyCookieConsent(consent.Value);
 
 				if (!string.IsNullOrEmpty(returnUrl))
 				{
@@ -57,53 +57,28 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 		{
 			returnPath = returnUrl;
 
-			if (Request.Cookies.ContainsKey(ConsentCookieName))
-			{
-				Consent = bool.Parse(Request.Cookies[ConsentCookieName]);
-			}
+            Consent = _analyticsConsentService.ConsentValue();
 
-			if (consent.HasValue)
+            if (consent.HasValue)
 			{
 				Consent = consent;
 				PreferencesSet = true;
 
-				var cookieOptions = new CookieOptions { Expires = DateTime.Today.AddMonths(6), Secure = true, HttpOnly = true };
-				Response.Cookies.Append(ConsentCookieName, consent.Value.ToString(), cookieOptions);
-
-				if (!consent.Value)
-				{
-					ApplyCookieConsent(consent);
-				}
+				ApplyCookieConsent(consent.Value);
 				return Page();
 			}
 
 			return Page();
 		}
 
-		private void ApplyCookieConsent(bool? consent)
+		private void ApplyCookieConsent(bool consent)
 		{
-			if (consent.HasValue)
-			{
-				var cookieOptions = new CookieOptions { Expires = DateTime.Today.AddMonths(6), Secure = true, HttpOnly = true };
-				Response.Cookies.Append(ConsentCookieName, consent.Value.ToString(), cookieOptions);
+			if (consent) { 
+				_analyticsConsentService.AllowConsent();
 			}
-
-			if (!consent.Value)
+			else
 			{
-				foreach (var cookie in Request.Cookies.Keys)
-				{
-					if (cookie.StartsWith("_ga") || cookie.Equals("_gid"))
-					{
-						_logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
-						Response.Cookies.Append(cookie, string.Empty, new CookieOptions
-						{
-							Expires = DateTime.Now.AddDays(-1),
-							Secure = true,
-							SameSite = SameSiteMode.Lax,							
-							HttpOnly = true
-						});
-					}
-				}
+				_analyticsConsentService.DenyConsent();
 			}
 		}
 	}
