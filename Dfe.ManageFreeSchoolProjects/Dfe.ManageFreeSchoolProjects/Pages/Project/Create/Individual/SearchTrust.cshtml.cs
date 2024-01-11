@@ -4,7 +4,6 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +12,6 @@ using Dfe.ManageFreeSchoolProjects.Services;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
-using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -31,18 +29,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public GetTrustByRefResponse Trust { get; set; }
 
-        private readonly ICreateProjectCache _createProjectCache;
-
+        
         public SearchTrustTaskModel(
-            IGetProjectByTaskService getProjectService,
             IGetTrustByRefService getTrustByRefService,
-            ISearchTrustByRefService searchTrustByRefService,
             ICreateProjectCache createProjectCache,
             ILogger<SearchTrustTaskModel> logger,
             ErrorService errorService)
+            :base(createProjectCache)
         {
             _getTrustByRefService = getTrustByRefService;
-            _createProjectCache = createProjectCache;
             _logger = logger;
             _errorService = errorService;
         }
@@ -60,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 var project = _createProjectCache.Get();
 
-                BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust, project.Navigation);
+                BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust);
             }
             catch (Exception ex)
             {
@@ -76,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             var project = _createProjectCache.Get();
 
-            BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust);
 
             if (!ModelState.IsValid)
             {
@@ -109,7 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 throw;
             }
 
-            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, CreateProjectNavigation.Default, TRN));
+            return Redirect(GetNextPage(CreateProjectPageName.SearchTrust, TRN));
         }
     }
 }

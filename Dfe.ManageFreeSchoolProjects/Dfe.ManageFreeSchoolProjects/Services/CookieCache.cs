@@ -15,19 +15,25 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
     public abstract class CookieCacheService<T> : ICookieCacheService<T> where T : new()
     {
+        private const string CookieNamePrefix = ".ManageFreeSchoolProjects.PageCache.";
         private readonly string _key;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDataProtector _dataProtector;
+        private T _item;
 
         protected CookieCacheService(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider, string key)
         {
             _httpContextAccessor = httpContextAccessor;
             _dataProtector = DataProtectionProvider.CreateProtector(nameof(CreateProjectCache));
-            _key = key;
+            _key = CookieNamePrefix + key;
         }
 
         public T Get()
         {
+            if (_item != null)
+            {
+                return _item;
+            }
 
             var data = _httpContextAccessor.HttpContext.Request.Cookies[_key];
 
@@ -43,6 +49,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 return new T();
             }
 
+            _item = result;
+
             return result;
         }
 
@@ -53,6 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Update(T item)
         {
+            _item = item;
             var json = JsonConvert.SerializeObject(item);
 
             CookieOptions options = new CookieOptions

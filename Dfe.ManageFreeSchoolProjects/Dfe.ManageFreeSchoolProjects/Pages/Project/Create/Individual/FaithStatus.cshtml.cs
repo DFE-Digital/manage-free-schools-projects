@@ -14,12 +14,11 @@ public class FaithStatusModel : CreateProjectBaseModel
     [Required(ErrorMessage = "Select the faith status of the free school")]
     public FaithStatus FaithStatus { get; set; }
 
-    private readonly ICreateProjectCache _createProjectCache;
     private readonly ErrorService _errorService;
 
     public FaithStatusModel(ICreateProjectCache createProjectCache, ErrorService errorService)
+        :base(createProjectCache)
     {
-        _createProjectCache = createProjectCache;
         _errorService = errorService;
     }
 
@@ -33,7 +32,7 @@ public class FaithStatusModel : CreateProjectBaseModel
         var project = _createProjectCache.Get();
         FaithStatus = project.FaithStatus;
 
-        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus);
 
         return Page();
     }
@@ -41,7 +40,7 @@ public class FaithStatusModel : CreateProjectBaseModel
     public IActionResult OnPost()
     {
         var project = _createProjectCache.Get();
-        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus);
 
         if (!ModelState.IsValid)
         {
@@ -51,19 +50,24 @@ public class FaithStatusModel : CreateProjectBaseModel
 
         if (FaithStatus is FaithStatus.None)
         {
+            project.FaithStatus = FaithStatus;
+            project.PreviousFaithStatus = FaithStatus;
             project.FaithType = FaithType.NotSet;
-            project.Navigation = CreateProjectNavigation.Default;
+            _createProjectCache.Update(project);
+            return Redirect(GetNextPage(CreateProjectPageName.FaithStatus));
+        }
+
+        if(!project.ReachedCheckYourAnswers)
+        {
+            project.FaithStatus = FaithStatus;
         }
         else
         {
-            project.Navigation = CreateProjectNavigation.GoToFaithType;
+            project.PreviousFaithStatus = FaithStatus;
         }
-
-
-        project.FaithStatus = FaithStatus;
 
         _createProjectCache.Update(project);
 
-        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus, project.Navigation, string.Empty ));
+        return Redirect(GetNextPage(CreateProjectPageName.FaithStatus));
     }
 }

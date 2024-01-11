@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public class CreateProjectRiskCache : CookieCacheService<CreateRiskCacheItem>, ICreateProjectRiskCache
     {
         public CreateProjectRiskCache(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider) 
-            : base(httpContextAccessor, DataProtectionProvider,  "CreateProjectRisk")
+            : base(httpContextAccessor, DataProtectionProvider,  "R1")
         {
         }
     }
