@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public class CreateProjectCache : CookieCacheService<CreateProjectCacheItem>, ICreateProjectCache
     {
         public CreateProjectCache(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider)
-            : base(httpContextAccessor, DataProtectionProvider, "CreateProject")
+            : base(httpContextAccessor, DataProtectionProvider, "CP1")
         {
         }
     }

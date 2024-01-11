@@ -15,6 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
     public abstract class CookieCacheService<T> : ICookieCacheService<T> where T : new()
     {
+        private const string CookieNamePrefix = ".ManageFreeSchoolProjects.PageCache.";
         private readonly string _key;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDataProtector _dataProtector;
@@ -24,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         {
             _httpContextAccessor = httpContextAccessor;
             _dataProtector = DataProtectionProvider.CreateProtector(nameof(CreateProjectCache));
-            _key = key;
+            _key = CookieNamePrefix + key;
         }
 
         public T Get()
