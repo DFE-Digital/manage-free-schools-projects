@@ -98,7 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 							Expires = DateTime.Now.AddDays(-1),
 							Domain = cookieDomain,
 							Path = "/",
-							Secure = true
+							Secure = true,
+							HttpOnly = true
 						};
 						logger.LogInformation("Deleting Google analytics cookie: {cookie}", cookie);
 						Response.Cookies.Delete(cookie,cookieOptions);
