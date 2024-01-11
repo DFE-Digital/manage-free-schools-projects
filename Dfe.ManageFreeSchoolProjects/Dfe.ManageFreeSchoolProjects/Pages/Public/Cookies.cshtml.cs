@@ -87,7 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 				Response.Cookies.Append(ConsentCookieName, consent.Value.ToString(), cookieOptions);
 			}
 
-			if (!consent.Value)
+			if (consent != null && !consent.Value)
 			{
 				foreach (var cookie in Request.Cookies.Keys)
 				{
@@ -97,7 +97,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 						{
 							Expires = DateTime.Now.AddDays(-1),
 							Domain = cookieDomain,
-							Path = "/" 
+							Path = "/",
+							Secure = true
 						};
 						logger.LogInformation("Deleting Google analytics cookie: {cookie}", cookie);
 						Response.Cookies.Delete(cookie,cookieOptions);
