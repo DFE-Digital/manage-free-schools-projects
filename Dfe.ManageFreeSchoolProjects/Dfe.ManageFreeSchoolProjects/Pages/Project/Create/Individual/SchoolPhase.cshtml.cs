@@ -1,13 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Dfe.ManageFreeSchoolProjects.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -20,12 +16,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         
         private readonly ErrorService _errorService;
 
-        private readonly ICreateProjectCache _createProjectCache;
-
         public SchoolPhaseModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -37,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
 
             var project = _createProjectCache.Get();
-            BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);
+            BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.TRN);
 
             if (project.SchoolPhase != 0)
                 SchoolPhase = project.SchoolPhase.ToString();
@@ -48,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.Navigation, project.TRN);
+            BackLink = BackLink = GetPreviousPage(CreateProjectPageName.SchoolPhase, project.TRN);
 
             if (!ModelState.IsValid)
             {

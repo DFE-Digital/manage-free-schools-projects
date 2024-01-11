@@ -39,7 +39,7 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Checking Trust Summary page elements present");
-        trustSummaryPage.verifyTrustSummaryElementsVisible(project.schoolName);
+        trustSummaryPage.verifyTrustSummaryElementsVisible();
 
         Logger.log("Selecting first Change link from first 'TRN' line");
         trustSummaryPage.selectChangeTRNToGoToTrustDetails();
@@ -142,7 +142,7 @@ describe("Testing project overview", () => {
 
         confirmTrustPage.selectSaveAndContinue();
 
-        trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(project.schoolName, validTrustId);
+        trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(validTrustId);
 
         trustSummaryPage.selectMarkItemAsComplete();
 

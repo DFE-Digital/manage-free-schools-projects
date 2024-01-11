@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public class CreateProjectCache : CookieCacheService<CreateProjectCacheItem>, ICreateProjectCache
     {
         public CreateProjectCache(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider)
-            : base(httpContextAccessor, DataProtectionProvider, "CreateProject")
+            : base(httpContextAccessor, DataProtectionProvider, "CP1")
         {
         }
     }
@@ -23,16 +23,17 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     public enum CreateProjectNavigation
     {
         Default,
-        BackToCheckYourAnswers,
-        GoToFaithType
+        FromFaithType,
     }
 
     public record CreateProjectCacheItem
     {
         public CreateProjectNavigation Navigation { get; set; }
+        public bool ReachedCheckYourAnswers { get; set; }
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
         public ProjectRegion Region { get; set; }
+        public ProjectRegion PreviousRegion { get; set; }
         public IDictionary<string, string> LocalAuthorities { get; set; }
         public string LocalAuthority { get; set; }
         public string LocalAuthorityCode { get; set; }
@@ -49,6 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public int? Y12Y14Capacity { get; set; }
         public string FormsOfEntry { get; set; }
         public FaithStatus FaithStatus { get; set; }
+        public FaithStatus PreviousFaithStatus { get; set; }
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }
         public DateTime? ProvisionalOpeningDate { get; set; }

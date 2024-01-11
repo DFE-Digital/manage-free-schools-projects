@@ -20,12 +20,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public DateTime? ProvisionalOpeningDate { get; set; }
         
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
 
         public ProvisionalOpeningDateModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -38,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             var project = _createProjectCache.Get();
             ProvisionalOpeningDate = project.ProvisionalOpeningDate;
-            BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate);
 
             return Page();
         }
@@ -46,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate);
 
             if (!ModelState.IsValid)
             {
