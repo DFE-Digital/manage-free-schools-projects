@@ -67,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     IndependentConverter = project.SchoolDetailsIndependentConverter,
                     SpecialistResourceProvision = project.SchoolDetailsSpecialistResourceProvision,
                     FaithStatus = project.SchoolDetailsFaithStatus,
-                    FaithType = project.SchoolDetailsFaithType,
+                    FaithType = ProjectMapper.ToFaithType(project.SchoolDetailsFaithType),
                     TrustId = project.TrustId,
                     TrustName = project.SchoolDetailsTrustName,
                     TrustType = project.SchoolDetailsTrustType
