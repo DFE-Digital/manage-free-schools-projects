@@ -2,7 +2,6 @@ import dateComponent from "../dateComponent";
 import validationComponent from "../validationComponent";
 
 class CreateProjectPage {
-
     public errorMessage(error: string): this {
         validationComponent.hasValidationError(error);
         validationComponent.hasLinkedValidationError(error);
@@ -215,6 +214,22 @@ class CreateProjectPage {
         cy.getByTestId("back").click();
         return this;
     }
+
+    public clickCreateProject()
+    {
+        cy.getByTestId("create-project").click();
+        return this;
+    }
+
+    public hasConfirmedProjectId(projectId: string) {
+        cy.getByTestId("created-project-id").should("contain.text", projectId);
+        return this;
+    }
+
+    public hasConfirmedEmailMessage(value: string) {
+        cy.getByTestId("confirmation-email").should("contain.text", value);
+        return this;
+    }    
 }
 
 const createProjectPage = new CreateProjectPage();

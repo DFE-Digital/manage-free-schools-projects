@@ -19,13 +19,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public string ProjectId { get; set; }
         
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
         private readonly IGetProjectOverviewService _getProjectOverviewService;
 
         public ProjectIdModel(ErrorService errorService, ICreateProjectCache createProjectCache, IGetProjectOverviewService getProjectOverviewService)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
             _getProjectOverviewService = getProjectOverviewService;
         }
 
@@ -40,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var project = _createProjectCache.Get();
             ProjectId = project.ProjectId;
             
-            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId);
            
             return Page();
         }
@@ -48,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public async Task<IActionResult> OnPostAsync()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ProjectId);
 
             if (!ModelState.IsValid)
             {

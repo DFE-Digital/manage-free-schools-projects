@@ -1,9 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +11,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class SchoolTypeModel : CreateProjectBaseModel
     {
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
 
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
@@ -21,9 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public string SchoolType { get; set; }
         
         public SchoolTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -34,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.SchoolType, project.Navigation, project.TRN);
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolType, project.TRN);
 
             SchoolType = project.SchoolType.ToIntString();
 
@@ -44,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.SchoolType, project.Navigation, project.TRN);
+            BackLink = GetPreviousPage(CreateProjectPageName.SchoolType, project.TRN);
 
             if (!ModelState.IsValid)
             {
