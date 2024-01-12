@@ -1,5 +1,4 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Constants;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -9,21 +8,36 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class CreateProjectBaseModel : PageModel
     {
         protected internal string BackLink { get; set; }
+        protected readonly ICreateProjectCache _createProjectCache;
+
+        public CreateProjectBaseModel(ICreateProjectCache createProjectCache)
+        {
+            _createProjectCache = createProjectCache;
+        }
 
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
         }
 
-        public string GetPreviousPage(CreateProjectPageName currentPageName, CreateProjectNavigation navigationCache,
+        public string GetPreviousPage(CreateProjectPageName currentPageName,
             string routeParameter = "")
         {
-            if (navigationCache == CreateProjectNavigation.BackToCheckYourAnswers)
-                return RouteConstants.CreateProjectCheckYourAnswers;
+            return currentPageName switch
+            {
+                CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
+                CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
+                _ => DefaultPreviousRoute(currentPageName, routeParameter)
+            };           
+        }
 
-            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
-                ? RouteConstants.CreateFaithType
-                : RouteConstants.CreateFaithStatus;
+        private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
+        {
+            var cache = _createProjectCache.Get();
+
+            if (cache.ReachedCheckYourAnswers)
+                return RouteConstants.CreateProjectCheckYourAnswers;
 
             return currentPageName switch
             {
@@ -42,19 +56,43 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.FormsOfEntry => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateFormsOfEntry,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.ProvisionalOpeningDate => faithTypeOrFaithStatusRoute,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithType,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
-        public string GetNextPage(CreateProjectPageName currentPageName,
-            CreateProjectNavigation navigationCache = CreateProjectNavigation.Default, string routeParameter = "")
+        public string GetNextPage(CreateProjectPageName currentPageName, string routeParameter = "")
         {
-            var faithTypeOrFaithStatusRoute = navigationCache == CreateProjectNavigation.GoToFaithType
-                ? RouteConstants.CreateFaithType
-                : RouteConstants.CreateProjectProvisionalOpeningDate;
+            return currentPageName switch
+            {
+                CreateProjectPageName.FaithStatus => NextFaithStatus(),
+                CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
+                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                _ => DefaultNextRoute(currentPageName, routeParameter)
+            };
+        }
+
+        private string NextFaithStatus()
+        {
+            var cache = _createProjectCache.Get();
+
+            var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
+
+            if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
+                return cache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers
+                                                     : RouteConstants.CreateProjectProvisionalOpeningDate;
+
+            return RouteConstants.CreateFaithType;
+        }
+
+        private string DefaultNextRoute(CreateProjectPageName currentPageName, string routeParameter)
+        {
+            var cache = _createProjectCache.Get();
+
+            if (cache.ReachedCheckYourAnswers)
+                return RouteConstants.CreateProjectCheckYourAnswers;
 
             return currentPageName switch
             {
@@ -71,7 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFormsOfEntry,
                 CreateProjectPageName.FormsOfEntry => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.FaithStatus => faithTypeOrFaithStatusRoute,
+                CreateProjectPageName.FaithStatus => RouteConstants.CreateFaithType,
                 CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,

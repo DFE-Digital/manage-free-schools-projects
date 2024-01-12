@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -20,12 +21,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         
         private readonly ErrorService _errorService;
 
-        private readonly ICreateProjectCache _createProjectCache;
-
         public RegionModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
         }
 
         public IActionResult OnGet()
@@ -41,14 +40,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             if (project.Region != 0)
                 Region = _createProjectCache.Get().Region.ToString();
 
-            BackLink = GetPreviousPage(CreateProjectPageName.Region, project.Navigation); 
+            BackLink = GetPreviousPage(CreateProjectPageName.Region); 
             return Page();
         }
 
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.Region, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.Region);
 
             if (!ModelState.IsValid)
             {
@@ -56,7 +55,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return Page();
             }
 
-            project.Region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+            if (!project.ReachedCheckYourAnswers)
+            {
+                project.Region = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+            }
+            else
+            {
+                project.PreviousRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
+            }
+
             _createProjectCache.Update(project);
 
             return Redirect("/project/create/localauthority");

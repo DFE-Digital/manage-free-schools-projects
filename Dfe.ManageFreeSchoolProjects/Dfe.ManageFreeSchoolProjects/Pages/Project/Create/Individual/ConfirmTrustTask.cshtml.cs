@@ -1,12 +1,8 @@
-﻿
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.Constants;
+﻿using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -40,16 +36,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Confirm that the trust displayed is correct.")]
         public string ConfirmTrust { get; set; }
 
-        private readonly ICreateProjectCache _createProjectCache;
-
         public ConfirmTrustTaskModel(
             IGetTrustByRefService getTrustByRefService,
             ICreateProjectCache createProjectCache,
             ILogger<ConfirmTrustTaskModel> logger,
             ErrorService errorService)
+            :base(createProjectCache)
         {
             _getTrustByRefService = getTrustByRefService;
-            _createProjectCache = createProjectCache;
             _logger = logger;
             _errorService = errorService;
         }
@@ -69,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 TrustType = trust.Trust.TrustType;
                 ConfirmTrust = projectCache.ConfirmTrust;
                 
-                BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch, projectCache.Navigation);
+                BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch);
 
             }
             catch (Exception ex)
@@ -85,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             var projectCache = _createProjectCache.Get();
             var trust = await _getTrustByRefService.Execute(TRN);
 
-            BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch, projectCache.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.ConfirmTrustSearch);
 
             if (!ModelState.IsValid)
             {

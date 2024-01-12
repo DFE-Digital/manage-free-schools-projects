@@ -9,6 +9,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public string ProjectID { get; set; }
 
+        public string EmailToNotify { get; set; }
+
         public ConfirmationModel(ICreateProjectCache createProjectCache)
         {
             _createProjectCache = createProjectCache;
@@ -17,6 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public void OnGet()
         {
             ProjectID = _createProjectCache.Get().ProjectId;
+            EmailToNotify = _createProjectCache.Get().EmailToNotify;
         }
     }
 }
