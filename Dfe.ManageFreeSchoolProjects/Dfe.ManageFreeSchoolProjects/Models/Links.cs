@@ -155,7 +155,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 		{
 			public static readonly LinkItem PrivacyPolicy = AddLinkItem(page: "/#");
 			public static readonly LinkItem Accessibility = AddLinkItem(page: "/Public/AccessibilityStatement");
-			public static readonly LinkItem CookiePreferences = AddLinkItem(page: "/Public/CookiePreferences");
+			public static readonly LinkItem CookiePreferences = AddLinkItem(page: "/Public/Cookies");
 		}
 
 		public static class InvoluntaryProject
