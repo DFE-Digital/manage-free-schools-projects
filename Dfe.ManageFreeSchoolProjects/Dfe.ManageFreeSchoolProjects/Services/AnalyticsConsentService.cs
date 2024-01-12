@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
@@ -17,10 +18,16 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
         private bool? Consent { get; set; }
         private string AnalyticsDomain = ".education.gov.uk";
-        public AnalyticsConsentService(IHttpContextAccessor httpContextAccessor)
+
+        public AnalyticsConsentService(IHttpContextAccessor httpContextAccessor, IConfiguration _configuration)
         {
             _httpContextAccessor = httpContextAccessor;
-        }
+            var domain = _configuration["GoogleAnalytics:Domain"];
+            if (!string.IsNullOrEmpty(domain))
+            {
+				AnalyticsDomain = domain;
+			}
+		}
 
         public bool? ConsentValue()
         {
