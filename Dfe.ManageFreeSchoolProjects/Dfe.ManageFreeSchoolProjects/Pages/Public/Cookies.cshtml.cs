@@ -10,17 +10,17 @@ using System;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
-	public class CookiePreferences : PageModel
+	public class Cookies : PageModel
 	{
 		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
 		public bool PreferencesSet { get; set; } = false;
 		public string returnPath { get; set; }
-		private readonly ILogger<CookiePreferences> _logger;
+		private readonly ILogger<Cookies> _logger;
 		private readonly IOptions<ServiceLinkOptions> _options;
 		private readonly IAnalyticsConsentService _analyticsConsentService;
 
-		public CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options, IAnalyticsConsentService analyticsConsentService)
+		public Cookies(ILogger<Cookies> logger, IOptions<ServiceLinkOptions> options, IAnalyticsConsentService analyticsConsentService)
 		{
 			_logger = logger;
 			_options = options;
