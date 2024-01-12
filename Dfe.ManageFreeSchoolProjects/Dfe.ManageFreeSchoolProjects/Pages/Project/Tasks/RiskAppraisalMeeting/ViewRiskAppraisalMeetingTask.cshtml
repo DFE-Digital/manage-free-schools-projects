@@ -89,7 +89,8 @@
                 <dd class="govuk-summary-list__actions">
 
                     <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> Comments on decision to approve (if applicable)</span>
+                        Change<span class="govuk-visually-hidden"> Comments on decision to approve (if
+                            applicable)</span>
                     </a>
 
                 </dd>
@@ -112,13 +113,13 @@
 
                 </dd>
             </div>
-
         </dl>
         <form method="post">
             <div class="govuk-form-group">
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
+                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox"
+                            id="mark-as-complete" data-testid="mark-as-complete">
                         <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
                             Mark this section as complete, you can still make changes later
                         </label>
@@ -131,57 +132,57 @@
                 Confirm and continue
             </button>
         </form>
-
     </div>
 </div>
 <div class="govuk-grid-row govuk-!-margin-top-6">
- <div class="govuk-grid-column-two-thirds">
-<h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
-<p class="govuk-body">You may want to update the risk rating after the risk appraisal meeting.</p>
-   <div class="govuk-summary-card" id="risk-rating">
-              <div class="govuk-summary-card__title-wrapper">
-                  <h3 class="govuk-summary-card__title">Risk rating and summary</h3><div class="govuk-summary-card__actions">
-                      <a class="govuk-link" href="@riskSummaryLink" data-testid="change-project-risk">
-                          Change<span class="govuk-visually-hidden">Change risk rating and summary</span>
-                      </a>
-                  </div>
-              </div>
-  
-       <div class="govuk-summary-card__content">
-           <dl class="govuk-summary-list">
-  
-               <div class="govuk-summary-list__row">
-                   <dt class="govuk-summary-list__key">
-                       Date
-                   </dt>
-                   <dd class="govuk-summary-list__value" data-testid="project-risk-date">
-                       <govuk-display-value value="@Model.ProjectOverview.Risk.Date.ToDateString()" />
-                   </dd>
-  
-               </div>
-  
-               <div class="govuk-summary-list__row">
-                   <dt class="govuk-summary-list__key">
-                       Overall risk rating
-                   </dt>
-                   <dd class="govuk-summary-list__value" data-testid="project-risk-rating">
-                       <govuk-risk-rating-label risk-rating="@Model.ProjectOverview.Risk.RiskRating" />
-                   </dd>
-               </div>
-  
-               <div class="govuk-summary-list__row">
-                   <dt class="govuk-summary-list__key">
-                       Overall risk summary
-                   </dt>
-                   <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
-                       <govuk-display-value value="@Model.ProjectOverview.Risk.Summary" />
-                   </dd>
-               </div>
-           </dl>
-       </div>
-       </div>
-      </div>
-          </div>
+    <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
+        <p class="govuk-body">You may want to update the risk rating after the risk appraisal meeting.</p>
+        <div class="govuk-summary-card" id="risk-rating">
+            <div class="govuk-summary-card__title-wrapper">
+                <h3 class="govuk-summary-card__title">Risk rating and summary</h3>
+                <div class="govuk-summary-card__actions">
+                    <a class="govuk-link" href="@riskSummaryLink" data-testid="change-project-risk">
+                        Change<span class="govuk-visually-hidden">Change risk rating and summary</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Date
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-date">
+                            <govuk-display-value value="@Model.ProjectOverview.Risk.Date.ToDateString()" />
+                        </dd>
+
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Overall risk rating
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-rating">
+                            <govuk-risk-rating-label risk-rating="@Model.ProjectOverview.Risk.RiskRating" />
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Overall risk summary
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
+                            <govuk-display-value value="@Model.ProjectOverview.Risk.Summary" />
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
 @functions {
     public void RenderValue(string value)
     {
