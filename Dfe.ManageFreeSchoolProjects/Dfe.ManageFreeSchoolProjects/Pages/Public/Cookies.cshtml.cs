@@ -9,16 +9,16 @@ using System;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
-	public class CookiePreferences : PageModel
+	public class Cookies : PageModel
 	{
 		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
 		public bool PreferencesSet { get; set; } = false;
 		public string returnPath { get; set; }
-		private readonly ILogger<CookiePreferences> _logger;
+		private readonly ILogger<Cookies> _logger;
 		private readonly IOptions<ServiceLinkOptions> _options;
 
-		public CookiePreferences(ILogger<CookiePreferences> logger, IOptions<ServiceLinkOptions> options)
+		public Cookies(ILogger<Cookies> logger, IOptions<ServiceLinkOptions> options)
 		{
 			_logger = logger;
 			_options = options;
@@ -94,14 +94,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 				{
 					if (cookie.StartsWith("_ga") || cookie.Equals("_gid"))
 					{
-						_logger.LogInformation("Expiring Google analytics cookie: {cookie}", cookie);
-						Response.Cookies.Append(cookie, string.Empty, new CookieOptions
-						{
-							Expires = DateTime.Now.AddDays(-1),
-							Secure = true,
-							SameSite = SameSiteMode.Lax,							
-							HttpOnly = true
-						});
+						_logger.LogInformation("Deleting Google analytics cookie: {cookie}", cookie);
+						Response.Cookies.Delete(cookie);
 					}
 				}
 			}
