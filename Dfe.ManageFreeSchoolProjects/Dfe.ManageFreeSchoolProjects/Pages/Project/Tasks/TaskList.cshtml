@@ -11,6 +11,8 @@
     var constituencyTaskLink = string.Format(RouteConstants.ViewConstituency, Model.ProjectId);
     var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
+
+    ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
 @section BeforeMain
 {

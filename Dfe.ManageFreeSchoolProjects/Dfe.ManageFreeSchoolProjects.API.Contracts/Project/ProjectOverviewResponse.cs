@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string IndependentConverter { get; set; }
         public string SpecialistResourceProvision { get; set; }
         public string FaithStatus { get; set; }
-        public string FaithType { get; set; }
+        public FaithType FaithType { get; set; }
         public string TrustId { get; set; }
         public string TrustName { get; set; }
         public string TrustType { get; set; }
