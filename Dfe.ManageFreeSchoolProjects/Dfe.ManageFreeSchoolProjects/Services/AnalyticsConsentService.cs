@@ -16,6 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
         private bool? Consent { get; set; }
+        private string AnalyticsDomain = ".education.gov.uk";
         public AnalyticsConsentService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -56,17 +57,20 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             Consent = consent;
             var cookieOptions = new CookieOptions { Expires = DateTime.Today.AddMonths(6), Secure = true, HttpOnly = true };
             _httpContextAccessor.HttpContext.Response.Cookies.Append(ConsentCookieName, consent.ToString(), cookieOptions);
+            var request = _httpContextAccessor.HttpContext.Request;
 
-            if(!consent)
+			if (!consent)
             {
-                foreach (var cookie in _httpContextAccessor.HttpContext.Request.Cookies.Keys)
+                foreach (var cookie in request.Cookies.Keys)
                 {
                     if (cookie.StartsWith("_ga") || cookie.Equals("_gid"))
                     {
-                        _httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie);
-                    }
+                        //Delete if domain is the same
+						_httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie);
+                        //Delete if domain matches - need both as we wont be sent the cookie if the domain doesnt match
+						_httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie, new CookieOptions() { Domain = AnalyticsDomain});
+					}
                 }
-
             }
         }
     }

@@ -13,19 +13,19 @@
 				<p class="govuk-body">We’d like to set additional cookies so we can understand how you use the site and make
 					improvements.</p>
 				<div>
-					<a role="button" draggable="false" data-test="cookie-banner-accept"
+					<a role="button" draggable="false" data-testid="cookie-banner-accept"
 						class="govuk-button govuk-!-margin-bottom-2" asp-page="@Links.Public.CookiePreferences.Page"
 						asp-route-consent="true" asp-route-returnUrl="@Context.Request.Path">
 						Accept analytics cookies
 					</a>
-					<a role="button" draggable="false" data-test="cookie-banner-reject"
+					<a role="button" draggable="false" data-testid="cookie-banner-reject"
 						class="govuk-button govuk-!-margin-bottom-2" asp-page="@Links.Public.CookiePreferences.Page"
 						asp-route-consent="false" asp-route-returnUrl="@Context.Request.Path">
 						Reject analytics cookies
 					</a>
 					<p class="inline-message govuk-body">
 						or
-						<a class="govuk-link" data-test="cookie-banner-link-2"
+						<a class="govuk-link" data-testid="cookie-banner-link-2"
 							asp-page="@Links.Public.CookiePreferences.Page" asp-route-returnUrl="@Context.Request.Path">set
 							your cookie preferences</a>
 					</p>
