@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
     public class ViewConstituencyModel : PageModel
     {
 
-        private const string TaskName = "Constituency";
+        private const string ConstituencyTaskName = "Constituency";
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -50,9 +50,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
         {
             _logger.LogMethodEntered();
 
-            Project = await _getProjectService.Execute(ProjectId);
+            Project = await _getProjectService.Execute(ProjectId, TaskName.Constituency);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, ConstituencyTaskName);
 
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
@@ -72,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
-                TaskName = TaskName,
+                TaskName = ConstituencyTaskName,
                 ProjectTaskStatus = ProjectTaskStatus
             });
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));

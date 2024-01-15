@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
@@ -18,17 +19,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public TaskName TaskName { get; set; }
 
         public Status Status { get; set; }
-    }
-
-    public enum TaskName
-    {
-        Unknown,
-        School,
-        Dates,
-        RiskAppraisalMeeting,
-        Trust,
-        RegionAndLocalAuthority,
-        Constituency,
     }
 
     public enum Status

@@ -66,8 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
 
             try
             {
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
+                CurrentFreeSchoolName = project.SchoolName;
                 MeetingCompleted = project.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted;
                 ForecastDate = project.RiskAppraisalMeeting.ForecastDate;
                 ActualDate = project.RiskAppraisalMeeting.ActualDate;
@@ -88,8 +88,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
+                CurrentFreeSchoolName = project.SchoolName;
                 
                 return Page();
             }

@@ -38,8 +38,8 @@ public class EditRegion : PageModel
     {
         _logger.LogMethodEntered();
 
-        var project = await _getProjectService.Execute(ProjectId);
-        CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+        var project = await _getProjectService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
+        CurrentFreeSchoolName = project.SchoolName;
         Region = project.RegionAndLocalAuthority.Region;
         
         TempData["CurrentFreeSchoolName"] = CurrentFreeSchoolName;

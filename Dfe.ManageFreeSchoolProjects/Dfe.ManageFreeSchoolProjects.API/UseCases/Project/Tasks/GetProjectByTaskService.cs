@@ -1,5 +1,10 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
     public interface IGetProjectByTaskService
     {
-        public Task<GetProjectByTaskResponse> Execute(string projectId);
+        public Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName);
     }
 
     public class GetProjectByTaskService : IGetProjectByTaskService
@@ -19,66 +24,48 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             _context = context;
         }
 
-        public async Task<GetProjectByTaskResponse> Execute(string projectId)
+        public async Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName)
         {
-            var result = await
-                (from kpi in _context.Kpi
-                    where kpi.ProjectStatusProjectId == projectId
-                    join kai in _context.Kai on kpi.Rid equals kai.Rid into kaiJoin
-                    from kai in kaiJoin.DefaultIfEmpty()
-                    join property in _context.Property on kpi.Rid equals property.Rid into propertyJoin
-                    from property in propertyJoin.DefaultIfEmpty()
-                    join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals
-                        riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
-                    from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
-                    select new GetProjectByTaskResponse
-                    {
-                        School = new SchoolTask
-                        {
-                            CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
-                            SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
-                            SchoolPhase = ProjectMapper.ToSchoolPhase(kpi.SchoolDetailsSchoolPhasePrimarySecondary),
-                            AgeRange = kpi.SchoolDetailsAgeRange,
-                            Gender = EnumParsers.ParseGender(kpi.SchoolDetailsGender),
-                            Nursery = EnumParsers.ParseNursery(kpi.SchoolDetailsNursery),
-                            SixthForm = EnumParsers.ParseSixthForm(kpi.SchoolDetailsSixthForm),
-                            FaithStatus = EnumParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
-                            FaithType = ProjectMapper.ToFaithType(kpi.SchoolDetailsFaithType),
-                            OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType
-                        },
-                        Dates = new DatesTask()
-                        {
-                            DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
-                            ProvisionalOpeningDateAgreedWithTrust =
-                                kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
-                            RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                        },
-                        Trust = new TrustTask()
-                        {
-                            TRN = kpi.TrustId,
-                            TrustName = kpi.TrustName,
-                            TrustType = kpi.TrustType,
-                        },
-                        RegionAndLocalAuthority = new RegionAndLocalAuthorityTask
-                        {
-                            Region = kpi.SchoolDetailsGeographicalRegion,
-                            LocalAuthority = kpi.LocalAuthority,
-                        },
-                        RiskAppraisalMeeting = new RiskAppraisalMeetingTask
-                        {
-                            InitialRiskAppraisalMeetingCompleted = riskAppraisalMeetingTask.MeetingCompleted,
-                            ForecastDate = riskAppraisalMeetingTask.ForecastDate,
-                            ActualDate = riskAppraisalMeetingTask.ActualDate,
-                            CommentsOnDecisionToApprove = riskAppraisalMeetingTask.CommentOnDecision,
-                            ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable
-                        },
-                        Constituency = new ConstituencyTask()
-                        {
-                            Name = kpi.SchoolDetailsConstituency,
-                            MPName = kpi.SchoolDetailsConstituencyMp,
-                            Party = kpi.SchoolDetailsPoliticalParty,
-                        }
-                    }).FirstOrDefaultAsync();
+            var query = _context.Kpi.Where(kpi => kpi.ProjectStatusProjectId == projectId);
+
+            var parameters = new GetTaskServiceParameters()
+            {
+                ProjectId = projectId,
+                BaseQuery = query
+            };
+
+            GetProjectByTaskResponse result = null;
+
+            switch (taskName)
+            {
+                case TaskName.School:
+                    result = await new GetSchoolTaskService().Get(parameters);
+                    break;
+                case TaskName.Dates:
+                    result = await new GetDatesTaskService().Get(parameters);
+                    break;
+                case TaskName.RiskAppraisalMeeting:
+                    result = await new GetRiskAppraisalMeetingTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.Trust:
+                    result = await new GetTrustTaskService().Get(parameters);
+                    break;
+                case TaskName.RegionAndLocalAuthority:
+                    result = await new GetRegionAndLocalAuthorityTaskService().Get(parameters);
+                    break;
+                case TaskName.Constituency:
+                    result = await new GetConstituencyTaskService().Get(parameters);
+                    break;
+                default:
+                    throw new ArgumentException($"Unknown task name {taskName}");
+            }
+
+            if (result != null)
+            {
+                var schoolName = await query.Select(kpi => kpi.ProjectStatusCurrentFreeSchoolName).FirstOrDefaultAsync();
+                result.SchoolName = schoolName;
+            }
+
             return result;
         }
     }

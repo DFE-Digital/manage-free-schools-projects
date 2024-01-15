@@ -97,7 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
             try
             {
-                var project = await _getProjectService.Execute(ProjectId);
+                var project = await _getProjectService.Execute(ProjectId, TaskName.School);
                 CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;

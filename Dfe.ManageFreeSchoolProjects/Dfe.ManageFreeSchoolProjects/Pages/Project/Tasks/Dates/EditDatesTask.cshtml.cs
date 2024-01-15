@@ -59,8 +59,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
             try
             {
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.Dates);
+                CurrentFreeSchoolName = project.SchoolName;
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
                 OpeningAcademicYear = project.Dates.RealisticYearOfOpening;
@@ -79,8 +79,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
-                var project = await _getProjectService.Execute(ProjectId);
-                CurrentFreeSchoolName = project.School.CurrentFreeSchoolName;
+                var project = await _getProjectService.Execute(ProjectId, TaskName.Dates);
+                CurrentFreeSchoolName = project.SchoolName;
                 return Page();
             }
 

@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency.ViewConstituencyModel
 @{
-    ViewData["Title"] = $"Constituency - {Model.Project.School.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Constituency - {Model.Project.SchoolName}";
 
     var searchLink = string.Format(RouteConstants.SearchConstituency, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
@@ -18,7 +18,7 @@
         <h1 class="govuk-heading-xl" data-testid="title">
             <span class="govuk-caption-l" data-testid="school-name">
                 @{
-                    RenderValue(Model.Project.School.CurrentFreeSchoolName);
+                    RenderValue(Model.Project.SchoolName);
                 }
             </span>
             Constituency

@@ -21,8 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
         private readonly IGetProjectByTaskService _getProjectService;
+        private const string RiskAppraisalMeetingTaskName = "RiskAppraisalMeeting";
         private readonly IGetProjectOverviewService _getProjectOverviewService;
-        private const string TaskName = "RiskAppraisalMeeting";
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -56,10 +56,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
         {
             _logger.LogMethodEntered();
 
-            Project = await _getProjectService.Execute(ProjectId);
-            
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
-            CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
+            Project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
+
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RiskAppraisalMeetingTaskName);
+            CurrentFreeSchoolName = Project.SchoolName;
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
             var projectId = RouteData.Values["projectId"] as string;
@@ -80,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
 
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
-                TaskName = TaskName,
+                TaskName = RiskAppraisalMeetingTaskName,
                 ProjectTaskStatus = ProjectTaskStatus
             });
 

@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
         private readonly IGetProjectByTaskService _getProjectService;
-        private const string TaskName = "Dates";
+        private const string DatesTaskName = "Dates";
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -52,10 +52,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         {
             _logger.LogMethodEntered();
 
-            Project = await _getProjectService.Execute(ProjectId);
+            Project = await _getProjectService.Execute(ProjectId, TaskName.Dates);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
-            CurrentFreeSchoolName = Project.School.CurrentFreeSchoolName;
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, DatesTaskName);
+            CurrentFreeSchoolName = Project.SchoolName;
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
 
@@ -74,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
             await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
-                TaskName = TaskName, ProjectTaskStatus = ProjectTaskStatus
+                TaskName = DatesTaskName, ProjectTaskStatus = ProjectTaskStatus
             });
             
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));

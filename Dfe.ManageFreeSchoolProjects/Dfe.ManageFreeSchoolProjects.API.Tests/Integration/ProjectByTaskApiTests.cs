@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System;
 using System.Linq;
 using System.Net;
@@ -34,14 +35,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 			await context.SaveChangesAsync();
 
-			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks/school");
 			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 		}
 
 		[Fact]
 		public async Task Get_ProjectByTask_DoesNotExist_Returns_404()
 		{
-			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks");
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks/school");
 			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 		}
 
@@ -75,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				}
 			};
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.School.ToString());
 
             projectResponse.School.CurrentFreeSchoolName.Should().Be("Test High School");
             projectResponse.School.SchoolType.Should().Be(SchoolType.Mainstream);
@@ -83,6 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.AgeRange.Should().Be("11-18");
             projectResponse.School.Nursery.Should().Be(ClassType.Nursery.No);
             projectResponse.School.SixthForm.Should().Be(ClassType.SixthForm.No);
+			projectResponse.SchoolName.Should().Be("Test High School");
         }
 
 		[Fact]
@@ -112,13 +114,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				}
 			};
 
-			var projectResponse = await UpdateProjectTask(projectId, request);
+			var projectResponse = await UpdateProjectTask(projectId, request, TaskName.Constituency.ToString());
 
 			projectResponse.Constituency.Name.Should().Be(Battersea);
 			projectResponse.Constituency.MPName.Should().Be(TeddyBones);
 			projectResponse.Constituency.Party.Should().Be(MRL);
-
-		}
+            projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
+        }
 
 		[Fact]
 		public async Task Patch_DatesTask_Returns_201()
@@ -143,12 +145,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				}
 			};
 
-			var projectResponse = await UpdateProjectTask(projectId, request);
+			var projectResponse = await UpdateProjectTask(projectId, request, TaskName.Dates.ToString());
 
 			projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
 			projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
 			projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
-		}
+            projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
+        }
 
 		[Fact]
 		public async Task Patch_LocalAuthorityAndRegionTask_Returns_201()
@@ -169,10 +172,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             };
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.RegionAndLocalAuthority.ToString());
 
 			projectResponse.RegionAndLocalAuthority.LocalAuthority.Should().Be("LocalAuthority");
 			projectResponse.RegionAndLocalAuthority.Region.Should().Be("Region");
+            projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
         [Fact]
@@ -200,13 +204,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             };
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.RiskAppraisalMeeting.ToString());
 
             projectResponse.RiskAppraisalMeeting.ForecastDate.Should().Be(DateTenDaysInFuture);
             projectResponse.RiskAppraisalMeeting.ActualDate.Should().Be(DateNineDaysInFuture);
             projectResponse.RiskAppraisalMeeting.CommentsOnDecisionToApprove.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.RiskAppraisalMeeting.InitialRiskAppraisalMeetingCompleted.Should().Be(true);
             projectResponse.RiskAppraisalMeeting.ReasonNotApplicable.Should().Be("ReasonNotApplicable");
+            projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
         [Fact]
@@ -238,7 +243,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             };
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.RiskAppraisalMeeting.ToString());
 
             projectResponse.RiskAppraisalMeeting.ForecastDate.Should().Be(DateTenDaysInFuture);
             projectResponse.RiskAppraisalMeeting.ActualDate.Should().Be(DateNineDaysInFuture);
@@ -269,11 +274,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				}
 			};
 
-            var projectResponse = await UpdateProjectTask(projectId, request);
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.Trust.ToString());
 
 			projectResponse.Trust.TRN.Should().Be(trust.TrustRef);
 			projectResponse.Trust.TrustName.Should().Be(trust.TrustsTrustName);
 			projectResponse.Trust.TrustType.Should().Be(trust.TrustsTrustType);
+            projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
         [Fact]
@@ -287,12 +293,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 			updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 		}
 
-		private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request)
+		private async Task<GetProjectByTaskResponse> UpdateProjectTask(string projectId, UpdateProjectByTaskRequest request, string taskName)
 		{
 			var updateTaskResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
 			updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks");
+			var getProjectByTaskResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/tasks/{taskName}");
 			getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
 			var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
