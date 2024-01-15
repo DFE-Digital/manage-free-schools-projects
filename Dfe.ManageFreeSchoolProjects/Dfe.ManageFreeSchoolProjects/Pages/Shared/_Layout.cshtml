@@ -1,10 +1,8 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration _configuration
+@inject Dfe.ManageFreeSchoolProjects.Services.IAnalyticsConsentService _analytisConsentService
 
 @{
-    var analyticsConsent = Context.Request.Cookies.ContainsKey(".ManageFreeSchoolProjects.Consent")
-                           && bool.Parse(Context.Request.Cookies[".ManageFreeSchoolProjects.Consent"]);
-
-    var showAnalytics = _configuration["GoogleAnalytics:Enable"] == "Yes" && analyticsConsent;
+    var showAnalytics = _configuration["GoogleAnalytics:Enable"] == "Yes" && _analytisConsentService.HasConsent();
 
     var titleDescription = Context.Request.Path == "/project-type"
         ? string.Empty

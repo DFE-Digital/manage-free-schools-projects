@@ -96,6 +96,7 @@ public class Startup
         services.AddScoped<IAgeRangeCleanerService, AgeRangeCleanerService>();
         services.AddScoped<INotifyUserService, NotifyUserService>();
         services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
+        services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
