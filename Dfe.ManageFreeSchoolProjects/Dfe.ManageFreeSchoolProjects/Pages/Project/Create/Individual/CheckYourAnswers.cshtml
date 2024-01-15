@@ -6,6 +6,7 @@
     ViewData["Title"] = "Check your answers";
 
     var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" :  Model.Project.FaithType.ToDescription();
+    var faithTypeLink = Model.Project.FaithStatus == FaithStatus.None ? RouteConstants.CreateFaithStatus : @RouteConstants.CreateFaithType;
 }
 
 @section BeforeMain {
@@ -240,7 +241,7 @@
         </dd>
         <dd class="govuk-summary-list__actions">
 
-            <a class="govuk-link" href="@RouteConstants.CreateFaithType" data-testid="change-faith-type">
+            <a class="govuk-link" href="@faithTypeLink" data-testid="change-faith-type">
                 Change<span class="govuk-visually-hidden">Faith type</span>
             </a>
         </dd>
@@ -289,7 +290,7 @@
 </p>
 
 <form method="post" novalidate="">
-    <button class="govuk-button" data-module="govuk-button">
+    <button class="govuk-button" data-module="govuk-button" data-testid="create-project">
         Create project
     </button>
 </form>

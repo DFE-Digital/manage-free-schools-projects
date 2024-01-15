@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             Project = _createProjectCache.Get();
-            Project.Navigation = CreateProjectNavigation.BackToCheckYourAnswers;
+            Project.ReachedCheckYourAnswers = true;
             _createProjectCache.Update(Project);
             return Page();
         }

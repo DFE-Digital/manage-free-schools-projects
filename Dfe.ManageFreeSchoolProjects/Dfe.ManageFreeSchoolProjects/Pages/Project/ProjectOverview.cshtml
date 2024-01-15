@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 
 @{
-    ViewData["Title"] = "Project overview";
+    ViewData["Title"] = $"{Model.Project.ProjectStatus.CurrentFreeSchoolName} - About the project";
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var riskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
@@ -22,7 +22,9 @@
                 <div class="govuk-grid-column-three-quarters">
                     <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.Project.ProjectStatus.ProjectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.Project.ProjectStatus.CurrentFreeSchoolName</h1>
-                    <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">Project overview</p>
+                    <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
+                        About the project
+                    </p>
                 </div>
             </div>
             <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
@@ -39,7 +41,9 @@
 
             <ul class="app-sub-navigation__list govuk-!-margin-top-6">
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" aria-current="page" href="@projectOverviewLink">Project overview</a>
+                    <a class="app-sub-navigation__link" aria-current="page" href="@projectOverviewLink">
+                        About the project
+                    </a>
                 </li>
                 <li class="app-sub-navigation__item">
                     <a class="app-sub-navigation__link" href="@taskListLink">Task list</a>
@@ -54,54 +58,55 @@
 </div>
 
 <div class="govuk-grid-row">
-
-    <div class="govuk-grid-column-one-quarter project-overview-menu">
+    <div class="project-overview-menu">
+    <div class="govuk-grid-column-one-quarter page-contents js-page-contents project-overview-menu">
 
         <h2 class="gem-c-heading govuk-heading-m">Page contents</h2>
 
         <ul class="govuk-list">
 
-            <li class="govuk-body">
+            <li class="govuk-body govuk-!-margin-bottom-2">
                 <h3 class="govuk-heading-s project-overview-menu__section-heading govuk-!-margin-bottom-1">Project details</h3>
                 <ul class="govuk-list">
-                    <li class="govuk-body">
-                        <a class="govuk-link-s" href="#dates">Dates</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#dates" data-link-scroll>Dates</a>
                     </li>
                     <li class="govuk-body">
-                        <a class="govuk-link active" href="#trust">Trust</a>
+                        <a class="govuk-link" href="#trust" data-link-scroll>Trust</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link" href="#reference-numbers">Reference numbers</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#reference-numbers" data-link-scroll>Reference numbers</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link active" href="#school">School</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#school" data-link-scroll>School</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link active" href="#region">Region and local authority</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#region" data-link-scroll>Region and local authority</a>
                     </li>
                 </ul>
             </li>
 
-            <li class="govuk-body">
+            <li class="govuk-body govuk-!-margin-bottom-2">
                 <h3 class="govuk-heading-s project-overview-menu__section-heading govuk-!-margin-bottom-1">Other information</h3>
-                <ul class="govuk-list">
-                    <li class="govuk-body">
-                        <a class="govuk-link" href="#risk-rating">risk rating and summary</a>
+                <ul class="govuk-list  govuk-!-margin-bottom-2">
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#risk-rating" data-link-scroll>Risk rating and summary</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link" href="#contacts">Contacts</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#contacts" data-link-scroll>Contacts</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link" href="#site-information">Site information</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#site-information" data-link-scroll>Site information</a>
                     </li>
-                    <li class="govuk-body">
-                        <a class="govuk-link" href="#pupil-numbers">Pupil numbers</a>
+                    <li class="govuk-body govuk-!-margin-bottom-2">
+                        <a class="govuk-link" href="#pupil-numbers" data-link-scroll>Pupil numbers</a>
                     </li>
                 </ul>
             </li>
 
         </ul>
 
+    </div>
     </div>
 
     <div class="govuk-grid-column-three-quarters">
@@ -341,7 +346,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="faith-type">
                     @{
-                        RenderValue(Model.Project.SchoolDetails.FaithType);
+                        RenderValue(Model.Project.SchoolDetails.FaithType.ToDescription());
                     }
                 </dd>
 
@@ -528,16 +533,36 @@
     </div>
 </div>
 
+<script asp-add-nonce>
+    const handleScroll = () => { 
+        let found = false; 
+        document.querySelectorAll("a[data-link-scroll]")
+            .forEach(x => {
+                const yy = document.querySelector('#' + x.href.split("#")[1]).getBoundingClientRect().y;
+                if (found == false && yy > -10) {
+                    x.style.fontWeight = "600";
+                    found = true;
+                }
+                else {
+                    x.style.fontWeight = ""
+                }
+            }); 
+    }
+
+    document.onscroll = handleScroll;
+
+</script>
+
 @functions {
     public void RenderValue(string value)
     {
         if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
-            <span class="empty">Empty</span>
+                <span class="empty">Empty</span>
         }
         else
         {
-            @value
+    @value
         }
     }
 }

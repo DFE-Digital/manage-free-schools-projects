@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
@@ -29,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
             project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
+            project.SchoolDetailsFaithType = "Roman Catholic";
 
             var property = DatabaseModelBuilder.BuildProperty();
             property.Rid = project.Rid;
@@ -69,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.ConstituencyMp.Should().Be(project.SchoolDetailsConstituencyMp);
             schoolDetails.NumberOfEntryForms.Should().Be(project.SchoolDetailsNumberOfFormsOfEntry);
             schoolDetails.SchoolType.Should().Be(SchoolType.AlternativeProvision);
-            schoolDetails.SchoolPhase.Should().Be(Contracts.Project.Tasks.SchoolPhase.Primary);
+            schoolDetails.SchoolPhase.Should().Be(SchoolPhase.Primary);
             schoolDetails.AgeRange.Should().Be(project.SchoolDetailsAgeRange);
             schoolDetails.Gender.Should().Be(project.SchoolDetailsGender);
             schoolDetails.Nursery.Should().Be(project.SchoolDetailsNursery);
@@ -77,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.IndependentConverter.Should().Be(project.SchoolDetailsIndependentConverter);
             schoolDetails.SpecialistResourceProvision.Should().Be(project.SchoolDetailsSpecialistResourceProvision);
             schoolDetails.FaithStatus.Should().Be(project.SchoolDetailsFaithStatus);
-            schoolDetails.FaithType.Should().Be(project.SchoolDetailsFaithType);
+            schoolDetails.FaithType.Should().Be(FaithType.RomanCatholic);
             schoolDetails.TrustId.Should().Be(project.TrustId);
             schoolDetails.TrustName.Should().Be(project.SchoolDetailsTrustName);
             schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);

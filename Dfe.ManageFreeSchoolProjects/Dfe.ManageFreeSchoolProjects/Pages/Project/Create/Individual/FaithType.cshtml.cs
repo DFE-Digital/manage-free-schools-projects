@@ -19,12 +19,11 @@ public class FaithTypeModel : CreateProjectBaseModel
     [Display(Name = "Other faith type")]
     public string OtherFaithType { get; set; }
     
-    private readonly ICreateProjectCache _createProjectCache;
     private readonly ErrorService _errorService;
 
     public FaithTypeModel(ICreateProjectCache createProjectCache, ErrorService errorService)
+        :base(createProjectCache)
     {
-        _createProjectCache = createProjectCache;
         _errorService = errorService;
     }
     
@@ -41,7 +40,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         FaithType = project.FaithType;
         OtherFaithType = project.OtherFaithType;
         
-        BackLink = GetPreviousPage(CreateProjectPageName.FaithType, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithType);
 
         return Page();
     }
@@ -49,7 +48,7 @@ public class FaithTypeModel : CreateProjectBaseModel
     public IActionResult OnPost()
     {
         var project = _createProjectCache.Get();
-        BackLink = GetPreviousPage(CreateProjectPageName.FaithType, project.Navigation);
+        BackLink = GetPreviousPage(CreateProjectPageName.FaithType);
 
         if (!ModelState.IsValid)
         {
@@ -65,12 +64,17 @@ public class FaithTypeModel : CreateProjectBaseModel
             return Page();
         }
 
+        if (project.ReachedCheckYourAnswers)
+        {
+            project.FaithStatus = project.PreviousFaithStatus;
+        }
+
         project.FaithType = FaithType;
         project.OtherFaithType = OtherFaithType;
-        
+
         _createProjectCache.Update(project);
 
-        return Redirect(GetNextPage(CreateProjectPageName.FaithType, project.Navigation));
+        return Redirect(GetNextPage(CreateProjectPageName.FaithType));
     }
 
     private void ValidateFaithFields()

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
@@ -19,7 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
         private readonly IGetProjectByTaskService _getProjectService;
-        private const string RiskAppraisalMeetingTaskName = "RiskAppraisalMeeting";
+        private const string TaskName = "RiskAppraisalMeeting";
+        private readonly IGetProjectOverviewService _getProjectOverviewService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -30,14 +33,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
         public bool MarkAsCompleted { get; set; }
 
         public ProjectTaskStatus ProjectTaskStatus { get; set; }
-
         public GetProjectByTaskResponse Project { get; set; }
+        
+        public ProjectOverviewResponse ProjectOverview { get; set; }
 
 
         public ViewRiskAppraisalMeetingTaskModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewRiskAppraisalMeetingTaskModel> logger, IGetTaskStatusService getTaskStatusService,
-            IUpdateTaskStatusService updateTaskStatusService,
+            IUpdateTaskStatusService updateTaskStatusService, IGetProjectOverviewService getProjectOverviewService,
             ErrorService errorService)
         {
             _logger = logger;
@@ -45,6 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
             _getTaskStatusService = getTaskStatusService;
             _updateTaskStatusService = updateTaskStatusService;
             _getProjectService = getProjectService;
+            _getProjectOverviewService = getProjectOverviewService;
         }
 
         public async Task<IActionResult> OnGet()
@@ -53,11 +58,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
 
             Project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RiskAppraisalMeetingTaskName);
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
             CurrentFreeSchoolName = Project.SchoolName;
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
-
+            var projectId = RouteData.Values["projectId"] as string;
+            ProjectOverview = await _getProjectOverviewService.Execute(projectId);
+            
             return Page();
         }
 

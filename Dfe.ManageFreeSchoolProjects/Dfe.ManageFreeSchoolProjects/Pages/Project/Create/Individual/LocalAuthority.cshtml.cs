@@ -1,17 +1,13 @@
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -26,14 +22,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public List<string> LocalAuthorities { get; set; }
         
         private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
         private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
 
         public LocalAuthorityModel(ErrorService errorService, ICreateProjectCache createProjectCache,
             IGetLocalAuthoritiesService getLocalAuthoritiesService)
+            :base(createProjectCache)
         {
             _errorService = errorService;
-            _createProjectCache = createProjectCache;
             _getLocalAuthoritiesService = getLocalAuthoritiesService;
         }
 
@@ -55,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             _createProjectCache.Update(project);
 
-            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority);
             
             return Page();
         }
@@ -63,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         public ActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority, project.Navigation);
+            BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority);
 
             if (!ModelState.IsValid)
             {
@@ -74,7 +69,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             
             project.LocalAuthority = LocalAuthority;
             project.LocalAuthorityCode = project.LocalAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
-            
+
+            if (project.ReachedCheckYourAnswers)
+            {
+                project.Region = project.PreviousRegion;
+            }
+
             _createProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.LocalAuthority));
@@ -82,7 +82,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
         {
-            var region = _createProjectCache.Get().Region.ToDescription();
+            var project = _createProjectCache.Get();
+            var region = project.Region.ToDescription();
+
+            if (project.ReachedCheckYourAnswers)
+            {
+                region = project.PreviousRegion.ToDescription();
+            }
+            
             var response = await _getLocalAuthoritiesService.Execute(new List<string> { region });
 
             var authorities = new Dictionary<string, string>();
