@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
         private readonly ErrorService _errorService;
         private readonly IGetProjectByTaskService _getProjectService;
-        private const string TaskName = "RiskAppraisalMeeting";
+        private const string RiskAppraisalMeetingTaskName = "RiskAppraisalMeeting";
         private readonly IGetProjectOverviewService _getProjectOverviewService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
 
             Project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName);
+            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RiskAppraisalMeetingTaskName);
             CurrentFreeSchoolName = Project.SchoolName;
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
