@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     ProjectCreateState = projectCreateState
                 });
 
-                var rid = Guid.NewGuid().ToString().Substring(0, 10);
+                var rid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 11);
                 var trust = await GetTrust(proj.TRN);
 
                 var kpi = new Kpi
