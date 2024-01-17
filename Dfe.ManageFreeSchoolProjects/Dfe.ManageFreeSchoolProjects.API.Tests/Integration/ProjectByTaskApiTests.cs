@@ -141,7 +141,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				{
 					DateOfEntryIntoPreopening = DateTenDaysInFuture,
 					ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
-					RealisticYearOfOpening = "2023 2024",
+                    OpeningAcademicYear = "2023 2024",
 				}
 			};
 
@@ -149,7 +149,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 			projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
 			projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
-			projectResponse.Dates.RealisticYearOfOpening.Should().Be("2023 2024");
+			projectResponse.Dates.OpeningAcademicYear.Should().Be("2023 2024");
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 

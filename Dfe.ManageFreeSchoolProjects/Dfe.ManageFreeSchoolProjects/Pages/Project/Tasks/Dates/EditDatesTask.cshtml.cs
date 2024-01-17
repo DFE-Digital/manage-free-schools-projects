@@ -63,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 CurrentFreeSchoolName = project.SchoolName;
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
-                OpeningAcademicYear = project.Dates.RealisticYearOfOpening;
+                OpeningAcademicYear = project.Dates.OpeningAcademicYear;
 
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        RealisticYearOfOpening = OpeningAcademicYear
+						OpeningAcademicYear = OpeningAcademicYear
                     }
                 };
 
