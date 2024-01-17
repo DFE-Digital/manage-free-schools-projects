@@ -4,7 +4,7 @@
     public record DatesTask
     {
         public DateTime? DateOfEntryIntoPreopening { get; set; }
-        public string RealisticYearOfOpening { get; set; }
+        public string OpeningAcademicYear { get; set; }
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
     }
 }
