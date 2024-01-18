@@ -50,8 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
                 Type = SecuritySchemeType.ApiKey,
                 In = ParameterLocation.Header
             };
-            //options.AddSecurityDefinition(ApiKeyName, securityScheme);
-           // options.OperationFilter<AuthenticationHeaderOperationFilter>();
+            options.AddSecurityDefinition(ApiKeyName, securityScheme);
+            options.OperationFilter<AuthenticationHeaderOperationFilter>();
             //options.OperationFilter<UserContextOperationFilter>();
         }
     }

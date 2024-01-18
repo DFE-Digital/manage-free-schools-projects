@@ -3,7 +3,6 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import datesDetailsPage from "cypress/pages/datesDetailsPage";
-import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 

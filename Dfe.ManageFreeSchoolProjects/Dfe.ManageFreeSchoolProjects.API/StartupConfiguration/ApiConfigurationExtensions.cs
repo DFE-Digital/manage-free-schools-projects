@@ -6,18 +6,7 @@ public static class ApiConfigurationExtensions
 {
 	public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
 	{
-		var concernsApiEndpoint = configuration["ManageFreeSchoolProjects:ApiEndpoint"];
-		var concernsApiKey = configuration["ManageFreeSchoolProjects:ApiKey"];
-
-		if (string.IsNullOrEmpty(concernsApiEndpoint) || string.IsNullOrEmpty(concernsApiKey))
-			throw new Exception("AddConcernsApi::missing configuration");
-
-		services.AddHttpClient("ConcernsClient", config =>
-		{
-			config.BaseAddress = new Uri(concernsApiEndpoint);
-			config.DefaultRequestHeaders.Add("ApiKey", concernsApiKey);
-			config.DefaultRequestHeaders.Add("ContentType", MediaTypeNames.Application.Json);
-		});
+		services.AddHttpClient("DefaultClient");
 
 		services.AddControllers();
 		services.AddApiVersioning(config =>

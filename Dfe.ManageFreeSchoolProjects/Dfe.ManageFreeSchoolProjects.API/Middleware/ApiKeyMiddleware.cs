@@ -34,6 +34,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
 	        await _next(context);
         }
 
-        private bool IsApiCall(HttpContext context) => context.Request.Path.HasValue && context.Request.Path.Value!.StartsWith("/v2");
+        private bool IsApiCall(HttpContext context) => context.Request.Path.HasValue;
     }
 }
