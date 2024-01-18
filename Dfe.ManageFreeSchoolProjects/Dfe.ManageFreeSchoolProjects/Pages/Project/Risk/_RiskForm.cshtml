@@ -30,18 +30,18 @@
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
 
+            <legend class="govuk-fieldset__legend--l">Risk rating</legend>
             <govuk-radios-input id="risk-rating"
                                 name="risk-rating"
                                 asp-for="@Model.RiskRating"
-                                label="@Model.RiskRatingLabel"
                                 values="@values.ToArray()"
                                 test-ids="@testIds.ToArray()"
                                 html-labels="@labels.ToArray()" />
-
+            
+            <legend class="govuk-fieldset__legend--l">Risk summary</legend>
             <govuk-textarea-input id="summary"
                                   name="summary"
                                   asp-for="@Model.Summary"
-                                  label="@Model.RiskSummaryLabel"
                                   test-id="risk-summary"
                                   rows="10" />
 
