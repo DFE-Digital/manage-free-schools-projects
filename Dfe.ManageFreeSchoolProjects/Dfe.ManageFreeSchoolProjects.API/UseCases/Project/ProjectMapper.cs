@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
@@ -65,6 +66,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "Greek Orthodox" => FaithType.GreekOrthodox,
                 "Roman Catholic" => FaithType.RomanCatholic,
                 _ => EnumParsers.ParseFaithType(faithTypeDescription)
+            };
+        }
+        
+        public static TrustType ToTrustType(string trustTypeDescription)
+        {
+            return trustTypeDescription switch
+            {
+                "Standalone" => TrustType.SingleAcademyTrust,
+                "MAT" => TrustType.MultiAcademyTrust,
+                _ => EnumParsers.ParseTrustType(trustTypeDescription)
             };
         }
     }

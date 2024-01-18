@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     {
                         TRN = record.TrustRef,
                         TrustName = record.TrustsTrustName,
-                        TrustType = record.TrustsTrustType,
+                        TrustType = ProjectMapper.ToTrustType(record.TrustsTrustType),
                     }
                 };
             }).ToList();

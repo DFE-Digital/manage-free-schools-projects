@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
 
         [BindProperty(Name = "trust-type")]
         [Display(Name = "Trust Type")]
-        public string TrustType { get; set; }
+        public TrustType TrustType { get; set; }
 
         [BindProperty(Name = "confirm-trust")]
         [Display(Name = "confirm trust")]

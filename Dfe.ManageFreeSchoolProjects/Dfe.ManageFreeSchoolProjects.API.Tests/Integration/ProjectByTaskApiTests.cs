@@ -10,6 +10,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -278,7 +280,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 			projectResponse.Trust.TRN.Should().Be(trust.TrustRef);
 			projectResponse.Trust.TrustName.Should().Be(trust.TrustsTrustName);
-			projectResponse.Trust.TrustType.Should().Be(trust.TrustsTrustType);
+			projectResponse.Trust.TrustType.Should().Be(ProjectMapper.ToTrustType(trust.TrustsTrustType));
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 

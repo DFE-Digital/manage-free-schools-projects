@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     {
                         TRN = trust.TrustRef,
                         TrustName = trust.TrustsTrustName,
-                        TrustType = trust.TrustsTrustType,
+                        TrustType = ProjectMapper.ToTrustType(trust.TrustsTrustType),
                     }
                 }).FirstOrDefaultAsync();
 

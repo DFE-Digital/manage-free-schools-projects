@@ -8,7 +8,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
+using Dfe.ManageFreeSchoolProjects.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -29,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         [BindProperty(Name = "trust-type")]
         [Display(Name = "Trust Type")]
-        public string TrustType { get; set; }
+        public TrustType TrustType { get; set; }
 
         [BindProperty(Name = "confirm-trust")]
         [Display(Name = "confirm-trust")]
