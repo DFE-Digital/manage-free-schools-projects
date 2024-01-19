@@ -50,7 +50,7 @@
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="trust-type">
                         @{
-                            RenderValue(Model.TrustType);
+                            RenderValue(Model.TrustType.ToDescription());
                         }
                     </dd>
 

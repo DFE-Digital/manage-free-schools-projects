@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts
                 {
                     TRN = kpi.TrustId,
                     TrustName = kpi.TrustName,
-                    TrustType = kpi.TrustType
+                    TrustType = ProjectMapper.ToTrustType(kpi.TrustType)
                 }
             }).FirstOrDefaultAsync();
 

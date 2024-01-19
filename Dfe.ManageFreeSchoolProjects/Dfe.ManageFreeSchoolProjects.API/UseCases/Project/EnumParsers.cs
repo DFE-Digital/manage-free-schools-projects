@@ -31,4 +31,9 @@ public static class EnumParsers
     {
         return Enum.TryParse<ClassType.Nursery>(input, out var paredNursery) ? paredNursery : ClassType.Nursery.NotSet;
     }
+    
+    public static TrustType ParseTrustType(string input)
+    {
+        return Enum.TryParse<TrustType>(input, out var trustType) ? trustType : TrustType.NotSet;
+    }
 }
