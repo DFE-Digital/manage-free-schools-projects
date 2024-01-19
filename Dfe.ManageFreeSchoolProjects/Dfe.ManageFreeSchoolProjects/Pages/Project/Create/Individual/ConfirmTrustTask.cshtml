@@ -35,25 +35,14 @@
                     <dt class="govuk-summary-list__key">
                         Trust name:
                     </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trust-name">
-                        @{
-                            RenderValue(Model.TrustName);
-                        }
-
-                    </dd>
-
+                    <dd class="govuk-summary-list__value" data-testid="trust-name">@Model.TrustName</dd>
                 </div>
 
                 <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
                         Trust type:
                     </dt>
-                    <dd class="govuk-summary-list__value" data-testid="trust-type">
-                        @{
-                            RenderValue(Model.TrustType.ToDescription());
-                        }
-                    </dd>
-
+                    <dd class="govuk-summary-list__value" data-testid="trust-type">@Model.TrustType.ToDescription()</dd>
                 </div>
             </dl>
             <div>
