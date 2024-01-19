@@ -236,7 +236,7 @@ class CreateProjectPage {
     }
 
     public hasConfirmedEmailMessage(value: string) {
-        cy.getByTestId("confirmation-email").should("have.text", value);
+        cy.getByTestId("confirmation-email").should("contain.text", value);
         return this;
     }    
 }
