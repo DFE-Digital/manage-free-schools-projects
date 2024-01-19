@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     
     public enum TrustType
     {
-        [Description("NotSet")]
+        [Description("Not set")]
         NotSet,
         [Description("SAT (single academy trust)")]
         SingleAcademyTrust,
