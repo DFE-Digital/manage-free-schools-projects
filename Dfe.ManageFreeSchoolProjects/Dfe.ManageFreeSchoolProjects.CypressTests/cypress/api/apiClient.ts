@@ -1,4 +1,4 @@
-import { EnvApi } from "cypress/constants/cypressConstants";
+import { EnvApi, EnvApiKey } from "cypress/constants/cypressConstants";
 
 export class ApiClient {
     public post<TRequest extends object, TResponse extends object>(
@@ -9,7 +9,7 @@ export class ApiClient {
             .request<TResponse>({
                 method: "POST",
                 url: Cypress.env(EnvApi) + endpoint,
-                headers: this.getHeaders,
+                headers: this.getHeaders(),
                 body: request,
             })
             .then((response) => {
@@ -34,6 +34,7 @@ export class ApiClient {
     protected getHeaders(): object {
         const result = {
             "Content-type": "application/json",
+            ApiKey: Cypress.env(EnvApiKey)
         };
         return result;
     }

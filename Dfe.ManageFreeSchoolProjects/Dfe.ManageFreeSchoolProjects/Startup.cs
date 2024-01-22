@@ -129,9 +129,8 @@ public class Startup
         {
             MfspOptions mfspOptions = GetTypedConfigurationFor<MfspOptions>();
             client.BaseAddress = new Uri(mfspOptions.ApiEndpoint);
+            client.DefaultRequestHeaders.Add("ApiKey", mfspOptions.ApiKey);
         });
-
-        services.Configure<ServiceLinkOptions>(GetConfigurationSectionFor<ServiceLinkOptions>());
 
         services.AddScoped<ErrorService>();
         services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();

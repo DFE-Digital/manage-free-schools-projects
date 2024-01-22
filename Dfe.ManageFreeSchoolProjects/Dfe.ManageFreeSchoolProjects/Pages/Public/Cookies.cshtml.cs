@@ -12,18 +12,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 {
 	public class Cookies : PageModel
 	{
-		private const string ConsentCookieName = ".ManageFreeSchoolProjects.Consent";
 		public bool? Consent { get; set; }
 		public bool PreferencesSet { get; set; } = false;
 		public string returnPath { get; set; }
 		private readonly ILogger<Cookies> _logger;
-		private readonly IOptions<ServiceLinkOptions> _options;
 		private readonly IAnalyticsConsentService _analyticsConsentService;
 
-		public Cookies(ILogger<Cookies> logger, IOptions<ServiceLinkOptions> options, IAnalyticsConsentService analyticsConsentService)
+		public Cookies(ILogger<Cookies> logger, IAnalyticsConsentService analyticsConsentService)
 		{
 			_logger = logger;
-			_options = options;
 			_analyticsConsentService = analyticsConsentService;
 		}
 
@@ -32,7 +29,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Public
 		public ActionResult OnGet(bool? consent, string returnUrl)
 		{
 			returnPath = returnUrl;
-			TransfersCookiesUrl = $"{_options.Value.TransfersUrl}/cookie-preferences?returnUrl=%2Fhome";
 
 			Consent = _analyticsConsentService.ConsentValue();
 
