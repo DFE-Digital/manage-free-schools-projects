@@ -225,6 +225,8 @@ describe("Creating an individual project - Create a new project", () => {
         cy.executeAccessibilityTests();	       
         createProjectPage
             .titleIs("Confirm the trust")
+            .hasCorrectTrustName("The James Web School")
+            .hasCorrectTrustType("SAT (single academy trust)")
             .selectOption("Yes")
             .continue();
 

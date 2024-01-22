@@ -11,7 +11,7 @@ class ConfirmTrustPage {
         cy.getByClass("govuk-summary-list__value").eq(1).contains("King's Group Academies");
 
         cy.getByClass("govuk-summary-list__key").eq(2).contains("Trust type:");
-        cy.getByClass("govuk-summary-list__value").eq(2).contains("MAT");
+        cy.getByClass("govuk-summary-list__value").eq(2).contains("MAT (multi-academy trust)");
 
         cy.getByClass("govuk-heading-s").contains("Is this the correct trust?");
 

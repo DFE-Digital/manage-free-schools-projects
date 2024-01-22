@@ -226,6 +226,15 @@ class CreateProjectPage {
         return this;
     }
 
+    public hasCorrectTrustName(trustName: string) {
+        cy.getByTestId("trust-name").should("contain.text", trustName);
+        return this;
+    }
+    public hasCorrectTrustType(trustType: string) {
+        cy.getByTestId("trust-type").should("contain.text", trustType);
+        return this;
+    }
+
     public hasConfirmedEmailMessage(value: string) {
         cy.getByTestId("confirmation-email").should("contain.text", value);
         return this;
