@@ -1,9 +1,17 @@
 ﻿@page "/projects/{projectId}/risk/summary"
 @using Dfe.ManageFreeSchoolProjects.TagHelpers;
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model RiskSummaryModel
 @{
     var isPastRiskRating = Model.Entry > 1;
+    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    ViewData["Title"] = $"{ @Model.RiskDate.ToDateString() } - current risk ratings - { Model.SchoolName }";
+}
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
+    </div>
 }
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">

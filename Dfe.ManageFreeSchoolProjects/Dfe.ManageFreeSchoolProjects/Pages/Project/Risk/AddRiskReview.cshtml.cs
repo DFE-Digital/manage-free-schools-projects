@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 {
@@ -88,7 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             await _createProjectRiskService.Execute(ProjectId, request);
 
-            return Redirect(string.Format(RouteConstants.ProjectRiskConfirmation, ProjectId));
+            return Redirect(string.Format(RouteConstants.ProjectRiskConfirmation, ProjectId, HttpUtility.UrlEncode(SchoolName)));
         }
     }
 }

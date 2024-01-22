@@ -1,7 +1,10 @@
 ﻿@page "/projects/{projectId}/risk/add/education"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model AddEducationRiskModel
 @{
+    ViewData["Title"] = $"New risk rating entry - Education - { Model.SchoolName }";
+
     var riskFormModel = new RiskFormModel
     {
         SchoolName = Model.SchoolName,
@@ -9,6 +12,12 @@
         RiskRating = Model.RiskRating,
         Summary = Model.Summary
     };
-}
 
+    var backLink = string.Format(RouteConstants.ProjectRiskReview, Model.ProjectId);
+}
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href="@backLink" class="govuk-back-link">Back</a>
+    </div>
+}
 <partial name="_RiskForm" model="@riskFormModel" />
