@@ -47,7 +47,7 @@
 
         public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
         public const string ProjectRiskReview = "/projects/{0}/risk/add/review";
-        public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation";
+        public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation?schoolName={1}";
         public const string CreateFaithStatus = CreateProject + "/faith-status";
         public const string CreateFaithType = CreateProject + "/faith-type";
     }

@@ -2,6 +2,8 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Risk.AddRiskConfirmationModel
 @{
+    ViewData["Title"] = $"New risk rating entry - Confirmation - { Model.SchoolName }";
+
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var projectRiskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
     var today = DateTime.Now.ToDateString();
