@@ -55,6 +55,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string Grade6 { get; set; }
         public string ProjectDirector { get; set; }
         public string ProjectManager { get; set; }
+        public string ChairOfGovernors { get; set; }
+        public string SchoolChairOfGovernors { get; set; }
     }
 
     public record SiteInformationResponse
