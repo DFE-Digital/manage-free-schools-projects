@@ -1,0 +1,18 @@
+@page "/projects/{projectId}/contacts/other-info-contacts-landing-page"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model ContactsSummaryModel
+
+@{
+    ViewData["Title"] = $"Contacts";
+    var backLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
+}
+
+<partial name="_ErrorSummary" />
+
+@section BeforeMain {
+    <div class="govuk-width-container msfp-wider-page">
+        <a href="@backLink" class="govuk-back-link">Back</a>
+    </div>
+}
+
