@@ -1,4 +1,4 @@
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 
     public record ContactsTask
     {
