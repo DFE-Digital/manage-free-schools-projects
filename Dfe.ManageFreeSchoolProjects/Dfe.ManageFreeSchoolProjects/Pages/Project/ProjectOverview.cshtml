@@ -1,5 +1,7 @@
 ﻿ @page "/projects/{projectId}/overview"
+@using Dfe.ManageFreeSchoolProjects.Configuration
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@addTagHelper *, Microsoft.FeatureManagement.AspNetCore
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 
 @{
@@ -48,9 +50,11 @@
                 <li class="app-sub-navigation__item">
                     <a class="app-sub-navigation__link" href="@taskListLink">Task list</a>
                 </li>
-                <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" href="#">Project notes</a>
-                </li>
+                <feature name="@FeatureFlags.IsProjectNotesEnabled">
+                    <li class="app-sub-navigation__item">
+                        <a class="app-sub-navigation__link" href="#">Project notes</a>
+                    </li>
+                </feature>
             </ul>
 
         </nav>
@@ -532,8 +536,8 @@
 </div>
 
 <script asp-add-nonce>
-    const handleScroll = () => { 
-        let found = false; 
+    const handleScroll = () => {
+        let found = false;
         document.querySelectorAll("a[data-link-scroll]")
             .forEach(x => {
                 const yy = document.querySelector('#' + x.href.split("#")[1]).getBoundingClientRect().y;
@@ -544,7 +548,7 @@
                 else {
                     x.style.fontWeight = ""
                 }
-            }); 
+            });
     }
 
     document.onscroll = handleScroll;
@@ -556,11 +560,11 @@
     {
         if (string.IsNullOrEmpty(value) || value == "NotSet")
         {
-                <span class="empty">Empty</span>
+            <span class="empty">Empty</span>
         }
         else
         {
-    @value
+            @value
         }
     }
 }

@@ -1,13 +1,18 @@
+using Azure.Storage.Blobs;
 using Dfe.ManageFreeSchoolProjects.Authorization;
 using Dfe.ManageFreeSchoolProjects.Configuration;
 using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
+using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -20,13 +25,6 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
-using Dfe.ManageFreeSchoolProjects.Services.Tasks;
-using Dfe.ManageFreeSchoolProjects.Services.Trust;
-using Dfe.ManageFreeSchoolProjects.Services.Constituency;
-using Azure.Identity;
-using Microsoft.AspNetCore.DataProtection;
-using Azure.Storage.Blobs;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -160,8 +158,6 @@ public class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
     {
-        logger.LogInformation("Feature Flag - Use Academisation API: {usingAcademisationApi}", IsFeatureEnabled("hi"));
-
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -206,11 +202,6 @@ public class Startup
             endpoints.MapRazorPages();
             endpoints.MapControllerRoute("default", "{controller}/{action}/");
         });
-
-        bool IsFeatureEnabled(string flag)
-        {
-            return (app.ApplicationServices.GetService(typeof(IFeatureManager)) as IFeatureManager)?.IsEnabledAsync(flag).Result ?? false;
-        }
     }
 
     /// <summary>
