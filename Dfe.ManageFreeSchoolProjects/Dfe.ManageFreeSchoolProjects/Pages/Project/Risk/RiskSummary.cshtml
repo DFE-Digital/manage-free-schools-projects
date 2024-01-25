@@ -10,7 +10,7 @@
     const string CurrentRiskRatings = "current risk ratings";
     const string PastRiskRatings = "past risk ratings";
 
-    var Title = $"{@Model.RiskDate.ToDateString()} - {(isPastRiskRating == true ? PastRiskRatings : CurrentRiskRatings)}";
+    var Title = $"{@Model.RiskDate.ToDateString()} - {(isPastRiskRating ? PastRiskRatings : CurrentRiskRatings)}";
 
     ViewData["Title"] = $"{Title} - { Model.SchoolName}";
 }
