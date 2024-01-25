@@ -11,6 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         public T Get();
         public void Delete();
         public void Update(T item);
+        public bool HasEntry();
     }
 
     public abstract class CookieCacheService<T> : ICookieCacheService<T> where T : new()
@@ -52,6 +53,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             _item = result;
 
             return result;
+        }
+
+        public bool HasEntry()
+        {
+            return _httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(_key);
         }
 
         public void Delete()

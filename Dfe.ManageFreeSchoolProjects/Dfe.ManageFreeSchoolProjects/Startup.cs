@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Authorization;
 using Dfe.ManageFreeSchoolProjects.Configuration;
 using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Admin;
 using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -55,7 +56,6 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddHttpClient();
-        services.AddFeatureManagement();
         services.AddHealthChecks();
         services
            .AddRazorPages(options =>
@@ -95,6 +95,9 @@ public class Startup
         services.AddScoped<INotifyUserService, NotifyUserService>();
         services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
         services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
+        services.AddScoped<IFeatureFlagCache, FeatureFlagCache>();
+
+        services.AddFeatureManagement().AddSessionManager<FeatureFlagSessionManager>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
