@@ -3,7 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model AddRiskReviewModel
 @{
-    ViewData["Title"] = $"New risk rating entry - Check your answers - { Model.SchoolName }";
+    ViewData["Title"] = $"Review ratings and summaries - { Model.SchoolName }";
     var backLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 @section BeforeMain {
@@ -17,7 +17,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName - new risk rating entry</span>
+            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             Review ratings and summaries
         </h1>
     </div>
