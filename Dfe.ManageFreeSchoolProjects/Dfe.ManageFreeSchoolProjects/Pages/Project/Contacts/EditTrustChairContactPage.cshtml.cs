@@ -120,7 +120,7 @@ public class EditTrustChairContactModel : PageModel
             
         };
 
-        _addContactsService.Execute(ProjectId, updateContactsRequest);
+        await _addContactsService.Execute(ProjectId, updateContactsRequest);
 
         return Redirect(GetNextPage());
     }
