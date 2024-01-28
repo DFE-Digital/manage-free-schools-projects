@@ -4,13 +4,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
     {
         public string ChairOfGovernorsName { get; set; }
         
-        public string ChairOfGovernorsTelephoneNumber { get; set; }
-        
         public string ChairOfGovernorsEmail { get; set; }
         
         public string SchoolChairOfGovernorsName { get; set; }
-        
-        public string SchoolChairOfGovernorsTelephoneNumber { get; set; }
         
         public string SchoolChairOfGovernorsEmail { get; set; }
     }

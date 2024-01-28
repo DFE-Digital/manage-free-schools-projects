@@ -7,6 +7,7 @@
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var riskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
+    var contactsSummaryLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
 }
 @section BeforeMain
 {
@@ -431,7 +432,7 @@
         <div class="govuk-summary-card" id="contacts">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Contacts</h2><div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="" data-testid="change-contacts">
+                    <a class="govuk-link" href="@contactsSummaryLink" data-testid="change-contacts">
                         View details<span class="govuk-visually-hidden">Change contacts</span>
                     </a>
                 </div>

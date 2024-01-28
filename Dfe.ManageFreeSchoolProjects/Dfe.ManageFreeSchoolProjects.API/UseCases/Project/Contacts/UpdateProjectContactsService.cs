@@ -36,10 +36,8 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
 
         dbProject.KeyContactsChairOfGovernorsName = updateRequest.Contacts.ChairOfGovernorsName ?? dbProject.KeyContactsChairOfGovernorsName;
         dbProject.KeyContactsChairOfGovernorsEmail = updateRequest.Contacts.ChairOfGovernorsEmail ?? dbProject.KeyContactsChairOfGovernorsEmail;
-        dbProject.KeyContactsChairOfGovernorsPhone = updateRequest.Contacts.ChairOfGovernorsTelephoneNumber ?? dbProject.KeyContactsChairOfGovernorsMatPhone;
         dbProject.KeyContactsChairOfGovernorsMat = updateRequest.Contacts.SchoolChairOfGovernorsName ?? dbProject.KeyContactsChairOfGovernorsMat;
         dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.SchoolChairOfGovernorsEmail ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
-        dbProject.KeyContactsChairOfGovernorsMatPhone = updateRequest.Contacts.SchoolChairOfGovernorsTelephoneNumber ?? dbProject.KeyContactsChairOfGovernorsMatPhone;
         
         await _context.SaveChangesAsync();
 

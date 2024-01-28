@@ -36,10 +36,9 @@ public class GetProjectContactsService : IGetProjectContactsService
                
                ChairOfGovernorsName = dbProject.KeyContactsChairOfGovernorsName,
                ChairOfGovernorsEmail = dbProject.KeyContactsChairOfGovernorsEmail,
-               ChairOfGovernorsTelephoneNumber = dbProject.KeyContactsChairOfGovernorsPhone,
                SchoolChairOfGovernorsName = dbProject.KeyContactsChairOfGovernorsMat,
                SchoolChairOfGovernorsEmail = dbProject.KeyContactsChairOfGovernorsMatEmail,
-               SchoolChairOfGovernorsTelephoneNumber = dbProject.KeyContactsChairOfGovernorsMatPhone
+               
            }
         };
 

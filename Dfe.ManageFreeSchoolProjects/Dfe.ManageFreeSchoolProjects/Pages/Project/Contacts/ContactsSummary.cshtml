@@ -5,14 +5,106 @@
 
 @{
     ViewData["Title"] = $"Contacts";
-    var backLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var trustChairLinkLink = string.Format(RouteConstants.ViewTrustChairContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary" />
 
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
-        <a href="@backLink" class="govuk-back-link">Back</a>
+        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
     </div>
 }
 
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-xl">
+        @ViewData["Title"]
+    </h1>
+
+       
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">School chair of governors</h2>
+                <div class="govuk-summary-card__actions">
+          <a class="govuk-link" href="#">
+              Change
+              <span class="govuk-visually-hidden">School chair of governors</span>
+            </a>
+        </div></div>
+        
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+            
+              
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Name
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.Contacts.Contacts.SchoolChairOfGovernorsName
+                        </dd>
+                  
+                    </div>
+              
+            
+              
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Email address
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.Contacts.Contacts.SchoolChairOfGovernorsEmail
+                        </dd>
+                  
+                    </div>
+              
+            
+                </dl>
+            </div>
+            
+            
+            
+            
+        </div>
+        
+        
+         <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Trust chair</h2>
+                        <div class="govuk-summary-card__actions">
+                  <a class="govuk-link" href="@trustChairLinkLink">
+                      Change
+                      <span class="govuk-visually-hidden">Trust chair</span>
+                    </a>
+                </div></div>
+                
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                    
+                      
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Name
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @Model.Contacts.Contacts.ChairOfGovernorsName
+                                </dd>
+                          
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Email address
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @Model.Contacts.Contacts.ChairOfGovernorsEmail
+                                </dd>
+                          
+                            </div>
+                      
+                    
+                        </dl>
+                    </div>
+                </div>
+    </div>
+</div>
