@@ -18,6 +18,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuth
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using System.ComponentModel;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -92,7 +93,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
             services.AddScoped<ISearchConstituencyService, SearchConstituencyService>();
             services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
-
+            services.AddScoped<IGetProjectContactsService, GetProjectContactsService>();
+            services.AddScoped<IUpdateProjectContactsService, UpdateProjectContactsService>();
 			services.AddScoped<IUpdateTaskService, UpdateSchoolTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDatesTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateRegionAndLocalAuthorityTaskService>();

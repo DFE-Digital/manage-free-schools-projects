@@ -78,7 +78,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     TeamLeader = project.KeyContactsFsgTeamLeader,
                     Grade6 = project.KeyContactsFsgGrade6,
                     ProjectDirector = project.KeyContactsEsfaCapitalProjectDirector,
-                    ProjectManager = project.KeyContactsEsfaCapitalProjectManager
+                    ProjectManager = project.KeyContactsEsfaCapitalProjectManager,
+                    ChairOfGovernors = project.KeyContactsChairOfGovernorsName,
+                    SchoolChairOfGovernors = project.KeyContactsChairOfGovernorsMat
                 },
                 SiteInformation = new()
                 {
