@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency.SearchConstituencyModel
 @{
-    ViewData["Title"] = $"Search Constituency - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Search for a constituency - {Model.CurrentFreeSchoolName}";
     var backlink = string.Format(RouteConstants.ViewConstituency, Model.ProjectId);
 }
 @section BeforeMain {

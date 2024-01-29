@@ -3,12 +3,12 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model AddFinanceRiskModel
 @{
-    ViewData["Title"] = $"New risk rating entry - Finance - { Model.SchoolName }";
+    ViewData["Title"] = $"Finance risk - {Model.SchoolName}";
 
     var riskFormModel = new RiskFormModel
     {
         SchoolName = Model.SchoolName,
-        Heading = "Finance (optional)",
+        Heading = "Finance",
         RiskRating = Model.RiskRating,
         Summary = Model.Summary
     };

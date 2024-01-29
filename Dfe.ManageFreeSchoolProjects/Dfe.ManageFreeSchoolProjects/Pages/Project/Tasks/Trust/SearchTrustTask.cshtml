@@ -3,7 +3,7 @@
 @*@using NetEscapades.AspNetCore.SecurityHeaders;*@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.SearchTrustTaskModel
 @{
-    ViewData["Title"] = $"Search Trust - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Search for a trust - {Model.CurrentFreeSchoolName}";
     var backlink = string.Format(RouteConstants.ViewTrustTask, Model.ProjectId);
     //Model.Nonce = HttpContext.GetNonce();
 }
