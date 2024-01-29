@@ -10,7 +10,7 @@
     var schoolChairLink = string.Format(RouteConstants.ViewSchoolChairContact, Model.ProjectId);
 }
 
-<partial name="_ErrorSummary" />
+<partial name="_ErrorSummary"/>
 
 @section BeforeMain {
     <div class="govuk-width-container msfp-wider-page">
@@ -19,27 +19,29 @@
 }
 
 <div class="govuk-grid-row">
-<div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-xl">
-          <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-        @ViewData["Title"]
-    </h1>
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+            @ViewData["Title"]
+        </h1>
 
-       
+
         <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">School chair of governors</h2>
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">School chair of governors</h2>
                 <div class="govuk-summary-card__actions">
-          <a class="govuk-link" href="@schoolChairLink">
-              Change
-              <span class="govuk-visually-hidden">School chair of governors</span>
-            </a>
-        </div></div>
-        
+                    <a class="govuk-link" href="@schoolChairLink">
+                        Change
+                        <span class="govuk-visually-hidden">School chair of governors</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
-            
-              
+
+
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Name
@@ -47,11 +49,10 @@
                         <dd class="govuk-summary-list__value">
                             @Model.Contacts.Contacts.SchoolChairOfGovernorsName
                         </dd>
-                  
+
                     </div>
-              
-            
-              
+
+
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Email address
@@ -59,54 +60,54 @@
                         <dd class="govuk-summary-list__value">
                             @Model.Contacts.Contacts.SchoolChairOfGovernorsEmail
                         </dd>
-                  
+
                     </div>
-              
-            
+
+
                 </dl>
             </div>
-            
-            
-            
-            
+
+
         </div>
-        
-        
-         <div class="govuk-summary-card">
-                    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Trust chair</h2>
-                        <div class="govuk-summary-card__actions">
-                  <a class="govuk-link" href="@trustChairLink">
-                      Change
-                      <span class="govuk-visually-hidden">Trust chair</span>
+
+
+        <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">Trust chair</h2>
+                <div class="govuk-summary-card__actions">
+                    <a class="govuk-link" href="@trustChairLink">
+                        Change
+                        <span class="govuk-visually-hidden">Trust chair</span>
                     </a>
-                </div></div>
-                
-                    <div class="govuk-summary-card__content">
-                        <dl class="govuk-summary-list">
-                    
-                      
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">
-                                    Name
-                                </dt>
-                                <dd class="govuk-summary-list__value">
-                                    @Model.Contacts.Contacts.ChairOfGovernorsName
-                                </dd>
-                          
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">
-                                    Email address
-                                </dt>
-                                <dd class="govuk-summary-list__value">
-                                    @Model.Contacts.Contacts.ChairOfGovernorsEmail
-                                </dd>
-                          
-                            </div>
-                      
-                    
-                        </dl>
-                    </div>
                 </div>
+            </div>
+
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Name
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.Contacts.Contacts.ChairOfGovernorsName
+                        </dd>
+
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Email address
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.Contacts.Contacts.ChairOfGovernorsEmail
+                        </dd>
+
+                    </div>
+
+
+                </dl>
+            </div>
+        </div>
     </div>
 </div>
