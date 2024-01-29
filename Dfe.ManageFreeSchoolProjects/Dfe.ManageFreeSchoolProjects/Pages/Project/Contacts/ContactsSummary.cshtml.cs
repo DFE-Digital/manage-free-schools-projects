@@ -19,25 +19,22 @@ public class ContactsSummaryModel : PageModel
     
     private readonly ILogger<ContactsSummaryModel> _logger;
     
-    
-    private readonly ErrorService _errorService;
-    
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
     
     public string SchoolName { get; set; }
     
     public GetContactsResponse Contacts;
-   public ContactsSummaryModel(IGetContactsService getContactsService, IGetProjectOverviewService projectOverviewService,ErrorService errorService, ILogger<ContactsSummaryModel> logger )
+   public ContactsSummaryModel(IGetContactsService getContactsService, IGetProjectOverviewService projectOverviewService, ILogger<ContactsSummaryModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
-        _errorService = errorService;
+        _logger = logger;
     }
 
    public async Task<IActionResult> OnGet()
    {
-      // _logger.LogMethodEntered("ddsadsa");
+       _logger.LogMethodEntered();
 
        try
        {
