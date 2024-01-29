@@ -2,6 +2,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Errors.IndexModel
 @inject Microsoft.Extensions.Configuration.IConfiguration _configuration
 @{
+	ViewData["Title"] = !string.IsNullOrEmpty(Model.ErrorMessage) ? Model.ErrorMessage : "Error";
 }
 <div class="govuk-width-container">
 	<main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
