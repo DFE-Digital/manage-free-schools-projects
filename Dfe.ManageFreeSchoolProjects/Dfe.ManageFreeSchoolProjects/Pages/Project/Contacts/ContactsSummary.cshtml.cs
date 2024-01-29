@@ -23,9 +23,10 @@ public class ContactsSummaryModel : PageModel
     public string ProjectId { get; set; }
     
     public string SchoolName { get; set; }
-    
-    public GetContactsResponse Contacts;
-   public ContactsSummaryModel(IGetContactsService getContactsService, IGetProjectOverviewService projectOverviewService, ILogger<ContactsSummaryModel> logger )
+
+    public GetContactsResponse Contacts { get; set; }
+
+    public ContactsSummaryModel(IGetContactsService getContactsService, IGetProjectOverviewService projectOverviewService, ILogger<ContactsSummaryModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
