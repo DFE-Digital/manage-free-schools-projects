@@ -105,9 +105,8 @@ describe("Testing the home page", () => {
             dashboardApi
                 .get({ project: paginationPrefix, regions: [region] })
                 .then((response) => {
-                    console.log(response);
                     const currentNumberOfProjects = response.paging.recordCount;
-                    const projectsToCreate = 15 - currentNumberOfProjects;
+                    const projectsToCreate = 41 - currentNumberOfProjects;
 
                     const projects: Array<ProjectDetailsRequest> = [];
 
@@ -143,8 +142,10 @@ describe("Testing the home page", () => {
                 .then((projectIds: Array<string>) => {
                     pageOneProjects = projectIds;
 
-                    Logger.log("Ensure we have 5 projects on page one");
-                    expect(pageOneProjects.length).to.eq(5);
+                    Logger.log("Ensure we have 20 projects on page one");
+                    expect(pageOneProjects.length).to.eq(20);
+
+                    paginationComponent.isCurrentPage("1");
 
                     Logger.log(
                         "Moving to the second page using the direct link",
@@ -155,13 +156,15 @@ describe("Testing the home page", () => {
                 .then((projectIds: Array<string>) => {
                     pageTwoProjects = projectIds;
 
-                    Logger.log("Ensure we have 5 projects on page 2");
-                    expect(pageTwoProjects.length).to.equal(5);
+                    Logger.log("Ensure we have 20 projects on page 2");
+                    expect(pageTwoProjects.length).to.equal(20);
 
                     Logger.log(
                         "Ensure that the projects on page one and two are different",
                     );
                     hasNoSimilarElements(pageOneProjects, pageTwoProjects);
+
+                    paginationComponent.isCurrentPage("2");
 
                     Logger.log("Move to the previous page, which is page 1");
                     paginationComponent.previous();
@@ -182,6 +185,18 @@ describe("Testing the home page", () => {
                         "On moving to page two, we should get the exact same cases",
                     );
                     expect(projectIds).to.deep.equal(pageTwoProjects);
+
+                    Logger.log("Move to the third page");
+
+                    paginationComponent.next();
+
+                    return projectTable.getProjectIds();
+                })
+                .then((projectIds: Array<string>) => {
+                    Logger.log("Should get 1 case on page 3");
+                    expect(projectIds.length).to.equal(1);
+
+                    paginationComponent.isCurrentPage("3");
                 });
         });
     });
