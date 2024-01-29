@@ -67,9 +67,8 @@ public class EditSchoolChairContactModel : PageModel
         try
         {
             var projectId = RouteData.Values["projectId"] as string;
-
+            ProjectId = projectId;
             PageContacts = await _getContactsService.Execute(projectId);
-            
             var project = await _getProjectOverviewService.Execute(projectId);
             SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         }
@@ -94,6 +93,7 @@ public class EditSchoolChairContactModel : PageModel
         
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
+        ProjectId = projectId;
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         
         if (SchoolChairEmail?.Length > 100)
