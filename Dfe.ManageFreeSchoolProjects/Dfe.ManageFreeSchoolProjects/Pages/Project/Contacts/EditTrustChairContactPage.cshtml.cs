@@ -71,7 +71,7 @@ public class EditTrustChairContactModel : PageModel
             PageContacts = await _getContactsService.Execute(projectId);
             
             var project = await _getProjectOverviewService.Execute(projectId);
-            SchoolName = project.SchoolDetails.TrustName;
+            SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         }
         catch (Exception ex)
         {
@@ -94,7 +94,7 @@ public class EditTrustChairContactModel : PageModel
 
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
-        SchoolName = project.SchoolDetails.TrustName;
+        SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
 
         if (TrustChairEmail == null)
         {

@@ -43,7 +43,7 @@ public class ContactsSummaryModel : PageModel
 
            Contacts = await _getContactsService.Execute(projectId);
            var project = await _getProjectOverviewService.Execute(projectId);
-           SchoolName = project.SchoolDetails.TrustName;
+           SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
        }
        catch (Exception ex)
        {
