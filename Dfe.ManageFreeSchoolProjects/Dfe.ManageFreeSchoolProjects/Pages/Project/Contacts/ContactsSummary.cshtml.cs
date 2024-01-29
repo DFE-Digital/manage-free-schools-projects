@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Contacts;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -14,17 +15,23 @@ public class ContactsSummaryModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
+    private readonly IGetProjectOverviewService _getProjectOverviewService;
+    
     private readonly ILogger<ContactsSummaryModel> _logger;
+    
     
     private readonly ErrorService _errorService;
     
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
     
+    public string SchoolName { get; set; }
+    
     public GetContactsResponse Contacts;
-   public ContactsSummaryModel(IGetContactsService getContactsService,ErrorService errorService, ILogger<ContactsSummaryModel> logger )
+   public ContactsSummaryModel(IGetContactsService getContactsService, IGetProjectOverviewService projectOverviewService,ErrorService errorService, ILogger<ContactsSummaryModel> logger )
     {
         _getContactsService = getContactsService;
+        _getProjectOverviewService = projectOverviewService;
         _errorService = errorService;
     }
 
@@ -37,6 +44,8 @@ public class ContactsSummaryModel : PageModel
            var projectId = RouteData.Values["projectId"] as string;
 
            Contacts = await _getContactsService.Execute(projectId);
+           var project = await _getProjectOverviewService.Execute(projectId);
+           SchoolName = project.SchoolDetails.TrustName;
        }
        catch (Exception ex)
        {

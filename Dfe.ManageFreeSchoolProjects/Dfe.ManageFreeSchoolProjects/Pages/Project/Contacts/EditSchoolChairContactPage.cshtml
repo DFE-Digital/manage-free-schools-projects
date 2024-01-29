@@ -1,11 +1,11 @@
-@page "/projects/{projectId}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit"
+@page "/projects/{projectId}/contacts/other-info-contacts-school-chair-of-governors-edit"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model EditTrustChairContactModel
+@model EditSchoolChairContactModel
 
 
 @{
-    ViewData["Title"] = $"Edit trust chair";
+    ViewData["Title"] = $"Edit school chair of governors";
     var backLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
     
 }
@@ -20,8 +20,8 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
+        <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
         <h1 class="govuk-heading-xl">
-              <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             @ViewData["Title"]
         </h1>
     </div>
@@ -39,25 +39,25 @@
 
         <form class="form" method="post">
 
-            <label class="govuk-label govuk-heading-m" for="trust-chair-name">
+            <label class="govuk-label govuk-heading-m" for="school-chair-name">
             Name
             </label>
 
             <govuk-text-input 
-                id="trust-chair-name" 
-                name="trust-chair-name" 
-                asp-for="@Model.PageContacts.Contacts.ChairOfGovernorsName" 
-                test-id="trust-chair-email"
+                id="school-chair-name" 
+                name="school-chair-name" 
+                asp-for="@Model.PageContacts.Contacts.SchoolChairOfGovernorsName" 
+                test-id="school-chair-name"
                 />
             
-             <label class="govuk-label govuk-heading-m" for="trust-chair-name">
+             <label class="govuk-label govuk-heading-m" for="school-chair-email">
                             Email
                         </label>
                         <govuk-text-input 
-                            id="trust-chair-email" 
-                            name="trust-chair-email" 
-                            asp-for="@Model.PageContacts.Contacts.ChairOfGovernorsEmail" 
-                            test-id="trust-chair-email"
+                            id="school-chair-email" 
+                            name="school-chair-email" 
+                            asp-for="@Model.PageContacts.Contacts.SchoolChairOfGovernorsEmail" 
+                            test-id="school-chair-email"
                             />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

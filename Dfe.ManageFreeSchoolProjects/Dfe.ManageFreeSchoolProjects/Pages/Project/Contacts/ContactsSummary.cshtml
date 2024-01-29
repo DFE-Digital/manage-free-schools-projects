@@ -6,7 +6,8 @@
 @{
     ViewData["Title"] = $"Contacts";
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var trustChairLinkLink = string.Format(RouteConstants.ViewTrustChairContact, Model.ProjectId);
+    var trustChairLink = string.Format(RouteConstants.ViewTrustChairContact, Model.ProjectId);
+    var schoolChairLink = string.Format(RouteConstants.ViewSchoolChairContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary" />
@@ -21,6 +22,7 @@
 <div class="govuk-grid-column-two-thirds">
 
     <h1 class="govuk-heading-xl">
+          <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
         @ViewData["Title"]
     </h1>
 
@@ -28,7 +30,7 @@
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">School chair of governors</h2>
                 <div class="govuk-summary-card__actions">
-          <a class="govuk-link" href="#">
+          <a class="govuk-link" href="@schoolChairLink">
               Change
               <span class="govuk-visually-hidden">School chair of governors</span>
             </a>
@@ -73,7 +75,7 @@
          <div class="govuk-summary-card">
                     <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Trust chair</h2>
                         <div class="govuk-summary-card__actions">
-                  <a class="govuk-link" href="@trustChairLinkLink">
+                  <a class="govuk-link" href="@trustChairLink">
                       Change
                       <span class="govuk-visually-hidden">Trust chair</span>
                     </a>

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditTrustChairContactModel : PageModel
+public class EditSchoolChairContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,22 +24,22 @@ public class EditTrustChairContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditTrustChairContactModel> _logger;
+    private readonly ILogger<EditSchoolChairContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(SupportsGet = true, Name = "trust-chair-name")]
+    [BindProperty(SupportsGet = true, Name = "school-chair-name")]
     [ValidText(100)]
-    [DisplayName("Trust chair name")]
-    public string TrustChairName { get; set; }
+    [DisplayName("School chair name")]
+    public string SchoolChairName { get; set; }
 
-    [BindProperty(SupportsGet = true, Name = "trust-chair-email")]
-    [DisplayName("Trust chair email")]
+    [BindProperty(SupportsGet = true, Name = "school-chair-email")]
+    [DisplayName("School chair email")]
     
-    public string TrustChairEmail { get; set; }
+    public string SchoolChairEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -51,12 +51,12 @@ public class EditTrustChairContactModel : PageModel
         return string.Format(RouteConstants.ViewContacts, ProjectId);
     }
 
-    public EditTrustChairContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditTrustChairContactModel> logger )
+    public EditSchoolChairContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditSchoolChairContactModel> logger )
     {
         _getContactsService = getContactsService;
-        _getProjectOverviewService = projectOverviewService;
         _errorService = errorService;
         _addContactsService = addContactsService;
+        _getProjectOverviewService = projectOverviewService;
         _logger = logger;
     }
     
@@ -87,40 +87,40 @@ public class EditTrustChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsEmail = TrustChairEmail,
-                ChairOfGovernorsName = TrustChairName
+                SchoolChairOfGovernorsEmail = SchoolChairEmail,
+                SchoolChairOfGovernorsName = SchoolChairName
             }
         };
-
+        
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         SchoolName = project.SchoolDetails.TrustName;
 
-        if (TrustChairEmail == null)
+        if (SchoolChairEmail == null)
         {
-            ModelState.AddModelError("trust-chair-email", "Enter a valid email.");
+            ModelState.AddModelError("school-chair-email", "Enter a valid email.");
         }
         
-        if (TrustChairEmail?.Length > 100)
+        if (SchoolChairEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-chair-email", "The trust chair email must be 100 characters or less.");
+            ModelState.AddModelError("school-chair-email", "The school chair email must be 100 characters or less.");
         }
         
-        if (!IsEmailValid(TrustChairEmail))
+        if (!IsEmailValid(SchoolChairEmail))
         {
-            ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format.");
+            ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format.");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
-        if (TrustChairName == null)
+        if (SchoolChairName == null)
         {
-            ModelState.AddModelError("trust-chair-name", "Enter a trust chair name.");
+            ModelState.AddModelError("school-chair-name", "Enter a school chair name.");
         }
         
-        if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
+        if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-chair-name", "trust chair name cannot contain numbers.");
+            ModelState.AddModelError("school-chair-name", "school chair name cannot contain numbers.");
         }
         
         if (!ModelState.IsValid)
@@ -133,8 +133,8 @@ public class EditTrustChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsName = TrustChairName,
-                ChairOfGovernorsEmail = TrustChairEmail
+                SchoolChairOfGovernorsName = SchoolChairName,
+                SchoolChairOfGovernorsEmail = SchoolChairEmail
             }
             
         };
