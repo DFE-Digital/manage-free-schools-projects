@@ -40,13 +40,6 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
         dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.SchoolChairOfGovernorsEmail ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
         
         await _context.SaveChangesAsync();
-
-        //var result = new GetContactsResponse()
-       // {
-          //  Contacts = updateRequest.Contacts
-        //};
-
-        //return result;
     }
     
 }
