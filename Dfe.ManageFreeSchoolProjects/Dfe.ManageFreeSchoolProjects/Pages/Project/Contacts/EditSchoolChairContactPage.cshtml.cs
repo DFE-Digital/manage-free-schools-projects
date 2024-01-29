@@ -28,15 +28,15 @@ public class EditSchoolChairContactModel : PageModel
     
     private readonly ErrorService _errorService;
     
-    [BindProperty(SupportsGet = true, Name = "projectId")]
+    [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(SupportsGet = true, Name = "school-chair-name")]
+    [BindProperty(Name = "school-chair-name")]
     [ValidText(100)]
     [DisplayName("School chair name")]
     public string SchoolChairName { get; set; }
 
-    [BindProperty(SupportsGet = true, Name = "school-chair-email")]
+    [BindProperty(Name = "school-chair-email")]
     [DisplayName("School chair email")]
     
     public string SchoolChairEmail { get; set; }
@@ -95,11 +95,6 @@ public class EditSchoolChairContactModel : PageModel
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
-
-        if (SchoolChairEmail == null)
-        {
-            ModelState.AddModelError("school-chair-email", "Enter a valid email.");
-        }
         
         if (SchoolChairEmail?.Length > 100)
         {
@@ -112,15 +107,10 @@ public class EditSchoolChairContactModel : PageModel
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
-
-        if (SchoolChairName == null)
-        {
-            ModelState.AddModelError("school-chair-name", "Enter a school chair name.");
-        }
         
         if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("school-chair-name", "school chair name cannot contain numbers.");
+            ModelState.AddModelError("school-chair-name-numbers", "school chair name cannot contain numbers.");
         }
         
         if (!ModelState.IsValid)
@@ -146,6 +136,6 @@ public class EditSchoolChairContactModel : PageModel
     
     private static bool IsEmailValid(string email)
     {
-        return email != null && new EmailAddressAttribute().IsValid(email);
+        return new EmailAddressAttribute().IsValid(email);
     }
 }
