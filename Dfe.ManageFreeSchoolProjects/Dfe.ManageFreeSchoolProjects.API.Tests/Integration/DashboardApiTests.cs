@@ -282,9 +282,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.Should().BeEmpty();
         }
 
-        // Since the data isn't ordered we can't check specific projects are returned
-        // For now just checking the count
-        // TODO: Check specific projects
         [Fact]
         public async Task When_Get_Pagination_Returns_Dashboard_200()
         {
@@ -296,6 +293,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectFive = DatabaseModelBuilder.BuildProject();
             var projectSix = DatabaseModelBuilder.BuildProject();
 
+            // Force one of the projects to have the same provisional date so it has to then be ordered by name
+            projectThree.ProjectStatusProvisionalOpeningDateAgreedWithTrust = projectTwo.ProjectStatusProvisionalOpeningDateAgreedWithTrust;
+
             var projects = new List<Kpi>()
             {
                 projectOne,
@@ -305,6 +305,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 projectFive,
                 projectSix
             };
+
+            var orderedProjects = projects.OrderByDescending(p => p.ProjectStatusProvisionalOpeningDateAgreedWithTrust).ThenBy(p => p.ProjectStatusCurrentFreeSchoolName).ToList();
+            var orderedProjectIds = orderedProjects.Select(p => p.ProjectStatusProjectId).ToList();
 
             var user = await CreateUser();
             var dbUser = context.Users.First(u => u.Email == user.Email);
@@ -326,15 +329,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             pageOneResult.Paging.HasPrevious.Should().BeFalse();
             pageOneResult.Paging.TotalPages.Should().Be(3);
 
-            var pageTwoResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}&page=3&count=2");
-            pageTwoResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            pageOneResult.Data.Should().Contain(r => r.ProjectId == orderedProjects[0].ProjectStatusProjectId);
+            pageOneResult.Data.Should().Contain(r => r.ProjectId == orderedProjects[1].ProjectStatusProjectId);
 
-            var pageTwoResult = await pageTwoResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+            var pageThreeResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}&page=3&count=2");
+            pageThreeResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            pageTwoResult.Data.Should().HaveCount(2);
-            pageTwoResult.Paging.Page.Should().Be(3);
-            pageTwoResult.Paging.HasNext.Should().BeFalse();
-            pageTwoResult.Paging.HasPrevious.Should().BeTrue();
+            var pageThreeResult = await pageThreeResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            pageThreeResult.Data.Should().HaveCount(2);
+            pageThreeResult.Paging.Page.Should().Be(3);
+            pageThreeResult.Paging.HasNext.Should().BeFalse();
+            pageThreeResult.Paging.HasPrevious.Should().BeTrue();
+
+            pageThreeResult.Data.Should().Contain(r => r.ProjectId == orderedProjects[4].ProjectStatusProjectId);
+            pageThreeResult.Data.Should().Contain(r => r.ProjectId == orderedProjects[5].ProjectStatusProjectId);
+
+            // Get all records
+            // Order is by provisional date desc then name asc
+            var allProjectsResponse = await _client.GetAsync($"/api/v1/client/dashboard?userId={user.Email}&page=1&count=6");
+            allProjectsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var allProjectsResult = await allProjectsResponse.Content.ReadFromJsonAsync<ApiListWrapper<GetDashboardResponse>>();
+
+            allProjectsResult.Data.Should().HaveCount(6);
+            allProjectsResult.Paging.Page.Should().Be(1);
+            allProjectsResult.Paging.HasNext.Should().BeFalse();
+            allProjectsResult.Paging.HasPrevious.Should().BeFalse();
+
+            var allProjectIds = allProjectsResult.Data.Select(p => p.ProjectId).ToList();
+            allProjectIds.Should().Equal(orderedProjectIds);
         }
 
         private async Task<CreateUserRequest> CreateUser()

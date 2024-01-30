@@ -1,7 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using System;
-using System.Diagnostics.Contracts;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
@@ -110,6 +109,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             var result = new RiskAppraisalMeetingTask();
 
             result.RID = rid;
+
+            return result;
+        }
+
+        public static Milestones BuildArticlesOfAssociationTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.MAACheckedSubmittedArticlesMatch = false;
+            result.MAAChairHaveSubmittedConfirmation = false;
+            result.MAAArrangementsMatchGovernancePlans = false;
+            result.FsgPreOpeningMilestonesMaaForecastDate = new DateTime(2030, 3, 1);
+            result.FsgPreOpeningMilestonesMaaActualDateOfCompletion = new DateTime(2030, 3, 1);
+            result.MAACommentsOnDecisionToApprove = "No comments";
+            result.MAASharepointLink = "https://www.test.com/";
 
             return result;
         }

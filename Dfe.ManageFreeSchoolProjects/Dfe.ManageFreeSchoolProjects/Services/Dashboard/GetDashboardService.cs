@@ -63,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             }
 
             query = query.Add("page", parameters.Page.ToString());
-            query = query.Add("count", "5");
+            query = query.Add("count", "20");
 
             endpoint += query.ToString();
 

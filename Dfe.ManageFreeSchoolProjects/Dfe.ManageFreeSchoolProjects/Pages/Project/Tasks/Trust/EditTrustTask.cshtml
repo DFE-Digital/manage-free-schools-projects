@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust.EditTrustTaskModel
 @{
-    ViewData["Title"] = $"Confirm Trust - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Confirm the trust - {Model.CurrentFreeSchoolName}";
     var backlink = string.Format(RouteConstants.SearchTrustTask, Model.ProjectId);
 
     var labels = new [] { "Yes", "No" };

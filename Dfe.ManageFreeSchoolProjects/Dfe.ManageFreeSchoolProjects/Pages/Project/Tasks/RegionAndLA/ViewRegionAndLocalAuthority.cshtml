@@ -4,7 +4,7 @@
 @{
     var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
     var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region);
-    ViewData["Title"] = $"Region - {Model.Project.SchoolName} - Manage free school projects";
+    ViewData["Title"] = $"Region and local authority - {Model.Project.SchoolName}";
 }
 
 <div class="govuk-grid-row">
