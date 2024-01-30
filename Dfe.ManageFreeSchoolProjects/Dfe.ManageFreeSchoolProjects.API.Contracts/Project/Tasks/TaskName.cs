@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+﻿using System.ComponentModel;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public enum TaskName
     {
@@ -9,5 +11,6 @@
         Trust,
         RegionAndLocalAuthority,
         Constituency,
+        ArticlesOfAssociation
     }
 }

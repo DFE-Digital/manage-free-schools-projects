@@ -34,11 +34,12 @@ public class EditSchoolChairContactModel : PageModel
     [BindProperty(Name = "school-chair-name")]
     [ValidText(100)]
     [DisplayName("School chair name")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string SchoolChairName { get; set; }
 
     [BindProperty(Name = "school-chair-email")]
     [DisplayName("School chair email")]
-    
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string SchoolChairEmail { get; set; }
     
     [BindProperty]
@@ -104,13 +105,11 @@ public class EditSchoolChairContactModel : PageModel
         if (!IsEmailValid(SchoolChairEmail))
         {
             ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format.");
-            _errorService.AddErrors(ModelState.Keys, ModelState);
-            return Page();
         }
         
         if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("school-chair-name-numbers", "school chair name cannot contain numbers.");
+            ModelState.AddModelError("school-chair-name", "School chair name cannot contain numbers.");
         }
         
         if (!ModelState.IsValid)
@@ -136,6 +135,6 @@ public class EditSchoolChairContactModel : PageModel
     
     private static bool IsEmailValid(string email)
     {
-        return new EmailAddressAttribute().IsValid(email);
+        return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
     }
 }

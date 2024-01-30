@@ -4,6 +4,7 @@
 	var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
 	var width = Model.Width > 0 ? $"govuk-input--width-{Model.Width}" : "";
 	var testId = Model.TestId ?? Model.Id;
+	var margin = Model.AddMargin ? "govuk-!-margin-bottom-6" : "";
 }
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
 	@if (!string.IsNullOrWhiteSpace(Model.Label))
@@ -18,7 +19,7 @@
 		}
 		if (Model.BoldLabel)
 		{
-			<label class="govuk-label govuk-label--s" for="@Model.Id">
+			<label class="govuk-label govuk-label--m" for="@Model.Id">
 				@Model.Label
 			</label>
 		}
@@ -41,7 +42,7 @@
 			<span class="govuk-visually-hidden">Error:</span> @Model.ErrorMessage
 		</span>
 	}
-	<input class="govuk-input @width @(showError ? "govuk-input--error" : "")"
+	<input class="govuk-input @width @(showError ? "govuk-input--error" : "") @margin"
 	       id="@Model.Id"
 	       name="@Model.Name"
 	       value="@Model.Value"

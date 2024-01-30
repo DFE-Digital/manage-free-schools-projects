@@ -8,6 +8,7 @@
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
 		public ConstituencyTask Constituency { get; set; }
+        public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public string TaskToUpdate
         {
@@ -25,7 +26,9 @@
                     return "RiskAppraisalMeeting";
 				if (Constituency != null)
 					return "Constituency";
-				return null;
+                if (ArticlesOfAssociation != null)
+                    return TaskName.ArticlesOfAssociation.ToString();
+                return null;
             }
         }
     }

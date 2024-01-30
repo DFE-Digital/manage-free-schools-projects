@@ -11,6 +11,7 @@
     var constituencyTaskLink = string.Format(RouteConstants.ViewConstituency, Model.ProjectId);
     var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
+    var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -131,6 +132,22 @@
                     </span>
                     @{
                         RenderStatus(Model.ProjectTaskListSummary.RiskAppraisalMeeting);
+                    }
+                </li>
+            </ul>
+
+            <h2 class="app-task-list__section">
+                Pre-opening
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@articlesOfAssociationLink" class="govuk-link" data-testid="articles-of-association-task">
+                            Articles of association
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.ArticlesOfAssociation);
                     }
                 </li>
             </ul>
