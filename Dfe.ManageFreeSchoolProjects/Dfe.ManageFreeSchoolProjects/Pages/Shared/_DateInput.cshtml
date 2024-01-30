@@ -1,6 +1,7 @@
 ﻿@model Dfe.ManageFreeSchoolProjects.ViewModels.DateInputViewModel
 @{
 	var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
+	var dateInputClass = $"govuk-date-input" + (Model.AddMargin ? " govuk-!-margin-bottom-6" : "");
 }
 
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
@@ -15,7 +16,7 @@
 		}
 		else
 		{
-			<legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+			<legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
 				@Model.Label
 			</legend>
 		}
@@ -29,7 +30,7 @@
 				<span class="govuk-visually-hidden">Error:</span> @Model.ErrorMessage
 			</span>
 		}
-		<div class="govuk-date-input" id="@Model.Id">
+		<div class="@dateInputClass" id="@Model.Id">
 			<div class="govuk-date-input__item">
 				<div class="govuk-form-group">
 					<label class="govuk-label govuk-date-input__label" for="@Model.Id-day">

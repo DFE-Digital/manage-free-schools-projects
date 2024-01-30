@@ -27,6 +27,7 @@ using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection;
 using Azure.Storage.Blobs;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.Contacts;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -92,6 +93,8 @@ public class Startup
         services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
+        services.AddScoped<IGetContactsService, GetContactsService>();
+        services.AddScoped<IAddContactsService, AddContactsService>();
         services.AddScoped<ISearchConstituency, SearchConstituency>();
         services.AddScoped<IAgeRangeCleanerService, AgeRangeCleanerService>();
         services.AddScoped<INotifyUserService, NotifyUserService>();

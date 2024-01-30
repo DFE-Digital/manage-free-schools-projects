@@ -24,6 +24,9 @@
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
 
+        public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
+        public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";        
+
         public const string ViewRiskAppraisalMeetingTask = TaskList + "/risk-appraisal-meeting";
         public const string EditRiskAppraisalMeetingTask = ViewRiskAppraisalMeetingTask + "/edit";
         
@@ -50,5 +53,9 @@
         public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation?schoolName={1}";
         public const string CreateFaithStatus = CreateProject + "/faith-status";
         public const string CreateFaithType = CreateProject + "/faith-type";
+        
+        public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
+        public const string ViewTrustChairContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit";
+        public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
     }
 }

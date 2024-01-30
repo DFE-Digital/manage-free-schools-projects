@@ -14,6 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 	{
 		public bool HeadingLabel { get; set; }
 		
+		[HtmlAttributeName("add-margin")]
+		public bool AddMargin { get; set; } = true;
+		
 		private readonly ErrorService _errorService;
 
 		public DateInputTagHelper(IHtmlHelper htmlHelper, ErrorService errorService) : base(htmlHelper)
@@ -42,7 +45,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Name = Name,
 				Label = Label,
 				HeadingLabel = HeadingLabel,
-				Hint = Hint
+				Hint = Hint,
+				AddMargin = AddMargin
 			};
 
 			if (date.HasValue)
