@@ -323,5 +323,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable { get; set; }
 
         public string FsgPreOpeningMilestonesMi155LinkToSavedDocument { get; set; }
+
+        public bool MAACheckedSubmittedArticlesMatch { get; set; }
+
+        public bool MAAChairHaveSubmittedConfirmation { get; set; }
+
+        public bool MAAArrangementsMatchGovernancePlans { get; set; }
+
+        public string MAACommentsOnDecisionToApprove { get; set; }
+
+        public string MAASharepointLink { get; set; }
     }
 }

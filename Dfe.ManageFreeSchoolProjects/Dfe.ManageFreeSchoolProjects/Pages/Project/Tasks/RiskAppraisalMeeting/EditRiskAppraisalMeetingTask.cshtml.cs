@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
-                var project = await _getProjectService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
+                var project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
                 CurrentFreeSchoolName = project.SchoolName;
                 
                 return Page();

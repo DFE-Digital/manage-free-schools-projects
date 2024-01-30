@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240124102547_ArticlesOfAssociationFields")]
+    partial class ArticlesOfAssociationFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4677,12 +4680,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Milestones", b =>
                 {
-                    b.Property<string>("Rid")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("RID");
-
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv Actual date of completion");
@@ -5446,9 +5443,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MAACommentsOnDecisionToApprove")
-                        .HasMaxLength(999)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(999)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("MAASharepointLink")
                         .HasMaxLength(100)
@@ -5461,7 +5458,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
 
-                    b.HasKey("Rid");
+                    b.Property<string>("Rid")
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("RID");
 
                     b.ToTable("Milestones");
                 });
