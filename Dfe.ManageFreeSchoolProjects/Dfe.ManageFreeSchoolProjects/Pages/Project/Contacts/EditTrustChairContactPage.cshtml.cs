@@ -34,10 +34,12 @@ public class EditTrustChairContactModel : PageModel
     [BindProperty(Name = "trust-chair-name")]
     [ValidText(100)]
     [DisplayName("Trust chair name")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string TrustChairName { get; set; }
 
     [BindProperty(Name = "trust-chair-email")]
     [DisplayName("Trust chair email")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
     
     public string TrustChairEmail { get; set; }
     
@@ -106,12 +108,11 @@ public class EditTrustChairContactModel : PageModel
         {
             ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format.");
             _errorService.AddErrors(ModelState.Keys, ModelState);
-            return Page();
         }
         
         if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-chair-name-numbers", "trust chair name cannot contain numbers.");
+            ModelState.AddModelError("trust-chair-name", "Trust chair name cannot contain numbers.");
         }
         
         if (!ModelState.IsValid)
@@ -137,6 +138,6 @@ public class EditTrustChairContactModel : PageModel
     
     private static bool IsEmailValid(string email)
     {
-        return new EmailAddressAttribute().IsValid(email);
+        return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
     }
 }
