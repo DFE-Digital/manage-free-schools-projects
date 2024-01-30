@@ -105,7 +105,6 @@ public class EditSchoolChairContactModel : PageModel
         if (!IsEmailValid(SchoolChairEmail))
         {
             ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format.");
-            _errorService.AddErrors(ModelState.Keys, ModelState);
         }
         
         if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))

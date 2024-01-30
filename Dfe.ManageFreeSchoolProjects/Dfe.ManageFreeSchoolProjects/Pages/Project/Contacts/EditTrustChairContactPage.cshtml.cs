@@ -107,7 +107,6 @@ public class EditTrustChairContactModel : PageModel
         if (!IsEmailValid(TrustChairEmail))
         {
             ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format.");
-            _errorService.AddErrors(ModelState.Keys, ModelState);
         }
         
         if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
