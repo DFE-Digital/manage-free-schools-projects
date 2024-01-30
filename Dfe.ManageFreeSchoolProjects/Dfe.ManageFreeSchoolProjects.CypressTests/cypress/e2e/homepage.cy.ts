@@ -32,7 +32,7 @@ describe("Testing the home page", () => {
         });
 
         it("Should be able to filter projects by project ID", () => {
-            homePage.withProjectFilter(projectTitlePrefix).applyFilters();
+            homePage.openFilter().withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
                 .getRowByProjectId(firstProject.projectId)
@@ -49,6 +49,12 @@ describe("Testing the home page", () => {
                     row.hasProjectTitle(secondProject.schoolName);
                     row.hasStatus("Not started");
                 });
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasProjectFilter(projectTitlePrefix)
+                .clearFilters();
         });
     });
 
@@ -65,9 +71,15 @@ describe("Testing the home page", () => {
         });
 
         it("Should be able to filter projects by region", () => {
-            homePage.withRegionFilter("North West").applyFilters();
+            homePage.openFilter().withRegionFilter("North West").applyFilters();
 
             projectTable.allRowsHaveRegion("North West");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasRegionFilter("North West")
+                .clearFilters();
         });
     });
 
@@ -89,11 +101,19 @@ describe("Testing the home page", () => {
 
         it("Should be able to filter projects by local authority", () => {
             homePage
+                .openFilter()
                 .withRegionFilter("East of England")
                 .withLocalAuthorityFilter("Bedford")
                 .applyFilters();
 
             projectTable.allRowsHaveLocalAuthority("Bedford");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasRegionFilter("East of England")
+                .hasLocalAuthorityFilter("Bedford")
+                .clearFilters();
         });
     });
 
@@ -130,6 +150,7 @@ describe("Testing the home page", () => {
 
         it("Should paginate the projects based on my filter criteria", () => {
             homePage
+                .openFilter()
                 .withProjectFilter(paginationPrefix)
                 .withRegionFilter(region)
                 .applyFilters();
