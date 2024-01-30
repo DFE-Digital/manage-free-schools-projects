@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Milestones> builder)
 		{
-            builder.HasNoKey();
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.FsgPreOpeningMilestonesAppEvActualDateOfCompletion)
                 .HasColumnType("date")
@@ -547,8 +547,19 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("RID");
-
-		}
+            builder.Property(e => e.MAASharepointLink)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            builder.Property(e => e.MAACommentsOnDecisionToApprove)
+                .HasMaxLength(999)
+                .IsUnicode(false);
+            builder.Property(e => e.MAACheckedSubmittedArticlesMatch)
+                .HasColumnType("bit");
+            builder.Property(e => e.MAAChairHaveSubmittedConfirmation)
+                .HasColumnType("bit");
+            builder.Property(e => e.MAAArrangementsMatchGovernancePlans)
+                .HasColumnType("bit");
+        }
 	}
 
 }

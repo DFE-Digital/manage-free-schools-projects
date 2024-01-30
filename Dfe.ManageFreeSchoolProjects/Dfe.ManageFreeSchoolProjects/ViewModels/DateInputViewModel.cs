@@ -14,5 +14,6 @@
 		public bool DayInvalid { get; set; }
 		public bool MonthInvalid { get; set; }
 		public bool YearInvalid { get; set; }
+		public bool AddMargin { get; set; }
 	}
 }

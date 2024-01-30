@@ -12,5 +12,6 @@
 		public bool HeadingLabel { get; set; }
 		public bool BoldLabel { get; set; }
 		public string TestId { get; set; }
+		public bool AddMargin { get; set; }
 	}
 }

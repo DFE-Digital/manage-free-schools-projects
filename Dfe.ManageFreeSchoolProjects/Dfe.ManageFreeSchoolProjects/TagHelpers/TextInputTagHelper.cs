@@ -16,6 +16,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
 		[HtmlAttributeName("bold-label")]
 		public bool BoldLabel { get; set; }
+		
+		[HtmlAttributeName("add-margin")]
+		public bool AddMargin { get; set; }
 
 		public TextInputTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
 
@@ -32,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Hint = Hint,
 				HeadingLabel = HeadingLabel,
 				BoldLabel = BoldLabel,
+				AddMargin = AddMargin
 			};
 
 			if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)

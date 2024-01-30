@@ -29,6 +29,12 @@ class TaskListPage {
         cy.getByTestId("risk-appraisal-meeting-task").click()
         return this;
     }
+
+    public selectArticlesOfAssociationFromTaskList(): this {
+        cy.getByTestId("articles-of-association-task").click()
+        return this;
+    }
+
     
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");

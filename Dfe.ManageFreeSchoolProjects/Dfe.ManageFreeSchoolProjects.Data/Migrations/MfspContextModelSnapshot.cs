@@ -4677,6 +4677,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Milestones", b =>
                 {
+                    b.Property<string>("Rid")
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(11)")
+                        .HasColumnName("RID");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv Actual date of completion");
@@ -5430,17 +5436,32 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
+                    b.Property<bool>("MAAArrangementsMatchGovernancePlans")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MAAChairHaveSubmittedConfirmation")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("MAACheckedSubmittedArticlesMatch")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MAACommentsOnDecisionToApprove")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)");
+
+                    b.Property<string>("MAASharepointLink")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
 
-                    b.Property<string>("Rid")
-                        .HasMaxLength(11)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(11)")
-                        .HasColumnName("RID");
+                    b.HasKey("Rid");
 
                     b.ToTable("Milestones");
                 });
