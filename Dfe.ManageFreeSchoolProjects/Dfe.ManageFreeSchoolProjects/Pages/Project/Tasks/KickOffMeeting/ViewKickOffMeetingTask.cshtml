@@ -1,0 +1,50 @@
+@page "/projects/{projectId}/tasks/kickoffmeeting"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting.ViewKickOffMeetingTask
+@{
+    ViewData["Title"] = $"Kick-off Meeting - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditArticlesOfAssociation, Model.ProjectId);
+    var kickoffmeeting = Model.Project.KickOffMeeting;
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Kick-off Meeting
+        </h1>
+        <govuk-summary-list>
+            <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementDetails" href="@editlink"/>
+            <govuk-summary-item label="Realistic year of opening" asp-for="@kickoffmeeting.RealisticYearOfOpening" href="@editlink"/>
+            <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@kickoffmeeting.ProvisionalOpeningDate" href="@editlink"/>
+            <govuk-summary-item label="SharePoint link" asp-for="@kickoffmeeting.SharepointLink" href="@editlink"/>
+        </govuk-summary-list>
+        <form method="post">
+            <div class="govuk-form-group">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
+                        <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
+                            Mark this section as complete, you can still make changes later
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>

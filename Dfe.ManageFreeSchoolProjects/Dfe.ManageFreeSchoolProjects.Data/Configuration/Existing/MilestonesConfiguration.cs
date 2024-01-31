@@ -75,6 +75,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.Details of Funding arrangement agreed between LA and Sponsor");
+            builder.Property(e => e.FsgPreOpeningMilestonesDetailsSharepointLink)
+                .HasMaxLength(100)
+                .HasColumnName("FSG Pre Opening Milestones. Sharepoint Link");
             builder.Property(e => e.FsgPreOpeningMilestonesDgpActualDateOfCompletion)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.DGP Actual date of completion");

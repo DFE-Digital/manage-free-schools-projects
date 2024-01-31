@@ -23,6 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string FsgPreOpeningMilestonesViewCostPlan2 { get; set; }
 
         public string FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
+        
+        public string FsgPreOpeningMilestonesDetailsSharepointLink { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesKickOffMeetingHeldActualDate { get; set; }
 
