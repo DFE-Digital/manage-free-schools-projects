@@ -15,7 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.ProjectStatusProjectId = CreateProjectId();
             result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.TrustName = _fixture.Create<string>();
-
             result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.ProjectStatusProjectStatus = _fixture.Create<string>();
             result.ProjectStatusFreeSchoolsApplicationNumber = _fixture.Create<string>().Substring(0, 9);
@@ -51,6 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.KeyContactsEsfaCapitalProjectDirector = _fixture.Create<string>();
             result.SchoolDetailsTrustType = _fixture.Create<string>();
             result.KeyContactsFsgLeadContact = _fixture.Create<string>();
+            
+            result.KeyContactsChairOfGovernorsEmail = _fixture.Create<string>();
+            result.KeyContactsChairOfGovernorsName = _fixture.Create<string>();
+            result.KeyContactsChairOfGovernorsMatEmail = _fixture.Create<string>();
+            result.KeyContactsChairOfGovernorsMat = _fixture.Create<string>();
 
             return result;
         }
