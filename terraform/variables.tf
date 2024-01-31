@@ -253,7 +253,7 @@ variable "enable_dns_zone" {
 variable "cdn_frontdoor_forwarding_protocol" {
   description = "Azure CDN Front Door forwarding protocol"
   type        = string
-  default     = "HttpsOnly"
+  default     = "HttpOnly"
 }
 
 variable "dns_zone_domain_name" {
