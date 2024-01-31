@@ -18,11 +18,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Construct
             _context = context;
         }
 
-        public GetConstructProjectListService()
-        {
-
-        }
-
         public async Task<List<ConstructProjectResponse>> Execute()
         {
             var result = await (from project in _context.Kpi
