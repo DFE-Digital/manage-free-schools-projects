@@ -119,6 +119,12 @@ variable "mssql_server_public_access_enabled" {
   default     = false
 }
 
+variable "mssql_managed_identity_assign_role" {
+  description = "Assign the 'Storage Blob Data Contributor' Role to the SQL Server User-Assigned Managed Identity. Note: If you do not have 'Microsoft.Authorization/roleAssignments/write' permission, you will need to manually assign the 'Storage Blob Data Contributor' Role to the identity"
+  type        = bool
+  default     = false
+}
+
 variable "enable_cdn_frontdoor" {
   description = "Enable Azure CDN FrontDoor. This will use the Container Apps endpoint as the origin."
   type        = bool
@@ -296,6 +302,10 @@ variable "custom_container_apps" {
       })
       cdn_frontdoor_custom_domain = optional(string, "")
     }), null)
+    identity = optional(list(object({
+      type         = string
+      identity_ids = list(string)
+    })), [])
     secrets = optional(list(object({
       name  = string
       value = string
