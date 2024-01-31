@@ -290,7 +290,7 @@ variable "enable_container_health_probe" {
 variable "cdn_frontdoor_health_probe_protocol" {
   description = "Use Http or Https"
   type        = string
-  default     = "Https"
+  default     = "Http"
 }
 
 variable "custom_container_apps" {
