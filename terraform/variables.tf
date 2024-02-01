@@ -77,6 +77,12 @@ variable "container_secret_environment_variables" {
   sensitive   = true
 }
 
+variable "container_scale_http_concurrency" {
+  description = "When the number of concurrent HTTP requests exceeds this value, then another replica is added. Replicas continue to add to the pool up to the max-replicas amount."
+  type        = number
+  default     = 10
+}
+
 variable "enable_mssql_database" {
   description = "Set to true to create an Azure SQL server/database, with a private endpoint within the virtual network"
   type        = bool
@@ -247,7 +253,7 @@ variable "enable_dns_zone" {
 variable "cdn_frontdoor_forwarding_protocol" {
   description = "Azure CDN Front Door forwarding protocol"
   type        = string
-  default     = "HttpsOnly"
+  default     = "HttpOnly"
 }
 
 variable "dns_zone_domain_name" {
@@ -284,7 +290,7 @@ variable "enable_container_health_probe" {
 variable "cdn_frontdoor_health_probe_protocol" {
   description = "Use Http or Https"
   type        = string
-  default     = "Https"
+  default     = "Http"
 }
 
 variable "custom_container_apps" {
