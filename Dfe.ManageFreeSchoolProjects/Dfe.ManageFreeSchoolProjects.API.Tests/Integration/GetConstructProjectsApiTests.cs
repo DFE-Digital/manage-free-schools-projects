@@ -12,6 +12,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
     [Collection(ApiTestCollection.ApiTestCollectionName)]
     public class GetConstructProjectsApiTests : ApiTestsBase
     {
+        private readonly string _constructApiKey = "construct-app-key";
+
         public GetConstructProjectsApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
         }
@@ -89,6 +91,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // This makes sure that any of the optional join tables to not remove it from the list
             var selectedProjectWithMinimumFields = constructProjects.Where(x => x.ProjectId == projectWithMinimumFields.ProjectStatusProjectId).FirstOrDefault();
             selectedProjectWithMinimumFields.CurrentFreeSchoolName.Should().Be(projectWithMinimumFields.ProjectStatusCurrentFreeSchoolName);
+        }
+
+        [Fact]
+        public async Task Get_WithInvalidKey_Returns_401()
+        {
+            using var unauthorisedClient = _testFixture.Application.CreateClient();
+            unauthorisedClient.DefaultRequestHeaders.Add("ApiKey", "invalid-key");
+
+            var getConstructProjectsResponse = await unauthorisedClient.GetAsync($"/api/v1/construct/projects");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Get_WithValidConstructApiKey_Returns_200()
+        {
+            using var authorisedClient = _testFixture.Application.CreateClient();
+            authorisedClient.DefaultRequestHeaders.Add("ApiKey", _constructApiKey);
+
+            var getConstructProjectsResponse = await authorisedClient.GetAsync($"/api/v1/construct/projects");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task Get_NonConstructRoute_ConstructKeyValid_Returns_401()
+        {
+            using var unauthorisedClient = _testFixture.Application.CreateClient();
+            unauthorisedClient.DefaultRequestHeaders.Add("ApiKey", _constructApiKey);
+
+            var getConstructProjectsResponse = await unauthorisedClient.GetAsync($"/api/v1/projects");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
     }
 }
