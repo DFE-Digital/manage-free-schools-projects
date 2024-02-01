@@ -1,8 +1,10 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
 {
@@ -35,9 +37,21 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 return _item;
             }
 
-            var data = _httpContextAccessor.HttpContext.Request.Cookies[_key];
+            string data = "";
 
-            if (data == null)
+            var counter = 0;
+            while(counter < 100)
+            {
+                var chunk = _httpContextAccessor.HttpContext.Request.Cookies[_key + $".{counter}"];
+                if(string.IsNullOrEmpty(chunk))
+                {
+                    break;
+                }
+                data += chunk;
+                counter++;
+            }
+
+            if (string.IsNullOrEmpty(data))
             {
                 return new T();
             }
@@ -56,7 +70,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Delete()
         {
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(_key);
+            foreach (var cookie in _httpContextAccessor.HttpContext.Request.Cookies.Keys)
+            {
+                if (cookie.StartsWith(_key))
+                {
+                    _httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie);
+                }
+            }
         }
 
         public void Update(T item)
@@ -72,7 +92,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 Secure = true,
             };
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(_key, _dataProtector.Protect(json), options);
+            var data = _dataProtector.Protect(json);
+
+            var chunks = StringChunker.Chunk(data, 3000);
+
+            for ( int i = 0; i < chunks.Length; i++ ) { 
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(_key + $".{i}", chunks[i], options);
+            }
         }
     }
 }
