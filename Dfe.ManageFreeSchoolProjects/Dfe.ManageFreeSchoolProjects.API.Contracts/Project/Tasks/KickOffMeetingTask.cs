@@ -2,7 +2,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 public class KickOffMeetingTask
 {
-    public string FundingArrangementDetails { get; set; }
+    public bool FundingArrangementAgreed { get; set; }
     
     public string RealisticYearOfOpening { get; set; }
     

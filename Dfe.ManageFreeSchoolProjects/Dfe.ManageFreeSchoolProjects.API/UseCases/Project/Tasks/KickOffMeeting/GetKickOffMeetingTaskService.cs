@@ -23,10 +23,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
                                 {
                                     KickOffMeeting = new()
                                     {
-                                        FundingArrangementDetails = milestones.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor,
+                                        FundingArrangementAgreed = milestones.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor,
                                         ProvisionalOpeningDate = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                                         RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                                        SharepointLink = milestones.FsgPreOpeningMilestonesDetailsSharepointLink
+                                        SharepointLink = milestones.FsgPreOpeningMilestonesMi141LinkToSavedDocument
                                     }
                                 }).FirstOrDefaultAsync();
 

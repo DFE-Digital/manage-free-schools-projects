@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -53,6 +55,24 @@ public class ViewKickOffMeetingTask : PageModel
         MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
 
         return Page();
+    }
+    
+    public async Task<ActionResult> OnPost()
+    {
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
+        ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+
+        await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
+        {
+            TaskName = TaskName.KickOffMeeting.ToString(),
+            ProjectTaskStatus = ProjectTaskStatus
+        });
+        return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
     }
 
     

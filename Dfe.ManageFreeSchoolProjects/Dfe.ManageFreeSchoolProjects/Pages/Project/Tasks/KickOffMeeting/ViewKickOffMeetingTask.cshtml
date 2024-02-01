@@ -7,7 +7,7 @@
     ViewData["Title"] = $"Kick-off Meeting - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editlink = string.Format(RouteConstants.EditArticlesOfAssociation, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditKickOffMeeting, Model.ProjectId);
     var kickoffmeeting = Model.Project.KickOffMeeting;
 }
 
@@ -23,10 +23,10 @@
             <span class="govuk-caption-l" data-testid="school-name">
                 @Model.Project.SchoolName
             </span>
-            Kick-off Meeting
+            Kick-off meeting
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementDetails" href="@editlink"/>
+            <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementAgreed" href="@editlink"/>
             <govuk-summary-item label="Realistic year of opening" asp-for="@kickoffmeeting.RealisticYearOfOpening" href="@editlink"/>
             <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@kickoffmeeting.ProvisionalOpeningDate" href="@editlink"/>
             <govuk-summary-item label="SharePoint link" asp-for="@kickoffmeeting.SharepointLink" href="@editlink"/>

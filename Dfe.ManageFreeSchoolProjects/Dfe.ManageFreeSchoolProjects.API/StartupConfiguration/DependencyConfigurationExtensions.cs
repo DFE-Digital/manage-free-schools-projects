@@ -21,6 +21,7 @@ using System.ComponentModel;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -103,6 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateConstituencyTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateTrustTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateArticlesOfAssociationTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
