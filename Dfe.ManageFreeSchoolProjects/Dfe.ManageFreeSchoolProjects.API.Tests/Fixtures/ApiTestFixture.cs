@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 {
     public class ApiTestFixture : IDisposable
 	{
-		private readonly WebApplicationFactory<Startup> _application;
+		public WebApplicationFactory<Startup> Application { get; init; }
 
 		public HttpClient Client { get; init; }
 
@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 				{
 					string connectionString = null;
 
-					_application = new WebApplicationFactory<Startup>()
+					Application = new WebApplicationFactory<Startup>()
 						.WithWebHostBuilder(builder =>
 						{
 							var configPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.tests.json");
@@ -78,7 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 		private HttpClient CreateHttpClient(UserInfo userInfo)
 		{
-			var client = _application.CreateClient();
+			var client = Application.CreateClient();
 			client.DefaultRequestHeaders.Add("ApiKey", "app-key");
 			client.DefaultRequestHeaders.Add("ContentType", MediaTypeNames.Application.Json);
 
@@ -109,7 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 		public void Dispose()
 		{
-			_application.Dispose();
+			Application.Dispose();
 			Client.Dispose();
 		}
 	}
