@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         public string ProjectId { get; set; }
         
         [BindProperty(Name = "funding-arrangements-agreed")]
-        public bool FundingArrangementsAgreed { get; set; }
+        public bool? FundingArrangementsAgreed { get; set; }
         
         [BindProperty(Name = "funding-arrangements-details-agreed")]
         [Display(Name = "funding arrangements details agreed")]
