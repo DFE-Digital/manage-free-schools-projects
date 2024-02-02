@@ -25,6 +25,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.ProjectStatusProvisionalOpeningDateAgreedWithTrust = _fixture.Create<DateTime>();
             result.ProjectStatusActualOpeningDate = _fixture.Create<DateTime>();
             result.ProjectStatusTrustsPreferredYearOfOpening = _fixture.Create<string>();
+            result.ProjectStatusFreeSchoolPenPortrait = _fixture.Create<string>();
+            result.ProjectStatusDateClosed = _fixture.Create<DateTime>();
 
             result.LocalAuthority = _fixture.Create<string>();
             result.SchoolDetailsGeographicalRegion = _fixture.Create<string>();
@@ -43,6 +45,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsFaithType = _fixture.Create<string>();
             result.SchoolDetailsTrustId = _fixture.Create<string>().Substring(0, 4);
             result.SchoolDetailsTrustName = _fixture.Create<string>();
+            result.SchoolDetailsLaestabWhenGivenOne = _fixture.Create<string>();
+            result.SchoolDetailsDetailsOfResidentialBoardingProvision = _fixture.Create<string>();
+            result.SchoolDetailsResidentialOrBoardingProvision = _fixture.Create<string>();
+            result.SchoolDetailsSixthFormType = _fixture.Create<string>();
+            result.SchoolDetailsPleaseSpecifyOtherFaithType = _fixture.Create<string>();
+            result.SchoolDetailsSpecialism = _fixture.Create<string>();
+            result.SchoolDetailsRscRegion = _fixture.Create<string>();
 
             result.KeyContactsFsgTeamLeader = _fixture.Create<string>();
             result.KeyContactsFsgGrade6 = _fixture.Create<string>();
@@ -50,11 +59,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.KeyContactsEsfaCapitalProjectDirector = _fixture.Create<string>();
             result.SchoolDetailsTrustType = _fixture.Create<string>();
             result.KeyContactsFsgLeadContact = _fixture.Create<string>();
-            
             result.KeyContactsChairOfGovernorsEmail = _fixture.Create<string>();
             result.KeyContactsChairOfGovernorsName = _fixture.Create<string>();
             result.KeyContactsChairOfGovernorsMatEmail = _fixture.Create<string>();
             result.KeyContactsChairOfGovernorsMat = _fixture.Create<string>();
+            result.KeyContactsSchoolAddress = _fixture.Create<string>();
+            result.KeyContactsPostcode = _fixture.Create<string>();
 
             return result;
         }
@@ -130,6 +140,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesMaaActualDateOfCompletion = new DateTime(2030, 3, 1);
             result.MAACommentsOnDecisionToApprove = "No comments";
             result.MAASharepointLink = "https://www.test.com/";
+            result.FsgPreOpeningMilestonesKickOffMeetingHeldActualDate = _fixture.Create<DateTime>();
+            result.FsgPreOpeningMilestonesFaActualDateOfCompletion = _fixture.Create<DateTime>();
+            result.FsgPreOpeningMilestonesFaForecastDate = _fixture.Create<DateTime>();
 
             return result;
         }
@@ -148,5 +161,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
         
         
 
+        public static Po PupilNumbersAndCapacity(string rid)
+        {
+            var result = new Po()
+            {
+                Rid = rid,
+                PupilNumbersAndCapacityTotalOfCapacityTotals = _fixture.Create<int>().ToString()
+            };
+
+            return result;
+        }
     }
 }

@@ -1,6 +1,11 @@
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases
 {
-    public class ApiKeyValidationService : IUseCase<string, bool>
+    public interface IApiKeyValidationService
+    {
+        public bool Execute(string keyToValidate);
+    }
+
+    public class ApiKeyValidationService : IApiKeyValidationService
     {
         private readonly IConfiguration _configuration;
 

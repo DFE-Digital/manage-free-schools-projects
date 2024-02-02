@@ -6,11 +6,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
     {
         private readonly RequestDelegate _next;
         private const string APIKEYNAME = "ApiKey";
-        public ApiKeyMiddleware(RequestDelegate next)
+
+        public ApiKeyMiddleware(
+			RequestDelegate next)
         {
             _next = next;
         }
-        public async Task InvokeAsync(HttpContext context, IUseCase<string, bool> apiKeyValidationService)
+        public async Task InvokeAsync(
+			HttpContext context,
+            IApiKeyValidationService apiKeyValidationService,
+            IConstructApiKeyValidationService constructApiKeyValidationService)
         {
 	        if (IsApiCall(context))
 	        {
@@ -25,9 +30,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
 
 		        if (!isKeyValid)
 		        {
-			        context.Response.StatusCode = 401;
-			        await context.Response.WriteAsync("Unauthorized client.");
-			        return;
+					var isConstructRouteWithValidKey = constructApiKeyValidationService.Execute(context, extractedApiKey);
+
+					if (!isConstructRouteWithValidKey)
+					{
+                        context.Response.StatusCode = 401;
+                        await context.Response.WriteAsync("Unauthorized client.");
+                        return;
+                    }
 		        }
 	        }
 

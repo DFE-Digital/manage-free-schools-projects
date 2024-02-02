@@ -4,14 +4,12 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Extensions;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
