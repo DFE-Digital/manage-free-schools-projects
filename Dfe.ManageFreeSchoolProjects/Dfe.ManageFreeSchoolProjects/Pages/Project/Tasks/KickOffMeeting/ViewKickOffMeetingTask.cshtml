@@ -26,7 +26,14 @@
             Kick-off meeting
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementAgreed" href="@editlink"/>
+            @if(@kickoffmeeting.FundingArrangementDetailsAgreed == null)
+            {
+                <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementAgreed" href="@editlink"/>
+            }
+            else
+            {
+                <govuk-summary-item label="Funding arrangement details agreed between local authority and sponsor" asp-for="@kickoffmeeting.FundingArrangementDetailsAgreed" href="@editlink"/>
+            }
             <govuk-summary-item label="Realistic year of opening" asp-for="@kickoffmeeting.RealisticYearOfOpening" href="@editlink"/>
             <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@kickoffmeeting.ProvisionalOpeningDate" href="@editlink"/>
             <govuk-summary-item label="SharePoint link" asp-for="@kickoffmeeting.SharepointLink" href="@editlink"/>

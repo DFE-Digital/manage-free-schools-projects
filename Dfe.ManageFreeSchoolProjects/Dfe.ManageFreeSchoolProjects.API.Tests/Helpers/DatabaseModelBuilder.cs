@@ -134,6 +134,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildKickOffMeetingTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesMi141LinkToSavedDocument = "https://www.test.com";
+            result.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor = false;
+
+            return result;
+        }
+        
         
 
     }

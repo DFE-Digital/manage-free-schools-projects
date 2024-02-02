@@ -30,7 +30,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         [BindProperty(Name = "funding-arrangements-agreed")]
         public bool FundingArrangementsAgreed { get; set; }
         
-       [BindProperty(Name = "realistic-year-of-opening", BinderType= typeof(YearInputModelBinder))]
+        [BindProperty(Name = "funding-arrangements-details-agreed")]
+        [Display(Name = "funding arrangements details agreed")]
+        [ValidText(100)]
+        public string FundingArrangementDetailsAgreed { get; set; }
+        
+       [BindProperty(Name = "realistic-year-of-opening", BinderType= typeof(StartEndModelBinder))]
         public string RealisticYearOfOpening { get; set; }
         
         [BindProperty(Name = "provisional-opening-date", BinderType = typeof(DateInputModelBinder))]
@@ -64,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
 
         public async Task<ActionResult> OnPost()
         {
-
+            
             if (!new UrlAttribute().IsValid(SharepointLink))
             {
                 ModelState.AddModelError("sharepoint-link", "Sharepoint link must be a valid url");
@@ -87,6 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
                     KickOffMeeting = new KickOffMeetingTask()
                     {
                         FundingArrangementAgreed = FundingArrangementsAgreed,
+                        FundingArrangementDetailsAgreed = FundingArrangementDetailsAgreed,
                         RealisticYearOfOpening = RealisticYearOfOpening,
                         ProvisionalOpeningDate = ProvisionalOpeningDate,
                         SharepointLink = SharepointLink
@@ -110,6 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
             var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
 
             FundingArrangementsAgreed = project.KickOffMeeting.FundingArrangementAgreed;
+            FundingArrangementDetailsAgreed = project.KickOffMeeting.FundingArrangementDetailsAgreed;
             RealisticYearOfOpening = project.KickOffMeeting.RealisticYearOfOpening;
             ProvisionalOpeningDate = project.KickOffMeeting.ProvisionalOpeningDate;
             SharepointLink = project.KickOffMeeting.SharepointLink;
