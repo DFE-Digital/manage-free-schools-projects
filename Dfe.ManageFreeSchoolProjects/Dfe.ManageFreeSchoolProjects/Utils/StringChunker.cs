@@ -2,7 +2,7 @@
 
 namespace Dfe.ManageFreeSchoolProjects.Utils
 {
-    public class StringChunker
+    public static class StringChunker
     {
         public static string[] Chunk(string value, int chunkSize)
         {

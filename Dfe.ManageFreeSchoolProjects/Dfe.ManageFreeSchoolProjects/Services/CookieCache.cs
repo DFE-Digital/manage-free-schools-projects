@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
 {
@@ -37,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 return _item;
             }
 
-            string data = "";
+            var data = new StringBuilder();
 
             var counter = 0;
             while(counter < 100)
@@ -47,11 +48,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 {
                     break;
                 }
-                data += chunk;
+                data.Append(chunk);
                 counter++;
             }
 
-            if (string.IsNullOrEmpty(data))
+            if (data.Length == 0)
             {
                 return new T();
             }
@@ -70,13 +71,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Delete()
         {
-            foreach (var cookie in _httpContextAccessor.HttpContext.Request.Cookies.Keys)
-            {
-                if (cookie.StartsWith(_key))
-                {
-                    _httpContextAccessor.HttpContext.Response.Cookies.Delete(cookie);
-                }
-            }
+            _httpContextAccessor.HttpContext.Request.Cookies.Keys
+                .Where(cookie => cookie.StartsWith(_key))
+                .ToList()
+                .ForEach(_httpContextAccessor.HttpContext.Response.Cookies.Delete);
         }
 
         public void Update(T item)
