@@ -16,6 +16,7 @@
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
+
 @section BeforeMain
 {
     <div class="dfe-content-page--header">
@@ -42,6 +43,7 @@
         </div>
     </div>
 }
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <nav class="app-sub-navigation" aria-label="sub menu">
@@ -141,16 +143,16 @@
                 Pre-opening
             </h2>
             <ul class="app-task-list__items">
-                     <li class="app-task-list__item">
-                                     <span class="app-task-list__task-name">
-                                         <a href="@kickOffMeetingLink" class="govuk-link" data-testid="kick-off-meeting-task">
-                                             Kick-off meeting
-                                         </a>
-                                     </span>
-                                     @{
-                                         RenderStatus(Model.ProjectTaskListSummary.KickOffMeeting);
-                                     }
-                                 </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@kickOffMeetingLink" class="govuk-link" data-testid="kick-off-meeting-task">
+                            Kick-off meeting
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.KickOffMeeting);
+                    }
+                </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@articlesOfAssociationLink" class="govuk-link" data-testid="articles-of-association-task">
@@ -185,4 +187,5 @@
             <strong class="govuk-tag govuk-tag--grey app-task-list__tag" data-testid="@testId">Not started</strong>
         }
     }
+
 }
