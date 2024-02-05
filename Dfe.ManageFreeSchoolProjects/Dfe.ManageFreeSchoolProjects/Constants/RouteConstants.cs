@@ -24,6 +24,9 @@
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
 
+        public const string ViewKickOffMeeting = TaskList + "/kickoffmeeting";
+        public const string EditKickOffMeeting= ViewKickOffMeeting + "/edit";
+        
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
         public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";        
 
