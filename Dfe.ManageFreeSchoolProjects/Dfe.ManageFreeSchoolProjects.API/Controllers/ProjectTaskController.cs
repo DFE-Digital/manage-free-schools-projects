@@ -80,6 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
                 Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
+                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting")
             };
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);

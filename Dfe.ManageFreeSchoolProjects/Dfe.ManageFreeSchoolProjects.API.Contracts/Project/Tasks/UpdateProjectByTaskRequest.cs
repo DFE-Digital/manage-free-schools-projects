@@ -8,6 +8,8 @@
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
 		public ConstituencyTask Constituency { get; set; }
+        
+        public KickOffMeetingTask KickOffMeeting { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public string TaskToUpdate
@@ -28,6 +30,8 @@
 					return "Constituency";
                 if (ArticlesOfAssociation != null)
                     return TaskName.ArticlesOfAssociation.ToString();
+                if (KickOffMeeting != null)
+                    return TaskName.KickOffMeeting.ToString();
                 return null;
             }
         }
