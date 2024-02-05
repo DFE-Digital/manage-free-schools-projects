@@ -11,6 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Trust,
         RegionAndLocalAuthority,
         Constituency,
-        ArticlesOfAssociation
+        ArticlesOfAssociation,
+        FinancePlan
     }
 }

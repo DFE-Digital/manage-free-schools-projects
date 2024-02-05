@@ -127,7 +127,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
-        public static Milestones BuildArticlesOfAssociationTask(string rid)
+        public static Milestones BuildMilestone(string rid)
         {
             var result = new Milestones();
 

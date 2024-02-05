@@ -1,10 +1,12 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System;
 using System.Linq;
 using System.Net;
@@ -330,7 +332,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
 
-            var articlesOfAssociationTask = DatabaseModelBuilder.BuildArticlesOfAssociationTask(project.Rid);
+            var articlesOfAssociationTask = DatabaseModelBuilder.BuildMilestone(project.Rid);
             context.Milestones.Add(articlesOfAssociationTask);
 
             await context.SaveChangesAsync();
@@ -362,6 +364,81 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.ArticlesOfAssociation.ArrangementsMatchGovernancePlans.Should().Be(true);
             projectResponse.ArticlesOfAssociation.SharepointLink.Should().Be("https://sharepoint/completed");
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
+        }
+
+        [Fact]
+        public async Task Patch_NewFinancePlanTask_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+
+            await context.SaveChangesAsync();
+
+            var date = new DateTime().Date;
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                FinancePlan = new FinancePlanTask()
+                {
+                    FinancePlanAgreed = YesNo.Yes,
+                    CommentsOnDecisionToApprove = "CommentsOnDecisionToApprove",
+                    LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.Yes,
+                    DateAgreed = date,
+                    PlanSavedInWorkspaceFolder = YesNo.Yes,
+                    TrustWillOptIntoRpa = YesNo.Yes
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
+
+            projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.Yes);
+            projectResponse.FinancePlan.CommentsOnDecisionToApprove.Should().Be("CommentsOnDecisionToApprove");
+            projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.Yes);
+            projectResponse.FinancePlan.DateAgreed.Should().Be(date);
+            projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.Yes);
+            projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.Yes);
+        }
+
+        [Fact]
+        public async Task Patch_ExistingFinancePlanTask_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+
+            var milestone = DatabaseModelBuilder.BuildMilestone(project.Rid);
+            context.Milestones.Add(milestone);
+
+            await context.SaveChangesAsync();
+
+            var date = new DateTime().Date;
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                FinancePlan = new FinancePlanTask()
+                {
+                    FinancePlanAgreed = YesNo.No,
+                    CommentsOnDecisionToApprove = "ChangedDecisionToApprove",
+                    LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.NotApplicable,
+                    DateAgreed = date,
+                    PlanSavedInWorkspaceFolder = YesNo.No,
+                    TrustWillOptIntoRpa = YesNo.No
+                }
+            };
+
+            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
+
+            projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.No);
+            projectResponse.FinancePlan.CommentsOnDecisionToApprove.Should().Be("ChangedDecisionToApprove");
+            projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.NotApplicable);
+            projectResponse.FinancePlan.DateAgreed.Should().Be(date);
+            projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.No);
+            projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.No);
         }
 
         [Fact]

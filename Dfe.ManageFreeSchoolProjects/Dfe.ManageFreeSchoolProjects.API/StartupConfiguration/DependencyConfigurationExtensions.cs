@@ -10,6 +10,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
@@ -103,6 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateConstituencyTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateTrustTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateArticlesOfAssociationTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateFinancePlanTaskService>();
 			services.AddScoped<IGetConstructProjectListService, GetConstructProjectListService>();
 			services.AddScoped<IApiKeyValidationService, ApiKeyValidationService>();
 			services.AddScoped<IConstructApiKeyValidationService, ConstructApiKeyValidationService>();

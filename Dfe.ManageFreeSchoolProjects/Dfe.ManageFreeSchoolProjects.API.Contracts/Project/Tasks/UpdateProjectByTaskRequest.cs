@@ -10,6 +10,8 @@
 		public ConstituencyTask Constituency { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
+        public FinancePlanTask FinancePlan { get; set; }
+
         public string TaskToUpdate
         {
             get
@@ -28,6 +30,8 @@
 					return "Constituency";
                 if (ArticlesOfAssociation != null)
                     return TaskName.ArticlesOfAssociation.ToString();
+                if (FinancePlan != null)
+                    return TaskName.FinancePlan.ToString();
                 return null;
             }
         }

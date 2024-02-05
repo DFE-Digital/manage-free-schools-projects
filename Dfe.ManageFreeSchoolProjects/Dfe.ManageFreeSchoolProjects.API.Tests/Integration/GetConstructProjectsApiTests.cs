@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var projectWithMinimumFields = DatabaseModelBuilder.BuildProjectMandatoryFieldsOnly();
 
-            var milestone = DatabaseModelBuilder.BuildArticlesOfAssociationTask(project.Rid);
+            var milestone = DatabaseModelBuilder.BuildMilestone(project.Rid);
             var pupilNumbersAndCapacity = DatabaseModelBuilder.PupilNumbersAndCapacity(project.Rid);
 
             using var context = _testFixture.GetContext();

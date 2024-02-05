@@ -25,10 +25,13 @@
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
 
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
-        public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";        
+        public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";
 
         public const string ViewRiskAppraisalMeetingTask = TaskList + "/risk-appraisal-meeting";
         public const string EditRiskAppraisalMeetingTask = ViewRiskAppraisalMeetingTask + "/edit";
+
+        public const string ViewFinancePlanTask = TaskList + "/finance-plan";
+        public const string EditFinancePlanTask = ViewFinancePlanTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
