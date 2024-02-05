@@ -17,8 +17,7 @@
 <partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit kick-off meeting
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit kick-off meeting
 </h1>
 
 <div class="govuk-grid-row">
@@ -29,7 +28,7 @@
             <label class="govuk-label govuk-label--m">
                 Comments
             </label>
-            <govuk-textarea-input id="funding-arrangements-details-agreed" rows="5" name="funding-arrangements-details-agreed" asp-for="@Model.FundingArrangementDetailsAgreed" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
+            <govuk-textarea-input id="funding-arrangements-details-agreed" label="comments" rows="5" name="funding-arrangements-details-agreed" asp-for="@Model.FundingArrangementDetailsAgreed" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
             <govuk-year-start-end id="realistic-year-of-opening"  name="realistic-year-of-opening" bold-label="true" label="Realistic year of opening" asp-for="@Model.RealisticYearOfOpening" add-margin="true" data-testid="realistic-year-of-opening" hint="For example, 2021 2022"/>
             <govuk-date-input id="provisional-opening-date" name="provisional-opening-date" bold-label="true" label="Provisional opening date agreed with trust" asp-for="@Model.ProvisionalOpeningDate" add-margin="true" data-testid="provisional-opening-date" hint="For example, 27 3 2021"/>
             <govuk-text-input id="sharepoint-link" name="sharepoint-link" bold-label="true" label="Sharepoint link" asp-for="@Model.SharepointLink" add-margin="true" data-testid="sharepoint-link"/>

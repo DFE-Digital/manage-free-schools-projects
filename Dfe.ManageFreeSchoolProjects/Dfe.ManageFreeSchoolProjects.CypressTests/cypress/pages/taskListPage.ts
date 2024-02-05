@@ -35,6 +35,10 @@ class TaskListPage {
         return this;
     }
 
+    public selectKickOffMeetingFromTaskList(): this {
+        cy.getByTestId("kick-off-meeting-task").click()
+        return this;
+    }
     
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
