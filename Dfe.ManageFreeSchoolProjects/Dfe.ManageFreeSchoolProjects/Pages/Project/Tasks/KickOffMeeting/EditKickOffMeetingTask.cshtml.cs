@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         public bool? FundingArrangementsAgreed { get; set; }
         
         [BindProperty(Name = "funding-arrangements-details-agreed")]
-        [Display(Name = "funding arrangements details agreed")]
+        [Display(Name = "comments")]
         [ValidText(100)]
         public string FundingArrangementDetailsAgreed { get; set; }
         
