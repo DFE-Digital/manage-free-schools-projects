@@ -47,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         public string Comments { get; set; }
 
         [BindProperty(Name = "trust-opt-into-rpa")]
-        public bool? TrustOptIntoRpa { get; set; }
+        public string? TrustOptIntoRpa { get; set; }
 
         [BindProperty]
         public string SchoolName { get; set; }
@@ -89,7 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
                     PlanSavedInWorkspaceFolder = PlanSavedInWorkplacesFolder == true ? YesNo.Yes : YesNo.No,
                     Comments = Comments,
                     LocalAuthorityAgreedPupilNumbers = ConvertYesNoNotApplicable(LocalAuthorityAgreedToPupilNumbers),
-                    TrustWillOptIntoRpa = TrustOptIntoRpa == true ? YesNo.Yes : YesNo.No
+                    TrustWillOptIntoRpa = ConvertYesNo(TrustOptIntoRpa)
                 }
             };
 
@@ -107,7 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
             PlanSavedInWorkplacesFolder = project.FinancePlan.PlanSavedInWorkspaceFolder == YesNo.Yes;
             Comments = project.FinancePlan.Comments;
             LocalAuthorityAgreedToPupilNumbers = project.FinancePlan.LocalAuthorityAgreedPupilNumbers?.ToString();
-            TrustOptIntoRpa = project.FinancePlan.TrustWillOptIntoRpa == YesNo.Yes;
+            TrustOptIntoRpa = project.FinancePlan.TrustWillOptIntoRpa?.ToString();
 
             SchoolName = project.SchoolName;
         }
@@ -115,6 +115,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         private static YesNoNotApplicable? ConvertYesNoNotApplicable(string value)
         {
             return Enum.TryParse<YesNoNotApplicable>(value, true, out var result) ? result : null;
+        }
+
+        public static YesNo? ConvertYesNo(string value)
+        {
+            return Enum.TryParse<YesNo>(value, true, out var result) ? result : null;
         }
     }
 }

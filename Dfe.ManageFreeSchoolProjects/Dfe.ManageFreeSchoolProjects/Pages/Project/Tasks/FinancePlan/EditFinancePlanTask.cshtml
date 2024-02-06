@@ -39,7 +39,38 @@
                                 labels="@yesNoNotApplicableLabels"
                                 test-ids="@localAuthorityAgreedTestIds"/>
             <govuk-text-input id="comments" name="comments" bold-label="true" label="Comments" asp-for="@Model.Comments" add-margin="true" data-testid="comments" />
-            <govuk-checkbox-input id="trust-opt-into-rpa" name="trust-opt-into-rpa" asp-for="@Model.TrustOptIntoRpa" heading-label="Trust will opt-in to RPA (risk protection arrangement)" label="Done" />
+
+            <div class="govuk-form-group ">
+                <fieldset class="govuk-fieldset" id="trust-opt-into-rpa">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        Trust will opt-in to RPA (risk protection arrangement)
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="trust-opt-into-rpa-yes" name="trust-opt-into-rpa" type="radio" value="Yes" data-testid="Yes" data-aria-controls="conditional-trust-opt-into-rpa-yes">
+
+                            <label class="govuk-label govuk-radios__label" id="trust-opt-into-rpa-yes-label" for="trust-opt-into-rpa-yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="trust-opt-into-rpa-no" name="trust-opt-into-rpa" type="radio" value="No" checked="checked" data-testid="No">
+
+                            <label class="govuk-label govuk-radios__label" id="trust-opt-into-rpa-no-label" for="trust-opt-into-rpa-no">
+                                No
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-trust-opt-into-rpa-yes">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="contact-by-email">
+                                    Email address
+                                </label>
+                                <input class="govuk-input govuk-!-width-one-third" id="contact-by-email" name="contactByEmail" type="email" spellcheck="false" autocomplete="email">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
 
             @Html.HiddenFor(m => m.SchoolName)
 
