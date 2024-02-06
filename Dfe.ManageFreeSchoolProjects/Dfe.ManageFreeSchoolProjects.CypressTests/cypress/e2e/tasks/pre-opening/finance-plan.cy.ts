@@ -71,6 +71,8 @@ describe("Testing finance plan task", () => {
             .hasValidationError("Date agreed must include a month and year")
             .hasValidationError("The comments must be 999 characters or less");
 
+        cy.executeAccessibilityTests();
+
         editFinancePlanPage
             .schoolNameIs(project.schoolName)
             .checkFinancePlanAgreed()
@@ -120,5 +122,7 @@ describe("Testing finance plan task", () => {
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("FinancePlan");
+
+        cy.executeAccessibilityTests();
     });
 });
