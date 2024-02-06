@@ -12,6 +12,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("heading-label")]
 		public bool HeadingLabel { get; set; }
 		
+		[HtmlAttributeName("bold-label")]
+		public bool BoldLabel { get; set; }
+		
 		[HtmlAttributeName("rows")]
 		public int Rows { get; set; }
 
@@ -31,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Value = For.Model?.ToString(),
 				Rows = Rows,
 				Hint = Hint,
+				BoldLabel = BoldLabel,
 				RichText = RichText,
 				HeadingLabel = HeadingLabel
 			};
