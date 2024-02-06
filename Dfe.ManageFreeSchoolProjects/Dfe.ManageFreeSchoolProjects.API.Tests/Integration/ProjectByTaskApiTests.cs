@@ -384,7 +384,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 FinancePlan = new FinancePlanTask()
                 {
                     FinancePlanAgreed = YesNo.Yes,
-                    CommentsOnDecisionToApprove = "CommentsOnDecisionToApprove",
+                    Comments = "CommentsOnDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.Yes,
                     DateAgreed = date,
                     PlanSavedInWorkspaceFolder = YesNo.Yes,
@@ -395,7 +395,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectResponse = await UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
 
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.Yes);
-            projectResponse.FinancePlan.CommentsOnDecisionToApprove.Should().Be("CommentsOnDecisionToApprove");
+            projectResponse.FinancePlan.Comments.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.Yes);
             projectResponse.FinancePlan.DateAgreed.Should().Be(date);
             projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.Yes);
@@ -423,7 +423,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 FinancePlan = new FinancePlanTask()
                 {
                     FinancePlanAgreed = YesNo.No,
-                    CommentsOnDecisionToApprove = "ChangedDecisionToApprove",
+                    Comments = "ChangedDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.NotApplicable,
                     DateAgreed = date,
                     PlanSavedInWorkspaceFolder = YesNo.No,
@@ -434,7 +434,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectResponse = await UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
 
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.No);
-            projectResponse.FinancePlan.CommentsOnDecisionToApprove.Should().Be("ChangedDecisionToApprove");
+            projectResponse.FinancePlan.Comments.Should().Be("ChangedDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.NotApplicable);
             projectResponse.FinancePlan.DateAgreed.Should().Be(date);
             projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.No);

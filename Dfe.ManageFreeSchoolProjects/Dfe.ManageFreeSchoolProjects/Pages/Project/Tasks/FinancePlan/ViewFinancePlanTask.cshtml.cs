@@ -1,6 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,27 +17,25 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetTaskStatusService _getTaskStatusService;
         private readonly IUpdateTaskStatusService _updateTaskStatusService;
-        private readonly ErrorService _errorService;
 
         public ProjectTaskStatus ProjectTaskStatus { get; set; }
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        [BindProperty] public bool MarkAsCompleted { get; set; }
+        [BindProperty] 
+        public bool MarkAsCompleted { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
 
         public ViewFinancePlanTaskModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewFinancePlanTaskModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
-            ErrorService errorService)
+            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService)
         {
             _logger = logger;
             _getTaskStatusService = getTaskStatusService;
             _updateTaskStatusService = updateTaskStatusService;
-            _errorService = errorService;
             _getProjectService = getProjectService;
         }
 
@@ -52,6 +51,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
 
             return Page();
+        }
+
+        public async Task<ActionResult> OnPost()
+        {
+            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+
+            await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
+            {
+                TaskName = TaskName.FinancePlan.ToString(),
+                ProjectTaskStatus = ProjectTaskStatus
+            });
+            return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }
     }
 }

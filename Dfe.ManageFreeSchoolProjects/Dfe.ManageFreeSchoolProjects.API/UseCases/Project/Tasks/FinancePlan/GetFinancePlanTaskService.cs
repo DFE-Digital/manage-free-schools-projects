@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
                                         DateAgreed = milestones.FsgPreOpeningMilestonesBefpActualDateOfCompletion,
                                         PlanSavedInWorkspaceFolder = milestones.IsPlanSavedInWorkspaceFolder,
                                         LocalAuthorityAgreedPupilNumbers = milestones.LAAgreedPupilNumbers,
-                                        CommentsOnDecisionToApprove = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
+                                        Comments = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
                                         TrustWillOptIntoRpa = milestones.TrustOptInRPA
                                     }
                                 }).FirstOrDefaultAsync();

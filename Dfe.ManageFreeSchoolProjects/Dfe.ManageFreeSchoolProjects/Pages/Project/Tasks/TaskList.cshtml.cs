@@ -26,7 +26,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
         public TaskListModel(
             IGetProjectByTaskSummaryService getProjectTaskListSummaryService,
-            IGetTaskStatusService getTaskStatusService,
             ICreateTasksService createTasksService,
             ILogger<TaskListModel> logger)
         {
@@ -44,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             if (ProjectTaskListSummary is not null)
             {
                 SchoolName = ProjectTaskListSummary.SchoolName;
-                return Page();
+                return Page(); 
             }                
             
             await _createTasksService.Execute(ProjectId);

@@ -63,14 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string projectId)
         {
             _logger.LogMethodEntered();
-
-            ProjectByTaskSummaryResponse summary = null;
             
             var result = await _getTasksService.Execute(projectId);
             
             var projectTasks = result.taskSummaryResponses;
 
-            summary = new ProjectByTaskSummaryResponse
+            var summary = new ProjectByTaskSummaryResponse
             {
                 SchoolName = result.CurrentFreeSchoolName,
                 School = SafeRetrieveTaskSummary(projectTasks, "School"),
@@ -80,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
                 Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
+                FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan")
             };
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);

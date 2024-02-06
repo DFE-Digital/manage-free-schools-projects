@@ -72,8 +72,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 return ((DateTime)For.Model).ToDateString();
             }
 
-            
-
             if (For.ModelExplorer.ModelType.IsEnum)
             {
                 var enumDescription = For.ModelExplorer.Model.ToDescription();
@@ -82,6 +80,16 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 {
                     return empty;
                 }
+            }
+
+            if (Nullable.GetUnderlyingType(For.ModelExplorer.ModelType)?.IsEnum == true)
+            {
+                if (For.Model == null)
+                {
+                    return empty;
+                }
+
+                return For.Model.ToDescription();
             }
             
             var value = For.Model.ToString();
