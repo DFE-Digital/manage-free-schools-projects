@@ -79,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Update(T item)
         {
+            Delete();
             _item = item;
             var json = JsonConvert.SerializeObject(item);
 
