@@ -19,7 +19,7 @@ class KickOffMeetingEditPage {
     }
 
     checkFundingArrangementsAgreed(): this {
-        cy.getById("funding-arrangements-agreed").check()
+        cy.getById("funding-arrangements-agreed-yes").check()
         return this
     }
     withComments(comment: string): this {

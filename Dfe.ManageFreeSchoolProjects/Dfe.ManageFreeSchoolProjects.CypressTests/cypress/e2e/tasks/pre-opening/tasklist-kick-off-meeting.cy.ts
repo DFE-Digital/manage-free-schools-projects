@@ -112,7 +112,7 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withComments("#TaTers")
             .clickContinue()
-            .errorForComments().showsError("comments must not include special characters other than , ( ) '")
+            .errorForComments().showsError("Comments must not include special characters other than , ( ) '")
             .withComments("comment that's ok")
             .clickContinue();
         
@@ -172,9 +172,7 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 March 2050").HasChangeLink()
             .summaryShows("SharePoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
             .isNotMarkedAsComplete()
-            .clickChange();
-
-        summaryPage.MarkAsComplete()
+            .MarkAsComplete()
             .clickConfirmAndContinue();
         
         taskListPage.isTaskStatusIsCompleted("KickOffMeeting");
