@@ -8,7 +8,11 @@
     var labels = new [] { "Yes", "No" };
     var values = new [] { "true", "false" };
 }
-<a href=@backlink class="govuk-back-link">Back</a>
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
 
 <partial name="_ErrorSummary" />
 

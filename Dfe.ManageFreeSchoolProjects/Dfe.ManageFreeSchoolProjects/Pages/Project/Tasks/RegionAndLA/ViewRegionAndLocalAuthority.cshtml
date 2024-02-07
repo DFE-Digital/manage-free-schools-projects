@@ -5,12 +5,16 @@
     var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
     var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region);
     ViewData["Title"] = $"Region and local authority - {Model.Project.SchoolName}";
+    var backlink = $"/projects/{Model.ProjectId}/tasks";
 }
 
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <a href="/projects/@Model.ProjectId/tasks" class="govuk-back-link">Back</a>
-
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l">  
                 @{
