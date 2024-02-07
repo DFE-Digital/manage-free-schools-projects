@@ -7,7 +7,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 {
 	public class ErrorService
 	{
-		private const string TRAMS_ERROR = "There is a problem with TRAMS and we could not save your changes. Contact <a href=\"mailto:sddservicessupport@education.gov.uk\">sddservicessupport@education.gov.uk</a> if this continues.";
 		private readonly List<Error> _errors = new List<Error>();
 
 		public void AddError(string key, string message)
@@ -33,15 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 				}
 			}
 		}
-
-		public void AddTramsError()
-		{
-			_errors.Add(new Error
-			{
-				Message = TRAMS_ERROR
-			});
-		}
-
+		
 		public Error GetError(string key)
 		{
 			return _errors.SingleOrDefault(e => e.Key == key);
