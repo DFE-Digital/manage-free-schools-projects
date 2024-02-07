@@ -21,6 +21,11 @@ class EditSchoolChairPage {
         return this;
     }
 
+    hasCorrectErrorSummaryLink(): this {
+        cy.getById('school-chair-name-error-link').should('have.attr', 'href', '#school-chair-name')
+        return this
+    }
+
     errorForSchoolChairName(error: string): this {
         cy.getById('school-chair-name-error').contains(error)
         return this

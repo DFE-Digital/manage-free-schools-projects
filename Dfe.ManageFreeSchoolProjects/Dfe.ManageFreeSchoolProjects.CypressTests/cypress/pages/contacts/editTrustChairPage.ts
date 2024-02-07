@@ -21,6 +21,11 @@ class EditTrustChairPage {
         return this;
     }
 
+    hasCorrectErrorSummaryLink(): this {
+        cy.getById('trust-chair-name-error-link').should('have.attr', 'href', '#trust-chair-name')
+        return this
+    }
+
     errorForTrustChairName(error: string): this {
         cy.getById('trust-chair-name-error').contains(error)
         return this
