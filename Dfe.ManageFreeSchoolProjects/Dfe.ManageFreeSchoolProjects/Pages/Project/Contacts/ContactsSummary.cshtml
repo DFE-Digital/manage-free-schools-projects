@@ -14,14 +14,14 @@
 
 @section BeforeMain {
     <div class="govuk-width-container">
-        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
+        <a href="@backLink" class="govuk-back-link" data-testid="back-button">Back to about the project</a>
     </div>
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <h1 class="govuk-heading-xl">
+        <h1 class="govuk-heading-xl" data-testid="contacts-summary-title">
             <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             @ViewData["Title"]
         </h1>
@@ -31,7 +31,7 @@
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">School chair of governors</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@schoolChairLink">
+                    <a class="govuk-link" href="@schoolChairLink" data-testid="edit-school-chair">
                         Change
                         <span class="govuk-visually-hidden">School chair of governors</span>
                     </a>
@@ -40,34 +40,25 @@
 
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
-
-
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Name
                         </dt>
-                        <dd class="govuk-summary-list__value">
+                        <dd class="govuk-summary-list__value" data-testid="school-chair-name">
                             @Model.Contacts.Contacts.SchoolChairOfGovernorsName
                         </dd>
 
                     </div>
-
-
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Email address
                         </dt>
-                        <dd class="govuk-summary-list__value">
+                        <dd class="govuk-summary-list__value" data-testid="school-chair-email">
                             @Model.Contacts.Contacts.SchoolChairOfGovernorsEmail
                         </dd>
-
                     </div>
-
-
                 </dl>
             </div>
-
-
         </div>
 
 
@@ -75,7 +66,7 @@
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Trust chair</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@trustChairLink">
+                    <a class="govuk-link" href="@trustChairLink" data-testid="edit-trust-chair">
                         Change
                         <span class="govuk-visually-hidden">Trust chair</span>
                     </a>
@@ -90,7 +81,7 @@
                         <dt class="govuk-summary-list__key">
                             Name
                         </dt>
-                        <dd class="govuk-summary-list__value">
+                        <dd class="govuk-summary-list__value" data-testid="trust-chair-name">
                             @Model.Contacts.Contacts.ChairOfGovernorsName
                         </dd>
 
@@ -99,13 +90,10 @@
                         <dt class="govuk-summary-list__key">
                             Email address
                         </dt>
-                        <dd class="govuk-summary-list__value">
+                        <dd class="govuk-summary-list__value" data-testid="trust-chair-email">
                             @Model.Contacts.Contacts.ChairOfGovernorsEmail
                         </dd>
-
                     </div>
-
-
                 </dl>
             </div>
         </div>

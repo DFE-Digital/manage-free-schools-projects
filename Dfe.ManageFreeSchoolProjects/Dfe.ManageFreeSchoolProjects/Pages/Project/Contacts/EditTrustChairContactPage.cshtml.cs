@@ -101,17 +101,17 @@ public class EditTrustChairContactModel : PageModel
         
         if (TrustChairEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-chair-email", "The trust chair email must be 100 characters or less.");
+            ModelState.AddModelError("trust-chair-email", "The trust chair email must be 100 characters or less");
         }
         
         if (!IsEmailValid(TrustChairEmail))
         {
-            ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format.");
+            ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format");
         }
         
         if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-chair-name", "Trust chair name cannot contain numbers.");
+            ModelState.AddModelError("trust-chair-name", "Trust chair name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)
