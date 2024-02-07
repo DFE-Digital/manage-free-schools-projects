@@ -60,6 +60,8 @@ describe("Testing that we can add contacts", () => {
 
             Logger.log("Check edit school chair validation");
             editSchoolChairPage
+                .hasTitle("Edit school chair of governors")
+                .hasSchoolName(project.schoolName)
                 .withSchoolChairName("$da")
                 .clickContinue()
                 .errorForSchoolChairName("School chair name must not include special characters other than , ( )")
@@ -88,11 +90,13 @@ describe("Testing that we can add contacts", () => {
                 .hasSchoolChairName("School Chair")
                 .hasSchoolChairEmail("school@chair.com")
 
-            Logger.log("Edit Trust Chair");
+            Logger.log("Edit trust chair");
             contactsSummaryPage.goToEditTrustChair();
 
             Logger.log("Check edit trust chair validation");
             editTrustChairPage
+                .hasTitle("Edit trust chair")
+                .hasSchoolName(project.schoolName)
                 .withTrustChairName("$da")
                 .clickContinue()
                 .errorForTrustChairName("Trust chair name must not include special characters other than , ( )")

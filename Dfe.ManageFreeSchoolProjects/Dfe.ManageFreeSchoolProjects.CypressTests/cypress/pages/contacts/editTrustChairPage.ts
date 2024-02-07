@@ -18,6 +18,18 @@ class EditTrustChairPage {
         return this
     }
 
+    public hasTitle(value: string): this {
+        cy.getByTestId(`edit-trust-chair-title`).should("contain.text", value);
+
+        return this;
+    }
+    public hasSchoolName(value: string): this {
+
+        cy.getByTestId(`school-name`).should("contain.text", value);
+
+        return this;
+    }
+
     clickContinue() : this {
         cy.getByTestId("continue").click();
         return this;
