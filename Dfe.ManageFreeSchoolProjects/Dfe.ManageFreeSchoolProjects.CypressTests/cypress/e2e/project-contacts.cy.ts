@@ -33,7 +33,7 @@ describe("Testing that we can add contacts", () => {
 
             projectOverviewPage
                 .hasSchoolChairOfGovernors("Empty")
-                .hasTrustChair("Empty")
+                .hasTrustChair("Empty");
             
 
             Logger.log("Changing contacts")
@@ -46,7 +46,7 @@ describe("Testing that we can add contacts", () => {
                 .hasTrustChairName("")
                 .hasTrustChairEmail("")
                 .hasSchoolChairName("")
-                .hasSchoolChairEmail("")
+                .hasSchoolChairEmail("");
 
             Logger.log("Edit School Chair");
             contactsSummaryPage.goToEditSchoolChair();
@@ -72,7 +72,7 @@ describe("Testing that we can add contacts", () => {
                 .errorForSchoolChairEmail("The school chair email must be 100 characters or less")
                 .withSchoolChairName("School Chair")
                 .withSchoolChairEmail("school@chair.com")
-                .clickContinue()
+                .clickContinue();
 
                  Logger.log("Check user is back to contact summary page");
             contactsSummaryPage
@@ -81,7 +81,7 @@ describe("Testing that we can add contacts", () => {
                 .hasTrustChairName("")
                 .hasTrustChairEmail("")
                 .hasSchoolChairName("School Chair")
-                .hasSchoolChairEmail("school@chair.com")
+                .hasSchoolChairEmail("school@chair.com");
 
             Logger.log("Edit trust chair");
             contactsSummaryPage.goToEditTrustChair();
@@ -107,7 +107,7 @@ describe("Testing that we can add contacts", () => {
                 .errorForTrustChairEmail("The trust chair email must be 100 characters or less")
                 .withTrustChairName("Trust Chair")
                 .withTrustChairEmail("trust@chair.com")
-                .clickContinue()
+                .clickContinue();
 
             Logger.log("Check user is back to contact summary page");
             contactsSummaryPage
@@ -117,12 +117,12 @@ describe("Testing that we can add contacts", () => {
                 .hasTrustChairEmail("trust@chair.com")
                 .hasSchoolChairName("School Chair")
                 .hasSchoolChairEmail("school@chair.com")
-                .goToProjectsOverviewPage()
+                .goToProjectsOverviewPage();
 
             Logger.log("Check user is back to projects overview page");
             projectOverviewPage
                 .hasSchoolChairOfGovernors("School Chair")
-                .hasTrustChair("Trust Chair")
+                .hasTrustChair("Trust Chair");
         })
     })
 
