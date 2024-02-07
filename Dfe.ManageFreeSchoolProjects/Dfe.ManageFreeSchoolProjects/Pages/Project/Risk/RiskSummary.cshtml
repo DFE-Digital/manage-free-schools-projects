@@ -7,12 +7,16 @@
     var isPastRiskRating = Model.Entry > 1;
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
 
-    const string CurrentRiskRatings = "current risk ratings";
-    const string PastRiskRatings = "past risk ratings";
+    const string currentRiskRatings = "Current risk ratings";
+    const string pastRiskRatings = "Past risk ratings";
+    var title = $"{@Model.RiskDate.ToDateString()} - {(isPastRiskRating ? pastRiskRatings.ToLower() : currentRiskRatings.ToLower())}";
 
-    var Title = $"{@Model.RiskDate.ToDateString()} - {(isPastRiskRating ? PastRiskRatings : CurrentRiskRatings)}";
-
-    ViewData["Title"] = $"{Title} - { Model.SchoolName}";
+    if (@Model.RiskDate == null)
+    {
+        title = $"{(isPastRiskRating ? pastRiskRatings : currentRiskRatings)}";
+    }
+    
+    ViewData["Title"] = $"{title} - { Model.SchoolName}";
 }
 @section BeforeMain {
     <div class="govuk-width-container">
@@ -26,7 +30,7 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             @if (Model.RiskDate != null)
             {
-                <span data-testid="risk-date">@Title</span>
+                <span data-testid="risk-date">@title</span>
             }
             else
             {
