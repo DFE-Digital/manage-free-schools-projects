@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         [BindProperty(Name = "rpa-cover-type")]
         [DisplayName("Type of RPA cover")]
         [ValidText(100)]
-        public string? RpaCoverType { get; set; }
+        public string RpaCoverType { get; set; }
 
         [BindProperty]
         public string SchoolName { get; set; }

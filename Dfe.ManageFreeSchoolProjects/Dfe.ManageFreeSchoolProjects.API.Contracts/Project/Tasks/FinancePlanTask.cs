@@ -11,6 +11,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public string Comments { get; set; }
         public YesNo? TrustWillOptIntoRpa { get; set; }
         public DateTime? RpaStartDate { get; set; }
-        public string? RpaCoverType { get; set; }
+        public string RpaCoverType { get; set; }
     }
 }

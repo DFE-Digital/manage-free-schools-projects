@@ -345,6 +345,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public DateTime? RPAStartDate { get; set; }
 
-        public string? RPACoverType { get; set; }
+        public string RPACoverType { get; set; }
     }
 }
