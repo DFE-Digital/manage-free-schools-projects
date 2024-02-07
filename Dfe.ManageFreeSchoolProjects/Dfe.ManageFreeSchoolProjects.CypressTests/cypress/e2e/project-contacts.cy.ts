@@ -131,8 +131,8 @@ describe("Testing that we can add contacts", () => {
             editSchoolChairPage
                 .hasTitle("Edit school chair of governors")
                 .hasSchoolName(project.schoolName)
-                .withSchoolChairName()
-                .withSchoolChairEmail()
+                .withNullSchoolChairName()
+                .withNullSchoolChairEmail()
                 .clickContinue();
             
             contactsSummaryPage
@@ -147,8 +147,8 @@ describe("Testing that we can add contacts", () => {
             editTrustChairPage
                 .hasTitle("Edit trust chair")
                 .hasSchoolName(project.schoolName)
-                .withTrustChairName("")
-                .withTrustChairEmail("")
+                .withNullTrustChairName()
+                .withNullTrustChairEmail()
                 .clickContinue();
             
             contactsSummaryPage
