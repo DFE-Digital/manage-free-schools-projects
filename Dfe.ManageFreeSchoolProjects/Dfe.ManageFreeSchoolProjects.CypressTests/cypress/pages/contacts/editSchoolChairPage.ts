@@ -5,10 +5,22 @@ class EditSchoolChairPage {
         cy.getByTestId("edit-school-chair-name").clear().type(value)
         return this;
     }
+
+    withNullSchoolChairName(): this {
+        cy.getByTestId("edit-school-chair-name").clear()
+        return this;
+    }
+
     withSchoolChairEmail(value: string): this {
         cy.getByTestId("edit-school-chair-email").clear().type(value)
         return this;
     }
+
+    withNullSchoolChairEmail(): this {
+        cy.getByTestId("edit-school-chair-email").clear()
+        return this;
+    }
+
     errorForSchoolChairName(error: string): this {
         cy.getById('school-chair-name-error').contains(error)
         return this

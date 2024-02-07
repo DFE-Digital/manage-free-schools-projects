@@ -74,7 +74,7 @@ describe("Testing that we can add contacts", () => {
                 .withSchoolChairEmail("school@chair.com")
                 .clickContinue();
 
-                 Logger.log("Check user is back to contact summary page");
+            Logger.log("Check user is back to contact summary page");
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
@@ -123,6 +123,43 @@ describe("Testing that we can add contacts", () => {
             projectOverviewPage
                 .hasSchoolChairOfGovernors("School Chair")
                 .hasTrustChair("Trust Chair");
+
+            Logger.log("Check existing contacts can be resaved as null strings/empty on TrustChair Page");
+            projectOverviewPage.changeContacts();
+
+            contactsSummaryPage.goToEditSchoolChair();
+            editSchoolChairPage
+                .hasTitle("Edit school chair of governors")
+                .hasSchoolName(project.schoolName)
+                .withSchoolChairName()
+                .withSchoolChairEmail()
+                .clickContinue();
+            
+            contactsSummaryPage
+                .hasTitle("Contacts")
+                .hasSchoolName(project.schoolName)
+                .hasTrustChairName("Trust Chair")
+                .hasTrustChairEmail("trust@chair.com")
+                .hasSchoolChairName("")
+                .hasSchoolChairEmail("");
+            
+            contactsSummaryPage.goToEditTrustChair;
+            editTrustChairPage
+                .hasTitle("Edit trust chair")
+                .hasSchoolName(project.schoolName)
+                .withTrustChairName("")
+                .withTrustChairEmail("")
+                .clickContinue();
+            
+            contactsSummaryPage
+                .hasTitle("Contacts")
+                .hasSchoolName(project.schoolName)
+                .hasTrustChairName("")
+                .hasTrustChairEmail("")
+                .hasSchoolChairName("")
+                .hasSchoolChairEmail("");
+
+
         })
     })
 
