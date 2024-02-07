@@ -31,6 +31,8 @@ describe("Testing that we can add contacts", () => {
     describe("Adding Contacts", () => {
         it("Should be able to add contacts", () => {
 
+            cy.executeAccessibilityTests();
+
             projectOverviewPage
                 .hasSchoolChairOfGovernors("Empty")
                 .hasTrustChair("Empty");
@@ -38,6 +40,8 @@ describe("Testing that we can add contacts", () => {
 
             Logger.log("Changing contacts")
             projectOverviewPage.changeContacts();
+
+            cy.executeAccessibilityTests();
 
             Logger.log("When there are no contacts, it should display empty for all fields");
             contactsSummaryPage
@@ -50,6 +54,8 @@ describe("Testing that we can add contacts", () => {
 
             Logger.log("Edit School Chair");
             contactsSummaryPage.goToEditSchoolChair();
+
+            cy.executeAccessibilityTests();
 
             Logger.log("Check edit school chair validation");
             editSchoolChairPage
@@ -74,6 +80,8 @@ describe("Testing that we can add contacts", () => {
                 .withSchoolChairName("School Chair")
                 .withSchoolChairEmail("school@chair.com")
                 .clickContinue();
+            
+            cy.executeAccessibilityTests();
 
             Logger.log("Check user is back to contact summary page");
             contactsSummaryPage
@@ -86,6 +94,8 @@ describe("Testing that we can add contacts", () => {
 
             Logger.log("Edit trust chair");
             contactsSummaryPage.goToEditTrustChair();
+
+            cy.executeAccessibilityTests();
 
             Logger.log("Check edit trust chair validation");
             editTrustChairPage
@@ -110,6 +120,8 @@ describe("Testing that we can add contacts", () => {
                 .withTrustChairName("Trust Chair")
                 .withTrustChairEmail("trust@chair.com")
                 .clickContinue();
+            
+            cy.executeAccessibilityTests();
 
             Logger.log("Check user is back to contact summary page");
             contactsSummaryPage
@@ -120,6 +132,8 @@ describe("Testing that we can add contacts", () => {
                 .hasSchoolChairName("School Chair")
                 .hasSchoolChairEmail("school@chair.com")
                 .goToProjectsOverviewPage();
+            
+            cy.executeAccessibilityTests();
 
             Logger.log("Check user is back to projects overview page");
             projectOverviewPage
@@ -129,6 +143,8 @@ describe("Testing that we can add contacts", () => {
             Logger.log("Check existing contacts can be resaved as null strings/empty on TrustChair Page");
             projectOverviewPage.changeContacts();
 
+            cy.executeAccessibilityTests();
+
             contactsSummaryPage.goToEditSchoolChair();
             editSchoolChairPage
                 .hasTitle("Edit school chair of governors")
@@ -136,6 +152,8 @@ describe("Testing that we can add contacts", () => {
                 .withNullSchoolChairName()
                 .withNullSchoolChairEmail()
                 .clickContinue();
+            
+            cy.executeAccessibilityTests();
             
             contactsSummaryPage
                 .hasTitle("Contacts")
@@ -146,12 +164,17 @@ describe("Testing that we can add contacts", () => {
                 .hasSchoolChairEmail("");
             
             contactsSummaryPage.goToEditTrustChair();
+
+            cy.executeAccessibilityTests();
+
             editTrustChairPage
                 .hasTitle("Edit trust chair")
                 .hasSchoolName(project.schoolName)
                 .withNullTrustChairName()
                 .withNullTrustChairEmail()
                 .clickContinue();
+            
+            cy.executeAccessibilityTests();
             
             contactsSummaryPage
                 .hasTitle("Contacts")
