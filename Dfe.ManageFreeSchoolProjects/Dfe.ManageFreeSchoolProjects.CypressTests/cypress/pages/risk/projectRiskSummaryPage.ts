@@ -26,6 +26,12 @@ class ProjectRiskSummaryPage {
         return this;
     }
 
+    public hasNoOverallRiskSummary(): this {
+        cy.getByTestId(`overall-risk-summary`).should('not.exist');
+
+        return this;
+    }
+
     public changeOverallRisk(): this {
         cy.getByTestId("change-overall-risk").click();
 
