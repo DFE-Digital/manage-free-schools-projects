@@ -9,7 +9,7 @@ class EditFinancePlanPage {
         return this;
     }
 
-    clickContinue(): this {
+    public clickContinue(): this {
         cy.getByTestId("continue").click();
         return this;
     }

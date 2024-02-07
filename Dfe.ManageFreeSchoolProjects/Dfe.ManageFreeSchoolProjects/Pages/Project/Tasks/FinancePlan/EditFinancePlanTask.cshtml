@@ -8,7 +8,7 @@
     var backlink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
 
     var yesNoNotApplicableLabels  = new[] { "Yes", "No", "Not applicable" };
-    var yesNoNotApplicableValues = Enum.GetNames(typeof(YesNoNotApplicable));
+    var yesNoNotApplicableValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString(), YesNoNotApplicable.NotApplicable.ToString() };
     var localAuthorityAgreedTestIds = yesNoNotApplicableValues.Select(v => $"local-authority-agreed-{v}").ToArray();
 }
 @section BeforeMain {
@@ -42,7 +42,7 @@
 
             <div class="govuk-form-group ">
                 <fieldset class="govuk-fieldset" id="trust-opt-into-rpa">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                         Trust will opt-in to RPA (risk protection arrangement)
                     </legend>
                     <div class="govuk-radios" data-module="govuk-radios">
@@ -61,6 +61,17 @@
                                 Yes
                             </label>
                         </div>
+                        <div class="govuk-radios__conditional" id="conditional-trust-opt-into-rpa-Yes">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                Start date
+                            </legend>
+                            <govuk-date-input id="rpa-start-date" name="rpa-start-date" asp-for="@Model.RpaStartDate" hint="For example, 27 3 2021" />
+
+                            <label class="govuk-label govuk-heading-s govuk-!-font-size-19" for="rpa-cover-type">
+                                Type of RPA cover
+                            </label>
+                            <govuk-text-input id="rpa-cover-type" name="rpa-cover-type" asp-for="@Model.RpaCoverType" />
+                        </div>
                         <div class="govuk-radios__item">
                             <input 
                                 class="govuk-radios__input" 
@@ -74,11 +85,6 @@
                             <label class="govuk-label govuk-radios__label" for="trust-opt-into-rpa-No">
                                 No
                             </label>
-                        </div>
-                        <div class="govuk-radios__conditional" id="conditional-trust-opt-into-rpa-Yes">
-
-                            <govuk-date-input id="rpa-start-date" name="rpa-start-date" asp-for="@Model.RpaStartDate" label="Start date" hint="For example, 27 3 2021" />
-                            <govuk-text-input id="rpa-cover-type" name="rpa-cover-type" bold-label="true" label="Type of RPA cover" asp-for="@Model.RpaCoverType" add-margin="true" />
                         </div>
                     </div>
                 </fieldset>
