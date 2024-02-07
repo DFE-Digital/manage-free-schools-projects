@@ -143,7 +143,7 @@ describe("Testing that we can add contacts", () => {
                 .hasSchoolChairName("")
                 .hasSchoolChairEmail("");
             
-            contactsSummaryPage.goToEditTrustChair;
+            contactsSummaryPage.goToEditTrustChair();
             editTrustChairPage
                 .hasTitle("Edit trust chair")
                 .hasSchoolName(project.schoolName)
