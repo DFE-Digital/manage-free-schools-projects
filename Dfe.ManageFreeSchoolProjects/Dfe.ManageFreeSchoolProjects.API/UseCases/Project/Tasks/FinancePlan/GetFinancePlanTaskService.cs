@@ -26,10 +26,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
                                     {
                                         FinancePlanAgreed = ConvertYesNo(milestones.FsgPreOpeningMilestonesBefpApplicable),
                                         DateAgreed = milestones.FsgPreOpeningMilestonesBefpActualDateOfCompletion,
-                                        PlanSavedInWorkspaceFolder = milestones.IsPlanSavedInWorkspaceFolder,
+                                        PlanSavedInWorksplacesFolder = milestones.IsPlanSavedInWorkplacesFolder,
                                         LocalAuthorityAgreedPupilNumbers = milestones.LAAgreedPupilNumbers,
                                         Comments = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
-                                        TrustWillOptIntoRpa = milestones.TrustOptInRPA
+                                        TrustWillOptIntoRpa = milestones.TrustOptInRPA,
+                                        RpaStartDate = milestones.RPAStartDate,
+                                        RpaCoverType = milestones.RPACoverType
                                     }
                                 }).FirstOrDefaultAsync();
 

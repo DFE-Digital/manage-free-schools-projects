@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "IsPlanSavedInWorkspaceFolder",
+                name: "IsPlanSavedInWorkplacesFolder",
                 table: "Milestones",
                 type: "int",
                 nullable: true);
@@ -20,6 +21,20 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                 name: "LAAgreedPupilNumbers",
                 table: "Milestones",
                 type: "int",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "RPACoverType",
+                table: "Milestones",
+                type: "varchar(100)",
+                unicode: false,
+                maxLength: 100,
+                nullable: true);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "RPAStartDate",
+                table: "Milestones",
+                type: "datetime2",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
@@ -33,11 +48,19 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsPlanSavedInWorkspaceFolder",
+                name: "IsPlanSavedInWorkplacesFolder",
                 table: "Milestones");
 
             migrationBuilder.DropColumn(
                 name: "LAAgreedPupilNumbers",
+                table: "Milestones");
+
+            migrationBuilder.DropColumn(
+                name: "RPACoverType",
+                table: "Milestones");
+
+            migrationBuilder.DropColumn(
+                name: "RPAStartDate",
                 table: "Milestones");
 
             migrationBuilder.DropColumn(

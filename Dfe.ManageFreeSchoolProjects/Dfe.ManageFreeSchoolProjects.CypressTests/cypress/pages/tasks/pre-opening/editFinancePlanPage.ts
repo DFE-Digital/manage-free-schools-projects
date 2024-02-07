@@ -21,7 +21,7 @@ class EditFinancePlanPage {
 
     public withDateAgreed(day: string, month: string, year: string): this {
 
-        this.enterDate("date-agreed", day, month, year);
+        cy.enterDate("date-agreed", day, month, year);
 
         return this;
     }
@@ -46,27 +46,37 @@ class EditFinancePlanPage {
         return this;
     }
 
-    public checkTrustWillOptInToRpa(): this {
-        cy.getById(`trust-opt-into-rpa`).click();
+    public withTrustWillOptInToRpa(value: string): this {
+        cy.getById(`trust-opt-into-rpa-${value}`).click();
         return this;
     }
 
-    private enterDate(idPrefix: string, day: string, month: string, year: string) {
-        cy.getById(`${idPrefix}-day`).clear();
-        cy.getById(`${idPrefix}-month`).clear();
-        cy.getById(`${idPrefix}-year`).clear();
+    public withRpaStartDate(day: string, month: string, year: string): this {
+        cy.enterDate("rpa-start-date", day, month, year);
+        return this;
+    }
 
-        if (day.length > 0) {
-            cy.getById(`${idPrefix}-day`).type(day);
-        }
+    public hasRpaStartDate(day: string, month: string, year: string): this {
+        cy.getById("rpa-start-date-day").should("have.value", day);
+        cy.getById("rpa-start-date-month").should("have.value", month);
+        cy.getById("rpa-start-date-year").should("have.value", year);
 
-        if (month.length > 0) {
-            cy.getById(`${idPrefix}-month`).type(month);
-        }
+        return this;
+    }
 
-        if (year.length > 0) {
-            cy.getById(`${idPrefix}-year`).type(year);
-        }
+    public withRpaCoverType(value: string): this {
+        cy.getByTestId(`rpa-cover-type`).clear().type(value);
+        return this;
+    }
+
+    public withCoverTypeExceedingMaxLength(): this {
+        cy.getByTestId("rpa-cover-type").clear().invoke("val", "a".repeat(101));
+        return this;
+    }
+
+    public hasCoverType(value: string): this {
+        cy.getByTestId("rpa-cover-type").should("have.value", value);
+        return this;
     }
 }
 

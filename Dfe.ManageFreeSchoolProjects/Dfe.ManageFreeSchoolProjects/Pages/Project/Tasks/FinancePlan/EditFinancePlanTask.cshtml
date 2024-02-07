@@ -29,7 +29,7 @@
 
         <form method="post">
             <govuk-checkbox-input id="finance-plan-agreed" name="finance-plan-agreed" asp-for="@Model.FinancePlanAgreed" heading-label="Finance plan agreed" label="Done" />
-            <govuk-date-input id="date-agreed" name="date-agreed" asp-for="@Model.DateAgreed" data-testid="date-agreed" label="Date agreed" hint="For example, 27 3 2021" />
+            <govuk-date-input id="date-agreed" name="date-agreed" asp-for="@Model.DateAgreed" label="Date agreed" hint="For example, 27 3 2021" />
             <govuk-checkbox-input id="plan-saved-in-workplaces-folder" name="plan-saved-in-workplaces-folder" asp-for="@Model.PlanSavedInWorkplacesFolder" heading-label="Plan saved in workplaces folder" label="Done" />
             <govuk-radios-input id="local-authority-agreed-to-pupil-numbers"
                                 name="local-authority-agreed-to-pupil-numbers"
@@ -47,26 +47,38 @@
                     </legend>
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="trust-opt-into-rpa-yes" name="trust-opt-into-rpa" type="radio" value="Yes" data-testid="Yes" data-aria-controls="conditional-trust-opt-into-rpa-yes">
+                            <input 
+                                class="govuk-radios__input" 
+                                id="trust-opt-into-rpa-Yes" 
+                                name="trust-opt-into-rpa" 
+                                type="radio" 
+                                value="Yes" 
+                                data-testid="trust-opt-into-rpa-Yes"
+                                checked="@(Model.TrustOptIntoRpa == "Yes" ? "checked" : null)"
+                                data-aria-controls="conditional-trust-opt-into-rpa-Yes">
 
-                            <label class="govuk-label govuk-radios__label" id="trust-opt-into-rpa-yes-label" for="trust-opt-into-rpa-yes">
+                            <label class="govuk-label govuk-radios__label" for="trust-opt-into-rpa-Yes">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="trust-opt-into-rpa-no" name="trust-opt-into-rpa" type="radio" value="No" checked="checked" data-testid="No">
+                            <input 
+                                class="govuk-radios__input" 
+                                id="trust-opt-into-rpa-No"
+                                name="trust-opt-into-rpa" 
+                                type="radio" 
+                                value="No"
+                                checked="@(Model.TrustOptIntoRpa == "No" ? "checked" : null)"
+                                data-testid="trust-opt-into-rpa-No">
 
-                            <label class="govuk-label govuk-radios__label" id="trust-opt-into-rpa-no-label" for="trust-opt-into-rpa-no">
+                            <label class="govuk-label govuk-radios__label" for="trust-opt-into-rpa-No">
                                 No
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional" id="conditional-trust-opt-into-rpa-yes">
-                            <div class="govuk-form-group">
-                                <label class="govuk-label" for="contact-by-email">
-                                    Email address
-                                </label>
-                                <input class="govuk-input govuk-!-width-one-third" id="contact-by-email" name="contactByEmail" type="email" spellcheck="false" autocomplete="email">
-                            </div>
+                        <div class="govuk-radios__conditional" id="conditional-trust-opt-into-rpa-Yes">
+
+                            <govuk-date-input id="rpa-start-date" name="rpa-start-date" asp-for="@Model.RpaStartDate" label="Start date" hint="For example, 27 3 2021" />
+                            <govuk-text-input id="rpa-cover-type" name="rpa-cover-type" bold-label="true" label="Type of RPA cover" asp-for="@Model.RpaCoverType" add-margin="true" />
                         </div>
                     </div>
                 </fieldset>

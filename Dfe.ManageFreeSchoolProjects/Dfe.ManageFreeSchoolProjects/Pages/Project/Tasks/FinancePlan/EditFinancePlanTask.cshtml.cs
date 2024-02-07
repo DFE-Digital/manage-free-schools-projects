@@ -12,6 +12,8 @@ using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Validators;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using System.ComponentModel;
+using System.Linq;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
@@ -49,6 +51,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         [BindProperty(Name = "trust-opt-into-rpa")]
         public string? TrustOptIntoRpa { get; set; }
 
+        [BindProperty(Name = "rpa-start-date", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("RPA start date")]
+        public DateTime? RpaStartDate { get; set; }
+
+        [BindProperty(Name = "rpa-cover-type")]
+        [DisplayName("Type of RPA cover")]
+        [ValidText(100)]
+        public string? RpaCoverType { get; set; }
+
         [BindProperty]
         public string SchoolName { get; set; }
 
@@ -74,6 +85,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
 
         public async Task<ActionResult> OnPost()
         {
+            var trustOptIntoRpa = ConvertYesNo(TrustOptIntoRpa);
+
+            if (trustOptIntoRpa != YesNo.Yes)
+            {
+                // Ignore any errors for the RPA fields if the trust is not opting into RPA
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("rpa-start-date") || k == "rpa-cover-type").ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+            }
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -86,12 +107,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
                 {
                     FinancePlanAgreed = FinancePlanAgreed == true ? YesNo.Yes : YesNo.No,
                     DateAgreed = DateAgreed,
-                    PlanSavedInWorkspaceFolder = PlanSavedInWorkplacesFolder == true ? YesNo.Yes : YesNo.No,
+                    PlanSavedInWorksplacesFolder = PlanSavedInWorkplacesFolder == true ? YesNo.Yes : YesNo.No,
                     Comments = Comments,
                     LocalAuthorityAgreedPupilNumbers = ConvertYesNoNotApplicable(LocalAuthorityAgreedToPupilNumbers),
-                    TrustWillOptIntoRpa = ConvertYesNo(TrustOptIntoRpa)
+                    TrustWillOptIntoRpa = ConvertYesNo(TrustOptIntoRpa),
+                    RpaStartDate =  null,
+                    RpaCoverType = null
                 }
             };
+
+            if (trustOptIntoRpa == YesNo.Yes)
+            {
+                updateTaskRequest.FinancePlan.RpaStartDate = RpaStartDate;
+                updateTaskRequest.FinancePlan.RpaCoverType = RpaCoverType;
+            }
 
             await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
 
@@ -104,10 +133,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
 
             FinancePlanAgreed = project.FinancePlan.FinancePlanAgreed == YesNo.Yes;
             DateAgreed = project.FinancePlan.DateAgreed;
-            PlanSavedInWorkplacesFolder = project.FinancePlan.PlanSavedInWorkspaceFolder == YesNo.Yes;
+            PlanSavedInWorkplacesFolder = project.FinancePlan.PlanSavedInWorksplacesFolder == YesNo.Yes;
             Comments = project.FinancePlan.Comments;
             LocalAuthorityAgreedToPupilNumbers = project.FinancePlan.LocalAuthorityAgreedPupilNumbers?.ToString();
             TrustOptIntoRpa = project.FinancePlan.TrustWillOptIntoRpa?.ToString();
+            RpaStartDate = project.FinancePlan.RpaStartDate;
+            RpaCoverType = project.FinancePlan.RpaCoverType;
 
             SchoolName = project.SchoolName;
         }

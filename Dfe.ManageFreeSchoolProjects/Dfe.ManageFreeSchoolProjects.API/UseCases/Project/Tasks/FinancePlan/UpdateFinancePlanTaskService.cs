@@ -36,10 +36,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
             milestone.Rid = dbKpi.Rid;
             milestone.FsgPreOpeningMilestonesBefpApplicable = task.FinancePlanAgreed?.ToString();
             milestone.FsgPreOpeningMilestonesBefpActualDateOfCompletion = task.DateAgreed?.Date;
-            milestone.IsPlanSavedInWorkspaceFolder = task.PlanSavedInWorkspaceFolder;
+            milestone.IsPlanSavedInWorkplacesFolder = task.PlanSavedInWorksplacesFolder;
             milestone.LAAgreedPupilNumbers = task.LocalAuthorityAgreedPupilNumbers;
             milestone.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable = task.Comments;
             milestone.TrustOptInRPA = task.TrustWillOptIntoRpa;
+            milestone.RPAStartDate = task.RpaStartDate;
+            milestone.RPACoverType = task.RpaCoverType;
 
             await _context.SaveChangesAsync();
         }

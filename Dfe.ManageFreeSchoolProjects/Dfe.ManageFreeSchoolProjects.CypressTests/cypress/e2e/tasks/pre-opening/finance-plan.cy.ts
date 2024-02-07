@@ -26,6 +26,11 @@ describe("Testing finance plan task", () => {
 
     it("Should be able to set a finance plan", () => {
 
+        // Need these labels in a constant because we check exists and not exists
+        // Ensures both checks will be consistent
+        const rpaStartDateLabel = "RPA start date";
+        const rpaCoverTypeLabel = "Type of RPA cover";
+
         Logger.log("Select finance plan");
         taskListPage.isTaskStatusIsNotStarted("FinancePlan")
             .selectFinancePlanFromTaskList();
@@ -63,15 +68,22 @@ describe("Testing finance plan task", () => {
 
         Logger.log("Testing validation");
         editFinancePlanPage
+            .withTrustWillOptInToRpa("Yes")
             .withDateAgreed("33", "", "")
+            .withRpaStartDate("44", "", "")
+            .withCoverTypeExceedingMaxLength()
             .withCommentsExceedingMaxLength()
             .clickContinue();
 
         validationComponent
             .hasValidationError("Date agreed must include a month and year")
-            .hasValidationError("The comments must be 999 characters or less");
+            .hasValidationError("RPA start date must include a month and year")
+            .hasValidationError("The comments must be 999 characters or less")
+            .hasLinkedValidationError("The type of rpa cover must be 100 characters or less");
 
-        cy.executeAccessibilityTests();
+        // The conditional radio buttons break "aria-allowed-attr"
+        // This is a gov component so we can't fix it, for now just disable the check
+        cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
 
         editFinancePlanPage
             .schoolNameIs(project.schoolName)
@@ -80,7 +92,9 @@ describe("Testing finance plan task", () => {
             .checkPlanSavedInWorkplacesFolder()
             .withLocalAuthorityAgreedToUnderwritePupilNumbers("Yes")
             .withComments("Some comments")
-            .checkTrustWillOptInToRpa()
+            .withTrustWillOptInToRpa("Yes")
+            .withRpaStartDate("12", "09", "2025")
+            .withRpaCoverType("Comprehensive")
             .clickContinue();
 
         summaryPage
@@ -90,7 +104,9 @@ describe("Testing finance plan task", () => {
             .summaryShows("Plan saved in Workspaces folder").HasValue("Yes")
             .summaryShows("Local authority agreed to underwrite pupil numbers").HasValue("Yes")
             .summaryShows("Comments").HasValue("Some comments")
-            .summaryShows("Trust will opt-in to RPA (risk protection arrangement)").HasValue("Yes");
+            .summaryShows("Trust will opt-in to RPA (risk protection arrangement)").HasValue("Yes")
+            .summaryShows(rpaStartDateLabel).HasValue("12 September 2025")
+            .summaryShows(rpaCoverTypeLabel).HasValue("Comprehensive");
 
         Logger.log("Should be able to edit the existing values");
         summaryPage.clickChange();
@@ -101,7 +117,9 @@ describe("Testing finance plan task", () => {
             .checkPlanSavedInWorkplacesFolder()
             .withLocalAuthorityAgreedToUnderwritePupilNumbers("NotApplicable")
             .withComments("This is my new comments")
-            .checkTrustWillOptInToRpa()
+            .withTrustWillOptInToRpa("Yes")
+            .withRpaStartDate("13", "06", "2026")
+            .withRpaCoverType("Standard")
             .clickContinue();
 
         summaryPage
@@ -111,8 +129,37 @@ describe("Testing finance plan task", () => {
             .summaryShows("Plan saved in Workspaces folder").HasValue("No")
             .summaryShows("Local authority agreed to underwrite pupil numbers").HasValue("Not applicable")
             .summaryShows("Comments").HasValue("This is my new comments")
-            .summaryShows("Trust will opt-in to RPA (risk protection arrangement)").HasValue("No");
+            .summaryShows("Trust will opt-in to RPA (risk protection arrangement)").HasValue("Yes")
+            .summaryShows(rpaStartDateLabel).HasValue("13 June 2026")
+            .summaryShows(rpaCoverTypeLabel).HasValue("Standard");
 
+        Logger.log("Should not validate the RPA fields if no is selected");
+        summaryPage.clickChange();
+
+        editFinancePlanPage
+            .withTrustWillOptInToRpa("Yes")
+            .withRpaStartDate("12", "", "")
+            .withCoverTypeExceedingMaxLength()
+            .withTrustWillOptInToRpa("No")
+            .clickContinue();
+
+        Logger.log("Should not show the RPA fields if no is selected and the optional fields should not be displayed")
+        summaryPage
+            .startFromRow(5)
+            .summaryShows("Trust will opt-in to RPA (risk protection arrangement)").HasValue("No")
+            .summaryDoesNotShow(rpaStartDateLabel)
+            .summaryDoesNotShow(rpaCoverTypeLabel);
+
+        Logger.log("Should clear the RPA fields as no was selected");
+        summaryPage.clickChange();
+
+        editFinancePlanPage
+            .withTrustWillOptInToRpa("Yes")
+            .hasCoverType("")
+            .hasRpaStartDate("", "", "")
+            .clickContinue();
+
+        Logger.log("Should update the task status");
         summaryPage.clickConfirmAndContinue();
 
         taskListPage.isTaskStatusInProgress("FinancePlan").selectFinancePlanFromTaskList();

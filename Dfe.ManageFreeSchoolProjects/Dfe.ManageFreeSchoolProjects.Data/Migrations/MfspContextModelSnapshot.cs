@@ -5436,7 +5436,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
-                    b.Property<int?>("IsPlanSavedInWorkspaceFolder")
+                    b.Property<int?>("IsPlanSavedInWorkplacesFolder")
                         .HasColumnType("int");
 
                     b.Property<int?>("LAAgreedPupilNumbers")
@@ -5466,6 +5466,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
+
+                    b.Property<string>("RPACoverType")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("RPAStartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("TrustOptInRPA")
                         .HasColumnType("int");

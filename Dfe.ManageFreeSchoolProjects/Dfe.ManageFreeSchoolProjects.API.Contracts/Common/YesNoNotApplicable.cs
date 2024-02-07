@@ -4,11 +4,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Common
 {
     public enum YesNoNotApplicable
     {
+        [Description("No")]
+        No = 0,
         [Description("Yes")]
         Yes = 1,
-        [Description("No")]
-        No = 2,
         [Description("Not applicable")]
-        NotApplicable = 3
+        NotApplicable = 2
     }
 }

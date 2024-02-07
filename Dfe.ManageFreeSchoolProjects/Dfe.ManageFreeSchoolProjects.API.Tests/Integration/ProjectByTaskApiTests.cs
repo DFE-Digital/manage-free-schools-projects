@@ -377,7 +377,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
-            var date = new DateTime().Date;
+            var dateAgreed = DateTime.Now.Date.AddDays(-5);
+            var rpaStartDate = DateTime.Now.Date.AddDays(10);
 
             var request = new UpdateProjectByTaskRequest()
             {
@@ -386,9 +387,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     FinancePlanAgreed = YesNo.Yes,
                     Comments = "CommentsOnDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.Yes,
-                    DateAgreed = date,
-                    PlanSavedInWorkspaceFolder = YesNo.Yes,
-                    TrustWillOptIntoRpa = YesNo.Yes
+                    DateAgreed = dateAgreed,
+                    PlanSavedInWorksplacesFolder = YesNo.Yes,
+                    TrustWillOptIntoRpa = YesNo.Yes,
+                    RpaCoverType = "RpaCoverType",
+                    RpaStartDate = rpaStartDate
                 }
             };
 
@@ -397,9 +400,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.Yes);
             projectResponse.FinancePlan.Comments.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.Yes);
-            projectResponse.FinancePlan.DateAgreed.Should().Be(date);
-            projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.Yes);
+            projectResponse.FinancePlan.DateAgreed.Should().Be(dateAgreed);
+            projectResponse.FinancePlan.PlanSavedInWorksplacesFolder.Should().Be(YesNo.Yes);
             projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.Yes);
+            projectResponse.FinancePlan.RpaCoverType.Should().Be("RpaCoverType");
+            projectResponse.FinancePlan.RpaStartDate.Should().Be(rpaStartDate);
         }
 
         [Fact]
@@ -416,7 +421,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
-            var date = new DateTime().Date;
+            var dateAgreed = DateTime.Now.Date.AddDays(-5);
+            var rpaStartDate = DateTime.Now.Date.AddDays(10);
 
             var request = new UpdateProjectByTaskRequest()
             {
@@ -425,9 +431,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     FinancePlanAgreed = YesNo.No,
                     Comments = "ChangedDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.NotApplicable,
-                    DateAgreed = date,
-                    PlanSavedInWorkspaceFolder = YesNo.No,
-                    TrustWillOptIntoRpa = YesNo.No
+                    DateAgreed = dateAgreed,
+                    PlanSavedInWorksplacesFolder = YesNo.No,
+                    TrustWillOptIntoRpa = YesNo.No,
+                    RpaCoverType = "a new RpaCoverType",
+                    RpaStartDate = rpaStartDate
                 }
             };
 
@@ -436,9 +444,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.No);
             projectResponse.FinancePlan.Comments.Should().Be("ChangedDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.NotApplicable);
-            projectResponse.FinancePlan.DateAgreed.Should().Be(date);
-            projectResponse.FinancePlan.PlanSavedInWorkspaceFolder.Should().Be(YesNo.No);
+            projectResponse.FinancePlan.DateAgreed.Should().Be(dateAgreed);
+            projectResponse.FinancePlan.PlanSavedInWorksplacesFolder.Should().Be(YesNo.No);
             projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.No);
+            projectResponse.FinancePlan.RpaCoverType.Should().Be("a new RpaCoverType");
+            projectResponse.FinancePlan.RpaStartDate.Should().Be(rpaStartDate);
         }
 
         [Fact]

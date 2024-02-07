@@ -335,10 +335,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string MAASharepointLink { get; set; }
 
-        public YesNo? IsPlanSavedInWorkspaceFolder { get; set; }
+        public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
 
         public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
 
         public YesNo? TrustOptInRPA { get; set; }
+
+        public DateTime? RPAStartDate { get; set; }
+
+        public string? RPACoverType { get; set; }
     }
 }
