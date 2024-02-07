@@ -36,8 +36,15 @@
 
         <div class="risk-rating-landing-page__overall-box">
             <h2 class="govuk-heading-m">Overall rating and summary</h2>
-            <p class="govuk-body" data-testid="overall-risk-rating"><govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" /></p>
-            <p class="govuk-body-l" data-testid="overall-risk-summary"><govuk-display-value value="@Model.ProjectRisk.Overall.Summary" /></p>
+            <p class="govuk-body" data-testid="overall-risk-rating">
+                <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating"/>
+            </p>
+            @if (Model.ProjectRisk.Overall.Summary != null)
+            {
+                <p class="govuk-body-l" data-testid="overall-risk-summary">
+                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary"/>
+                </p>
+            }
         </div>
 
         <h2 class="govuk-heading-m">Individual risks</h2>
