@@ -6,7 +6,11 @@
     var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 }
-<a href=@backlink class="govuk-back-link">Back</a>
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
