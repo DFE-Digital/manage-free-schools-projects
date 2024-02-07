@@ -138,8 +138,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.MAAArrangementsMatchGovernancePlans = false;
             result.FsgPreOpeningMilestonesMaaForecastDate = new DateTime(2030, 3, 1);
             result.FsgPreOpeningMilestonesMaaActualDateOfCompletion = new DateTime(2030, 3, 1);
-            result.MAACommentsOnDecisionToApprove = "No comments";
-            result.MAASharepointLink = "https://www.test.com/";
+            result.FsgPreOpeningMilestonesMi107LinkToSavedDocument = "No comments";
+            result.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable = "https://www.test.com/";
             result.FsgPreOpeningMilestonesKickOffMeetingHeldActualDate = _fixture.Create<DateTime>();
             result.FsgPreOpeningMilestonesFaActualDateOfCompletion = _fixture.Create<DateTime>();
             result.FsgPreOpeningMilestonesFaForecastDate = _fixture.Create<DateTime>();
