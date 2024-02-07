@@ -8,6 +8,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
@@ -108,6 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IGetConstructProjectListService, GetConstructProjectListService>();
 			services.AddScoped<IApiKeyValidationService, ApiKeyValidationService>();
 			services.AddScoped<IConstructApiKeyValidationService, ConstructApiKeyValidationService>();
+            services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

@@ -8,6 +8,8 @@
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
 		public ConstituencyTask Constituency { get; set; }
+        
+        public KickOffMeetingTask KickOffMeeting { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
@@ -32,6 +34,8 @@
                     return TaskName.ArticlesOfAssociation.ToString();
                 if (FinancePlan != null)
                     return TaskName.FinancePlan.ToString();
+                if (KickOffMeeting != null)
+                    return TaskName.KickOffMeeting.ToString();
                 return null;
             }
         }

@@ -8,6 +8,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
     [HtmlTargetElement("govuk-summary-item", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class SummaryItemTagHelper : TagHelper
     {
+        const string empty = @"<span class=""empty"">Empty</span>";
+
         [HtmlAttributeName("label")]
         public string Label { get; set; }
 
@@ -16,6 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         [HtmlAttributeName("href")]
         public string Href { get; set; }
+
+        [HtmlAttributeName("render-link")]
+        public bool RenderLink { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -27,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                     {Label}
                </dt>
                <dd class=""govuk-summary-list__value"" data-testid=""projectid"">
-                    {GetValue()}
+                    {RenderValue()}
                </dd>
                {GetChangeLink()}
             ");
@@ -35,10 +40,20 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             output.TagMode = TagMode.StartTagAndEndTag;
         }
 
+        private string RenderValue()
+        {
+            var value = GetValue();
+
+            if(value != empty && RenderLink)
+            {
+                return $@"<a class=""govuk-link"" href=""{For.Model}"">{value}</a>";
+            }
+
+            return value;
+        }
+
         private string GetValue()
         {
-            const string empty = @"<span class=""empty"">Empty</span>";
-
             if(For.Model == null)
             {
                 return empty;
@@ -96,11 +111,11 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
             if (string.IsNullOrEmpty(value) || value == "NotSet")
             {
-                return @"<span class=""empty"">Empty</span>";
+                return empty;
             }
 
             return value;
-
+            //RenderLink
         }
 
         private string GetChangeLink()
