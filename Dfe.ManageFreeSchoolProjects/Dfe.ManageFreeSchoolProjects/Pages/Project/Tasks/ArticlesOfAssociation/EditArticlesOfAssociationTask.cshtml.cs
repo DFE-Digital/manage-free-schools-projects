@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
         public string CommentsOnDecision { get; set; }
 
         [BindProperty(Name = "sharepoint-link")]
-        [Display(Name = "Sharepoint link")]
+        [Display(Name = "SharePoint link")]
         public string SharepointLink { get; set; }
 
         public string SchoolName { get; set; }
@@ -78,11 +78,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
 
             if (!new UrlAttribute().IsValid(SharepointLink))
             {
-                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be a valid url");
+                ModelState.AddModelError("sharepoint-link", "SharePoint link must be a valid url");
             }
             else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 100)
             {
-                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be 100 characters or less");
+                ModelState.AddModelError("sharepoint-link", "SharePoint link must be 100 characters or less");
             }
 
             if (!ModelState.IsValid)

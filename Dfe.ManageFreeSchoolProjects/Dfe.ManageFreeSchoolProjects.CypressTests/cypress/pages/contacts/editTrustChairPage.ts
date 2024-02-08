@@ -5,14 +5,27 @@ class EditTrustChairPage {
         cy.getByTestId("edit-trust-chair-name").clear().type(value)
         return this;
     }
+
+    withNullTrustChairName(): this {
+        cy.getByTestId("edit-trust-chair-name").clear()
+        return this;
+    }
+
     withTrustChairEmail(value: string): this {
         cy.getByTestId("edit-trust-chair-email").clear().type(value)
         return this;
     }
+
+    withNullTrustChairEmail(): this {
+        cy.getByTestId("edit-trust-chair-email").clear()
+        return this;
+    }
+
     errorForTrustChairName(error: string): this {
         cy.getById('trust-chair-name-error').contains(error)
         return this
     }
+
     errorForTrustChairEmail(error: string): this {
         cy.getById('trust-chair-email-error').contains(error)
         return this
@@ -23,6 +36,7 @@ class EditTrustChairPage {
 
         return this;
     }
+
     public hasSchoolName(value: string): this {
 
         cy.getByTestId(`school-name`).should("contain.text", value);
