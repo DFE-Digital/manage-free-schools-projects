@@ -65,12 +65,80 @@
         </nav>
     </div>
 </div>
+<div class="govuk-grid-row mfsp-project-overview">
+    <div class="govuk-grid-column-two-thirds">
 
-<div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Project progress</h2>
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Project progress</h2>
+        <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 22 sections.</p>
 
-    <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 22 sections.</p>
+        <ol class="app-task-list">
+            <li>
+                <h2 class="app-task-list__section">
+                    Setting-up
+                </h2>
+                <ul class="app-task-list__items">
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@datesTaskLink" class="govuk-link" data-testid="dates-task">
+                                @Model.ProjectTaskListSummary.Dates.Name
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.Dates);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@schoolTaskLink" class="govuk-link" data-testid="school-task">
+                                @Model.ProjectTaskListSummary.School.Name
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.School);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@trustTaskLink" class="govuk-link" data-testid="trust-task">
+                                @Model.ProjectTaskListSummary.Trust.Name
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.Trust);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@regionAndLocalAuthorityLink" class="govuk-link" data-testid="region-la-task">
+                                Region and local authority
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.RegionAndLocalAuthority);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@constituencyTaskLink" class="govuk-link" data-testid="constituency-task">
+                                @Model.ProjectTaskListSummary.Constituency.Name
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.Constituency);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@riskAppraisalMeetingLink" class="govuk-link" data-testid="risk-appraisal-meeting-task">
+                                Risk appraisal meeting
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.RiskAppraisalMeeting);
+                        }
+                    </li>
+                </ul>
 
     <ol class="app-task-list">
         <li>
@@ -178,7 +246,6 @@
         </li>
     </ol>
 </div>
-
 @functions {
 
     public void RenderStatus(TaskSummaryResponse task)

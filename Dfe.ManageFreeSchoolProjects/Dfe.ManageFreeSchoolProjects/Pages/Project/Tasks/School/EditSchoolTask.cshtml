@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
-    
+
     var schoolTypeLabels = Model.SchoolTypes.Select(x => x.ToDescription()).ToArray();
     var schoolTypeValues = Model.SchoolTypes.Select(x => x.ToString()).ToArray();
 
@@ -23,10 +23,15 @@
     var faiths = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet });
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
+    var backlink = $"/projects/{Model.ProjectId}/tasks/school";
 }
-<div class="govuk-grid-row">
-    <a href="/projects/@Model.ProjectId/tasks/school" class="govuk-back-link">Back</a>
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
 
+<div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl" data-testid="title">
@@ -36,6 +41,9 @@
 
 
         <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+
             <partial name="_ErrorSummary"/>
 
             <form method="post">
@@ -106,7 +114,7 @@
                                         values="@faithStatuses" />
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group" id="faith-status-group">
                     <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
                     <govuk-radios-input name="faith-type"
                                         asp-for="@Model.FaithType"
@@ -121,7 +129,7 @@
                     Save and continue
                 </button>
             </form>
-
+            </div>
         </div>
     </div>
 </div>
@@ -132,12 +140,12 @@
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
-            $('#faith-type').hide();
+            $('#faith-status-group').hide();
             $('#other-faith-type').parent().hide();
         }
         else
         {
-            $('#faith-type').show();
+            $('#faith-status-group').show();
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();

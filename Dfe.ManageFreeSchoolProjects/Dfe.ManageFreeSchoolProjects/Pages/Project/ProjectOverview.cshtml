@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = $"{Model.Project.ProjectStatus.CurrentFreeSchoolName} - About the project";
+    ViewData["WidePage"] = true;
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var riskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
