@@ -4890,6 +4890,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.FSRD Forecast date");
 
+                    b.Property<bool>("FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesGiasActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.GIAS Actual date of completion");
