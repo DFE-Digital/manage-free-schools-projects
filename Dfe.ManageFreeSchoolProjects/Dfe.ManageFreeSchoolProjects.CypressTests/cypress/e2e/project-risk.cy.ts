@@ -46,7 +46,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasTitle("Current risk ratings")
                 .hasSchoolName(project.schoolName)
                 .hasOverallRiskRating(["Empty"])
-                .hasOverallRiskSummary("Empty")
+                .hasNoOverallRiskSummary()
                 .hasGovernanceAndSuitabilityRiskRating(["Empty"])
                 .hasGovernanceAndSuitabilityRiskSummary("Empty")
                 .hasEducationRiskRating(["Empty"])
@@ -391,7 +391,7 @@ describe("Testing that we can add a project risk", () => {
 
             projectRiskSummaryPage
                 .hasOverallRiskRating(["Green"])
-                .hasOverallRiskSummary("Empty")
+                .hasNoOverallRiskSummary()
                 .hasGovernanceAndSuitabilityRiskRating(["Empty"])
                 .hasGovernanceAndSuitabilityRiskSummary("Empty")
                 .hasEducationRiskRating(["Empty"])
