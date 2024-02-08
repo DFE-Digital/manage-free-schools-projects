@@ -39,7 +39,7 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
-            .summaryShows("Sharepoint link").IsEmpty().HasChangeLink()
+            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
@@ -78,7 +78,7 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
-            .summaryShows("Sharepoint link").IsEmpty().HasChangeLink()
+            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .clickChange();
 
@@ -87,17 +87,17 @@ describe("Testing articles of association Task", () => {
         articlesOfAssociationEditPage
             .withSharepointLink(dataGenerator.generateAlphaNumeric(101))
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
+            .errorForSharepointLink().showsError("SharePoint link must be a valid url")
             .withSharepointLink("NotAUrl")
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
+            .errorForSharepointLink().showsError("SharePoint link must be a valid url")
             .withSharepointLink(`https://www.gov.uk/government/organisations/department-for-education${dataGenerator.generateAlphaNumeric(90)}`)
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be 100 characters or less")
+            .errorForSharepointLink().showsError("SharePoint link must be 100 characters or less")
             .withSharepointLink("https://www.gov.uk/government/organisations/department-for-education")
             .clickContinue();
 
-        summaryPage.SummaryHasValue("Sharepoint link", "https://www.gov.uk/government/organisations/department-for-education")
+        summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
         .clickChange();
 
         cy.log("Comment on decision validation")
@@ -167,7 +167,7 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").HasValue("1 March 2050").HasChangeLink()
             .summaryShows("Actual date").HasValue("5 April 2050").HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").HasValue("comment that's ok").HasChangeLink()
-            .summaryShows("Sharepoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
+            .summaryShows("SharePoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
             .isNotMarkedAsComplete();
 
         summaryPage.MarkAsComplete()
