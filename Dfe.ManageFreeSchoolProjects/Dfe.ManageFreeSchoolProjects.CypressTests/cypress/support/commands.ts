@@ -2,6 +2,7 @@ import "cypress-localstorage-commands";
 import "cypress-axe";
 import { AuthenticationInterceptor } from "../auth/authenticationInterceptor";
 import { Logger } from "../common/logger";
+import { RuleObject } from "axe-core";
 
 Cypress.Commands.add("getByTestId", (id) => {
     cy.get(`[data-testid="${id}"]`);
@@ -33,10 +34,10 @@ Cypress.Commands.add("getByLabelFor", (labelFor) => {
 
 Cypress.Commands.add("getByRadioOption", (radioText: string) => {
     cy.contains(radioText)
-    .invoke('attr', 'for')
-    .then((id) => {
-        cy.get('#' + id);
-    });
+        .invoke('attr', 'for')
+        .then((id) => {
+            cy.get('#' + id);
+        });
 })
 
 Cypress.Commands.add("assertChildList", (selector: string, values: string[]) => {
@@ -59,9 +60,17 @@ Cypress.Commands.add("login", (params) => {
     cy.visit("/");
 });
 
-Cypress.Commands.add("executeAccessibilityTests", () => {
+Cypress.Commands.add("executeAccessibilityTests", (ruleOverride?: RuleObject) => {
     Logger.log("Executing the command");
     const continueOnFail = false;
+
+    let ruleConfiguration: RuleObject = {
+        region: { enabled: false }
+    };
+
+    if (ruleOverride) {
+        ruleConfiguration = { ...ruleConfiguration, ...ruleOverride };
+    }
 
     // Ensure that the axe dependency is available in the browser
     Logger.log("Inject Axe");
@@ -69,11 +78,26 @@ Cypress.Commands.add("executeAccessibilityTests", () => {
 
     Logger.log("Checking accessibility");
     cy.checkA11y(undefined, {
-        // These will be fixed one by one
-        rules: {
-            region: { enabled: false },
-        },
+        rules: ruleConfiguration,
     }, undefined, continueOnFail);
 
     Logger.log("Command finished");
 });
+
+Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string, year: string) => {
+    cy.getById(`${idPrefix}-day`).clear();
+    cy.getById(`${idPrefix}-month`).clear();
+    cy.getById(`${idPrefix}-year`).clear();
+
+    if (day.length > 0) {
+        cy.getById(`${idPrefix}-day`).type(day);
+    }
+
+    if (month.length > 0) {
+        cy.getById(`${idPrefix}-month`).type(month);
+    }
+
+    if (year.length > 0) {
+        cy.getById(`${idPrefix}-year`).type(year);
+    }
+})

@@ -12,6 +12,8 @@
         public KickOffMeetingTask KickOffMeeting { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
+        public FinancePlanTask FinancePlan { get; set; }
+
         public string TaskToUpdate
         {
             get
@@ -30,6 +32,8 @@
 					return "Constituency";
                 if (ArticlesOfAssociation != null)
                     return TaskName.ArticlesOfAssociation.ToString();
+                if (FinancePlan != null)
+                    return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
                 return null;

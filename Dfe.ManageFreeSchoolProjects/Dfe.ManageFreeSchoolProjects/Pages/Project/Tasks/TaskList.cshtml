@@ -13,6 +13,7 @@
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
+    var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -70,7 +71,6 @@
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Project progress</h2>
 
         <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 22 sections.</p>
-
         <ol class="app-task-list">
             <li>
                 <h2 class="app-task-list__section">
@@ -161,6 +161,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.ArticlesOfAssociation);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@financePlanLink" class="govuk-link" data-testid="finance-plan-task">
+                                Finance plan
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.FinancePlan);
                         }
                     </li>
                 </ul>

@@ -96,6 +96,16 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                     return empty;
                 }
             }
+
+            if (Nullable.GetUnderlyingType(For.ModelExplorer.ModelType)?.IsEnum == true)
+            {
+                if (For.Model == null)
+                {
+                    return empty;
+                }
+
+                return For.Model.ToDescription();
+            }
             
             var value = For.Model.ToString();
 

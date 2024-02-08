@@ -23,7 +23,7 @@ describe("Testing articles of association Task", () => {
             });
     });
     it("Should successfully set articles of association", () => {
-        
+
         cy.log("Select articles of association");
         taskListPage.isTaskStatusIsNotStarted("ArticlesOfAssociation")
             .selectArticlesOfAssociationFromTaskList();
@@ -67,7 +67,7 @@ describe("Testing articles of association Task", () => {
             .titleIs("Edit articles of association")
             .schoolNameIs(project.schoolName)
             .clickContinue()
-        
+
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Articles of association")
@@ -98,7 +98,7 @@ describe("Testing articles of association Task", () => {
             .clickContinue();
 
         summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
-        .clickChange();
+            .clickChange();
 
         cy.log("Comment on decision validation")
 
@@ -116,7 +116,7 @@ describe("Testing articles of association Task", () => {
             .clickContinue();
 
         summaryPage.SummaryHasValue("Comments on decision to approve (if applicable)", "comment that's ok")
-        .clickChange();
+            .clickChange();
 
         cy.log('Forecast date validation')
 
@@ -129,7 +129,7 @@ describe("Testing articles of association Task", () => {
             .errorForForecastDate().showsError("Year must be between 2000 and 2050")
             .withForecastDate("1", "3", "2050")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("Forecast date", "1 March 2050")
             .clickChange();
 
@@ -144,11 +144,11 @@ describe("Testing articles of association Task", () => {
             .errorForActualDate().showsError("Year must be between 2000 and 2050")
             .withActualDate("5", "4", "2050")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("Actual date", "5 April 2050")
             .clickChange();
 
-            
+
         cy.log('Confirm all set')
 
         articlesOfAssociationEditPage
@@ -172,10 +172,10 @@ describe("Testing articles of association Task", () => {
 
         summaryPage.MarkAsComplete()
             .clickConfirmAndContinue();
-        
+
         taskListPage.isTaskStatusIsCompleted("ArticlesOfAssociation");
-        
+
 
     });
-                
+
 });

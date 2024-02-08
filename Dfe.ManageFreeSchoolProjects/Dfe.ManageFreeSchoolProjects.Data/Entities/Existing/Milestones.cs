@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
@@ -335,5 +336,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string MAACommentsOnDecisionToApprove { get; set; }
 
         public string MAASharepointLink { get; set; }
+
+        public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
+
+        public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
+
+        public YesNo? TrustOptInRPA { get; set; }
+
+        public DateTime? RPAStartDate { get; set; }
+
+        public string RPACoverType { get; set; }
     }
 }
