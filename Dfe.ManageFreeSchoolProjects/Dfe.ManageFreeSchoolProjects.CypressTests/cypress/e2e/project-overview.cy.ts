@@ -22,7 +22,7 @@ describe("Testing project overview", () => {
             .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
             .hasTrustId("TR00111")
             .hasTrustName("Aurora Academies Trust")
-            .hasTrustType("MAT")
+            .hasTrustType("MAT (multi-academy trust)")
             .hasProjectId(temporaryProjectId)
             .hasNumberOfFormsOfEntry("3")
             .hasCurrentFreeSchoolName(schoolName)
