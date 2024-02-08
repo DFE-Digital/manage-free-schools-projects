@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public FaithType FaithType { get; set; }
         public string TrustId { get; set; }
         public string TrustName { get; set; }
-        public string TrustType { get; set; }
+        public TrustType TrustType { get; set; }
     }
 
     public record KeyContactsResponse

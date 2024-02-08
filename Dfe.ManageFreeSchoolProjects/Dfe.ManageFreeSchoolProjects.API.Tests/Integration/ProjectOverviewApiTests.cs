@@ -8,6 +8,8 @@ using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -82,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             schoolDetails.FaithType.Should().Be(FaithType.RomanCatholic);
             schoolDetails.TrustId.Should().Be(project.TrustId);
             schoolDetails.TrustName.Should().Be(project.SchoolDetailsTrustName);
-            schoolDetails.TrustType.Should().Be(project.SchoolDetailsTrustType);
+            schoolDetails.TrustType.Should().Be(ProjectMapper.ToTrustType(project.SchoolDetailsTrustType));
 
             // Risk
             result.Data.Risk.Date.Value.Date.Should().Be(DateTime.Now.Date);

@@ -215,7 +215,7 @@
         </dt>
         <dd class="govuk-summary-list__value" data-testid="trust-type">
             @{
-                RenderValue(Model.Project.SchoolDetails.TrustType);
+                RenderValue(Model.Project.SchoolDetails.TrustType.ToDescription());
             }
         </dd>
 

@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Data;
@@ -70,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     FaithType = ProjectMapper.ToFaithType(project.SchoolDetailsFaithType),
                     TrustId = project.TrustId,
                     TrustName = project.SchoolDetailsTrustName,
-                    TrustType = project.SchoolDetailsTrustType
+                    TrustType = ProjectMapper.ToTrustType(project.SchoolDetailsTrustType)
                 },
                 Risk = risk,
                 KeyContacts = new()
