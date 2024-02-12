@@ -1,5 +1,10 @@
 class TaskListPage {
 
+    public selectAboutTheProjectTab(): this {
+        cy.contains("About the project").click()
+        return this;
+    }
+
     public selectDatesFromTaskList(): this {
         cy.getByTestId("dates-task").click()
         return this;
