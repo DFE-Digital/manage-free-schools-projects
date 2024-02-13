@@ -75,6 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
 
         public async Task<ActionResult> OnPost()
         {
+            var project = await _getProjectService.Execute(ProjectId, TaskName.ArticlesOfAssociation);
+            SchoolName = project.SchoolName;
 
             if (!new UrlAttribute().IsValid(SharepointLink))
             {

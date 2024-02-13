@@ -69,7 +69,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
 
         public async Task<ActionResult> OnPost()
         {
-            
+            var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
+            SchoolName = project.SchoolName;
+
             if (!new UrlAttribute().IsValid(SharepointLink))
             {
                 ModelState.AddModelError("sharepoint-link", "Sharepoint link must be a valid url");

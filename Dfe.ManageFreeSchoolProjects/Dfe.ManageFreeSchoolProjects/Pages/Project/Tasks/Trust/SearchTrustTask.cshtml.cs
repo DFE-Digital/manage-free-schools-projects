@@ -80,9 +80,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Trust
         {
             _logger.LogMethodEntered();
 
-            if(!ModelState.IsValid)
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Trust);
+            CurrentFreeSchoolName = project.SchoolName;
+
+            if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
+
                 return Page();
             }
 
