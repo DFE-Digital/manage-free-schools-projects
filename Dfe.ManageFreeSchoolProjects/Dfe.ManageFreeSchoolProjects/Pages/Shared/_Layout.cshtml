@@ -69,7 +69,6 @@
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-<partial name="_BetaBanner"/>
 
 <partial name="_CookieBanner"/>
 <header class="dfe-header" role="banner">
@@ -87,6 +86,7 @@
     </div>
     @await RenderSectionAsync("AfterHeader", required: false)
 </header>
+<partial name="_BetaBanner"/>
 @await RenderSectionAsync("BeforeMain", required: false)
 <div class="govuk-main-wrapper">
     <main id="main-content" role="main" class="govuk-width-container @widePage">
