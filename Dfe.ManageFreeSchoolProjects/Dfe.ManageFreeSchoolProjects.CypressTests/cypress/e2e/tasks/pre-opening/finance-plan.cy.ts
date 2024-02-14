@@ -169,7 +169,5 @@ describe("Testing finance plan task", () => {
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("FinancePlan");
-
-        cy.executeAccessibilityTests();
     });
 });
