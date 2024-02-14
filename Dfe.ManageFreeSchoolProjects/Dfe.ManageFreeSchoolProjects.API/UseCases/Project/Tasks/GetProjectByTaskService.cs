@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
@@ -61,6 +62,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.KickOffMeeting:
                     result = await new GetKickOffMeetingTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.ModelFundingAgreement:
+                    result = await new GetModelFundingAgreementTaskService(_context).Get(parameters);
                     break;
                 case TaskName.ArticlesOfAssociation:
                     result = await new GetArticlesOfAssociationTaskService(_context).Get(parameters);

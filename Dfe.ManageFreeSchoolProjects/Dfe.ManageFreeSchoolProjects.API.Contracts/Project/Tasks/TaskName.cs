@@ -13,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Constituency,
         ArticlesOfAssociation,
         FinancePlan,
-        KickOffMeeting
+        KickOffMeeting,
+        ModelFundingAgreement
     }
 }

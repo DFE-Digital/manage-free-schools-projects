@@ -12,6 +12,7 @@
     var regionAndLocalAuthorityLink = string.Format(RouteConstants.ViewRegionAndLocalAuthorityTask, Model.ProjectId);
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
+    var modelFundingAgreementLink = string.Format(RouteConstants.ViewModelFundingAgreement, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
 
@@ -151,6 +152,17 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.KickOffMeeting);
+                        }
+      
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@modelFundingAgreementLink" class="govuk-link" data-testid="model-funding-agreement-task">
+                                Model funding agreement
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.ModelFundingAgreement);
                         }
                     </li>
                     <li class="app-task-list__item">
