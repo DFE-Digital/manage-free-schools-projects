@@ -2,6 +2,8 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
+import editProjectRiskPage from "cypress/pages/risk/editProjectRiskPage";
+import projectRiskSummaryPage from "cypress/pages/risk/projectRiskSummaryPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import editDraftGovernancePlanPage from "cypress/pages/tasks/pre-opening/editDraftGovernancePlanPage";
@@ -18,13 +20,34 @@ describe("Testing draft governance plan task", () => {
         projectApi
             .post({
                 projects: [project],
-            })
-            .then(() => {
-                cy.visit(`/projects/${project.projectId}/tasks`);
             });
     });
 
+    it("Should not show a draft governance plan if the overall or governance risk is not red or red/amber", () => {
+        cy.visit(`/projects/${project.projectId}/tasks`);
+
+        Logger.log("This project has no risks so the task should not show");
+        taskListPage.draftGovernancePlanTaskDoesNotShow();
+    });
+
     it("Should be able to set a draft governance plan", () => {
+
+        Logger.log("Update overall risk to red so the task shows");
+        cy.visit(`/projects/${project.projectId}/risk/summary`);
+        projectRiskSummaryPage
+            .addRiskEntry()
+            .changeOverallRisk();
+
+        editProjectRiskPage
+            .withOverallRiskRating("Red")
+            .continue();
+
+        projectRiskSummaryPage
+            .markRiskAsReviewed()
+            .createRiskEntry();
+
+        cy.visit(`/projects/${project.projectId}/tasks`);
+
         Logger.log("Select draft governance plan");
         taskListPage.isTaskStatusIsNotStarted("DraftGovernancePlan")
             .selectDraftGovernancePlanFromTaskList();

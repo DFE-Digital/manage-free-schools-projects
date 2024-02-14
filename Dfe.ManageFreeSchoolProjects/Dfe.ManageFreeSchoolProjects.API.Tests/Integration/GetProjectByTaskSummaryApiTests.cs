@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
+using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -50,8 +52,43 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.ArticlesOfAssociation.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.FinancePlan.Name.Should().Be("FinancePlan");
             result.FinancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
             result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
             result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.DraftGovernancePlan.IsHidden.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Get_When_DraftGovernanceInProgress_TaskNotHidden_Returns_200()
+        {
+            using var context = _testFixture.GetContext();
+
+            var project = DatabaseModelBuilder.BuildProject();
+            context.Kpi.Add(project);
+
+            var tasks = new List<Data.Entities.Existing.Tasks>()
+            {
+                new Data.Entities.Existing.Tasks
+                {
+                    TaskName = TaskName.DraftGovernancePlan,
+                    Rid = project.Rid,
+                    Status = Status.InProgress,
+                }
+            };
+
+            context.Tasks.AddRange(tasks);
+
+            await context.SaveChangesAsync();
+
+            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
+            taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
+            var result = content.Data;
+
+            result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
+            result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.InProgress);
+            result.DraftGovernancePlan.IsHidden.Should().BeFalse();
         }
     }
 }

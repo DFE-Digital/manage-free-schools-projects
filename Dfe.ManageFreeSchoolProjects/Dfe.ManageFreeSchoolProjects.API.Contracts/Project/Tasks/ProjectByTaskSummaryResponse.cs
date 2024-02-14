@@ -29,5 +29,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         public string Name { get; set; }
         public ProjectTaskStatus Status { get; set; }
+        public bool? IsHidden { get; set; }
     }
 }

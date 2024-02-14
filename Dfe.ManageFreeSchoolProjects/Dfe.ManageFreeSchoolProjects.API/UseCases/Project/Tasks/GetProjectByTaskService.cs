@@ -70,7 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     result = await new GetFinancePlanTaskService(_context).Get(parameters);
                     break;
                 case TaskName.DraftGovernancePlan:
-                    result = await new GetDraftGovernancePlanService(_context).Get(parameters);
+                    result = await new GetDraftGovernancePlanTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

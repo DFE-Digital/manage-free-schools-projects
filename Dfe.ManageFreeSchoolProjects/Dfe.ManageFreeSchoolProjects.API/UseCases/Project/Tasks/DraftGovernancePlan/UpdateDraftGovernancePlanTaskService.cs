@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan
 {
-    public class UpdateDraftGovernancePlanService : IUpdateTaskService
+    public class UpdateDraftGovernancePlanTaskService : IUpdateTaskService
     {
         private readonly MfspContext _context;
 
-        public UpdateDraftGovernancePlanService(MfspContext context)
+        public UpdateDraftGovernancePlanTaskService(MfspContext context)
         {
             _context = context;
         }
