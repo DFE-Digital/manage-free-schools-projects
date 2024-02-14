@@ -68,6 +68,9 @@
 
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
+<partial name="_BetaBanner"/>
+
 <partial name="_CookieBanner"/>
 <header class="dfe-header" role="banner">
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
@@ -131,12 +134,6 @@
             <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
                 <h2 class="govuk-visually-hidden">Support links</h2>
                 <ul class="govuk-footer__inline-list">
-                    <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" asp-page="@Links.Public.PrivacyPolicy.Page"
-                           data-test="accessibility-statement">
-                            Privacy policy
-                        </a>
-                    </li>
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" asp-page="@Links.Public.CookiePreferences.Page"
                            data-test="cookie-preferences" asp-route-returnUrl="@Context.Request.Path">
