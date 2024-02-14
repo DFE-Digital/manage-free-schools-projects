@@ -50,6 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.ArticlesOfAssociation.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.FinancePlan.Name.Should().Be("FinancePlan");
             result.FinancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
+            result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }

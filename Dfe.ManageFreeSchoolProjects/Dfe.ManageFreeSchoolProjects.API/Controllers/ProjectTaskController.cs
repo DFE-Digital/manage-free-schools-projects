@@ -79,7 +79,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
-                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting")
+                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
+                DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, "DraftGovernancePlan")
             };
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
