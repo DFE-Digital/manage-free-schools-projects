@@ -83,7 +83,7 @@ describe("Creating an individual project - Create a new project", () => {
             .selectOption("Create one project")
             .continue();
         cy.executeAccessibilityTests();
-            
+
         Logger.log("Check project id validation");
         createProjectPage
             .titleIs("What is the temporary project ID?")
@@ -104,7 +104,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage
             .enterProjectId(temporaryProjectId)
             .continue()
-       
+
         Logger.log("Check back navigation");
         createProjectPage
             .back()
@@ -125,7 +125,7 @@ describe("Creating an individual project - Create a new project", () => {
             .enterSchoolName(dataGenerator.generateAlphaNumeric(101))
             .continue()
             .errorMessage("The school name must be 100 characters or less")
-            
+
         Logger.log("Enter school name");
         cy.executeAccessibilityTests();
         createProjectPage
@@ -133,7 +133,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Check back navigation");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the current free school name?")
@@ -141,20 +141,20 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Check region required");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the region of the school?")
             .continue()
             .errorMessage("Select the region of the free school")
 
         Logger.log("Select East of England");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("East of England")
             .continue();
 
         Logger.log("Check back navigation");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the region of the school?")
@@ -162,20 +162,20 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Check local authority required");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the local authority?")
             .continue()
             .errorMessage("Select the local authority of the free school");
 
         Logger.log("Select Local authority");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Luton")
             .continue();
 
         Logger.log("Check trust validation");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Search for a trust by TRN")
             .continue()
@@ -189,22 +189,22 @@ describe("Creating an individual project - Create a new project", () => {
             .enterTRN("TR99999")
             .continue()
             .errorMessage("Trust ID not found")
-            
+
         Logger.log("Enter valid trust");
-        cy.executeAccessibilityTests();	   
+        cy.executeAccessibilityTests();
         createProjectPage
             .enterTRN(TestTrn)
             .continue();
 
         Logger.log("Confirm trust validation");
-        cy.executeAccessibilityTests();	       
-        createProjectPage            
+        cy.executeAccessibilityTests();
+        createProjectPage
             .titleIs("Confirm the trust")
             .continue()
             .errorMessage("Confirm that the trust displayed is correct");
 
         Logger.log("Selecting No returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("No")
             .continue()
@@ -213,7 +213,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Confirm the trust")
             .back()
@@ -222,7 +222,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Selecting yes moves to next page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Confirm the trust")
             .hasCorrectTrustName("Aurora Academies Trust")
@@ -231,41 +231,41 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Check school type validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the school type?")
             .continue()
             .errorMessage("Select school type");
 
         Logger.log("Selecting Mainstream school type");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Mainstream")
             .continue();
-            
+
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the school type?")
             .isOptionChecked("Mainstream")
             .continue();
-        
+
         Logger.log("Check school phase validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the school phase?")
             .continue()
             .errorMessage("Select the school phase");
 
         Logger.log("Selecting Secondary school phase");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Secondary")
             .continue();
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the school phase?")
@@ -273,7 +273,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Check school phase validation and back navigation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Will it have any of these class types?")
             .continue()
@@ -287,7 +287,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Select invalid class types");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .setSixthFormTo("Yes")
             .continue()
@@ -300,7 +300,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Check age range validation-limited as tested elsewhere");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the age range?")
             .enterAgeRangeFrom("2")
@@ -312,16 +312,16 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the age range?")
             .hasAgeRangeFrom("2")
             .hasAgeRangeTo("7")
             .continue();
- 
+
         Logger.log("Check capacity validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the capacity?")
             .enterReceptionToYear6("-1")
@@ -348,7 +348,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Enter valid capacity");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .enterReceptionToYear6("0")
             .enterYear7ToYear11("400")
@@ -356,7 +356,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the capacity?")
@@ -365,41 +365,8 @@ describe("Creating an individual project - Create a new project", () => {
             .hasYear12ToYear14("150")
             .continue();
 
-        Logger.log("Check forms of entry optional");
-        cy.executeAccessibilityTests();	       
-        createProjectPage
-            .titleIs("How many forms of entry are there?")
-            .continue()
-            .titleIs("What is the faith status?")
-            .back();
-
-        Logger.log("Check forms of entry validation");
-        cy.executeAccessibilityTests();	       
-        createProjectPage
-            .titleIs("How many forms of entry are there?")
-            .enterFormsOfEntry("-")
-            .continue()
-            .errorMessage("Forms of entry must not include special characters other than , ( ) '")
-            .enterFormsOfEntry(dataGenerator.generateAlphaNumeric(101))
-            .continue()
-            .errorMessage("The forms of entry must be 100 characters or less");
-
-        Logger.log("Enter valid form of entry");
-        cy.executeAccessibilityTests();	       
-        createProjectPage
-            .enterFormsOfEntry("3")
-            .continue()
-
-        Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
-        createProjectPage
-            .back()
-            .titleIs("How many forms of entry are there?")
-            .hasFormsOfEntry("3")
-            .continue();
-
         Logger.log("Check faith status validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the faith status?")
             .continue()
@@ -407,13 +374,20 @@ describe("Creating an individual project - Create a new project", () => {
 
 
         Logger.log("Select Designation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Designation")
             .continue();
 
+        Logger.log("Go back to the faith status page");
+        createProjectPage
+            .back()
+            .titleIs("What is the faith status?")
+            .hasFaithStatus("Designation")
+            .continue();
+
         Logger.log("Check faith type validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the faith type?")
             .continue()
@@ -431,27 +405,27 @@ describe("Creating an individual project - Create a new project", () => {
             .errorMessage("Other faith type must only contain letters and spaces")
 
         Logger.log("Select Greek Orthodox");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Greek Orthodox")
             .continue()
-    
+
         Logger.log("Check provisional opening date validation");
-        cy.executeAccessibilityTests();	       
-        createProjectPage       
+        cy.executeAccessibilityTests();
+        createProjectPage
             .titleIs("What is the provisional opening date?")
             .setProvisionalOpeningDate("1", "10", "2020")
             .continue()
             .errorMessage("Provisional opening date date must be in the future");
 
         Logger.log("Enter valid provisional opening date");
-        cy.executeAccessibilityTests();	       
-        createProjectPage       
+        cy.executeAccessibilityTests();
+        createProjectPage
             .setProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("What is the provisional opening date?")
@@ -459,7 +433,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Check notify email validation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Who do you want to notify about this project?")
             .continue()
@@ -470,15 +444,15 @@ describe("Creating an individual project - Create a new project", () => {
             .enterNotifyEmail("test.person@edunation.gov.uk")
             .continue()
             .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        
+
         Logger.log("Set email");
-        cy.executeAccessibilityTests();	 
-        createProjectPage   
+        cy.executeAccessibilityTests();
+        createProjectPage
             .enterNotifyEmail("test.person@education.gov.uk")
             .continue();
 
         Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .back()
             .titleIs("Who do you want to notify about this project?")
@@ -504,7 +478,6 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
             .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-            .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
         createProjectPage.clickCreateProject();
@@ -513,7 +486,7 @@ describe("Creating an individual project - Create a new project", () => {
         cy.executeAccessibilityTests();
 
         createProjectPage.hasConfirmedProjectId(temporaryProjectId)
-        .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
+            .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
 
     });
 
@@ -535,7 +508,7 @@ describe("Creating an individual project - Create a new project", () => {
             .selectOption("Create one project")
             .continue();
         cy.executeAccessibilityTests();
-            
+
         Logger.log("Enter Valid project ID");
         cy.executeAccessibilityTests();
         createProjectPage
@@ -549,38 +522,38 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
 
         Logger.log("Select East of England");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("East of England")
             .continue();
 
         Logger.log("Select Local authority");
-        cy.executeAccessibilityTests();	
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Luton")
             .continue();
-            
+
         Logger.log("Enter valid trust");
-        cy.executeAccessibilityTests();	   
+        cy.executeAccessibilityTests();
         createProjectPage
             .enterTRN(TestTrn)
             .continue();
 
         Logger.log("Selecting yes moves to next page");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("Confirm the trust")
             .selectOption("Yes")
             .continue();
 
         Logger.log("Selecting Mainstream school type");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Mainstream")
             .continue();
 
         Logger.log("Selecting Secondary school phase");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Secondary")
             .continue();
@@ -592,41 +565,35 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
 
         Logger.log("Enter valid age range");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .enterAgeRangeFrom("2")
             .enterAgeRangeTo("7")
             .continue()
- 
+
         Logger.log("Enter valid capacity");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .enterReceptionToYear6("0")
             .enterYear7ToYear11("400")
             .enterYear12ToYear14("150")
             .continue()
 
-        Logger.log("Enter valid form of entry");
-        cy.executeAccessibilityTests();	       
-        createProjectPage
-            .enterFormsOfEntry("3")
-            .continue()
-
         Logger.log("Select Designation");
-        cy.executeAccessibilityTests();	       
+        cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("None")
             .continue();
 
         Logger.log("Enter valid provisional opening date");
-        cy.executeAccessibilityTests();	       
-        createProjectPage       
+        cy.executeAccessibilityTests();
+        createProjectPage
             .setProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
         Logger.log("Set email");
-        cy.executeAccessibilityTests();	 
-        createProjectPage   
+        cy.executeAccessibilityTests();
+        createProjectPage
             .enterNotifyEmail("test.person@education.gov.uk")
             .continue();
 
@@ -649,7 +616,6 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("None").HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
-            .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
         cy.log("Check back behaviour Temporary Project ID")
@@ -662,7 +628,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage.enterProjectId(updatedTemporaryProjectId)
             .continue()
         summaryPage.SummaryHasValue("Temporary Project ID", updatedTemporaryProjectId);
-        
+
         cy.log("Check back behaviour Current free school name")
         summaryPage.clickChangeFor(" Current free school name");
         createProjectPage.back()
@@ -679,7 +645,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage.selectOption("London")
             .back()
         summaryPage.SummaryHasValue("Region", "East of England");
-        
+
         summaryPage.clickChangeFor("Region");
         createProjectPage.selectOption("London")
             .continue()
@@ -692,8 +658,8 @@ describe("Creating an individual project - Create a new project", () => {
             .back()
         summaryPage
             .SummaryHasValue("Region", "East of England")
-            .SummaryHasValue("Local authority", "Luton");   
-        
+            .SummaryHasValue("Local authority", "Luton");
+
         cy.log("Update region and local authority")
         summaryPage.clickChangeFor("Region");
         createProjectPage.selectOption("London")
@@ -710,7 +676,7 @@ describe("Creating an individual project - Create a new project", () => {
         summaryPage.SummaryHasValue("Local authority", "Hackney");
 
         cy.log("Update Trust")
-        
+
         cy.log("Check back behaviour Trust")
         summaryPage.clickChangeFor("Trust");
         createProjectPage.back()
@@ -742,7 +708,7 @@ describe("Creating an individual project - Create a new project", () => {
         summaryPage
             .SummaryHasValue("Sixth form", "Yes")
             .SummaryHasValue("Nursery", "No")
-        
+
         cy.log("Check back behaviour for Nursery")
         summaryPage.clickChangeFor("Nursery");
         createProjectPage.setSixthFormTo("No")
@@ -783,7 +749,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
         summaryPage
             .SummaryHasValue("School phase", "All-through");
-        
+
         cy.log("Check back behaviour for Age range")
         summaryPage.clickChangeFor("Age range");
         createProjectPage.enterAgeRangeFrom("4")
@@ -799,7 +765,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
         summaryPage
             .SummaryHasValue("Age range", "4-11");
-            
+
         cy.log("Check back behaviour for School type")
         summaryPage.clickChangeFor("School type");
         createProjectPage.selectOption("Special")
@@ -813,7 +779,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
         summaryPage
             .SummaryHasValue("School type", "Special");
-        
+
         cy.log("Check back behaviour for capacity")
         summaryPage.clickChangeFor("Reception to year 6 capacity");
         createProjectPage.enterReceptionToYear6("120")
@@ -862,7 +828,7 @@ describe("Creating an individual project - Create a new project", () => {
             .back()
         summaryPage.SummaryHasValue("Faith status", "None")
             .SummaryHasValue("Faith type", "Empty");
-        
+
         cy.log("Change faith status")
         summaryPage.clickChangeFor("Faith status");
         createProjectPage.selectOption("Ethos")
@@ -882,20 +848,6 @@ describe("Creating an individual project - Create a new project", () => {
         summaryPage.SummaryHasValue("Faith status", "Designation")
             .SummaryHasValue("Faith type", "Other - Test Faith")
 
-        cy.log("Check back behaviour for Forms of entry")
-        summaryPage.clickChangeFor("Forms of entry");
-        createProjectPage.enterFormsOfEntry("4")
-            .back()
-        summaryPage
-            .SummaryHasValue("Forms of entry", "3");
-
-        cy.log("Change Forms of entry")
-        summaryPage.clickChangeFor("Forms of entry");
-        createProjectPage.enterFormsOfEntry("4")
-            .continue()
-        summaryPage
-            .SummaryHasValue("Forms of entry", "4");
-
         cy.log("Check back behaviour for Provisional opening date")
         summaryPage.clickChangeFor("Provisional opening date");
         createProjectPage.setProvisionalOpeningDate("12", "11", "2034")
@@ -909,12 +861,12 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
         summaryPage
             .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
-        
+
         createProjectPage.clickCreateProject();
 
         Logger.log("Confirm created");
         cy.executeAccessibilityTests();
         createProjectPage.hasConfirmedProjectId(updatedTemporaryProjectId)
-        .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
+            .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
     });
 });
