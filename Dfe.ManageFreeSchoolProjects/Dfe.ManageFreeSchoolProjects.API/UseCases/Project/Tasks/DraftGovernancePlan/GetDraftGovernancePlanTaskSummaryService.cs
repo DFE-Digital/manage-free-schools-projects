@@ -23,7 +23,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
             var result = taskDetails;
             result.IsHidden = true;
 
-            // Get the risk for the project
+            if (taskDetails.Status == ProjectTaskStatus.InProgress)
+            {
+                result.IsHidden = false;
+
+                return result;
+            }
+
             var risk = await _getProjectRiskService.Execute(projectId, 1);
 
             if (risk != null) 
@@ -32,11 +38,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
                 {
                     taskDetails.IsHidden = false;
                 }
-            }
-
-            if (taskDetails.Status == ProjectTaskStatus.InProgress)
-            {
-                result.IsHidden = false;
             }
 
             return result;
