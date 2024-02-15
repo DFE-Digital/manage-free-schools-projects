@@ -32,20 +32,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
 
             var risk = await _getProjectRiskService.Execute(projectId, 1);
 
-            if (risk != null) 
+            if (risk != null && IsOverallOrGovernanceRedOrRedAmber(risk))
             {
-                if (IsRedOrRedAmber(risk.Overall) || IsRedOrRedAmber(risk.GovernanceAndSuitability))
-                {
-                    taskDetails.IsHidden = false;
-                }
+                taskDetails.IsHidden = false;
             }
 
             return result;
         }
 
-        private bool IsRedOrRedAmber(ProjectRiskEntryResponse riskEntry)
+        private static bool IsOverallOrGovernanceRedOrRedAmber(GetProjectRiskResponse risk)
         {
-            return riskEntry.RiskRating == ProjectRiskRating.Red 
+            return IsRedOrRedAmber(risk.Overall) || IsRedOrRedAmber(risk.GovernanceAndSuitability);
+        }
+
+        private static bool IsRedOrRedAmber(ProjectRiskEntryResponse riskEntry)
+        {
+            return riskEntry.RiskRating == ProjectRiskRating.Red
                 || riskEntry.RiskRating == ProjectRiskRating.AmberRed;
         }
     }

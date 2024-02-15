@@ -116,7 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.DraftGovernancePlan
             result.IsHidden.Should().BeTrue();
         }
 
-        private IGetProjectRiskService CreateProjectRiskService(GetProjectRiskResponse response)
+        private static IGetProjectRiskService CreateProjectRiskService(GetProjectRiskResponse response)
         {
             var riskService = Substitute.For<IGetProjectRiskService>();
             riskService.Execute(Arg.Any<string>(), Arg.Any<int>()).Returns(response);
