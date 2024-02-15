@@ -3,8 +3,10 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import datesDetailsPage from "cypress/pages/datesDetailsPage";
+import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
+import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -29,8 +31,8 @@ describe("Testing project overview", () => {
         Logger.log("Selecting Dates link from Tasklist");
 
         taskListPage.isTaskStatusIsNotStarted("Dates")
-                    .selectDatesFromTaskList();
-        
+            .selectDatesFromTaskList();
+
         Logger.log("Confirm empty dates");
         summaryPage
             .schoolNameIs(project.schoolName)
@@ -38,120 +40,71 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
-            .summaryShows("Opening academic year").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
-
-        Logger.log("Go back to task list");
-        summaryPage.clickBack();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Confirm not started and open Dates");
-        taskListPage.isTaskStatusIsNotStarted("Dates")
-            .selectDatesFromTaskList();
-        
-        cy.executeAccessibilityTests();
-
-        Logger.log("Check confirm puts project in In Progress");
-        summaryPage.clickConfirmAndContinue();
-        
-        cy.executeAccessibilityTests();
-
-        taskListPage.isTaskStatusInProgress("Dates")
-            .selectDatesFromTaskList();
-        
-        cy.executeAccessibilityTests();
-
 
         summaryPage.clickChange();
 
-        cy.executeAccessibilityTests();
-
-        datesDetailsPage.selectSaveAndContinueButton();
-
-        Logger.log("Check we get the correct validation messages coming back when no data entered");
-        datesDetailsPage.verifyValidationMessagesWhenNoDataSet(project.schoolName);
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        datesDetailsPage.clearTextInControls();
-
-        Logger.log("Entering in exceptional date format to check correct validation messages");
-        datesDetailsPage.enterInvalidDateFormatInEditDatesPage();
-
-        Logger.log("Submitting invalid date formats");
-        datesDetailsPage.selectSaveAndContinueButton();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Verify we get correct validation messages for exceptional date formats");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateFormatEntered(project.schoolName);
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        datesDetailsPage.clearTextInControls();
-
-        Logger.log("Attempting to add invalid dates in correct format");
-        datesDetailsPage.enterInvalidDateInEditDatesPage(); 
-
-        Logger.log("Submitting invalid dates");
-        datesDetailsPage.selectSaveAndContinueButton();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Verify we get correct validation messages for exceptional days in dates");
-        datesDetailsPage.verifyValidationMessagesWhenInvalidDateEntered(project.schoolName);
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        datesDetailsPage.clearTextInControls();
-
-        Logger.log("Verify we get correct validation messages for exceptional year in academic year START field");
-        datesDetailsPage.enterInvalidAcademicYearStartDateInEditDatesPage();
-        datesDetailsPage.selectSaveAndContinueButton();
-        datesDetailsPage.verifyInvalidAcademicStartYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        datesDetailsPage.clearTextInControls();
-
-        Logger.log("Verify we get correct validation messages for exceptional year in academic yearTo field");
-        datesDetailsPage.enterInvalidAcademicYearEndDateInEditDatesPage();
-        datesDetailsPage.selectSaveAndContinueButton();
-        datesDetailsPage.verifyInvalidAcademicEndYearDate();
-
-        Logger.log("Attempting to Reload page and clear controls");
-        cy.reload();
-        datesDetailsPage.clearTextInControls();
-
-        Logger.log("Attempting to add valid dates in correct format");
-        datesDetailsPage.enterValidDatesInEditDatesPage();
-
-        Logger.log("Submitting valid dates");
-        datesDetailsPage.selectSaveAndContinueButton();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Confirm Dates Summary Page Complete");
-        summaryPage
+        Logger.log("Check all the fields are optional");
+        datesDetailsPage
+            .titleIs("Edit dates")
             .schoolNameIs(project.schoolName)
-            .titleIs("Dates")
-            .inOrder()
-            .summaryShows("Entry into pre-opening").HasValue("28 February 2025").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("28 February 2025").HasChangeLink()
-            .summaryShows("Opening academic year").HasValue("2025/26").HasChangeLink()
-            .isNotMarkedAsComplete();
+            .clickContinue();
+
+        summaryPage.clickChange();
+
+        Logger.log("Checking validation");
+        datesDetailsPage
+            .withEntryIntoPreOpening("33", "", "")
+            .withProvisionalOpeningDateAgreedWithTrust("44", "", "")
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("Entry into pre-opening must include a month and year")
+            .hasValidationError("Provisional opening date agreed with trust must include a month and year");
 
         cy.executeAccessibilityTests();
-      
 
-       summaryPage
+        Logger.log("Add new values");
+        datesDetailsPage
+            .schoolNameIs(project.schoolName)
+            .withEntryIntoPreOpening("10", "08", "2025")
+            .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
+            .clickContinue();
+
+        summaryPage
+            .inOrder()
+            .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
+            .clickChange();
+
+        Logger.log("Change values");
+        datesDetailsPage
+            .withEntryIntoPreOpening("11", "08", "2026")
+            .withProvisionalOpeningDateAgreedWithTrust("13", "09", "2027")
+            .clickContinue();
+
+        summaryPage
+            .inOrder()
+            .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
+            .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
+
+        Logger.log("Should update the task status");
+        summaryPage.clickConfirmAndContinue();
+
+        taskListPage.isTaskStatusInProgress("Dates").selectDatesFromTaskList();
+
+        summaryPage
             .MarkAsComplete()
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("Dates");
 
+        cy.visit(`/projects/${project.projectId}/overview`);
+
+        projectOverviewPage
+            .hasDateOfEntryIntoPreopening("11 August 2026")
+            .hasProvisionalOpeningDateAgreedWithTrust("13 September 2027");
     });
 });

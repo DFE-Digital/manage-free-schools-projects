@@ -14,8 +14,10 @@
 
 <partial name="_ErrorSummary" />
 
-<h1 class="govuk-heading-xl">
-    <span class="govuk-caption-l">@Model.CurrentFreeSchoolName</span>
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
     Edit dates
 </h1>
 
@@ -25,8 +27,6 @@
         <form method="post">
             <govuk-date-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" hint="For example, 27 3 2021" />
             <govuk-date-input id="provisional-opening-date-agreed-with-trust" name="provisional-opening-date-agreed-with-trust" asp-for="@Model.ProvisionalOpeningDateAgreedWithTrust" data-testid="provisional-opening-date-agreed-with-trust" label="Provisional opening date agreed with trust" hint="For example, 27 3 2021" />
-            <govuk-year-start-end id="opening-academic-years" name="opening-academic-years" asp-for="@Model.OpeningAcademicYear" data-testid="opening-academic-years" label="Opening academic year" hint="For example, 2021 2022" />
-
 
             <button class="govuk-button" data-module="govuk-button">
                 Save and continue
