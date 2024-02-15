@@ -10,6 +10,8 @@
 		public ConstituencyTask Constituency { get; set; }
         
         public KickOffMeetingTask KickOffMeeting { get; set; }
+        
+        public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
@@ -36,6 +38,8 @@
                     return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
+                if (ModelFundingAgreement != null)
+                    return TaskName.ModelFundingAgreement.ToString();
                 return null;
             }
         }

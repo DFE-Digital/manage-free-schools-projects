@@ -28,7 +28,7 @@
         public const string EditKickOffMeeting= ViewKickOffMeeting + "/edit";
 
         public const string ViewModelFundingAgreement = TaskList + "/Modelfundingagreement";
-        
+        public const string EditModelFundingAgreement = ViewModelFundingAgreement + "/edit";
         
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
         public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";

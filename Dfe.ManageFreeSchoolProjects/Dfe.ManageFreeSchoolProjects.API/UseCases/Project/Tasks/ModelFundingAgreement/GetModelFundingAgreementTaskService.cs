@@ -1,3 +1,4 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                 {
                     ModelFundingAgreement = new()
                     {
-                        TrustAgreesWithModelFA = true,
+                        TrustAgreesWithModelFA = YesNo.Yes,
                         DraftedFAHealthCheck = null,
                         DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion ?? DateTime.Now,
                         Comments = "daves comments",
