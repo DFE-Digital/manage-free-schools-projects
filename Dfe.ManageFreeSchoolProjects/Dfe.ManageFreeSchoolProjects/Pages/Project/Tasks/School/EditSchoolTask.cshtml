@@ -14,7 +14,9 @@
     var faithStatuses = Enum.GetValues<FaithStatus>().Except(new[] { FaithStatus.NotSet }).Select(x => x.ToString()).ToArray();
 
     var nurseryOptions = new[] { "No", "Yes" };
+    var nurseryTestIds = nurseryOptions.Select(x => $"nursery-{x}").ToArray();
     var sixthFormOptions = new[] { "No", "Yes" };
+    var sixthFormTestIds = sixthFormOptions.Select(x => $"sixth-form-{x}").ToArray();
 
     var genders = Enum.GetValues<Gender>().Except(new[] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
@@ -93,7 +95,8 @@
                         asp-for="@Model.Nursery"
                         data-testid="nursery"
                         labels="@nurseryOptions"
-                        values="@nurseryOptions"/>
+                        values="@nurseryOptions"
+                        test-ids="@nurseryTestIds"/>
                 </div>
 
                 <div class="govuk-form-group">
@@ -103,7 +106,8 @@
                         asp-for="@Model.SixthForm"
                         data-testid="sixth-form"
                         labels="@sixthFormOptions"
-                        values="@sixthFormOptions"/>
+                        values="@sixthFormOptions"
+                        test-ids="@sixthFormTestIds"/>
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
@@ -114,7 +118,7 @@
                                         values="@faithStatuses" />
                 </div>
 
-                <div class="govuk-form-group" id="faith-status-group">
+                <div class="govuk-form-group" id="faith-type-group">
                     <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
                     <govuk-radios-input name="faith-type"
                                         asp-for="@Model.FaithType"
@@ -125,7 +129,7 @@
 
                 <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type" />
 
-                <button class="govuk-button" data-module="govuk-button">
+                <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                     Save and continue
                 </button>
             </form>
@@ -140,12 +144,12 @@
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
-            $('#faith-status-group').hide();
+            $('#faith-type-group').hide();
             $('#other-faith-type').parent().hide();
         }
         else
         {
-            $('#faith-status-group').show();
+            $('#faith-type-group').show();
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();

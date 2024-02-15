@@ -1,13 +1,10 @@
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {

@@ -2,10 +2,11 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskListPage";
 import schoolDetailsPage from "cypress/pages/schoolDetailsPage";
 import summaryPage from "cypress/pages/task-summary-base";
+import validationComponent from "cypress/pages/validationComponent";
+import dataGenerator from "cypress/fixtures/dataGenerator";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -26,23 +27,19 @@ describe("Testing project overview", () => {
 
     it("Should successfully set Tasklist-school information", () => {
 
-        const schoolWithAllValidSpecialChars = "St Dunstan's Abbey, (Plymouth)";
+        Logger.log("Select finance plan");
+        taskListPage.isTaskStatusIsNotStarted("School")
+            .selectSchoolFromTaskList();
 
-        Logger.log("Clicking on Task list tab");
-        projectOverviewPage.selectTaskListTab();
+        Logger.log("Go back to task list");
+        summaryPage.clickBack();
 
-        cy.executeAccessibilityTests();
-
-        Logger.log("Selecting School link from Tasklist");
         taskListPage.selectSchoolFromTaskList();
 
-        cy.executeAccessibilityTests();
-
-        Logger.log("Checking School Summary page elements present");
-
+        Logger.log("Confirm empty school task");
         summaryPage
-            .titleIs("School")
             .schoolNameIs(project.schoolName)
+            .titleIs("School")
             .inOrder()
             .summaryShows("Current free school name").HasValue(project.schoolName).HasChangeLink()
             .summaryShows("School type").IsEmpty().HasChangeLink()
@@ -53,317 +50,151 @@ describe("Testing project overview", () => {
             .summaryShows("Sixth form").IsEmpty().HasChangeLink()
             .summaryShows("Faith status").IsEmpty().HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete();
+
+        cy.executeAccessibilityTests();
+
+        summaryPage.clickChange();
+
+        Logger.log("Checking validation");
+        schoolDetailsPage
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("The Gender field is required")
+            .hasValidationError("The Nursery field is required")
+            .hasValidationError("Enter a 'from' and 'to' age range")
+            .hasValidationError("The Sixth form field is required")
+            .hasValidationError("The School type field is required")
+            .hasValidationError("The Faith status field is required")
+            .hasValidationError("The School phase field is required");
+
+        cy.executeAccessibilityTests();
+
+        schoolDetailsPage
+            .withSchoolNameExceedingMaxLength()
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("The current free school name must be 100 characters or less");
+
+        const updatedSchoolName = dataGenerator.generateSchoolName();
+
+        Logger.log("Adding new values");
+        schoolDetailsPage
+            .titleIs("Edit school")
+            .schoolNameIs(project.schoolName)
+            .withSchoolName(updatedSchoolName)
+            .withSchoolType("Mainstream")
+            .withSchoolPhase("Secondary")
+            .withAgeRange("11", "16")
+            .withGender("Mixed")
+            .withNursery("Yes")
+            .withSixthForm("No")
+            .withFaithStatus("Designation")
+            .withFaithType("Jewish")
+            .clickContinue();
+
+        summaryPage
+            .schoolNameIs(updatedSchoolName)
+            .inOrder()
+            .summaryShows("Current free school name").HasValue(updatedSchoolName)
+            .summaryShows("School type").HasValue("Mainstream")
+            .summaryShows("School phase").HasValue("Secondary")
+            .summaryShows("Age range").HasValue("11-16")
+            .summaryShows("Gender").HasValue("Mixed")
+            .summaryShows("Nursery").HasValue("Yes")
+            .summaryShows("Sixth form").HasValue("No")
+            .summaryShows("Faith status").HasValue("Designation")
+            .summaryShows("Faith type").HasValue("Jewish")
             .clickChange();
 
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifySchoolDetailsElementsVisible(project.schoolName);
-
-        Logger.log("Test that submitting a blank form results in all validation errors displaying (except faith type)");
-        schoolDetailsPage.clearSchoolNameField()
-            .selectSaveAndContinue()
-            .verifyValidationSummaryAndErrorsVisible();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Test that submitting a form with all fields complete apart from Faith type when Designation selected results in error summary and error");
-        schoolDetailsPage.enterSchoolNameField(project.schoolName)
-            .selectMainstream()
-            .selectSecondary()
-            .enterAgeRangeFrom("11")
-            .enterAgeRangeTo("16")
-            .selectGenderMixed()
-            .selectNurseryNo()
-            .selectSixthFormYes()
-            .selectFaithDesignation()
-            .selectSaveAndContinue()
-            .verifyFaithTypeErrorSummaryAndErrorVisible();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Test that submitting a form with all fields complete apart from Faith type when Ethos selected results in error summary and error");
-
-        schoolDetailsPage.selectFaithEthos()
-            .selectSaveAndContinue()
-            .verifyFaithTypeErrorSummaryAndErrorVisible();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.selectFaithTypeGreekOrthodox();
-
-        Logger.log("Test that entering only disallowed special chars into schoolname field fails");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterNegTestAllInvalidSpecialCharsSchoolNameField()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField();
-
-        Logger.log("Test that entering a mixture of letters and disallowed special chars into schoolname field fails");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterNegTestMixOfLettersAndInvalidSpecialCharsSchoolNameField()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
-
-        Logger.log("Test that entering an SQL injection attempt in the schoolname field fails to execute");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterNegTestSQLInjectionAttemptSchoolNameField()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-        
-        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
-
-        Logger.log("Test that entering a cross-site scripting attempt in the schoolname field fails to execute");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterNegTestCrossSiteScriptAttemptSchoolNameField()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-        
-        schoolDetailsPage.verifyNegTestMixOfLetterAndInvalidSpecialCharsErrorSummaryAndError();
-
-        Logger.log("Test that entering more than 100 chars in the schoolname fields fails and gives correct validation");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterNegTestMoreThanOneHundredCharsSchoolNameField()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyNegTestMoreThanOneHundredCharsSchoolName();
-
-        Logger.log("Test that entering a school name with all VALID SPECIAL CHARS in schoolname field passes");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterValidSpecialCharsSchoolNameField(schoolWithAllValidSpecialChars)
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
+        Logger.log("Update the existing values");
+        schoolDetailsPage
+            .withSchoolType("Special")
+            .withSchoolPhase("Primary")
+            .withAgeRange("5", "11")
+            .withGender("BoysOnly")
+            .withNursery("No")
+            .withSixthForm("Yes")
+            .withFaithStatus("Ethos")
+            .withFaithType("Christian")
+            .clickContinue();
 
         summaryPage
-        .titleIs("School")
-        .schoolNameIs(schoolWithAllValidSpecialChars)
-        .inOrder()
-        .summaryShows("Current free school name").HasValue(schoolWithAllValidSpecialChars).HasChangeLink()
-        .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
-        .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-        .summaryShows("Age range").HasValue("11-16").HasChangeLink()
-        .summaryShows("Gender").HasValue("Mixed").HasChangeLink()
-        .summaryShows("Nursery").HasValue("No").HasChangeLink()
-        .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-        .summaryShows("Faith status").HasValue("Ethos").HasChangeLink()
-        .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-        .clickChange();
-
-        Logger.log("Test that selecting 'Other Religion' And Leaving 'Other religion textfield blank gives correct validation'");
-
-        schoolDetailsPage.clearSchoolNameField()
-            .enterSchoolNameField(project.schoolName)
-            .selectFaithTypeOther()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that selecting 'Other Religion' And entering all numbers in 'Other religion' textfield gives correct validation'");
-
-        schoolDetailsPage.enterNegTestAllNumbersOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that selecting 'Other Religion' And entering all special chars in 'Other religion' textfield gives correct validation'");
-
-        schoolDetailsPage.clearOtherFaithTypeField()
-            .enterNegTestAllSpecialCharsOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that selecting 'Other Religion' And entering SOME special chars AS WELL AS VALID CHARS in 'Other religion' textfield gives correct validation'");
-
-        schoolDetailsPage.clearOtherFaithTypeField()
-            .enterNegTestSomeValidSomeSpecialCharsOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
-
-        schoolDetailsPage.clearOtherFaithTypeField()
-            .enterNegTestSQLInjectionAttemptOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that entering a Cross-site scripting attack attempt in 'Other religion' textfield gives correct validation and Cross-site scripting attack attempt fails to execute'");
-
-        schoolDetailsPage.clearOtherFaithTypeField()
-            .enterNegTestCrossSiteScriptAttackAttemptOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        schoolDetailsPage.verifyAllNumbersOrSpecialCharsOtherFaithTypeErrorSummaryAndErrorVisible();
-
-        Logger.log("Test that entering an SQL injection attempt in 'Other religion' textfield gives correct validation and SQL injection attempt fails to execute'");
-
-        schoolDetailsPage.clearOtherFaithTypeField()
-            .enterNegTestMoreThanOneHundredCharsAttemptOtherFaithType()
-            .selectSaveAndContinue();
-
-        cy.executeAccessibilityTests();
-
-        Logger.log("Test that entering more than 100 chars in the 'Other religion' textfield fails and gives correct validation");
-
-        schoolDetailsPage.verifyMoreThanOneHundredCharsOtherFaithTypeErrorSummaryAndErrorVisible()
-            .clearOtherFaithTypeField()
-            .enterOtherFaithType()
-            .selectSaveAndContinue();
-
-        summaryPage
-            .titleIs("School")
-            .schoolNameIs(project.schoolName)
+            .schoolNameIs(updatedSchoolName)
             .inOrder()
-            .summaryShows("Current free school name").HasValue(project.schoolName).HasChangeLink()
-            .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
-            .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-            .summaryShows("Age range").HasValue("11-16").HasChangeLink()
-            .summaryShows("Gender").HasValue("Mixed").HasChangeLink()
-            .summaryShows("Nursery").HasValue("No").HasChangeLink()
-            .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-            .summaryShows("Faith status").HasValue("Ethos").HasChangeLink()
-            .summaryShows("Faith type").HasValue("Other - Jane").HasChangeLink()
+            .summaryShows("Current free school name").HasValue(updatedSchoolName)
+            .summaryShows("School type").HasValue("Special")
+            .summaryShows("School phase").HasValue("Primary")
+            .summaryShows("Age range").HasValue("5-11")
+            .summaryShows("Gender").HasValue("Boys only")
+            .summaryShows("Nursery").HasValue("No")
+            .summaryShows("Sixth form").HasValue("Yes")
+            .summaryShows("Faith status").HasValue("Ethos")
+            .summaryShows("Faith type").HasValue("Christian")
+            .clickChange();
+
+        Logger.log("Checking faith type 'Other'");
+        schoolDetailsPage
+            .withFaithType("Other")
+            .clickContinue();
+
+        validationComponent.hasValidationError("Other faith type is required");
+
+        schoolDetailsPage
+            .withFaithTypeOtherDescriptionExceedingMaxLength()
+            .clickContinue();
+
+        validationComponent.hasValidationError("Other faith type must be 100 characters or less");
+
+        schoolDetailsPage
+            .withFaithTypeOtherDescription("(This is $invalid)")
+            .clickContinue();
+
+        validationComponent.hasValidationError("Other faith type must only contain letters and spaces");
+
+        cy.executeAccessibilityTests();
+
+        schoolDetailsPage
+            .withFaithTypeOtherDescription("This is my faith")
+            .clickContinue();
+
+        summaryPage
+            .startFromRow(8)
+            .summaryShows("Faith type").HasValue("Other - This is my faith");
+
+        summaryPage.clickChange();
+
+        schoolDetailsPage
+            .withFaithType("Christian")
+            .faithTypeOtherDescriptionIsNotVisible()
+            .clickContinue();
+
+        summaryPage
+            .startFromRow(8)
+            .summaryShows("Faith type").HasValue("Christian");
+
+        summaryPage.clickChange();
+
+        schoolDetailsPage
+            .withFaithStatus("None")
+            .faithTypeSectionIsNotVisible()
+            .clickContinue();
+
+        summaryPage
+            .startFromRow(8)
+            .summaryShows("Faith type").IsEmpty();
+
+        Logger.log("Should update the task status");
+        summaryPage.clickConfirmAndContinue();
+
+        taskListPage.isTaskStatusInProgress("School").selectSchoolFromTaskList();
+
+        summaryPage
             .MarkAsComplete()
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("School");
-
-    });
-
-    
-    it("Should validate age range correctly", () => {
-
-        Logger.log("Navigate to details");
-
-        projectOverviewPage.selectTaskListTab();
-        taskListPage.selectSchoolFromTaskList();
-        summaryPage.clickChange();
-
-        Logger.log("Set all fields valid");
-        schoolDetailsPage.enterSchoolNameField(project.schoolName)
-            .selectMainstream()
-            .selectSecondary()
-            .enterAgeRangeFrom("11")
-            .enterAgeRangeTo("16")
-            .selectGenderMixed()
-            .selectNurseryNo()
-            .selectSixthFormYes()
-            .selectFaithStatusNone()
-            .selectSaveAndContinue()
-
-        summaryPage.clickChange();
-        schoolDetailsPage
-            .enterAgeRangeFrom("")
-            .enterAgeRangeTo("")
-            .selectSaveAndContinue()
-            .errorMessage("Enter a 'from' and 'to' age range")
-            .ageRangeErrorHint("Enter a 'from' and 'to' age range");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("A")
-            .enterAgeRangeTo("")
-            .selectSaveAndContinue()
-            .errorMessage("Enter a 'to' age range")
-            .ageRangeErrorHint("Enter a 'to' age range");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("")
-            .enterAgeRangeTo("A")
-            .selectSaveAndContinue()
-            .errorMessage("Enter a 'from' age range")
-            .ageRangeErrorHint("Enter a 'from' age range");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("A")
-            .enterAgeRangeTo("1")
-            .selectSaveAndContinue()
-            .errorMessage("The age range must be numbers, like 2 and 5")
-            .ageRangeErrorHint("The age range must be numbers, like 2 and 5");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("1")
-            .enterAgeRangeTo("A")
-            .selectSaveAndContinue()
-            .errorMessage("The age range must be numbers, like 2 and 5")
-            .ageRangeErrorHint("The age range must be numbers, like 2 and 5");
-    
-        schoolDetailsPage
-            .enterAgeRangeFrom("7")
-            .enterAgeRangeTo("7")
-            .selectSaveAndContinue()
-            .errorMessage("'From' age range must be less than 'to' age range")
-            .ageRangeErrorHint("'From' age range must be less than 'to' age range");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("-1")
-            .enterAgeRangeTo("10")
-            .selectSaveAndContinue()
-            .errorMessage("'From' age range must be 2 or above")
-            .ageRangeErrorHint("'From' age range must be 2 or above");
-            
-        schoolDetailsPage
-            .enterAgeRangeFrom("1")
-            .enterAgeRangeTo("10")
-            .selectSaveAndContinue()
-            .errorMessage("'From' age range must be 2 or above")
-            .ageRangeErrorHint("'From' age range must be 2 or above");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("10")
-            .enterAgeRangeTo("-1")
-            .selectSaveAndContinue()
-            .errorMessage("'To' age range must be 5 or above")
-            .ageRangeErrorHint("'To' age range must be 5 or above");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("2")
-            .enterAgeRangeTo("4")
-            .selectSaveAndContinue()
-            .errorMessage("'To' age range must be 5 or above")
-            .ageRangeErrorHint("'To' age range must be 5 or above");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("999")
-            .enterAgeRangeTo("10")
-            .selectSaveAndContinue()
-            .errorMessage("'From' age range must be 2 characters or less")
-            .ageRangeErrorHint("'From' age range must be 2 characters or less");
-
-        schoolDetailsPage
-            .enterAgeRangeFrom("10")
-            .enterAgeRangeTo("999")
-            .selectSaveAndContinue()
-            .errorMessage("'To' age range must be 2 characters or less")
-            .ageRangeErrorHint("'To' age range must be 2 characters or less");
-
     });
 });
