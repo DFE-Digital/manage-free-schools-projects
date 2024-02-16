@@ -2,9 +2,11 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.ViewDatesTaskModel
 @{
-    ViewData["Title"] = $"Dates - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Dates - {Model.Project.SchoolName}";
     var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+
+    var datesTask = Model.Project.Dates;
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container">
@@ -15,60 +17,20 @@
     <div class="govuk-grid-column-full">
 
         <h1 class="govuk-heading-xl" data-testid="title">
-            <span class="govuk-caption-l" data-testid="school-name">@Model.CurrentFreeSchoolName</span>
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.SchoolName</span>
             Dates
         </h1>
-        <dl class="govuk-summary-list">
 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Entry into pre-opening
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Dates.DateOfEntryIntoPreopening.ToDateString());
-                    }
-                </dd>
+        <govuk-summary-list>
+            <govuk-summary-item label="Entry into pre-opening" asp-for="@datesTask.DateOfEntryIntoPreopening" href="@editLink" />
+            <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@datesTask.ProvisionalOpeningDateAgreedWithTrust" href="@editLink" />
+        </govuk-summary-list>
 
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> Entry into pre-opening</span>
-                    </a>
-
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Provisional opening date agreed with trust
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Dates.ProvisionalOpeningDateAgreedWithTrust.ToDateString());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> Provisional opening date agreed with trust</span>
-                    </a>
-
-                </dd>
-            </div>
-        </dl>
         <form method="post">
-            <div class="govuk-form-group">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
-                        <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
-                            Mark this section as complete, you can still make changes later
-                        </label>
-                    </div>
-                </div>
-
-            </div>
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
@@ -77,17 +39,3 @@
 
     </div>
 </div>
-
-@functions {
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
-}
