@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
 {
-    public class GetFinancePlanTaskService
+    public class GetFinancePlanTaskService : IGetTaskService
     {
         private readonly MfspContext _context;
 

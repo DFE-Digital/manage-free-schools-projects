@@ -14,6 +14,7 @@
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
+    var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -163,6 +164,19 @@
                             RenderStatus(Model.ProjectTaskListSummary.ArticlesOfAssociation);
                         }
                     </li>
+                    @if (Model.ProjectTaskListSummary.DraftGovernancePlan.IsHidden != true)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="@draftGovernancePlanLink" class="govuk-link" data-testid="draft-governance-plan-task">
+                                    Draft governance plans
+                                </a>
+                            </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.DraftGovernancePlan);
+                            }
+                        </li>
+                    }
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@financePlanLink" class="govuk-link" data-testid="finance-plan-task">
