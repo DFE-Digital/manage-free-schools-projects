@@ -56,24 +56,6 @@
 
                 </dd>
             </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Opening academic year
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Dates.OpeningAcademicYear);
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> Opening academic year</span>
-                    </a>
-
-                </dd>
-            </div>
         </dl>
         <form method="post">
             <div class="govuk-form-group">
