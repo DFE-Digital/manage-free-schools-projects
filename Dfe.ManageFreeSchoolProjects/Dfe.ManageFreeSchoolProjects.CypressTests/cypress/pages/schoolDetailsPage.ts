@@ -16,7 +16,7 @@ class SchoolDetailsPage {
     }
 
     public withSchoolNameExceedingMaxLength(): this {
-        cy.getByTestId("current-free-school-name").type("a".repeat(101));
+        cy.getByTestId("current-free-school-name").invoke("val", "a".repeat(101));
         return this;
     }
 
@@ -33,6 +33,16 @@ class SchoolDetailsPage {
     public withAgeRange(from: string, to: string): this {
         cy.getByTestId("age-range-from").clear().type(from);
         cy.getByTestId("age-range-to").clear().type(to);
+        return this;
+    }
+
+    public withFormsOfEntry(value: string): this {
+        cy.getByTestId("forms-of-entry").clear().type(value);
+        return this;
+    }
+
+    public withFormsOfEntryExceedingLimit(): this {
+        cy.getByTestId("forms-of-entry").invoke("val", "a".repeat(101));
         return this;
     }
 
@@ -73,7 +83,7 @@ class SchoolDetailsPage {
     }
 
     public withFaithTypeOtherDescriptionExceedingMaxLength(): this {
-        this.getFaithTypeOtherDescription().clear().type("a".repeat(101));
+        this.getFaithTypeOtherDescription().invoke("val", "a".repeat(101));
         return this;
     }
 

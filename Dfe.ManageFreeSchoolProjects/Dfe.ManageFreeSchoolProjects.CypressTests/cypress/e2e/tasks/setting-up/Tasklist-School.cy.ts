@@ -45,6 +45,7 @@ describe("Testing project overview", () => {
             .summaryShows("School type").IsEmpty().HasChangeLink()
             .summaryShows("School phase").IsEmpty().HasChangeLink()
             .summaryShows("Age range").IsEmpty().HasChangeLink()
+            .summaryShows("Forms of entry").IsEmpty().HasChangeLink()
             .summaryShows("Gender").IsEmpty().HasChangeLink()
             .summaryShows("Nursery").IsEmpty().HasChangeLink()
             .summaryShows("Sixth form").IsEmpty().HasChangeLink()
@@ -73,21 +74,23 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage
             .withSchoolNameExceedingMaxLength()
+            .withFormsOfEntryExceedingLimit()
             .clickContinue();
 
         validationComponent
-            .hasValidationError("The current free school name must be 100 characters or less");
+            .hasValidationError("The current free school name must be 100 characters or less")
+            .hasValidationError("The forms of entry must be 100 characters or less")
 
         const updatedSchoolName = dataGenerator.generateSchoolName();
 
         Logger.log("Adding new values");
         schoolDetailsPage
             .titleIs("Edit school")
-            .schoolNameIs(project.schoolName)
             .withSchoolName(updatedSchoolName)
             .withSchoolType("Mainstream")
             .withSchoolPhase("Secondary")
             .withAgeRange("11", "16")
+            .withFormsOfEntry("3")
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
@@ -102,6 +105,7 @@ describe("Testing project overview", () => {
             .summaryShows("School type").HasValue("Mainstream")
             .summaryShows("School phase").HasValue("Secondary")
             .summaryShows("Age range").HasValue("11-16")
+            .summaryShows("Forms of entry").HasValue("3")
             .summaryShows("Gender").HasValue("Mixed")
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
@@ -114,6 +118,7 @@ describe("Testing project overview", () => {
             .withSchoolType("Special")
             .withSchoolPhase("Primary")
             .withAgeRange("5", "11")
+            .withFormsOfEntry("10")
             .withGender("BoysOnly")
             .withNursery("No")
             .withSixthForm("Yes")
@@ -128,6 +133,7 @@ describe("Testing project overview", () => {
             .summaryShows("School type").HasValue("Special")
             .summaryShows("School phase").HasValue("Primary")
             .summaryShows("Age range").HasValue("5-11")
+            .summaryShows("Forms of entry").HasValue("10")
             .summaryShows("Gender").HasValue("Boys only")
             .summaryShows("Nursery").HasValue("No")
             .summaryShows("Sixth form").HasValue("Yes")
@@ -161,7 +167,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         summaryPage
-            .startFromRow(8)
+            .startFromRow(9)
             .summaryShows("Faith type").HasValue("Other - This is my faith");
 
         summaryPage.clickChange();
@@ -172,7 +178,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         summaryPage
-            .startFromRow(8)
+            .startFromRow(9)
             .summaryShows("Faith type").HasValue("Christian");
 
         summaryPage.clickChange();
@@ -183,7 +189,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         summaryPage
-            .startFromRow(8)
+            .startFromRow(9)
             .summaryShows("Faith type").IsEmpty();
 
         Logger.log("Should update the task status");
@@ -196,5 +202,26 @@ describe("Testing project overview", () => {
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("School");
+    });
+
+    it("Should validate the faith type field if a faith status is selected", () => {
+
+        taskListPage.selectSchoolFromTaskList();
+
+        summaryPage.clickChange();
+
+        schoolDetailsPage
+            .withSchoolType("Mainstream")
+            .withSchoolPhase("Secondary")
+            .withAgeRange("11", "16")
+            .withFormsOfEntry("3")
+            .withGender("Mixed")
+            .withNursery("Yes")
+            .withSixthForm("No")
+            .withFaithStatus("Designation")
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("Faith type is required");
     });
 });
