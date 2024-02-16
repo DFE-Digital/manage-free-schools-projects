@@ -16,7 +16,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "provisional-opening-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Provisional opening date")]
         [DateValidation(DateRangeValidationService.DateRange.Future)]
-        [Required(ErrorMessage = "Enter the provisional opening date.")]
         public DateTime? ProvisionalOpeningDate { get; set; }
         
         private readonly ErrorService _errorService;
