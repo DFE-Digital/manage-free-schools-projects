@@ -410,10 +410,16 @@ describe("Creating an individual project - Create a new project", () => {
             .selectOption("Greek Orthodox")
             .continue()
 
+        Logger.log("Should allow a blank provisional opening date");
+        createProjectPage
+            .continue();
+
+        createProjectPage.back();
+
         Logger.log("Check provisional opening date validation");
         cy.executeAccessibilityTests();
         createProjectPage
-            .titleIs("What is the provisional opening date?")
+            .titleIs("What is the provisional opening date? (optional)")
             .setProvisionalOpeningDate("1", "10", "2020")
             .continue()
             .errorMessage("Provisional opening date date must be in the future");
@@ -428,7 +434,7 @@ describe("Creating an individual project - Create a new project", () => {
         cy.executeAccessibilityTests();
         createProjectPage
             .back()
-            .titleIs("What is the provisional opening date?")
+            .titleIs("What is the provisional opening date? (optional)")
             .hasProvisionalOpeningDate("1", "10", "2035")
             .continue();
 

@@ -11,10 +11,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ConstituencyTask Constituency { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthority { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
-        
+
         public KickOffMeetingTask KickOffMeeting { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
+
+        public DraftGovernancePlanTask DraftGovernancePlan { get; set; }
     }
 }

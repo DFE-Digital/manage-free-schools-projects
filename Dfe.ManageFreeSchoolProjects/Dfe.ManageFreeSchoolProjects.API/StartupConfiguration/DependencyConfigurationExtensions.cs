@@ -23,6 +23,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -110,6 +111,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IApiKeyValidationService, ApiKeyValidationService>();
 			services.AddScoped<IConstructApiKeyValidationService, ConstructApiKeyValidationService>();
             services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
+			services.AddScoped<IGetDraftGovernancePlanTaskSummaryService, GetDraftGovernancePlanTaskSummaryService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

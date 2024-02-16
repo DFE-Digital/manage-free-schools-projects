@@ -50,6 +50,17 @@ class TaskListPage {
         return this;
     }
 
+    public selectDraftGovernancePlanFromTaskList(): this {
+        this.getDraftGovernancePlanTask().click();
+        return this;
+    }
+
+    public draftGovernancePlanTaskDoesNotShow(): this {
+        this.getDraftGovernancePlanTask().should("not.exist");
+
+        return this;
+    }
+
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
         return this;
@@ -63,6 +74,10 @@ class TaskListPage {
     public isTaskStatusIsCompleted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).contains("Completed");
         return this;
+    }
+
+    private getDraftGovernancePlanTask() {
+        return cy.getByTestId("draft-governance-plan-task");
     }
 }
 
