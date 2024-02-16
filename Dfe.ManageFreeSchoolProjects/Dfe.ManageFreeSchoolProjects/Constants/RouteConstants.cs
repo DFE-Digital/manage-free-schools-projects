@@ -35,6 +35,9 @@
 
         public const string ViewFinancePlanTask = TaskList + "/finance-plan";
         public const string EditFinancePlanTask = ViewFinancePlanTask + "/edit";
+
+        public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
+        public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
