@@ -49,6 +49,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 		[Required(ErrorMessage = "Enter a 'from' and 'to' age range")]
 		public string AgeRange { get; set; }
 
+        [BindProperty(Name = "forms-of-entry")]
+        [Display(Name = "Forms of entry")]
+        [ValidText(100)]
+        public string FormsOfEntry { get; set; }
+
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
         [Required]
@@ -107,6 +112,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 FaithStatus = project.School.FaithStatus;
                 FaithType = project.School.FaithType;
                 OtherFaithType = project.School.OtherFaithType;
+                FormsOfEntry = project.School.FormsOfEntry;
 
                 if (project.School.SchoolType != SchoolType.FurtherEducation)
                 {
@@ -209,6 +215,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 FaithType = FaithType,
                 OtherFaithType = OtherFaithType,
                 AgeRange = AgeRange,
+                FormsOfEntry = FormsOfEntry
             };
         }
     }

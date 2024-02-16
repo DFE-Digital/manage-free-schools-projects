@@ -365,39 +365,6 @@ describe("Creating an individual project - Create a new project", () => {
             .hasYear12ToYear14("150")
             .continue();
 
-        Logger.log("Check forms of entry optional");
-        cy.executeAccessibilityTests();
-        createProjectPage
-            .titleIs("How many forms of entry are there?")
-            .continue()
-            .titleIs("What is the faith status?")
-            .back();
-
-        Logger.log("Check forms of entry validation");
-        cy.executeAccessibilityTests();
-        createProjectPage
-            .titleIs("How many forms of entry are there?")
-            .enterFormsOfEntry("-")
-            .continue()
-            .errorMessage("Forms of entry must not include special characters other than , ( ) '")
-            .enterFormsOfEntry(dataGenerator.generateAlphaNumeric(101))
-            .continue()
-            .errorMessage("The forms of entry must be 100 characters or less");
-
-        Logger.log("Enter valid form of entry");
-        cy.executeAccessibilityTests();
-        createProjectPage
-            .enterFormsOfEntry("3")
-            .continue()
-
-        Logger.log("Back returns to previous page");
-        cy.executeAccessibilityTests();
-        createProjectPage
-            .back()
-            .titleIs("How many forms of entry are there?")
-            .hasFormsOfEntry("3")
-            .continue();
-
         Logger.log("Check faith status validation");
         cy.executeAccessibilityTests();
         createProjectPage
@@ -410,6 +377,13 @@ describe("Creating an individual project - Create a new project", () => {
         cy.executeAccessibilityTests();
         createProjectPage
             .selectOption("Designation")
+            .continue();
+
+        Logger.log("Go back to the faith status page");
+        createProjectPage
+            .back()
+            .titleIs("What is the faith status?")
+            .hasFaithStatus("Designation")
             .continue();
 
         Logger.log("Check faith type validation");
@@ -510,7 +484,6 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
             .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-            .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
         createProjectPage.clickCreateProject();
@@ -612,12 +585,6 @@ describe("Creating an individual project - Create a new project", () => {
             .enterYear12ToYear14("150")
             .continue()
 
-        Logger.log("Enter valid form of entry");
-        cy.executeAccessibilityTests();
-        createProjectPage
-            .enterFormsOfEntry("3")
-            .continue()
-
         Logger.log("Select Designation");
         cy.executeAccessibilityTests();
         createProjectPage
@@ -655,7 +622,6 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("None").HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
-            .summaryShows("Forms of entry").HasValue("3").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
 
         cy.log("Check back behaviour Temporary Project ID")
@@ -887,20 +853,6 @@ describe("Creating an individual project - Create a new project", () => {
             .continue();
         summaryPage.SummaryHasValue("Faith status", "Designation")
             .SummaryHasValue("Faith type", "Other - Test Faith")
-
-        cy.log("Check back behaviour for Forms of entry")
-        summaryPage.clickChangeFor("Forms of entry");
-        createProjectPage.enterFormsOfEntry("4")
-            .back()
-        summaryPage
-            .SummaryHasValue("Forms of entry", "3");
-
-        cy.log("Change Forms of entry")
-        summaryPage.clickChangeFor("Forms of entry");
-        createProjectPage.enterFormsOfEntry("4")
-            .continue()
-        summaryPage
-            .SummaryHasValue("Forms of entry", "4");
 
         cy.log("Check back behaviour for Provisional opening date")
         summaryPage.clickChangeFor("Provisional opening date");
