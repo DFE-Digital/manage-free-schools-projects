@@ -18,6 +18,9 @@
         || Model.ProjectManagedBySearchTerm.Any();
 
     var openFilter = isFilterActive ? "open" : "";
+
+    var noResults = (Model.Projects == null || Model.Projects.Count == 0);
+    var noFilteredResults = (isFilterActive && Model.Projects.Count == 0);
 }
 
 @if (Model.UserCanCreateProject)
@@ -169,17 +172,10 @@
         </form>
     </div>
 </details>
-@if (Model.Projects == null)
+
+@if ((!Model.IsMyProjectsPage && noResults) || (Model.IsMyProjectsPage && noFilteredResults))
 {
-    <tr class="govuk-table__row tr__large">
-        <td class="govuk-table__cell__cases govuk-oneline-row">
-            <span>There are no projects available.</span>
-        </td>
-    </tr>
-}
-@if  (Model.Projects.Count == 0)
-{
-            <h1 class="govuk-heading-xl">0 projects found</h1>
+            <h1 class="govuk-heading-l">0 projects found</h1>
             <p>Improve your search results by:</p>
             <ul>
                 <li>searching with another project title or ID</li>
@@ -227,6 +223,14 @@ else
             </tr>
         </thead>
         <tbody class="govuk-table__body">
+            @if (Model.IsMyProjectsPage && noResults && !isFilterActive)
+                {
+                    <tr class="govuk-table__row tr__large">
+                        <td class="govuk-table__cell__cases govuk-oneline-row">
+                            <span>There are no projects available.</span>
+                        </td>
+                    </tr>
+                }
                 @foreach (var project in Model.Projects)
                 {
                     <tr class="govuk-table__row tr__large" data-testid="row-@project.ProjectId">
