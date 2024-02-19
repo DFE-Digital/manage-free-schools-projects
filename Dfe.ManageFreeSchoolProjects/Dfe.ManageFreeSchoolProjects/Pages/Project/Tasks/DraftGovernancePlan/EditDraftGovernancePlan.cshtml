@@ -1,0 +1,40 @@
+﻿@page "/projects/{projectId}/tasks/draft-governance-plan/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan.EditDraftGovernancePlanModel
+@{
+    ViewData["Title"] = $"Edit draft governance plan - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit draft governance plan
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-date-input id="forecast-date" name="forecast-date" asp-for="@Model.ForecastDate" label="Forecast date" hint="For example, 27 3 2021" />
+            <govuk-date-input id="actual-date" name="actual-date" asp-for="@Model.ActualDate" label="Actual date" hint="For example, 27 3 2021" />
+            <govuk-textarea-input id="comments" name="comments" bold-label="true" label="Comments on decision to approve (if applicable)" rows="5" asp-for="@Model.CommentsOnDecisionToApprove" add-margin="true" />
+            <govuk-text-input id="sharepoint-link" name="sharepoint-link" asp-for="@Model.SharePointLink" label="SharePoint link" bold-label="true"/>
+
+            @Html.HiddenFor(m => m.SchoolName)
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

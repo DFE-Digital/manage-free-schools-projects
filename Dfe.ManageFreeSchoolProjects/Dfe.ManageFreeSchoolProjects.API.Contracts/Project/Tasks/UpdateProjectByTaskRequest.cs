@@ -16,6 +16,8 @@
 
         public FinancePlanTask FinancePlan { get; set; }
 
+        public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
+
         public string TaskToUpdate
         {
             get
@@ -38,8 +40,6 @@
                     return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
-                if (ModelFundingAgreement != null)
-                    return TaskName.ModelFundingAgreement.ToString();
                 return null;
             }
         }

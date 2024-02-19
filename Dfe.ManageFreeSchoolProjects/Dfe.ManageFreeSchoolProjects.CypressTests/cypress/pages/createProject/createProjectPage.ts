@@ -53,7 +53,7 @@ class CreateProjectPage {
         cy.getByTestId("trn").clear().type(value);
         return this;
     }
-  
+
     public withLocalAuthority(localAuthority: string): this {
         cy.getByTestId(localAuthority).check();
 
@@ -72,27 +72,23 @@ class CreateProjectPage {
         return this;
     }
 
-    public setNurseryTo(option: "Yes"|"No"): this {
-        if(option == "Yes")
-        {
+    public setNurseryTo(option: "Yes" | "No"): this {
+        if (option == "Yes") {
             cy.getById("nursery-1").check()
         }
 
-        if(option == "No")
-        {
+        if (option == "No") {
             cy.getById("nursery-2").check()
         }
         return this;
     }
 
-    public setSixthFormTo(option: "Yes"|"No"): this {
-        if(option == "Yes")
-        {
+    public setSixthFormTo(option: "Yes" | "No"): this {
+        if (option == "Yes") {
             cy.getById("sixth-form-1").check()
         }
 
-        if(option == "No")
-        {
+        if (option == "No") {
             cy.getById("sixth-form-2").check()
         }
         return this;
@@ -119,7 +115,7 @@ class CreateProjectPage {
     }
 
     public enterReceptionToYear6(value: string): this {
-        if(value == "") {
+        if (value == "") {
             cy.getByTestId("yr-y6-capacity").clear();
         }
         else {
@@ -134,7 +130,7 @@ class CreateProjectPage {
     }
 
     public enterYear7ToYear11(value: string): this {
-        if(value == "") {
+        if (value == "") {
             cy.getByTestId("y7-y11-capacity").clear();
         }
         else {
@@ -149,7 +145,7 @@ class CreateProjectPage {
     }
 
     public enterYear12ToYear14(value: string): this {
-        if(value == "") {
+        if (value == "") {
             cy.getByTestId("y12-y14-capacity").clear();
         }
         else {
@@ -162,7 +158,7 @@ class CreateProjectPage {
         cy.getByTestId("y12-y14-capacity").should("have.value", value);
         return this;
     }
-    
+
     public enterFormsOfEntry(value: string): this {
         cy.get("#forms-of-entry").clear().type(value)
         return this;
@@ -195,6 +191,11 @@ class CreateProjectPage {
         return this
     }
 
+    public hasFaithStatus(value: string): this {
+        cy.getByTestId(value).should("be.checked");
+        return this;
+    }
+
     public enterNotifyEmail(value: string) {
         cy.getByTestId("email").clear().type(value)
         return this;
@@ -215,8 +216,7 @@ class CreateProjectPage {
         return this;
     }
 
-    public clickCreateProject()
-    {
+    public clickCreateProject() {
         cy.getByTestId("create-project").click();
         return this;
     }
@@ -238,7 +238,7 @@ class CreateProjectPage {
     public hasConfirmedEmailMessage(value: string) {
         cy.getByTestId("confirmation-email").should("contain.text", value);
         return this;
-    }    
+    }
 }
 
 const createProjectPage = new CreateProjectPage();

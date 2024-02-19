@@ -73,7 +73,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 					SixthForm = ClassType.SixthForm.No,
 					FaithStatus = FaithStatus.NotSet,
 					FaithType = FaithType.Other,
-					Gender = Gender.Mixed
+					Gender = Gender.Mixed,
+                    FormsOfEntry = "3"
 				}
 			};
 
@@ -86,6 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectResponse.School.Nursery.Should().Be(ClassType.Nursery.No);
             projectResponse.School.SixthForm.Should().Be(ClassType.SixthForm.No);
 			projectResponse.SchoolName.Should().Be("Test High School");
+            projectResponse.School.FormsOfEntry.Should().Be("3");
         }
 
 		[Fact]
@@ -142,7 +144,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 				{
 					DateOfEntryIntoPreopening = DateTenDaysInFuture,
 					ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
-                    OpeningAcademicYear = "2023 2024",
 				}
 			};
 
@@ -150,7 +151,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 			projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
 			projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
-			projectResponse.Dates.OpeningAcademicYear.Should().Be("2023 2024");
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 

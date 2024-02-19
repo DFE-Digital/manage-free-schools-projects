@@ -8,6 +8,8 @@
 
     var faithType = Model.Project.School.FaithType == FaithType.Other ? $"Other - {Model.Project.School.OtherFaithType}" : Model.Project.School.FaithType.ToDescription();
     var backlink = $"/projects/{Model.ProjectId}/tasks";
+
+    var schoolTask = Model.Project.School;
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container">
@@ -18,174 +20,22 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl" data-testid="title">
-            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.School.CurrentFreeSchoolName</span>
+            <span class="govuk-caption-l" data-testid="school-name">@schoolTask.CurrentFreeSchoolName</span>
             School
         </h1>
-        <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
+        <govuk-summary-list>
+            <govuk-summary-item label="Current free school name" asp-for="@schoolTask.CurrentFreeSchoolName" href="@editLink" />
+            <govuk-summary-item label="School type" asp-for="@schoolTask.SchoolType" href="@editLink" />
+            <govuk-summary-item label="School phase" asp-for="@schoolTask.SchoolPhase" href="@editLink" />
+            <govuk-summary-item label="Age range" asp-for="@schoolTask.AgeRange" href="@editLink" />
+            <govuk-summary-item label="Forms of entry" asp-for="@schoolTask.FormsOfEntry" href="@editLink" />
+            <govuk-summary-item label="Gender" asp-for="@schoolTask.Gender" href="@editLink" />
+            <govuk-summary-item label="Nursery" asp-for="@schoolTask.Nursery" href="@editLink" />
+            <govuk-summary-item label="Sixth form" asp-for="@schoolTask.SixthForm" href="@editLink" />
+            <govuk-summary-item label="Faith status" asp-for="@schoolTask.FaithStatus" href="@editLink" />
+            <govuk-summary-item label="Faith type" asp-for="@faithType" href="@editLink" />
 
-                <dt class="govuk-summary-list__key">
-                   Current free school name
-                </dt>
-
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.CurrentFreeSchoolName);
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> School type</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-
-                <dt class="govuk-summary-list__key">
-                    School type
-                </dt>
-
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.SchoolType.ToDescription());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> School type</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    School phase
-                </dt>
-
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.SchoolPhase.ToDescription());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> School phase</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Age range
-                </dt>
-
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.AgeRange);
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden">Age range</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Gender
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.Gender.ToDescription());
-                    }
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden">Gender</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Nursery
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.Nursery.ToString());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden"> Nursery</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Sixth form
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.SixthForm.ToString());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden">Sixth form</span>
-                    </a>
-
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Faith status
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.School.FaithStatus.ToString());
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change
-                        <span class="govuk-visually-hidden">Faith status</span>
-                    </a>
-
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Faith type
-                </dt>
-                <dd class="govuk-summary-list__value">
-                   @{
-                    RenderValue(faithType);   
-                   }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@editLink">
-                        Change<span class="govuk-visually-hidden">Faith type</span>
-                    </a>
-
-                </dd>
-            </div>
-        </dl>
+        </govuk-summary-list>
         <form method="post">
             <div class="govuk-form-group">
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
@@ -206,19 +56,3 @@
 
     </div>
 </div>
-
-@functions {
-
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value) || value == "NotSet")
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
-
-}

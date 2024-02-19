@@ -13,7 +13,6 @@
             }
 
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
-            dbKpi.ProjectStatusTrustsPreferredYearOfOpening = task.OpeningAcademicYear;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
         }
     }
