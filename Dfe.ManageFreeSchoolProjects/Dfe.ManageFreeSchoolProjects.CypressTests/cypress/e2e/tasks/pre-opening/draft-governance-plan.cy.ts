@@ -92,7 +92,7 @@ describe("Testing draft governance plan task", () => {
             .hasValidationError("Forecast date must include a month and year")
             .hasValidationError("Actual date must include a month and year")
             .hasValidationError("The comments on decision to approve (if applicable) must be 999 characters or less")
-            .hasValidationError("The SharePoint link must be 100 characters or less");
+            .hasValidationError("The SharePoint link must be 500 characters or less");
 
         cy.executeAccessibilityTests();
 

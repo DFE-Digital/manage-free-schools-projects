@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
 
         [BindProperty(Name = "sharepoint-link")]
         [DisplayName("SharePoint link")]
-        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [StringLength(500, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string SharePointLink { get; set; }
 
         [BindProperty]

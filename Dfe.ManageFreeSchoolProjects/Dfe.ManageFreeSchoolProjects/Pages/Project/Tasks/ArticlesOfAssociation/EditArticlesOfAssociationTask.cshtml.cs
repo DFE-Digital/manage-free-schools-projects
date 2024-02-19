@@ -82,9 +82,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
             {
                 ModelState.AddModelError("sharepoint-link", "SharePoint link must be a valid url");
             }
-            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 100)
+            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 500)
             {
-                ModelState.AddModelError("sharepoint-link", "SharePoint link must be 100 characters or less");
+                ModelState.AddModelError("sharepoint-link", "SharePoint link must be 500 characters or less");
             }
 
             if (!ModelState.IsValid)

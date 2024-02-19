@@ -1,18 +1,16 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Constants;
 using System;
-using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using Dfe.ManageFreeSchoolProjects.Validators;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System.Threading.Tasks;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
@@ -76,9 +74,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
             {
                 ModelState.AddModelError("sharepoint-link", "Sharepoint link must be a valid url");
             }
-            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 100)
+            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 500)
             {
-                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be 100 characters or less");
+                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be 500 characters or less");
             }
 
             if (!ModelState.IsValid)

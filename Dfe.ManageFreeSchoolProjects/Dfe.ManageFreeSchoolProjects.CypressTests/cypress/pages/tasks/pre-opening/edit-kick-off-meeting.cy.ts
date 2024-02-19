@@ -1,6 +1,6 @@
 class KickOffMeetingEditPage {
     private errorTracking = "";
-    
+
     titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
         return this;
@@ -11,7 +11,7 @@ class KickOffMeetingEditPage {
         return this;
     }
 
-   
+
     private setDate(key: string, day: string, month: string, year: string) {
         cy.get('#' + `${key}-day`).clear().type(day);
         cy.get('#' + `${key}-month`).clear().type(month);
@@ -36,7 +36,7 @@ class KickOffMeetingEditPage {
         cy.getById("realistic-year-of-opening-endyear").clear().type(year)
         return this;
     }
-    
+
 
     withProvisionalOpeningDate(day: string, month: string, year: string): this {
         const key = "provisional-opening-date";
@@ -44,17 +44,21 @@ class KickOffMeetingEditPage {
         return this
     }
 
-   
-    
+
+
     withSharepointLink(value: string): this {
         cy.getByTestId("sharepoint-link").clear().type(value)
         return this;
     }
 
-    errorForComments(): this
-    {
+    withSharepointLinkExceedingMaxLength(): this {
+        cy.getByTestId("sharepoint-link").invoke("val", `https://${"a".repeat(501)}`);
+        return this;
+    }
+
+    errorForComments(): this {
         this.errorTracking = "funding-arrangements-details-agreed";
-        return this;       
+        return this;
     }
 
     withFundingArrangementsAgreed(setting: "Yes" | "No"): this {
@@ -68,41 +72,38 @@ class KickOffMeetingEditPage {
             });
         return this;
     }
-    
+
     errorForRealisticStartDate(error: string): this {
         cy.getById('realistic-year-of-opening-error').contains(error)
         return this
     }
 
-    errorForSharepointLink(): this
-    {
+    errorForSharepointLink(): this {
         this.errorTracking = "sharepoint-link";
-        return this;       
+        return this;
     }
 
-    errorForProvisionalOpeningDate(): this
-    {
+    errorForProvisionalOpeningDate(): this {
         this.errorTracking = "provisional-opening-date";
-        return this;       
+        return this;
     }
-    
-    showsError(error: string)
-    {
+
+    showsError(error: string) {
         cy.get(`#${this.errorTracking}-error-link`)
             .should("contain.text", error);
-        
+
         cy.get(`#${this.errorTracking}-error-link`)
-        .invoke('attr', 'href')
-        .then((href) => {
-            cy.get(href as string).should("exist");
-        });
-    
+            .invoke('attr', 'href')
+            .then((href) => {
+                cy.get(href as string).should("exist");
+            });
+
         cy.get(`#${this.errorTracking}-error`)
             .should("contain.text", error);
         return this;
     }
 
-    clickContinue() : this {
+    clickContinue(): this {
         cy.getByTestId("continue").click();
         return this;
     }
