@@ -40,6 +40,8 @@
                     return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
+                if (ModelFundingAgreement != null)
+                    return TaskName.ModelFundingAgreement.ToString();
                 return null;
             }
         }

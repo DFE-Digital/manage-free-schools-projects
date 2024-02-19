@@ -32,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
             }
 
 
-            db.FsgPreOpeningMilestonesMfadBaselineDate = task.DateTrustAgreesWithModelFA;
+            db.FsgPreOpeningMilestonesMfadActualDateOfCompletion = task.DateTrustAgreesWithModelFA;
 
         }
     }
