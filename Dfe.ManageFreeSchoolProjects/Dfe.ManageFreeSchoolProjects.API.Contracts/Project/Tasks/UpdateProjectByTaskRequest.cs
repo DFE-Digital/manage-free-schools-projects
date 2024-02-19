@@ -7,12 +7,14 @@
         public TrustTask Trust { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
-		public ConstituencyTask Constituency { get; set; }
-        
+        public ConstituencyTask Constituency { get; set; }
+
         public KickOffMeetingTask KickOffMeeting { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
+
+        public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
 
         public string TaskToUpdate
         {
@@ -36,6 +38,8 @@
                     return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
+                if (DraftGovernancePlan != null)
+                    return TaskName.DraftGovernancePlan.ToString();
                 return null;
             }
         }

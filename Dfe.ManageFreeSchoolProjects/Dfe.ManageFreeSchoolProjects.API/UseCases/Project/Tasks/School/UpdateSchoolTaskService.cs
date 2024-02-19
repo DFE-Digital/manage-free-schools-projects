@@ -29,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
             dbKpi.SchoolDetailsFaithStatus = faithStatus;
             dbKpi.SchoolDetailsFaithType = faithType;
             dbKpi.SchoolDetailsPleaseSpecifyOtherFaithType = task.OtherFaithType;
+            dbKpi.SchoolDetailsNumberOfFormsOfEntry = task.FormsOfEntry;
         }
     }
 }

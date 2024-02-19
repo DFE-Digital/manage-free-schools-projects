@@ -14,7 +14,9 @@
     var faithStatuses = Enum.GetValues<FaithStatus>().Except(new[] { FaithStatus.NotSet }).Select(x => x.ToString()).ToArray();
 
     var nurseryOptions = new[] { "No", "Yes" };
+    var nurseryTestIds = nurseryOptions.Select(x => $"nursery-{x}").ToArray();
     var sixthFormOptions = new[] { "No", "Yes" };
+    var sixthFormTestIds = sixthFormOptions.Select(x => $"sixth-form-{x}").ToArray();
 
     var genders = Enum.GetValues<Gender>().Except(new[] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
@@ -44,91 +46,93 @@
             <div class="govuk-grid-column-two-thirds">
 
 
-            <partial name="_ErrorSummary"/>
+                <partial name="_ErrorSummary" />
 
-            <form method="post">
+                <form method="post">
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="current-free-school-name">Current free school name</label>
-                    <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name"/>
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="current-free-school-name">Current free school name</label>
+                        <govuk-text-input id="current-free-school-name" name="current-free-school-name" asp-for="@Model.CurrentFreeSchoolName" data-testid="current-free-school-name" />
+                    </div>
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="school-type">School type</label>
-                    <govuk-radios-input
-                        name="school-type"
-                        asp-for="@Model.SchoolType"
-                        data-testid="school-type"
-                        labels="@schoolTypeLabels"
-                        values="@schoolTypeValues"/>
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="school-type">School type</label>
+                        <govuk-radios-input name="school-type"
+                                            asp-for="@Model.SchoolType"
+                                            data-testid="school-type"
+                                            labels="@schoolTypeLabels"
+                                            values="@schoolTypeValues" />
+                    </div>
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="school-phase">School phase</label>
-                    <govuk-radios-input
-                        name="school-phase"
-                        asp-for="@Model.SchoolPhase"
-                        data-testid="school-phase"
-                        labels="@schoolPhaseLabels"
-                        values="@schoolPhaseValues"/>
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="school-phase">School phase</label>
+                        <govuk-radios-input name="school-phase"
+                                            asp-for="@Model.SchoolPhase"
+                                            data-testid="school-phase"
+                                            labels="@schoolPhaseLabels"
+                                            values="@schoolPhaseValues" />
+                    </div>
 
-                <govuk-number-range id="age-range" asp-for="@Model.AgeRange" label="Age range" heading-medium-label="true" />
+                    <govuk-number-range id="age-range" asp-for="@Model.AgeRange" label="Age range" heading-medium-label="true" />
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="gender">Gender</label>
-                    <govuk-radios-input
-                        name="gender"
-                        data-testid="gender"
-                        asp-for="@Model.Gender"
-                        labels="@genderLabels"
-                        values="@genderValues"/>
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="forms-of-entry">Forms of entry</label>
+                        <govuk-text-input width="10" id="forms-of-entry" name="forms-of-entry" asp-for="@Model.FormsOfEntry" data-testid="forms-of-entry" />
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="gender">Gender</label>
+                        <govuk-radios-input name="gender"
+                                            data-testid="gender"
+                                            asp-for="@Model.Gender"
+                                            labels="@genderLabels"
+                                            values="@genderValues" />
+                    </div>
 
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="nursery">Nursery</label>
-                    <govuk-radios-input
-                        name="nursery"
-                        asp-for="@Model.Nursery"
-                        data-testid="nursery"
-                        labels="@nurseryOptions"
-                        values="@nurseryOptions"/>
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="nursery">Nursery</label>
+                        <govuk-radios-input name="nursery"
+                                            asp-for="@Model.Nursery"
+                                            data-testid="nursery"
+                                            labels="@nurseryOptions"
+                                            values="@nurseryOptions"
+                                            test-ids="@nurseryTestIds" />
+                    </div>
 
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="school-type">Sixth form</label>
-                    <govuk-radios-input
-                        name="sixth-form"
-                        asp-for="@Model.SixthForm"
-                        data-testid="sixth-form"
-                        labels="@sixthFormOptions"
-                        values="@sixthFormOptions"/>
-                </div>
-                <div class="govuk-form-group">
-                    <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
-                    <govuk-radios-input name="faith-status"
-                                        asp-for="@Model.FaithStatus"
-                                        data-testid="faith-status"
-                                        labels="@faithStatuses"
-                                        values="@faithStatuses" />
-                </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="school-type">Sixth form</label>
+                        <govuk-radios-input name="sixth-form"
+                                            asp-for="@Model.SixthForm"
+                                            data-testid="sixth-form"
+                                            labels="@sixthFormOptions"
+                                            values="@sixthFormOptions"
+                                            test-ids="@sixthFormTestIds" />
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
+                        <govuk-radios-input name="faith-status"
+                                            asp-for="@Model.FaithStatus"
+                                            data-testid="faith-status"
+                                            labels="@faithStatuses"
+                                            values="@faithStatuses" />
+                    </div>
 
-                <div class="govuk-form-group" id="faith-status-group">
-                    <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
-                    <govuk-radios-input name="faith-type"
-                                        asp-for="@Model.FaithType"
-                                        data-testid="faith-type"
-                                        labels="@faithTypeLabels"
-                                        values="@faithTypeValues" />
-                </div>
+                    <div class="govuk-form-group" id="faith-type-group">
+                        <label class="govuk-label govuk-heading-m" for="faith-type">Faith type</label>
+                        <govuk-radios-input name="faith-type"
+                                            asp-for="@Model.FaithType"
+                                            data-testid="faith-type"
+                                            labels="@faithTypeLabels"
+                                            values="@faithTypeValues" />
+                    </div>
 
-                <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type" />
+                    <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type" />
 
-                <button class="govuk-button" data-module="govuk-button">
-                    Save and continue
-                </button>
-            </form>
+                    <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                        Save and continue
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -140,12 +144,12 @@
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
-            $('#faith-status-group').hide();
+            $('#faith-type-group').hide();
             $('#other-faith-type').parent().hide();
         }
         else
         {
-            $('#faith-status-group').show();
+            $('#faith-type-group').show();
             if($("input[type='radio']:checked[name='faith-type']").val() === 'Other')
             {
                 $('#other-faith-type').parent().show();
