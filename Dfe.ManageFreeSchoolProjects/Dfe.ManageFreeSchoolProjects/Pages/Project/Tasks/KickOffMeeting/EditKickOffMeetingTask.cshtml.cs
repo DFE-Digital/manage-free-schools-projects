@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         [ValidText(100)]
         public string FundingArrangementDetailsAgreed { get; set; }
         
-       [BindProperty(Name = "realistic-year-of-opening", BinderType= typeof(StartEndModelBinder))]
+        [BindProperty(Name = "realistic-year-of-opening", BinderType= typeof(StartEndModelBinder))]
         public string RealisticYearOfOpening { get; set; }
         
         [BindProperty(Name = "provisional-opening-date", BinderType = typeof(DateInputModelBinder))]
@@ -42,6 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         
         [BindProperty(Name = "sharepoint-link")]
         [Display(Name = "Sharepoint link")]
+        [StringLength(ValidationConstants.LinkMaxLength, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Url(ErrorMessage = ValidationConstants.LinkValidationMessage)]
         public string SharepointLink { get; set; }
 
         public string SchoolName { get; set; }
@@ -69,15 +71,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
             SchoolName = project.SchoolName;
-
-            if (!new UrlAttribute().IsValid(SharepointLink))
-            {
-                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be a valid url");
-            }
-            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 500)
-            {
-                ModelState.AddModelError("sharepoint-link", "Sharepoint link must be 500 characters or less");
-            }
 
             if (!ModelState.IsValid)
             {

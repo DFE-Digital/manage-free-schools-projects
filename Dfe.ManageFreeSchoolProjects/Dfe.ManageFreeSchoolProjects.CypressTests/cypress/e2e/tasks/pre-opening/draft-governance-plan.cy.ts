@@ -96,6 +96,12 @@ describe("Testing draft governance plan task", () => {
 
         cy.executeAccessibilityTests();
 
+        editDraftGovernancePlanPage
+            .withSharepointLink("aaaa")
+            .clickContinue();
+
+        validationComponent.hasValidationError("The SharePoint link must be a valid url");
+
         Logger.log("Add new values");
         editDraftGovernancePlanPage
             .schoolNameIs(project.schoolName)
