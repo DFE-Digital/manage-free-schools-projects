@@ -81,12 +81,6 @@ class ProjectOverviewPage {
         return this;
     }
 
-    public hasOpeningAcademicYear(value: string): this {
-        cy.getByTestId(`opening-academic-year`).should(`contain.text`, value);
-
-        return this;
-    }
-
     public hasLocalAuthority(value: string): this {
         cy.getByTestId(`local-authority`).should(`contain.text`, value);
 
