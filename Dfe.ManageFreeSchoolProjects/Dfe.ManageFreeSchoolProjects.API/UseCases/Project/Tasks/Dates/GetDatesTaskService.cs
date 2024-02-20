@@ -1,5 +1,4 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
@@ -16,7 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
                 {
                     DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                     ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
-                    OpeningAcademicYear = kpi.ProjectStatusTrustsPreferredYearOfOpening,
                 }
             }).FirstOrDefaultAsync();
 
