@@ -30,10 +30,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                 db.Rid = dbKpi.Rid;
                 _context.Add(db);
             }
-
-
+            
             db.FsgPreOpeningMilestonesMfadActualDateOfCompletion = task.DateTrustAgreesWithModelFA;
-
+            db.FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder =  task.SavedFADocumentsInWorkplacesFolder;
+            db.FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa = task.TrustAgreesWithModelFA;
+            db.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck = task.DraftedFAHealthCheck;
+            db.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable = task.Comments;
+            db.FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement = task.TayloredAModelFundingAgreement;
+            db.FsgPreOpeningMilestonesMfadSharedFaWithTheTrust = task.SharedFAWithTheTrust;
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 });
 
                 var rid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 11);
-                var trust = await GetTrust(proj.TRN);
+                var trust = await GetTrust("TR00011");
 
                 var kpi = new Kpi
                 {

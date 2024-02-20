@@ -10,6 +10,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using System;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.Validators;
@@ -39,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         
         [BindProperty(Name = "date-trust-agrees-with-model-fa", BinderType = typeof(DateInputModelBinder))]
         
-        public DateTime? DateTrustAgreesWithModelFA { get; set; }
+        public DateTime?  DateTrustAgreesWithModelFA{ get; set; }
         
         [BindProperty(Name = "comments")]
         [Display(Name = "Comments")]
@@ -53,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         public bool? SavedFADocumentsInWorkplacesFolder { get; set; }
 
         public string SchoolName { get; set; }
-
+        
         public EditModelFundingAgreementTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditModelFundingAgreementTaskModel> logger,
@@ -75,6 +76,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
 
         public async Task<ActionResult> OnPost()
         {
+            var trustAgreesWithModelFa = ConvertYesNo(TrustAgreesWithModelFA);
+
+            if (trustAgreesWithModelFa != YesNo.Yes)
+            {
+                // Ignore any errors for the RPA fields if the trust is not opting into RPA
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-trust-agrees-with-model-fa")).ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+            }
+            
+            
             var project = await _getProjectService.Execute(ProjectId, TaskName.ModelFundingAgreement);
             SchoolName = project.SchoolName;
             
@@ -92,13 +104,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
                     {
                         TrustAgreesWithModelFA = ConvertYesNo(TrustAgreesWithModelFA),
                         DraftedFAHealthCheck = DraftedFAHealthCheck,
-                        DateTrustAgreesWithModelFA = DateTrustAgreesWithModelFA,
+                        DateTrustAgreesWithModelFA = null,
                         Comments = Comments,
                         SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder,
                         TayloredAModelFundingAgreement = TayloredAModelFundingAgreement,
                         SharedFAWithTheTrust = SharedFAWithTheTrust,   
                     }
                 };
+                
+                if (trustAgreesWithModelFa == YesNo.Yes)
+                {
+                    request.ModelFundingAgreement.DateTrustAgreesWithModelFA = DateTrustAgreesWithModelFA;
+                }
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
 

@@ -23,8 +23,8 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
-            <govuk-checkbox-input id="taylored-model-funding-agreement" name="finance-plan-agreed" asp-for="@Model.TayloredAModelFundingAgreement" bold-label="true" label="Taylored a model funding agreement (FA)" />
-            <govuk-checkbox-input id="shared-fa-with-the-trust" name="finance-plan-agreed" asp-for="@Model.SharedFAWithTheTrust" bold-label="true" label="Shared FA with the trust" />
+            <govuk-checkbox-input id="taylored-model-funding-agreement" name="taylored-model-funding-agreement" asp-for="@Model.TayloredAModelFundingAgreement" bold-label="true" label="Taylored a model funding agreement (FA)" />
+            <govuk-checkbox-input id="shared-fa-with-the-trust" name="shared-fa-with-the-trust" asp-for="@Model.SharedFAWithTheTrust" bold-label="true" label="Shared FA with the trust" />
            
             <div class="govuk-form-group ">
                 <fieldset class="govuk-fieldset" id="trust-agrees-with-model-fa">
@@ -70,7 +70,7 @@
                     </div>
                 </fieldset>
             </div>
-            <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="funding-arrangements-details-agreed" asp-for="@Model.Comments" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
+            <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="comments" asp-for="@Model.Comments" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
             <govuk-checkbox-input id="drafted-fa-health-check" name="drafted-fa-health-check" asp-for="@Model.DraftedFAHealthCheck" bold-label="true" label="Drafted FA health check" />
             <govuk-checkbox-input id="saved-fa-documents-in-workplaces-folder" name="saved-fa-documents-in-workplaces-folder" asp-for="@Model.SavedFADocumentsInWorkplacesFolder" bold-label="true" label="Saved FA documents in Workplaces folder" />
             

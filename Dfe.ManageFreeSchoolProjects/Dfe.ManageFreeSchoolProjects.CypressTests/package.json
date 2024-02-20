@@ -16,7 +16,8 @@
         "prettier:check": "prettier . --check",
         "prettier:write": "prettier . --write",
         "format": "npm run prettier:write && npm run lint",
-        "format:check": "npm run prettier:check && npm run lint"
+        "format:check": "npm run prettier:check && npm run lint",
+        "cy:cache": "cypress cache clear"
     },
     "keywords": [
         "e2e",
@@ -31,7 +32,7 @@
         "@typescript-eslint/eslint-plugin": "^6.2.1",
         "axe-core": "^4.6.3",
         "csv-stringify": "^6.4.0",
-        "cypress": "^13.0.0",
+        "cypress": "^13.6.3",
         "cypress-axe": "^1.4.0",
         "cypress-localstorage-commands": "^2.0.0",
         "cypress-multi-reporters": "^1.5.0",
@@ -45,7 +46,7 @@
         "prettier": "^3.0.1",
         "typescript": "^5.0.0",
         "uuid": "^9.0.0",
-        "zaproxy": "^2.0.0-rc.2",
-        "xlsx": "^0.18.5"
+        "xlsx": "^0.18.5",
+        "zaproxy": "^2.0.0-rc.2"
     }
 }

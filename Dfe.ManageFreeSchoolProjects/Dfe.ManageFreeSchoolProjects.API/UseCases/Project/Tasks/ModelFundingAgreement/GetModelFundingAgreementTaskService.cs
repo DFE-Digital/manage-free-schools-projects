@@ -23,13 +23,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                 {
                     ModelFundingAgreement = new()
                     {
-                        TrustAgreesWithModelFA = YesNo.Yes,
-                        DraftedFAHealthCheck = null,
-                        DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion ?? DateTime.Now,
-                        Comments = "daves comments",
-                        SavedFADocumentsInWorkplacesFolder = null,
-                        TayloredAModelFundingAgreement = null,
-                        SharedFAWithTheTrust = null,
+                        TrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa,
+                        DraftedFAHealthCheck = milestones.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck,
+                        DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion,
+                        Comments = milestones.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable,
+                        SavedFADocumentsInWorkplacesFolder = milestones.FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder,
+                        TayloredAModelFundingAgreement = milestones.FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement,
+                        SharedFAWithTheTrust = milestones.FsgPreOpeningMilestonesMfadSharedFaWithTheTrust,
                     }
                 }).FirstOrDefaultAsync();
 
