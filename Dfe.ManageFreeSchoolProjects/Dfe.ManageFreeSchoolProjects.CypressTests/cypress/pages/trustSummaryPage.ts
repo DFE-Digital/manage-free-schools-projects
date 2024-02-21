@@ -7,15 +7,15 @@ class TrustSummaryPage {
         cy.getByClass("govuk-heading-xl").contains("Trust");
 
         summaryPage.inOrder()
-        .summaryShows("TRN (trust reference number)").IsEmpty().HasChangeLink()
-        .summaryShows("Trust name").IsEmpty().HasNoChangeLink()
-        .summaryShows("Trust type").IsEmpty().HasNoChangeLink();
+            .summaryShows("TRN (trust reference number)").IsEmpty().HasChangeLink()
+            .summaryShows("Trust name").IsEmpty().HasNoChangeLink()
+            .summaryShows("Trust type").IsEmpty().HasNoChangeLink();
 
-        cy.getById("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
-        
+
         return this;
     }
 
@@ -24,15 +24,15 @@ class TrustSummaryPage {
         cy.getByClass("govuk-heading-xl").contains("Trust");
 
         summaryPage.inOrder()
-        .summaryShows("TRN (trust reference number)").HasValue(validTrustId).HasChangeLink()
-        .summaryShows("Trust name").HasValue("King's Group Academies").HasNoChangeLink()
-        .summaryShows("Trust type").HasValue("MAT").HasNoChangeLink();
+            .summaryShows("TRN (trust reference number)").HasValue(validTrustId).HasChangeLink()
+            .summaryShows("Trust name").HasValue("King's Group Academies").HasNoChangeLink()
+            .summaryShows("Trust type").HasValue("MAT").HasNoChangeLink();
 
-        cy.getById("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
-        
+
         return this;
     }
 
@@ -45,7 +45,7 @@ class TrustSummaryPage {
     }
 
     public selectMarkItemAsComplete(): this {
-        cy.getById("mark-as-complete").click();
+        cy.getById("mark-as-completed").click();
         return this;
     }
 

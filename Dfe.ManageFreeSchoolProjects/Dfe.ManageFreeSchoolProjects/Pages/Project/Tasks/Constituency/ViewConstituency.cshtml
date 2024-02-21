@@ -6,6 +6,8 @@
 
     var searchLink = string.Format(RouteConstants.SearchConstituency, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+
+    var constituencyTask = Model.Project.Constituency;
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container">
@@ -17,61 +19,22 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl" data-testid="title">
             <span class="govuk-caption-l" data-testid="school-name">
-                @{
-                    RenderValue(Model.Project.SchoolName);
-                }
+                @Model.Project.SchoolName
             </span>
             Constituency
         </h1>
-        <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Constituency.Name);
-                    }
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href=@searchLink>
-                        Change<span class="govuk-visually-hidden"> Constituency</span>
-                    </a>
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                    MP
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Constituency.MPName);
-                    }
-                </dd>
-            </div>
-            <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                    Political party
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.Constituency.Party);
-                    }
-                </dd>
-            </div>
-        </dl>
-        <form method="post">
-            <div class="govuk-form-group">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
-                        <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
-                            Mark this section as complete, you can still make changes later
-                        </label>
-                    </div>
-                </div>
 
-            </div>
+        <govuk-summary-list>
+            <govuk-summary-item label="Name" asp-for="@constituencyTask.Name" href="@searchLink" />
+            <govuk-summary-item label="MP" asp-for="@constituencyTask.MPName" render-link="false" />
+            <govuk-summary-item label="Political party" asp-for="@constituencyTask.Party" render-link="false" />
+        </govuk-summary-list>
+
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
@@ -79,17 +42,3 @@
         </form>
     </div>
 </div>
-
-@functions {
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
-}
