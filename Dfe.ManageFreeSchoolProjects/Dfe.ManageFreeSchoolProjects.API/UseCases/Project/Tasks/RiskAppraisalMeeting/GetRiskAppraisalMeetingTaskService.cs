@@ -23,27 +23,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalM
                                 from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    RiskAppraisalMeeting = Map(riskAppraisalMeetingTask)
+                                    RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask)
                                 }).FirstOrDefaultAsync();
 
             return result;
-        }
-
-        private static RiskAppraisalMeetingTask Map(Data.Entities.RiskAppraisalMeetingTask riskAppraisalMeetingTask)
-        {
-            if (riskAppraisalMeetingTask == null)
-            {
-                return new RiskAppraisalMeetingTask();
-            }
-
-            return new RiskAppraisalMeetingTask
-            {
-                InitialRiskAppraisalMeetingCompleted = riskAppraisalMeetingTask.MeetingCompleted,
-                ForecastDate = riskAppraisalMeetingTask.ForecastDate,
-                ActualDate = riskAppraisalMeetingTask.ActualDate,
-                CommentsOnDecisionToApprove = riskAppraisalMeetingTask.CommentOnDecision,
-                ReasonNotApplicable = riskAppraisalMeetingTask.ReasonNotApplicable
-            };
         }
     }
 }

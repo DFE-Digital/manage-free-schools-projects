@@ -1,6 +1,11 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.Data;
@@ -8,7 +13,6 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -58,13 +62,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
         private async Task<ProjectReport> BuildProjectReport()
         {
-            var data = await _context.Kpi.Select(kpi => new GetProjectByTaskResponse()
-            {
-                Dates = DatesTaskBuilder.Build(kpi),
-                School = SchoolTaskBuilder.Build(kpi),
-                Trust = TrustTaskBuilder.Build(kpi),
-                RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi)
-            }).ToListAsync();
+            var data = await (from kpi in _context.Kpi
+                              join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
+                              from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
+                              join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
+                              from milestones in joinedMilestones.DefaultIfEmpty()
+                              select new GetProjectByTaskResponse()
+                              {
+                                  Dates = DatesTaskBuilder.Build(kpi),
+                                  School = SchoolTaskBuilder.Build(kpi),
+                                  Trust = TrustTaskBuilder.Build(kpi),
+                                  RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi),
+                                  Constituency = ConstituencyTaskBuilder.Build(kpi),
+                                  RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
+                                  KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
+                                  ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
+                                  FinancePlan = FinancePlanTaskBuilder.Build(milestones)
+                              }).ToListAsync();
 
             var result = ProjectReportBuilder.Build(new ProjectReportBuilderParameters()
             {

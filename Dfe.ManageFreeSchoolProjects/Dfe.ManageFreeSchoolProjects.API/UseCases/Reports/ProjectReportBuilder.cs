@@ -15,10 +15,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             {
                 var tasks = new List<ProjectTaskInformation>
                 {
-                    new ProjectTaskInformation { Task = project.Dates, TaskName = "Dates", Section = "Pre-opening" },
-                    new ProjectTaskInformation { Task = project.School, TaskName = "School", Section = "Pre-opening" },
-                    new ProjectTaskInformation { Task = project.Trust, TaskName = "Trust", Section = "Pre-opening" },
-                    new ProjectTaskInformation { Task = project.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.Dates, TaskName = "Dates", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.School, TaskName = "School", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.Trust, TaskName = "Trust", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.Constituency, TaskName = "Constituency", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.RiskAppraisalMeeting, TaskName = "Risk appraisal meeting", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.KickOffMeeting, TaskName = "Kick-off meeting", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" }
                 };
 
                 if (result.Headers.Count == 0)
@@ -100,6 +105,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
             {
                 return ((DateTime)value).ToString("dd/MM/yyyy");
+            }
+
+            if (propertyInfo.PropertyType == typeof(bool) || propertyInfo.PropertyType == typeof(bool?))
+            {
+                return (bool)value ? "Yes" : "No";
             }
 
             if (propertyInfo.PropertyType.IsEnum || Nullable.GetUnderlyingType(propertyInfo.PropertyType)?.IsEnum == true)
