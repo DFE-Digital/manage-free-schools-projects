@@ -42,6 +42,8 @@
         public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
         public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";
         
+        public const string ViewGiasTask = TaskList + "/gias-landing-page";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
