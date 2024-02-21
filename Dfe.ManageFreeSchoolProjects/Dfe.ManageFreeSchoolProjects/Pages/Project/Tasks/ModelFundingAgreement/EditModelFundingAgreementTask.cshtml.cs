@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         public bool? SharedFAWithTheTrust { get; set; }
         
         [BindProperty(Name = "trust-agrees-with-model-fa")]
-        public string? TrustAgreesWithModelFA { get; set; }
+        public string TrustAgreesWithModelFA { get; set; }
         
         [BindProperty(Name = "date-trust-agrees-with-model-fa", BinderType = typeof(DateInputModelBinder))]
         
