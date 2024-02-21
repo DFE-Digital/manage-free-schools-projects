@@ -132,7 +132,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.ModelFundingAgreement);
 
-            TrustAgreesWithModelFA = project.ModelFundingAgreement.TrustAgreesWithModelFA?.ToString();;
+            TrustAgreesWithModelFA = project.ModelFundingAgreement.TrustAgreesWithModelFA?.ToString();
             DraftedFAHealthCheck = project.ModelFundingAgreement.DraftedFAHealthCheck;
             DateTrustAgreesWithModelFA = project.ModelFundingAgreement.DateTrustAgreesWithModelFA;
             Comments = project.ModelFundingAgreement.Comments;
