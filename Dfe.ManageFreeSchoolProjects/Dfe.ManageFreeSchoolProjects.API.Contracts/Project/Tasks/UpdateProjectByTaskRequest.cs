@@ -42,6 +42,8 @@
                     return TaskName.KickOffMeeting.ToString();
                 if (ModelFundingAgreement != null)
                     return TaskName.ModelFundingAgreement.ToString();
+                if (DraftGovernancePlan != null)
+                    return TaskName.DraftGovernancePlan.ToString();
                 return null;
             }
         }
