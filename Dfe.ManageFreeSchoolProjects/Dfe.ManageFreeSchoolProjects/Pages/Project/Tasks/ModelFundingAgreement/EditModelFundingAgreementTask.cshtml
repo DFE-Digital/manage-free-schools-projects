@@ -43,7 +43,7 @@
                                 checked="@(Model.TrustAgreesWithModelFA == "Yes" ? "checked" : null)"
                                 data-aria-controls="conditional-trust-agrees-with-model-fa-Yes">
             
-                            <label class="govuk-label govuk-radios__label" for="conditional-trust-agrees-with-model-fa-Yes">
+                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-Yes">
                                 Yes
                             </label>
                         </div>
@@ -57,13 +57,14 @@
                             <input 
                                 class="govuk-radios__input" 
                                 id="trust-agrees-with-model-fa-No"
-                                name="trust-agrees-with-model-fa" 
+                                name="trust-agrees-with-model-fa"
                                 type="radio" 
+                                aria-label="trust-agrees-with-model-fa-No"
                                 value="No"
                                 checked="@(Model.TrustAgreesWithModelFA == "No" ? "checked" : null)"
                                 data-testid="trust-agrees-with-model-fa-No">
             
-                            <label class="govuk-label govuk-radios__label" for="conditional-trust-agrees-with-model-fa-No">
+                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-No">
                                 No
                             </label>
                         </div>

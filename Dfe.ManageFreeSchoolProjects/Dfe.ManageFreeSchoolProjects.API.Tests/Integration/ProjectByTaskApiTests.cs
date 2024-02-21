@@ -470,6 +470,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 	        projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
 		        .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
+		        .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+	        projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
+		        .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
+	        projectResponse.ModelFundingAgreement.Comments.Should()
+		        .Be(request.ModelFundingAgreement.Comments);
+	        projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
+		        .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
+	        projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+		        .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
 
         [Fact]
@@ -493,12 +505,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 		        ModelFundingAgreement = new ModelFundingAgreementTask()
 		        {
 			        TayloredAModelFundingAgreement = true,
-			        SharedFAWithTheTrust = true,
+			        SharedFAWithTheTrust = false,
 			        TrustAgreesWithModelFA = YesNo.Yes,
 			        DateTrustAgreesWithModelFA = dateNineDaysInFuture,
 			        Comments = "new comments dave",
 			        DraftedFAHealthCheck = true,
-			        SavedFADocumentsInWorkplacesFolder = true
+			        SavedFADocumentsInWorkplacesFolder = false
 		        }
 	        };
 
@@ -507,6 +519,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
 	        projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
 		        .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
+		        .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+	        projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
+		        .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
+	        projectResponse.ModelFundingAgreement.Comments.Should()
+		        .Be(request.ModelFundingAgreement.Comments);
+	        projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
+		        .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
+	        projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+		        .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
 
         [Fact]

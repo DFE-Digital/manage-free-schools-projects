@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         
         [BindProperty(Name = "comments")]
         [Display(Name = "Comments")]
-        [ValidText(100)]
+        [ValidText(999)]
         public string Comments { get; set; }
         
         [BindProperty(Name = "drafted-fa-health-check")]

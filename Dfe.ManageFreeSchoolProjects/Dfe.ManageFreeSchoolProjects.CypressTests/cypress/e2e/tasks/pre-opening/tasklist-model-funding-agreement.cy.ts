@@ -1,10 +1,8 @@
 import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
-import dataGenerator from "cypress/fixtures/dataGenerator";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import articlesOfAssociationEditPage from "cypress/pages/tasks/pre-opening/edit-articles-of-association.cy";
 import modelFundingAgreementEditPage from "../../../pages/tasks/pre-opening/edit-model-funding-agreement.cy";
 
 describe("Testing Model funding agreement Task", () => {
@@ -47,7 +45,7 @@ describe("Testing Model funding agreement Task", () => {
             .isNotMarkedAsComplete();
 
 
-        //cy.executeAccessibilityTests();
+        cy.executeAccessibilityTests();
         cy.log("Go back to task list");
         summaryPage.clickBack();
 
@@ -65,19 +63,75 @@ describe("Testing Model funding agreement Task", () => {
 
         summaryPage.clickChange();
 
-        //cy.executeAccessibilityTests();
+        cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
         
         cy.log("Date Agreed Validation")
 
         modelFundingAgreementEditPage
+            .checkAgreesWithModelFa()
             .withAgreedDate("2","ds","2050")
             .clickContinue()
-            .errorForAgreedDate().showsError("dave")
+            .errorForAgreedDate().showsError("Enter a date in the correct format")
+            .withAgreedDate("2","2","2090")
+            .clickContinue()
+            .errorForAgreedDate().showsError("Year must be between 2000 and 2050")
+            .withAgreedDate("2","2","1999")
+            .clickContinue()
+            .errorForAgreedDate().showsError("Year must be between 2000 and 2050")
 
-        summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
-            .clickChange();
-        
         cy.log("Date Agreed Validation")
+
+
+        modelFundingAgreementEditPage
+            .withComments("££hello")
+            .clickContinue()
+            .errorForComments().showsError("Comments must not include special characters other than , ( ) '")
+
+        cy.log("Fill in valid model funding arrangement")
+
+        modelFundingAgreementEditPage
+            .checkAgreesWithModelFa()
+            .withAgreedDate("2","2","2050")
+            .withComments("comments are valid")
+            .checkTayloredAModelFundingAgreement()
+            .checkSharedFAWithTrust()
+            .checkDraftedFAHealthcheck()
+            .checkSavedFADocumentsInWorkplacesFolder()
+            .clickContinue()
+
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Model funding agreement")
+            .inOrder()
+            .summaryShows("Taylored a model funding agreement (FA)").HasValue("Yes").HasChangeLink()
+            .summaryShows("Shared FA with trust").HasValue("Yes").HasChangeLink()
+            .summaryShows("Trust agrees with model FA").HasValue("Yes").HasChangeLink()
+            .summaryShows("Date Agreed").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
+            .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
+            .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
+            .isNotMarkedAsComplete();
+
+        cy.log("Unselect select date agreed")
+       
+        summaryPage.clickChange();
+        modelFundingAgreementEditPage
+            .uncheckAgreesWithModelFa()
+            .clickContinue()
+
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Model funding agreement")
+            .inOrder()
+            .summaryShows("Taylored a model funding agreement (FA)").HasValue("Yes").HasChangeLink()
+            .summaryShows("Shared FA with trust").HasValue("Yes").HasChangeLink()
+            .summaryShows("Trust agrees with model FA").HasValue("No").HasChangeLink()
+            .summaryDoesNotShow("Date Agreed")
+            .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
+            .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
+            .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
+            .isNotMarkedAsComplete();
+        
     })
     
     
