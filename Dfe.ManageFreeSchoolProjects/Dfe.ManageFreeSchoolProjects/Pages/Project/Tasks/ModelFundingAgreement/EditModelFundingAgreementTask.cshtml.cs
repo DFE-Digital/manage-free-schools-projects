@@ -103,12 +103,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
                     ModelFundingAgreement = new ModelFundingAgreementTask()
                     {
                         TrustAgreesWithModelFA = ConvertYesNo(TrustAgreesWithModelFA),
-                        DraftedFAHealthCheck = DraftedFAHealthCheck,
+                        DraftedFAHealthCheck = DraftedFAHealthCheck ?? false,
                         DateTrustAgreesWithModelFA = null,
                         Comments = Comments,
-                        SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder,
-                        TayloredAModelFundingAgreement = TayloredAModelFundingAgreement,
-                        SharedFAWithTheTrust = SharedFAWithTheTrust,   
+                        SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder ?? false,
+                        TayloredAModelFundingAgreement = TayloredAModelFundingAgreement ?? false,
+                        SharedFAWithTheTrust = SharedFAWithTheTrust ?? false,   
                     }
                 };
                 
