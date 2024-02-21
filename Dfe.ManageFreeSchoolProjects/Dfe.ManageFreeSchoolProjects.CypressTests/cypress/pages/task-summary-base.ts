@@ -56,12 +56,12 @@ export class SummaryPage {
     }
 
     public isNotMarkedAsComplete() {
-        cy.getByTestId("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         return this;
     }
 
     public MarkAsComplete() {
-        cy.getByTestId("mark-as-complete").click();
+        cy.getById("mark-as-completed").click();
         return this;
     }
 

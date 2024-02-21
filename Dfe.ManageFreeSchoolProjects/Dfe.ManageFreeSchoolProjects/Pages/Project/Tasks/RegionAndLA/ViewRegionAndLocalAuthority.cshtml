@@ -2,10 +2,11 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.ViewRegionAndLocalAuthority
 @{
-    var regionEditLink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
-    var localAuthorityEditLink = string.Format(RouteConstants.EditLocalAuthority, Model.ProjectId, Model.Project.RegionAndLocalAuthority.Region);
+    var editlink = string.Format(RouteConstants.EditRegion, Model.ProjectId);
     ViewData["Title"] = $"Region and local authority - {Model.Project.SchoolName}";
     var backlink = $"/projects/{Model.ProjectId}/tasks";
+
+    var regionAndLocalAuthorityTask = Model.Project.RegionAndLocalAuthority;
 }
 
 @section BeforeMain {
@@ -16,65 +17,21 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">  
-                @{
-                    RenderValue(Model.Project.SchoolName);
-                }
+            <span class="govuk-caption-l">
+                @Model.Project.SchoolName
             </span>
             Region and local authority
         </h1>
-        <dl class="govuk-summary-list">
+        <govuk-summary-list>
+            <govuk-summary-item label="Region" asp-for="@regionAndLocalAuthorityTask.Region" href="@editlink" />
+            <govuk-summary-item label="Local authority" asp-for="@regionAndLocalAuthorityTask.LocalAuthority" href="@editlink" />
+        </govuk-summary-list>
 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Region
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.RegionAndLocalAuthority.Region);
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@regionEditLink">
-                        Change<span class="govuk-visually-hidden">Region</span>
-                    </a>
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Local authority
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @{
-                        RenderValue(Model.Project.RegionAndLocalAuthority.LocalAuthority);
-                    }
-                </dd>
-
-                <dd class="govuk-summary-list__actions">
-
-                    <a class="govuk-link" href="@localAuthorityEditLink">
-                        Change<span class="govuk-visually-hidden">Local authority</span>
-                    </a>
-
-                </dd>
-            </div>
-            
-        </dl>
         <form method="post">
-            <div class="govuk-form-group">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="@Model.MarkAsComplete" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
-                        <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
-                            Mark this section as complete, you can still make changes later
-                        </label>
-                    </div>
-                </div>
-
-            </div>
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
 
             <button class="govuk-button" data-module="govuk-button">
                 Confirm and continue
@@ -83,19 +40,3 @@
 
     </div>
 </div>
-
-@functions {
-
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value) || value == "NotSet")
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
-
-}

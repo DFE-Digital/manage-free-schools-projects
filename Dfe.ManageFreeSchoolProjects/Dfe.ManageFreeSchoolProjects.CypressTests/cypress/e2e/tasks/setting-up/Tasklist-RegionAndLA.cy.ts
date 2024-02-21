@@ -59,14 +59,14 @@ describe("Testing project overview", () => {
         Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Region Details page");
 
         regionDetailsPage.selectEastMidlands()
-                         .selectEastOfEngland()
-                         .selectLondon()
-                         .selectNorthEast()
-                         .selectNorthWest()
-                         .selectSouthEast()
-                         .selectSouthWest()
-                         .selectWestMidlands()
-                         .selectYorkshireAndHumber();
+            .selectEastOfEngland()
+            .selectLondon()
+            .selectNorthEast()
+            .selectNorthWest()
+            .selectSouthEast()
+            .selectSouthWest()
+            .selectWestMidlands()
+            .selectYorkshireAndHumber();
 
 
         Logger.log("Testing that a user can select an option e.g. 'North West' and successfully continue to Local authority Details page");
@@ -82,22 +82,22 @@ describe("Testing project overview", () => {
         Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Local authority Details page");
 
         localAuthorityDetailsPage.selectIslesOfScilly()
-                                 .selectBathAndNorthEastSomerset()
-                                 .selectBristol()
-                                 .selectNorthSomerset()
-                                 .selectSouthGloucestershire()
-                                 .selectPoole()
-                                 .selectDorset()
-                                 .selectBournemouthChristchurchAndPoole()
-                                 .selectWiltshire()
-                                 .selectSwindon()
-                                 .selectDevon()
-                                 .selectPlymouth()
-                                 .selectTorbay()
-                                 .selectCornwall()
-                                 .selectGloucestershire()
-                                 .selectSomerset();
-        
+            .selectBathAndNorthEastSomerset()
+            .selectBristol()
+            .selectNorthSomerset()
+            .selectSouthGloucestershire()
+            .selectPoole()
+            .selectDorset()
+            .selectBournemouthChristchurchAndPoole()
+            .selectWiltshire()
+            .selectSwindon()
+            .selectDevon()
+            .selectPlymouth()
+            .selectTorbay()
+            .selectCornwall()
+            .selectGloucestershire()
+            .selectSomerset();
+
         Logger.log("Testing that a user can make a selection and save the Region and Local authority data and navigate to the Region and Local authority Summary page");
 
         localAuthorityDetailsPage.selectPlymouth();
@@ -106,13 +106,13 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-      regionAndLocalAuthoritySummaryPage.verifyRegionAndLASummaryCompleteElementsVisible(project.schoolName);
+        regionAndLocalAuthoritySummaryPage.verifyRegionAndLASummaryCompleteElementsVisible(project.schoolName);
 
-      regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
+        regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
 
-      regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
-      
-      taskListPage.isTaskStatusIsCompleted("RegionAndLocalAuthority");
+        regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
+
+        taskListPage.isTaskStatusIsCompleted("RegionAndLocalAuthority");
 
     });
 });

@@ -26,13 +26,13 @@ describe("Testing Constituency Task", () => {
             });
     });
 
-    
+
     it("Should successfully set Tasklist-school information", () => {
-        
+
         Logger.log("Select constituency");
         taskListPage.isTaskStatusIsNotStarted("Constituency")
             .selectConstituencyFromTaskList();
-                
+
         Logger.log("Confirm empty constituency");
         summaryPage
             .schoolNameIs(project.schoolName)
@@ -42,7 +42,7 @@ describe("Testing Constituency Task", () => {
             .summaryShows("MP").IsEmpty().HasNoChangeLink()
             .summaryShows("Political party").IsEmpty().HasNoChangeLink()
             .isNotMarkedAsComplete();
-        
+
         cy.executeAccessibilityTests();
         Logger.log("Go back to task list");
         summaryPage.clickBack();
@@ -65,7 +65,7 @@ describe("Testing Constituency Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Search for a constituency")
             .searchLabelIs("Enter a name or postcode");
-        
+
         cy.executeAccessibilityTests();
 
         Logger.log("Check back link");
@@ -97,10 +97,10 @@ describe("Testing Constituency Task", () => {
             .clickContinue()
             .errorMessage("The name or postcode must be 50 characters or less")
             .errorHint("The name or postcode must be 50 characters or less");
-        
+
         cy.executeAccessibilityTests();
         Logger.log("Perform valid search and use None option to navigate back to search");
-            
+
         constituencySearchPage
             .enterSearch(specialCharsTestString)
             .clickContinue()
@@ -108,7 +108,7 @@ describe("Testing Constituency Task", () => {
             .errorHint("Name or postcode must not include special characters other than , ( ) '");
 
         Logger.log("Perform valid search and use None option to navigate back to search");
-            
+
 
         constituencySearchPage
             .enterSearch("SW1P")
@@ -127,7 +127,7 @@ describe("Testing Constituency Task", () => {
             .clickContinue()
 
         Logger.log("Perform a search which yields no results");
-            
+
         constituencySearchPage
             .enterSearch("Potato")
             .clickContinue()
@@ -138,9 +138,9 @@ describe("Testing Constituency Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("0 results for Potato")
             .clickSearchAgain()
-        
+
         Logger.log("Perform valid search and pick option and save");
-            
+
         constituencySearchPage
             .enterSearch("SW1P")
             .clickContinue()
@@ -170,6 +170,6 @@ describe("Testing Constituency Task", () => {
 
         taskListPage.isTaskStatusIsCompleted("Constituency")
 
-        
+
     });
 });
