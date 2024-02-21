@@ -50,6 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
 
         [BindProperty(Name = "sharepoint-link")]
         [Display(Name = "SharePoint link")]
+        [StringLength(ValidationConstants.LinkMaxLength, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Url(ErrorMessage = ValidationConstants.LinkValidationMessage)]
         public string SharepointLink { get; set; }
 
         public string SchoolName { get; set; }
@@ -77,15 +79,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.ArticlesOfAssociation);
             SchoolName = project.SchoolName;
-
-            if (!new UrlAttribute().IsValid(SharepointLink))
-            {
-                ModelState.AddModelError("sharepoint-link", "SharePoint link must be a valid url");
-            }
-            else if (!string.IsNullOrEmpty(SharepointLink) && SharepointLink.Length > 100)
-            {
-                ModelState.AddModelError("sharepoint-link", "SharePoint link must be 100 characters or less");
-            }
 
             if (!ModelState.IsValid)
             {

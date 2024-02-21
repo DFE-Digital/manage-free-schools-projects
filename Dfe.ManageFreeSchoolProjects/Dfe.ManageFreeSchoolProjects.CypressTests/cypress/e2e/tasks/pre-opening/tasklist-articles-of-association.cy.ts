@@ -91,9 +91,9 @@ describe("Testing articles of association Task", () => {
             .withSharepointLink("NotAUrl")
             .clickContinue()
             .errorForSharepointLink().showsError("SharePoint link must be a valid url")
-            .withSharepointLink(`https://www.gov.uk/government/organisations/department-for-education${dataGenerator.generateAlphaNumeric(90)}`)
+            .withSharepointLinkExceedingMaxLength()
             .clickContinue()
-            .errorForSharepointLink().showsError("SharePoint link must be 100 characters or less")
+            .errorForSharepointLink().showsError("SharePoint link must be 500 characters or less")
             .withSharepointLink("https://www.gov.uk/government/organisations/department-for-education")
             .clickContinue();
 
