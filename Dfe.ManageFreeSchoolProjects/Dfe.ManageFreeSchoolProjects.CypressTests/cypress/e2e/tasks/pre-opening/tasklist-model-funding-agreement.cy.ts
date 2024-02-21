@@ -117,19 +117,23 @@ describe("Testing Model funding agreement Task", () => {
         summaryPage.clickChange();
         modelFundingAgreementEditPage
             .uncheckAgreesWithModelFa()
+            .uncheckTayloredAModelFundingAgreement()
+            .uncheckSharedFAWithTrust()
+            .uncheckSavedFADocumentsInWorkplacesFolder()
+            .uncheckDraftedFAHealthcheck()
             .clickContinue()
 
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Model funding agreement")
             .inOrder()
-            .summaryShows("Taylored a model funding agreement (FA)").HasValue("Yes").HasChangeLink()
-            .summaryShows("Shared FA with trust").HasValue("Yes").HasChangeLink()
+            .summaryShows("Taylored a model funding agreement (FA)").HasValue("No").HasChangeLink()
+            .summaryShows("Shared FA with trust").HasValue("No").HasChangeLink()
             .summaryShows("Trust agrees with model FA").HasValue("No").HasChangeLink()
             .summaryDoesNotShow("Date Agreed")
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
-            .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
-            .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
+            .summaryShows("Drafted FA health check").HasValue("No").HasChangeLink()
+            .summaryShows("Saved FA documents in Workplaces folder").HasValue("No").HasChangeLink()
             .isNotMarkedAsComplete();
         
     })

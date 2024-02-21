@@ -19,6 +19,8 @@ class ModelFundingAgreementEditPage {
         cy.getById("trust-agrees-with-model-fa-Yes").check()
         return this
     }
+    
+    
 
     uncheckAgreesWithModelFa(): this {
         cy.getById("trust-agrees-with-model-fa-No").check()
@@ -30,8 +32,18 @@ class ModelFundingAgreementEditPage {
         return this
     }
 
+    uncheckTayloredAModelFundingAgreement(): this {
+        cy.getById("taylored-model-funding-agreement").uncheck()
+        return this
+    }
+
     checkSharedFAWithTrust(): this {
         cy.getById("shared-fa-with-the-trust").check()
+        return this
+    }
+
+    uncheckSharedFAWithTrust(): this {
+        cy.getById("shared-fa-with-the-trust").uncheck()
         return this
     }
 
@@ -40,8 +52,18 @@ class ModelFundingAgreementEditPage {
         return this
     }
 
+    uncheckDraftedFAHealthcheck(): this {
+        cy.getById("drafted-fa-health-check").uncheck()
+        return this
+    }
+
     checkSavedFADocumentsInWorkplacesFolder(): this {
         cy.getById("saved-fa-documents-in-workplaces-folder").check()
+        return this
+    }
+
+    uncheckSavedFADocumentsInWorkplacesFolder(): this {
+        cy.getById("saved-fa-documents-in-workplaces-folder").uncheck()
         return this
     }
 
