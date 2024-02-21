@@ -50,6 +50,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectModelFundingAgreementFromTaskList(): this {
+        cy.getByTestId("model-funding-agreement-task").click()
+        return this;
+    }
+
     public selectDraftGovernancePlanFromTaskList(): this {
         this.getDraftGovernancePlanTask().click();
         return this;

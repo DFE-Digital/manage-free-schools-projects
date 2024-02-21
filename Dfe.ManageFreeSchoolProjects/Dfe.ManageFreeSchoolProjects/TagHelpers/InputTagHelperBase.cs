@@ -18,6 +18,10 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
 		[HtmlAttributeName("label")]
 		public string Label { get; set; }
+		
+		[HtmlAttributeName("bold-label")]
+		
+		public bool? BoldLabel { get; set; }
 
 		[HtmlAttributeName("suffix")]
 		public string Suffix { get; set; }

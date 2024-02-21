@@ -8,5 +8,7 @@
 		public string HeadingLabel { get; set; }
 		public string Label { get; set; }
 		public string ErrorMessage { get; set; }
+		
+		public bool? BoldLabel  { get; set; }
 	}
 }

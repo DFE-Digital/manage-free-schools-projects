@@ -43,7 +43,7 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
-        //cy.executeAccessibilityTests();
+        cy.executeAccessibilityTests();
         cy.log("Go back to task list");
         summaryPage.clickBack();
 

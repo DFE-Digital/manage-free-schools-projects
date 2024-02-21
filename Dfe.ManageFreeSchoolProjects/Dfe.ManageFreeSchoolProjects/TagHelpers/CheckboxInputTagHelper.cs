@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         protected override async Task<IHtmlContent> RenderContentAsync()
         {
-            CheckboxInputViewModel model = new() { Id = Id, Name = Name, Label = Label, HeadingLabel = HeadingLabel, Value = For.Model?.ToString() };
+            CheckboxInputViewModel model = new() { Id = Id, Name = Name, Label = Label, HeadingLabel = HeadingLabel, BoldLabel = BoldLabel, Value = For.Model?.ToString() };
 
             return await _htmlHelper.PartialAsync("_CheckboxInput", model);
         }
