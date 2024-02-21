@@ -14,6 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         ArticlesOfAssociation,
         FinancePlan,
         KickOffMeeting,
-        DraftGovernancePlan
+        DraftGovernancePlan,
+        ModelFundingAgreement
     }
 }

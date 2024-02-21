@@ -397,42 +397,140 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 	        projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
 	        projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
         }
-        
-		[Fact]
+
+        [Fact]
         public async Task Patch_ExistingKickOffMeeting_Returns_201()
         {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
+	        var project = DatabaseModelBuilder.BuildProject();
+	        var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
+	        using var context = _testFixture.GetContext();
+	        context.Kpi.Add(project);
 
-            var kickOffMeetingTask = DatabaseModelBuilder.BuildKickOffMeetingTask(project.Rid);
-            context.Milestones.Add(kickOffMeetingTask);
+	        var kickOffMeetingTask = DatabaseModelBuilder.BuildKickOffMeetingTask(project.Rid);
+	        context.Milestones.Add(kickOffMeetingTask);
 
-            await context.SaveChangesAsync();
-            
-            var dateNineDaysInFuture = new DateTime().AddDays(9);
+	        await context.SaveChangesAsync();
 
-            var request = new UpdateProjectByTaskRequest()
-            {
-	            KickOffMeeting = new KickOffMeetingTask()
-	            {
-		            FundingArrangementAgreed = true,
-		            RealisticYearOfOpening = "2049/2050",
-		            FundingArrangementDetailsAgreed = "text",
-		            ProvisionalOpeningDate = dateNineDaysInFuture,
-		            SharepointLink = "https://sharepoint/completed"
-	            }
-            };
+	        var dateNineDaysInFuture = new DateTime().AddDays(9);
 
-            var projectResponse = await UpdateProjectTask(projectId, request, TaskName.KickOffMeeting.ToString());
+	        var request = new UpdateProjectByTaskRequest()
+	        {
+		        KickOffMeeting = new KickOffMeetingTask()
+		        {
+			        FundingArrangementAgreed = true,
+			        RealisticYearOfOpening = "2049/2050",
+			        FundingArrangementDetailsAgreed = "text",
+			        ProvisionalOpeningDate = dateNineDaysInFuture,
+			        SharepointLink = "https://sharepoint/completed"
+		        }
+	        };
 
-            projectResponse.KickOffMeeting.SharepointLink.Should().Be(request.KickOffMeeting.SharepointLink);
-            projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
-            projectResponse.KickOffMeeting.ProvisionalOpeningDate.Should().Be(request.KickOffMeeting.ProvisionalOpeningDate);
-            projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
-            projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
+	        var projectResponse = await UpdateProjectTask(projectId, request, TaskName.KickOffMeeting.ToString());
+
+	        projectResponse.KickOffMeeting.SharepointLink.Should().Be(request.KickOffMeeting.SharepointLink);
+	        projectResponse.KickOffMeeting.RealisticYearOfOpening.Should()
+		        .Be(request.KickOffMeeting.RealisticYearOfOpening);
+	        projectResponse.KickOffMeeting.ProvisionalOpeningDate.Should()
+		        .Be(request.KickOffMeeting.ProvisionalOpeningDate);
+	        projectResponse.KickOffMeeting.FundingArrangementAgreed.Should()
+		        .Be(request.KickOffMeeting.FundingArrangementAgreed);
+	        projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should()
+		        .Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
+        }
+
+        [Fact]
+        public async Task Patch_ModelFundingAgreement_Returns_201()
+        {
+	        var project = DatabaseModelBuilder.BuildProject();
+	        var projectId = project.ProjectStatusProjectId;
+
+	        using var context = _testFixture.GetContext();
+	        context.Kpi.Add(project);
+	        await context.SaveChangesAsync();
+
+	        var dateNineDaysInFuture = new DateTime().AddDays(9);
+
+	        var request = new UpdateProjectByTaskRequest()
+	        {
+		        ModelFundingAgreement = new ModelFundingAgreementTask()
+		        {
+			        TayloredAModelFundingAgreement = true,
+			        SharedFAWithTheTrust = true,
+			        TrustAgreesWithModelFA = YesNo.Yes,
+			        DateTrustAgreesWithModelFA = dateNineDaysInFuture,
+			        Comments = "new comments",
+			        DraftedFAHealthCheck = true,
+			        SavedFADocumentsInWorkplacesFolder = true
+		        }
+	        };
+
+	        var projectResponse =
+		        await UpdateProjectTask(projectId, request, TaskName.ModelFundingAgreement.ToString());
+
+	        projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
+		        .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+	        projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
+		        .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
+	        projectResponse.ModelFundingAgreement.Comments.Should()
+		        .Be(request.ModelFundingAgreement.Comments);
+	        projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
+		        .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
+	        projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+		        .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
+        }
+
+        [Fact]
+        public async Task Patch_ExistingModelFundingArrangement_Returns_201()
+        {
+	        var project = DatabaseModelBuilder.BuildProject();
+	        var projectId = project.ProjectStatusProjectId;
+
+	        using var context = _testFixture.GetContext();
+	        context.Kpi.Add(project);
+
+	        var modelFundingAgreementTask = DatabaseModelBuilder.BuildModelFundingAgreementTask(project.Rid);
+	        context.Milestones.Add(modelFundingAgreementTask);
+
+	        await context.SaveChangesAsync();
+
+	        var dateNineDaysInFuture = new DateTime().AddDays(9);
+
+	        var request = new UpdateProjectByTaskRequest()
+	        {
+		        ModelFundingAgreement = new ModelFundingAgreementTask()
+		        {
+			        TayloredAModelFundingAgreement = true,
+			        SharedFAWithTheTrust = false,
+			        TrustAgreesWithModelFA = YesNo.Yes,
+			        DateTrustAgreesWithModelFA = dateNineDaysInFuture,
+			        Comments = "new comments dave",
+			        DraftedFAHealthCheck = true,
+			        SavedFADocumentsInWorkplacesFolder = false
+		        }
+	        };
+
+	        var projectResponse =
+		        await UpdateProjectTask(projectId, request, TaskName.ModelFundingAgreement.ToString());
+
+	        projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
+		        .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
+	        projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
+		        .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+	        projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
+		        .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
+	        projectResponse.ModelFundingAgreement.Comments.Should()
+		        .Be(request.ModelFundingAgreement.Comments);
+	        projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
+		        .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
+	        projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+		        .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
 
         [Fact]
