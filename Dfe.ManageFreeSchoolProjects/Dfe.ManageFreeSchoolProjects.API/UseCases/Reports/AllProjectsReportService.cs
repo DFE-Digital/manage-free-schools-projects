@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         {
             ProjectReport projectReport = await BuildProjectReport();
 
-            var now = DateTime.Now.Date.ToString("o");
+            var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
             var fileName = $"{now}-mfsp-all-projects-export.xlsx";
 
             using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
@@ -38,20 +38,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                 WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
                 SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
 
-                Row sectionRow = new Row();
-                Row taskRow = new Row();
-                Row columnRow = new Row();
+                var headerRows = BuildHeaderRows(projectReport);
 
-                foreach (var header in projectReport.Headers)
-                {
-                    sectionRow.Append(new Cell() { CellValue = new CellValue(header.Section), DataType = CellValues.String });
-                    taskRow.Append(new Cell() { CellValue = new CellValue(header.TaskName), DataType = CellValues.String });
-                    columnRow.Append(new Cell() { CellValue = new CellValue(header.ColumnName), DataType = CellValues.String });
-                }
-
-                sheetData.Append(sectionRow);
-                sheetData.Append(taskRow);
-                sheetData.Append(columnRow);
+                sheetData.Append(headerRows.Section);
+                sheetData.Append(headerRows.TaskName);
+                sheetData.Append(headerRows.ColumnName);
 
                 foreach (var project in projectReport.Projects)
                 {
@@ -63,18 +54,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                 var sheetMergedCells = BuildMergedCells(projectReport);
                 worksheetPart.Worksheet.InsertAfter(sheetMergedCells, sheetData);
             }
-        }
-
-        private static Row BuildProjectRow(ProjectDataRow project)
-        {
-            Row result = new Row();
-
-            foreach (var column in project.Values)
-            {
-                result.Append(new Cell() { CellValue = new CellValue(column.Value), DataType = CellValues.String });
-            }
-
-            return result;
         }
 
         private async Task<ProjectReport> BuildProjectReport()
@@ -111,6 +90,41 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             return workbookPart;
         }
 
+        private static ProjectHeaderRows BuildHeaderRows(ProjectReport projectReport)
+        {
+            Row sectionRow = new Row();
+            Row taskRow = new Row();
+            Row columnRow = new Row();
+
+            foreach (var header in projectReport.Headers)
+            {
+                sectionRow.Append(new Cell() { CellValue = new CellValue(header.Section), DataType = CellValues.String });
+                taskRow.Append(new Cell() { CellValue = new CellValue(header.TaskName), DataType = CellValues.String });
+                columnRow.Append(new Cell() { CellValue = new CellValue(header.ColumnName), DataType = CellValues.String });
+            }
+
+            var result = new ProjectHeaderRows()
+            {
+                Section = sectionRow,
+                TaskName = taskRow,
+                ColumnName = columnRow
+            };
+
+            return result;
+        }
+
+        private static Row BuildProjectRow(ProjectDataRow project)
+        {
+            Row result = new Row();
+
+            foreach (var column in project.Values)
+            {
+                result.Append(new Cell() { CellValue = new CellValue(column.Value), DataType = CellValues.String });
+            }
+
+            return result;
+        }
+
         private MergeCells BuildMergedCells(ProjectReport projectReport)
         {
             var groupedSections = projectReport.Headers.GroupBy(h => h.Section).ToDictionary(h => h.Key, h => h.ToList());
@@ -124,6 +138,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             result.Append(taskMergedCells);
 
             return result;
+        }
+
+        private record ProjectHeaderRows
+        {
+            public Row Section { get; set; }
+            public Row TaskName { get; set; }
+            public Row ColumnName { get; set; }
         }
     }
 }
