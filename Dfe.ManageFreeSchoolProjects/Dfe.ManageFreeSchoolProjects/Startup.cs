@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Azure.Storage.Blobs;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Contacts;
+using Dfe.ManageFreeSchoolProjects.Services.Reports;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -100,6 +101,7 @@ public class Startup
         services.AddScoped<INotifyUserService, NotifyUserService>();
         services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
         services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
+        services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

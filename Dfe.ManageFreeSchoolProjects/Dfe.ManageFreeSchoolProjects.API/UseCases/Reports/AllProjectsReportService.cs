@@ -8,12 +8,13 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
     public interface IAllProjectsReportService
     {
-        public Task Execute();
+        public Task<MemoryStream> Execute();
     }
 
     public class AllProjectsReportService : IAllProjectsReportService
@@ -25,35 +26,34 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             _context = context;
         }
 
-        public async Task Execute()
+        public async Task<MemoryStream> Execute()
         {
             ProjectReport projectReport = await BuildProjectReport();
 
-            var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            var fileName = $"{now}-mfsp-all-projects-export.xlsx";
+            MemoryStream memoryStream = new MemoryStream();
+            using SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
 
-            using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
+            WorkbookPart workbookPart = BuildWorkbook(spreadsheetDocument);
+            WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+            SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+
+            var headerRows = BuildHeaderRows(projectReport);
+
+            sheetData.Append(headerRows.Section);
+            sheetData.Append(headerRows.TaskName);
+            sheetData.Append(headerRows.ColumnName);
+
+            foreach (var project in projectReport.Projects)
             {
-                WorkbookPart workbookPart = BuildWorkbook(spreadsheetDocument);
-                WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
-                SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
+                Row projectRow = BuildProjectRow(project);
 
-                var headerRows = BuildHeaderRows(projectReport);
-
-                sheetData.Append(headerRows.Section);
-                sheetData.Append(headerRows.TaskName);
-                sheetData.Append(headerRows.ColumnName);
-
-                foreach (var project in projectReport.Projects)
-                {
-                    Row projectRow = BuildProjectRow(project);
-
-                    sheetData.Append(projectRow);
-                }
-
-                var sheetMergedCells = BuildMergedCells(projectReport);
-                worksheetPart.Worksheet.InsertAfter(sheetMergedCells, sheetData);
+                sheetData.Append(projectRow);
             }
+
+            var sheetMergedCells = BuildMergedCells(projectReport);
+            worksheetPart.Worksheet.InsertAfter(sheetMergedCells, sheetData);
+
+            return memoryStream;
         }
 
         private async Task<ProjectReport> BuildProjectReport()
@@ -84,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
             Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild(new Sheets());
 
-            Sheet sheet = new Sheet() { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Sheet1" };
+            Sheet sheet = new Sheet() { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Projects" };
             sheets.Append(sheet);
 
             return workbookPart;
