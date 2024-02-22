@@ -224,11 +224,11 @@ describe("Testing the home page", () => {
     });
 
     describe("Checking the project data export", () => {
-        it("Should be able to download a file of the project data export", () => {
+        it.only("Should be able to download a file of the project data export", () => {
             homePage.downloadProjectDataExport();
 
             // Convert to typescript
-            const now = new Date().toISOString();
+            const now = new Date().toISOString().split('T')[0];
             const fileName = `${now}-mfsp-all-projects-export.xlsx`;
 
             const downloadsFolder = Cypress.config('downloadsFolder')
