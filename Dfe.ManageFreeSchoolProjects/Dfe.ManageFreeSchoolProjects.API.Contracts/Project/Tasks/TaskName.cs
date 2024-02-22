@@ -12,6 +12,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         RegionAndLocalAuthority,
         Constituency,
         ArticlesOfAssociation,
-        KickOffMeeting
+        FinancePlan,
+        KickOffMeeting,
+        DraftGovernancePlan,
+        ModelFundingAgreement
     }
 }

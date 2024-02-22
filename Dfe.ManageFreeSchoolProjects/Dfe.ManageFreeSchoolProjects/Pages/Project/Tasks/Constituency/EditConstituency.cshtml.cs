@@ -95,6 +95,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
         {
             _logger.LogMethodEntered();
 
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Constituency);
+            CurrentFreeSchoolName = project.SchoolName;
+
             List<SearchConstituencyResponse> constituencyResponses = ConstituencyResults.Split("|")
                 .Select(x => new SearchConstituencyResponse() { Name = x.Split("~")[0], MPName = x.Split("~")[1], Party = x.Split("~")[2]}).ToList();
 

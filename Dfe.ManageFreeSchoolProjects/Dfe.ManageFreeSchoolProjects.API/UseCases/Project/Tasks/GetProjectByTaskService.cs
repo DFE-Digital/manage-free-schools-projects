@@ -2,7 +2,10 @@
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
@@ -61,8 +64,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.KickOffMeeting:
                     result = await new GetKickOffMeetingTaskService(_context).Get(parameters);
                     break;
+                case TaskName.ModelFundingAgreement:
+                    result = await new GetModelFundingAgreementTaskService(_context).Get(parameters);
+                    break;
                 case TaskName.ArticlesOfAssociation:
                     result = await new GetArticlesOfAssociationTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.FinancePlan:
+                    result = await new GetFinancePlanTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.DraftGovernancePlan:
+                    result = await new GetDraftGovernancePlanTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

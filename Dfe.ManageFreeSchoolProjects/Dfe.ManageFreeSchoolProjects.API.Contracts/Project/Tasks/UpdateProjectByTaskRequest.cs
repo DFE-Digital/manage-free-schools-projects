@@ -10,7 +10,13 @@
 		public ConstituencyTask Constituency { get; set; }
         
         public KickOffMeetingTask KickOffMeeting { get; set; }
+        
+        public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
+
+        public FinancePlanTask FinancePlan { get; set; }
+
+        public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
 
         public string TaskToUpdate
         {
@@ -30,8 +36,14 @@
 					return "Constituency";
                 if (ArticlesOfAssociation != null)
                     return TaskName.ArticlesOfAssociation.ToString();
+                if (FinancePlan != null)
+                    return TaskName.FinancePlan.ToString();
                 if (KickOffMeeting != null)
                     return TaskName.KickOffMeeting.ToString();
+                if (ModelFundingAgreement != null)
+                    return TaskName.ModelFundingAgreement.ToString();
+                if (DraftGovernancePlan != null)
+                    return TaskName.DraftGovernancePlan.ToString();
                 return null;
             }
         }

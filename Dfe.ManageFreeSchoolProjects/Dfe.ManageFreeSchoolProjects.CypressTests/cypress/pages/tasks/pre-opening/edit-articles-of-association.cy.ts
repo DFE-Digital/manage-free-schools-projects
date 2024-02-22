@@ -1,6 +1,6 @@
 class ArticlesOfAssociationEditPage {
     private errorTracking = "";
-    
+
     titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
         return this;
@@ -11,7 +11,7 @@ class ArticlesOfAssociationEditPage {
         return this;
     }
 
-   
+
     private setDate(key: string, day: string, month: string, year: string) {
         cy.get('#' + `${key}-day`).clear().type(day);
         cy.get('#' + `${key}-month`).clear().type(month);
@@ -32,7 +32,7 @@ class ArticlesOfAssociationEditPage {
         cy.getById("arrangements-match-governance-plans").check()
         return this
     }
-    
+
 
     withForecastDate(day: string, month: string, year: string): this {
         const key = "forecast-date";
@@ -56,47 +56,47 @@ class ArticlesOfAssociationEditPage {
         return this;
     }
 
-    errorForComments(): this
-    {
+    withSharepointLinkExceedingMaxLength(): this {
+        cy.getByTestId("sharepoint-link").clear().invoke("val", `https://${"a".repeat(501)}`);
+        return this;
+    }
+
+    errorForComments(): this {
         this.errorTracking = "comments-on-decision";
-        return this;       
+        return this;
     }
 
-    errorForSharepointLink(): this
-    {
+    errorForSharepointLink(): this {
         this.errorTracking = "sharepoint-link";
-        return this;       
+        return this;
     }
 
-    errorForForecastDate(): this
-    {
+    errorForForecastDate(): this {
         this.errorTracking = "forecast-date";
-        return this;       
+        return this;
     }
 
-    errorForActualDate(): this
-    {
+    errorForActualDate(): this {
         this.errorTracking = "actual-date";
-        return this;       
+        return this;
     }
 
-    showsError(error: string)
-    {
+    showsError(error: string) {
         cy.get(`#${this.errorTracking}-error-link`)
             .should("contain.text", error);
-        
+
         cy.get(`#${this.errorTracking}-error-link`)
-        .invoke('attr', 'href')
-        .then((href) => {
-            cy.get(href as string).should("exist");
-        });
-    
+            .invoke('attr', 'href')
+            .then((href) => {
+                cy.get(href as string).should("exist");
+            });
+
         cy.get(`#${this.errorTracking}-error`)
             .should("contain.text", error);
         return this;
     }
 
-    clickContinue() : this {
+    clickContinue(): this {
         cy.getByTestId("continue").click();
         return this;
     }

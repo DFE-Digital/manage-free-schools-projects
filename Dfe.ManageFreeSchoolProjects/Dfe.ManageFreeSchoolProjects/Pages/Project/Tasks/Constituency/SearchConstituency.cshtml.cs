@@ -52,8 +52,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
             return Page();
         }
 
-        public ActionResult OnPost()
+        public async Task<ActionResult> OnPost()
         {
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Constituency);
+            CurrentFreeSchoolName = project.SchoolName;
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);

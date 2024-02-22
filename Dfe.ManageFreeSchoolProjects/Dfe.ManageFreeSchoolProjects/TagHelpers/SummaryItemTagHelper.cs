@@ -95,6 +95,18 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 {
                     return empty;
                 }
+
+                return For.Model.ToDescription();
+            }
+
+            if (Nullable.GetUnderlyingType(For.ModelExplorer.ModelType)?.IsEnum == true)
+            {
+                if (For.Model == null)
+                {
+                    return empty;
+                }
+
+                return For.Model.ToDescription();
             }
             
             var value = For.Model.ToString();
@@ -105,7 +117,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             }
 
             return value;
-            //RenderLink
         }
 
         private string GetChangeLink()

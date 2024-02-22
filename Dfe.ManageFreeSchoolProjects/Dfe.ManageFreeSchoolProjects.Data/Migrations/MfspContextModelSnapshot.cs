@@ -4977,9 +4977,24 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.MFAD  Baseline date");
 
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadDraftedFaHealthCheck")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesMfadForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.MFAD Forecast date");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa")
+                        .HasColumnType("int");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi101CommentsOnDecisionToApproveIfApplicable")
                         .HasMaxLength(999)
@@ -4994,159 +5009,159 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("FSG Pre Opening Milestones.MI103_Comments on decision to approve (if applicable)");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi105LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI105_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi107LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI107_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi109LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI109_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi111LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI111_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi113LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI113_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi115LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI115_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi117LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI117_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi119LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI119_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi121LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI121_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi123LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI123_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi125LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI125_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi127LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI127_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi129LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI129_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi131LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI131_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi133LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI133_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi135LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI135_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi137LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI137_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi139LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI139_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi141LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI141_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi143LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI143_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi145LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI145_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi147LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI147_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi149LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI149_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi151LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI151_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi153LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI153_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi155LinkToSavedDocument")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("FSG Pre Opening Milestones.MI155_Link to saved document");
 
                     b.Property<string>("FsgPreOpeningMilestonesMi54CommentsOnDecisionToApproveIfApplicable")
@@ -5439,6 +5454,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
+                    b.Property<int?>("IsPlanSavedInWorkplacesFolder")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LAAgreedPupilNumbers")
+                        .HasColumnType("int");
+
                     b.Property<bool>("MAAArrangementsMatchGovernancePlans")
                         .HasColumnType("bit");
 
@@ -5453,6 +5474,17 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
+
+                    b.Property<string>("RPACoverType")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("RPAStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TrustOptInRPA")
+                        .HasColumnType("int");
 
                     b.HasKey("Rid");
 

@@ -36,11 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
 
-        [BindProperty(Name = "opening-academic-years", BinderType = typeof(StartEndModelBinder))]
-        [Display(Name = "Opening academic year")]
-        [Required]
-        public string OpeningAcademicYear { get; set; }
-
         public EditDatesTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -63,8 +58,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 CurrentFreeSchoolName = project.SchoolName;
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
-                OpeningAcademicYear = project.Dates.OpeningAcademicYear;
-
             }
             catch (Exception ex)
             {
@@ -91,8 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     Dates = new DatesTask()
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
-                        ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-						OpeningAcademicYear = OpeningAcademicYear
+                        ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust
                     }
                 };
 

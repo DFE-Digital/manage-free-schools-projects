@@ -127,7 +127,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
-        public static Milestones BuildArticlesOfAssociationTask(string rid)
+        public static Milestones BuildMilestone(string rid)
         {
             var result = new Milestones();
 
@@ -159,6 +159,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildModelFundingAgreementTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesMfadForecastDate = DateTime.Now;
+
+            return result;
+        }
         
 
         public static Po PupilNumbersAndCapacity(string rid)

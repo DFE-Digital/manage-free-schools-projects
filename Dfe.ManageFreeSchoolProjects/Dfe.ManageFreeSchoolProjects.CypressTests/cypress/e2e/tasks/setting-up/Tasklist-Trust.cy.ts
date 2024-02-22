@@ -134,13 +134,15 @@ describe("Testing project overview", () => {
 
         trustDetailsPage.selectSaveAndContinue();
 
-        // cy.excuteAccessibilityTests();
+        cy.executeAccessibilityTests();
 
         confirmTrustPage.verifyConfirmTrustElementsVisible(project.schoolName, validTrustId);
 
         confirmTrustPage.selectYes();
 
         confirmTrustPage.selectSaveAndContinue();
+
+        cy.executeAccessibilityTests();
 
         trustSummaryPage.verifyTrustSummaryCompleteElementsVisible(validTrustId);
 
@@ -151,6 +153,15 @@ describe("Testing project overview", () => {
         cy.executeAccessibilityTests();
 
         taskListPage.isTaskStatusIsCompleted("Trust");
+
+        
+        taskListPage.selectAboutTheProjectTab();
+
+        cy.executeAccessibilityTests();
+
+        projectOverviewPage.hasTrustId("TR03446");
+        projectOverviewPage.hasTrustName("King's Group Academies");
+        projectOverviewPage.hasTrustType("MAT (multi-academy trust)");
 
     });
 });

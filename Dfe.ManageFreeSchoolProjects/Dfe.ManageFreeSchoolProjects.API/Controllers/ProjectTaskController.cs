@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -15,16 +16,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private readonly IGetProjectByTaskService _getProjectByTaskService;
         private readonly IGetTasksService _getTasksService;
         private readonly ILogger<ProjectTaskController> _logger;
+        private readonly IGetDraftGovernancePlanTaskSummaryService _getDraftGovernancePlanTaskSummaryService;
 
         public ProjectTaskController(
             IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
             IGetTasksService getTasksService,
+            IGetDraftGovernancePlanTaskSummaryService getDraftGovernancePlanTaskSummaryService,
             ILogger<ProjectTaskController> logger)
         {
             _updateProjectTaskService = updateProjectTaskService;
             _getProjectByTaskService = getProjectByTaskService;
             _getTasksService = getTasksService;
+            _getDraftGovernancePlanTaskSummaryService = getDraftGovernancePlanTaskSummaryService;
             _logger = logger;
         }
 
@@ -63,14 +67,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string projectId)
         {
             _logger.LogMethodEntered();
-
-            ProjectByTaskSummaryResponse summary = null;
             
             var result = await _getTasksService.Execute(projectId);
             
             var projectTasks = result.taskSummaryResponses;
 
-            summary = new ProjectByTaskSummaryResponse
+            var summary = new ProjectByTaskSummaryResponse
             {
                 SchoolName = result.CurrentFreeSchoolName,
                 School = SafeRetrieveTaskSummary(projectTasks, "School"),
@@ -79,9 +81,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
                 RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
                 Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
+                ModelFundingAgreement = SafeRetrieveTaskSummary(projectTasks,"ModelFundingAgreement"),
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
-                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting")
+                FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
+                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
             };
+
+            var draftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString());
+            summary.DraftGovernancePlan = await _getDraftGovernancePlanTaskSummaryService.Execute(projectId, draftGovernancePlan);
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 

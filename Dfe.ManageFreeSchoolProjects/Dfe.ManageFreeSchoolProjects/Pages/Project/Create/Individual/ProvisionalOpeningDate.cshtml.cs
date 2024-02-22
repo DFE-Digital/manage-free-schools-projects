@@ -1,13 +1,10 @@
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
-using Dfe.ManageFreeSchoolProjects.Utils;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
@@ -16,7 +13,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "provisional-opening-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Provisional opening date")]
         [DateValidation(DateRangeValidationService.DateRange.Future)]
-        [Required(ErrorMessage = "Enter the provisional opening date.")]
         public DateTime? ProvisionalOpeningDate { get; set; }
         
         private readonly ErrorService _errorService;

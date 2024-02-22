@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
@@ -60,6 +61,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string FsgPreOpeningMilestonesMi107LinkToSavedDocument { get; set; }
 
+        public bool? FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadSharedFaWithTheTrust { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadDraftedFaHealthCheck { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder { get; set; }
+
+        public YesNo? FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa{ get; set; }
         public DateTime? FsgPreOpeningMilestonesMfadBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesMfadForecastDate { get; set; }
@@ -331,5 +341,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool MAAChairHaveSubmittedConfirmation { get; set; }
 
         public bool MAAArrangementsMatchGovernancePlans { get; set; }
+
+        public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
+
+        public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
+
+        public YesNo? TrustOptInRPA { get; set; }
+
+        public DateTime? RPAStartDate { get; set; }
+
+        public string RPACoverType { get; set; }
     }
 }
