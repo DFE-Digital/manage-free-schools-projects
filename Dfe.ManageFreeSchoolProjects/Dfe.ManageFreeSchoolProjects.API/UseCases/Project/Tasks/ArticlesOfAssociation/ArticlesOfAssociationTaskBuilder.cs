@@ -5,7 +5,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
 {
     public static class ArticlesOfAssociationTaskBuilder
     {
-        public static ArticlesOfAssociationTask Build(Milestones? milestones)
+        public static ArticlesOfAssociationTask Build(Milestones milestones)
         {
             if (milestones == null)
             {

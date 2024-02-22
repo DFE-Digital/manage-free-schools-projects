@@ -32,6 +32,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
         private static string GetColumnName(uint columnNumber)
         {
+            if (columnNumber == 0)
+            {
+                throw new ArgumentException("Column number must be greater than zero.");
+            }
+
             uint dividend = columnNumber;
             string columnName = string.Empty;
             uint modulo;
