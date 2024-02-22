@@ -176,7 +176,7 @@
 
 @if (!Model.IsMyProjectsPage)
 {
-    <a asp-page-handler="DownloadFile" class="govuk-button govuk-!-margin-top-6" role="button" data-testid="download-data-export" download>Export</a>
+    <a asp-page-handler="DownloadFile" class="govuk-button govuk-button--secondary govuk-!-margin-top-6" role="button" data-testid="download-data-export" download>Export</a>
 }
 
 @if ((!Model.IsMyProjectsPage && noResults) || (Model.IsMyProjectsPage && noFilteredResults))
