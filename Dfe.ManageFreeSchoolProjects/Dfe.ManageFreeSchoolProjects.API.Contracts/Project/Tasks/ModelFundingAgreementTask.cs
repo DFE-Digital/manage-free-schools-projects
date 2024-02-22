@@ -4,7 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 public class ModelFundingAgreementTask
 {
-    public bool? TayloredAModelFundingAgreement { get; set; }
+    public bool? TailoredAModelFundingAgreement { get; set; }
     public bool? SharedFAWithTheTrust { get; set; }
     public YesNo? TrustAgreesWithModelFA { get; set; }
     public DateTime? DateTrustAgreesWithModelFA { get; set; }
