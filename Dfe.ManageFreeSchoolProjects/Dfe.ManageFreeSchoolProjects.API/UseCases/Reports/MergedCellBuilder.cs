@@ -3,7 +3,7 @@ using DocumentFormat.OpenXml;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
-    public class MergedCellBuilder
+    public static class MergedCellBuilder
     {
         public static List<MergeCell> Build(int columnNumber, Dictionary<string, List<ProjectHeaderRow>> grouping)
         {
@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
             foreach (var kvp in grouping)
             {
-                var numberOfEntries = kvp.Value.Count();
+                var numberOfEntries = kvp.Value.Count;
                 var startColumn = currentColumn;
                 var endColumn = currentColumn + numberOfEntries - 1;
 
@@ -33,14 +33,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         private static string GetColumnName(uint columnNumber)
         {
             uint dividend = columnNumber;
-            string columnName = String.Empty;
+            string columnName = string.Empty;
             uint modulo;
 
             while (dividend > 0)
             {
                 modulo = (dividend - 1) % 26;
                 columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
-                dividend = (uint)((dividend - modulo) / 26);
+                dividend = ((dividend - modulo) / 26);
             }
 
             return columnName;

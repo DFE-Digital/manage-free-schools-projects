@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             return result;
         }
 
-        private WorkbookPart BuildWorkbook(SpreadsheetDocument spreadsheetDocument)
+        private static WorkbookPart BuildWorkbook(SpreadsheetDocument spreadsheetDocument)
         {
             WorkbookPart workbookPart = spreadsheetDocument.AddWorkbookPart();
             workbookPart.Workbook = new Workbook();
@@ -139,7 +139,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             return result;
         }
 
-        private MergeCells BuildMergedCells(ProjectReport projectReport)
+        private static MergeCells BuildMergedCells(ProjectReport projectReport)
         {
             var groupedSections = projectReport.Headers.GroupBy(h => h.Section).ToDictionary(h => h.Key, h => h.ToList());
             var groupedTasks = projectReport.Headers.GroupBy(h => h.TaskName).ToDictionary(h => h.Key, h => h.ToList());
@@ -154,7 +154,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             return result;
         }
 
-        private record ProjectHeaderRows
+        private sealed record ProjectHeaderRows
         {
             public Row Section { get; set; }
             public Row TaskName { get; set; }

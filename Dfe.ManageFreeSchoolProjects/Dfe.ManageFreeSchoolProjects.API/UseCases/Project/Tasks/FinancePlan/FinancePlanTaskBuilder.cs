@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
 {
     public static class FinancePlanTaskBuilder
     {
-        public static FinancePlanTask Build(Milestones? milestones)
+        public static FinancePlanTask Build(Milestones milestones)
         {
             if (milestones == null)
             {

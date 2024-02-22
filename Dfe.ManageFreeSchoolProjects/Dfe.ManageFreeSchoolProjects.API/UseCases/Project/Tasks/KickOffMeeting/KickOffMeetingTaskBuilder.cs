@@ -5,7 +5,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
 {
     public static class KickOffMeetingTaskBuilder
     {
-        public static KickOffMeetingTask Build(Kpi kpi, Milestones? milestones)
+        public static KickOffMeetingTask Build(Kpi kpi, Milestones milestones)
         {
             return new KickOffMeetingTask()
             {
