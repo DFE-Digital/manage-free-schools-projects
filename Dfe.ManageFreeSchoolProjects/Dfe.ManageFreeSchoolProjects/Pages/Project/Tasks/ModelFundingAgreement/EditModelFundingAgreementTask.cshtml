@@ -1,0 +1,86 @@
+@page "/projects/{projectId}/tasks/modelfundingagreement/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement.EditModelFundingAgreementTaskModel
+@{
+    ViewData["Title"] = $"Edit Model funding agreement - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewModelFundingAgreement, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Model funding agreement
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-checkbox-input id="taylored-model-funding-agreement" name="taylored-model-funding-agreement" asp-for="@Model.TayloredAModelFundingAgreement" bold-label="true" label="Taylored a model funding agreement (FA)" />
+            <govuk-checkbox-input id="shared-fa-with-the-trust" name="shared-fa-with-the-trust" asp-for="@Model.SharedFAWithTheTrust" bold-label="true" label="Shared FA with the trust" />
+           
+            <div class="govuk-form-group ">
+                <fieldset class="govuk-fieldset" id="trust-agrees-with-model-fa">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Trust agrees with the model FA
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input 
+                                class="govuk-radios__input" 
+                                id="trust-agrees-with-model-fa-Yes" 
+                                name="trust-agrees-with-model-fa" 
+                                type="radio" 
+                                value="Yes" 
+                                data-testid="trust-agrees-with-model-fa-Yes"
+                                checked="@(Model.TrustAgreesWithModelFA == "Yes" ? "checked" : null)"
+                                data-aria-controls="conditional-trust-agrees-with-model-fa-Yes">
+            
+                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-trust-agrees-with-model-fa-Yes">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                Date Agreed
+                            </legend>
+                            <govuk-date-input id="date-trust-agrees-with-model-fa" name="date-trust-agrees-with-model-fa" asp-for="@Model.DateTrustAgreesWithModelFA" hint="For example, 27 3 2021" />
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input 
+                                class="govuk-radios__input" 
+                                id="trust-agrees-with-model-fa-No"
+                                name="trust-agrees-with-model-fa"
+                                type="radio" 
+                                aria-label="trust-agrees-with-model-fa-No"
+                                value="No"
+                                checked="@(Model.TrustAgreesWithModelFA == "No" ? "checked" : null)"
+                                data-testid="trust-agrees-with-model-fa-No">
+            
+                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-No">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="comments" asp-for="@Model.Comments" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
+            <govuk-checkbox-input id="drafted-fa-health-check" name="drafted-fa-health-check" asp-for="@Model.DraftedFAHealthCheck" bold-label="true" label="Drafted FA health check" />
+            <govuk-checkbox-input id="saved-fa-documents-in-workplaces-folder" name="saved-fa-documents-in-workplaces-folder" asp-for="@Model.SavedFADocumentsInWorkplacesFolder" bold-label="true" label="Saved FA documents in Workplaces folder" />
+            
+            
+            
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

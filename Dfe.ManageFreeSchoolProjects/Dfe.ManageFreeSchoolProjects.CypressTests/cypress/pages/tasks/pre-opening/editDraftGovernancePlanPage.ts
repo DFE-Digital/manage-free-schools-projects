@@ -45,7 +45,7 @@ class EditDraftGovernancePlanPage {
     }
 
     public withSharepointLinkExceedingMaxLength(): this {
-        cy.getById("sharepoint-link").clear().invoke("val", "a".repeat(101));
+        cy.getById("sharepoint-link").clear().invoke("val", "https://" + "a".repeat(501));
 
         return this;
     }

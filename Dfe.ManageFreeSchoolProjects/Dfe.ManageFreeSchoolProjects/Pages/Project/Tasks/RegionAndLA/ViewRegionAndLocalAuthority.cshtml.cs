@@ -1,78 +1,41 @@
-﻿using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School;
-using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA;
 
-public class ViewRegionAndLocalAuthority : PageModel
+public class ViewRegionAndLocalAuthority : ViewTaskBaseModel
 {
-    private readonly IGetProjectByTaskService _getProjectService;
-    private readonly ILogger<ViewSchoolTask> _logger;
-    private readonly IGetTaskStatusService _getTaskStatusService;
-    private readonly IUpdateTaskStatusService _updateTaskStatusService;
-    private readonly ErrorService _errorService;
-    
-    private const string RegionAndLocalAuthorityTaskName = "RegionAndLocalAuthority";
-    
-    public GetProjectByTaskResponse Project { get; set; }
-    
-    [BindProperty(SupportsGet = true, Name = "projectId")]
-    public string ProjectId { get; set; }
-    
-    [BindProperty]
-    public bool MarkAsComplete { get; set; }
-    
-    public ProjectTaskStatus ProjectTaskStatus { get; set; }
+    private readonly ILogger<ViewRegionAndLocalAuthority> _logger;
 
-    public ViewRegionAndLocalAuthority(IGetProjectByTaskService getProjectService,
-        ILogger<ViewSchoolTask> logger,
-        IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
-        ErrorService errorService)
+    public ViewRegionAndLocalAuthority(
+        IGetProjectByTaskService getProjectService,
+        ILogger<ViewRegionAndLocalAuthority> logger,
+        IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
-        _getProjectService = getProjectService;
         _logger = logger;
-        _getTaskStatusService = getTaskStatusService;
-        _updateTaskStatusService = updateTaskStatusService;
-        _errorService = errorService;
     }
-    
+
     public async Task<ActionResult> OnGet()
     {
         _logger.LogMethodEntered();
-        
-        Project = await _getProjectService.Execute(ProjectId, TaskName.RegionAndLocalAuthority);
-        
-        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RegionAndLocalAuthorityTaskName);
 
-        ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
-        MarkAsComplete = ProjectTaskStatus == ProjectTaskStatus.Completed;
-        
+        await GetTask(TaskName.RegionAndLocalAuthority);
+
         return Page();
     }
 
     public async Task<ActionResult> OnPost()
     {
-        if (!ModelState.IsValid)
-        {
-            _errorService.AddErrors(ModelState.Keys, ModelState);
-            return Page();
-        }
+        _logger.LogMethodEntered();
 
-        ProjectTaskStatus = MarkAsComplete ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
+        await PostTask(TaskName.RegionAndLocalAuthority);
 
-        await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
-        {
-            TaskName = RegionAndLocalAuthorityTaskName, ProjectTaskStatus = ProjectTaskStatus
-        });
         return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
     }
 }

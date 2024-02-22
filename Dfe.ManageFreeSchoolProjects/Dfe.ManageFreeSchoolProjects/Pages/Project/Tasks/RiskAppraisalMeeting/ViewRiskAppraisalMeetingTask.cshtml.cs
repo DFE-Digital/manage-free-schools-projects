@@ -1,88 +1,49 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Dfe.ManageFreeSchoolProjects.Services.Project;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Logging;
-using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
-using Dfe.ManageFreeSchoolProjects.Services;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting
 {
-    public class ViewRiskAppraisalMeetingTaskModel : PageModel
+    public class ViewRiskAppraisalMeetingTaskModel : ViewTaskBaseModel
     {
         private readonly ILogger<ViewRiskAppraisalMeetingTaskModel> _logger;
-        private readonly IGetTaskStatusService _getTaskStatusService;
-        private readonly IUpdateTaskStatusService _updateTaskStatusService;
-        private readonly ErrorService _errorService;
-        private readonly IGetProjectByTaskService _getProjectService;
-        private const string RiskAppraisalMeetingTaskName = "RiskAppraisalMeeting";
-        private readonly IGetProjectOverviewService _getProjectOverviewService;
+        private readonly IGetProjectRiskService _getProjectRiskService;
 
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
-
-        public string CurrentFreeSchoolName { get; set; }
-
-        [BindProperty]
-        public bool MarkAsCompleted { get; set; }
-
-        public ProjectTaskStatus ProjectTaskStatus { get; set; }
-        public GetProjectByTaskResponse Project { get; set; }
-        
-        public ProjectOverviewResponse ProjectOverview { get; set; }
-
+        public GetProjectRiskResponse ProjectRisk { get; set; }
 
         public ViewRiskAppraisalMeetingTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewRiskAppraisalMeetingTaskModel> logger, IGetTaskStatusService getTaskStatusService,
-            IUpdateTaskStatusService updateTaskStatusService, IGetProjectOverviewService getProjectOverviewService,
-            ErrorService errorService)
+            ILogger<ViewRiskAppraisalMeetingTaskModel> logger,
+            IGetTaskStatusService getTaskStatusService, 
+            IUpdateTaskStatusService updateTaskStatusService,
+            IGetProjectRiskService getProjectRiskService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
-            _errorService = errorService;
-            _getTaskStatusService = getTaskStatusService;
-            _updateTaskStatusService = updateTaskStatusService;
-            _getProjectService = getProjectService;
-            _getProjectOverviewService = getProjectOverviewService;
+            _getProjectRiskService = getProjectRiskService;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<ActionResult> OnGet()
         {
             _logger.LogMethodEntered();
 
-            Project = await _getProjectService.Execute(ProjectId, TaskName.RiskAppraisalMeeting);
+            await GetTask(TaskName.RiskAppraisalMeeting);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, RiskAppraisalMeetingTaskName);
-            CurrentFreeSchoolName = Project.SchoolName;
-            ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
-            MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
-            var projectId = RouteData.Values["projectId"] as string;
-            ProjectOverview = await _getProjectOverviewService.Execute(projectId);
-            
+            ProjectRisk = await _getProjectRiskService.Execute(ProjectId, 1);
+
             return Page();
         }
 
         public async Task<ActionResult> OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
+            _logger.LogMethodEntered();
 
-            ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
-
-            await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
-            {
-                TaskName = RiskAppraisalMeetingTaskName,
-                ProjectTaskStatus = ProjectTaskStatus
-            });
+            await PostTask(TaskName.RiskAppraisalMeeting);
 
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }
