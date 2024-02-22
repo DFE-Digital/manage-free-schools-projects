@@ -60,6 +60,11 @@ export class SummaryPage {
         return this;
     }
 
+    public isMarkedAsComplete() {
+        cy.getById("mark-as-completed").should("be.checked");
+        return this;
+    }
+
     public MarkAsComplete() {
         cy.getById("mark-as-completed").click();
         return this;
