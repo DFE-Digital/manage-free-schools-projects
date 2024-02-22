@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        [BindProperty]
+        [BindProperty(Name = "mark-as-completed")]
         public bool MarkAsCompleted { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }

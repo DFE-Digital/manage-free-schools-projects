@@ -8,14 +8,14 @@ class RegionAndLocalAuthoritySummaryPage {
         cy.getByClass("govuk-heading-xl").contains("Region and local authority");
 
         summaryPage.inOrder()
-        .summaryShows("Region").IsEmpty().HasChangeLink()
-        .summaryShows("Local authority").IsEmpty().HasChangeLink();
+            .summaryShows("Region").IsEmpty().HasChangeLink()
+            .summaryShows("Local authority").IsEmpty().HasChangeLink();
 
-        cy.getById("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
-        
+
         return this;
     }
 
@@ -26,14 +26,14 @@ class RegionAndLocalAuthoritySummaryPage {
 
 
         summaryPage.inOrder()
-        .summaryShows("Region").HasValue("South West").HasChangeLink()
-        .summaryShows("Local authority").HasValue("Plymouth").HasChangeLink();
+            .summaryShows("Region").HasValue("South West").HasChangeLink()
+            .summaryShows("Local authority").HasValue("Plymouth").HasChangeLink();
 
-        cy.getById("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         cy.contains("Mark this section as complete, you can still make changes later");
 
         cy.getByClass("govuk-button").should("be.visible").contains("Confirm and continue");
-        
+
         return this;
     }
 
@@ -51,7 +51,7 @@ class RegionAndLocalAuthoritySummaryPage {
     }
 
     public selectMarkItemAsComplete(): this {
-        cy.getById("mark-as-complete").click();
+        cy.getById("mark-as-completed").click();
         return this;
     }
 

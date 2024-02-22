@@ -30,16 +30,10 @@
             <govuk-summary-item label="SharePoint link" asp-for="@draftGovernancePlan.SharepointLink" href="@editlink" />
         </govuk-summary-list>
         <form method="post">
-            <div class="govuk-form-group">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="MarkAsCompleted" type="checkbox" id="mark-as-complete" data-testid="mark-as-complete">
-                        <label class="govuk-label govuk-checkboxes__label" for="mark-as-complete">
-                            Mark this section as complete, you can still make changes later
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
             <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
             </button>

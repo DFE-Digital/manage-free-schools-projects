@@ -4,7 +4,6 @@ import { RequestBuilder } from "cypress/api/requestBuilder";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import articlesOfAssociationEditPage from "cypress/pages/tasks/pre-opening/edit-articles-of-association.cy";
 import kickOffMeetingEditPage from "../../../pages/tasks/pre-opening/edit-kick-off-meeting.cy";
 
 describe("Testing kick off meeting Task", () => {
@@ -44,7 +43,7 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
-        //cy.executeAccessibilityTests();
+        cy.executeAccessibilityTests();
         cy.log("Go back to task list");
         summaryPage.clickBack();
 
@@ -71,7 +70,7 @@ describe("Testing kick off meeting Task", () => {
             .clickContinue()
 
         cy.executeAccessibilityTests()
-        
+
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
@@ -93,21 +92,21 @@ describe("Testing kick off meeting Task", () => {
             .withSharepointLink("NotAUrl")
             .clickContinue()
             .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
-            .withSharepointLink(`https://www.gov.uk/government/organisations/department-for-education${dataGenerator.generateAlphaNumeric(90)}`)
+            .withSharepointLinkExceedingMaxLength()
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be 100 characters or less")
+            .errorForSharepointLink().showsError("Sharepoint link must be 500 characters or less")
             .withSharepointLink("https://www.gov.uk/government/organisations/department-for-education")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
             .clickChange();
 
         cy.log("Comment")
-        
+
         kickOffMeetingEditPage
-             .withComments(dataGenerator.generateAlphaNumeric(101))
-             .clickContinue()
-             .errorForComments().showsError("comments must be 100 characters or less")
+            .withComments(dataGenerator.generateAlphaNumeric(101))
+            .clickContinue()
+            .errorForComments().showsError("comments must be 100 characters or less")
 
         kickOffMeetingEditPage
             .withComments("#TaTers")
@@ -115,10 +114,10 @@ describe("Testing kick off meeting Task", () => {
             .errorForComments().showsError("Comments must not include special characters other than , ( ) '")
             .withComments("comment that's ok")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("Comments", "comment that's ok")
             .clickChange();
-        
+
         kickOffMeetingEditPage
             .withRealisticYearOfOpeningStartDate("1234")
             .clickContinue()
@@ -148,7 +147,7 @@ describe("Testing kick off meeting Task", () => {
 
         summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "1 March 2050")
             .clickChange();
-        
+
         kickOffMeetingEditPage
             .withFundingArrangementsAgreed("Yes")
             .clickContinue()
@@ -157,11 +156,11 @@ describe("Testing kick off meeting Task", () => {
             .clickChange();
 
         cy.log('Confirm all set')
-        
+
         kickOffMeetingEditPage
             .checkFundingArrangementsAgreed()
             .clickContinue()
-        
+
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
@@ -174,7 +173,7 @@ describe("Testing kick off meeting Task", () => {
             .isNotMarkedAsComplete()
             .MarkAsComplete()
             .clickConfirmAndContinue();
-        
+
         taskListPage.isTaskStatusIsCompleted("KickOffMeeting");
     })
 })
