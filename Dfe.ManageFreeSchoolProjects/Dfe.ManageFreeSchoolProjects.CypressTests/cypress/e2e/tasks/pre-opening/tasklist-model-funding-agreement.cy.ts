@@ -110,7 +110,6 @@ describe("Testing Model funding agreement Task", () => {
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
             .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
-            .isNotMarkedAsComplete();
 
         cy.log("Unselect select date agreed")
        
@@ -122,6 +121,7 @@ describe("Testing Model funding agreement Task", () => {
             .uncheckSavedFADocumentsInWorkplacesFolder()
             .uncheckDraftedFAHealthcheck()
             .clickContinue()
+            
 
         summaryPage
             .schoolNameIs(project.schoolName)
@@ -134,8 +134,14 @@ describe("Testing Model funding agreement Task", () => {
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
             .summaryShows("Drafted FA health check").HasValue("No").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("No").HasChangeLink()
-            .isNotMarkedAsComplete();
+            .isNotMarkedAsComplete()
+            .MarkAsComplete()
+            .clickConfirmAndContinue()
+
+        taskListPage
+            .selectModelFundingAgreementFromTaskList()
         
+        summaryPage.isMarkedAsComplete()
     })
     
     
