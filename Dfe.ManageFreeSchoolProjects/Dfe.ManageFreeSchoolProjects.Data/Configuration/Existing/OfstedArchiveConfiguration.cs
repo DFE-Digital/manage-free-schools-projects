@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<OfstedArchive> builder)
 		{
-            builder.ToTable("Ofsted_Archive", "dbo", e => e.IsTemporal());
-
-            builder.HasKey(e => e.Rid);
+            builder
+                .HasNoKey()
+                .ToTable("Ofsted_Archive", "dbo");
 
             builder.Property(e => e.InspectionDate)
                 .HasColumnType("date")
