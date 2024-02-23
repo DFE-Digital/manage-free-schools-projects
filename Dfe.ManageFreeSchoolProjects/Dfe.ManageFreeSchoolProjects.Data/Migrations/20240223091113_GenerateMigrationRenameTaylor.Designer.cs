@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240223091113_GenerateMigrationRenameTaylor")]
+    partial class GenerateMigrationRenameTaylor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4682,22 +4685,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASApplicationFormSent")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASCheckedTrustInformation")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASSavedToWorkspaces")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASURNSent")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")

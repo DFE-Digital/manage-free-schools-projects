@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 ModelFundingAgreement = new ModelFundingAgreementTask()
                 {
-                    TayloredAModelFundingAgreement = true,
+                    TailoredAModelFundingAgreement = true,
                     SharedFAWithTheTrust = true,
                     TrustAgreesWithModelFA = YesNo.Yes,
                     DateTrustAgreesWithModelFA = dateNineDaysInFuture,
@@ -47,8 +47,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
             projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
                 .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
-                .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+            projectResponse.ModelFundingAgreement.TailoredAModelFundingAgreement.Should()
+                .Be(request.ModelFundingAgreement.TailoredAModelFundingAgreement);
             projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
                 .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
             projectResponse.ModelFundingAgreement.Comments.Should()
@@ -79,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 ModelFundingAgreement = new ModelFundingAgreementTask()
                 {
-                    TayloredAModelFundingAgreement = true,
+                    TailoredAModelFundingAgreement = true,
                     SharedFAWithTheTrust = false,
                     TrustAgreesWithModelFA = YesNo.Yes,
                     DateTrustAgreesWithModelFA = dateNineDaysInFuture,
@@ -96,8 +96,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
             projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
                 .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.TayloredAModelFundingAgreement.Should()
-                .Be(request.ModelFundingAgreement.TayloredAModelFundingAgreement);
+            projectResponse.ModelFundingAgreement.TailoredAModelFundingAgreement.Should()
+                .Be(request.ModelFundingAgreement.TailoredAModelFundingAgreement);
             projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
                 .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
             projectResponse.ModelFundingAgreement.Comments.Should()
