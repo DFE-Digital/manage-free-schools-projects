@@ -27,13 +27,13 @@ class ModelFundingAgreementEditPage {
         return this
     }
 
-    checkTayloredAModelFundingAgreement(): this {
-        cy.getById("taylored-model-funding-agreement").check()
+    checkTailoredAModelFundingAgreement(): this {
+        cy.getById("tailored-model-funding-agreement").check()
         return this
     }
 
-    uncheckTayloredAModelFundingAgreement(): this {
-        cy.getById("taylored-model-funding-agreement").uncheck()
+    uncheckTailoredAModelFundingAgreement(): this {
+        cy.getById("tailored-model-funding-agreement").uncheck()
         return this
     }
 

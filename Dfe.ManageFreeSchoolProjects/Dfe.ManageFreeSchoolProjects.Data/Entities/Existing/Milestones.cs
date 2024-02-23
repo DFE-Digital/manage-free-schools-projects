@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string FsgPreOpeningMilestonesMi107LinkToSavedDocument { get; set; }
 
-        public bool? FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement { get; set; }
+        public bool? FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement { get; set; }
         
         public bool? FsgPreOpeningMilestonesMfadSharedFaWithTheTrust { get; set; }
         
