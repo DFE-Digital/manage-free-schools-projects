@@ -16,7 +16,7 @@
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
-    var giasLink = string.Format(RouteConstants.ViewGIASTask, Model.ProjectId);
+    var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
     
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -212,7 +212,7 @@
                         </a>
                     </span>
                     @{
-                        RenderStatus(Model.ProjectTaskListSummary.GetInformationAboutSchools);
+                        RenderStatus(Model.ProjectTaskListSummary.Gias);
                     }
                       
                 </li>

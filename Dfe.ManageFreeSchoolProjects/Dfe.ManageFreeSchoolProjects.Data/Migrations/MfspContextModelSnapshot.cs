@@ -4683,6 +4683,22 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
+                    b.Property<bool?>("FSGPreOpeningMilestonesGIASApplicationFormSent")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
+
+                    b.Property<bool?>("FSGPreOpeningMilestonesGIASCheckedTrustInformation")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
+
+                    b.Property<bool?>("FSGPreOpeningMilestonesGIASSavedToWorkspaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
+
+                    b.Property<bool?>("FSGPreOpeningMilestonesGIASURNSent")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv Actual date of completion");
