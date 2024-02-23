@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Pdfd> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("PDFD", "dbo", e => e.IsTemporal());
+            builder.ToTable("PDFD", "dbo", e => e.IsTemporal());
+
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)

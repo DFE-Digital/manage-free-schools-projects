@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<FsKim> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("FS_KIM", "dbo", e => e.IsTemporal());
+            builder.ToTable("FS_KIM", "dbo", e => e.IsTemporal());
+
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.GeneralDetailsAcademyLaestab)
                 .HasMaxLength(100)
