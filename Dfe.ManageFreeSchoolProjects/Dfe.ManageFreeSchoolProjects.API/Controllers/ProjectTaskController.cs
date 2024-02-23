@@ -85,6 +85,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
                 KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
+                Gias = SafeRetrieveTaskSummary(projectTasks,"Gias")
             };
 
             var draftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString());

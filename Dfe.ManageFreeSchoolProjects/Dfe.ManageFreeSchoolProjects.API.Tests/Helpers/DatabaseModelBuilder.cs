@@ -170,6 +170,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildGiasTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FSGPreOpeningMilestonesGIASApplicationFormSent = true;
+            result.FSGPreOpeningMilestonesGIASCheckedTrustInformation = true;
+            result.FSGPreOpeningMilestonesGIASSavedToWorkspaces = true;
+            result.FSGPreOpeningMilestonesGIASURNSent = true;
+            
+
+            return result;
+        }
+        
 
         public static Po PupilNumbersAndCapacity(string rid)
         {
