@@ -549,12 +549,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("RID");
-            builder.Property(e => e.MAASharepointLink)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            builder.Property(e => e.MAACommentsOnDecisionToApprove)
-                .HasMaxLength(999)
-                .IsUnicode(false);
             builder.Property(e => e.MAACheckedSubmittedArticlesMatch)
                 .HasColumnType("bit");
             builder.Property(e => e.MAAChairHaveSubmittedConfirmation)

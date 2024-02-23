@@ -342,10 +342,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool MAAArrangementsMatchGovernancePlans { get; set; }
 
-        public string MAACommentsOnDecisionToApprove { get; set; }
-
-        public string MAASharepointLink { get; set; }
-
         public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
 
         public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation
@@ -36,8 +37,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
             db.MAAArrangementsMatchGovernancePlans = task.ArrangementsMatchGovernancePlans ?? false;
             db.FsgPreOpeningMilestonesMaaForecastDate = task.ForecastDate;
             db.FsgPreOpeningMilestonesMaaActualDateOfCompletion = task.ActualDate;
-            db.MAACommentsOnDecisionToApprove = task.CommentsOnDecision;
-            db.MAASharepointLink = task.SharepointLink;
+            db.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable = task.CommentsOnDecision;
+            db.FsgPreOpeningMilestonesMi107LinkToSavedDocument = task.SharepointLink;
         }
     }
 }
