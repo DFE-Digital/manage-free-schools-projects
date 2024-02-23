@@ -16,7 +16,8 @@
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
-
+    var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
+    
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
 
@@ -199,6 +200,22 @@
                             RenderStatus(Model.ProjectTaskListSummary.FinancePlan);
                         }
                     </li>
+                </ul>
+                <h2 class="app-task-list__section">
+                    Setting-up
+                </h2>
+                <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@giasLink" class="govuk-link" data-testid="get-information-about-schools">
+                           GIAS (Get Information about Schools)
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.Gias);
+                    }
+                      
+                </li>
                 </ul>
             </li>
         </ol>

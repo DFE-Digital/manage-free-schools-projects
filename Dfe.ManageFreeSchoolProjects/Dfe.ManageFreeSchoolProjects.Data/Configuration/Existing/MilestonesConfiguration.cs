@@ -174,6 +174,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesGiasForecastDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.GIAS Forecast date");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASCheckedTrustInformation)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASApplicationFormSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASSavedToWorkspaces)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASURNSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
             builder.Property(e => e.FsgPreOpeningMilestonesHaveYouCompletedAndSavedYourRiskAppraisalForm)
                 .HasMaxLength(100)
                 .IsUnicode(false)
