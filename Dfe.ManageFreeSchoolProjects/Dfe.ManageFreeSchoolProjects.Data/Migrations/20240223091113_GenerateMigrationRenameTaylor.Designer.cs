@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    [Migration("20240222132800_RenameTaylor")]
-    partial class RenameTaylor
+    [Migration("20240223091113_GenerateMigrationRenameTaylor")]
+    partial class GenerateMigrationRenameTaylor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
