@@ -10,7 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Tally> builder)
 		{
-            builder.HasNoKey();
+            builder
+				.HasNoKey()
+                .ToTable("Tally", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.Id).HasColumnName("ID");
 

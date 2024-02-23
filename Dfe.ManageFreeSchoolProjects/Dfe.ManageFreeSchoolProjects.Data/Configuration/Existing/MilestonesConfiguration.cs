@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
-	public partial class MilestonesConfiguration : IEntityTypeConfiguration< Milestones>
+    public partial class MilestonesConfiguration : IEntityTypeConfiguration< Milestones>
 	{
 		public void Configure(EntityTypeBuilder<Milestones> builder)
 		{
             builder.HasKey(e => e.Rid);
+
+            builder.ToTable("Milestones", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.FsgPreOpeningMilestonesAppEvActualDateOfCompletion)
                 .HasColumnType("date")

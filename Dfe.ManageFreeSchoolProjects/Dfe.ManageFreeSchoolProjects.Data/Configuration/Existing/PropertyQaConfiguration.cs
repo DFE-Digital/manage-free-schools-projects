@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Property_QA", "dbo");
+                .ToTable("Property_QA", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.AddressOfSite).HasColumnName("Address of site");
             builder.Property(e => e.DateOfCompletionForecast).HasColumnName("Date of completion (forecast)");

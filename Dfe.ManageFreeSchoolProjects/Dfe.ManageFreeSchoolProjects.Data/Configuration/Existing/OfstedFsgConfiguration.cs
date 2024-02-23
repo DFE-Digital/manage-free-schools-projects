@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Ofsted_FSG", "dbo");
+                .ToTable("Ofsted_FSG", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.EducationalEstablishmentAddressPostcode)
                 .HasMaxLength(100)

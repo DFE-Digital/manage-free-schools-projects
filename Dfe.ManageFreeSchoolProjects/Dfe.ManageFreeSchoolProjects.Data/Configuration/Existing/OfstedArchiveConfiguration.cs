@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Ofsted_Archive", "dbo");
+                .ToTable("Ofsted_Archive", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.InspectionDate)
                 .HasColumnType("date")

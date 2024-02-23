@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("BR", "dbo");
+                .ToTable("BR", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.BudgetRecordsAcquisitionCostVat)
                 .HasMaxLength(100)

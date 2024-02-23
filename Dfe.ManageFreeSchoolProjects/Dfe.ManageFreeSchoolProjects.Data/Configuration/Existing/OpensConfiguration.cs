@@ -10,7 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Opens> builder)
 		{
-            builder.HasNoKey();
+            builder
+                .HasNoKey()
+                .ToTable("Opens", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.CurrentStatusCaseNote)
                 .IsUnicode(false)

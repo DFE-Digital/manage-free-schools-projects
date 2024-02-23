@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("constructData", "dbo");
+                .ToTable("constructData", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.CapitalProjectRag)
                 .IsUnicode(false)
