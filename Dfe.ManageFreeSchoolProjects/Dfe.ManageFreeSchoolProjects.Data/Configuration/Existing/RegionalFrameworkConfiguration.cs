@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder
                 .HasNoKey()
-                .ToTable("Regional Framework", "dbo", e => e.IsTemporal());
+                .ToTable("Regional Framework", "dbo");
 
             builder.Property(e => e.HighValueBandLot)
                 .HasMaxLength(100)
