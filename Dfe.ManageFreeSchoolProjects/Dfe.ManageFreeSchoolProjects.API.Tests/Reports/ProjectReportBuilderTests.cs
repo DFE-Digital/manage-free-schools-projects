@@ -12,10 +12,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
         public void Build_ReturnsProjectReport()
         {
             // Arrange
-            var parameters = BuildParameters();
+            var sourceData = BuildSourceData();
 
             // Act
-            var result = ProjectReportBuilder.Build(parameters);
+            var result = ProjectReportBuilder.Build(sourceData);
 
             var taskHeaders = result.Headers.Select(h => h.TaskName).ToList();
             var sectionHeaders = result.Headers.Select(h => h.Section).ToList();
@@ -30,14 +30,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Kick-off meeting");
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Finance plan");
+            taskHeaders.Should().Contain("Reference data");
 
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Pre-opening");
+            sectionHeaders.Should().Contain("About the project");
 
             result.Projects.Count.Should().Be(1);
 
             var project = result.Projects.First();
 
+            AssertEntry(nameof(ProjectReferenceData.ProjectId), "123", project, columnHeaders);
             AssertEntry(nameof(DatesTask.DateOfEntryIntoPreopening), "01/01/2021", project, columnHeaders);
             AssertEntry(nameof(DatesTask.ProvisionalOpeningDateAgreedWithTrust), "EMPTY", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.Gender), "Boys only", project, columnHeaders);
@@ -51,13 +54,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
         }
 
-        private static ProjectReportBuilderParameters BuildParameters()
+        private static List<ProjectReportSourceData> BuildSourceData()
         {
-            var result = new ProjectReportBuilderParameters
+            var result = new List<ProjectReportSourceData>()
             {
-                Projects = new List<GetProjectByTaskResponse>
+                new ProjectReportSourceData()
                 {
-                    new GetProjectByTaskResponse
+                    ProjectReferenceData = new ProjectReferenceData()
+                    {
+                        ProjectId = "123",
+                    },
+                    TaskInformation = new GetProjectByTaskResponse()
                     {
                         Dates = new DatesTask()
                         {

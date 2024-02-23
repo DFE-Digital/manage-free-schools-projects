@@ -67,23 +67,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                               from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                               join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
                               from milestones in joinedMilestones.DefaultIfEmpty()
-                              select new GetProjectByTaskResponse()
+                              select new ProjectReportSourceData()
                               {
-                                  Dates = DatesTaskBuilder.Build(kpi),
-                                  School = SchoolTaskBuilder.Build(kpi),
-                                  Trust = TrustTaskBuilder.Build(kpi),
-                                  RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi),
-                                  Constituency = ConstituencyTaskBuilder.Build(kpi),
-                                  RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
-                                  KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
-                                  ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
-                                  FinancePlan = FinancePlanTaskBuilder.Build(milestones)
+                                  TaskInformation = new GetProjectByTaskResponse()
+                                  {
+                                      Dates = DatesTaskBuilder.Build(kpi),
+                                      School = SchoolTaskBuilder.Build(kpi),
+                                      Trust = TrustTaskBuilder.Build(kpi),
+                                      RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi),
+                                      Constituency = ConstituencyTaskBuilder.Build(kpi),
+                                      RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
+                                      KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
+                                      ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
+                                      FinancePlan = FinancePlanTaskBuilder.Build(milestones)
+                                  },
+                                  ProjectReferenceData = new ProjectReferenceData()
+                                  {
+                                      ProjectId = kpi.ProjectStatusProjectId,
+                                      ApplicationNumber = kpi.ProjectStatusFreeSchoolsApplicationNumber,
+                                      Urn = kpi.ProjectStatusUrnWhenGivenOne,
+                                      ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+                                  }
                               }).ToListAsync();
 
-            var result = ProjectReportBuilder.Build(new ProjectReportBuilderParameters()
-            {
-                Projects = data
-            });
+            var result = ProjectReportBuilder.Build(data);
 
             return result;
         }
@@ -160,5 +167,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             public Row TaskName { get; set; }
             public Row ColumnName { get; set; }
         }
+    }
+
+    public class ProjectReportSourceData
+    {
+        public ProjectReferenceData ProjectReferenceData { get; set; }
+        public GetProjectByTaskResponse TaskInformation { get; set; }
+    }
+
+    public class ProjectReferenceData
+    {
+        public string ProjectId { get; set; }
+        public string Urn { get; set; }
+        public string ApplicationNumber { get; set; }
+        public string ApplicationWave { get; set; }
+
     }
 }

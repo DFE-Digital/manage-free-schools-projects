@@ -1,29 +1,28 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Extensions;
-using System.ComponentModel;
+﻿using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
     public static class ProjectReportBuilder
     {
-        public static ProjectReport Build(ProjectReportBuilderParameters parameters)
+        public static ProjectReport Build(List<ProjectReportSourceData> projectReportSourceData)
         {
             var result = new ProjectReport();
 
-            foreach (var project in parameters.Projects)
+            foreach (var project in projectReportSourceData)
             {
                 var tasks = new List<ProjectTaskInformation>
                 {
-                    new ProjectTaskInformation { Task = project.Dates, TaskName = "Dates", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.School, TaskName = "School", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.Trust, TaskName = "Trust", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.Constituency, TaskName = "Constituency", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.RiskAppraisalMeeting, TaskName = "Risk appraisal meeting", Section = "Setting-up" },
-                    new ProjectTaskInformation { Task = project.KickOffMeeting, TaskName = "Kick-off meeting", Section = "Pre-opening" },
-                    new ProjectTaskInformation { Task = project.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
-                    new ProjectTaskInformation { Task = project.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" }
+                    new ProjectTaskInformation { Task = project.ProjectReferenceData, TaskName = "Reference data", Section = "About the project" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.Dates, TaskName = "Dates", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.School, TaskName = "School", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.Trust, TaskName = "Trust", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.Constituency, TaskName = "Constituency", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.RiskAppraisalMeeting, TaskName = "Risk appraisal meeting", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.KickOffMeeting, TaskName = "Kick-off meeting", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" }
                 };
 
                 if (result.Headers.Count == 0)
@@ -126,18 +125,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
             return value.ToString();
         }
-    }
 
-    public class ProjectReportBuilderParameters
-    {
-        public List<GetProjectByTaskResponse> Projects { get; set; }
-    }
-
-    public class ProjectTaskInformation
-    {
-        public object Task { get; set; }
-        public string TaskName { get; set; }
-        public string Section { get; set; }
+        public class ProjectTaskInformation
+        {
+            public object Task { get; set; }
+            public string TaskName { get; set; }
+            public string Section { get; set; }
+        }
     }
 
     public class ProjectReport
