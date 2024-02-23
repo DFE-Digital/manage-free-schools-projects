@@ -5006,7 +5006,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement")
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement")
                         .HasColumnType("bit");
 
                     b.Property<int?>("FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa")
