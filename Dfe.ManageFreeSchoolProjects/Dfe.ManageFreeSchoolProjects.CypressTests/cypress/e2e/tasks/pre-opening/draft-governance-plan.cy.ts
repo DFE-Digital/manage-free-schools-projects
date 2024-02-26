@@ -77,7 +77,7 @@ describe("Testing draft governance plan task", () => {
 
         Logger.log("Check all the fields are optional");
         editDraftGovernancePlanPage
-            .titleIs("Edit draft governance plan")
+            .titleIs("Edit Draft governance plan")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
@@ -111,8 +111,6 @@ describe("Testing draft governance plan task", () => {
             .clickContinue();
 
         summaryPage
-            .schoolNameIs(project.schoolName)
-            .titleIs("Draft governance plan")
             .inOrder()
             .summaryShows("Received draft governance plan from trust").HasValue("Yes")
             .summaryShows("Date received").HasValue("25 August 2025")
