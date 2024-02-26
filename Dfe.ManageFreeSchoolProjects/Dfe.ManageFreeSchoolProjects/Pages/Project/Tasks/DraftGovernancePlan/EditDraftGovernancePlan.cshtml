@@ -51,27 +51,32 @@
             <govuk-checkbox-input label="Assessed plan using assessment template"
                                   asp-for="@Model.PlanAssessedUsingTemplate"
                                   name="plan-assessed-using-template"
-                                  id="plan-assessed-using-template" />
+                                  id="plan-assessed-using-template"
+                                  add-margin=false/>
 
             <govuk-checkbox-input label="Shared plan and assessment with external expert"
                                   asp-for="@Model.PlanAndAssessmentSharedWithExpert"
                                   name="plan-and-assessment-shared-with-expert"
-                                  id="plan-and-assessment-shared-with-expert" />
+                                  id="plan-and-assessment-shared-with-expert"
+                                  add-margin=false />
 
             <govuk-checkbox-input label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)"
                                   asp-for="@Model.PlanAndAssessmentSharedWithEsfa"
                                   name="plan-and-assessment-shared-with-esfa"
-                                  id="plan-and-assessment-shared-with-esfa" />
+                                  id="plan-and-assessment-shared-with-esfa"
+                                  add-margin=false />
 
             <govuk-checkbox-input label="Fed back to trust on plan"
                                   asp-for="@Model.PlanFedBackToTrust"
                                   name="plan-fed-back-to-trust"
-                                  id="plan-fed-back-to-trust" />
+                                  id="plan-fed-back-to-trust"
+                                  add-margin=false />
 
             <govuk-checkbox-input label="Saved documents in workplaces folder"
                                   asp-for="@Model.SavedDocumentsInWorkplacesFolder"
                                   name="saved-documents-in-workplaces-folder"
-                                  id="saved-documents-in-workplaces-folder" />
+                                  id="saved-documents-in-workplaces-folder"
+                                  add-margin=false />
 
 
             <govuk-textarea-input id="comments" name="comments" bold-label="true" label="Comments" rows="5" asp-for="@Model.Comments" add-margin="true" />

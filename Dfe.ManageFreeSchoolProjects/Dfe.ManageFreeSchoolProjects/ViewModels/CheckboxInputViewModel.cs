@@ -11,6 +11,6 @@
 		
 		public bool? BoldLabel  { get; set; }
 
-		public string AriaControls { get; set; }
+		public bool AddMargin { get; set; }
 	}
 }
