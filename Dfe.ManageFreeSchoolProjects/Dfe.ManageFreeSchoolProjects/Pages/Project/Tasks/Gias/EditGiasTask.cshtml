@@ -3,7 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias.EditGiasTaskModel
 @{
-    ViewData["Title"] = $"Edit GIAS (Get information about schools) - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Set up the school on GIAS (Get information about schools) - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
 }
@@ -17,7 +17,7 @@
 <partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit GIAS (Get information about schools)
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Set up the school on GIAS (Get information about schools)
 </h1>
 
 <div class="govuk-grid-row">

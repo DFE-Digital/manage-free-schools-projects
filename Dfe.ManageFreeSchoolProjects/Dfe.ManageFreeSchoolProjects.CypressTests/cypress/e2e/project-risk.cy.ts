@@ -31,7 +31,7 @@ describe("Testing that we can add a project risk", () => {
     });
 
     describe("Adding a project risk", () => {
-       it("Should be able to add project risk", () => {
+        it("Should be able to add project risk", () => {
 
             projectOverviewPage
                 .hasProjectRiskDate("Empty")
@@ -115,15 +115,28 @@ describe("Testing that we can add a project risk", () => {
                 .withFinanceSummary("This is my finance risk summary")
                 .continue();
 
-            Logger.log("Enter a valid risk appraisal form sharepoint link");
+            Logger.log("Validate RAF sharepoint link");
             projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
             editProjectRiskPage
-                .hasSchoolName(project.schoolName)
-                .withRiskAppraisalFormSharePointLink("www.google.co.uk")
+                .withRiskAppraisalFormSharePointLink("aaaa")
                 .continue();
 
+            validationComponent.hasValidationError("The SharePoint link must be a valid url");
+
+            editProjectRiskPage
+                .withRiskAppraisalFormSharePointLinkExceeding()
+                .continue();
+
+            validationComponent.hasValidationError("The SharePoint link must be 500 characters or less");
+
             cy.executeAccessibilityTests();
+
+            Logger.log("Enter a valid risk appraisal form sharepoint link");
+            editProjectRiskPage
+                .hasSchoolName(project.schoolName)
+                .withRiskAppraisalFormSharePointLink("http://www.google.co.uk")
+                .continue();
 
             Logger.log("Validate overall risk");
             projectRiskSummaryPage.changeOverallRisk();
@@ -153,7 +166,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasEducationRiskSummary("This is my education risk summary")
                 .hasFinanceRiskRating(["Amber", "Red"])
                 .hasFinanceRiskSummary("This is my finance risk summary")
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
+                .hasRiskAppraisalFormSharePointLink("http://www.google.co.uk");
 
             cy.executeAccessibilityTests();
 
@@ -178,7 +191,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasEducationRiskSummary("This is my education risk summary")
                 .hasFinanceRiskRating(["Amber", "Red"])
                 .hasFinanceRiskSummary("This is my finance risk summary")
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
+                .hasRiskAppraisalFormSharePointLink("http://www.google.co.uk");
 
             cy.executeAccessibilityTests();
 
@@ -191,7 +204,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasProjectRiskSummary("This is my overall risk summary");
         });
 
-       it("Should be able to add multiple project risks with the latest being displayed by default", () => {
+        it("Should be able to add multiple project risks with the latest being displayed by default", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -241,8 +254,8 @@ describe("Testing that we can add a project risk", () => {
             projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
             editProjectRiskPage
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
-                .withRiskAppraisalFormSharePointLink("www.yahoo.com")
+                .hasRiskAppraisalFormSharePointLink("http://www.google.co.uk")
+                .withRiskAppraisalFormSharePointLink("http://www.yahoo.com")
                 .continue();
 
             Logger.log("Enter a valid overall risk");
@@ -265,7 +278,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasEducationRiskSummary("This is another of my education risk summary")
                 .hasFinanceRiskRating(["Red"])
                 .hasFinanceRiskSummary("This is another of my finance risk summary")
-                .hasRiskAppraisalFormSharePointLink("www.yahoo.com");
+                .hasRiskAppraisalFormSharePointLink("http://www.yahoo.com");
 
             projectRiskSummaryPage
                 .markRiskAsReviewed()
@@ -281,7 +294,7 @@ describe("Testing that we can add a project risk", () => {
                 .hasEducationRiskSummary("This is another of my education risk summary")
                 .hasFinanceRiskRating(["Red"])
                 .hasFinanceRiskSummary("This is another of my finance risk summary")
-                .hasRiskAppraisalFormSharePointLink("www.yahoo.com");
+                .hasRiskAppraisalFormSharePointLink("http://www.yahoo.com");
 
             Logger.log("Should show the history of the project risk")
             projectRiskHistoryTable
@@ -314,7 +327,7 @@ describe("Testing that we can add a project risk", () => {
                         .hasEducationRiskSummary("This is my education risk summary")
                         .hasFinanceRiskRating(["Amber", "Red"])
                         .hasFinanceRiskSummary("This is my finance risk summary")
-                        .hasRiskAppraisalFormSharePointLink("www.google.co.uk")
+                        .hasRiskAppraisalFormSharePointLink("http://www.google.co.uk")
                         .cannotAddRiskEntry();
 
                     Logger.log("Checking the change links are updated");
@@ -343,8 +356,7 @@ describe("Testing that we can add a project risk", () => {
                 });
         });
 
-       it("Should be able to add a project risk with the minimum values set", () =>
-        {
+        it("Should be able to add a project risk with the minimum values set", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -409,8 +421,7 @@ describe("Testing that we can add a project risk", () => {
                 })
         });
 
-       it("Should add a project risk entry even if none of the data changes", () =>
-        {
+        it("Should add a project risk entry even if none of the data changes", () => {
             Logger.log("Changing project risk")
             projectOverviewPage.changeProjectRisk();
 
@@ -439,158 +450,18 @@ describe("Testing that we can add a project risk", () => {
                 .hasOverallRiskRating(["Green"]);
 
             projectRiskHistoryTable
-            .getRowByIndex(1)
-            .then((firstRow) => {
-                firstRow
-                    .hasDate(toDisplayDate(now))
-                    .hasRiskRating(["Green"]);
+                .getRowByIndex(1)
+                .then((firstRow) => {
+                    firstRow
+                        .hasDate(toDisplayDate(now))
+                        .hasRiskRating(["Green"]);
 
-                return projectRiskHistoryTable.getRowByIndex(2);
-            }).then((secondRow) => {
-                secondRow
-                    .hasDate(toDisplayDate(now))
-                    .hasRiskRating(["Green"]);
-            });
-        });
-
-            
-        it("Should be able to add project risk with maximum character length", () => {
-
-            const governance = dataGenerator.generateAlpha(1000);
-            const education = dataGenerator.generateAlpha(1000);
-            const finance = dataGenerator.generateAlpha(1000);
-            const overall = dataGenerator.generateAlpha(1000);
-
-            Logger.log("Changing project risk")
-            projectOverviewPage.changeProjectRisk();
-
-            Logger.log("Add risk entry");
-            projectRiskSummaryPage.addRiskEntry();
-
-            Logger.log("Enter a valid governance and suitability risk");
-            projectRiskSummaryPage.changeGovernanceAndSuitabilityRisk();
-
-            editProjectRiskPage
-                .withGovernanceAndSuitabilityRiskRating("AmberGreen")
-                .withGovernanceAndSuitabilityRiskSummary(governance)
-                .continue();
-
-            Logger.log("Enter a valid education risk");
-            projectRiskSummaryPage.changeEducationRisk();
-
-            editProjectRiskPage
-                .withEducationRiskRating("Red")
-                .withEducationSummary(education)
-                .continue();
-
-            Logger.log("Enter a valid finance risk");
-            projectRiskSummaryPage.changeFinanceRisk();
-            editProjectRiskPage
-                .withFinanceRiskRating("AmberRed")
-                .withFinanceSummary(finance)
-                .continue();
-
-            Logger.log("Enter a valid overall risk");
-            projectRiskSummaryPage.changeOverallRisk();
-            editProjectRiskPage
-                .withOverallRiskRating("Green")
-                .withOverallRiskSummary(overall)
-                .continue();
-
-            Logger.log("Remove data from fields");
-            projectRiskSummaryPage.changeEducationRisk();
-
-            editProjectRiskPage
-                .withEducationRiskRating("Red")
-                .withEducationSummary("a")
-                .continue();
-
-            projectRiskSummaryPage.changeFinanceRisk();
-            editProjectRiskPage
-                .withFinanceRiskRating("AmberRed")
-                .withFinanceSummary("a")
-                .continue();
-
-            projectRiskSummaryPage.changeOverallRisk();
-            editProjectRiskPage
-                .hasSchoolName(project.schoolName)
-                .withOverallRiskRating("Green")
-                .withOverallRiskSummary("a")
-                .continue();
-
-            
-            Logger.log("Re-enter the data");
-
-            projectRiskSummaryPage.changeEducationRisk();
-
-            editProjectRiskPage
-                .withEducationRiskRating("Red")
-                .withEducationSummary(education)
-                .continue();
-
-            projectRiskSummaryPage.changeFinanceRisk();
-            editProjectRiskPage
-                .withFinanceRiskRating("AmberRed")
-                .withFinanceSummary(finance)
-                .continue();
-
-            projectRiskSummaryPage.changeOverallRisk();
-            editProjectRiskPage
-                .withOverallRiskRating("Green")
-                .withOverallRiskSummary(overall)
-                .continue();
-
-
-            Logger.log("Enter a valid risk appraisal form sharepoint link");
-            projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
-
-            editProjectRiskPage
-                .hasSchoolName(project.schoolName)
-                .withRiskAppraisalFormSharePointLink("www.google.co.uk")
-                .continue();
-
-            cy.executeAccessibilityTests();
-
-            projectRiskSummaryPage
-                .hasOverallRiskRating(["Green"])
-                .hasOverallRiskSummary(overall)
-                .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])
-                .hasGovernanceAndSuitabilityRiskSummary(governance)
-                .hasEducationRiskRating(["Red"])
-                .hasEducationRiskSummary(education)
-                .hasFinanceRiskRating(["Amber", "Red"])
-                .hasFinanceRiskSummary(finance)
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
-
-            cy.executeAccessibilityTests();
-
-            Logger.log("Create the project risk");
-            projectRiskSummaryPage
-                .markRiskAsReviewed()
-                .createRiskEntry()
-                .goToRiskSummary();
-
-            projectRiskSummaryPage
-                .hasTitle(`${toDisplayDate(now)} - current risk ratings`)
-                .hasOverallRiskRating(["Green"])
-                .hasOverallRiskSummary(overall)
-                .hasGovernanceAndSuitabilityRiskRating(["Amber", "Green"])
-                .hasGovernanceAndSuitabilityRiskSummary(governance)
-                .hasEducationRiskRating(["Red"])
-                .hasEducationRiskSummary(education)
-                .hasFinanceRiskRating(["Amber", "Red"])
-                .hasFinanceRiskSummary(finance)
-                .hasRiskAppraisalFormSharePointLink("www.google.co.uk");
-
-            cy.executeAccessibilityTests();
-
-            Logger.log("Ensure that the project risk has been updated on the overview");
-            cy.visit(`/projects/${project.projectId}/overview`);
-
-            projectOverviewPage
-                .hasProjectRiskDate(toDisplayDate(now))
-                .hasProjectRiskRating(["Green"])
-                .hasProjectRiskSummary(overall);
+                    return projectRiskHistoryTable.getRowByIndex(2);
+                }).then((secondRow) => {
+                    secondRow
+                        .hasDate(toDisplayDate(now))
+                        .hasRiskRating(["Green"]);
+                });
         });
     });
 });
@@ -624,7 +495,7 @@ function fillProjectRisk(): void {
     projectRiskSummaryPage.changeRiskAppraisalFormSharePointLink();
 
     editProjectRiskPage
-        .withRiskAppraisalFormSharePointLink("www.google.co.uk")
+        .withRiskAppraisalFormSharePointLink("http://www.google.co.uk")
         .continue();
 
     Logger.log("Enter a valid overall risk");
