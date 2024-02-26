@@ -331,7 +331,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesGiasForecastDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesGiasActualDateOfCompletion { get; set; }
-
+        
+        public bool? FSGPreOpeningMilestonesGIASCheckedTrustInformation { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASApplicationFormSent { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASSavedToWorkspaces { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASURNSent { get; set; }
         public string FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable { get; set; }
 
         public string FsgPreOpeningMilestonesMi155LinkToSavedDocument { get; set; }
@@ -341,10 +348,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool MAAChairHaveSubmittedConfirmation { get; set; }
 
         public bool MAAArrangementsMatchGovernancePlans { get; set; }
-
-        public string MAACommentsOnDecisionToApprove { get; set; }
-
-        public string MAASharepointLink { get; set; }
 
         public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
 

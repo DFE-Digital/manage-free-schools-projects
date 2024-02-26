@@ -28,8 +28,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
                                         ArrangementsMatchGovernancePlans = milestones.MAAArrangementsMatchGovernancePlans,
                                         ForecastDate = milestones.FsgPreOpeningMilestonesMaaForecastDate,
                                         ActualDate = milestones.FsgPreOpeningMilestonesMaaActualDateOfCompletion,
-                                        CommentsOnDecision = milestones.MAACommentsOnDecisionToApprove,
-                                        SharepointLink = milestones.MAASharepointLink
+                                        CommentsOnDecision = milestones.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable,
+                                        SharepointLink = milestones.FsgPreOpeningMilestonesMi107LinkToSavedDocument
                                     }
                                 }).FirstOrDefaultAsync();
 

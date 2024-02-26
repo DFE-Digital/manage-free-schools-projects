@@ -11,6 +11,7 @@
         
         public KickOffMeetingTask KickOffMeeting { get; set; }
         
+        public GiasTask Gias { get; set; }
         public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
@@ -44,6 +45,8 @@
                     return TaskName.ModelFundingAgreement.ToString();
                 if (DraftGovernancePlan != null)
                     return TaskName.DraftGovernancePlan.ToString();
+                if (Gias != null)
+                    return TaskName.Gias.ToString();
                 return null;
             }
         }
