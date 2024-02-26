@@ -15,7 +15,7 @@ class EditDraftGovernancePlanPage {
     }
 
     public checkPlanReceivedFromTrust(): this {
-        cy.getById("plan-received-from-trust").check();
+        cy.getById("plan-received-from-trust").click();
         return this;
     }
 
@@ -26,27 +26,27 @@ class EditDraftGovernancePlanPage {
     }
 
     public checkPlanAssessedUsingTemplate(): this {
-        cy.getById("plan-assessed-using-template").check();
+        cy.getById("plan-assessed-using-template").click();
         return this;
     }
 
     public checkPlanAndAssessmentSharedWithExpert(): this {
-        cy.getById("plan-and-assessment-shared-with-expert").check();
+        cy.getById("plan-and-assessment-shared-with-expert").click();
         return this;
     }
 
     public checkPlanAndAssessmentSharedWithEsfa(): this {
-        cy.getById("plan-and-assessment-shared-with-esfa").check();
+        cy.getById("plan-and-assessment-shared-with-esfa").click();
         return this;
     }
 
     public checkFedBackToTrustOnPlan(): this {
-        cy.getById("fed-back-to-trust-on-plan").check();
+        cy.getById("plan-fed-back-to-trust").click();
         return this;
     }
 
     public checkDocumentsSavedInWorkplacesFolder(): this {
-        cy.getById("documents-saved-in-workplaces-folder").check();
+        cy.getById("saved-documents-in-workplaces-folder").click();
         return this;
     }
 

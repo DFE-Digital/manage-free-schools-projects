@@ -30,7 +30,7 @@ describe("Testing draft governance plan task", () => {
         taskListPage.draftGovernancePlanTaskDoesNotShow();
     });
 
-    it.only("Should be able to set a draft governance plan", () => {
+    it("Should be able to set a draft governance plan", () => {
 
         Logger.log("Update overall risk to red so the task shows");
         cy.visit(`/projects/${project.projectId}/risk/summary`);
@@ -122,36 +122,72 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Fed back to trust on plan").HasValue("Yes")
             .summaryShows("Saved documents in workplaces folder").HasValue("Yes")
             .summaryShows("Comments").HasValue("This is my comments")
-            .isNotMarkedAsComplete();
 
-        // Logger.log("Should be able to edit the existing values");
-        // summaryPage.clickChange();
+        Logger.log("Should clear the date if Received draft governance plan from trust is unchecked");
+        summaryPage.clickChange();
 
-        // editDraftGovernancePlanPage
-        //     .withForecastDate("01", "01", "2026")
-        //     .withActualDate("16", "01", "2026")
-        //     .withCommentsOnDecisionToApprove("This is my updated comments")
-        //     .withSharepointLink("https://www.sharepoint.com/updated")
-        //     .clickContinue();
+        editDraftGovernancePlanPage
+            .withDatePlanReceived("01", "", "")
+            .checkPlanReceivedFromTrust()
+            .clickContinue();
 
-        // summaryPage
-        //     .inOrder()
-        //     .summaryShows("Forecast date").HasValue("1 January 2026").HasChangeLink()
-        //     .summaryShows("Actual date").HasValue("16 January 2026").HasChangeLink()
-        //     .summaryShows("Comments on decision to approve (if applicable)").HasValue("This is my updated comments").HasChangeLink()
-        //     .summaryShows("SharePoint link").HasValue("https://www.sharepoint.com/updated").HasChangeLink();
+        summaryPage.clickChange();
 
-        // Logger.log("Should update the task status");
-        // summaryPage.clickConfirmAndContinue();
+        editDraftGovernancePlanPage
+            .checkPlanReceivedFromTrust()
+            .clickContinue();
 
-        // taskListPage.isTaskStatusInProgress("DraftGovernancePlan");
+        summaryPage
+            .inOrder()
+            .summaryShows("Received draft governance plan from trust").HasValue("Yes")
+            .summaryShows("Date received").IsEmpty();
 
-        // taskListPage.selectDraftGovernancePlanFromTaskList();
+        Logger.log("Should be able to update the date received");
+        summaryPage.clickChange();
 
-        // summaryPage
-        //     .MarkAsComplete()
-        //     .clickConfirmAndContinue();
+        editDraftGovernancePlanPage
+            .withDatePlanReceived("01", "01", "2026")
+            .clickContinue();
 
-        // taskListPage.isTaskStatusIsCompleted("DraftGovernancePlan");
+        summaryPage
+            .inOrder()
+            .summaryShows("Received draft governance plan from trust").HasValue("Yes")
+            .summaryShows("Date received").HasValue("1 January 2026")
+
+        Logger.log("Should be able to update values");
+        summaryPage.clickChange();
+
+        editDraftGovernancePlanPage
+            .checkPlanReceivedFromTrust()
+            .checkPlanAssessedUsingTemplate()
+            .checkPlanAndAssessmentSharedWithExpert()
+            .checkPlanAndAssessmentSharedWithEsfa()
+            .checkFedBackToTrustOnPlan()
+            .checkDocumentsSavedInWorkplacesFolder()
+            .withComments("This is my updated comments that I have written")
+            .clickContinue();
+
+        summaryPage
+            .inOrder()
+            .summaryShows("Received draft governance plan from trust").IsEmpty()
+            .summaryShows("Assessed plan using assessment template").IsEmpty()
+            .summaryShows("Shared plan and assessment with external expert").IsEmpty()
+            .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty()
+            .summaryShows("Fed back to trust on plan").IsEmpty()
+            .summaryShows("Saved documents in workplaces folder").IsEmpty()
+            .summaryShows("Comments").HasValue("This is my updated comments that I have written");
+
+        Logger.log("Should update the task status");
+        summaryPage.clickConfirmAndContinue();
+
+        taskListPage.isTaskStatusInProgress("DraftGovernancePlan");
+
+        taskListPage.selectDraftGovernancePlanFromTaskList();
+
+        summaryPage
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
+
+        taskListPage.isTaskStatusIsCompleted("DraftGovernancePlan");
     });
 });

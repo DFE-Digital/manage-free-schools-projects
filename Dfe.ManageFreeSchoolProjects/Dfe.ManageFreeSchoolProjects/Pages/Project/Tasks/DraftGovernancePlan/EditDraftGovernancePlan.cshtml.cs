@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
@@ -75,6 +76,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
 
         public async Task<IActionResult> OnPost()
         {
+            if (PlanReceivedFromTrust != true)
+            {
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-plan-received")).ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+
+                DatePlanReceived = null;
+            }
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
