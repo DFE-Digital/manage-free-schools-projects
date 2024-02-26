@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
+namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
     [HtmlTargetElement("govuk-risk-rating-summary", TagStructure = TagStructure.WithoutEndTag)]
     public class RiskRatingSummaryComponentTagHelper : TagHelper
