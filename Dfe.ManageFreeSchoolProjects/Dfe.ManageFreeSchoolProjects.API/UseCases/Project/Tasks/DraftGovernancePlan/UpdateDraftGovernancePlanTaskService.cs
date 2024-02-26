@@ -33,10 +33,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
             }
 
             milestone.Rid = dbKpi.Rid;
-            milestone.FsgPreOpeningMilestonesDgpForecastDate = task.ForecastDate;
-            milestone.FsgPreOpeningMilestonesDgpActualDateOfCompletion = task.ActualDate;
-            milestone.FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable = task.CommentsOnDecisionToApprove;
-            milestone.FsgPreOpeningMilestonesMi105LinkToSavedDocument = task.SharepointLink;
+            milestone.FsgPreOpeningMilestonesDgpActualDateOfCompletion = task.DateReceived;
+            milestone.DraftGovernancePlanDocumentsSavedInWorkplacesFolder = task.SavedDocumentsInWorkplacesFolder;
+            milestone.DraftGovernancePlanAndTemplateSharedWithEsfa = task.PlanAndTemplateSharedWithEsfa;
+            milestone.DraftGovernancePlanAndTemplateSharedWithExpert = task.PlanAndTemplateSharedWithExpert;
+            milestone.DraftGovernancePlanAssessedUsingTemplate = task.PlanAssessedUsingTemplate;
+            milestone.DraftGovernancePlanFedBackToTrust = task.PlanFedBackToTrust;
+            milestone.DraftGovernancePlanReceivedFromTrust = task.PlanReceivedFromTrust;
+            milestone.FsgPreOpeningMilestonesMi60CommentsOnDecisionToApproveIfApplicable = task.CommentsOnDecisionToApprove;
 
             await _context.SaveChangesAsync();
         }

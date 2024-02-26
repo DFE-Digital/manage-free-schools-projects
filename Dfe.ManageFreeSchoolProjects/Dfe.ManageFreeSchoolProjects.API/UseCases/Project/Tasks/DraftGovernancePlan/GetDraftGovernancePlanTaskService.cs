@@ -23,15 +23,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
                                 {
                                     DraftGovernancePlan = new()
                                     {
-                                        ForecastDate = milestones.FsgPreOpeningMilestonesDgpForecastDate,
-                                        ActualDate = milestones.FsgPreOpeningMilestonesDgpActualDateOfCompletion,
-                                        // TODO: Get the correct field mappings
-                                        CommentsOnDecisionToApprove = milestones.FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable,
-                                        SharepointLink = milestones.FsgPreOpeningMilestonesMi105LinkToSavedDocument
+                                        SavedDocumentsInWorkplacesFolder = milestones.DraftGovernancePlanDocumentsSavedInWorkplacesFolder,
+                                        PlanAndTemplateSharedWithEsfa = milestones.DraftGovernancePlanAndTemplateSharedWithEsfa,
+                                        PlanAndTemplateSharedWithExpert = milestones.DraftGovernancePlanAndTemplateSharedWithExpert,
+                                        PlanAssessedUsingTemplate = milestones.DraftGovernancePlanAssessedUsingTemplate,
+                                        PlanFedBackToTrust = milestones.DraftGovernancePlanFedBackToTrust,
+                                        PlanReceivedFromTrust = milestones.DraftGovernancePlanReceivedFromTrust,
+                                        DateReceived = milestones.FsgPreOpeningMilestonesDgpActualDateOfCompletion,
+                                        CommentsOnDecisionToApprove = milestones.FsgPreOpeningMilestonesMi60CommentsOnDecisionToApproveIfApplicable,
                                     }
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { FinancePlan = new() };
+            return result ?? new GetProjectByTaskResponse() { DraftGovernancePlan = new() };
         }
     }
 }
