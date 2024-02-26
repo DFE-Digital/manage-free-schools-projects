@@ -5,7 +5,7 @@ import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import giasEditPage from "../../../pages/tasks/sign-off-preparation/edit-gias.cy";
 
-describe("Testing Model gias", () => {
+describe("Testing gias", () => {
 
     let project: ProjectDetailsRequest;
 
