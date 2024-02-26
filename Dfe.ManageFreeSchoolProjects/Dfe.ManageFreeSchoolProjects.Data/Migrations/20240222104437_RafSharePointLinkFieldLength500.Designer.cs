@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240222104437_RafSharePointLinkFieldLength500")]
+    partial class RafSharePointLinkFieldLength500
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -999,7 +1002,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.HasKey("Rid");
 
-                    b.ToTable("Construction", (string)null);
+                    b.ToTable("Construction");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Contracts", b =>
@@ -1487,7 +1490,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.ToTable("Contracts", (string)null);
+                    b.ToTable("Contracts");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Fal", b =>
@@ -4990,7 +4993,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement")
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement")
                         .HasColumnType("bit");
 
                     b.Property<int?>("FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa")
@@ -5469,6 +5472,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool>("MAACheckedSubmittedArticlesMatch")
                         .HasColumnType("bit");
 
+                    b.Property<string>("MAACommentsOnDecisionToApprove")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)");
+
+                    b.Property<string>("MAASharepointLink")
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
+
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
@@ -5488,7 +5501,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.HasKey("Rid");
 
-                    b.ToTable("Milestones", (string)null);
+                    b.ToTable("Milestones");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.OfstedArchive", b =>
@@ -6092,7 +6105,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.ToTable("Opens", (string)null);
+                    b.ToTable("Opens");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Pdfd", b =>
@@ -7815,7 +7828,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.ToTable("Planning", (string)null);
+                    b.ToTable("Planning");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.PlanningQa", b =>
@@ -10366,7 +10379,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.HasKey("Rid");
 
-                    b.ToTable("Property", (string)null);
+                    b.ToTable("Property");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.PropertyQa", b =>
@@ -11222,7 +11235,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
-                    b.ToTable("Tally", (string)null);
+                    b.ToTable("Tally");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Tasks", b =>
@@ -11574,7 +11587,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.HasKey("Rid");
 
-                    b.ToTable("Trust", (string)null);
+                    b.ToTable("Trust");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Wfa", b =>
