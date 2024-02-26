@@ -24,11 +24,26 @@
         public const string EditRegion = ViewRegionAndLocalAuthorityTask + "/region/edit";
         public const string EditLocalAuthority = ViewRegionAndLocalAuthorityTask + "/localauthority/edit?region={1}";
 
+        public const string ViewKickOffMeeting = TaskList + "/kickoffmeeting";
+        public const string EditKickOffMeeting= ViewKickOffMeeting + "/edit";
+
+        public const string ViewModelFundingAgreement = TaskList + "/Modelfundingagreement";
+        public const string EditModelFundingAgreement = ViewModelFundingAgreement + "/edit";
+        
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
-        public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";        
+        public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";
 
         public const string ViewRiskAppraisalMeetingTask = TaskList + "/risk-appraisal-meeting";
         public const string EditRiskAppraisalMeetingTask = ViewRiskAppraisalMeetingTask + "/edit";
+
+        public const string ViewFinancePlanTask = TaskList + "/finance-plan";
+        public const string EditFinancePlanTask = ViewFinancePlanTask + "/edit";
+
+        public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
+        public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";
+        
+        public const string ViewGiasTask = TaskList + "/gias";
+        public const string EditGiasTask = ViewGiasTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";

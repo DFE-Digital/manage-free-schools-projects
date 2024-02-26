@@ -22,9 +22,8 @@ describe("Testing project overview", () => {
             .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
             .hasTrustId("TR00111")
             .hasTrustName("Aurora Academies Trust")
-            .hasTrustType("MAT")
+            .hasTrustType("MAT (multi-academy trust)")
             .hasProjectId(temporaryProjectId)
-            .hasNumberOfFormsOfEntry("3")
             .hasCurrentFreeSchoolName(schoolName)
             .hasSchoolType("Mainstream")
             .hasSchoolPhase("Secondary")
@@ -91,10 +90,6 @@ describe("Testing project overview", () => {
             .enterReceptionToYear6("0")
             .enterYear7ToYear11("400")
             .enterYear12ToYear14("150")
-            .continue();
-
-        createProjectPage
-            .enterFormsOfEntry("3")
             .continue();
 
         createProjectPage

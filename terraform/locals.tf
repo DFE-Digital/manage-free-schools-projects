@@ -12,6 +12,7 @@ locals {
   image_tag                                       = var.image_tag
   container_command                               = var.container_command
   container_secret_environment_variables          = var.container_secret_environment_variables
+  container_scale_http_concurrency                = var.container_scale_http_concurrency
   enable_event_hub                                = var.enable_event_hub
   enable_logstash_consumer                        = var.enable_logstash_consumer
   eventhub_export_log_analytics_table_names       = var.eventhub_export_log_analytics_table_names
@@ -22,6 +23,7 @@ locals {
   mssql_database_name                             = var.mssql_database_name
   mssql_firewall_ipv4_allow_list                  = var.mssql_firewall_ipv4_allow_list
   mssql_server_public_access_enabled              = var.mssql_server_public_access_enabled
+  mssql_managed_identity_assign_role              = var.mssql_managed_identity_assign_role
   enable_dns_zone                                 = var.enable_dns_zone
   dns_zone_domain_name                            = var.dns_zone_domain_name
   dns_ns_records                                  = var.dns_ns_records
@@ -36,7 +38,6 @@ locals {
   cdn_frontdoor_origin_fqdn_override              = var.cdn_frontdoor_origin_fqdn_override
   cdn_frontdoor_origin_host_header_override       = var.cdn_frontdoor_origin_host_header_override
   cdn_frontdoor_forwarding_protocol               = var.cdn_frontdoor_forwarding_protocol
-  key_vault_access_users                          = toset(var.key_vault_access_users)
   key_vault_access_ipv4                           = var.key_vault_access_ipv4
   tfvars_filename                                 = var.tfvars_filename
   enable_monitoring                               = var.enable_monitoring

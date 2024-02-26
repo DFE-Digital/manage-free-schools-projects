@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
@@ -23,7 +24,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string FsgPreOpeningMilestonesViewCostPlan2 { get; set; }
 
         public string FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
-
+        
+        public bool FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
+        
         public DateTime? FsgPreOpeningMilestonesKickOffMeetingHeldActualDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesSiteKickOffMeetingHeldActualDate { get; set; }
@@ -58,6 +61,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string FsgPreOpeningMilestonesMi107LinkToSavedDocument { get; set; }
 
+        public bool? FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadSharedFaWithTheTrust { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadDraftedFaHealthCheck { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder { get; set; }
+
+        public YesNo? FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa{ get; set; }
         public DateTime? FsgPreOpeningMilestonesMfadBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesMfadForecastDate { get; set; }
@@ -319,7 +331,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesGiasForecastDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesGiasActualDateOfCompletion { get; set; }
-
+        
+        public bool? FSGPreOpeningMilestonesGIASCheckedTrustInformation { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASApplicationFormSent { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASSavedToWorkspaces { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesGIASURNSent { get; set; }
         public string FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable { get; set; }
 
         public string FsgPreOpeningMilestonesMi155LinkToSavedDocument { get; set; }
@@ -330,8 +349,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool MAAArrangementsMatchGovernancePlans { get; set; }
 
-        public string MAACommentsOnDecisionToApprove { get; set; }
+        public YesNo? IsPlanSavedInWorkplacesFolder { get; set; }
 
-        public string MAASharepointLink { get; set; }
+        public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
+
+        public YesNo? TrustOptInRPA { get; set; }
+
+        public DateTime? RPAStartDate { get; set; }
+
+        public string RPACoverType { get; set; }
     }
 }

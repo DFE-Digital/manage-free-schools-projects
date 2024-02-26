@@ -10,7 +10,7 @@
 }
 
 @section BeforeMain {
-    <div class="govuk-width-container msfp-wider-page">
+    <div class="govuk-width-container">
         <a href=@RouteConstants.CreateNotifyUser class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
@@ -243,23 +243,6 @@
 
             <a class="govuk-link" href="@faithTypeLink" data-testid="change-faith-type">
                 Change<span class="govuk-visually-hidden">Faith type</span>
-            </a>
-        </dd>
-    </div>
-
-
-    <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Forms of entry
-        </dt>
-        <dd class="govuk-summary-list__value" data-testid="forms-of-entry">
-            @Model.Project.FormsOfEntry
-        </dd>
-
-        <dd class="govuk-summary-list__actions">
-
-            <a class="govuk-link" href="@RouteConstants.CreateFormsOfEntry" data-testid="forms-of-entry">
-                Change<span class="govuk-visually-hidden">Forms of entry</span>
             </a>
         </dd>
     </div>

@@ -75,6 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.Details of Funding arrangement agreed between LA and Sponsor");
+            builder.Property(e => e.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor)
+                .HasColumnType("bit");
             builder.Property(e => e.FsgPreOpeningMilestonesDgpActualDateOfCompletion)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.DGP Actual date of completion");
@@ -172,6 +174,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesGiasForecastDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.GIAS Forecast date");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASCheckedTrustInformation)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASApplicationFormSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASSavedToWorkspaces)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASURNSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
             builder.Property(e => e.FsgPreOpeningMilestonesHaveYouCompletedAndSavedYourRiskAppraisalForm)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -235,107 +249,107 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI103_Comments on decision to approve (if applicable)");
             builder.Property(e => e.FsgPreOpeningMilestonesMi105LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI105_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi107LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI107_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi109LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI109_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi111LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI111_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi113LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI113_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi115LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI115_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi117LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI117_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi119LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI119_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi121LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI121_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi123LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI123_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi125LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI125_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi127LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI127_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi129LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI129_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi131LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI131_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi133LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI133_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi135LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI135_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi137LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI137_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi139LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI139_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi141LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI141_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi143LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI143_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi145LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI145_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi147LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI147_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi149LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI149_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi151LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI151_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi153LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI153_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi155LinkToSavedDocument)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.MI155_Link to saved document");
             builder.Property(e => e.FsgPreOpeningMilestonesMi54CommentsOnDecisionToApproveIfApplicable)
@@ -547,18 +561,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("RID");
-            builder.Property(e => e.MAASharepointLink)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            builder.Property(e => e.MAACommentsOnDecisionToApprove)
-                .HasMaxLength(999)
-                .IsUnicode(false);
             builder.Property(e => e.MAACheckedSubmittedArticlesMatch)
                 .HasColumnType("bit");
             builder.Property(e => e.MAAChairHaveSubmittedConfirmation)
                 .HasColumnType("bit");
             builder.Property(e => e.MAAArrangementsMatchGovernancePlans)
                 .HasColumnType("bit");
+            builder.Property(e => e.RPACoverType)
+                .HasMaxLength(100)
+                .IsUnicode(false);
         }
 	}
 

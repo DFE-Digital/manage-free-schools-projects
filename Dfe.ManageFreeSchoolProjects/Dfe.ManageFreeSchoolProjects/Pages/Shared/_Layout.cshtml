@@ -7,6 +7,9 @@
     var titleDescription = Context.Request.Path == "/project-type"
         ? string.Empty
         : "- Manage free school projects";
+
+
+    var widePage = ViewData["WidePage"] != null ? "mfsp-wider-page" : string.Empty;
 }
 
 <!DOCTYPE html>
@@ -43,10 +46,9 @@
 
     <title>@ViewData["Title"] @titleDescription</title>
     <link rel="stylesheet" href="~/dist/site.css"/>
-    <link rel="stylesheet" href="~/dist/dfefrontend.css"/>
     <link rel="stylesheet" href="~/dist/accessible-autocomplete.min.css" asp-add-nonce/>
 </head>
-<body class="govuk-template__body mfsp-wider-page">
+<body class="govuk-template__body @widePage">
 
 @if (showAnalytics)
 {
@@ -66,6 +68,8 @@
 
 
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+
+
 <partial name="_CookieBanner"/>
 <header class="dfe-header" role="banner">
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
@@ -82,9 +86,10 @@
     </div>
     @await RenderSectionAsync("AfterHeader", required: false)
 </header>
+<partial name="_BetaBanner"/>
 @await RenderSectionAsync("BeforeMain", required: false)
 <div class="govuk-main-wrapper">
-    <main id="main-content" role="main" class="govuk-width-container msfp-wider-page">
+    <main id="main-content" role="main" class="govuk-width-container @widePage">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-full">
                 <partial name="_NotificationSummary"/>
@@ -129,12 +134,6 @@
             <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
                 <h2 class="govuk-visually-hidden">Support links</h2>
                 <ul class="govuk-footer__inline-list">
-                    <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" asp-page="@Links.Public.PrivacyPolicy.Page"
-                           data-test="accessibility-statement">
-                            Privacy policy
-                        </a>
-                    </li>
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" asp-page="@Links.Public.CookiePreferences.Page"
                            data-test="cookie-preferences" asp-route-returnUrl="@Context.Request.Path">

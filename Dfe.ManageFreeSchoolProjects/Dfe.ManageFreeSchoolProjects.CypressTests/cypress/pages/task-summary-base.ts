@@ -1,9 +1,13 @@
 export class SummaryPage {
     private summaryCounter = -1;
 
-    public inOrder(): this
-    {
+    public inOrder(): this {
         this.summaryCounter = -1
+        return this;
+    }
+
+    public startFromRow(row: number): this {
+        this.summaryCounter = row - 1;
         return this;
     }
 
@@ -20,6 +24,14 @@ export class SummaryPage {
     public summaryShows(key: string): this {
         this.summaryCounter++;
         cy.get(".govuk-summary-list__key").eq(this.summaryCounter).should("contains.text", key);
+        return this;
+    }
+
+    public summaryDoesNotShow(key: string): this {
+        cy.get(".govuk-summary-list__key").each($el => {
+            cy.wrap($el).should("not.contains.text", key);
+        });
+
         return this;
     }
 
@@ -44,15 +56,20 @@ export class SummaryPage {
     }
 
     public isNotMarkedAsComplete() {
-        cy.getByTestId("mark-as-complete").should("not.be.checked");
+        cy.getById("mark-as-completed").should("not.be.checked");
         return this;
     }
- 
+
+    public isMarkedAsComplete() {
+        cy.getById("mark-as-completed").should("be.checked");
+        return this;
+    }
+
     public MarkAsComplete() {
-        cy.getByTestId("mark-as-complete").click();
+        cy.getById("mark-as-completed").click();
         return this;
     }
- 
+
     public clickBack() {
         cy.get(".govuk-back-link").click();
     }

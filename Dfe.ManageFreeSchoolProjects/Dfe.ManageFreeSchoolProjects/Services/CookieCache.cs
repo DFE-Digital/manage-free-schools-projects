@@ -1,8 +1,11 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Utils;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
+using System.Text;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
 {
@@ -36,9 +39,21 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 return _item;
             }
 
-            var data = _httpContextAccessor.HttpContext.Request.Cookies[_key];
+            var data = new StringBuilder();
 
-            if (data == null)
+            var counter = 0;
+            while(counter < 100)
+            {
+                var chunk = _httpContextAccessor.HttpContext.Request.Cookies[_key + $".{counter}"];
+                if(string.IsNullOrEmpty(chunk))
+                {
+                    break;
+                }
+                data.Append(chunk);
+                counter++;
+            }
+
+            if (data.Length == 0)
             {
                 return new T();
             }
@@ -62,11 +77,15 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Delete()
         {
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(_key);
+            _httpContextAccessor.HttpContext.Request.Cookies.Keys
+                .Where(cookie => cookie.StartsWith(_key))
+                .ToList()
+                .ForEach(_httpContextAccessor.HttpContext.Response.Cookies.Delete);
         }
 
         public void Update(T item)
         {
+            Delete();
             _item = item;
             var json = JsonConvert.SerializeObject(item);
 
@@ -78,7 +97,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 Secure = true,
             };
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(_key, _dataProtector.Protect(json), options);
+            var data = _dataProtector.Protect(json);
+
+            var chunks = StringChunker.Chunk(data, 3000);
+
+            for ( int i = 0; i < chunks.Length; i++ ) { 
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(_key + $".{i}", chunks[i], options);
+            }
         }
     }
 }

@@ -99,17 +99,17 @@ public class EditSchoolChairContactModel : PageModel
         
         if (SchoolChairEmail?.Length > 100)
         {
-            ModelState.AddModelError("school-chair-email", "The school chair email must be 100 characters or less.");
+            ModelState.AddModelError("school-chair-email", "The school chair email must be 100 characters or less");
         }
         
         if (!IsEmailValid(SchoolChairEmail))
         {
-            ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format.");
+            ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format");
         }
         
         if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("school-chair-name", "School chair name cannot contain numbers.");
+            ModelState.AddModelError("school-chair-name", "School chair name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)

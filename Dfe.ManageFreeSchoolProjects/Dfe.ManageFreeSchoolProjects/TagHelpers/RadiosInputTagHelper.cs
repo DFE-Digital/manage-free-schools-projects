@@ -13,6 +13,10 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		[HtmlAttributeName("leading-paragraph")]
 		public string LeadingParagraph { get; set; }
 		
+		[HtmlAttributeName("medium-heading-label")]
+		
+		public bool MediumHeadingLabel { get; set; }
+		
 		[HtmlAttributeName("heading-label")]
 		public bool HeadingLabel { get; set; }
 
@@ -53,6 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Values = Values,
 				Labels = Labels,
 				HtmlLabels = HtmlLabels,
+				MediumHeadingLabel = MediumHeadingLabel,
 				HeadingLabel = HeadingLabel,
 				XLHeadingLabel = XLHeadingLabel,
 				LeadingParagraph = LeadingParagraph,

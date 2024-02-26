@@ -81,12 +81,6 @@ class ProjectOverviewPage {
         return this;
     }
 
-    public hasOpeningAcademicYear(value: string): this {
-        cy.getByTestId(`opening-academic-year`).should(`contain.text`, value);
-
-        return this;
-    }
-
     public hasLocalAuthority(value: string): this {
         cy.getByTestId(`local-authority`).should(`contain.text`, value);
 
@@ -207,6 +201,12 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public changeContacts(): this {
+        cy.getByTestId("change-contacts").click();
+
+        return this;
+    }
+
     public hasProjectRiskRating(values: string[]): this {
         this.checkRagRating(`project-risk-rating`, values);
 
@@ -221,6 +221,18 @@ class ProjectOverviewPage {
 
     public hasProjectRiskDate(value: string): this {
         cy.getByTestId("project-risk-date").should("contain.text", value);
+
+        return this;
+    }
+
+    public hasSchoolChairOfGovernors(value: string): this {
+        cy.getByTestId("school-chair-of-governors").should("contain.text", value);
+
+        return this;
+    }
+
+    public hasTrustChair(value: string): this {
+        cy.getByTestId("trust-chair").should("contain.text", value);
 
         return this;
     }

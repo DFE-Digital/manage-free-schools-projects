@@ -46,7 +46,13 @@
 	<fieldset class="govuk-fieldset" id=@Model.Id>
 		@if (!string.IsNullOrWhiteSpace(Model.Label))
 		{
-			if (Model.HeadingLabel)
+			if (Model.MediumHeadingLabel)
+			{
+				<legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+						@Model.Label
+				</legend>
+			}
+			else if (Model.HeadingLabel)
 			{
 				<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 					<h1 class="govuk-fieldset__heading">

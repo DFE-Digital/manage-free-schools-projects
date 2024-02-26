@@ -11,13 +11,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ClassType.Nursery Nursery { get; set; }
         public ClassType.SixthForm SixthForm { get; set; }
         public Gender Gender { get; set; }
-
+        public string FormsOfEntry { get; set; }
         public FaithStatus FaithStatus { get; set; }
-
         public FaithType FaithType { get; set; }
-
         public string OtherFaithType { get; set; }
-        
         public bool MarkedAsComplete { get; set; }
     }
     

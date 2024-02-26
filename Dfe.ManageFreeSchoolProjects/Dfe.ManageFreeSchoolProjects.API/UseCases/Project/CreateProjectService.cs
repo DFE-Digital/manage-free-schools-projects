@@ -1,7 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -108,7 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             foreach (Kpi proj in checkedProjects)
             {
                 _context.Add(proj);
-                _context.AddRange(CreateTasks(proj.Rid));
+                _context.AddRange(ProjectTaskBuilder.BuildTasks(proj.Rid));
                 _context.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = proj.Rid });
 
                 var po = checkedProjectsPO.Find(p => p.Rid == proj.Rid);
@@ -124,15 +124,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             var result = await _context.Trust.FirstOrDefaultAsync(e => e.TrustRef == trustRef);
             return result;
-        }
-
-        private static IEnumerable<Data.Entities.Existing.Tasks> CreateTasks(string kpiRid)
-        {
-            yield return new() { Rid = kpiRid, TaskName = TaskName.School, Status = Status.NotStarted };
-            yield return new() { Rid = kpiRid, TaskName = TaskName.Dates, Status = Status.NotStarted };
-            yield return new() { Rid = kpiRid, TaskName = TaskName.Trust, Status = Status.NotStarted };
-            yield return new() { Rid = kpiRid, TaskName = TaskName.RiskAppraisalMeeting, Status = Status.NotStarted };
-            yield return new() { Rid = kpiRid, TaskName = TaskName.Constituency, Status = Status.NotStarted };
         }
     }
 }

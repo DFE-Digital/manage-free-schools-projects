@@ -13,14 +13,14 @@
 <partial name="_ErrorSummary" />
 
 @section BeforeMain {
-    <div class="govuk-width-container msfp-wider-page">
+    <div class="govuk-width-container">
         <a href="@backLink" class="govuk-back-link">Back to contacts summary</a>
     </div>
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">
+        <h1 class="govuk-heading-xl" data-testid="edit-trust-chair-title">
               <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
             @ViewData["Title"]
         </h1>
@@ -40,17 +40,17 @@
                 id="trust-chair-name" 
                 name="trust-chair-name" 
                 asp-for="@Model.PageContacts.Contacts.ChairOfGovernorsName" 
-                test-id="trust-chair-email"
+                test-id="edit-trust-chair-name"
                 />
             
-             <label class="govuk-label govuk-heading-m" for="trust-chair-name">
+             <label class="govuk-label govuk-heading-m" for="trust-chair-email">
                             Email
                         </label>
                         <govuk-text-input 
                             id="trust-chair-email" 
                             name="trust-chair-email" 
                             asp-for="@Model.PageContacts.Contacts.ChairOfGovernorsEmail" 
-                            test-id="trust-chair-email"
+                            test-id="edit-trust-chair-email"
                             />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

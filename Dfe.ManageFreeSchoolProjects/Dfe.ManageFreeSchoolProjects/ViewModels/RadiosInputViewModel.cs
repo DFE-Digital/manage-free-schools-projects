@@ -7,6 +7,7 @@
         public string Value { get; set; }
         public string[] Values { get; set; }
         public string Label { get; set; }
+        public bool MediumHeadingLabel { get; set; }
         public bool HeadingLabel { get; set; }
 		public bool XLHeadingLabel { get; set; }
 		public string[] Labels { get; set; }

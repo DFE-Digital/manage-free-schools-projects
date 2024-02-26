@@ -3,11 +3,6 @@ variable "environment" {
   type        = string
 }
 
-variable "key_vault_access_users" {
-  description = "List of users that require access to the Key Vault where tfvars are stored. This should be a list of User Principle Names (Found in Active Directory) that need to run terraform"
-  type        = list(string)
-}
-
 variable "key_vault_access_ipv4" {
   description = "List of IPv4 Addresses that are permitted to access the Key Vault"
   type        = list(string)
@@ -77,6 +72,12 @@ variable "container_secret_environment_variables" {
   sensitive   = true
 }
 
+variable "container_scale_http_concurrency" {
+  description = "When the number of concurrent HTTP requests exceeds this value, then another replica is added. Replicas continue to add to the pool up to the max-replicas amount."
+  type        = number
+  default     = 10
+}
+
 variable "enable_mssql_database" {
   description = "Set to true to create an Azure SQL server/database, with a private endpoint within the virtual network"
   type        = bool
@@ -115,6 +116,12 @@ variable "mssql_firewall_ipv4_allow_list" {
 
 variable "mssql_server_public_access_enabled" {
   description = "Enable public internet access to your MSSQL instance. Be sure to specify 'mssql_firewall_ipv4_allow_list' to restrict inbound connections"
+  type        = bool
+  default     = false
+}
+
+variable "mssql_managed_identity_assign_role" {
+  description = "Assign the 'Storage Blob Data Contributor' Role to the SQL Server User-Assigned Managed Identity. Note: If you do not have 'Microsoft.Authorization/roleAssignments/write' permission, you will need to manually assign the 'Storage Blob Data Contributor' Role to the identity"
   type        = bool
   default     = false
 }
@@ -241,7 +248,7 @@ variable "enable_dns_zone" {
 variable "cdn_frontdoor_forwarding_protocol" {
   description = "Azure CDN Front Door forwarding protocol"
   type        = string
-  default     = "HttpsOnly"
+  default     = "HttpOnly"
 }
 
 variable "dns_zone_domain_name" {
@@ -278,7 +285,7 @@ variable "enable_container_health_probe" {
 variable "cdn_frontdoor_health_probe_protocol" {
   description = "Use Http or Https"
   type        = string
-  default     = "Https"
+  default     = "Http"
 }
 
 variable "custom_container_apps" {
@@ -296,6 +303,10 @@ variable "custom_container_apps" {
       })
       cdn_frontdoor_custom_domain = optional(string, "")
     }), null)
+    identity = optional(list(object({
+      type         = string
+      identity_ids = list(string)
+    })), [])
     secrets = optional(list(object({
       name  = string
       value = string

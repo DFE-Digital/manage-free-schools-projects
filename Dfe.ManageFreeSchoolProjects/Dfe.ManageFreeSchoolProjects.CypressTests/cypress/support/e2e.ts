@@ -16,6 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import { AuthenticationInterceptorParams } from "cypress/auth/authenticationInterceptor";
 import "./commands";
+import { RuleObject } from "axe-core";
 
 declare global {
     namespace Cypress {
@@ -31,7 +32,8 @@ declare global {
             login(params?: AuthenticationInterceptorParams): Chainable<Element>;
             loginWithCredentials(): Chainable<Element>;
             assertChildList(selector: string, values: string[]): Chainable<Element>;
-            executeAccessibilityTests(): Chainable<Element>;
+            executeAccessibilityTests(ruleExclusions?: RuleObject): Chainable<Element>;
+            enterDate(idPrefix: string, day: string, month: string, year: string): Chainable<Element>;
         }
     }
 }

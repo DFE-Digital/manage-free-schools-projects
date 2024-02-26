@@ -23,7 +23,7 @@ describe("Testing articles of association Task", () => {
             });
     });
     it("Should successfully set articles of association", () => {
-        
+
         cy.log("Select articles of association");
         taskListPage.isTaskStatusIsNotStarted("ArticlesOfAssociation")
             .selectArticlesOfAssociationFromTaskList();
@@ -39,7 +39,7 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
-            .summaryShows("Sharepoint link").IsEmpty().HasChangeLink()
+            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
@@ -67,7 +67,7 @@ describe("Testing articles of association Task", () => {
             .titleIs("Edit articles of association")
             .schoolNameIs(project.schoolName)
             .clickContinue()
-        
+
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Articles of association")
@@ -78,7 +78,7 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
-            .summaryShows("Sharepoint link").IsEmpty().HasChangeLink()
+            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .clickChange();
 
@@ -87,18 +87,18 @@ describe("Testing articles of association Task", () => {
         articlesOfAssociationEditPage
             .withSharepointLink(dataGenerator.generateAlphaNumeric(101))
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
+            .errorForSharepointLink().showsError("SharePoint link must be a valid url")
             .withSharepointLink("NotAUrl")
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
-            .withSharepointLink(`https://www.gov.uk/government/organisations/department-for-education${dataGenerator.generateAlphaNumeric(90)}`)
+            .errorForSharepointLink().showsError("SharePoint link must be a valid url")
+            .withSharepointLinkExceedingMaxLength()
             .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be 100 characters or less")
+            .errorForSharepointLink().showsError("SharePoint link must be 500 characters or less")
             .withSharepointLink("https://www.gov.uk/government/organisations/department-for-education")
             .clickContinue();
 
-        summaryPage.SummaryHasValue("Sharepoint link", "https://www.gov.uk/government/organisations/department-for-education")
-        .clickChange();
+        summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
+            .clickChange();
 
         cy.log("Comment on decision validation")
 
@@ -116,7 +116,7 @@ describe("Testing articles of association Task", () => {
             .clickContinue();
 
         summaryPage.SummaryHasValue("Comments on decision to approve (if applicable)", "comment that's ok")
-        .clickChange();
+            .clickChange();
 
         cy.log('Forecast date validation')
 
@@ -129,7 +129,7 @@ describe("Testing articles of association Task", () => {
             .errorForForecastDate().showsError("Year must be between 2000 and 2050")
             .withForecastDate("1", "3", "2050")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("Forecast date", "1 March 2050")
             .clickChange();
 
@@ -144,11 +144,11 @@ describe("Testing articles of association Task", () => {
             .errorForActualDate().showsError("Year must be between 2000 and 2050")
             .withActualDate("5", "4", "2050")
             .clickContinue();
-        
+
         summaryPage.SummaryHasValue("Actual date", "5 April 2050")
             .clickChange();
 
-            
+
         cy.log('Confirm all set')
 
         articlesOfAssociationEditPage
@@ -167,15 +167,15 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Forecast date").HasValue("1 March 2050").HasChangeLink()
             .summaryShows("Actual date").HasValue("5 April 2050").HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").HasValue("comment that's ok").HasChangeLink()
-            .summaryShows("Sharepoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
+            .summaryShows("SharePoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
             .isNotMarkedAsComplete();
 
         summaryPage.MarkAsComplete()
             .clickConfirmAndContinue();
-        
+
         taskListPage.isTaskStatusIsCompleted("ArticlesOfAssociation");
-        
+
 
     });
-                
+
 });

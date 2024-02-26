@@ -1,5 +1,10 @@
 class TaskListPage {
 
+    public selectAboutTheProjectTab(): this {
+        cy.contains("About the project").click()
+        return this;
+    }
+
     public selectDatesFromTaskList(): this {
         cy.getByTestId("dates-task").click()
         return this;
@@ -35,7 +40,32 @@ class TaskListPage {
         return this;
     }
 
-    
+    public selectFinancePlanFromTaskList(): this {
+        cy.getByTestId("finance-plan-task").click()
+        return this;
+    }
+
+    public selectKickOffMeetingFromTaskList(): this {
+        cy.getByTestId("kick-off-meeting-task").click()
+        return this;
+    }
+
+    public selectModelFundingAgreementFromTaskList(): this {
+        cy.getByTestId("model-funding-agreement-task").click()
+        return this;
+    }
+
+    public selectDraftGovernancePlanFromTaskList(): this {
+        this.getDraftGovernancePlanTask().click();
+        return this;
+    }
+
+    public draftGovernancePlanTaskDoesNotShow(): this {
+        this.getDraftGovernancePlanTask().should("not.exist");
+
+        return this;
+    }
+
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
         return this;
@@ -49,6 +79,10 @@ class TaskListPage {
     public isTaskStatusIsCompleted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).contains("Completed");
         return this;
+    }
+
+    private getDraftGovernancePlanTask() {
+        return cy.getByTestId("draft-governance-plan-task");
     }
 }
 

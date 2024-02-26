@@ -7,7 +7,7 @@
     var backLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 @section BeforeMain {
-    <div class="govuk-width-container msfp-wider-page">
+    <div class="govuk-width-container">
         <a href="@backLink" class="govuk-back-link">Back</a>
     </div>
 }
@@ -159,7 +159,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    RAF Sharepoint link
+                    RAF SharePoint link
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="risk-appraisal-form-sharepoint-link">
                     @if (string.IsNullOrEmpty(Model.ProjectRisk.RiskAppraisalFormSharepointLink))
