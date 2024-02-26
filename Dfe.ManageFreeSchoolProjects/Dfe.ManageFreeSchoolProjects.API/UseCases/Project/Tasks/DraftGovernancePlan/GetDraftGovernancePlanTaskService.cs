@@ -24,13 +24,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
                                     DraftGovernancePlan = new()
                                     {
                                         SavedDocumentsInWorkplacesFolder = milestones.DraftGovernancePlanDocumentsSavedInWorkplacesFolder,
-                                        PlanAndTemplateSharedWithEsfa = milestones.DraftGovernancePlanAndTemplateSharedWithEsfa,
-                                        PlanAndTemplateSharedWithExpert = milestones.DraftGovernancePlanAndTemplateSharedWithExpert,
+                                        PlanAndAssessmentSharedWithEsfa = milestones.DraftGovernancePlanAndAssessmentSharedWithEsfa,
+                                        PlanAndAssessmentSharedWithExpert = milestones.DraftGovernancePlanAndAssessmentSharedWithExpert,
                                         PlanAssessedUsingTemplate = milestones.DraftGovernancePlanAssessedUsingTemplate,
                                         PlanFedBackToTrust = milestones.DraftGovernancePlanFedBackToTrust,
                                         PlanReceivedFromTrust = milestones.DraftGovernancePlanReceivedFromTrust,
-                                        DateReceived = milestones.FsgPreOpeningMilestonesDgpActualDateOfCompletion,
-                                        CommentsOnDecisionToApprove = milestones.FsgPreOpeningMilestonesMi60CommentsOnDecisionToApproveIfApplicable,
+                                        DatePlanReceived = milestones.FsgPreOpeningMilestonesDgpActualDateOfCompletion,
+                                        Comments = milestones.FsgPreOpeningMilestonesMi60CommentsOnDecisionToApproveIfApplicable,
                                     }
                                 }).FirstOrDefaultAsync();
 

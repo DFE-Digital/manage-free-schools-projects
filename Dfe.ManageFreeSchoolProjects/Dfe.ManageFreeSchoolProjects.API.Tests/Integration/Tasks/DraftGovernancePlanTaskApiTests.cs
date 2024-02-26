@@ -31,13 +31,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = false,
-                    PlanAndTemplateSharedWithEsfa = false,
-                    PlanAndTemplateSharedWithExpert = false,
+                    PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithExpert = false,
                     PlanAssessedUsingTemplate = false,
                     PlanFedBackToTrust = false,
                     PlanReceivedFromTrust = false,
-                    DateReceived = dateReceived,
-                    CommentsOnDecisionToApprove = "Comments on approval",
+                    DatePlanReceived = dateReceived,
+                    Comments = "Comments on approval",
                 }
             };
 
@@ -64,13 +64,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = false,
-                    PlanAndTemplateSharedWithEsfa = false,
-                    PlanAndTemplateSharedWithExpert = false,
+                    PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithExpert = false,
                     PlanAssessedUsingTemplate = false,
                     PlanFedBackToTrust = false,
                     PlanReceivedFromTrust = false,
-                    DateReceived = dateReceived,
-                    CommentsOnDecisionToApprove = "Comments on approval",
+                    DatePlanReceived = dateReceived,
+                    Comments = "Comments on approval",
                 }
             };
 
@@ -81,13 +81,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = true,
-                    PlanAndTemplateSharedWithEsfa = true,
-                    PlanAndTemplateSharedWithExpert = true,
+                    PlanAndAssessmentSharedWithEsfa = true,
+                    PlanAndAssessmentSharedWithExpert = true,
                     PlanAssessedUsingTemplate = true,
                     PlanFedBackToTrust = true,
                     PlanReceivedFromTrust = true,
-                    DateReceived = dateReceived.AddDays(5),
-                    CommentsOnDecisionToApprove = "Updated comments on approval",
+                    DatePlanReceived = dateReceived.AddDays(5),
+                    Comments = "Updated comments on approval",
                 }
             };
 
@@ -98,14 +98,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
         private static void AssertDraftGovernancePlan(DraftGovernancePlanTask actual, DraftGovernancePlanTask expected)
         {
-            actual.DateReceived.Should().Be(expected.DateReceived);
+            actual.DatePlanReceived.Should().Be(expected.DatePlanReceived);
             actual.PlanReceivedFromTrust.Should().Be(expected.PlanReceivedFromTrust);
             actual.PlanFedBackToTrust.Should().Be(expected.PlanFedBackToTrust);
             actual.PlanAssessedUsingTemplate.Should().Be(expected.PlanAssessedUsingTemplate);
-            actual.PlanAndTemplateSharedWithExpert.Should().Be(expected.PlanAndTemplateSharedWithExpert);
-            actual.PlanAndTemplateSharedWithEsfa.Should().Be(expected.PlanAndTemplateSharedWithEsfa);
+            actual.PlanAndAssessmentSharedWithExpert.Should().Be(expected.PlanAndAssessmentSharedWithExpert);
+            actual.PlanAndAssessmentSharedWithEsfa.Should().Be(expected.PlanAndAssessmentSharedWithEsfa);
             actual.SavedDocumentsInWorkplacesFolder.Should().Be(expected.SavedDocumentsInWorkplacesFolder);
-            actual.CommentsOnDecisionToApprove.Should().Be(expected.CommentsOnDecisionToApprove);
+            actual.Comments.Should().Be(expected.Comments);
         }
     }
 }

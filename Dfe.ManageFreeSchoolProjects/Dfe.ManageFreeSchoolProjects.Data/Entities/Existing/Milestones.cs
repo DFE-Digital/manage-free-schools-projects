@@ -365,9 +365,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool? DraftGovernancePlanAssessedUsingTemplate { get; set; }
 
-        public bool? DraftGovernancePlanAndTemplateSharedWithExpert { get; set; }
+        public bool? DraftGovernancePlanAndAssessmentSharedWithExpert { get; set; }
 
-        public bool? DraftGovernancePlanAndTemplateSharedWithEsfa { get; set; }
+        public bool? DraftGovernancePlanAndAssessmentSharedWithEsfa { get; set; }
 
         public bool? DraftGovernancePlanFedBackToTrust { get; set; }
 

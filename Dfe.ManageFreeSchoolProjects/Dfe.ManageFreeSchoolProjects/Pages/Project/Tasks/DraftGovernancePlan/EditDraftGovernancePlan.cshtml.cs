@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
@@ -25,24 +24,32 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        [BindProperty(Name = "forecast-date", BinderType = typeof(DateInputModelBinder))]
-        [DisplayName("Forecast date")]
-        public DateTime? ForecastDate { get; set; }
+        [BindProperty(Name = "plan-received-from-trust")]
+        public bool? PlanReceivedFromTrust { get; set; }
 
-        [BindProperty(Name = "actual-date", BinderType = typeof(DateInputModelBinder))]
-        [DisplayName("Actual date")]
-        public DateTime? ActualDate { get; set; }
+        [BindProperty(Name = "date-plan-received", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date received")]
+        public DateTime? DatePlanReceived { get; set; }
+
+        [BindProperty(Name = "plan-assessed-using-template")]
+        public bool? PlanAssessedUsingTemplate { get; set; }
+
+        [BindProperty(Name = "plan-and-assessment-shared-with-expert")]
+        public bool? PlanAndAssessmentSharedWithExpert { get; set; }
+
+        [BindProperty(Name = "plan-and-assessment-shared-with-esfa")]
+        public bool? PlanAndAssessmentSharedWithEsfa { get; set; }
+
+        [BindProperty(Name = "plan-fed-back-to-trust")]
+        public bool? PlanFedBackToTrust { get; set; }
+
+        [BindProperty(Name = "saved-documents-in-workplaces-folder")]
+        public bool? SavedDocumentsInWorkplacesFolder { get; set; }
 
         [BindProperty(Name = "comments")]
-        [DisplayName("Comments on decision to approve (if applicable)")]
+        [DisplayName("Comments")]
         [ValidText(999)]
-        public string CommentsOnDecisionToApprove { get; set; }
-
-        [BindProperty(Name = "sharepoint-link")]
-        [DisplayName("SharePoint link")]
-        [StringLength(ValidationConstants.LinkMaxLength, ErrorMessage = ValidationConstants.TextValidationMessage)]
-        [Url(ErrorMessage = ValidationConstants.LinkValidationMessage)]
-        public string SharePointLink { get; set; }
+        public string Comments { get; set; }
 
         [BindProperty]
         public string SchoolName { get; set; }
@@ -78,10 +85,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
             {
                 DraftGovernancePlan = new()
                 {
-                    ForecastDate = ForecastDate,
-                    ActualDate = ActualDate,
-                    CommentsOnDecisionToApprove = CommentsOnDecisionToApprove,
-                    SharepointLink = SharePointLink
+                    PlanReceivedFromTrust = PlanReceivedFromTrust,
+                    DatePlanReceived = DatePlanReceived,
+                    PlanAssessedUsingTemplate = PlanAssessedUsingTemplate,
+                    PlanAndAssessmentSharedWithExpert = PlanAndAssessmentSharedWithExpert,
+                    PlanAndAssessmentSharedWithEsfa = PlanAndAssessmentSharedWithEsfa,
+                    PlanFedBackToTrust = PlanFedBackToTrust,
+                    SavedDocumentsInWorkplacesFolder = SavedDocumentsInWorkplacesFolder,
+                    Comments = Comments
                 }
             };
 
@@ -94,10 +105,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.DraftGovernancePlan);
 
-            ForecastDate = project.DraftGovernancePlan.ForecastDate;
-            ActualDate = project.DraftGovernancePlan.ActualDate;
-            CommentsOnDecisionToApprove = project.DraftGovernancePlan.CommentsOnDecisionToApprove;
-            SharePointLink = project.DraftGovernancePlan.SharepointLink;
+            PlanReceivedFromTrust = project.DraftGovernancePlan.PlanReceivedFromTrust;
+            DatePlanReceived = project.DraftGovernancePlan.DatePlanReceived;
+            PlanAssessedUsingTemplate = project.DraftGovernancePlan.PlanAssessedUsingTemplate;
+            PlanAndAssessmentSharedWithExpert = project.DraftGovernancePlan.PlanAndAssessmentSharedWithExpert;
+            PlanAndAssessmentSharedWithEsfa = project.DraftGovernancePlan.PlanAndAssessmentSharedWithEsfa;
+            PlanFedBackToTrust = project.DraftGovernancePlan.PlanFedBackToTrust;
+            SavedDocumentsInWorkplacesFolder = project.DraftGovernancePlan.SavedDocumentsInWorkplacesFolder;
+            Comments = project.DraftGovernancePlan.Comments;
 
             SchoolName = project.SchoolName;
         }
