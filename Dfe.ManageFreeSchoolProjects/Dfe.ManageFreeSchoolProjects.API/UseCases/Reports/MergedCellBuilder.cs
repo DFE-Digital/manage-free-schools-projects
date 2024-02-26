@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml;
+using System.Text;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -33,17 +34,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         private static string GetColumnName(uint columnNumber)
         {
             uint dividend = columnNumber;
-            string columnName = string.Empty;
+            var columnName = new StringBuilder();
             uint modulo;
 
             while (dividend > 0)
             {
                 modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                //columnName.Insert(0, Convert.ToChar(65 + modulo).ToString());
+                columnName.Append(Convert.ToChar(65 + modulo).ToString());
                 dividend = ((dividend - modulo) / 26);
             }
 
-            return columnName;
+            return columnName.ToString();
         }
     }
 }

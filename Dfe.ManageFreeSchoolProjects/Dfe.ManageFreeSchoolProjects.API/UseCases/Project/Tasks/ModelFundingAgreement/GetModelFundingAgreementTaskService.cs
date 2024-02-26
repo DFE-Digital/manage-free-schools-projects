@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                         DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion,
                         Comments = milestones.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable,
                         SavedFADocumentsInWorkplacesFolder = milestones.FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder,
-                        TayloredAModelFundingAgreement = milestones.FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement,
+                        TailoredAModelFundingAgreement = milestones.FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement,
                         SharedFAWithTheTrust = milestones.FsgPreOpeningMilestonesMfadSharedFaWithTheTrust,
                     }
                 }).FirstOrDefaultAsync();

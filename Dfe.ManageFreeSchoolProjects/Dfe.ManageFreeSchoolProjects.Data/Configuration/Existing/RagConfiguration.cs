@@ -162,7 +162,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("RID");
             builder.Property(e => e.RagRatingsRiskAppraisalFormSharepointLink)
-                .HasMaxLength(1000)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
 

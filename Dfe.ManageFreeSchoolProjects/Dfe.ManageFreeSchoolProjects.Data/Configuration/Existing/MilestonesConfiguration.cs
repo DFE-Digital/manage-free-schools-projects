@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
-	public partial class MilestonesConfiguration : IEntityTypeConfiguration< Milestones>
+    public partial class MilestonesConfiguration : IEntityTypeConfiguration< Milestones>
 	{
 		public void Configure(EntityTypeBuilder<Milestones> builder)
 		{
             builder.HasKey(e => e.Rid);
+
+            builder.ToTable("Milestones", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.FsgPreOpeningMilestonesAppEvActualDateOfCompletion)
                 .HasColumnType("date")
@@ -174,6 +174,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesGiasForecastDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.GIAS Forecast date");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASCheckedTrustInformation)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASApplicationFormSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASSavedToWorkspaces)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
+            builder.Property(e => e.FSGPreOpeningMilestonesGIASURNSent)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
             builder.Property(e => e.FsgPreOpeningMilestonesHaveYouCompletedAndSavedYourRiskAppraisalForm)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -549,12 +561,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("RID");
-            builder.Property(e => e.MAASharepointLink)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-            builder.Property(e => e.MAACommentsOnDecisionToApprove)
-                .HasMaxLength(999)
-                .IsUnicode(false);
             builder.Property(e => e.MAACheckedSubmittedArticlesMatch)
                 .HasColumnType("bit");
             builder.Property(e => e.MAAChairHaveSubmittedConfirmation)
