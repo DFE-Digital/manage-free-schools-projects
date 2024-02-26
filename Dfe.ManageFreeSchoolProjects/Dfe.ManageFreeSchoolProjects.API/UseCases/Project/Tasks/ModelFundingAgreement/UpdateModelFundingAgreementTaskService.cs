@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
             db.FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa = task.TrustAgreesWithModelFA;
             db.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck = task.DraftedFAHealthCheck;
             db.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable = task.Comments;
-            db.FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement = task.TayloredAModelFundingAgreement;
+            db.FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement = task.TailoredAModelFundingAgreement;
             db.FsgPreOpeningMilestonesMfadSharedFaWithTheTrust = task.SharedFAWithTheTrust;
         }
     }

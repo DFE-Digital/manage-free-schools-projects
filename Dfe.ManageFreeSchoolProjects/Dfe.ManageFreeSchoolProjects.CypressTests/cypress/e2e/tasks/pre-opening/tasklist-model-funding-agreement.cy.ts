@@ -36,7 +36,7 @@ describe("Testing Model funding agreement Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Model funding agreement")
             .inOrder()
-            .summaryShows("Taylored a model funding agreement (FA)").IsEmpty().HasChangeLink()
+            .summaryShows("Tailored a model funding agreement (FA)").IsEmpty().HasChangeLink()
             .summaryShows("Shared FA with trust").IsEmpty().HasChangeLink()
             .summaryShows("Trust agrees with model FA").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
@@ -93,7 +93,7 @@ describe("Testing Model funding agreement Task", () => {
             .checkAgreesWithModelFa()
             .withAgreedDate("2","2","2050")
             .withComments("comments are valid")
-            .checkTayloredAModelFundingAgreement()
+            .checkTailoredAModelFundingAgreement()
             .checkSharedFAWithTrust()
             .checkDraftedFAHealthcheck()
             .checkSavedFADocumentsInWorkplacesFolder()
@@ -103,39 +103,45 @@ describe("Testing Model funding agreement Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Model funding agreement")
             .inOrder()
-            .summaryShows("Taylored a model funding agreement (FA)").HasValue("Yes").HasChangeLink()
+            .summaryShows("Tailored a model funding agreement (FA)").HasValue("Yes").HasChangeLink()
             .summaryShows("Shared FA with trust").HasValue("Yes").HasChangeLink()
             .summaryShows("Trust agrees with model FA").HasValue("Yes").HasChangeLink()
             .summaryShows("Date Agreed").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
             .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
-            .isNotMarkedAsComplete();
 
         cy.log("Unselect select date agreed")
        
         summaryPage.clickChange();
         modelFundingAgreementEditPage
             .uncheckAgreesWithModelFa()
-            .uncheckTayloredAModelFundingAgreement()
+            .uncheckTailoredAModelFundingAgreement()
             .uncheckSharedFAWithTrust()
             .uncheckSavedFADocumentsInWorkplacesFolder()
             .uncheckDraftedFAHealthcheck()
             .clickContinue()
+            
 
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Model funding agreement")
             .inOrder()
-            .summaryShows("Taylored a model funding agreement (FA)").HasValue("No").HasChangeLink()
+            .summaryShows("Tailored a model funding agreement (FA)").HasValue("No").HasChangeLink()
             .summaryShows("Shared FA with trust").HasValue("No").HasChangeLink()
             .summaryShows("Trust agrees with model FA").HasValue("No").HasChangeLink()
             .summaryDoesNotShow("Date Agreed")
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
             .summaryShows("Drafted FA health check").HasValue("No").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("No").HasChangeLink()
-            .isNotMarkedAsComplete();
+            .isNotMarkedAsComplete()
+            .MarkAsComplete()
+            .clickConfirmAndContinue()
+
+        taskListPage
+            .selectModelFundingAgreementFromTaskList()
         
+        summaryPage.isMarkedAsComplete()
     })
     
     

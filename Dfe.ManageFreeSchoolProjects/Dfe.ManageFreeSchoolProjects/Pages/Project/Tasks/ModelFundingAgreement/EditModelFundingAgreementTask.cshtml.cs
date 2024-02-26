@@ -29,8 +29,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
         
-        [BindProperty(Name = "taylored-model-funding-agreement")]
-        public bool? TayloredAModelFundingAgreement { get; set; }
+        [BindProperty(Name = "tailored-model-funding-agreement")]
+        public bool? TailoredAModelFundingAgreement { get; set; }
         
         [BindProperty(Name = "shared-fa-with-the-trust")]
         public bool? SharedFAWithTheTrust { get; set; }
@@ -107,7 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
                         DateTrustAgreesWithModelFA = null,
                         Comments = Comments,
                         SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder ?? false,
-                        TayloredAModelFundingAgreement = TayloredAModelFundingAgreement ?? false,
+                        TailoredAModelFundingAgreement = TailoredAModelFundingAgreement ?? false,
                         SharedFAWithTheTrust = SharedFAWithTheTrust ?? false,   
                     }
                 };
@@ -137,7 +137,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
             DateTrustAgreesWithModelFA = project.ModelFundingAgreement.DateTrustAgreesWithModelFA;
             Comments = project.ModelFundingAgreement.Comments;
             SavedFADocumentsInWorkplacesFolder = project.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder;
-            TayloredAModelFundingAgreement = project.ModelFundingAgreement.TayloredAModelFundingAgreement;
+            TailoredAModelFundingAgreement = project.ModelFundingAgreement.TailoredAModelFundingAgreement;
             SharedFAWithTheTrust = project.ModelFundingAgreement.SharedFAWithTheTrust;
             
             SchoolName = project.SchoolName;
