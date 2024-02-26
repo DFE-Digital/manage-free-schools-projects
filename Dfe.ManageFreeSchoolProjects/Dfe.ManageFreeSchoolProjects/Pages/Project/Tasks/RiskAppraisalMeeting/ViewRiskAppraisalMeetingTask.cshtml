@@ -5,7 +5,6 @@
     ViewData["Title"] = $"Risk appraisal meeting - {Model.Project.SchoolName}";
     var editLink = string.Format(RouteConstants.EditRiskAppraisalMeetingTask, Model.ProjectId);
     var backLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var riskSummaryLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 
     var riskAppraisalMeetingTask = Model.Project.RiskAppraisalMeeting;
 }

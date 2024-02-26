@@ -26,33 +26,30 @@
         <form method="post">
 
             <div class="govuk-form-group ">
-                <fieldset class="govuk-fieldset">
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            <input 
-                                class="govuk-checkboxes__input" 
-                                id="plan-received-from-trust" 
-                                name="plan-received-from-trust" 
-                                type="checkbox" 
-                                value="true"
-                                checked="@(Model.PlanReceivedFromTrust == true ? "checked" : null)"
-                                data-aria-controls="conditional-date-received">
-                            <label class="govuk-label govuk-checkboxes__label" for="plan-received-from-trust">
-                                Received draft governance plan from trust
-                            </label>
-                        </div>
-                        <div class="govuk-checkboxes__conditional" id="conditional-date-received">
-                            <govuk-date-input id="date-plan-received" name="date-plan-received" asp-for="@Model.DatePlanReceived" label="Date received" hint="For example, 27 3 2021" />
-                        </div>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input"
+                               id="plan-received-from-trust"
+                               name="plan-received-from-trust"
+                               type="checkbox"
+                               value="true"
+                               checked="@(Model.PlanReceivedFromTrust == true ? "checked" : null)"
+                               data-aria-controls="conditional-date-received">
+                        <label class="govuk-label govuk-checkboxes__label" for="plan-received-from-trust">
+                            Received draft governance plan from trust
+                        </label>
                     </div>
-                </fieldset>
+                    <div class="govuk-checkboxes__conditional" id="conditional-date-received">
+                        <govuk-date-input id="date-plan-received" name="date-plan-received" asp-for="@Model.DatePlanReceived" label="Date received" hint="For example, 27 3 2021" />
+                    </div>
+                </div>
             </div>
 
             <govuk-checkbox-input label="Assessed plan using assessment template"
                                   asp-for="@Model.PlanAssessedUsingTemplate"
                                   name="plan-assessed-using-template"
                                   id="plan-assessed-using-template"
-                                  add-margin=false/>
+                                  add-margin=false />
 
             <govuk-checkbox-input label="Shared plan and assessment with external expert"
                                   asp-for="@Model.PlanAndAssessmentSharedWithExpert"
