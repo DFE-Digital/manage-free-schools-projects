@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User", "mfsp");
+            builder.ToTable("User", "mfsp", e => e.IsTemporal());
             builder.HasKey(e => e.Id);
             builder.HasIndex(e => e.Email).IsUnique();
             builder.Property(e => e.Email).HasMaxLength(80);
