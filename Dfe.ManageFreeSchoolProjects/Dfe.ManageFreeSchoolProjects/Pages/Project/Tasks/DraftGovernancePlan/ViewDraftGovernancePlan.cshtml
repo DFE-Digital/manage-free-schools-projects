@@ -45,5 +45,14 @@
                 Confirm and continue
             </button>
         </form>
+
+        <div class="govuk-grid-row govuk-!-margin-top-6">
+            <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
+                <p class="govuk-body">You may want to update the risk rating after assessing the trust's governance plan.</p>
+                <govuk-risk-rating-summary project-id="@Model.ProjectId" change-link-text="Change" project-risk="@Model.ProjectRisk" />
+            </div>
+        </div>
+
     </div>
 </div>

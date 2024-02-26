@@ -3,17 +3,22 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import editProjectRiskPage from "cypress/pages/risk/editProjectRiskPage";
+import projectRiskSummaryComponent from "cypress/pages/risk/projectRiskSummaryComponent";
 import projectRiskSummaryPage from "cypress/pages/risk/projectRiskSummaryPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import editDraftGovernancePlanPage from "cypress/pages/tasks/pre-opening/editDraftGovernancePlanPage";
 import validationComponent from "cypress/pages/validationComponent";
+import { toDisplayDate } from "cypress/support/formatDate";
 
 describe("Testing draft governance plan task", () => {
     let project: ProjectDetailsRequest;
+    let now: string;
 
     beforeEach(() => {
         cy.login();
+
+        now = toDisplayDate(new Date());
 
         project = RequestBuilder.createProjectDetails();
 
@@ -25,7 +30,6 @@ describe("Testing draft governance plan task", () => {
 
     it("Should not show a draft governance plan if the overall or governance risk is not red or red/amber", () => {
         cy.visit(`/projects/${project.projectId}/tasks`);
-
         Logger.log("This project has no risks so the task should not show");
         taskListPage.draftGovernancePlanTaskDoesNotShow();
     });
@@ -40,6 +44,7 @@ describe("Testing draft governance plan task", () => {
 
         editProjectRiskPage
             .withOverallRiskRating("Red")
+            .withOverallRiskSummary("This is my overall risk summary")
             .continue();
 
         projectRiskSummaryPage
@@ -72,6 +77,12 @@ describe("Testing draft governance plan task", () => {
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
+
+        Logger.log("Check that the risk rating is displayed");
+        projectRiskSummaryComponent
+            .hasProjectRiskDate(now)
+            .hasProjectRiskRating(["Red"])
+            .hasProjectRiskSummary("This is my overall risk summary");
 
         summaryPage.clickChange();
 
