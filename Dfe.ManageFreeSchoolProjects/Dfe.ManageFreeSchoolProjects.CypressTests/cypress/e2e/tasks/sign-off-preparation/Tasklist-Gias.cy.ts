@@ -98,7 +98,15 @@ describe("Testing gias", () => {
         taskListPage
             .selectGiasFromTaskList()
 
-        summaryPage.isMarkedAsComplete()
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Set up the school on GIAS (Get information about schools)")
+            .inOrder()
+            .summaryShows("Check the information on trusts' completed GIAS application form is correct").HasValue("No").HasChangeLink()
+            .summaryShows("Send the application form to the Ofsted pre-reg.FreeSchools@education.gov.uk mailbox").HasValue("No").HasChangeLink()
+            .summaryShows("Save a copy of the application form in Workspaces").HasValue("No").HasChangeLink()
+            .summaryShows("Send the trust their URN and DfE establishment number").HasValue("No").HasChangeLink()
+            .isMarkedAsComplete()
 
     })
 })

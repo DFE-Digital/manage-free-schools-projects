@@ -45,12 +45,12 @@ class GiasEditPage {
     }
 
     unCheckCopySavedToWorkspaces(): this {
-        cy.getById("saved-to-workspaces").check()
+        cy.getById("saved-to-workspaces").uncheck()
         return this
     }
 
     unCheckSentTrustURN(): this {
-        cy.getById("urn-Sent").check()
+        cy.getById("urn-Sent").uncheck()
         return this
     }
 
