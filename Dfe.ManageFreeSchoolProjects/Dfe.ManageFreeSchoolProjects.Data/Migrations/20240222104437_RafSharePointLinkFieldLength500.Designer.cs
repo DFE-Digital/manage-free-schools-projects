@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240222104437_RafSharePointLinkFieldLength500")]
+    partial class RafSharePointLinkFieldLength500
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4683,22 +4686,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASApplicationFormSent")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASCheckedTrustInformation")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASCheckedTrustInformation");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASSavedToWorkspaces")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASSavedToWorkspaces");
-
-                    b.Property<bool?>("FSGPreOpeningMilestonesGIASURNSent")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
-
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv Actual date of completion");
@@ -5006,7 +4993,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement")
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadTayloredAModelFundingAgreement")
                         .HasColumnType("bit");
 
                     b.Property<int?>("FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa")
@@ -5484,6 +5471,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool>("MAACheckedSubmittedArticlesMatch")
                         .HasColumnType("bit");
+
+                    b.Property<string>("MAACommentsOnDecisionToApprove")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)");
+
+                    b.Property<string>("MAASharepointLink")
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
