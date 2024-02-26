@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
                                     {
                                         FinancePlanAgreed = ConvertYesNo(milestones.FsgPreOpeningMilestonesBefpApplicable),
                                         DateAgreed = milestones.FsgPreOpeningMilestonesBefpActualDateOfCompletion,
-                                        PlanSavedInWorksplacesFolder = milestones.IsPlanSavedInWorkplacesFolder,
+                                        PlanSavedInWorksplacesFolder = milestones.FinancePlanSavedInWorkplacesFolder,
                                         LocalAuthorityAgreedPupilNumbers = milestones.LAAgreedPupilNumbers,
                                         Comments = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
                                         TrustWillOptIntoRpa = milestones.TrustOptInRPA,
