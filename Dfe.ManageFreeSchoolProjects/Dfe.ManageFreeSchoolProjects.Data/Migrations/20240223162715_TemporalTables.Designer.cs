@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240223162715_TemporalTables")]
+    partial class TemporalTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4882,27 +4885,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.Property<bool?>("DraftGovernancePlanAndAssessmentSharedWithEsfa")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DraftGovernancePlanAndAssessmentSharedWithExpert")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DraftGovernancePlanAssessedUsingTemplate")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DraftGovernancePlanDocumentsSavedInWorkplacesFolder")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DraftGovernancePlanFedBackToTrust")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DraftGovernancePlanReceivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DraftGovernancePlanReceivedFromTrust")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("FSGPreOpeningMilestonesGIASApplicationFormSent")
                         .HasColumnType("bit")
                         .HasColumnName("FSG Pre Opening Milestones.GIASApplicationFormSent");
@@ -4918,9 +4900,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FSGPreOpeningMilestonesGIASURNSent")
                         .HasColumnType("bit")
                         .HasColumnName("FSG Pre Opening Milestones.GIASURNSent");
-
-                    b.Property<int?>("FinancePlanSavedInWorkplacesFolder")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
@@ -5693,6 +5672,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
+                    b.Property<int?>("IsPlanSavedInWorkplacesFolder")
+                        .HasColumnType("int");
+
                     b.Property<int?>("LAAgreedPupilNumbers")
                         .HasColumnType("int");
 
@@ -5704,6 +5686,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool>("MAACheckedSubmittedArticlesMatch")
                         .HasColumnType("bit");
+
+                    b.Property<string>("MAACommentsOnDecisionToApprove")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)");
+
+                    b.Property<string>("MAASharepointLink")
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
@@ -11169,9 +11161,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Reason for Joint Risk Category");
 
                     b.Property<string>("RagRatingsRiskAppraisalFormSharepointLink")
-                        .HasMaxLength(500)
+                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("varchar(1000)")
                         .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
 
                     b.Property<string>("RagRatingsRscStocktakeRecommendationSummary")
