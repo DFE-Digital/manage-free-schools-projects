@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<Po> builder)
 		{
             builder
-                .ToTable("PO", "dbo")
+                .ToTable("PO", "dbo", e => e.IsTemporal())
                 .HasKey(e => e.Rid);
 
             builder.Property(e => e.FinancialPlanningOptInToRpa)

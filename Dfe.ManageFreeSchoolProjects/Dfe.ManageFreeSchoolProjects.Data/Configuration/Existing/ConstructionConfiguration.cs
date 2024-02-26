@@ -12,6 +12,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		{
             builder.HasKey(e => e.Rid);
 
+            builder.ToTable("Construction", "dbo", e => e.IsTemporal());
+
             builder.Property(e => e.IctDetailsBroadbandOrdered)
                 .HasColumnType("date")
                 .HasColumnName("ICT Details.Broadband ordered");
