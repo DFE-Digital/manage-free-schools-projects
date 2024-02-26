@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<TermVisitsUtcs> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("Term_Visits_UTCs", "dbo");
+            builder.HasKey(e => e.Rid);
+            
+            builder.ToTable("Term_Visits_UTCs", "dbo", e => e.IsTemporal());
 
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)

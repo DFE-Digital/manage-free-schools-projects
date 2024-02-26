@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240223162715_TemporalTables")]
+    partial class TemporalTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5684,6 +5687,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool>("MAACheckedSubmittedArticlesMatch")
                         .HasColumnType("bit");
 
+                    b.Property<string>("MAACommentsOnDecisionToApprove")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)");
+
+                    b.Property<string>("MAASharepointLink")
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
+
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
@@ -11148,9 +11161,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Rag Ratings.Reason for Joint Risk Category");
 
                     b.Property<string>("RagRatingsRiskAppraisalFormSharepointLink")
-                        .HasMaxLength(500)
+                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("varchar(1000)")
                         .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
 
                     b.Property<string>("RagRatingsRscStocktakeRecommendationSummary")
