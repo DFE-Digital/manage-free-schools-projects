@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
@@ -11,10 +12,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
     {
         private readonly IHtmlHelper _htmlHelper;
 
-        public GetProjectRiskResponse ProjectRisk { get; set; }
-
+        [HtmlAttributeName("project-id")]
         public string ProjectId { get; set; }
 
+        [HtmlAttributeName("date")]
+        public DateTime? Date { get; set; }
+
+        [HtmlAttributeName("risk-rating")]
+        public ProjectRiskRating? RiskRating { get; set; }
+
+        [HtmlAttributeName("summary")]
+        public string Summary { get; set; }
+
+        [HtmlAttributeName("change-link-text")]
         public string ChangeLinkText { get; set; }
 
         [ViewContext]
@@ -34,8 +44,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
             var model = new RiskRatingSummaryComponentViewModel()
             {
-                ProjectRisk = ProjectRisk,
                 ProjectId = ProjectId,
+                Date = Date,
+                RiskRating = RiskRating,
+                Summary = Summary,
                 ChangeLinkText = ChangeLinkText
             };
 
@@ -48,7 +60,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
 
     public class RiskRatingSummaryComponentViewModel
     {
-        public GetProjectRiskResponse ProjectRisk { get; set; }
+        public DateTime? Date { get; set; }
+
+        public ProjectRiskRating? RiskRating { get; set; }
+
+        public string Summary { get; set; }
 
         public string ProjectId { get; set; }
 

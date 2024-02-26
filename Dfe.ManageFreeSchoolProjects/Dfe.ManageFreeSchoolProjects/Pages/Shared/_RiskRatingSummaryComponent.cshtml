@@ -22,7 +22,7 @@
                     Date
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="project-risk-date">
-                    <govuk-display-value value="@Model.ProjectRisk.Date.ToDateString()" />
+                    <govuk-display-value value="@Model.Date.ToDateString()" />
                 </dd>
 
             </div>
@@ -32,7 +32,7 @@
                     Overall risk rating
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="project-risk-rating">
-                    <govuk-risk-rating-label risk-rating="@Model.ProjectRisk.Overall.RiskRating" />
+                    <govuk-risk-rating-label risk-rating="@Model.RiskRating" />
                 </dd>
             </div>
 
@@ -41,7 +41,7 @@
                     Overall risk summary
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="project-risk-summary">
-                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
+                    <govuk-display-value value="@Model.Summary" />
                 </dd>
             </div>
         </dl>
