@@ -40,8 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             while (dividend > 0)
             {
                 modulo = (dividend - 1) % 26;
-                //columnName.Insert(0, Convert.ToChar(65 + modulo).ToString());
-                columnName.Append(Convert.ToChar(65 + modulo).ToString());
+                columnName.Insert(0, Convert.ToChar(65 + modulo).ToString());
                 dividend = ((dividend - modulo) / 26);
             }
 
