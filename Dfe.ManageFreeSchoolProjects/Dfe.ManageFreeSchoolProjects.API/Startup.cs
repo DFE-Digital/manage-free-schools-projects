@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 namespace Dfe.ManageFreeSchoolProjects.API
 {
-    /// <summary>
-    /// THIS STARTUP ISN'T USED WHEN API IS HOSTED THROUGH WEBSITE. It is used when running API tests
-    /// </summary>
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -20,7 +17,9 @@ namespace Dfe.ManageFreeSchoolProjects.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-	        services.AddConcernsApiProject(Configuration);
+            services.AddApplicationInsightsTelemetry();
+
+            services.AddConcernsApiProject(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)

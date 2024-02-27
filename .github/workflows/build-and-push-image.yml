@@ -16,7 +16,7 @@ concurrency:
 
 env:
   DOCKER_IMAGE: mfsp-app
-  NODE_VERSION: 18.x
+  NODE_VERSION: 20.x
 
 jobs:
   set-env:

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
@@ -38,6 +39,29 @@ namespace Dfe.ManageFreeSchoolProjects.Services
                 var result = JsonConvert.DeserializeObject<T>(content);
 
                 return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<Stream> GetStream(string endpoint)
+        {
+            try 
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+
+                var client = CreateHttpClient();
+
+                var response = await client.SendAsync(request);
+
+                response.EnsureSuccessStatusCode();
+
+                var fileStream = await response.Content.ReadAsStreamAsync();
+
+                return fileStream;
             }
             catch (Exception ex)
             {

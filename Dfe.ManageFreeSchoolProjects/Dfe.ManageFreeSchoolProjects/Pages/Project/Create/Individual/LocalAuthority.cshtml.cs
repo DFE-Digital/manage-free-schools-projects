@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
             
             project.LocalAuthority = LocalAuthority;
-            project.LocalAuthorityCode = project.LocalAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
+            project.LocalAuthorityCode = project.LocalAuthorities.FirstOrDefault(x => x.Value == LocalAuthority).Key;
 
             if (project.ReachedCheckYourAnswers)
             {

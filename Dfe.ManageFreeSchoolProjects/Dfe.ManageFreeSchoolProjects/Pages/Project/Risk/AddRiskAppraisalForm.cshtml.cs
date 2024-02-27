@@ -1,33 +1,52 @@
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.RiskRating
 {
     public class AddRiskAppraisalFormModel : AddRiskBaseModel
     {
         private readonly ICreateProjectRiskCache _createProjectRiskCache;
+        private readonly ErrorService _errorService;
 
         [BindProperty(Name = "sharepoint-link")]
-        public string SharepointLink { get; set; }
+        [StringLength(ValidationConstants.LinkMaxLength, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [Url(ErrorMessage = ValidationConstants.LinkValidationMessage)]
+        [DisplayName("SharePoint link")]
+        public string SharePointLink { get; set; }
 
-        public AddRiskAppraisalFormModel(ICreateProjectRiskCache createProjectRiskCache)
+        public AddRiskAppraisalFormModel(
+            ICreateProjectRiskCache createProjectRiskCache, 
+            ErrorService errorService)
         {
             _createProjectRiskCache = createProjectRiskCache;
+            _errorService = errorService;
         }
 
         public void OnGet()
         {
             var existingCacheItem = _createProjectRiskCache.Get();
 
-            SharepointLink = existingCacheItem.RiskAppraisalFormSharepointLink;
+            SharePointLink = existingCacheItem.RiskAppraisalFormSharepointLink;
             SchoolName = existingCacheItem.SchoolName;
         }
 
         public IActionResult OnPost()
         {
             var existingCacheItem = _createProjectRiskCache.Get();
-            existingCacheItem.RiskAppraisalFormSharepointLink = SharepointLink;
+
+            if (!ModelState.IsValid)
+            {
+                SchoolName = existingCacheItem.SchoolName;
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
+            existingCacheItem.RiskAppraisalFormSharepointLink = SharePointLink;
 
             _createProjectRiskCache.Update(existingCacheItem);
 

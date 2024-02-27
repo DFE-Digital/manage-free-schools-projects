@@ -35,7 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 		
 		public Error GetError(string key)
 		{
-			return _errors.SingleOrDefault(e => e.Key == key);
+			return _errors.FirstOrDefault(e => e.Key == key);
 		}
 
 		public IEnumerable<Error> GetErrors()

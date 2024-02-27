@@ -114,6 +114,12 @@ class EditProjectRiskPage {
         return this;
     }
 
+    public withRiskAppraisalFormSharePointLinkExceeding(): this {
+        cy.getByTestId("sharepoint-link").invoke("val", "https://" + 'a'.repeat(501));
+
+        return this;
+    }
+
     public hasOverallRiskRating(value: string): this {
         cy.getByTestId(`risk-rating-${value}`).should("be.checked");
 

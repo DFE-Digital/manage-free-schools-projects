@@ -10,5 +10,7 @@
 		public string ErrorMessage { get; set; }
 		
 		public bool? BoldLabel  { get; set; }
+
+		public bool AddMargin { get; set; }
 	}
 }

@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan.EditDraftGovernancePlanModel
 @{
-    ViewData["Title"] = $"Edit draft governance plan - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Draft governance plan - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
 }
@@ -17,17 +17,66 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit draft governance plan
+    Edit Draft governance plan
 </h1>
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <govuk-date-input id="forecast-date" name="forecast-date" asp-for="@Model.ForecastDate" label="Forecast date" hint="For example, 27 3 2021" />
-            <govuk-date-input id="actual-date" name="actual-date" asp-for="@Model.ActualDate" label="Actual date" hint="For example, 27 3 2021" />
-            <govuk-textarea-input id="comments" name="comments" bold-label="true" label="Comments on decision to approve (if applicable)" rows="5" asp-for="@Model.CommentsOnDecisionToApprove" add-margin="true" />
-            <govuk-text-input id="sharepoint-link" name="sharepoint-link" asp-for="@Model.SharePointLink" label="SharePoint link" bold-label="true"/>
+
+            <div class="govuk-form-group ">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input"
+                               id="plan-received-from-trust"
+                               name="plan-received-from-trust"
+                               type="checkbox"
+                               value="true"
+                               checked="@(Model.PlanReceivedFromTrust == true ? "checked" : null)"
+                               data-aria-controls="conditional-date-received">
+                        <label class="govuk-label govuk-checkboxes__label" for="plan-received-from-trust">
+                            Received draft governance plan from trust
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__conditional" id="conditional-date-received">
+                        <govuk-date-input id="date-plan-received" name="date-plan-received" asp-for="@Model.DatePlanReceived" label="Date received" hint="For example, 27 3 2021" />
+                    </div>
+                </div>
+            </div>
+
+            <govuk-checkbox-input label="Assessed plan using assessment template"
+                                  asp-for="@Model.PlanAssessedUsingTemplate"
+                                  name="plan-assessed-using-template"
+                                  id="plan-assessed-using-template"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Shared plan and assessment with external expert"
+                                  asp-for="@Model.PlanAndAssessmentSharedWithExpert"
+                                  name="plan-and-assessment-shared-with-expert"
+                                  id="plan-and-assessment-shared-with-expert"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)"
+                                  asp-for="@Model.PlanAndAssessmentSharedWithEsfa"
+                                  name="plan-and-assessment-shared-with-esfa"
+                                  id="plan-and-assessment-shared-with-esfa"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Fed back to trust on plan"
+                                  asp-for="@Model.PlanFedBackToTrust"
+                                  name="plan-fed-back-to-trust"
+                                  id="plan-fed-back-to-trust"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Saved documents in workplaces folder"
+                                  asp-for="@Model.SavedDocumentsInWorkplacesFolder"
+                                  name="saved-documents-in-workplaces-folder"
+                                  id="saved-documents-in-workplaces-folder"
+                                  add-margin=false />
+
+
+            <govuk-textarea-input id="comments" name="comments" bold-label="true" label="Comments" rows="5" asp-for="@Model.Comments" add-margin="true" />
 
             @Html.HiddenFor(m => m.SchoolName)
 

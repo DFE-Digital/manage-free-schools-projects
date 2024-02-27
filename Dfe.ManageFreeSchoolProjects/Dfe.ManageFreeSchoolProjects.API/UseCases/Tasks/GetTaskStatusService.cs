@@ -21,8 +21,8 @@ public class GetTaskStatusService : IGetTaskStatusService
 
     public async Task<ProjectTaskStatus> Execute(string projectId, string taskName)
     {
-        var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
-        var task = await _context.Tasks.SingleOrDefaultAsync(x => x.Rid == dbKpi.Rid && x.TaskName == Enum.Parse<TaskName>(taskName));
+        var dbKpi = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
+        var task = await _context.Tasks.FirstOrDefaultAsync(x => x.Rid == dbKpi.Rid && x.TaskName == Enum.Parse<TaskName>(taskName));
         var mappedStatus = (task?.Status ?? Status.InProgress).Map();
         
         return mappedStatus;

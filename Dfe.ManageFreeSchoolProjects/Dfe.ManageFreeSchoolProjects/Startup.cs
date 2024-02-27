@@ -5,6 +5,8 @@ using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Admin;
 using Dfe.ManageFreeSchoolProjects.Services.Constituency;
+using Dfe.ManageFreeSchoolProjects.Services.Constituency;
+using Dfe.ManageFreeSchoolProjects.Services.Contacts;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
@@ -27,6 +29,7 @@ using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Contacts;
+using Dfe.ManageFreeSchoolProjects.Services.Reports;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -99,6 +102,7 @@ public class Startup
         services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
         services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
         services.AddScoped<IFeatureFlagCache, FeatureFlagCache>();
+        services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 
         services.AddFeatureManagement().AddSessionManager<FeatureFlagSessionManager>();
 
@@ -128,6 +132,8 @@ public class Startup
                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                }
            });
+
+        services.AddApplicationInsightsTelemetry();
 
         services.AddHttpClient("MfspClient", (_, client) =>
         {
@@ -193,7 +199,6 @@ public class Startup
 
         app.UseStaticFiles();
         app.UseRouting();
-        app.UseSentryTracing();
         app.UseSession();
         app.UseAuthentication();
         app.UseAuthorization();

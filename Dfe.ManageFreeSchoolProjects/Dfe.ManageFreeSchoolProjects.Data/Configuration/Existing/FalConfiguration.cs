@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Fal> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("FAL", "dbo");
+            builder.ToTable("FAL", "dbo", e => e.IsTemporal());
+
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.FundingApprovalLettersFundingApprovalLetterIssuedDate)
                 .HasColumnType("date")
