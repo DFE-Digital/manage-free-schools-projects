@@ -8,7 +8,6 @@ import projectRiskSummaryPage from "cypress/pages/risk/projectRiskSummaryPage";
 import validationComponent from "cypress/pages/validationComponent";
 import projectRiskHistoryTable from "cypress/pages/risk/projectRiskHistoryTable";
 import { toDisplayDate } from "cypress/support/formatDate";
-import dataGenerator from "cypress/fixtures/dataGenerator";
 
 describe("Testing that we can add a project risk", () => {
     let project: ProjectDetailsRequest;

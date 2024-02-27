@@ -14,38 +14,50 @@ class EditDraftGovernancePlanPage {
         return this;
     }
 
-    public withForecastDate(day: string, month: string, year: string): this {
-        cy.enterDate("forecast-date", day, month, year);
+    public checkPlanReceivedFromTrust(): this {
+        cy.getById("plan-received-from-trust").click();
+        return this;
+    }
+
+    public withDatePlanReceived(day: string, month: string, year: string): this {
+        cy.enterDate("date-plan-received", day, month, year);
 
         return this;
     }
 
-    public withActualDate(day: string, month: string, year: string): this {
-        cy.enterDate("actual-date", day, month, year);
-
+    public checkPlanAssessedUsingTemplate(): this {
+        cy.getById("plan-assessed-using-template").click();
         return this;
     }
 
-    public withCommentsOnDecisionToApprove(value: string): this {
+    public checkPlanAndAssessmentSharedWithExpert(): this {
+        cy.getById("plan-and-assessment-shared-with-expert").click();
+        return this;
+    }
+
+    public checkPlanAndAssessmentSharedWithEsfa(): this {
+        cy.getById("plan-and-assessment-shared-with-esfa").click();
+        return this;
+    }
+
+    public checkFedBackToTrustOnPlan(): this {
+        cy.getById("plan-fed-back-to-trust").click();
+        return this;
+    }
+
+    public checkDocumentsSavedInWorkplacesFolder(): this {
+        cy.getById("saved-documents-in-workplaces-folder").click();
+        return this;
+    }
+
+    public withComments(value: string): this {
         cy.getById("comments").clear().type(value);
 
         return this;
     }
 
-    public withCommentsOnDecisionToApproveExceedingMaxLength(): this {
+    public withCommentsExceedingMaxLength(): this {
         cy.getById("comments").clear().invoke("text", "a".repeat(1000));
-
-        return this;
-    }
-
-    public withSharepointLink(value: string): this {
-        cy.getById("sharepoint-link").clear().type(value);
-
-        return this;
-    }
-
-    public withSharepointLinkExceedingMaxLength(): this {
-        cy.getById("sharepoint-link").clear().invoke("val", "https://" + "a".repeat(501));
 
         return this;
     }

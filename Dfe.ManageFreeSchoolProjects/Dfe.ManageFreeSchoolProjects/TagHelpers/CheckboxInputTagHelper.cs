@@ -12,11 +12,24 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         [HtmlAttributeName("heading-label")]
         public string HeadingLabel { get; set; }
 
+        [HtmlAttributeName("add-margin")]
+        public bool AddMargin { get; set; } = true;
+
         public CheckboxInputTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
 
         protected override async Task<IHtmlContent> RenderContentAsync()
         {
-            CheckboxInputViewModel model = new() { Id = Id, Name = Name, Label = Label, HeadingLabel = HeadingLabel, BoldLabel = BoldLabel, Value = For.Model?.ToString() };
+            CheckboxInputViewModel model = new() 
+            { 
+                Id = Id, 
+                Name = Name, 
+                Label = Label, 
+                HeadingLabel = 
+                HeadingLabel, 
+                BoldLabel = BoldLabel, 
+                Value = For.Model?.ToString(),
+                AddMargin = AddMargin
+            };
 
             return await _htmlHelper.PartialAsync("_CheckboxInput", model);
         }

@@ -2,6 +2,8 @@
 @model Dfe.ManageFreeSchoolProjects.ViewModels.CheckboxInputViewModel
 @{
     var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
+
+    var margin = Model.AddMargin ? "govuk-!-margin-bottom-6" : "";
 }
 
 <div class="govuk-form-group">
@@ -21,7 +23,7 @@
             </span>
         }
 
-        <div class="govuk-checkboxes govuk-fieldset__legend--m govuk-!-margin-bottom-6">
+        <div class="govuk-checkboxes govuk-fieldset__legend--m @margin">
             <div class="govuk-checkboxes__item">
                 <input name="@Model.Name-hidden" type="hidden" value="false"/>
                 <input class="govuk-checkboxes__input" id="@Model.Id" name="@Model.Name" type="checkbox" value="true" checked="@("true".Equals(Model.Value, StringComparison.OrdinalIgnoreCase))">
