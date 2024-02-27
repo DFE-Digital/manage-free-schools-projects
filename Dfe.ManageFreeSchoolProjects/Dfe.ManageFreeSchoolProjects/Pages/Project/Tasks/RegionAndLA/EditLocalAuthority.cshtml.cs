@@ -82,7 +82,7 @@ public class EditLocalAuthority : PageModel
 
         localAuthorities = await GetLocalAuthoritiesByRegion();
 
-        var localAuthorityCode = localAuthorities.SingleOrDefault(x => x.Value == LocalAuthority).Key;
+        var localAuthorityCode = localAuthorities.FirstOrDefault(x => x.Value == LocalAuthority).Key;
         
         await _updateProjectByTaskService.Execute(ProjectId, new UpdateProjectByTaskRequest
         {
