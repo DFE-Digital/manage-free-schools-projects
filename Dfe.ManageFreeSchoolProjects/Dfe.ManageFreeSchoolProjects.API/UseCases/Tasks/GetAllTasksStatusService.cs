@@ -27,7 +27,7 @@ public class GetAllTasksStatusService : IGetTasksService
 
     public async Task<GetTasksServiceResult> Execute(string projectId)
     {
-        var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
+        var dbKpi = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
         var dbTasks = await _context.Tasks.Where(x => x.Rid == dbKpi.Rid).ToListAsync();
     
