@@ -26,6 +26,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
+using Dfe.ManageFreeSchoolProjects.Services.Reports;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -98,6 +99,7 @@ public class Startup
         services.AddScoped<INotifyUserService, NotifyUserService>();
         services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
         services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
+        services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

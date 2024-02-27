@@ -24,17 +24,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             await context.SaveChangesAsync();
 
-            var forecastDate = DateTime.Now.Date.AddDays(5);
-            var actualDate = DateTime.Now.Date.AddDays(10);
+            var dateReceived = DateTime.Now.Date.AddDays(10);
 
             var request = new UpdateProjectByTaskRequest()
             {
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
-                    ForecastDate = forecastDate,
-                    ActualDate = actualDate,
-                    CommentsOnDecisionToApprove = "Comments on approval",
-                    SharepointLink = "https://sharepoint.com"
+                    SavedDocumentsInWorkplacesFolder = false,
+                    PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithExpert = false,
+                    PlanAssessedUsingTemplate = false,
+                    PlanFedBackToTrust = false,
+                    PlanReceivedFromTrust = false,
+                    DatePlanReceived = dateReceived,
+                    Comments = "Comments on approval",
                 }
             };
 
@@ -54,17 +57,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             await context.SaveChangesAsync();
 
-            var forecastDate = DateTime.Now.Date.AddDays(5);
-            var actualDate = DateTime.Now.Date.AddDays(10);
+            var dateReceived = DateTime.Now.Date.AddDays(10);
 
             var createDraftGovernanceRequest = new UpdateProjectByTaskRequest()
             {
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
-                    ForecastDate = forecastDate,
-                    ActualDate = actualDate,
-                    CommentsOnDecisionToApprove = "Comments on approval",
-                    SharepointLink = "https://sharepoint.com"
+                    SavedDocumentsInWorkplacesFolder = false,
+                    PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithExpert = false,
+                    PlanAssessedUsingTemplate = false,
+                    PlanFedBackToTrust = false,
+                    PlanReceivedFromTrust = false,
+                    DatePlanReceived = dateReceived,
+                    Comments = "Comments on approval",
                 }
             };
 
@@ -74,10 +80,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 DraftGovernancePlan = new DraftGovernancePlanTask()
                 {
-                    ForecastDate = forecastDate.AddDays(5),
-                    ActualDate = actualDate.AddDays(5),
-                    CommentsOnDecisionToApprove = "Updated comments on approval",
-                    SharepointLink = "https://sharepoint.com/updated"
+                    SavedDocumentsInWorkplacesFolder = true,
+                    PlanAndAssessmentSharedWithEsfa = true,
+                    PlanAndAssessmentSharedWithExpert = true,
+                    PlanAssessedUsingTemplate = true,
+                    PlanFedBackToTrust = true,
+                    PlanReceivedFromTrust = true,
+                    DatePlanReceived = dateReceived.AddDays(5),
+                    Comments = "Updated comments on approval",
                 }
             };
 
@@ -88,10 +98,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
         private static void AssertDraftGovernancePlan(DraftGovernancePlanTask actual, DraftGovernancePlanTask expected)
         {
-            actual.ForecastDate.Should().Be(expected.ForecastDate);
-            actual.ActualDate.Should().Be(expected.ActualDate);
-            actual.CommentsOnDecisionToApprove.Should().Be(expected.CommentsOnDecisionToApprove);
-            actual.SharepointLink.Should().Be(expected.SharepointLink);
+            actual.DatePlanReceived.Should().Be(expected.DatePlanReceived);
+            actual.PlanReceivedFromTrust.Should().Be(expected.PlanReceivedFromTrust);
+            actual.PlanFedBackToTrust.Should().Be(expected.PlanFedBackToTrust);
+            actual.PlanAssessedUsingTemplate.Should().Be(expected.PlanAssessedUsingTemplate);
+            actual.PlanAndAssessmentSharedWithExpert.Should().Be(expected.PlanAndAssessmentSharedWithExpert);
+            actual.PlanAndAssessmentSharedWithEsfa.Should().Be(expected.PlanAndAssessmentSharedWithEsfa);
+            actual.SavedDocumentsInWorkplacesFolder.Should().Be(expected.SavedDocumentsInWorkplacesFolder);
+            actual.Comments.Should().Be(expected.Comments);
         }
     }
 }

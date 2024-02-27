@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Pages.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
+using Dfe.ManageFreeSchoolProjects.Services.Reports;
 using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,15 +13,18 @@ namespace Dfe.BuildFreeSchools.Pages
     public class IndexModel : DashboardBasePageModel
 	{
 		private readonly ILogger<IndexModel> _logger;
+        private readonly IAllProjectsReportService _allProjectsReportService;
 
         public IndexModel(
 			IGetDashboardService getDashboardService, 
 			ICreateUserService createUserService,
 			IGetLocalAuthoritiesService getLocalAuthoritiesService,
             IGetProjectManagersService getProjectManagersService,
+            IAllProjectsReportService allProjectsReportService,
             ILogger<IndexModel> logger) : base(createUserService, getDashboardService, getLocalAuthoritiesService, getProjectManagersService)
         {
 			_logger = logger;
+            _allProjectsReportService = allProjectsReportService;
         }
 
 		public async Task<IActionResult> OnGetAsync()
@@ -91,7 +95,25 @@ namespace Dfe.BuildFreeSchools.Pages
             return Page();
         }
 
-        protected async Task LoadPage()
+        public async Task<IActionResult> OnGetDownloadFile()
+        {
+            _logger.LogMethodEntered();
+            try
+            {
+                var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
+                var fileName = $"{now}-mfsp-all-projects-export.xlsx";
+
+                var stream = await _allProjectsReportService.Execute();
+                return File(stream, "application/octet-stream", fileName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+                throw;
+            }
+        }
+
+            protected async Task LoadPage()
 		{
             var parameters = new LoadDashboardParameters()
             {
