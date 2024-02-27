@@ -1,5 +1,3 @@
-import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
-
 class HomePage {
 
     public createNewProjects(): this {
@@ -73,6 +71,10 @@ class HomePage {
         cy.getByTestId("clear-filters").click();
 
         return this;
+    }
+
+    public downloadProjectDataExport() {
+        cy.getByTestId("download-data-export").click();
     }
 }
 

@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,25 +21,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
                                 from milestones in joinedMilestones.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    FinancePlan = new()
-                                    {
-                                        FinancePlanAgreed = ConvertYesNo(milestones.FsgPreOpeningMilestonesBefpApplicable),
-                                        DateAgreed = milestones.FsgPreOpeningMilestonesBefpActualDateOfCompletion,
-                                        PlanSavedInWorksplacesFolder = milestones.FinancePlanSavedInWorkplacesFolder,
-                                        LocalAuthorityAgreedPupilNumbers = milestones.LAAgreedPupilNumbers,
-                                        Comments = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
-                                        TrustWillOptIntoRpa = milestones.TrustOptInRPA,
-                                        RpaStartDate = milestones.RPAStartDate,
-                                        RpaCoverType = milestones.RPACoverType
-                                    }
+                                    FinancePlan = FinancePlanTaskBuilder.Build(milestones)
                                 }).FirstOrDefaultAsync();
 
             return result ?? new GetProjectByTaskResponse() { FinancePlan = new() };
-        }
-
-        private static YesNo? ConvertYesNo(string value)
-        {
-            return Enum.TryParse<YesNo>(value, true, out var result) ? result : null;
         }
     }
 }

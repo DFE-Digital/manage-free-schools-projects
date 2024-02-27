@@ -6,6 +6,7 @@ import { Logger } from "cypress/common/logger";
 import homePage from "cypress/pages/homePage";
 import paginationComponent from "cypress/pages/paginationComponent";
 import projectTable from "cypress/pages/projectTable";
+import path from "path";
 
 describe("Testing the home page", () => {
     beforeEach(() => {
@@ -219,6 +220,21 @@ describe("Testing the home page", () => {
 
                     paginationComponent.isCurrentPage("3");
                 });
+        });
+    });
+
+    describe("Checking the project data export", () => {
+        it("Should be able to download a file of the project data export", () => {
+            homePage.downloadProjectDataExport();
+
+            const now = new Date().toISOString().split('T')[0];
+            const fileName = `${now}-mfsp-all-projects-export.xlsx`;
+
+            const downloadsFolder = Cypress.config('downloadsFolder')
+            const downloadedFilename = path.join(downloadsFolder, fileName)
+
+            cy.readFile(downloadedFilename, 'binary')
+                .should(buffer => expect(buffer.length).to.be.gt(100));
         });
     });
 
