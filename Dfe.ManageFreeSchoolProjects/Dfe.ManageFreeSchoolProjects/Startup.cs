@@ -1,14 +1,15 @@
 using Azure.Storage.Blobs;
 using Dfe.ManageFreeSchoolProjects.Authorization;
 using Dfe.ManageFreeSchoolProjects.Configuration;
+using Dfe.ManageFreeSchoolProjects.Middleware;
 using Dfe.ManageFreeSchoolProjects.Security;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Admin;
 using Dfe.ManageFreeSchoolProjects.Services.Constituency;
-using Dfe.ManageFreeSchoolProjects.Services.Constituency;
 using Dfe.ManageFreeSchoolProjects.Services.Contacts;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Services.Reports;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Trust;
 using Dfe.ManageFreeSchoolProjects.Services.User;
@@ -28,8 +29,6 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
 using System.Security.Claims;
-using Dfe.ManageFreeSchoolProjects.Services.Contacts;
-using Dfe.ManageFreeSchoolProjects.Services.Reports;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -202,6 +201,8 @@ public class Startup
         app.UseSession();
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.UseMiddleware<AdminRouteMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
