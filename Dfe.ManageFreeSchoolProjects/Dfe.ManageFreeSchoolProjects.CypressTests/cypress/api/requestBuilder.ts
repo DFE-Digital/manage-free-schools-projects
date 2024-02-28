@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { ProjectDetailsRequest } from "./domain";
+import { CreateProjectRiskRequest, ProjectDetailsRequest } from "./domain";
 import { EnvUsername } from "cypress/constants/cypressConstants";
 import dataGenerator from "cypress/fixtures/dataGenerator";
 
@@ -15,4 +15,16 @@ export class RequestBuilder {
 
         return result;
     }
+
+    public static CreateProjectRiskRequest(): CreateProjectRiskRequest {
+        const result: CreateProjectRiskRequest = {
+            overall: {
+                riskRating: 1,
+                summary: "This is my risk summary"
+            },
+        };
+
+        return result;
+    }
 }
+

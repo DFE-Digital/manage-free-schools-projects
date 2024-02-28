@@ -57,40 +57,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
             result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
-            result.DraftGovernancePlan.IsHidden.Should().BeTrue();
-        }
-
-        [Fact]
-        public async Task Get_When_DraftGovernanceInProgress_TaskNotHidden_Returns_200()
-        {
-            using var context = _testFixture.GetContext();
-
-            var project = DatabaseModelBuilder.BuildProject();
-            context.Kpi.Add(project);
-
-            var tasks = new List<Data.Entities.Existing.Tasks>()
-            {
-                new Data.Entities.Existing.Tasks
-                {
-                    TaskName = TaskName.DraftGovernancePlan,
-                    Rid = project.Rid,
-                    Status = Status.InProgress,
-                }
-            };
-
-            context.Tasks.AddRange(tasks);
-
-            await context.SaveChangesAsync();
-
-            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
-            taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
-            var result = content.Data;
-
-            result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
-            result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.InProgress);
-            result.DraftGovernancePlan.IsHidden.Should().BeFalse();
         }
     }
 }
