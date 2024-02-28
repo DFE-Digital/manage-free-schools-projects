@@ -72,7 +72,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").IsEmpty().HasChangeLink()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty().HasChangeLink()
             .summaryShows("Fed back to trust on plan").IsEmpty().HasChangeLink()
-            .summaryShows("Saved documents in workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -129,7 +129,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").HasValue("Yes")
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").HasValue("Yes")
             .summaryShows("Fed back to trust on plan").HasValue("Yes")
-            .summaryShows("Saved documents in workplaces folder").HasValue("Yes")
+            .summaryShows("Saved documents in Workplaces folder").HasValue("Yes")
             .summaryShows("Comments").HasValue("This is my comments")
 
         Logger.log("Should clear the date if Received draft governance plan from trust is unchecked");
@@ -183,7 +183,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").IsEmpty()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty()
             .summaryShows("Fed back to trust on plan").IsEmpty()
-            .summaryShows("Saved documents in workplaces folder").IsEmpty()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty()
             .summaryShows("Comments").HasValue("This is my updated comments that I have written");
 
         Logger.log("Should update the task status");
