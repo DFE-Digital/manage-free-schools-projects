@@ -82,6 +82,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
                 Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
                 ModelFundingAgreement = SafeRetrieveTaskSummary(projectTasks,"ModelFundingAgreement"),
+                Section10Consultation = SafeRetrieveTaskSummary(projectTasks, "Section10Consultation"),
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
                 KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),

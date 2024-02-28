@@ -12,6 +12,9 @@
         public KickOffMeetingTask KickOffMeeting { get; set; }
         
         public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
+
+        public Section10ConsultationTask Section10Consultation { get; set; }
+
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
@@ -44,6 +47,8 @@
                     return TaskName.ModelFundingAgreement.ToString();
                 if (DraftGovernancePlan != null)
                     return TaskName.DraftGovernancePlan.ToString();
+                if (Section10Consultation != null)
+                    return TaskName.Section10Consultation.ToString();
                 return null;
             }
         }

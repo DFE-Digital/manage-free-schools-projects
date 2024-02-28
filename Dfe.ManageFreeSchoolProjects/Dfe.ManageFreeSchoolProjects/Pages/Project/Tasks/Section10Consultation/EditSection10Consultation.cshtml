@@ -1,0 +1,82 @@
+﻿@page "/projects/{projectId}/tasks/section10consultation/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation.EditSection10ConsultationTaskModel
+@{
+    ViewData["Title"] = $"Edit section 10 consultation - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewSection10Consultation, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit section 10 consultation
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-date-input id="expected-date-for-receiving-findings-from-trust" name="expected-date-for-receiving-findings-from-trust" bold-label="true" label="Expected date for receiving findings from trust" asp-for="@Model.ExpectedDateForReceivingFindingsFromTrust" add-margin="true" data-testid="expected-date-for-receiving-findings-from-trust" hint="For example, 27 3 2021" />
+
+            <div class="govuk-form-group ">
+                <fieldset class="govuk-fieldset" id="received-consultation-findings-from-trust">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Received consultation findings from trust
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input"
+                                   id="received-consultation-findings-from-trust-Yes"
+                                   name="received-consultation-findings-from-trust"
+                                   type="radio"
+                                   value="Yes"
+                                   data-testid="received-consultation-findings-from-trust-Yes"
+                                   checked="@(Model.ReceivedConsultationFindingsFromTrust == true ? "checked" : null)"
+                                   data-aria-controls="conditional-received-consultation-findings-from-trust-Yes">
+
+                            <label class="govuk-label govuk-radios__label" for="received-consultation-findings-from-trust-Yes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional" id="conditional-trust-agrees-with-model-fa-Yes">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                Date Agreed
+                            </legend>
+                            <govuk-date-input id="date-trust-agrees-with-model-fa" name="date-trust-agrees-with-model-fa" asp-for="@Model.DateTrustAgreesWithModelFA" hint="For example, 27 3 2021" />
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input"
+                                   id="trust-agrees-with-model-fa-No"
+                                   name="trust-agrees-with-model-fa"
+                                   type="radio"
+                                   aria-label="trust-agrees-with-model-fa-No"
+                                   value="No"
+                                   checked="@(Model.TrustAgreesWithModelFA == "No" ? "checked" : null)"
+                                   data-testid="trust-agrees-with-model-fa-No">
+
+                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-No">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+
+            <govuk-date-input id="date-received" name="date-received" bold-label="true" label="Date received" asp-for="@Model.DateReceived" add-margin="true" data-testid="date-received" hint="For example, 27 3 2021" />
+            <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="comments" asp-for="@Model.Comments" data-testid="comments" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

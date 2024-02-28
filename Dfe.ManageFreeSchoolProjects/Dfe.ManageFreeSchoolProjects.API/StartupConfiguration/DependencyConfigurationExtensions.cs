@@ -25,6 +25,7 @@ using FluentValidation;
 using System.Reflection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consultation;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -112,6 +113,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IApiKeyValidationService, ApiKeyValidationService>();
 			services.AddScoped<IConstructApiKeyValidationService, ConstructApiKeyValidationService>();
             services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateSection10ConsultationTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateModelFundingAgreementTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
 			services.AddScoped<IGetDraftGovernancePlanTaskSummaryService, GetDraftGovernancePlanTaskSummaryService>();
