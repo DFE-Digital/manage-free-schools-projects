@@ -21,17 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
                                 from milestones in joinedMilestones.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    DraftGovernancePlan = new()
-                                    {
-                                        SavedDocumentsInWorkplacesFolder = milestones.DraftGovernancePlanDocumentsSavedInWorkplacesFolder,
-                                        PlanAndAssessmentSharedWithEsfa = milestones.DraftGovernancePlanAndAssessmentSharedWithEsfa,
-                                        PlanAndAssessmentSharedWithExpert = milestones.DraftGovernancePlanAndAssessmentSharedWithExpert,
-                                        PlanAssessedUsingTemplate = milestones.DraftGovernancePlanAssessedUsingTemplate,
-                                        PlanFedBackToTrust = milestones.DraftGovernancePlanFedBackToTrust,
-                                        PlanReceivedFromTrust = milestones.DraftGovernancePlanReceivedFromTrust,
-                                        DatePlanReceived = milestones.FsgPreOpeningMilestonesDgpActualDateOfCompletion,
-                                        Comments = milestones.FsgPreOpeningMilestonesMi60CommentsOnDecisionToApproveIfApplicable,
-                                    }
+                                    DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones)
                                 }).FirstOrDefaultAsync();
 
             return result ?? new GetProjectByTaskResponse() { DraftGovernancePlan = new() };

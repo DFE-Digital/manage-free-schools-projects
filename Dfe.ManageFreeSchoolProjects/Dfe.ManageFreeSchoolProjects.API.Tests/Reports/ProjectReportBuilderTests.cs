@@ -21,20 +21,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             var sectionHeaders = result.Headers.Select(h => h.Section).ToList();
             var columnHeaders = result.Headers.Select(h => h.ColumnName).ToList();
 
-            taskHeaders.Should().Contain("Dates");
+			taskHeaders.Should().Contain("Reference data");
+			taskHeaders.Should().Contain("Dates");
             taskHeaders.Should().Contain("School");
             taskHeaders.Should().Contain("Trust");
             taskHeaders.Should().Contain("Region and local authority");
             taskHeaders.Should().Contain("Constituency");
             taskHeaders.Should().Contain("Risk appraisal meeting");
             taskHeaders.Should().Contain("Kick-off meeting");
+            taskHeaders.Should().Contain("Model funding agreement");
             taskHeaders.Should().Contain("Articles of association");
+            taskHeaders.Should().Contain("Draft governance plan");
             taskHeaders.Should().Contain("Finance plan");
-            taskHeaders.Should().Contain("Reference data");
+            taskHeaders.Should().Contain("Gias");
 
+            sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Pre-opening");
-            sectionHeaders.Should().Contain("About the project");
+            sectionHeaders.Should().Contain("Sign-off preparation");
 
             result.Projects.Count.Should().Be(1);
 
@@ -52,7 +56,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
-        }
+            AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
+			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
+            AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
+		}
 
         private static List<ProjectReportSourceData> BuildSourceData()
         {
@@ -102,6 +109,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         FinancePlan = new FinancePlanTask()
                         {
                             RpaCoverType = "Cover",
+                        },
+                        DraftGovernancePlan = new DraftGovernancePlanTask()
+                        {
+							PlanFedBackToTrust = false,
+						},
+                        ModelFundingAgreement = new ModelFundingAgreementTask()
+                        {
+							SharedFAWithTheTrust = true
+						},
+                        Gias = new GiasTask()
+                        {
+                            CheckedTrustInformation = true
                         }
                     }
                 }
