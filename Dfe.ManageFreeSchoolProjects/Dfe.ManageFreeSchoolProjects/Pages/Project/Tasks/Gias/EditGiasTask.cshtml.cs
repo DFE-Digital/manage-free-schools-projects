@@ -30,9 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
         
         public bool? ApplicationFormSent { get; set; }
         
-        [BindProperty(Name = "saved-to-workspaces")]
+        [BindProperty(Name = "saved-to-workplaces")]
         
-        public bool? SavedToWorkspaces { get; set; }
+        public bool? SavedToWorkplaces { get; set; }
         
         [BindProperty(Name = "urn-Sent")]
         
@@ -77,7 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
                     {
                         CheckedTrustInformation = CheckedTrustInformation ?? false,
                         ApplicationFormSent = ApplicationFormSent ?? false,
-                        SavedToWorkspaces = SavedToWorkspaces ?? false,
+                        SavedToWorkspaces = SavedToWorkplaces ?? false,
                         UrnSent = UrnSent ?? false
                     }
                 };
@@ -98,7 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
 
             CheckedTrustInformation = project.Gias.CheckedTrustInformation;
             ApplicationFormSent = project.Gias.CheckedTrustInformation;
-            SavedToWorkspaces = project.Gias.SavedToWorkspaces;
+            SavedToWorkplaces = project.Gias.SavedToWorkspaces;
             UrnSent = project.Gias.SavedToWorkspaces;
            
             SchoolName = project.SchoolName;
