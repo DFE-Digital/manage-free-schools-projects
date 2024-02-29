@@ -27,6 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse DraftGovernancePlan { get; set; }
         
         public TaskSummaryResponse Gias { get; set; }
+        
+        public TaskSummaryResponse EducationBrief { get; set; }
+        
     }
 
     public class TaskSummaryResponse
