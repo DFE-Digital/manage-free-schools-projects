@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<Bs> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("BS", "dbo");
+            builder.ToTable("BS", "dbo", e => e.IsTemporal());
+
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.BudgetSummaryAcquisitionBudget)
                 .HasMaxLength(100)

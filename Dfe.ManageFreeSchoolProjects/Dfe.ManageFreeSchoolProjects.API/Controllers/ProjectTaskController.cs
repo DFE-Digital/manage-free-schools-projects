@@ -86,6 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
                 KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
+                Gias = SafeRetrieveTaskSummary(projectTasks,"Gias")
             };
 
             var draftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString());
@@ -98,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
         {
-            return projectTasks.SingleOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
+            return projectTasks.FirstOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
         }
     }
 }

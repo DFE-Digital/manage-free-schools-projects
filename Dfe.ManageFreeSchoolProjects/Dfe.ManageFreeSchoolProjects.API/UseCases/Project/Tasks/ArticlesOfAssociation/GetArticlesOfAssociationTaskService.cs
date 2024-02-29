@@ -21,16 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
                                 from milestones in joinedMilestones.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    ArticlesOfAssociation = new()
-                                    {
-                                        CheckedSubmittedArticlesMatch = milestones.MAACheckedSubmittedArticlesMatch,
-                                        ChairHaveSubmittedConfirmation = milestones.MAAChairHaveSubmittedConfirmation,
-                                        ArrangementsMatchGovernancePlans = milestones.MAAArrangementsMatchGovernancePlans,
-                                        ForecastDate = milestones.FsgPreOpeningMilestonesMaaForecastDate,
-                                        ActualDate = milestones.FsgPreOpeningMilestonesMaaActualDateOfCompletion,
-                                        CommentsOnDecision = milestones.MAACommentsOnDecisionToApprove,
-                                        SharepointLink = milestones.MAASharepointLink
-                                    }
+                                    ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones)
                                 }).FirstOrDefaultAsync();
 
             return result ?? new GetProjectByTaskResponse() { ArticlesOfAssociation = new () };

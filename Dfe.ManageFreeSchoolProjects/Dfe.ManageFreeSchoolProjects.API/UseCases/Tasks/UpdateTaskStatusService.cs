@@ -21,7 +21,7 @@ public class UpdateTaskStatusService : IUpdateTaskStatusService
 
     public async Task Execute(string projectId, string taskName, ProjectTaskStatus updatedProjectTaskStatus)
     {
-        var dbKpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
+        var dbKpi = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
         
         //taskName might need mapping to TaskName enum if contains multiple words from frontend
         var task = await _context.Tasks.FirstOrDefaultAsync(e => e.Rid == dbKpi.Rid && e.TaskName == Enum.Parse<TaskName>(taskName));

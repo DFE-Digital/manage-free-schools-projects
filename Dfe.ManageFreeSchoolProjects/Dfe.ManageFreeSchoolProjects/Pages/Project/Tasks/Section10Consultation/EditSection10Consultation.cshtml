@@ -25,54 +25,37 @@
 
         <form method="post">
             <govuk-date-input id="expected-date-for-receiving-findings-from-trust" name="expected-date-for-receiving-findings-from-trust" bold-label="true" label="Expected date for receiving findings from trust" asp-for="@Model.ExpectedDateForReceivingFindingsFromTrust" add-margin="true" data-testid="expected-date-for-receiving-findings-from-trust" hint="For example, 27 3 2021" />
-
             <div class="govuk-form-group ">
-                <fieldset class="govuk-fieldset" id="received-consultation-findings-from-trust">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                        Received consultation findings from trust
-                    </legend>
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input"
-                                   id="received-consultation-findings-from-trust-Yes"
-                                   name="received-consultation-findings-from-trust"
-                                   type="radio"
-                                   value="Yes"
-                                   data-testid="received-consultation-findings-from-trust-Yes"
-                                   checked="@(Model.ReceivedConsultationFindingsFromTrust == true ? "checked" : null)"
-                                   data-aria-controls="conditional-received-consultation-findings-from-trust-Yes">
-
-                            <label class="govuk-label govuk-radios__label" for="received-consultation-findings-from-trust-Yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="govuk-radios__conditional" id="conditional-trust-agrees-with-model-fa-Yes">
-                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                                Date Agreed
-                            </legend>
-                            <govuk-date-input id="date-trust-agrees-with-model-fa" name="date-trust-agrees-with-model-fa" asp-for="@Model.DateTrustAgreesWithModelFA" hint="For example, 27 3 2021" />
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input"
-                                   id="trust-agrees-with-model-fa-No"
-                                   name="trust-agrees-with-model-fa"
-                                   type="radio"
-                                   aria-label="trust-agrees-with-model-fa-No"
-                                   value="No"
-                                   checked="@(Model.TrustAgreesWithModelFA == "No" ? "checked" : null)"
-                                   data-testid="trust-agrees-with-model-fa-No">
-
-                            <label class="govuk-label govuk-radios__label" for="trust-agrees-with-model-fa-No">
-                                No
-                            </label>
-                        </div>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input"
+                               id="received-consultation-findings-from-trust"
+                               name="received-consultation-findings-from-trust"
+                               type="checkbox"
+                               value="false"
+                               checked="@(Model.ReceivedConsultationFindingsFromTrust == true ? "checked" : null)"
+                               data-aria-controls="conditional-date-received">
+                        <label class="govuk-label govuk-checkboxes__label" for="received-consultation-findings-from-trust">
+                            Received consultation findings from trust
+                        </label>
                     </div>
-                </fieldset>
+                    <div class="govuk-checkboxes__conditional" id="conditional-date-received">
+                        <govuk-date-input id="date-received" name="date-received" asp-for="@Model.DateReceived" label="Date received" hint="For example, 27 3 2021" />
+                    </div>
+                </div>
             </div>
-
-
-            <govuk-date-input id="date-received" name="date-received" bold-label="true" label="Date received" asp-for="@Model.DateReceived" add-margin="true" data-testid="date-received" hint="For example, 27 3 2021" />
+            <govuk-checkbox-input label="Consultation fulfils trust section 10 statutory duty"
+                                  asp-for="@Model.ConsultationFulfilsTrustSection10StatutoryDuty"
+                                  name="consultation-fulfils-trust-section-10-statutory-duty"
+                                  id="consultation-fulfils-trust-section-10-statutory-duty"
+                                  add-margin=false />
             <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="comments" asp-for="@Model.Comments" data-testid="comments" />
+            saved-findings-in-workplaces-folder
+            <govuk-checkbox-input label="Saved findings in workplaces folder"
+                                  asp-for="@Model.SavedFindingsInWorkplacesFolder"
+                                  name="saved-findings-in-workplaces-folder"
+                                  id="saved-findings-in-workplaces-folder"
+                                  add-margin=false />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>

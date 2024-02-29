@@ -28,15 +28,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
         [BindProperty(Name = "expected-date-for-receiving-findings-from-trust", BinderType = typeof(DateInputModelBinder))]
         public DateTime? ExpectedDateForReceivingFindingsFromTrust { get; set; }
 
-        [BindProperty(Name = "")]
+        [BindProperty(Name = "received-consultation-findings-from-trust")]
         public bool? ReceivedConsultationFindingsFromTrust { get; set; }
 
         [BindProperty(Name = "date-received", BinderType = typeof(DateInputModelBinder))]
         public DateTime? DateReceived { get; set; }
-        
+
+        [BindProperty(Name = "consultation-fulfils-trust-section-10-statutory-duty")]
+        public bool? ConsultationFulfilsTrustSection10StatutoryDuty { get; set; }
+
         [BindProperty(Name = "comments")]
         [ValidText(100)]
         public string Comments { get; set; }
+
+        [BindProperty(Name = "saved-findings-in-workplaces-folder")]
+        public bool? SavedFindingsInWorkplacesFolder { get; set; }
 
         public string SchoolName { get; set; }
 
@@ -79,8 +85,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
                         ExpectedDateForReceivingFindingsFromTrust = ExpectedDateForReceivingFindingsFromTrust,
                         ReceivedConsultationFindingsFromTrust = ReceivedConsultationFindingsFromTrust,
                         DateReceived = DateReceived,
+                        ConsultationFulfilsTrustSection10StatutoryDuty = ConsultationFulfilsTrustSection10StatutoryDuty,
                         Comments = Comments,
-                        
+                        SavedFindingsInWorkplacesFolder = SavedFindingsInWorkplacesFolder
+
                     }
                 };
 
@@ -101,8 +109,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
 
             ExpectedDateForReceivingFindingsFromTrust = project.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust;
             DateReceived = project.Section10Consultation.DateReceived;
+            ConsultationFulfilsTrustSection10StatutoryDuty = project.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty;
             Comments = project.Section10Consultation.Comments;
-            
+            SavedFindingsInWorkplacesFolder = project.Section10Consultation.SavedFindingsInWorkplacesFolder;
+
+
             SchoolName = project.SchoolName;
         }
     }

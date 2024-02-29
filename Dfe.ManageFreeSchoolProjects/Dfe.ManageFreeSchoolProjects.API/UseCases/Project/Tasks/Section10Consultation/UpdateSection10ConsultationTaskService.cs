@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consu
             db.FsgPreOpeningMilestonesScrActualDateOfCompletion = task.DateReceived;
             db.FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty = task.ConsultationFulfilsTrustSection10StatutoryDuty;
             db.FsgPreOpeningMilestonesMi80CommentsOnDecisionToApproveIfApplicable = task.Comments;
-            //db.FsgPreOpeningMilestonesSavedFindingsInWorkplacesFolder = task.SavedFindingsInWorkplacesFolder;
+            db.FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder = task.SavedFindingsInWorkplacesFolder;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -12,13 +13,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
     public class ViewDraftGovernancePlanModel : ViewTaskBaseModel
     {
         private readonly ILogger<ViewDraftGovernancePlanModel> _logger;
+        private readonly IGetProjectRiskService _getProjectRiskService;
+
+        public GetProjectRiskResponse ProjectRisk { get; set; }
 
         public ViewDraftGovernancePlanModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewDraftGovernancePlanModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
+            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
+            IGetProjectRiskService getProjectRiskService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
+            _getProjectRiskService = getProjectRiskService;
         }
 
         public async Task<ActionResult> OnGet()
@@ -26,6 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
             _logger.LogMethodEntered();
 
             await GetTask(TaskName.DraftGovernancePlan);
+
+            ProjectRisk = await _getProjectRiskService.Execute(ProjectId, 1);
 
             return Page();
         }

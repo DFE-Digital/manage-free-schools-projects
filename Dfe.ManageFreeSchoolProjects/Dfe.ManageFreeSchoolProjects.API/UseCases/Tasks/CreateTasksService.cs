@@ -23,7 +23,7 @@ public class CreateTasksService : ICreateTasksService
 
     public async Task Execute(string projectId)
     {
-        var kpi = await _context.Kpi.SingleOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
+        var kpi = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
         _context.Tasks.AddRange(ProjectTaskBuilder.BuildTasks(kpi.Rid));
         await _context.SaveChangesAsync();
     }

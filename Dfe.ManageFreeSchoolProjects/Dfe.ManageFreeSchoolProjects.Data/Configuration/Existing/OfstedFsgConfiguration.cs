@@ -10,9 +10,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 	{
 		public void Configure(EntityTypeBuilder<OfstedFsg> builder)
 		{
-            builder
-                .HasNoKey()
-                .ToTable("Ofsted_FSG", "dbo");
+            builder.ToTable("Ofsted_FSG", "dbo", e => e.IsTemporal());
+
+            builder.HasKey(e => e.Rid);
 
             builder.Property(e => e.EducationalEstablishmentAddressPostcode)
                 .HasMaxLength(100)
