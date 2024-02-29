@@ -32,10 +32,10 @@
                                id="received-consultation-findings-from-trust"
                                name="received-consultation-findings-from-trust"
                                type="checkbox"
-                               value="false"
+                               value="true"
                                checked="@(Model.ReceivedConsultationFindingsFromTrust == true ? "checked" : null)"
                                data-aria-controls="conditional-date-received">
-                        <label class="govuk-label govuk-checkboxes__label" for="received-consultation-findings-from-trust">
+                        <label class="govuk-label govuk-checkboxes__label govuk-label--m" for="received-consultation-findings-from-trust">
                             Received consultation findings from trust
                         </label>
                     </div>
@@ -45,13 +45,14 @@
                 </div>
             </div>
             <govuk-checkbox-input label="Consultation fulfils trust section 10 statutory duty"
+                                  bold-label="true"
                                   asp-for="@Model.ConsultationFulfilsTrustSection10StatutoryDuty"
                                   name="consultation-fulfils-trust-section-10-statutory-duty"
                                   id="consultation-fulfils-trust-section-10-statutory-duty"
                                   add-margin=false />
             <govuk-textarea-input id="comments" label="Comments" rows="5" bold-label="true" name="comments" asp-for="@Model.Comments" data-testid="comments" />
-            saved-findings-in-workplaces-folder
             <govuk-checkbox-input label="Saved findings in workplaces folder"
+                                  bold-label="true"
                                   asp-for="@Model.SavedFindingsInWorkplacesFolder"
                                   name="saved-findings-in-workplaces-folder"
                                   id="saved-findings-in-workplaces-folder"

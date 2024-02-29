@@ -23,29 +23,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
 
+            var dateNineteenDaysInFuture = new DateTime().AddDays(19);
             var dateTwentyDaysInFuture = new DateTime().AddDays(20);
 
             var request = new UpdateProjectByTaskRequest()
             {
                 Section10Consultation = new Section10ConsultationTask()
                 {
-                    ExpectedDateForReceivingFindingsFromTrust = dateTwentyDaysInFuture,
-                    ReceivedConsultationFindingsFromTrust = null,
-                    DateReceived = null,
-                    ConsultationFulfilsTrustSection10StatutoryDuty = null,
-                    Comments = "",
-                    SavedFindingsInWorkplacesFolder = null
+                    ExpectedDateForReceivingFindingsFromTrust = dateNineteenDaysInFuture,
+                    ReceivedConsultationFindingsFromTrust = true,
+                    DateReceived = dateTwentyDaysInFuture,
+                    ConsultationFulfilsTrustSection10StatutoryDuty = true,
+                    Comments = "The consultation has been completed with no issues.",
+                    SavedFindingsInWorkplacesFolder = true
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.Section10Consultation.ToString());
 
             projectResponse.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust.Should().Be(request.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust);
-            projectResponse.Section10Consultation.ReceivedConsultationFindingsFromTrust.Should().BeNull();
-            projectResponse.Section10Consultation.DateReceived.Should().BeNull();
-            projectResponse.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty.Should().BeNull();
+            projectResponse.Section10Consultation.ReceivedConsultationFindingsFromTrust.Should().Be(request.Section10Consultation.ReceivedConsultationFindingsFromTrust);
+            projectResponse.Section10Consultation.DateReceived.Should().Be(request.Section10Consultation.DateReceived);
+            projectResponse.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty.Should().Be(request.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty);
             projectResponse.Section10Consultation.Comments.Should().Be(request.Section10Consultation.Comments);
-            projectResponse.Section10Consultation.SavedFindingsInWorkplacesFolder.Should().BeNull();
+            projectResponse.Section10Consultation.SavedFindingsInWorkplacesFolder.Should().Be(request.Section10Consultation.SavedFindingsInWorkplacesFolder);
         }
 
         [Fact]
@@ -62,27 +63,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             await context.SaveChangesAsync();
 
-            var dateNineDaysInFuture = new DateTime().AddDays(9);
+            var dateNineteenDaysInFuture = new DateTime().AddDays(19);
+            var dateTwentyDaysInFuture = new DateTime().AddDays(20);
 
             var request = new UpdateProjectByTaskRequest()
             {
                 Section10Consultation = new Section10ConsultationTask()
                 {
-                    FundingArrangementAgreed = true,
-                    RealisticYearOfOpening = "2049/2050",
-                    FundingArrangementDetailsAgreed = "text",
-                    ProvisionalOpeningDate = dateNineDaysInFuture,
-                    SharepointLink = "https://sharepoint/completed"
+                    ExpectedDateForReceivingFindingsFromTrust = dateNineteenDaysInFuture,
+                    ReceivedConsultationFindingsFromTrust = true,
+                    DateReceived = dateTwentyDaysInFuture,
+                    ConsultationFulfilsTrustSection10StatutoryDuty = true,
+                    Comments = "The consultation has been completed with no issues.",
+                    SavedFindingsInWorkplacesFolder = true
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.Section10Consultation.ToString());
 
-            projectResponse.Section10Consultation.SharepointLink.Should().Be(request.Section10Consultation.SharepointLink);
-            projectResponse.Section10Consultation.RealisticYearOfOpening.Should().Be(request.Section10Consultation.RealisticYearOfOpening);
-            projectResponse.Section10Consultation.ProvisionalOpeningDate.Should().Be(request.Section10Consultation.ProvisionalOpeningDate);
-            projectResponse.Section10Consultation.FundingArrangementAgreed.Should().Be(request.Section10Consultation.FundingArrangementAgreed);
-            projectResponse.Section10Consultation.FundingArrangementDetailsAgreed.Should().Be(request.Section10Consultation.FundingArrangementDetailsAgreed);
+            projectResponse.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust.Should().Be(request.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust);
+            projectResponse.Section10Consultation.ReceivedConsultationFindingsFromTrust.Should().Be(request.Section10Consultation.ReceivedConsultationFindingsFromTrust);
+            projectResponse.Section10Consultation.DateReceived.Should().Be(request.Section10Consultation.DateReceived);
+            projectResponse.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty.Should().Be(request.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty);
+            projectResponse.Section10Consultation.Comments.Should().Be(request.Section10Consultation.Comments);
+            projectResponse.Section10Consultation.SavedFindingsInWorkplacesFolder.Should().Be(request.Section10Consultation.SavedFindingsInWorkplacesFolder);
         }
     }
 }

@@ -26,9 +26,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consu
                         ExpectedDateForReceivingFindingsFromTrust = milestones.FsgPreOpeningMilestonesScrForecastDate,
                         DateReceived = milestones.FsgPreOpeningMilestonesScrActualDateOfCompletion,
                         Comments = milestones.FsgPreOpeningMilestonesMi80CommentsOnDecisionToApproveIfApplicable,
-                        ReceivedConsultationFindingsFromTrust = null,
-                        ConsultationFulfilsTrustSection10StatutoryDuty = null,
-                        SavedFindingsInWorkplacesFolder = null,
+                        ReceivedConsultationFindingsFromTrust = milestones.FsgPreOpeningMilestonesScrReceived,
+                        ConsultationFulfilsTrustSection10StatutoryDuty = milestones.FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty,
+                        SavedFindingsInWorkplacesFolder = milestones.FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder,
                     }
                 }).FirstOrDefaultAsync();
 

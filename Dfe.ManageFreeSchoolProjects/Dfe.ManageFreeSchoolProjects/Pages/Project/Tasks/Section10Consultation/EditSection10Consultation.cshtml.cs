@@ -108,6 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
             var project = await _getProjectService.Execute(ProjectId, TaskName.Section10Consultation);
 
             ExpectedDateForReceivingFindingsFromTrust = project.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust;
+            ReceivedConsultationFindingsFromTrust = project.Section10Consultation.ReceivedConsultationFindingsFromTrust;
             DateReceived = project.Section10Consultation.DateReceived;
             ConsultationFulfilsTrustSection10StatutoryDuty = project.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty;
             Comments = project.Section10Consultation.Comments;
