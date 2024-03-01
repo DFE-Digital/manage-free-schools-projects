@@ -83,7 +83,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
                 KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
                 Gias = SafeRetrieveTaskSummary(projectTasks,"Gias"),
-                DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString())
+                DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
+                EducationBrief = SafeRetrieveTaskSummary(projectTasks,"EducationBrief")
+                
             };
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
