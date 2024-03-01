@@ -2,12 +2,15 @@
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
+
 using Dfe.ManageFreeSchoolProjects.Data;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -79,7 +82,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
                                       KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
                                       ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
-                                      FinancePlan = FinancePlanTaskBuilder.Build(milestones)
+                                      FinancePlan = FinancePlanTaskBuilder.Build(milestones),
+                                      EducationBrief = EducationBriefTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
