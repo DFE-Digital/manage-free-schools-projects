@@ -17,7 +17,7 @@ public partial class MfspContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseMfspSqlServer("Server=localhost,1433;Database=mfsp;User Id=sa;Password=29Feb2024;TrustServerCertificate=True");
+            optionsBuilder.UseMfspSqlServer("Server=localhost;Database=mfsp;Integrated Security=true;TrustServerCertificate=True");
         }
     }
 
