@@ -117,7 +117,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateGiasTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateModelFundingAgreementTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
-			services.AddScoped<IGetDraftGovernancePlanTaskSummaryService, GetDraftGovernancePlanTaskSummaryService>();
 			services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
