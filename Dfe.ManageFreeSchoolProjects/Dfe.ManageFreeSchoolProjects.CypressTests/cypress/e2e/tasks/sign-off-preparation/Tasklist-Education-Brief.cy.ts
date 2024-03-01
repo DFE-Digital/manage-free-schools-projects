@@ -3,7 +3,8 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import giasEditPage from "../../../pages/tasks/sign-off-preparation/edit-education-brief.cy";
+import educationBriefEditPage from "../../../pages/tasks/sign-off-preparation/edit-education-brief.cy";
+import riskPage from "cypress/pages/risk/projectRiskSummaryPage"
 
 describe("Testing education brief", () => {
 
@@ -60,8 +61,8 @@ describe("Testing education brief", () => {
         summaryPage.clickChange();
 
         cy.executeAccessibilityTests
-        
-        giasEditPage
+
+        educationBriefEditPage
             .checkEducationPlanInBrief()
             .checkEducationPoliciesInBrief()
             .checkAssessmentAndTrackingHistoryInPlace()
@@ -84,11 +85,11 @@ describe("Testing education brief", () => {
 
         cy.executeAccessibilityTests
 
-        giasEditPage
-            .unCheckCheckTrustInformation()
-            .unCheckApplicationFormSent()
-            .unCheckSentTrustURN()
-            .unCheckCopySavedToWorkspaces()
+        educationBriefEditPage
+            .uncheckEducationPlanInBrief()
+            .uncheckEducationPoliciesInBrief()
+            .uncheckAssessmentAndTrackingHistoryInPlace()
+            .uncheckCopySavedToWorkspaces()
             .clickContinue()
             .MarkAsComplete()
             .clickConfirmAndContinue()
@@ -100,11 +101,20 @@ describe("Testing education brief", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Education brief")
             .inOrder()
-            .summaryShows("Education plan is in the education brief").HasValue("No").HasChangeLink()
-            .summaryShows("Education policies are in the education brief").HasValue("No").HasChangeLink()
-            .summaryShows("Pupil assessment and tracking history are in place").HasValue("No").HasChangeLink()
-            .summaryShows("Saved documents in Workplaces folder").HasValue("No").HasChangeLink()
+            .summaryShows("Education plan is in the education brief").IsEmpty().HasChangeLink()
+            .summaryShows("Education policies are in the education brief").IsEmpty().HasChangeLink()
+            .summaryShows("Pupil assessment and tracking history are in place").IsEmpty().HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isMarkedAsComplete()
 
+        cy.log("click on risk link");
+        
+        summaryPage
+            .clickChangeRiskRating()
+
+        riskPage
+            .hasSchoolName(project.schoolName)
+            .hasTitle("Current risk ratings")
+            .hasOverallRiskRating(["Empty"])
     })
 })
