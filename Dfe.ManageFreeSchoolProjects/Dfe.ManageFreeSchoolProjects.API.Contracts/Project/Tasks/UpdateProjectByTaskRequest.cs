@@ -14,7 +14,7 @@
         public GiasTask Gias { get; set; }
         public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
 
-        public Section10ConsultationTask Section10Consultation { get; set; }
+        public StatutoryConsultationTask StatutoryConsultation { get; set; }
 
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
@@ -50,8 +50,8 @@
                     return TaskName.DraftGovernancePlan.ToString();
                 if (Gias != null)
                     return TaskName.Gias.ToString();
-                if (Section10Consultation != null)
-                    return TaskName.Section10Consultation.ToString();
+                if (StatutoryConsultation != null)
+                    return TaskName.StatutoryConsultation.ToString();
                 return null;
             }
         }

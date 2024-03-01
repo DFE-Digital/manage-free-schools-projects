@@ -50,8 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.KickOffMeeting.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.ModelFundingAgreement.Name.Should().Be("ModelFundingAgreement");
             result.ModelFundingAgreement.Status.Should().Be(ProjectTaskStatus.NotStarted);
-            result.Section10Consultation.Name.Should().Be("Section10Consultation");
-            result.Section10Consultation.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.StatutoryConsultation.Name.Should().Be("StatutoryConsultation");
+            result.StatutoryConsultation.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.ArticlesOfAssociation.Name.Should().Be("ArticlesOfAssociation");
             result.ArticlesOfAssociation.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.FinancePlan.Name.Should().Be("FinancePlan");

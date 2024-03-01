@@ -3,13 +3,13 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consultation;
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 
-    internal class GetSection10ConsultationTaskService : IGetTaskService
+    internal class GetStatutoryConsultationTaskService : IGetTaskService
     {
         private readonly MfspContext _context;
 
-        public GetSection10ConsultationTaskService(MfspContext context)
+        public GetStatutoryConsultationTaskService(MfspContext context)
         {
             _context = context;
 
@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consu
                 from milestones in joinedMilestones.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
-                    Section10Consultation = new()
+                    StatutoryConsultation = new()
                     {
                         ExpectedDateForReceivingFindingsFromTrust = milestones.FsgPreOpeningMilestonesScrForecastDate,
                         DateReceived = milestones.FsgPreOpeningMilestonesScrActualDateOfCompletion,
@@ -32,6 +32,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consu
                     }
                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { Section10Consultation = new () };
+            return result ?? new GetProjectByTaskResponse() { StatutoryConsultation = new () };
         }
     }

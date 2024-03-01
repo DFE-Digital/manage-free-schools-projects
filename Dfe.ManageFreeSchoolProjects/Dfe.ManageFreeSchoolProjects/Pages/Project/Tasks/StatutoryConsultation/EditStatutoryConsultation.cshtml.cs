@@ -13,13 +13,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.StatutoryConsultation
 {
-    public class EditSection10ConsultationTaskModel : PageModel
+    public class EditStatutoryConsultationTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditSection10ConsultationTaskModel> _logger;
+        private readonly ILogger<EditStatutoryConsultationTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -46,9 +46,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
 
         public string SchoolName { get; set; }
 
-        public EditSection10ConsultationTaskModel(IGetProjectByTaskService getProjectService,
+        public EditStatutoryConsultationTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditSection10ConsultationTaskModel> logger,
+            ILogger<EditStatutoryConsultationTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -67,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.Section10Consultation);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.StatutoryConsultation);
             SchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    Section10Consultation = new Section10ConsultationTask()
+                    StatutoryConsultation = new StatutoryConsultationTask()
                     {
                         ExpectedDateForReceivingFindingsFromTrust = ExpectedDateForReceivingFindingsFromTrust,
                         ReceivedConsultationFindingsFromTrust = ReceivedConsultationFindingsFromTrust,
@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
 
-                return Redirect(string.Format(RouteConstants.ViewSection10Consultation, ProjectId));
+                return Redirect(string.Format(RouteConstants.ViewStatutoryConsultation, ProjectId));
             }
             catch (Exception ex)
             {
@@ -105,14 +105,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.Section10Consultation);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.StatutoryConsultation);
 
-            ExpectedDateForReceivingFindingsFromTrust = project.Section10Consultation.ExpectedDateForReceivingFindingsFromTrust;
-            ReceivedConsultationFindingsFromTrust = project.Section10Consultation.ReceivedConsultationFindingsFromTrust;
-            DateReceived = project.Section10Consultation.DateReceived;
-            ConsultationFulfilsTrustSection10StatutoryDuty = project.Section10Consultation.ConsultationFulfilsTrustSection10StatutoryDuty;
-            Comments = project.Section10Consultation.Comments;
-            SavedFindingsInWorkplacesFolder = project.Section10Consultation.SavedFindingsInWorkplacesFolder;
+            ExpectedDateForReceivingFindingsFromTrust = project.StatutoryConsultation.ExpectedDateForReceivingFindingsFromTrust;
+            ReceivedConsultationFindingsFromTrust = project.StatutoryConsultation.ReceivedConsultationFindingsFromTrust;
+            DateReceived = project.StatutoryConsultation.DateReceived;
+            ConsultationFulfilsTrustSection10StatutoryDuty = project.StatutoryConsultation.ConsultationFulfilsTrustSection10StatutoryDuty;
+            Comments = project.StatutoryConsultation.Comments;
+            SavedFindingsInWorkplacesFolder = project.StatutoryConsultation.SavedFindingsInWorkplacesFolder;
 
 
             SchoolName = project.SchoolName;

@@ -1,11 +1,11 @@
-﻿@page "/projects/{projectId}/tasks/section10consultation/edit"
+﻿@page "/projects/{projectId}/tasks/statutoryconsultation/edit"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation.EditSection10ConsultationTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.StatutoryConsultation.EditStatutoryConsultationTaskModel
 @{
-    ViewData["Title"] = $"Edit section 10 consultation - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit statutory consultation - {Model.SchoolName}";
 
-    var backlink = string.Format(RouteConstants.ViewSection10Consultation, Model.ProjectId);
+    var backlink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -17,7 +17,7 @@
 <partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit section 10 consultation
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit statutory consultation
 </h1>
 
 <div class="govuk-grid-row">

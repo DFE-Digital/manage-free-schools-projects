@@ -3,20 +3,20 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Section10Consultation
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation
 {
-    public class UpdateSection10ConsultationTaskService : IUpdateTaskService
+    public class UpdateStatutoryConsultationTaskService : IUpdateTaskService
     {
         private readonly MfspContext _context;
 
-        public UpdateSection10ConsultationTaskService(MfspContext context)
+        public UpdateStatutoryConsultationTaskService(MfspContext context)
         {
             _context = context;
         }
 
         public async Task Update(UpdateTaskServiceParameters parameters)
         {
-            var task = parameters.Request.Section10Consultation;
+            var task = parameters.Request.StatutoryConsultation;
             var dbKpi = parameters.Kpi;
 
             if (task is null)

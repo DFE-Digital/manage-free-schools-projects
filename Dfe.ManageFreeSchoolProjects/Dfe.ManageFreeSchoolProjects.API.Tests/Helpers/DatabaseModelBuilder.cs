@@ -159,7 +159,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
-        public static Milestones BuildSection10ConsultationTask(string rid)
+        public static Milestones BuildStatutoryConsultationTask(string rid)
         {
             var result = new Milestones();
 

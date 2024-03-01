@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         KickOffMeeting,
         DraftGovernancePlan,
         ModelFundingAgreement,
-        Section10Consultation,
+        StatutoryConsultation,
         Gias
     }
 }

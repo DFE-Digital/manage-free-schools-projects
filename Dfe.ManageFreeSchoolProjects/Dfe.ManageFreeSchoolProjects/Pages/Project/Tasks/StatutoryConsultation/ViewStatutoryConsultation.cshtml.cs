@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Section10Consultation;
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.StatutoryConsultation;
 
-public class ViewSection10ConsultationTask : ViewTaskBaseModel
+public class ViewStatutoryConsultationTask : ViewTaskBaseModel
 {
-    private readonly ILogger<ViewSection10ConsultationTask> _logger;
+    private readonly ILogger<ViewStatutoryConsultationTask> _logger;
 
-    public ViewSection10ConsultationTask(
+    public ViewStatutoryConsultationTask(
         IGetProjectByTaskService getProjectService,
-        ILogger<ViewSection10ConsultationTask> logger,
+        ILogger<ViewStatutoryConsultationTask> logger,
         IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
         _logger = logger;
@@ -25,7 +25,7 @@ public class ViewSection10ConsultationTask : ViewTaskBaseModel
     {
         _logger.LogMethodEntered();
 
-        await GetTask(TaskName.Section10Consultation);
+        await GetTask(TaskName.StatutoryConsultation);
 
         return Page();
     }
@@ -34,7 +34,7 @@ public class ViewSection10ConsultationTask : ViewTaskBaseModel
     {
         _logger.LogMethodEntered();
 
-        await PostTask(TaskName.Section10Consultation);
+        await PostTask(TaskName.StatutoryConsultation);
 
         return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
     }

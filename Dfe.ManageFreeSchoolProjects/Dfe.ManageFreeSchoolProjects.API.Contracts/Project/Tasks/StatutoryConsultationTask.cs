@@ -4,7 +4,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
-    public class Section10ConsultationTask
+    public class StatutoryConsultationTask
     {
         public DateTime? ExpectedDateForReceivingFindingsFromTrust { get; set; }
 

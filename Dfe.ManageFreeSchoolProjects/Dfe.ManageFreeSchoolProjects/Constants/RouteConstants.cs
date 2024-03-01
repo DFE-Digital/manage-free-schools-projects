@@ -30,8 +30,8 @@
         public const string ViewModelFundingAgreement = TaskList + "/Modelfundingagreement";
         public const string EditModelFundingAgreement = ViewModelFundingAgreement + "/edit";
 
-        public const string ViewSection10Consultation = TaskList + "/section10consultation";
-        public const string EditSection10Consultation = ViewSection10Consultation + "/edit";
+        public const string ViewStatutoryConsultation = TaskList + "/statutoryconsultation";
+        public const string EditStatutoryConsultation = ViewStatutoryConsultation + "/edit";
 
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
         public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";

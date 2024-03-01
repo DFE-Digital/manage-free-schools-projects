@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public TaskSummaryResponse ModelFundingAgreement { get; set; }
 
-        public TaskSummaryResponse Section10Consultation { get; set; }
+        public TaskSummaryResponse StatutoryConsultation { get; set; }
 
         public TaskSummaryResponse ArticlesOfAssociation { get; set; }
 
