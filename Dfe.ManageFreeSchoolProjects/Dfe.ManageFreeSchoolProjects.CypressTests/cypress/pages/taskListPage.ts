@@ -66,6 +66,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectStatutoryConsultationFromTaskList(): this {
+        cy.getByTestId("statutory-consultation-task").click()
+        return this;
+    }
+
     public selectGiasFromTaskList(): this {
         cy.getByTestId("get-information-about-schools").click()
         return this;
