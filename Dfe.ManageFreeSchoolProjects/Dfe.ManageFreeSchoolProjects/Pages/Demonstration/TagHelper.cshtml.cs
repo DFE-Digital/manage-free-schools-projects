@@ -57,6 +57,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Demonstration
         [BindProperty(Name = "project-approved", BinderType = typeof(CheckboxInputModelBinder))]
         public bool ProjectApproved { get; set; }
 
+        [BindProperty(Name = "stamps")]
+        public string[] Stamps { get; set; }
+
         public ErrorService _errorService;
 
         public TagHelperModel(
