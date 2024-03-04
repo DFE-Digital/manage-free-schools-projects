@@ -37,8 +37,8 @@ describe("Testing gias", () => {
             .titleIs("Set up the school on GIAS (Get information about schools)")
             .inOrder()
             .summaryShows("Check the information on trusts' completed GIAS application form is correct").IsEmpty().HasChangeLink()
-            .summaryShows("Send the application form to the Ofsted pre-reg.FreeSchools@education.gov.uk mailbox").IsEmpty().HasChangeLink()
-            .summaryShows("Save a copy of the application form in Workspaces").IsEmpty().HasChangeLink()
+            .summaryShows("Send the application form to the Ofstedpre-reg.FreeSchools@education.gov.uk mailbox").IsEmpty().HasChangeLink()
+            .summaryShows("Save a copy of the application form in Workplaces").IsEmpty().HasChangeLink()
             .summaryShows("Send the trust their URN and DfE establishment number").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -75,8 +75,8 @@ describe("Testing gias", () => {
             .titleIs("Set up the school on GIAS (Get information about schools)")
             .inOrder()
             .summaryShows("Check the information on trusts' completed GIAS application form is correct").HasValue("Yes").HasChangeLink()
-            .summaryShows("Send the application form to the Ofsted pre-reg.FreeSchools@education.gov.uk mailbox").HasValue("Yes").HasChangeLink()
-            .summaryShows("Save a copy of the application form in Workspaces").HasValue("Yes").HasChangeLink()
+            .summaryShows("Send the application form to the Ofstedpre-reg.FreeSchools@education.gov.uk mailbox").HasValue("Yes").HasChangeLink()
+            .summaryShows("Save a copy of the application form in Workplaces").HasValue("Yes").HasChangeLink()
             .summaryShows("Send the trust their URN and DfE establishment number").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -103,8 +103,8 @@ describe("Testing gias", () => {
             .titleIs("Set up the school on GIAS (Get information about schools)")
             .inOrder()
             .summaryShows("Check the information on trusts' completed GIAS application form is correct").HasValue("No").HasChangeLink()
-            .summaryShows("Send the application form to the Ofsted pre-reg.FreeSchools@education.gov.uk mailbox").HasValue("No").HasChangeLink()
-            .summaryShows("Save a copy of the application form in Workspaces").HasValue("No").HasChangeLink()
+            .summaryShows("Send the application form to the Ofstedpre-reg.FreeSchools@education.gov.uk mailbox").HasValue("No").HasChangeLink()
+            .summaryShows("Save a copy of the application form in Workplaces").HasValue("No").HasChangeLink()
             .summaryShows("Send the trust their URN and DfE establishment number").HasValue("No").HasChangeLink()
             .isMarkedAsComplete()
 

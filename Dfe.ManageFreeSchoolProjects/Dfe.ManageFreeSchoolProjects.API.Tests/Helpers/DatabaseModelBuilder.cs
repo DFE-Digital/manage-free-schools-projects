@@ -185,6 +185,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildEducationBriefTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FSGPreOpeningMilestonesEducationPlanInBrief = true;
+            result.FSGPreOpeningMilestonesEducationPolicesInBrief = true;
+            result.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory = true;
+            result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
+            
+
+            return result;
+        }
+        
 
         public static Po PupilNumbersAndCapacity(string rid)
         {

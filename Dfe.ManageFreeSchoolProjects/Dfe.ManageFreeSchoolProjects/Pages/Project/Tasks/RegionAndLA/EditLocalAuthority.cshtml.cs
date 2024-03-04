@@ -59,6 +59,7 @@ public class EditLocalAuthority : PageModel
         var localAuthoritiesAndCodes = await GetLocalAuthoritiesByRegion();
 
         LocalAuthorities = localAuthoritiesAndCodes.Values.ToList();
+        LocalAuthorities.Sort();
         LocalAuthority = Project.RegionAndLocalAuthority.LocalAuthority;
 
         return Page();
@@ -75,7 +76,7 @@ public class EditLocalAuthority : PageModel
 
             localAuthorities = await GetLocalAuthoritiesByRegion();
             LocalAuthorities = localAuthorities.Values.ToList();
-
+            LocalAuthorities.Sort();
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }

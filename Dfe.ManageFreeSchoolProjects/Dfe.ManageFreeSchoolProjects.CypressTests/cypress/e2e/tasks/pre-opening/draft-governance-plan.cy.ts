@@ -1,10 +1,9 @@
 import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
+import projectRiskApi from "cypress/api/projectRiskApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import editProjectRiskPage from "cypress/pages/risk/editProjectRiskPage";
 import projectRiskSummaryComponent from "cypress/pages/risk/projectRiskSummaryComponent";
-import projectRiskSummaryPage from "cypress/pages/risk/projectRiskSummaryPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import editDraftGovernancePlanPage from "cypress/pages/tasks/pre-opening/editDraftGovernancePlanPage";
@@ -21,35 +20,18 @@ describe("Testing draft governance plan task", () => {
         now = toDisplayDate(new Date());
 
         project = RequestBuilder.createProjectDetails();
+        const projectRisk = RequestBuilder.CreateProjectRiskRequest();
 
         projectApi
             .post({
                 projects: [project],
+            })
+            .then(() => {
+                projectRiskApi.post(project.projectId, projectRisk);
             });
     });
 
-    it("Should not show a draft governance plan if the overall or governance risk is not red or red/amber", () => {
-        cy.visit(`/projects/${project.projectId}/tasks`);
-        Logger.log("This project has no risks so the task should not show");
-        taskListPage.draftGovernancePlanTaskDoesNotShow();
-    });
-
     it("Should be able to set a draft governance plan", () => {
-
-        Logger.log("Update overall risk to red so the task shows");
-        cy.visit(`/projects/${project.projectId}/risk/summary`);
-        projectRiskSummaryPage
-            .addRiskEntry()
-            .changeOverallRisk();
-
-        editProjectRiskPage
-            .withOverallRiskRating("Red")
-            .withOverallRiskSummary("This is my overall risk summary")
-            .continue();
-
-        projectRiskSummaryPage
-            .markRiskAsReviewed()
-            .createRiskEntry();
 
         cy.visit(`/projects/${project.projectId}/tasks`);
 
@@ -72,7 +54,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").IsEmpty().HasChangeLink()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty().HasChangeLink()
             .summaryShows("Fed back to trust on plan").IsEmpty().HasChangeLink()
-            .summaryShows("Saved documents in workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -81,8 +63,8 @@ describe("Testing draft governance plan task", () => {
         Logger.log("Check that the risk rating is displayed");
         projectRiskSummaryComponent
             .hasProjectRiskDate(now)
-            .hasProjectRiskRating(["Red"])
-            .hasProjectRiskSummary("This is my overall risk summary");
+            .hasProjectRiskRating(["Green"])
+            .hasProjectRiskSummary("This is my risk summary");
 
         summaryPage.clickChange();
 
@@ -129,7 +111,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").HasValue("Yes")
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").HasValue("Yes")
             .summaryShows("Fed back to trust on plan").HasValue("Yes")
-            .summaryShows("Saved documents in workplaces folder").HasValue("Yes")
+            .summaryShows("Saved documents in Workplaces folder").HasValue("Yes")
             .summaryShows("Comments").HasValue("This is my comments")
 
         Logger.log("Should clear the date if Received draft governance plan from trust is unchecked");
@@ -183,7 +165,7 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").IsEmpty()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty()
             .summaryShows("Fed back to trust on plan").IsEmpty()
-            .summaryShows("Saved documents in workplaces folder").IsEmpty()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty()
             .summaryShows("Comments").HasValue("This is my updated comments that I have written");
 
         Logger.log("Should update the task status");

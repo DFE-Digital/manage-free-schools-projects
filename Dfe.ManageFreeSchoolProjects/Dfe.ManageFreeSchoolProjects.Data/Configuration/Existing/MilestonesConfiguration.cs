@@ -553,6 +553,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
+            builder.Property((e => e.FSGPreOpeningMilestonesEducationPlanInBrief))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Education Plan In Brief");
+            builder.Property((e => e.FSGPreOpeningMilestonesEducationPolicesInBrief))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Education Policies In Brief");
+            builder.Property((e => e.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Pupil assessment and tracking history in place");
+            builder.Property((e => e.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Education Brief Saved To Workplaces");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)
