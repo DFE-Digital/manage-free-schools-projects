@@ -30,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Kick-off meeting");
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Finance plan");
+            taskHeaders.Should().Contain("Education brief");
             taskHeaders.Should().Contain("Reference data");
 
             sectionHeaders.Should().Contain("Setting-up");
@@ -52,6 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
+            AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -102,6 +104,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         FinancePlan = new FinancePlanTask()
                         {
                             RpaCoverType = "Cover",
+                        },
+                        EducationBrief = new EducationBriefTask()
+                        {
+                            EducationPlanInEducationBrief = true
                         }
                     }
                 }
