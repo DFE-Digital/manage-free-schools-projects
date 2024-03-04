@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Draft governance plan");
             taskHeaders.Should().Contain("Finance plan");
             taskHeaders.Should().Contain("Gias");
+            taskHeaders.Should().Contain("Education brief");
 
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
@@ -59,6 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
+            AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
 		}
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -121,6 +123,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         Gias = new GiasTask()
                         {
                             CheckedTrustInformation = true
+                        },
+                        EducationBrief = new EducationBriefTask()
+                        {
+                            EducationPlanInEducationBrief = true
                         }
                     }
                 }
