@@ -20,13 +20,7 @@ internal class GetGiasTaskService : IGetTaskService
             from milestones in joinedMilestones.DefaultIfEmpty()
             select new GetProjectByTaskResponse()
             {
-                Gias = new GiasTask()
-                {
-                    CheckedTrustInformation = milestones.FSGPreOpeningMilestonesGIASCheckedTrustInformation,
-                    ApplicationFormSent = milestones.FSGPreOpeningMilestonesGIASApplicationFormSent,
-                    SavedToWorkspaces = milestones.FSGPreOpeningMilestonesGIASSavedToWorkspaces,
-                    UrnSent = milestones.FSGPreOpeningMilestonesGIASURNSent
-                }
+                Gias = GiasTaskBuilder.Build(milestones)
             }).FirstOrDefaultAsync();
 
         return result ?? new GetProjectByTaskResponse() { Gias = new() };
