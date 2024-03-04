@@ -17,8 +17,8 @@
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
-
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
+    var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
     
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -188,6 +188,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.DraftGovernancePlan);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
+                                Admissions arrangements
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
                         }
                     </li>
 

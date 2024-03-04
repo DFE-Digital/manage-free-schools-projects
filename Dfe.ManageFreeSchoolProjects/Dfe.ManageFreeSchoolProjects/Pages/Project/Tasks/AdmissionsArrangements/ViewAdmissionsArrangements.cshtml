@@ -1,0 +1,39 @@
+﻿@page "/projects/{projectId}/tasks/admissions-arrangements"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangements.ViewAdmissionsArrangementsModel
+@{
+    ViewData["Title"] = $"Admissions arrangements - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditAdmissionsArrangementsTask, Model.ProjectId);
+    var admissionsArrangements = Model.Project.AdmissionsArrangements;
+    var riskRatingLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Admissions arrangements
+        </h1>
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+
+        </form>
+    </div>
+</div>

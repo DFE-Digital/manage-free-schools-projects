@@ -21,6 +21,8 @@
         
         public EducationBriefTask EducationBrief { get; set; }
 
+        public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
+
         public string TaskToUpdate
         {
             get
@@ -51,6 +53,8 @@
                     return TaskName.Gias.ToString();
                 if (EducationBrief != null)
                     return TaskName.EducationBrief.ToString();
+                if (AdmissionsArrangements != null)
+                    return TaskName.AdmissionsArrangements.ToString();
                 return null;
             }
         }
