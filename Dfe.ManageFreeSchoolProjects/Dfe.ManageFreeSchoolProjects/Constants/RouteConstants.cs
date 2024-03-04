@@ -45,6 +45,9 @@
         public const string ViewGiasTask = TaskList + "/gias";
         public const string EditGiasTask = ViewGiasTask + "/edit";
         
+        public const string ViewEducationBriefTask = TaskList + "/education-brief";
+        public const string EditEducationBriefTask = ViewEducationBriefTask + "/edit";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

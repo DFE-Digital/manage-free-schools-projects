@@ -52,3 +52,17 @@ export type GetDashboardParameters = {
 export type GetDashboardResponse = {
     projectTitle: string;
 };
+
+export type CreateProjectRiskRequest = {
+    governanceAndSuitability?: ProjectRiskEntryRequest;
+    education?: ProjectRiskEntryRequest;
+    finance?: ProjectRiskEntryRequest;
+    overall?: ProjectRiskEntryRequest;
+    riskAppraisalFormSharepointLink?: string;
+}
+
+export type ProjectRiskEntryRequest = {
+    riskRating?: number;
+    summary?: string;
+}
+

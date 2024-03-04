@@ -11,37 +11,37 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EducationBrief
 {
-    public class EditGiasTaskModel : PageModel
+    public class EditEducationBriefTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditGiasTaskModel> _logger;
+        private readonly ILogger<EditEducationBriefTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
         
-        [BindProperty(Name = "checked-trust-information")]
-        public bool? CheckedTrustInformation { get; set; }
+        [BindProperty(Name = "education-plan-in-brief")]
+        public bool? EducationPlanInBrief { get; set; }
         
-        [BindProperty(Name = "application-form-sent")]
+        [BindProperty(Name = "education-policies-in-brief")]
         
-        public bool? ApplicationFormSent { get; set; }
+        public bool? EducationPoliciesInBrief { get; set; }
         
-        [BindProperty(Name = "saved-to-workplaces")]
+        [BindProperty(Name = "pupil-assessment-and-tracking-history")]
         
-        public bool? SavedToWorkplaces { get; set; }
+        public bool? PupilAssessmentAndTrackingHistory { get; set; }
         
-        [BindProperty(Name = "urn-Sent")]
+        [BindProperty(Name = "saved-in-workplaces")]
         
-        public bool? UrnSent { get; set; }
+        public bool? SavedInWorkPlaces { get; set; }
         public string SchoolName { get; set; }
 
-        public EditGiasTaskModel(IGetProjectByTaskService getProjectService,
+        public EditEducationBriefTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditGiasTaskModel> logger,
+            ILogger<EditEducationBriefTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -60,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.Gias);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.EducationBrief);
             SchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -73,17 +73,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    Gias = new GiasTask()
+                    EducationBrief = new EducationBriefTask()
                     {
-                        CheckedTrustInformation = CheckedTrustInformation ?? false,
-                        ApplicationFormSent = ApplicationFormSent ?? false,
-                        SavedToWorkspaces = SavedToWorkplaces ?? false,
-                        UrnSent = UrnSent ?? false
+                        EducationPlanInEducationBrief = EducationPlanInBrief,
+                        EducationPolicesInEducationBrief = EducationPoliciesInBrief,
+                        PupilAssessmentAndTrackingHistoryInPlace = PupilAssessmentAndTrackingHistory,
+                        EducationBriefSavedToWorkplaces = SavedInWorkPlaces
                     }
                 };
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
-                return Redirect(string.Format(RouteConstants.ViewGiasTask, ProjectId));
+                return Redirect(string.Format(RouteConstants.ViewEducationBriefTask, ProjectId));
             }
             catch (Exception ex)
             {
@@ -94,12 +94,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Gias
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.Gias);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.EducationBrief);
 
-            CheckedTrustInformation = project.Gias.CheckedTrustInformation;
-            ApplicationFormSent = project.Gias.CheckedTrustInformation;
-            SavedToWorkplaces = project.Gias.SavedToWorkspaces;
-            UrnSent = project.Gias.SavedToWorkspaces;
+            EducationPlanInBrief = project.EducationBrief.EducationPlanInEducationBrief;
+            EducationPoliciesInBrief = project.EducationBrief.EducationPolicesInEducationBrief;
+            PupilAssessmentAndTrackingHistory = project.EducationBrief.PupilAssessmentAndTrackingHistoryInPlace;
+            SavedInWorkPlaces = project.EducationBrief.EducationBriefSavedToWorkplaces;
            
             SchoolName = project.SchoolName;
         }

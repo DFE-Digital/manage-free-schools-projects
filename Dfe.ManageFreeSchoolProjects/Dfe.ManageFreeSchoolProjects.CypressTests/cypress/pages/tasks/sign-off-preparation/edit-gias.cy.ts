@@ -23,7 +23,7 @@ class GiasEditPage {
     }
 
     checkCopySavedToWorkspaces(): this {
-        cy.getById("saved-to-workspaces").check()
+        cy.getById("saved-to-workplaces").check()
         return this
     }
 
@@ -45,7 +45,7 @@ class GiasEditPage {
     }
 
     unCheckCopySavedToWorkspaces(): this {
-        cy.getById("saved-to-workspaces").uncheck()
+        cy.getById("saved-to-workplaces").uncheck()
         return this
     }
 
