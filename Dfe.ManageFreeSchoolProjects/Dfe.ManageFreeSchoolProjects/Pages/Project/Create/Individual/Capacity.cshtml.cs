@@ -7,11 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Utils;
+using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
     public class CapacityModel : CreateProjectBaseModel
     {
+
+        [BindProperty(Name = "nursery-capacity")]
+        [Display(Name = "Nursery capacity")]
+        [ValidNumber(0, 9999)]
+        public string NurseryCapacity { get; set; }
+
         [BindProperty(Name = "yr-y6-capacity")]
         [Display(Name = "Reception to year 6 capacity")]
         [Required(ErrorMessage = "Enter the Reception - Year 6 Capacity")]
@@ -30,6 +37,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [ValidNumber(0,9999)]
         public string Y12Y14Capacity { get; set; }
 
+        public Nursery HasNursery { get; set; }
+
         private readonly ErrorService _errorService;
 
         public CapacityModel(ErrorService errorService, ICreateProjectCache createProjectCache)
@@ -46,9 +55,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var project = _createProjectCache.Get();
+            NurseryCapacity = project.NurseryCapacity.ToString();
             YRY6Capacity = project.YRY6Capacity.ToString();
             Y7Y11Capacity = project.Y7Y11Capacity.ToString();
             Y12Y14Capacity = project.Y12Y14Capacity.ToString();
+            HasNursery = project.Nursery;
 
             BackLink = GetPreviousPage(CreateProjectPageName.Capacity);
 
@@ -57,7 +68,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
+            var project = _createProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.Capacity);
+            HasNursery = project.Nursery;
+
+            if (HasNursery == Nursery.Yes && string.IsNullOrEmpty(NurseryCapacity))
+            {
+                ModelState.AddModelError("nursery-capacity", "Enter the Nursery Capacity");
+            }
 
             if (!ModelState.IsValid)
             {
@@ -65,7 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return Page();
             }
 
-            var project = _createProjectCache.Get();
+            project.NurseryCapacity = !string.IsNullOrEmpty(NurseryCapacity) ? int.Parse(NurseryCapacity) : 0;
             project.YRY6Capacity = int.Parse(YRY6Capacity);
             project.Y7Y11Capacity = int.Parse(Y7Y11Capacity);
             project.Y12Y14Capacity = int.Parse(Y12Y14Capacity);

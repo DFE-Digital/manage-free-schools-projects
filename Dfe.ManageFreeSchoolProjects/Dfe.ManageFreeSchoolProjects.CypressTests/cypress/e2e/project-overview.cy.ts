@@ -87,6 +87,7 @@ describe("Testing project overview", () => {
             .continue();
 
         createProjectPage
+            .enterNurseryCapacity("200")
             .enterReceptionToYear6("0")
             .enterYear7ToYear11("400")
             .enterYear12ToYear14("150")
