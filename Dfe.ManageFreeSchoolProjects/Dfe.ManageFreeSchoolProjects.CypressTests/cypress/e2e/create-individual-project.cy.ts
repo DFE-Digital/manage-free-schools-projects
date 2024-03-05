@@ -279,7 +279,7 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
             .errorMessage("Select yes if it will have a nursery")
             .errorMessage("Select yes if it will have a sixth form")
-            .setNurseryTo("Yes")
+            .setNurseryTo("No")
             .continue()
             .errorMessage("Select yes if it will have a sixth form")
             .back()
@@ -296,7 +296,7 @@ describe("Creating an individual project - Create a new project", () => {
         Logger.log("Select valid class types and continue");
         createProjectPage
             .setSixthFormTo("Yes")
-            .setNurseryTo("No")
+            .setNurseryTo("Yes")
             .continue();
 
         Logger.log("Check age range validation-limited as tested elsewhere");
@@ -324,32 +324,35 @@ describe("Creating an individual project - Create a new project", () => {
         cy.executeAccessibilityTests();
         createProjectPage
             .titleIs("What is the capacity?")
-            .enterReceptionToYear6("-1")
-            .enterYear7ToYear11("A")
-            .enterYear12ToYear14("")
             .continue()
-            .errorMessage("Reception to year 6 capacity must be between 0 and 9999")
-            .errorMessage("Year 7 to year 11 capacity must be a number")
+            .errorMessage("Enter the Nursery Capacity")
+            .errorMessage("Enter the Reception - Year 6 Capacity")
+            .errorMessage("Enter the Year 7 - Year 11 Capacity")
             .errorMessage("Enter the Year 12 - Year 14 Capacity")
-            .enterReceptionToYear6("")
-            .enterYear7ToYear11("-1")
+            .enterNurseryCapacity("A")
+            .enterReceptionToYear6("A")
+            .enterYear7ToYear11("A")
             .enterYear12ToYear14("A")
             .continue()
-            .errorMessage("Enter the Reception - Year 6 Capacity")
-            .errorMessage("Year 7 to year 11 capacity must be between 0 and 9999")
+            .errorMessage("Nursery capacity must be a number")
+            .errorMessage("Reception to year 6 capacity must be a number")
+            .errorMessage("Year 7 to year 11 capacity must be a number")
             .errorMessage("Year 12 to year 14 capacity must be a number")
-            .enterReceptionToYear6("A")
-            .enterYear7ToYear11("")
+            .enterNurseryCapacity("-1")
+            .enterReceptionToYear6("-1")
+            .enterYear7ToYear11("-1")
             .enterYear12ToYear14("-1")
             .continue()
-            .errorMessage("Reception to year 6 capacity must be a number")
-            .errorMessage("Enter the Year 7 - Year 11 Capacity")
+            .errorMessage("Nursery capacity must be between 0 and 9999")
+            .errorMessage("Reception to year 6 capacity must be between 0 and 9999")
+            .errorMessage("Year 7 to year 11 capacity must be between 0 and 9999")
             .errorMessage("Year 12 to year 14 capacity must be between 0 and 9999")
             .continue()
 
         Logger.log("Enter valid capacity");
         cy.executeAccessibilityTests();
         createProjectPage
+            .enterNurseryCapacity("200")
             .enterReceptionToYear6("0")
             .enterYear7ToYear11("400")
             .enterYear12ToYear14("150")
@@ -360,6 +363,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage
             .back()
             .titleIs("What is the capacity?")
+            .hasNurseryCapacity("200")
             .hasReceptionToYear6("0")
             .hasYear7ToYear11("400")
             .hasYear12ToYear14("150")
@@ -371,7 +375,6 @@ describe("Creating an individual project - Create a new project", () => {
             .titleIs("What is the faith status?")
             .continue()
             .errorMessage("Select the faith status of the free school");
-
 
         Logger.log("Select Designation");
         cy.executeAccessibilityTests();
@@ -475,10 +478,11 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
             .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
             .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-            .summaryShows("Nursery").HasValue("No").HasChangeLink()
+            .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
             .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
             .summaryShows("Age range").HasValue("2-7").HasChangeLink()
             .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
+            .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
             .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
             .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
@@ -788,8 +792,10 @@ describe("Creating an individual project - Create a new project", () => {
 
         cy.log("Check back behaviour for capacity")
         summaryPage.clickChangeFor("Reception to year 6 capacity");
+
         createProjectPage.enterReceptionToYear6("120")
             .back();
+
         summaryPage
             .SummaryHasValue("Reception to year 6 capacity", "0");
 
@@ -805,14 +811,18 @@ describe("Creating an individual project - Create a new project", () => {
         summaryPage
             .SummaryHasValue("Year 12 to year 14 capacity", "150");
 
+        Logger.log("Nursery is not shown if No is selected");
         cy.log("Change capacity")
         summaryPage.clickChangeFor("Year 12 to year 14 capacity");
         createProjectPage
+            .hasNoNurseryCapacity()
             .enterReceptionToYear6("120")
             .enterYear7ToYear11("600")
             .enterYear12ToYear14("100")
             .continue();
+
         summaryPage
+            .summaryDoesNotShow("Nursery capacity")
             .SummaryHasValue("Reception to year 6 capacity", "0")
             .SummaryHasValue("Year 7 to year 11 capacity", "600")
             .SummaryHasValue("Year 12 to year 14 capacity", "100");

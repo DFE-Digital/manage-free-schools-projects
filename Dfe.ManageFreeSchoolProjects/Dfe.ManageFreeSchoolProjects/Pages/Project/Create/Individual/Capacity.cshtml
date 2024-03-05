@@ -1,4 +1,5 @@
 ﻿@page "/project/create/capacity"
+@using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CapacityModel
 @{
     ViewData["Title"] = "What is the capacity?";
@@ -17,6 +18,14 @@
 
             <div class="govuk-form-group">
                 <govuk-create-title label="What is the capacity?" />
+                
+                @if (Model.HasNursery == Nursery.Yes)
+                {
+                    <div class="govuk-form-group">
+                        <govuk-text-input id="nursery-capacity" name="nursery-capacity" label="Nursery" asp-for="@Model.NurseryCapacity" data-testid="nursery-capacity" hint="For example, 50" />
+                    </div>
+                }
+
                 <div class="govuk-form-group">
                     <govuk-text-input id="yr-y6-capacity" name="yr-y6-capacity" label="Reception to year 6" asp-for="@Model.YRY6Capacity" data-testid="yr-y6-capacity" hint="For example, 150" />
                 </div>

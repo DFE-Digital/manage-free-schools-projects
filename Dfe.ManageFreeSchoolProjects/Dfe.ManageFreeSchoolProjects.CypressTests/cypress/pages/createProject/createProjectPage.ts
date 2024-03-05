@@ -114,6 +114,22 @@ class CreateProjectPage {
         return this;
     }
 
+    public enterNurseryCapacity(value: string): this {
+        this.getNurseryCapacity().clear().type(value);
+
+        return this;
+    }
+
+    public hasNurseryCapacity(value: string): this {
+        this.getNurseryCapacity().should("have.value", value);
+        return this;
+    }
+
+    public hasNoNurseryCapacity(): this {
+        this.getNurseryCapacity().should("not.exist");
+        return this;
+    }
+
     public enterReceptionToYear6(value: string): this {
         if (value == "") {
             cy.getByTestId("yr-y6-capacity").clear();
@@ -238,6 +254,10 @@ class CreateProjectPage {
     public hasConfirmedEmailMessage(value: string) {
         cy.getByTestId("confirmation-email").should("contain.text", value);
         return this;
+    }
+
+    private getNurseryCapacity() {
+        return cy.getByTestId("nursery-capacity");
     }
 }
 
