@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -59,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 							});
 						});
 
-					var fakeUserInfo = new UserInfo()
+                    var fakeUserInfo = new UserInfo()
 						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
 
 					Client = CreateHttpClient(fakeUserInfo);
@@ -72,6 +73,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 					context.Database.EnsureDeleted();
 					context.Database.Migrate();
 					_isInitialised = true;
+
+					context.Users.Add(new User()
+					{
+                        Email = fakeUserInfo.Name
+                    });
+
+					context.SaveChanges();
 				}
 			}
 		}

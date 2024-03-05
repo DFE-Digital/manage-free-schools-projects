@@ -6,12 +6,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
 {
-    public interface IAuditInterceptor
-    {
-        
-    }
-
-    public class AuditInterceptor : SaveChangesInterceptor, IAuditInterceptor
+    public class AuditInterceptor : SaveChangesInterceptor
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -53,9 +48,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data
                 return;
             }
 
-            var updatedByUserId = context.Users
+            int? updatedByUserId = context.Users
                 .Where(u => u.Email == userContextNameHeader.ToString())
-                .Select(u => u.Id)
+                .Select(u => (int?)u.Id)
                 .FirstOrDefault();
 
             foreach (var entity in entities)

@@ -11,6 +11,8 @@ public static class DatabaseConfigurationExtensions
 			options.UseMfspSqlServer(connectionString)
 		);
 
+		services.AddScoped<AuditInterceptor, AuditInterceptor>();
+
 		return services;
 	}
 }

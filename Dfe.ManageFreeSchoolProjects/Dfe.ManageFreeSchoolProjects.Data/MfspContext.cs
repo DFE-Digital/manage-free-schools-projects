@@ -14,7 +14,10 @@ public partial class MfspContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(_auditInterceptor);
+        if (_auditInterceptor != null)
+        {
+            optionsBuilder.AddInterceptors(_auditInterceptor);
+        }
 
         if (!optionsBuilder.IsConfigured)
         {
