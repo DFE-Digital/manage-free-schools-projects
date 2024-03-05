@@ -74,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             if (HasNursery == Nursery.Yes && string.IsNullOrEmpty(NurseryCapacity))
             {
-                ModelState.AddModelError(nameof(NurseryCapacity), "Enter the Nursery Capacity");
+                ModelState.AddModelError("nursery-capacity", "Enter the Nursery Capacity");
             }
 
             if (!ModelState.IsValid)

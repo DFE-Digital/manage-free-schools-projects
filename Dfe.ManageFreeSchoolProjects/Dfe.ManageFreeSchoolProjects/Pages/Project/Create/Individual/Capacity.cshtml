@@ -22,7 +22,7 @@
                 @if (Model.HasNursery == Nursery.Yes)
                 {
                     <div class="govuk-form-group">
-                        <govuk-text-input id="nursery-capacity" name="nursery-capacity" label="Nursery" asp-for="@Model.NurseryCapacity" hint="For example, 50" />
+                        <govuk-text-input id="nursery-capacity" name="nursery-capacity" label="Nursery" asp-for="@Model.NurseryCapacity" data-testid="nursery-capacity" hint="For example, 50" />
                     </div>
                 }
 
