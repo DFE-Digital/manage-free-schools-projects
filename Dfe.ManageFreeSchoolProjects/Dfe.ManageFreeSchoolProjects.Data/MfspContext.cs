@@ -4,17 +4,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data;
 
 public partial class MfspContext : DbContext
 {
-    public MfspContext()
-    {
-    }
+    private readonly AuditInterceptor _auditInterceptor;
 
-    public MfspContext(DbContextOptions<MfspContext> options)
+    public MfspContext(DbContextOptions<MfspContext> options, AuditInterceptor auditInterceptor)
         : base(options)
     {
+        _auditInterceptor = auditInterceptor;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.AddInterceptors(_auditInterceptor);
+
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseMfspSqlServer("Server=localhost;Database=mfsp;Integrated Security=true;TrustServerCertificate=True");
@@ -27,5 +28,4 @@ public partial class MfspContext : DbContext
 
         base.OnModelCreating(modelBuilder);
     }
-
 }

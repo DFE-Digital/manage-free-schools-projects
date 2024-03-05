@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -14,11 +16,17 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<ApiClient> _logger;
         private string _httpClientName;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        protected ApiClient(IHttpClientFactory clientFactory, ILogger<ApiClient> logger, string httpClientName)
+        protected ApiClient(
+            IHttpClientFactory clientFactory, 
+            ILogger<ApiClient> logger,
+            IHttpContextAccessor httpContextAccessor,
+            string httpClientName)
         {
             _clientFactory = clientFactory;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _httpClientName = httpClientName;
         }
 
@@ -157,6 +165,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private HttpClient CreateHttpClient()
         {
             var client = _clientFactory.CreateClient(_httpClientName);
+
+            client.DefaultRequestHeaders.Add(HttpHeaderConstants.UserContextName, _httpContextAccessor.HttpContext.User?.Identity?.Name);
 
             return client;
         }

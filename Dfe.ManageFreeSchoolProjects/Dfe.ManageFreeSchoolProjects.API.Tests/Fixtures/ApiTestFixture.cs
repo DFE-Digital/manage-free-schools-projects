@@ -105,7 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			return result;
 		}
 
-		public MfspContext GetContext() => new MfspContext(_dbContextOptions);
+		public MfspContext GetContext() => new MfspContext(_dbContextOptions, null);
 
 		public void Dispose()
 		{
