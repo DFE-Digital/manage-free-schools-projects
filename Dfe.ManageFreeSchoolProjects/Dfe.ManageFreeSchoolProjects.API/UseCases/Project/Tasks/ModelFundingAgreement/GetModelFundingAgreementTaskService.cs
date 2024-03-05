@@ -21,16 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                 from milestones in joinedMilestones.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
-                    ModelFundingAgreement = new()
-                    {
-                        TrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa,
-                        DraftedFAHealthCheck = milestones.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck,
-                        DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion,
-                        Comments = milestones.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable,
-                        SavedFADocumentsInWorkplacesFolder = milestones.FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder,
-                        TailoredAModelFundingAgreement = milestones.FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement,
-                        SharedFAWithTheTrust = milestones.FsgPreOpeningMilestonesMfadSharedFaWithTheTrust,
-                    }
+                    ModelFundingAgreement = ModelFundingAgreementTaskBuilder.Build(milestones)
                 }).FirstOrDefaultAsync();
 
             return result ?? new GetProjectByTaskResponse() { ModelFundingAgreement = new () };

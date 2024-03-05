@@ -346,6 +346,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool? FSGPreOpeningMilestonesGIASURNSent { get; set; }
         public string FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesEducationPlanInBrief { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesEducationPolicesInBrief { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory { get; set; }
+        
+        public bool? FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces { get; set; }
 
         public string FsgPreOpeningMilestonesMi155LinkToSavedDocument { get; set; }
 

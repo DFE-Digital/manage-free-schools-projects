@@ -4,6 +4,9 @@
 
 @{
     var values = new[] { "hello", "world" };
+
+    var checkboxValues = new[] { "first", "second", "third" };
+    var checkboxLabels = new[] { "First", "Second", "Third" };
 }
 
 <div class="text-center">
@@ -48,6 +51,8 @@
                     <govuk-text-input id="application-number" name="application-number" asp-for="@Model.ApplicationNumber" data-testid="application-number-input" label="Application number" />
 
                     <govuk-text-input id="application-wave" name="application-wave" asp-for="@Model.ApplicationWave" data-testid="application-wave-input" label="Application wave" />
+
+                    <govuk-checkbox-list id="stamps" name="stamps" asp-for="@Model.Stamps" data-testid="stamps-input" label="Stamps" values="@checkboxValues" labels="@checkboxLabels" />
 
                     <div class="govuk-button-group">
                         <button data-prevent-double-click="true"

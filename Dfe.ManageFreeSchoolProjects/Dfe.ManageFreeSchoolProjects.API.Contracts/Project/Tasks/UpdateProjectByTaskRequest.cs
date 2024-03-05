@@ -21,6 +21,8 @@
         public FinancePlanTask FinancePlan { get; set; }
 
         public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
+        
+        public EducationBriefTask EducationBrief { get; set; }
 
         public string TaskToUpdate
         {
@@ -52,6 +54,8 @@
                     return TaskName.Gias.ToString();
                 if (StatutoryConsultation != null)
                     return TaskName.StatutoryConsultation.ToString();
+                if (EducationBrief != null)
+                    return TaskName.EducationBrief.ToString();
                 return null;
             }
         }

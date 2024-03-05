@@ -16,19 +16,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private readonly IGetProjectByTaskService _getProjectByTaskService;
         private readonly IGetTasksService _getTasksService;
         private readonly ILogger<ProjectTaskController> _logger;
-        private readonly IGetDraftGovernancePlanTaskSummaryService _getDraftGovernancePlanTaskSummaryService;
 
         public ProjectTaskController(
             IUpdateProjectByTaskService updateProjectTaskService,
             IGetProjectByTaskService getProjectByTaskService,
             IGetTasksService getTasksService,
-            IGetDraftGovernancePlanTaskSummaryService getDraftGovernancePlanTaskSummaryService,
             ILogger<ProjectTaskController> logger)
         {
             _updateProjectTaskService = updateProjectTaskService;
             _getProjectByTaskService = getProjectByTaskService;
             _getTasksService = getTasksService;
-            _getDraftGovernancePlanTaskSummaryService = getDraftGovernancePlanTaskSummaryService;
             _logger = logger;
         }
 
@@ -86,11 +83,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
                 FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
                 KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
-                Gias = SafeRetrieveTaskSummary(projectTasks,"Gias")
+                Gias = SafeRetrieveTaskSummary(projectTasks,"Gias"),
+                DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
+                EducationBrief = SafeRetrieveTaskSummary(projectTasks,"EducationBrief")
+                
             };
-
-            var draftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString());
-            summary.DraftGovernancePlan = await _getDraftGovernancePlanTaskSummaryService.Execute(projectId, draftGovernancePlan);
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 

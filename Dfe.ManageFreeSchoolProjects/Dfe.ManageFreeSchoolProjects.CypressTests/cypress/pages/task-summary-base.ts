@@ -92,6 +92,10 @@ export class SummaryPage {
         cy.get(".govuk-summary-list__key").contains(name).parent().contains("Change").click();
         return this;
     }
+
+    public clickChangeRiskRating() {
+        cy.getByTestId("change-project-risk").click();
+    }
 }
 
 const summaryPage = new SummaryPage();
