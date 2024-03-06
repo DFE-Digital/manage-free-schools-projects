@@ -167,12 +167,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Rag Ratings.Risk Appraisal Form Sharepoint Link");
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
-
+            AuditConfiguration.Apply(builder);
         }
 	}
 

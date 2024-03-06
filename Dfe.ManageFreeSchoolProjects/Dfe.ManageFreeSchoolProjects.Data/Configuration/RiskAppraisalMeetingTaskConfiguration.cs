@@ -16,11 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration
             builder.Property(e => e.CommentOnDecision).HasMaxLength(100);
             builder.Property(e => e.ReasonNotApplicable).HasMaxLength(100);
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
+            AuditConfiguration.Apply(builder);
         }
     }
 }

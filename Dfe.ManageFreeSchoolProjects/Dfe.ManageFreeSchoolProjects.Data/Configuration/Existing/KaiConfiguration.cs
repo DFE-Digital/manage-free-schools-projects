@@ -1156,12 +1156,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Section I - Due Diligence.Please provide details and suggested actions/remedies (DDCED)");
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
-
+            AuditConfiguration.Apply(builder);
         }
 	}
 

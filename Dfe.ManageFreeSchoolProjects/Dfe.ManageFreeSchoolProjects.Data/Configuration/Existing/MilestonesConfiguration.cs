@@ -584,11 +584,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false);
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
+            AuditConfiguration.Apply(builder);
         }
 	}
 

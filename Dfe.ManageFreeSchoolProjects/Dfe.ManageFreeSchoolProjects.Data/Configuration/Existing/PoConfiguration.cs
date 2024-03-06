@@ -1212,12 +1212,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("RID");
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
-
+            AuditConfiguration.Apply(builder);
         }
 	}
 

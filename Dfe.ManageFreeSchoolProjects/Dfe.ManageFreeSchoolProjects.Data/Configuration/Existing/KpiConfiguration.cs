@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
-	public partial class KpiConfiguration : IEntityTypeConfiguration< Kpi>
+    public partial class KpiConfiguration : IEntityTypeConfiguration< Kpi>
 	{
 		public void Configure(EntityTypeBuilder<Kpi> builder)
 		{
@@ -836,11 +835,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(16)
                 .IsUnicode(false);
 
-            builder
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(e => e.UpdatedByUserId)
-                .IsRequired(false);
+            AuditConfiguration.Apply(builder);
         }
 	}
 

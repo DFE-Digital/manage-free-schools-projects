@@ -38,11 +38,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
             .HasColumnName("Status")
             .HasConversion(statusConverter);
 
-        builder
-            .HasOne<User>()
-            .WithMany()
-            .HasForeignKey(e => e.UpdatedByUserId)
-            .IsRequired(false);
+        AuditConfiguration.Apply(builder);
     }
 
     private TaskName ConvertTaskName(string v)
