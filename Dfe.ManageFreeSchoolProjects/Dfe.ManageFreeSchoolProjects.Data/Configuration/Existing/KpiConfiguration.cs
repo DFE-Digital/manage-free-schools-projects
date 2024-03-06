@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
-	public partial class KpiConfiguration : IEntityTypeConfiguration< Kpi>
+    public partial class KpiConfiguration : IEntityTypeConfiguration< Kpi>
 	{
 		public void Configure(EntityTypeBuilder<Kpi> builder)
 		{
@@ -834,7 +834,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsRequired()
                 .HasMaxLength(16)
                 .IsUnicode(false);
-		}
+
+            AuditConfiguration.Apply(builder);
+        }
 	}
 
 }
