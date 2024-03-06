@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<ApiClient> _logger;
         private string _httpClientName;
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         protected ApiClient(
             IHttpClientFactory clientFactory, 
