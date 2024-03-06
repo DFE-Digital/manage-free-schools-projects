@@ -22,6 +22,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 		public HttpClient Client { get; init; }
 
+		public string DefaultUser { get; } = "API.TestFixture@test.gov.uk";
+
 		private DbContextOptions<MfspContext> _dbContextOptions { get; init; }
 
 		private static readonly object _lock = new();
@@ -61,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 						});
 
                     var fakeUserInfo = new UserInfo()
-						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
+						{ Name = DefaultUser, Roles = new[] { Claims.CaseWorkerRoleClaim } };
 
 					Client = CreateHttpClient(fakeUserInfo);
 

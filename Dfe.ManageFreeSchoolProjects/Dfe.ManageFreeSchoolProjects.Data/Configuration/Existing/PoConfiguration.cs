@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -1211,7 +1212,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("RID");
 
-		}
+            builder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(e => e.UpdatedByUserId)
+                .IsRequired(false);
+
+        }
 	}
 
 }

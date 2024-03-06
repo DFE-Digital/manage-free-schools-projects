@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -36,6 +37,12 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
             .IsUnicode(false)
             .HasColumnName("Status")
             .HasConversion(statusConverter);
+
+        builder
+            .HasOne<User>()
+            .WithMany()
+            .HasForeignKey(e => e.UpdatedByUserId)
+            .IsRequired(false);
     }
 
     private TaskName ConvertTaskName(string v)
