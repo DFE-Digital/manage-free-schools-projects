@@ -90,12 +90,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 School = _autoFixture.Create<SchoolTask>()
             };
 
-            // override the header so that the user is not found
             var requestMessage = new HttpRequestMessage(HttpMethod.Patch, $"/api/v1/client/projects/{project.ProjectId}/tasks")
             {
                 Content = request.ConvertToJson(),
             };
 
+            // override the header so that the user is not found
             requestMessage.Headers.Add(HttpHeaderConstants.UserContextName, _autoFixture.Create<string>());
 
 

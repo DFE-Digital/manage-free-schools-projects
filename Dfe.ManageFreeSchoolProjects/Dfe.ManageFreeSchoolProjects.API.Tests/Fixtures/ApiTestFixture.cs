@@ -78,7 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 
 					context.Users.Add(new User()
 					{
-                        Email = fakeUserInfo.Name
+                        Email = DefaultUser,
                     });
 
 					context.SaveChanges();
