@@ -85,7 +85,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Gias = SafeRetrieveTaskSummary(projectTasks,"Gias"),
                 DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
                 EducationBrief = SafeRetrieveTaskSummary(projectTasks,"EducationBrief"),
-                AdmissionsArrangements = SafeRetrieveTaskSummary(projectTasks, TaskName.AdmissionsArrangements.ToString())    
+                AdmissionsArrangements = SafeRetrieveTaskSummary(projectTasks, "AdmissionsArrangements")    
             };
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);

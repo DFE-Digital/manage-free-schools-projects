@@ -518,6 +518,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesSapActualDateOfCompletion)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.SAP Actual date of completion");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Recommended Template");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Comply With Policies");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Saved To Workplaces");
             builder.Property(e => e.FsgPreOpeningMilestonesSapBaselineDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.SAP Baseline date");

@@ -44,7 +44,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesSapBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesSapForecastDate { get; set; }
-
+        
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies { get; set; }
+        
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces { get; set; }
+        
         public DateTime? FsgPreOpeningMilestonesSapActualDateOfCompletion { get; set; }
 
         public string FsgPreOpeningMilestonesMi54CommentsOnDecisionToApproveIfApplicable { get; set; }

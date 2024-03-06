@@ -24,6 +24,12 @@
             </span>
             Admissions arrangements
         </h1>
+            <govuk-summary-list>
+                    <govuk-summary-item label="The trust has confirmed that they have developed their admissions arrangements using the recommended template" asp-for="@admissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate" href="@editlink" />
+                    <govuk-summary-item label="The trust has confirmed that the admissions arrangements comply with the appropriate admissions policies" asp-for="@admissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies" href="@editlink" />
+                    <govuk-summary-item label="Admissions arrangements confirmed date" asp-for="@admissionsArrangements.AdmissionsArrangementsConfirmedDate" href="@editlink" />
+                    <govuk-summary-item label="Saved the confirmation email in Workplaces folder" asp-for="@admissionsArrangements.SavedToWorkplaces" href="@editlink" />
+                </govuk-summary-list>
         <form method="post">
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
                                   asp-for="MarkAsCompleted"

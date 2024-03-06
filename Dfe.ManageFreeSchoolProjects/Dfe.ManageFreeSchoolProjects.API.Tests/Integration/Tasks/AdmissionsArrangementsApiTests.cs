@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Threading.Tasks;
@@ -24,12 +25,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var request = new UpdateProjectByTaskRequest()
             {
-                AdmissionsArrangements = new()
+                AdmissionsArrangements = new AdmissionsArrangementsTask()
+                {
+                    TrustConfirmedAdmissionsArrangementsPolicies = true,
+                    TrustConfirmedAdmissionsArrangementsTemplate = true,
+                    AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(10),
+                    SavedToWorkplaces = true
+                }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
 
-            // TODO: Add field assertions
+            projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
+                .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
+            projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
+                .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
+            projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
+                .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
+            projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()
+                .Be(request.AdmissionsArrangements.SavedToWorkplaces);
         }
 
         [Fact]
@@ -40,11 +54,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+            
+            var admissionsArrangementsTask = DatabaseModelBuilder.BuildAdmissionsArrangementsTask(project.Rid);
+            context.Milestones.Add(admissionsArrangementsTask);
             await context.SaveChangesAsync();
 
             var request = new UpdateProjectByTaskRequest()
             {
-                AdmissionsArrangements = new()
+                AdmissionsArrangements = new AdmissionsArrangementsTask()
+                {
+                    TrustConfirmedAdmissionsArrangementsPolicies = false,
+                    TrustConfirmedAdmissionsArrangementsTemplate = false,
+                    AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(9),
+                    SavedToWorkplaces = false
+                }
             };
 
             await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
@@ -56,7 +79,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
 
-            //TODO: Add field assertions
+            projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
+                .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
+            projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
+                .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
+            projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
+                .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
+            projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()
+                .Be(request.AdmissionsArrangements.SavedToWorkplaces);
         }
 
     }
