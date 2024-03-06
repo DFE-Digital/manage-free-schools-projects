@@ -6,6 +6,10 @@ public partial class MfspContext : DbContext
 {
     private readonly AuditInterceptor _auditInterceptor;
 
+    public MfspContext()
+    { 
+    }
+
     public MfspContext(DbContextOptions<MfspContext> options, AuditInterceptor auditInterceptor)
         : base(options)
     {

@@ -4770,9 +4770,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Trust type");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpperStatus")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -4790,8 +4787,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(16)");
 
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.HasIndex("UserId");
 
@@ -12318,10 +12313,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Kpi", b =>
                 {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-
                     b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId");

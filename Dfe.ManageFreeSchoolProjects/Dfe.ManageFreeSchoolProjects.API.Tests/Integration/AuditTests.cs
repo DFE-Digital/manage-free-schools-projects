@@ -5,6 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
@@ -29,11 +30,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var context = _testFixture.GetContext();
             var kpi = await context.Kpi.FirstAsync(x => x.ProjectStatusProjectId == project.ProjectId);
             var user = await context.Users.FirstAsync(x => x.Email == "API.TestFixture@test.gov.uk");
-            var milestones = await context.Milestones.FirstAsync(x => x.Rid == kpi.Rid);
-            var po = await context.Po.FirstAsync(x => x.Rid == kpi.Rid);
-            var rag = await context.Rag.FirstAsync(x => x.Rid == kpi.Rid);
-            var riskAppraisalMeeting = await context.RiskAppraisalMeetingTask.FirstAsync(x => x.RID == kpi.Rid);
-            var tasks = await context.Tasks.Where(x => x.Rid == kpi.Rid).ToListAsync();
+            //var milestones = await context.Milestones.FirstAsync(x => x.Rid == kpi.Rid);
+            //var po = await context.Po.FirstAsync(x => x.Rid == kpi.Rid);
+            //var rag = await context.Rag.FirstAsync(x => x.Rid == kpi.Rid);
+            //var riskAppraisalMeeting = await context.RiskAppraisalMeetingTask.FirstAsync(x => x.RID == kpi.Rid);
+            //var tasks = await context.Tasks.Where(x => x.Rid == kpi.Rid).ToListAsync();
+
+            //[dbo].[KPI] - used
+            //[dbo].[Opens]
+            //[dbo].[RAG] - used
+            //[dbo].[Ofsted_FSG]
+            //[dbo].[FS_KIM]
+            //[dbo].[KAI]
+            //[dbo].[PO] - Used
+            //[dbo].[Milestones] - Used
+            //[dbo].[constructData]
+            //[dbo].[BS]
+            //Property
 
             kpi.UpdatedByUserId.Should().Be(user.Id);
             // po.UpdatedByUserId.Should().Be(user.Id);
