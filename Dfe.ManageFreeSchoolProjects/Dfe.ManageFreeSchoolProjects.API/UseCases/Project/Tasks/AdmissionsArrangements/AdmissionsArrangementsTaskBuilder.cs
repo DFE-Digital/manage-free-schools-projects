@@ -3,7 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements
 {
-    public class AdmissionsArrangementsTaskBuilder
+    public static class AdmissionsArrangementsTaskBuilder
     {
         public static AdmissionsArrangementsTask Build(Milestones milestones)
         {
