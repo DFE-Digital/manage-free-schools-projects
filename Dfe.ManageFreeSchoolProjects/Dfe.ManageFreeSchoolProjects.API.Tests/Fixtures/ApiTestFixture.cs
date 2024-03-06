@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -20,6 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 		public WebApplicationFactory<Startup> Application { get; init; }
 
 		public HttpClient Client { get; init; }
+
+		public string DefaultUser { get; } = "API.TestFixture@test.gov.uk";
 
 		private DbContextOptions<MfspContext> _dbContextOptions { get; init; }
 
@@ -59,8 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 							});
 						});
 
-					var fakeUserInfo = new UserInfo()
-						{ Name = "API.TestFixture@test.gov.uk", Roles = new[] { Claims.CaseWorkerRoleClaim } };
+                    var fakeUserInfo = new UserInfo()
+						{ Name = DefaultUser, Roles = new[] { Claims.CaseWorkerRoleClaim } };
 
 					Client = CreateHttpClient(fakeUserInfo);
 
@@ -72,6 +75,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 					context.Database.EnsureDeleted();
 					context.Database.Migrate();
 					_isInitialised = true;
+
+					context.Users.Add(new User()
+					{
+                        Email = DefaultUser,
+                    });
+
+					context.SaveChanges();
 				}
 			}
 		}
@@ -105,7 +115,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures
 			return result;
 		}
 
-		public MfspContext GetContext() => new MfspContext(_dbContextOptions);
+		public MfspContext GetContext() => new MfspContext(_dbContextOptions, null);
 
 		public void Dispose()
 		{
