@@ -79,6 +79,11 @@ describe("Testing statutory consultation", () => {
             .hasValidationError("Year must be between 2000 and 2050")
             .hasValidationError("The comments must be 100 characters or less")
 
+        cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
+
+        statutoryConsultationtEditPage
+            .schoolNameIs(project.schoolName)
+
         statutoryConsultationtEditPage
             .withExpectedDateForReceivingFindingsFromTrust("2", "3", "2020")
             .checkReceivedConsultationFindingsFromTrust()
