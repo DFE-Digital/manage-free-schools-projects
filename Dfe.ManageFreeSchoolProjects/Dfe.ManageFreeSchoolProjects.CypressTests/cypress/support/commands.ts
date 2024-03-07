@@ -80,8 +80,6 @@ Cypress.Commands.add("executeAccessibilityTests", (ruleOverride?: RuleObject) =>
     cy.checkA11y(undefined, {
         rules: ruleConfiguration,
     }, undefined, continueOnFail);
-
-    Logger.log("Command finished");
 });
 
 Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string, year: string) => {
