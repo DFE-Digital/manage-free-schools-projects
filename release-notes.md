@@ -1,8 +1,17 @@
 ## NEXT
+* 158259 - BUG: Copy: Missing Inset Text From Summary Page
+* 147089 - Build: Admissions arrangements
+* 155410 - Build: Statutory consultation
+* 158727 - track the user that changed data in mfsp
+* 158996 - SFA data export
+* 156945 - Build: Add 'project lead' to the Create journey
+
+## Sprint 15 Release B - 07/03/2024
  * (151095 - Analysis: Confirm where 'data held elsewhere' is held)
  * (158630 - BUG: BLOCKER: Dev: 403 Forbidden Exception Occurs When Creating A New Project From Wizard - ENVIRONMENTAL - FIXED ON DEV, STAGING AND LIVE)
  * 158209 - Build: add 'Nursery' to 'What is the capacity?' page
  * 147097 - Build: Education brief
+ * 158771 - Add table functions to database for the SPA team
 
  
 ## Sprint 14 Release C/Sprint 15 Release A - 05/03/2024
