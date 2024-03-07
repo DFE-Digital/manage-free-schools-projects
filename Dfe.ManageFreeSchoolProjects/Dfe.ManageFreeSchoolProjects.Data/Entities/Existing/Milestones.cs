@@ -196,6 +196,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public DateTime? FsgPreOpeningMilestonesScrForecastDate { get; set; }
 
+        public bool? FsgPreOpeningMilestonesScrReceived {  get; set; }
+
+        public bool? FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty { get; set; }
+
+        public bool? FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder { get; set; }
+
         public DateTime? FsgPreOpeningMilestonesScrActualDateOfCompletion { get; set; }
 
         public string FsgPreOpeningMilestonesMi80CommentsOnDecisionToApproveIfApplicable { get; set; }
