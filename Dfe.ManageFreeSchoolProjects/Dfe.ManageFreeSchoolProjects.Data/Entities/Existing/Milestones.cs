@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
-    public partial class Milestones
+    public partial class Milestones : IAuditable
     {
         public string PRid { get; set; }
 
