@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
-    public partial class FsKim
+    public partial class FsKim : IAuditable
     {
         public string PRid { get; set; }
 

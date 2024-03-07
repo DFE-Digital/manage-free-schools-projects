@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -582,6 +583,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.RPACoverType)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
+            AuditConfiguration.Apply(builder);
         }
 	}
 

@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
-    public partial class Tasks
+    public partial class Tasks : IAuditable
     {
         public string Rid { get; set; }
         

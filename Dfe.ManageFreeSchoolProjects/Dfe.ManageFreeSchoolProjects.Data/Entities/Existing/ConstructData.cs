@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
-    public partial class ConstructData
+    public partial class ConstructData : IAuditable
     {
         public string ProjectId { get; set; }
 
