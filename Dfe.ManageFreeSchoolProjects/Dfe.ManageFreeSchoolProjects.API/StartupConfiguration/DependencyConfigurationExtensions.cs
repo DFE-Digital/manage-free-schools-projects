@@ -28,6 +28,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePla
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
+
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -116,6 +118,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IConstructApiKeyValidationService, ConstructApiKeyValidationService>();
             services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateGiasTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateStatutoryConsultationTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateModelFundingAgreementTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
