@@ -24,10 +24,8 @@
             </span>
             Draft governance plans
         </h1>
-        <div class="govuk-inset-text">
-            You only need to do this task if the project's overall
-            <br />
-            and governance <a class="govuk-link" href="@riskRatingLink">risk ratings</a> are red or amber red.
+        <div class="govuk-inset-text govuk-grid-column-one-half">
+            You only need to do this task if the project's overall and governance <a class="govuk-link" href="@riskRatingLink">risk ratings</a> are red or amber red.
         </div>
         <govuk-summary-list>
             <govuk-summary-item label="Received draft governance plan from trust" asp-for="@draftGovernancePlan.PlanReceivedFromTrust" href="@editlink" />
