@@ -13,6 +13,7 @@
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
     var modelFundingAgreementLink = string.Format(RouteConstants.ViewModelFundingAgreement, Model.ProjectId);
+    var statutoryConsultationLink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
@@ -167,6 +168,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.ModelFundingAgreement);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
+                                Statutory consultation
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
                         }
                     </li>
                     <li class="app-task-list__item">
