@@ -1,10 +1,6 @@
 ## NEXT
 * 158259 - BUG: Copy: Missing Inset Text From Summary Page
-* 147089 - Build: Admissions arrangements
-* 155410 - Build: Statutory consultation
-* 158727 - track the user that changed data in mfsp
-* 158996 - SFA data export
-* 156945 - Build: Add 'project lead' to the Create journey
+
 
 ## Sprint 15 Release B - 07/03/2024
  * (151095 - Analysis: Confirm where 'data held elsewhere' is held)
