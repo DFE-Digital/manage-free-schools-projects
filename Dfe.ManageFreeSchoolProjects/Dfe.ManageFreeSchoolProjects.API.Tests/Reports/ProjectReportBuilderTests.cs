@@ -61,6 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
+            AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
 		}
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -127,6 +128,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         EducationBrief = new EducationBriefTask()
                         {
                             EducationPlanInEducationBrief = true
+                        },
+                        AdmissionsArrangements = new AdmissionsArrangementsTask()
+                        {
+                            TrustConfirmedAdmissionsArrangementsTemplate = true
                         }
                     }
                 }
