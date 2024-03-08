@@ -61,7 +61,7 @@
         public const string CreateProjectAgeRange = CreateProject + "/age-range";
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateProjectCapacity = CreateProject + "/capacity";
-        public const string CreateNotifyUser = CreateProject + "/notifyuser";
+        public const string CreateProjectLead = CreateProject + "/projectlead";
         public const string CreateClassType = CreateProject + "/class-type";
         public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
         public const string CreateProjectProvisionalOpeningDate = CreateProject + "/provisional-opening-date";

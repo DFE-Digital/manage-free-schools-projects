@@ -441,31 +441,38 @@ describe("Creating an individual project - Create a new project", () => {
             .hasProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
-        Logger.log("Check notify email validation");
+        Logger.log("Check project lead validation");
         cy.executeAccessibilityTests();
         createProjectPage
-            .titleIs("Who do you want to notify about this project?")
+            .titleIs("Who is the project lead?")
+            .continue()
+            .errorMessage("Please enter a name")
+            .enterProjectLeadName("j")
+            .continue()
+            .errorMessage("Enter the full name, for example John Smith")
+            .enterProjectLeadName("joe bloggs")
             .continue()
             .errorMessage("Please enter an email")
-            .enterNotifyEmail("a")
+            .enterProjectLeadEmail("a")
             .continue()
             .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
-            .enterNotifyEmail("test.person@edunation.gov.uk")
+            .enterProjectLeadEmail("test.person@edunation.gov.uk")
             .continue()
             .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
 
         Logger.log("Set email");
         cy.executeAccessibilityTests();
         createProjectPage
-            .enterNotifyEmail("test.person@education.gov.uk")
+            .enterProjectLeadEmail("test.person@education.gov.uk")
             .continue();
 
         Logger.log("Back returns to previous page");
         cy.executeAccessibilityTests();
         createProjectPage
             .back()
-            .titleIs("Who do you want to notify about this project?")
-            .hasNotifyEmail("test.person@education.gov.uk")
+            .titleIs("Who is the project lead?")
+            .hasProjectLeadName("joe bloggs")
+            .hasProjectLeadEmail("test.person@education.gov.uk")
             .continue();
 
         Logger.log("Check answers");
@@ -488,7 +495,9 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
             .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
+            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+            .summaryShows("Project lead name").HasValue("joe bloggs").HasChangeLink()
+            .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
         createProjectPage.clickCreateProject();
 
@@ -601,10 +610,11 @@ describe("Creating an individual project - Create a new project", () => {
             .setProvisionalOpeningDate("1", "10", "2035")
             .continue();
 
-        Logger.log("Set email");
+        Logger.log("Set project lead");
         cy.executeAccessibilityTests();
         createProjectPage
-            .enterNotifyEmail("test.person@education.gov.uk")
+            .enterProjectLeadName("test person")
+            .enterProjectLeadEmail("test.person@education.gov.uk")
             .continue();
 
         Logger.log("Check answers");
@@ -626,7 +636,9 @@ describe("Creating an individual project - Create a new project", () => {
             .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
             .summaryShows("Faith status").HasValue("None").HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
+            .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+            .summaryShows("Project lead name").HasValue("test person").HasChangeLink()
+            .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
         cy.log("Check back behaviour Temporary Project ID")
         summaryPage.clickChangeFor("Temporary Project ID");
@@ -877,6 +889,15 @@ describe("Creating an individual project - Create a new project", () => {
             .continue()
         summaryPage
             .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
+
+        cy.log("Check back behaviour for Project Lead")
+        summaryPage.clickChangeFor("Project lead name")
+        createProjectPage.enterProjectLeadName("Anne Jones")
+        createProjectPage.enterProjectLeadEmail("anne.jones@education.gov.uk")
+            .continue();
+        summaryPage
+            .SummaryHasValue("Project lead name", "Anne Jones")
+            .SummaryHasValue("Project lead email", "anne.jones@education.gov.uk");
 
         createProjectPage.clickCreateProject();
 
