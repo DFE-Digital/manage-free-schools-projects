@@ -26,7 +26,7 @@
         <div class="govuk-checkboxes govuk-fieldset__legend--m @margin">
             <div class="govuk-checkboxes__item">
                 <input name="@Model.Name-hidden" type="hidden" value="false"/>
-                <input class="govuk-checkboxes__input" id="@Model.Id" name="@Model.Name" type="checkbox" value="true" checked="@("true".Equals(Model.Value, StringComparison.OrdinalIgnoreCase))">
+                <input class="govuk-checkboxes__input" id="@Model.Id" name="@Model.Name" type="checkbox" value="true" checked="@("true".Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@Model.TestId">
                 @if (@Model.BoldLabel == true)
                 {
                     <label class="govuk-body-l govuk-checkboxes__label" for="@Model.Id">
