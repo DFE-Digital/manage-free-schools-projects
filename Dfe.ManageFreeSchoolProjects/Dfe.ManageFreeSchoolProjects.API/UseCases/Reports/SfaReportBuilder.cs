@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
-    public class SfaReportBuilder
+    public static class SfaReportBuilder
     {
         private const string NotAvailable = "NA";
 
