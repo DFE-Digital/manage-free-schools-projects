@@ -131,6 +131,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             project.Id.Should().Be(expected.Kpi.ProjectStatusProjectId);
             project.ProjectStatus.Should().Be(expected.Kpi.ProjectStatusProjectStatus);
             project.Type.Should().Be(expected.Kpi.SchoolDetailsSchoolTypeMainstreamApEtc);
+            project.PupilsOnRoll.Should().BeNull();
+            project.PupilNum.Should().BeNull();
+            project.Stage.Should().BeNull();
         }
 
         [Theory]
@@ -238,7 +241,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 
         public static IEnumerable<object[]> FlagData()
         {
-            // First condition
             yield return new object[] { null, "25000", null, 1 };
             yield return new object[] { null, "26000", null, 1 };
             yield return new object[] { null, "23000", null, -1 };
