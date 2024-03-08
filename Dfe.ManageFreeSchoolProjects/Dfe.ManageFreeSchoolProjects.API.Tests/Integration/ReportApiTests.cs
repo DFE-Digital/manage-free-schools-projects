@@ -12,6 +12,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
     [Collection(ApiTestCollection.ApiTestCollectionName)]
     public class ReportApiTests : ApiTestsBase
     {
+        private readonly string _sfaApiKey = "sfa-app-key";
+
         public ReportApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
         }
@@ -68,6 +70,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Check a line has the expected number of columns
             var firstRow = lines.Skip(1).First();
             firstRow.Split(",").Should().HaveCount(expectedColumns);
+        }
+
+        [Fact]
+        public async Task Get_SfaExport_WithInvalidKey_Returns_401()
+        {
+            using var unauthorisedClient = _testFixture.Application.CreateClient();
+            unauthorisedClient.DefaultRequestHeaders.Add("ApiKey", "invalid-key");
+
+            var getConstructProjectsResponse = await unauthorisedClient.GetAsync($"/api/v1/client/reports/sfa-export");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Get_NonSfaRoute_SfaKeyValid_Returns_401()
+        {
+            using var unauthorisedClient = _testFixture.Application.CreateClient();
+            unauthorisedClient.DefaultRequestHeaders.Add("ApiKey", _sfaApiKey);
+
+            var getConstructProjectsResponse = await unauthorisedClient.GetAsync($"/api/v1/projects");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        [Fact]
+        public async Task Get_SfaExport_WithValidSfaApiKey_Returns_200()
+        {
+            using var authorisedClient = _testFixture.Application.CreateClient();
+            authorisedClient.DefaultRequestHeaders.Add("ApiKey", _sfaApiKey);
+
+            var getConstructProjectsResponse = await authorisedClient.GetAsync($"/api/v1/client/reports/sfa-export");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }
