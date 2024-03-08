@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using DocumentFormat.OpenXml.Packaging;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -56,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var fileStreamResult = await response.Content.ReadAsStringAsync();
 
             // Split by carriage return
-            var lines = fileStreamResult.Split("\r\n").Where(l => l != string.Empty);
+            var lines = fileStreamResult.Split(Environment.NewLine).Where(l => l != string.Empty);
 
             lines.Should().HaveCountGreaterThan(1);
 
