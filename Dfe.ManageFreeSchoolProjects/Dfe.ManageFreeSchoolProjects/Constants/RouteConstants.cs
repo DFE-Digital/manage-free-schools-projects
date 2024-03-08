@@ -50,6 +50,9 @@
         
         public const string ViewEducationBriefTask = TaskList + "/education-brief";
         public const string EditEducationBriefTask = ViewEducationBriefTask + "/edit";
+
+        public const string ViewAdmissionsArrangementsTask = TaskList + "/admissions-arrangements";
+        public const string EditAdmissionsArrangementsTask = ViewAdmissionsArrangementsTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";

@@ -28,6 +28,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePla
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 
 
@@ -124,6 +125,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
 			services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
+			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;
