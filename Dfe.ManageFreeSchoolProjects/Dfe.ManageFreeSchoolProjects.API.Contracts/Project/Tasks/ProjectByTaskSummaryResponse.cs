@@ -32,6 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse Gias { get; set; }
         
         public TaskSummaryResponse EducationBrief { get; set; }
+
+        public TaskSummaryResponse AdmissionsArrangements { get; set; }
         
     }
 

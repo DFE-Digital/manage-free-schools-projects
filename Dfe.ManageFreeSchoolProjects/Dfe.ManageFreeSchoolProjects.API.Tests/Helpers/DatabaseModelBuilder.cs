@@ -216,6 +216,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildAdmissionsArrangementsTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate = true;
+            result.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies = true;
+            result.FsgPreOpeningMilestonesSapActualDateOfCompletion = new DateTime().AddDays(1);
+            result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
+            
+
+            return result;
+        }
+        
 
         public static Po PupilNumbersAndCapacity(string rid)
         {
