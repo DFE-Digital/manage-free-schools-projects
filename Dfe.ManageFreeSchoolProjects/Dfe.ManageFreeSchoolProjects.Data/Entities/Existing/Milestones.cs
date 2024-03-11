@@ -44,7 +44,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesSapBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesSapForecastDate { get; set; }
-
+        
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies { get; set; }
+        
+        
+        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces { get; set; }
+        
         public DateTime? FsgPreOpeningMilestonesSapActualDateOfCompletion { get; set; }
 
         public string FsgPreOpeningMilestonesMi54CommentsOnDecisionToApproveIfApplicable { get; set; }
@@ -195,6 +203,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesScrBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesScrForecastDate { get; set; }
+
+        public bool? FsgPreOpeningMilestonesScrReceived {  get; set; }
+
+        public bool? FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty { get; set; }
+
+        public bool? FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesScrActualDateOfCompletion { get; set; }
 

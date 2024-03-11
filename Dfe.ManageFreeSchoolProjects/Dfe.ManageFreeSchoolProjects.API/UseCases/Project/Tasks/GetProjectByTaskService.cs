@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
@@ -12,6 +13,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuth
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,6 +71,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.ModelFundingAgreement:
                     result = await new GetModelFundingAgreementTaskService(_context).Get(parameters);
                     break;
+                case TaskName.StatutoryConsultation:
+                    result = await new GetStatutoryConsultationTaskService(_context).Get(parameters);
+                    break;
                 case TaskName.ArticlesOfAssociation:
                     result = await new GetArticlesOfAssociationTaskService(_context).Get(parameters);
                     break;
@@ -83,6 +88,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.EducationBrief:
                     result = await new GetEducationBriefTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.AdmissionsArrangements:
+                    result = await new GetAdmissionsArrangementsTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

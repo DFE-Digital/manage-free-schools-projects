@@ -13,6 +13,9 @@
         
         public GiasTask Gias { get; set; }
         public ModelFundingAgreementTask ModelFundingAgreement { get; set; }
+
+        public StatutoryConsultationTask StatutoryConsultation { get; set; }
+
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public FinancePlanTask FinancePlan { get; set; }
@@ -20,6 +23,8 @@
         public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
         
         public EducationBriefTask EducationBrief { get; set; }
+
+        public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
 
         public string TaskToUpdate
         {
@@ -49,8 +54,12 @@
                     return TaskName.DraftGovernancePlan.ToString();
                 if (Gias != null)
                     return TaskName.Gias.ToString();
+                if (StatutoryConsultation != null)
+                    return TaskName.StatutoryConsultation.ToString();
                 if (EducationBrief != null)
                     return TaskName.EducationBrief.ToString();
+                if (AdmissionsArrangements != null)
+                    return TaskName.AdmissionsArrangements.ToString();
                 return null;
             }
         }
