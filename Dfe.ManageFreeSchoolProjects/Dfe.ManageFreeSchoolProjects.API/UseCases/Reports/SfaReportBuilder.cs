@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             {
                 var entry = new SfaReportEntry()
                 {
-                    SchoolName = project.Kpi.ProjectStatusCurrentFreeSchoolName,
+                    SchoolName = RemoveCommas(project.Kpi.ProjectStatusCurrentFreeSchoolName),
                     Id = project.Kpi.ProjectStatusProjectId,
                     ProjectStatus = project.Kpi.ProjectStatusProjectStatus,
                     Type = project.Kpi.SchoolDetailsSchoolTypeMainstreamApEtc,
@@ -50,6 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             }
 
             return result;
+        }
+
+        private static string RemoveCommas(string value)
+        {
+            return value?.Replace(",", string.Empty);
         }
 
         private static void ApplyOpens(SfaReportEntry entry, Opens opens)
@@ -120,7 +125,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
         private static int GetFlag(DateTime? datePaymentSecond, string paymentFirst, DateTime? entryPo)
         {
-            int.TryParse(paymentFirst, out var paymentFirstValue);
+            double.TryParse(paymentFirst, out var paymentFirstValue);
 
             if (!datePaymentSecond.HasValue && paymentFirstValue >= 25000)
             {
@@ -230,7 +235,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         private static string GetOmit(SfaReportEntry entry)
         {
             double.TryParse(entry.WaveNumber, out var waveNumber);
-            int.TryParse(entry.RevisedAllocation, out var revisedAllocation);
+            double.TryParse(entry.RevisedAllocation, out var revisedAllocation);
 
             if (waveNumber < 99 && revisedAllocation > 3000 && entry.Flag > 0)
             {

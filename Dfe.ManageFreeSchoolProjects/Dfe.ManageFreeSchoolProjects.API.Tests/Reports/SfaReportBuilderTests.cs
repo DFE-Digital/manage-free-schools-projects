@@ -23,15 +23,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             // Arrange
             var reportSourceData = CreateSfaReportSourceData();
 
+            var expected = reportSourceData.First();
+            expected.Kpi.ProjectStatusCurrentFreeSchoolName = "This, is my, school, name";
+
             // Act
             var report = SfaReportBuilder.Build(reportSourceData);
 
             report.Projects.Should().HaveCount(1);
 
             var project = report.Projects.First();
-            var expected = reportSourceData.First();
 
-            project.SchoolName.Should().Be(expected.Kpi.ProjectStatusCurrentFreeSchoolName);
+            project.SchoolName.Should().Be("This is my school name");
             project.Id.Should().Be(expected.Kpi.ProjectStatusProjectId);
             project.ProjectStatus.Should().Be(expected.Kpi.ProjectStatusProjectStatus);
             project.Type.Should().Be(expected.Kpi.SchoolDetailsSchoolTypeMainstreamApEtc);
@@ -242,7 +244,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 
         public static IEnumerable<object[]> FlagData()
         {
-            yield return new object[] { null, "25000", null, 1 };
+            yield return new object[] { null, "25000.50", null, 1 };
             yield return new object[] { null, "26000", null, 1 };
             yield return new object[] { null, "23000", null, -1 };
 
@@ -288,7 +290,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
         public static IEnumerable<object[]> OmitData()
         {
             // This relies on data calculated elsehwere, if it becomes too difficult to maintain, split the code
-            yield return new object[] { "LA Special - Wave 1", "3001", "25000", "payment" };
+            yield return new object[] { "LA Special - Wave 1", "3001.80", "25000", "payment" };
             yield return new object[] { "LA Special - Wave 1", "2900", "25000", "omit" };
             yield return new object[] { "LA Special - Wave 1", "3001", "", "omit" };
 
