@@ -13,12 +13,13 @@
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
     var modelFundingAgreementLink = string.Format(RouteConstants.ViewModelFundingAgreement, Model.ProjectId);
+    var statutoryConsultationLink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
-
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
+    var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
     
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -171,6 +172,16 @@
                     </li>
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
+                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
+                                Statutory consultation
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
                             <a href="@articlesOfAssociationLink" class="govuk-link" data-testid="articles-of-association-task">
                                 Articles of association
                             </a>
@@ -188,6 +199,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.DraftGovernancePlan);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
+                                Admissions arrangements
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
                         }
                     </li>
 

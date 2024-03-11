@@ -4963,6 +4963,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<int?>("FinancePlanSavedInWorkplacesFolder")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Comply With Policies");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Recommended Template");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Saved To Workplaces");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesAppEvActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv Actual date of completion");
@@ -5717,6 +5729,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<DateTime?>("FsgPreOpeningMilestonesScrForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.SCR Forecast date");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesScrReceived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesSiteKickOffMeetingHeldActualDate")
                         .HasColumnType("date")

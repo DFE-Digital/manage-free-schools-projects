@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
@@ -88,7 +89,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       FinancePlan = FinancePlanTaskBuilder.Build(milestones),
                                       DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones),
                                       Gias = GiasTaskBuilder.Build(milestones),
-                                      EducationBrief = EducationBriefTaskBuilder.Build(milestones)
+                                      EducationBrief = EducationBriefTaskBuilder.Build(milestones),
+                                      AdmissionsArrangements = AdmissionsArrangementsTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {

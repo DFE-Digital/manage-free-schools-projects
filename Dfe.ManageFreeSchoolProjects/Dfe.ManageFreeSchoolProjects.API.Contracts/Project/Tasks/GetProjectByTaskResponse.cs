@@ -15,6 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public KickOffMeetingTask KickOffMeeting { get; set; }
 
         public ModelFundingAgreementTask ModelFundingAgreement{ get; set; }
+
+        public StatutoryConsultationTask StatutoryConsultation { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
 
         public GiasTask Gias { get; set; }
@@ -23,5 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public DraftGovernancePlanTask DraftGovernancePlan { get; set; }
         
         public EducationBriefTask EducationBrief { get; set; }
+
+        public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
     }
 }

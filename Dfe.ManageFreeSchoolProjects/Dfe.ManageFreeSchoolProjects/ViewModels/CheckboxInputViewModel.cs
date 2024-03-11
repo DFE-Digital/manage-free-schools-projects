@@ -12,5 +12,7 @@
 		public bool? BoldLabel  { get; set; }
 
 		public bool AddMargin { get; set; }
-	}
+
+        public string TestId { get; set; }
+    }
 }

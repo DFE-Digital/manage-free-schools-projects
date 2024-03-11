@@ -158,7 +158,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
+        public static Milestones BuildStatutoryConsultationTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesScrForecastDate = new DateTime().AddDays(9);
+            result.FsgPreOpeningMilestonesScrReceived = null;
+            result.FsgPreOpeningMilestonesScrActualDateOfCompletion = null;
+            result.FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty = null;
+            result.FsgPreOpeningMilestonesMi80CommentsOnDecisionToApproveIfApplicable = "";
+            result.FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder = null;
+
+            return result;
+        }
+
         public static Milestones BuildModelFundingAgreementTask(string rid)
         {
             var result = new Milestones();
@@ -194,6 +210,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FSGPreOpeningMilestonesEducationPlanInBrief = true;
             result.FSGPreOpeningMilestonesEducationPolicesInBrief = true;
             result.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory = true;
+            result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
+            
+
+            return result;
+        }
+        
+        public static Milestones BuildAdmissionsArrangementsTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate = true;
+            result.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies = true;
+            result.FsgPreOpeningMilestonesSapActualDateOfCompletion = new DateTime().AddDays(1);
             result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
             
 
