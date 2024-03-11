@@ -82,6 +82,6 @@ public class ProjectLead : CreateProjectBaseModel
 
     private static bool IsNameValid(string name)
     {
-        return name != null && name.Contains(" ");
+        return name != null && name.Contains(' ');
     }
 }
