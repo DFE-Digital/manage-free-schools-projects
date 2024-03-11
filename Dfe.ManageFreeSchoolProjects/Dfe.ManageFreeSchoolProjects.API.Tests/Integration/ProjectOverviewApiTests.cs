@@ -95,7 +95,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.KeyContacts.TeamLeader.Should().Be(project.KeyContactsFsgTeamLeader);
             result.Data.KeyContacts.Grade6.Should().Be(project.KeyContactsFsgGrade6);
             result.Data.KeyContacts.ProjectDirector.Should().Be(project.KeyContactsEsfaCapitalProjectDirector);
-            result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsEsfaCapitalProjectManager);
+            result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsFsgLeadContact);
 
             // Site
             result.Data.SiteInformation.Postcode.Should().Be(property.SitePostcodeOfSite);

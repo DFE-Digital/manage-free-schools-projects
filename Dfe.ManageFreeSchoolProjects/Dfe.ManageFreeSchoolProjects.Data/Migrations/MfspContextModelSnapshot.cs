@@ -5730,6 +5730,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.SCR Forecast date");
 
+                    b.Property<bool?>("FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("FsgPreOpeningMilestonesScrReceived")
                         .HasColumnType("bit");
 
