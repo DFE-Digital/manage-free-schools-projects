@@ -62,6 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
             AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
+            AssertEntry(nameof(ImpactAssessmentTask.ImpactAssessment), "Yes", project, columnHeaders);
 		}
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -132,6 +133,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         AdmissionsArrangements = new AdmissionsArrangementsTask()
                         {
                             TrustConfirmedAdmissionsArrangementsTemplate = true
+                        },
+                        ImpactAssessment = new ImpactAssessmentTask()
+                        {
+                            ImpactAssessment = true
                         }
                     }
                 }
