@@ -73,24 +73,22 @@ class CreateProjectPage {
     }
 
     public setNurseryTo(option: "Yes" | "No"): this {
-        if (option == "Yes") {
-            cy.getById("nursery-1").check()
-        }
+        cy.getByTestId(`nursery-${option}`).check();
+        return this;
+    }
 
-        if (option == "No") {
-            cy.getById("nursery-2").check()
-        }
+    public hasNursery(value: string): this {
+        cy.getByTestId(`nursery-${value}`).should("be.checked");
         return this;
     }
 
     public setSixthFormTo(option: "Yes" | "No"): this {
-        if (option == "Yes") {
-            cy.getById("sixth-form-1").check()
-        }
+        cy.getByTestId(`sixth-form-${option}`).check();
+        return this;
+    }
 
-        if (option == "No") {
-            cy.getById("sixth-form-2").check()
-        }
+    public hasSixthForm(value: string): this {
+        cy.getByTestId(`sixth-form-${value}`).should("be.checked");
         return this;
     }
 

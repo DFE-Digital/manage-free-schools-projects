@@ -44,9 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectMethod,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectId,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectSchool,
-                CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
-                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust,
                     routeParameter),
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
@@ -54,7 +52,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.AgeRange => RouteConstants.CreateClassType,
                 CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithType,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateNotifyUser,
@@ -69,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.FaithStatus => NextFaithStatus(),
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
-                _ => DefaultNextRoute(currentPageName, routeParameter)
+                _ => DefaultNextRoute(currentPageName)
             };
         }
 
@@ -86,7 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return RouteConstants.CreateFaithType;
         }
 
-        private string DefaultNextRoute(CreateProjectPageName currentPageName, string routeParameter)
+        private string DefaultNextRoute(CreateProjectPageName currentPageName)
         {
             var cache = _createProjectCache.Get();
 
@@ -97,17 +94,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
-                CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
-                    routeParameter),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.FaithStatus => RouteConstants.CreateFaithType,
                 CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateNotifyUser,
                 CreateProjectPageName.NotifyUser => RouteConstants.CreateProjectCheckYourAnswers,
