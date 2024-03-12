@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240306120229_AdmissionsArrangementsFieldAdded")]
+    partial class AdmissionsArrangementsFieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -777,12 +780,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PeriodStart");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("BS", "dbo");
 
@@ -920,11 +918,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Type of Site");
-
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("constructData", "dbo");
                 });
@@ -1794,12 +1787,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Re-brokerage status");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("FS_KIM", "dbo");
 
@@ -3545,12 +3533,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(4799)")
                         .HasColumnName("Section I - Due Diligence.Please provide details and suggested actions/remedies (DDCED)");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("KAI", "dbo");
 
@@ -4790,9 +4773,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Trust type");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpperStatus")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -4810,8 +4790,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(16)");
 
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.HasIndex("UserId");
 
@@ -5730,15 +5708,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.SCR Forecast date");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesScrReceived")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("FsgPreOpeningMilestonesSiteKickOffMeetingHeldActualDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.Site Kick off meeting held ( actual date)");
@@ -5794,12 +5763,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<int?>("TrustOptInRPA")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Milestones", "dbo");
 
@@ -6086,12 +6050,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(25)")
                         .HasColumnName("Project URN");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Ofsted_FSG", "dbo");
 
@@ -6454,12 +6413,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PeriodStart");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Opens", "dbo");
 
@@ -10176,12 +10130,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(4)")
                         .HasColumnName("Pupil numbers and capacity.YR-Y6 capacity");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("PO", "dbo");
 
@@ -10918,12 +10867,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(9)")
                         .HasColumnName("TOS");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Property", "dbo");
 
@@ -11276,12 +11220,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<Guid>("RevisionMarker")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("RAG", "dbo");
 
@@ -11831,12 +11770,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("Status");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Rid", "TaskName");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("Tasks", "mfsp");
 
@@ -12334,12 +12268,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("UpdatedByUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("RID");
-
-                    b.HasIndex("UpdatedByUserId");
 
                     b.ToTable("RiskAppraisalMeetingTask", "mfsp");
 
@@ -12397,101 +12326,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                             }));
                 });
 
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Bs", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.ConstructData", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.FsKim", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Kai", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Kpi", b =>
                 {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-
                     b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", "User")
                         .WithMany("Projects")
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Milestones", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.OfstedFsg", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Opens", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Po", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Property", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Rag", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Tasks", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
-                });
-
-            modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.RiskAppraisalMeetingTask", b =>
-                {
-                    b.HasOne("Dfe.ManageFreeSchoolProjects.Data.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UpdatedByUserId");
                 });
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.User", b =>

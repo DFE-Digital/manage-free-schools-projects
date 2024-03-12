@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         ModelFundingAgreement,
         StatutoryConsultation,
         Gias,
-        EducationBrief
+        EducationBrief,
+        AdmissionsArrangements
     }
 }

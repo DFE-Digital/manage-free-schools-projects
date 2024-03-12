@@ -15,7 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
         public async Task InvokeAsync(
 			HttpContext context,
             IApiKeyValidationService apiKeyValidationService,
-            IConstructApiKeyValidationService constructApiKeyValidationService)
+            IConstructApiKeyValidationService constructApiKeyValidationService,
+            ISfaApiKeyValidationService sfaApiKeyValidationService)
         {
 	        if (IsApiCall(context))
 	        {
@@ -31,8 +32,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
 		        if (!isKeyValid)
 		        {
 					var isConstructRouteWithValidKey = constructApiKeyValidationService.Execute(context, extractedApiKey);
+                    var isSfaRouteWithValidKey = sfaApiKeyValidationService.Execute(context, extractedApiKey);
 
-					if (!isConstructRouteWithValidKey)
+					if (!isConstructRouteWithValidKey && !isSfaRouteWithValidKey)
 					{
                         context.Response.StatusCode = 401;
                         await context.Response.WriteAsync("Unauthorized client.");

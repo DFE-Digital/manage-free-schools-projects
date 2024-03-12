@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using System.Collections.Generic;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using System;
+using NSubstitute.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -59,6 +61,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.DraftGovernancePlan.Name.Should().Be("DraftGovernancePlan");
             result.DraftGovernancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
+            result.AdmissionsArrangements.Name.Should().Be(TaskName.AdmissionsArrangements.ToString());
+            result.AdmissionsArrangements.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }
