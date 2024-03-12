@@ -20,6 +20,7 @@
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
     var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
+    var impactAssessmentLink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
     
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -249,6 +250,21 @@
 
                     </li>
                 </ul>
+                <h2 class="app-task-list__section">
+                    Getting ready to open
+                </h2>
+                 <ul class="app-task-list__items">
+                 <li class="app-task-list__item">
+                     <span class="app-task-list__task-name">
+                         <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
+                             Impact assessment
+                         </a>
+                     </span>
+                     @{
+                         RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
+                     }
+                 </li>
+                 </ul>
             </li>
         </ol>
     </div>
