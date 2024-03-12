@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Construct
                           from milestones in joinedMilestones.DefaultIfEmpty()
                           join pupilNumbersAndCapacity in _context.Po on project.Rid equals pupilNumbersAndCapacity.Rid into joinedPupilNumbersAndCapacity
                           from pupilNumbersAndCapacity in joinedPupilNumbersAndCapacity.DefaultIfEmpty()
+                          where project.ProjectStatusProjectId != null
                           select new ConstructProjectResponse()
                           {
                               CurrentFreeSchoolName = project.ProjectStatusCurrentFreeSchoolName,
