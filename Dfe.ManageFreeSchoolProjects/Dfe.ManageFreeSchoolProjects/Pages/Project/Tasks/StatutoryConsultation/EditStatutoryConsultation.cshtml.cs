@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.StatutoryConsultation
         public bool? ConsultationFulfilsTrustSection10StatutoryDuty { get; set; }
 
         [BindProperty(Name = "comments")]
-        [ValidText(100)]
+        [ValidText(999)]
         public string Comments { get; set; }
 
         [BindProperty(Name = "saved-findings-in-workplaces-folder")]
