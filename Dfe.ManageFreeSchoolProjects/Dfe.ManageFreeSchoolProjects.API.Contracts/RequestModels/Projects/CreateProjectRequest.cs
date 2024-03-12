@@ -36,5 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public DateTime? ProvisionalOpeningDate { get; set; }
         [Required]
         public string CreatedBy { get; set; }
+        public string ProjectLead { get; set; }
     }
 }
