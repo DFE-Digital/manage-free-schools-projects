@@ -5,7 +5,7 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-describe("Rewrite the create project test to improve performance", () => {
+describe("Testing the project creation journey", () => {
     beforeEach(() => {
         cy.login({ role: "POTATO" });
         cy.visit(Cypress.env('url'));
