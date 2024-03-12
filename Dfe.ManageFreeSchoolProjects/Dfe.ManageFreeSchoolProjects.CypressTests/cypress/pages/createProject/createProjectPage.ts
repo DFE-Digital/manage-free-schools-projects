@@ -212,12 +212,22 @@ class CreateProjectPage {
         return this;
     }
 
-    public enterNotifyEmail(value: string) {
+    public enterProjectLeadName(value: string) {
+        cy.getByTestId("name").clear().type(value)
+        return this;
+    }
+
+    public enterProjectLeadEmail(value: string) {
         cy.getByTestId("email").clear().type(value)
         return this;
     }
 
-    public hasNotifyEmail(value: string) {
+    public hasProjectLeadName(value: string) {
+        cy.getByTestId("email").should("have.value", value);
+        return this;
+    }
+
+    public hasProjectLeadEmail(value: string) {
         cy.getByTestId("email").should("have.value", value);
         return this;
     }

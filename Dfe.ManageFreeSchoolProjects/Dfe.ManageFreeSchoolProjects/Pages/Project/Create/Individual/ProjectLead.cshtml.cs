@@ -6,15 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
-public class NotifyUser : CreateProjectBaseModel
+public class ProjectLead : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
+
+    [Required(ErrorMessage = "Please enter the name.")]
+    [BindProperty(Name = "name")]
+    public string Name { get; set; }
 
     [Required(ErrorMessage = "Please enter an email.")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
-    public NotifyUser(ErrorService errorService, ICreateProjectCache createProjectCache)
+    public ProjectLead(ErrorService errorService, ICreateProjectCache createProjectCache)
         :base(createProjectCache)
     {
         _errorService = errorService;
@@ -30,9 +34,10 @@ public class NotifyUser : CreateProjectBaseModel
 
         var projectCache = _createProjectCache.Get();
 
-        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser);
+        BackLink = GetPreviousPage(CreateProjectPageName.ProjectLead);
 
-        Email = projectCache.EmailToNotify;
+        Name = projectCache.ProjectLeadName;
+        Email = projectCache.ProjectLeadEmail;
 
         return Page();
     }
@@ -41,14 +46,21 @@ public class NotifyUser : CreateProjectBaseModel
     public IActionResult OnPost()
     {
         var projectCache = _createProjectCache.Get();
-        BackLink = GetPreviousPage(CreateProjectPageName.NotifyUser);
+        BackLink = GetPreviousPage(CreateProjectPageName.ProjectLead);
 
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
-        
+
+        if (!IsNameValid(Name))
+        {
+            ModelState.AddModelError("name", "Enter the full name, for example John Smith");
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         if (!IsEmailValid(Email))
         {
             ModelState.AddModelError("email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
@@ -56,7 +68,8 @@ public class NotifyUser : CreateProjectBaseModel
             return Page();
         }
 
-        projectCache.EmailToNotify = Email;
+        projectCache.ProjectLeadName = Name;
+        projectCache.ProjectLeadEmail = Email;
         _createProjectCache.Update(projectCache);
         
         return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
@@ -65,5 +78,10 @@ public class NotifyUser : CreateProjectBaseModel
     private static bool IsEmailValid(string email)
     {
         return email != null && email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email);
+    }
+
+    private static bool IsNameValid(string name)
+    {
+        return name != null && name.Contains(' ');
     }
 }

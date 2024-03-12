@@ -72,7 +72,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType,
                 OtherFaithType = project.OtherFaithType,
-                ProvisionalOpeningDate = project.ProvisionalOpeningDate
+                ProvisionalOpeningDate = project.ProvisionalOpeningDate,
+                ProjectLead = project.ProjectLeadName
             };
 
             createProjectRequest.Projects.Add(projReq);
@@ -108,7 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 $"{HttpContext.Request.Host}" +
                 $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
 
-            await _notifyUserService.Execute(_createProjectCache.Get().EmailToNotify, projectUrl);
+            await _notifyUserService.Execute(_createProjectCache.Get().ProjectLeadEmail, projectUrl);
         }
     }
 }
