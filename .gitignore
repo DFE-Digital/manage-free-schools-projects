@@ -22,3 +22,5 @@ terraform.rc*
 !terraform.tfvars.example
 .terraform/
 backend.vars
+
+.vs
