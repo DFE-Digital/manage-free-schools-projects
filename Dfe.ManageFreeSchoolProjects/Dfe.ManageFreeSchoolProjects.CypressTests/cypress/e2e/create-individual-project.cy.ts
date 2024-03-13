@@ -345,15 +345,21 @@ describe("Testing the project creation journey", () => {
                 .setProvisionalOpeningDate("1", "10", "2035")
                 .continue();
 
-            Logger.log("Check notify email validation");
+            Logger.log("Check project lead validation");
             createProjectPage
-                .titleIs("Who do you want to notify about this project?")
+                .titleIs("Who is the project lead?")
+                .continue()
+                .errorMessage("Please enter the name")
+                .enterProjectLeadName("j")
+                .continue()
+                .errorMessage("Enter the full name, for example John Smith")
+                .enterProjectLeadName("joe bloggs")
                 .continue()
                 .errorMessage("Please enter an email")
-                .enterNotifyEmail("a")
+                .enterProjectLeadEmail("a")
                 .continue()
                 .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
-                .enterNotifyEmail("test.person@edunation.gov.uk")
+                .enterProjectLeadEmail("test.person@edunation.gov.uk")
                 .continue()
                 .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
 
@@ -361,7 +367,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Set email");
             createProjectPage
-                .enterNotifyEmail("test.person@education.gov.uk")
+                .enterProjectLeadEmail("test.person@education.gov.uk")
                 .continue();
 
             Logger.log("Check answers");
@@ -480,9 +486,10 @@ describe("Testing the project creation journey", () => {
                 .setProvisionalOpeningDate("1", "10", "2035")
                 .continue();
 
-            Logger.log("Set email");
+            Logger.log("Set project lead");
             createProjectPage
-                .enterNotifyEmail("test.person@education.gov.uk")
+                .enterProjectLeadName("test person")
+                .enterProjectLeadEmail("test.person@education.gov.uk")
                 .continue();
 
             Logger.log("Check answers");
@@ -656,6 +663,15 @@ describe("Testing the project creation journey", () => {
                 .continue()
             summaryPage
                 .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
+
+            Logger.log("Change project lead")
+            summaryPage.clickChangeFor("Project lead name")
+            createProjectPage.enterProjectLeadName("Anne Jones")
+            createProjectPage.enterProjectLeadEmail("anne.jones@education.gov.uk")
+                .continue();
+            summaryPage
+                .SummaryHasValue("Project lead name", "Anne Jones")
+                .SummaryHasValue("Project lead email", "anne.jones@education.gov.uk");
 
             createProjectPage.clickCreateProject();
 

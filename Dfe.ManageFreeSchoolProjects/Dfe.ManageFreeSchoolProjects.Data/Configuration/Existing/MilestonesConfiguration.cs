@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+﻿using Dfe.ManageFreeSchoolProjects.Data.Entities;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -518,6 +519,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesSapActualDateOfCompletion)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.SAP Actual date of completion");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Recommended Template");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Comply With Policies");
+            builder.Property(e => e.FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Admissions Arrangements Saved To Workplaces");
             builder.Property(e => e.FsgPreOpeningMilestonesSapBaselineDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.SAP Baseline date");
@@ -565,6 +575,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property((e => e.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces))
                 .HasColumnType("bit")
                 .HasColumnName("FSG Pre Opening Milestones. Education Brief Saved To Workplaces");
+             builder.Property((e => e.FsgPreOpeningMilestonesImpactAssessmentDone))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Done");
+            builder.Property((e => e.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces))
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Saved To Workplaces");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)
@@ -582,6 +598,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.RPACoverType)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
+            AuditConfiguration.Apply(builder);
         }
 	}
 

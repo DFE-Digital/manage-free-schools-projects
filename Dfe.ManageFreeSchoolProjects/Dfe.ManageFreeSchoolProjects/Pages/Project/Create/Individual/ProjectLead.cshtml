@@ -1,7 +1,7 @@
-﻿@page "/project/create/notifyuser"
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.NotifyUser
+﻿@page "/project/create/projectlead"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ProjectLead
 @{
-    ViewData["Title"] = "Who do you want to notify about this project?";
+    ViewData["Title"] = "Who is the project lead?";
 }
 
 @section BeforeMain {
@@ -14,9 +14,10 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-            <govuk-create-title label="Who do you want to notify about this project?" />
+            <govuk-create-title label="Who is the project lead?" />
             <div class="govuk-form-group">
-                <p class="govuk-hint">This is so they can assign it to someone to manage</p>
+                <p class="govuk-hint">We will tell them the project record has been created</p>
+                <govuk-text-input name="name" asp-for="@Model.Name" label="Full name" data-testid="name" />
                 <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
             </div>
 

@@ -35,11 +35,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Finance plan");
             taskHeaders.Should().Contain("Gias");
             taskHeaders.Should().Contain("Education brief");
+            taskHeaders.Should().Contain("Impact assessment");
 
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Pre-opening");
             sectionHeaders.Should().Contain("Sign-off preparation");
+            sectionHeaders.Should().Contain("Getting ready to open");
 
             result.Projects.Count.Should().Be(1);
 
@@ -61,6 +63,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
+            AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
+            AssertEntry(nameof(ImpactAssessmentTask.ImpactAssessment), "Yes", project, columnHeaders);
 		}
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -127,6 +131,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         EducationBrief = new EducationBriefTask()
                         {
                             EducationPlanInEducationBrief = true
+                        },
+                        AdmissionsArrangements = new AdmissionsArrangementsTask()
+                        {
+                            TrustConfirmedAdmissionsArrangementsTemplate = true
+                        },
+                        ImpactAssessment = new ImpactAssessmentTask()
+                        {
+                            ImpactAssessment = true
                         }
                     }
                 }

@@ -13,12 +13,14 @@
     var riskAppraisalMeetingLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
     var kickOffMeetingLink = string.Format(RouteConstants.ViewKickOffMeeting, Model.ProjectId);
     var modelFundingAgreementLink = string.Format(RouteConstants.ViewModelFundingAgreement, Model.ProjectId);
+    var statutoryConsultationLink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
     var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
-
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
+    var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
+    var impactAssessmentLink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
     
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -171,6 +173,16 @@
                     </li>
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
+                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
+                                Statutory consultation
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
                             <a href="@articlesOfAssociationLink" class="govuk-link" data-testid="articles-of-association-task">
                                 Articles of association
                             </a>
@@ -188,6 +200,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.DraftGovernancePlan);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
+                                Admissions arrangements
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
                         }
                     </li>
 
@@ -228,6 +250,21 @@
 
                     </li>
                 </ul>
+                <h2 class="app-task-list__section">
+                    Getting ready to open
+                </h2>
+                 <ul class="app-task-list__items">
+                 <li class="app-task-list__item">
+                     <span class="app-task-list__task-name">
+                         <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
+                             Impact assessment
+                         </a>
+                     </span>
+                     @{
+                         RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
+                     }
+                 </li>
+                 </ul>
             </li>
         </ol>
     </div>
