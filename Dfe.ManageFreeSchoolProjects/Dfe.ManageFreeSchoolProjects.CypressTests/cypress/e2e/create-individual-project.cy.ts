@@ -446,7 +446,7 @@ describe("Creating an individual project - Create a new project", () => {
         createProjectPage
             .titleIs("Who is the project lead?")
             .continue()
-            .errorMessage("Please enter a name")
+            .errorMessage("Please enter the name")
             .enterProjectLeadName("j")
             .continue()
             .errorMessage("Enter the full name, for example John Smith")
@@ -904,6 +904,6 @@ describe("Creating an individual project - Create a new project", () => {
         Logger.log("Confirm created");
         cy.executeAccessibilityTests();
         createProjectPage.hasConfirmedProjectId(updatedTemporaryProjectId)
-            .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
+            .hasConfirmedEmailMessage("We have sent a notification email to anne.jones@education.gov.uk.")
     });
 });
