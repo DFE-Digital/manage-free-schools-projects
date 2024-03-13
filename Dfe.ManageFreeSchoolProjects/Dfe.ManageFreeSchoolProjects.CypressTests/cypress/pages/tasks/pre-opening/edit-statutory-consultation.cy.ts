@@ -1,5 +1,4 @@
 class StatutoryConsultationEditPage {
-    private errorTracking = "";
 
     titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
@@ -16,15 +15,9 @@ class StatutoryConsultationEditPage {
         return this;
     }
 
-    private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
-    }
-
     withExpectedDateForReceivingFindingsFromTrust(day: string, month: string, year: string): this {
         const key = "expected-date-for-receiving-findings-from-trust";
-        this.setDate(key, day, month, year);
+        cy.enterDate(key, day, month, year);
         return this
     }
 
@@ -35,7 +28,7 @@ class StatutoryConsultationEditPage {
 
     withDateReceived(day: string, month: string, year: string): this {
         const key = "date-received";
-        this.setDate(key, day, month, year);
+        cy.enterDate(key, day, month, year);
         return this
     }
 
