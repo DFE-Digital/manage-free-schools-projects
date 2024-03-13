@@ -242,5 +242,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+
+        public static Milestones BuildEqualitiesAssessmentTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.EqualitiesAssessmentCompletedEPR = null;
+            result.EqualitiesAssessmentSavedEPRInWorkplacesFolder = null;
+
+            return result;
+        }
     }
 }
