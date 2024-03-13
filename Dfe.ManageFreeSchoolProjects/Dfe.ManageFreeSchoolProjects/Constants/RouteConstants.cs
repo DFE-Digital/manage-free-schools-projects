@@ -56,7 +56,10 @@
 
         public const string ViewEqualitiesAssessmentTask = TaskList + "/equalitiesassessment";
         public const string EditEqualitiesAssessmentTask = ViewEqualitiesAssessmentTask + "/edit";
-
+        
+        public const string ViewImpactAssessmentTask = TaskList + "/impact-assessment";
+        public const string EditImpactAssessmentTask = ViewImpactAssessmentTask + "/edit";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

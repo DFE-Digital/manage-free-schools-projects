@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -26,12 +27,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.StatutoryConsultation
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "expected-date-for-receiving-findings-from-trust", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Expected date for receiving findings from trust")]
         public DateTime? ExpectedDateForReceivingFindingsFromTrust { get; set; }
 
         [BindProperty(Name = "received-consultation-findings-from-trust")]
         public bool? ReceivedConsultationFindingsFromTrust { get; set; }
 
         [BindProperty(Name = "date-received", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date received")]
         public DateTime? DateReceived { get; set; }
 
         [BindProperty(Name = "consultation-fulfils-trust-section-10-statutory-duty")]

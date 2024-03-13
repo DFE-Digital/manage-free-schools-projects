@@ -36,7 +36,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse AdmissionsArrangements { get; set; }
 
         public TaskSummaryResponse EqualitiesAssessment { get; set; }
-
+        
+        public TaskSummaryResponse ImpactAssessment { get; set; }
     }
 
     public class TaskSummaryResponse

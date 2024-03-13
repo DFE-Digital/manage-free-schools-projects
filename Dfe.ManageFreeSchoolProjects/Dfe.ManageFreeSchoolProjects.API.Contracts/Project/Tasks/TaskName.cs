@@ -20,6 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Gias,
         EducationBrief,
         AdmissionsArrangements,
-        EqualitiesAssessment
+        EqualitiesAssessment,
+        ImpactAssessment
     }
 }

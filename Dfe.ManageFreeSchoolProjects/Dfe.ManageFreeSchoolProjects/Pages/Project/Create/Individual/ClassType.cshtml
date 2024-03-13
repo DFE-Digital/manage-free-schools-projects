@@ -5,8 +5,11 @@
 @{
     ViewData["Title"] = "What is the class type?";
 
-    var nurseryOptions = Enum.GetValues<ClassType.Nursery>().Except(new[] { ClassType.Nursery.NotSet }).Select(x => x.ToString()).ToArray();
-    var sixthFormOptions = Enum.GetValues<ClassType.SixthForm>().Except(new[] { ClassType.SixthForm.NotSet }).Select(x => x.ToString()).ToArray();
+    var nurseryOptions = new[] { ClassType.Nursery.Yes.ToString(), ClassType.Nursery.No.ToString() };
+    var sixthFormOptions = new[] { ClassType.SixthForm.Yes.ToString(), ClassType.SixthForm.No.ToString() };
+
+    var nurseryTestIds = new[] { "nursery-Yes", "nursery-No" };
+    var sixthFormTestIds = new[] { "sixth-form-Yes", "sixth-form-No" };
 }
 
 @section BeforeMain {
@@ -26,7 +29,7 @@
                                 name="nursery"
                                 labels="@nurseryOptions"
                                 values="@nurseryOptions"
-                                test-ids="@nurseryOptions"/>
+                                test-ids="@nurseryTestIds" />
         </div>
 
         <div class="govuk-form-group">
@@ -35,7 +38,7 @@
                                 name="sixth-form"
                                 labels="@sixthFormOptions"
                                 values="@sixthFormOptions"
-                                test-ids="@sixthFormOptions"/>
+                                test-ids="@sixthFormTestIds" />
         </div>
 
         <br/>

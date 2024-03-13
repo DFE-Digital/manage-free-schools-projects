@@ -106,7 +106,8 @@ describe("Testing project overview", () => {
             .continue();
 
         createProjectPage
-            .enterNotifyEmail("test.person@education.gov.uk")
+            .enterProjectLeadName("Test Person")
+            .enterProjectLeadEmail("test.person@education.gov.uk")
             .continue();
 
         createProjectPage.clickCreateProject();
