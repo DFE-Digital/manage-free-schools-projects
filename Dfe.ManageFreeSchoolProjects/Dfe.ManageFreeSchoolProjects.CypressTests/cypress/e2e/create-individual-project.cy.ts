@@ -350,23 +350,24 @@ describe("Testing the project creation journey", () => {
                 .titleIs("Who is the project lead?")
                 .continue()
                 .errorMessage("Please enter the name")
+                .errorMessage("Please enter an email")
                 .enterProjectLeadName("j")
+                .enterProjectLeadEmail("test.person@education.gov.uk")
                 .continue()
                 .errorMessage("Enter the full name, for example John Smith")
                 .enterProjectLeadName("joe bloggs")
-                .continue()
-                .errorMessage("Please enter an email")
-                .enterProjectLeadEmail("a")
-                .continue()
-                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
                 .enterProjectLeadEmail("test.person@edunation.gov.uk")
                 .continue()
-                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
+                .enterProjectLeadEmail("@education.gov.uk")
+                .continue()
+                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
 
             cy.executeAccessibilityTests();
 
             Logger.log("Set email");
             createProjectPage
+                .enterProjectLeadName("joe bloggs")
                 .enterProjectLeadEmail("test.person@education.gov.uk")
                 .continue();
 
@@ -388,7 +389,9 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
+                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Project lead name").HasValue("joe bloggs").HasChangeLink()
+                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             cy.executeAccessibilityTests();
 
@@ -510,7 +513,9 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("None").HasChangeLink()
                 .summaryShows("Faith type").IsEmpty().HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink();
+                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Project lead name").HasValue("test person").HasChangeLink()
+                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             Logger.log("Update Temporary Project ID")
             summaryPage.clickChangeFor("Temporary Project ID");
@@ -677,7 +682,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Confirm created");
             createProjectPage.hasConfirmedProjectId(updatedTemporaryProjectId)
-                .hasConfirmedEmailMessage("We have sent a notification email to test.person@education.gov.uk.")
+                .hasConfirmedEmailMessage("We have sent a notification email to anne.jones@education.gov.uk.")
         });
     });
 });

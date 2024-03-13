@@ -23,8 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.Capacity, RouteConstants.CreateProjectAgeRange)]
         [InlineData(CreateProjectPageName.FaithStatus, RouteConstants.CreateProjectCapacity)]
         [InlineData(CreateProjectPageName.ProvisionalOpeningDate, RouteConstants.CreateFaithType)]
-        [InlineData(CreateProjectPageName.NotifyUser, RouteConstants.CreateProjectProvisionalOpeningDate)]
-        [InlineData(CreateProjectPageName.CheckYourAnswers, RouteConstants.CreateNotifyUser)]
+        [InlineData(CreateProjectPageName.ProjectLead, RouteConstants.CreateProjectProvisionalOpeningDate)]
+        [InlineData(CreateProjectPageName.CheckYourAnswers, RouteConstants.CreateProjectLead)]
         public void GetPreviousPage_Returns_CorrectPage(CreateProjectPageName currentPage, string expectedPage)
         {
             var cache = Substitute.For<ICreateProjectCache>();
@@ -81,8 +81,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.AgeRange, RouteConstants.CreateProjectCapacity)]
         [InlineData(CreateProjectPageName.Capacity, RouteConstants.CreateFaithStatus)]
         [InlineData(CreateProjectPageName.FaithType, RouteConstants.CreateProjectProvisionalOpeningDate)]
-        [InlineData(CreateProjectPageName.ProvisionalOpeningDate, RouteConstants.CreateNotifyUser)]
-        [InlineData(CreateProjectPageName.NotifyUser, RouteConstants.CreateProjectCheckYourAnswers)]
+        [InlineData(CreateProjectPageName.ProvisionalOpeningDate, RouteConstants.CreateProjectLead)]
+        [InlineData(CreateProjectPageName.ProjectLead, RouteConstants.CreateProjectCheckYourAnswers)]
         [InlineData(CreateProjectPageName.CheckYourAnswers, RouteConstants.CreateProjectConfirmation)]
         public void GetNextPage_Returns_CorrectPage(CreateProjectPageName currentPage, string expectedPage)
         {
