@@ -54,7 +54,7 @@ describe("Testing statutory consultation", () => {
 
         cy.log("Check all the fields are optional");
         statutoryConsultationtEditPage
-            .titleIs("Edit statutory consultation")
+            .titleIs("Edit Statutory consultation")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
