@@ -16,6 +16,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -91,6 +92,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.AdmissionsArrangements:
                     result = await new GetAdmissionsArrangementsTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.EqualitiesAssessment:
+                    result = await new GetEqualitiesAssessmentTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

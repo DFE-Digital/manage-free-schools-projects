@@ -53,7 +53,10 @@
 
         public const string ViewAdmissionsArrangementsTask = TaskList + "/admissions-arrangements";
         public const string EditAdmissionsArrangementsTask = ViewAdmissionsArrangementsTask + "/edit";
-        
+
+        public const string ViewEqualitiesAssessmentTask = TaskList + "/equalitiesassessment";
+        public const string EditEqualitiesAssessmentTask = ViewEqualitiesAssessmentTask + "/edit";
+
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

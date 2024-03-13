@@ -1,8 +1,4 @@
-﻿
-
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class StatutoryConsultationTask
     {

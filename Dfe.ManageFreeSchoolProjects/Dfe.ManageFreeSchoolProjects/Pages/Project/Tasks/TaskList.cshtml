@@ -20,7 +20,8 @@
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
     var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
-    
+    var equalitiesAssessmentLink = string.Format(RouteConstants.ViewEqualitiesAssessmentTask, Model.ProjectId);
+
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
 
@@ -221,6 +222,17 @@
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.FinancePlan);
                         }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@equalitiesAssessmentLink" class="govuk-link" data-testid="equalities-assessment-task">
+                                Equalities assessment
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.EqualitiesAssessment);
+                        }
+
                     </li>
                 </ul>
                 <h2 class="app-task-list__section">
