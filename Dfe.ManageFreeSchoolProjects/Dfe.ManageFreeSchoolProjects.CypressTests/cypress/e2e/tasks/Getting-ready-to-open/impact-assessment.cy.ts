@@ -43,9 +43,23 @@ describe("Testing the impact assessment task", () => {
         taskListPage.selectImpactAssessmentFromTaskList();
         summaryPage.clickChange();
 
-        Logger.log("Impact assessment");
+        Logger.log("Impact assessment can save null values");
+        
+        impactAssessmentEditPage
+        .clickContinue()
+
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Impact assessment")
+            .inOrder()
+            .summaryShows("Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool").IsEmpty().HasChangeLink()
+            .summaryShows("Saved the signed-off impact assessment in Workplaces folder").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete()
+            .clickChange();
 
         cy.executeAccessibilityTests();
+
+        Logger.log("Impact assessment can be edited");
         
         impactAssessmentEditPage
             .checkImpactAssessmentDone()

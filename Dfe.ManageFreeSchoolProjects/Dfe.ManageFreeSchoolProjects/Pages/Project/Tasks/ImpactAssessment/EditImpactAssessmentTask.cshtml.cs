@@ -55,12 +55,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
 
-            if (!ModelState.IsValid)
-            {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
             try
             {
                 var request = new UpdateProjectByTaskRequest()

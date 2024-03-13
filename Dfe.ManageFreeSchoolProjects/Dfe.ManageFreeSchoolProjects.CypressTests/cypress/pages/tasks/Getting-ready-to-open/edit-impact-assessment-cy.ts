@@ -1,6 +1,5 @@
 class ImpactAssessmentEditPage {
-    private errorTracking = "";
-    private summaryCounter = -1;
+  
     
     
     checkImpactAssessmentDone(): this {
