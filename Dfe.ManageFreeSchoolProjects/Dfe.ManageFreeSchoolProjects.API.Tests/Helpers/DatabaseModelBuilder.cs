@@ -231,7 +231,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildImpactAssessmentTask(string rid)
+        {
+            var result = new Milestones();
 
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesImpactAssessmentDone = true;
+            result.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = true;
+            return result;
+        }
+        
         public static Po PupilNumbersAndCapacity(string rid)
         {
             var result = new Po()
