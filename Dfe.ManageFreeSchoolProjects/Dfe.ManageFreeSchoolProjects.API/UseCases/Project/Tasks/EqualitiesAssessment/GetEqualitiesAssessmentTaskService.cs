@@ -1,5 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,11 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAsse
                 from milestones in joinedMilestones.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
-                    EqualitiesAssessment = new()
-                    {
-                        CompletedEqualitiesProcessRecord = milestones.EqualitiesAssessmentCompletedEPR,
-                        SavedEPRInWorkplacesFolder = milestones.EqualitiesAssessmentSavedEPRInWorkplacesFolder,
-                    }
+                    EqualitiesAssessment = EqualitiesAssessmentTaskBuilder.Build(milestones)
                 }).FirstOrDefaultAsync();
 
             return result ?? new GetProjectByTaskResponse() { StatutoryConsultation = new () };
