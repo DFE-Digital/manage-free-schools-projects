@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectId = project.ProjectStatusProjectId;
 
             var projectWithMinimumFields = DatabaseModelBuilder.BuildProjectMandatoryFieldsOnly();
+            projectWithMinimumFields.ProjectStatusProjectId = DatabaseModelBuilder.CreateProjectId();
 
             var milestone = DatabaseModelBuilder.BuildMilestone(project.Rid);
             var pupilNumbersAndCapacity = DatabaseModelBuilder.PupilNumbersAndCapacity(project.Rid);
@@ -91,6 +93,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // This makes sure that any of the optional join tables to not remove it from the list
             var selectedProjectWithMinimumFields = constructProjects.Where(x => x.ProjectId == projectWithMinimumFields.ProjectStatusProjectId).FirstOrDefault();
             selectedProjectWithMinimumFields.CurrentFreeSchoolName.Should().Be(projectWithMinimumFields.ProjectStatusCurrentFreeSchoolName);
+        }
+
+        [Fact]
+        public async Task Get_WithNullProjectId_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProjectMandatoryFieldsOnly();
+            project.ProjectStatusProjectId = null;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var getConstructProjectsResponse = await _client.GetAsync($"/api/v1/construct/projects");
+            getConstructProjectsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getConstructProjectsResponse.Content.ReadFromJsonAsync<ApiResponseV2<ConstructProjectResponse>>();
+            var constructProjects = content.Data;
+
+            constructProjects.Should().NotContain(p => p.ProjectId == null);
         }
 
         [Fact]

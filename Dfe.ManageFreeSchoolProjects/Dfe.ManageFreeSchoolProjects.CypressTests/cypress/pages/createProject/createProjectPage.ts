@@ -73,24 +73,22 @@ class CreateProjectPage {
     }
 
     public setNurseryTo(option: "Yes" | "No"): this {
-        if (option == "Yes") {
-            cy.getById("nursery-1").check()
-        }
+        cy.getByTestId(`nursery-${option}`).check();
+        return this;
+    }
 
-        if (option == "No") {
-            cy.getById("nursery-2").check()
-        }
+    public hasNursery(value: string): this {
+        cy.getByTestId(`nursery-${value}`).should("be.checked");
         return this;
     }
 
     public setSixthFormTo(option: "Yes" | "No"): this {
-        if (option == "Yes") {
-            cy.getById("sixth-form-1").check()
-        }
+        cy.getByTestId(`sixth-form-${option}`).check();
+        return this;
+    }
 
-        if (option == "No") {
-            cy.getById("sixth-form-2").check()
-        }
+    public hasSixthForm(value: string): this {
+        cy.getByTestId(`sixth-form-${value}`).should("be.checked");
         return this;
     }
 
@@ -212,12 +210,22 @@ class CreateProjectPage {
         return this;
     }
 
-    public enterNotifyEmail(value: string) {
+    public enterProjectLeadName(value: string) {
+        cy.getByTestId("name").clear().type(value)
+        return this;
+    }
+
+    public enterProjectLeadEmail(value: string) {
         cy.getByTestId("email").clear().type(value)
         return this;
     }
 
-    public hasNotifyEmail(value: string) {
+    public hasProjectLeadName(value: string) {
+        cy.getByTestId("email").should("have.value", value);
+        return this;
+    }
+
+    public hasProjectLeadEmail(value: string) {
         cy.getByTestId("email").should("have.value", value);
         return this;
     }

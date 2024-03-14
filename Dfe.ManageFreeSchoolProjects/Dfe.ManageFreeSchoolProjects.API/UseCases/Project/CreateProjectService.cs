@@ -84,7 +84,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     SchoolDetailsFaithStatus = proj.FaithStatus.ToString(),
                     SchoolDetailsFaithType = proj.FaithType.ToDescription(),
                     SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType,
-                    ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate
+                    ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
+                    KeyContactsFsgLeadContact = proj.ProjectLead
                 };
 
                 checkedProjects.Add(kpi);

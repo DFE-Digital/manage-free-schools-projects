@@ -21,7 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         {
             CheckboxInputViewModel model = new() 
             { 
-                Id = Id, 
+                Id = Id,
+                TestId = TestId,
                 Name = Name, 
                 Label = Label, 
                 HeadingLabel = 
@@ -29,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 BoldLabel = BoldLabel, 
                 Value = For.Model?.ToString(),
                 AddMargin = AddMargin
+
             };
 
             return await _htmlHelper.PartialAsync("_CheckboxInput", model);

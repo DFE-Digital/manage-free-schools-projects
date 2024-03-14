@@ -66,6 +66,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectStatutoryConsultationFromTaskList(): this {
+        cy.getByTestId("statutory-consultation-task").click()
+        return this;
+    }
+
     public selectGiasFromTaskList(): this {
         cy.getByTestId("get-information-about-schools").click()
         return this;
@@ -73,6 +78,21 @@ class TaskListPage {
 
     public selectEducationBriefFromList(): this {
         cy.getByTestId("educationBrief-task").click()
+        return this;
+    }
+
+    public selectAdmissionsArrangementsFromTaskList(): this {
+        cy.getByTestId("admissions-arrangements-task").click()
+        return this;
+    }
+
+    public selectImpactAssessmentFromTaskList(): this {
+        cy.getByTestId("impactAssessment-task").click()
+        return this;
+    }
+
+    public selectEqualitiesAssessmentFromTaskList(): this {
+        cy.getByTestId("equalities-assessment-task").click()
         return this;
     }
 

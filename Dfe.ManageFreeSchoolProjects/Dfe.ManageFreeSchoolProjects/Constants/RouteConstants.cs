@@ -29,7 +29,10 @@
 
         public const string ViewModelFundingAgreement = TaskList + "/Modelfundingagreement";
         public const string EditModelFundingAgreement = ViewModelFundingAgreement + "/edit";
-        
+
+        public const string ViewStatutoryConsultation = TaskList + "/statutoryconsultation";
+        public const string EditStatutoryConsultation = ViewStatutoryConsultation + "/edit";
+
         public const string ViewArticlesOfAssociation = TaskList + "/articlesofassociation";
         public const string EditArticlesOfAssociation = ViewArticlesOfAssociation + "/edit";
 
@@ -47,6 +50,15 @@
         
         public const string ViewEducationBriefTask = TaskList + "/education-brief";
         public const string EditEducationBriefTask = ViewEducationBriefTask + "/edit";
+
+        public const string ViewAdmissionsArrangementsTask = TaskList + "/admissions-arrangements";
+        public const string EditAdmissionsArrangementsTask = ViewAdmissionsArrangementsTask + "/edit";
+
+        public const string ViewEqualitiesAssessmentTask = TaskList + "/equalitiesassessment";
+        public const string EditEqualitiesAssessmentTask = ViewEqualitiesAssessmentTask + "/edit";
+        
+        public const string ViewImpactAssessmentTask = TaskList + "/impact-assessment";
+        public const string EditImpactAssessmentTask = ViewImpactAssessmentTask + "/edit";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
@@ -61,7 +73,7 @@
         public const string CreateProjectAgeRange = CreateProject + "/age-range";
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateProjectCapacity = CreateProject + "/capacity";
-        public const string CreateNotifyUser = CreateProject + "/notifyuser";
+        public const string CreateProjectLead = CreateProject + "/projectlead";
         public const string CreateClassType = CreateProject + "/class-type";
         public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
         public const string CreateProjectProvisionalOpeningDate = CreateProject + "/provisional-opening-date";

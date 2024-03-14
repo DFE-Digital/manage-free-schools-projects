@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Entities
 {
-	public class RiskAppraisalMeetingTask
+	public class RiskAppraisalMeetingTask : IAuditable
 	{
 		public string RID { get; set; }
 

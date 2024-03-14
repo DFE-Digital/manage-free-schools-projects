@@ -20,6 +20,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse KickOffMeeting { get; set; }
         
         public TaskSummaryResponse ModelFundingAgreement { get; set; }
+
+        public TaskSummaryResponse StatutoryConsultation { get; set; }
+
         public TaskSummaryResponse ArticlesOfAssociation { get; set; }
 
         public TaskSummaryResponse FinancePlan { get; set; }
@@ -29,7 +32,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse Gias { get; set; }
         
         public TaskSummaryResponse EducationBrief { get; set; }
+
+        public TaskSummaryResponse AdmissionsArrangements { get; set; }
+
+        public TaskSummaryResponse EqualitiesAssessment { get; set; }
         
+        public TaskSummaryResponse ImpactAssessment { get; set; }
     }
 
     public class TaskSummaryResponse
