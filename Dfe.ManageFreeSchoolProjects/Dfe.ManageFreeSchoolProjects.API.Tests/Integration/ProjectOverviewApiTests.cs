@@ -64,6 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectStatus.ProvisionalOpeningDateAgreedWithTrust.Should().Be(project.ProjectStatusProvisionalOpeningDateAgreedWithTrust.Value.Date);
             projectStatus.ActualOpeningDate.Should().Be(project.ProjectStatusActualOpeningDate.Value.Date.ToString());
             projectStatus.OpeningAcademicYear.Should().Be(project.ProjectStatusTrustsPreferredYearOfOpening);
+            projectStatus.DateSchoolClosed.Should().Be(project.ProjectStatusDateClosed.Value.Date);
 
             // School details
             var schoolDetails = result.Data.SchoolDetails;
@@ -124,6 +125,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectStatus.DateOfEntryIntoPreopening.Should().BeNull();
             projectStatus.ProvisionalOpeningDateAgreedWithTrust.Should().BeNull();
             projectStatus.ActualOpeningDate.Should().BeNull();
+            projectStatus.DateSchoolClosed.Should().BeNull();
 
             // School details
             var schoolDetails = result.Data.SchoolDetails;
