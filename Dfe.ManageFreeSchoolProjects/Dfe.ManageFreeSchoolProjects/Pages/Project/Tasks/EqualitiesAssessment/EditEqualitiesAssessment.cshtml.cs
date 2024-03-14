@@ -17,7 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EqualitiesAssessment
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditEqualitiesAssessmentTaskModel> _logger;
-        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -32,13 +31,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EqualitiesAssessment
 
         public EditEqualitiesAssessmentTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditEqualitiesAssessmentTaskModel> logger,
-            ErrorService errorService)
+            ILogger<EditEqualitiesAssessmentTaskModel> logger)
         {
             _getProjectService = getProjectService;
             _updateProjectTaskService = updateProjectTaskService;
             _logger = logger;
-            _errorService = errorService;
         }
 
         public async Task<ActionResult> OnGet()
