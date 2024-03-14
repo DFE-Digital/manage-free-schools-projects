@@ -14,6 +14,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuth
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 
 using Dfe.ManageFreeSchoolProjects.Data;
 using DocumentFormat.OpenXml;
@@ -92,7 +94,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       Gias = GiasTaskBuilder.Build(milestones),
                                       EducationBrief = EducationBriefTaskBuilder.Build(milestones),
                                       AdmissionsArrangements = AdmissionsArrangementsTaskBuilder.Build(milestones),
-                                      ImpactAssessment = ImpactAssessmentTaskBuilder.Build(milestones)
+                                      ImpactAssessment = ImpactAssessmentTaskBuilder.Build(milestones),
+                                      EqualitiesAssessment = EqualitiesAssessmentTaskBuilder.Build(milestones),
+                                      StatutoryConsultation = StatutoryConsultationTaskBuilder.Build(milestones),
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
