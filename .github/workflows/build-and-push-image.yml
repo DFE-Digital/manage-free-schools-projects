@@ -125,7 +125,7 @@ jobs:
           creds: ${{ secrets.AZURE_ACA_CREDENTIALS }}
 
       - name: Update Web Container Revision
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: matrix.image == 'web'
         with:
           azcliversion: 2.45.0
@@ -138,7 +138,7 @@ jobs:
               --output none
 
       - name: Update API Container Revision
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: matrix.image == 'api'
         with:
           azcliversion: 2.45.0
