@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240313110503_EqualitiesAssessment")]
+    partial class EqualitiesAssessment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5220,14 +5223,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<DateTime?>("FsgPreOpeningMilestonesIaeaForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.IAEA Forecast date");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesImpactAssessmentDone")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Done");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Saved To Workplaces");
 
                     b.Property<string>("FsgPreOpeningMilestonesInspectionConditionsMet")
                         .HasMaxLength(100)
