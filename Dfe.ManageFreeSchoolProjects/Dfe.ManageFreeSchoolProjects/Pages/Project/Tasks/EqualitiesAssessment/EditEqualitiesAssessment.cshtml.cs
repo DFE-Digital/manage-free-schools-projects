@@ -54,32 +54,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EqualitiesAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.StatutoryConsultation);
             SchoolName = project.SchoolName;
 
-            if (!ModelState.IsValid)
+            var request = new UpdateProjectByTaskRequest()
             {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
-            try
-            {
-                var request = new UpdateProjectByTaskRequest()
+                EqualitiesAssessment = new EqualitiesAssessmentTask()
                 {
-                    EqualitiesAssessment = new EqualitiesAssessmentTask()
-                    {
-                        CompletedEqualitiesProcessRecord = CompletedEqualitiesProcessRecord,
-                        SavedEPRInWorkplacesFolder = SavedEPRInWorkplacesFolder,
-                    }
-                };
+                    CompletedEqualitiesProcessRecord = CompletedEqualitiesProcessRecord,
+                    SavedEPRInWorkplacesFolder = SavedEPRInWorkplacesFolder,
+                }
+            };
 
-                await _updateProjectTaskService.Execute(ProjectId, request);
+            await _updateProjectTaskService.Execute(ProjectId, request);
 
-                return Redirect(string.Format(RouteConstants.ViewEqualitiesAssessmentTask, ProjectId));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogErrorMsg(ex);
-                throw;
-            }
+            return Redirect(string.Format(RouteConstants.ViewEqualitiesAssessmentTask, ProjectId));
         }
 
         private async Task LoadProject()
