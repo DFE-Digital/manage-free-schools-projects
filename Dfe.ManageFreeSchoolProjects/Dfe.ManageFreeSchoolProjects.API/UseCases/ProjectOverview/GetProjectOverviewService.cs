@@ -50,7 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     DateOfEntryIntoPreopening = project.ProjectStatusDateOfEntryIntoPreOpening,
                     ProvisionalOpeningDateAgreedWithTrust = project.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                     ActualOpeningDate = FormatDate(project.ProjectStatusActualOpeningDate),
-                    OpeningAcademicYear = project.ProjectStatusTrustsPreferredYearOfOpening
+                    OpeningAcademicYear = project.ProjectStatusTrustsPreferredYearOfOpening,
+                    DateSchoolClosed = project.ProjectStatusDateClosed
                 },
                 SchoolDetails = new SchoolDetailsResponse()
                 {

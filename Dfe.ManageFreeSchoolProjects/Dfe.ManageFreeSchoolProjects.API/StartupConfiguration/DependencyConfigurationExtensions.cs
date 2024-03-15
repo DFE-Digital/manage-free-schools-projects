@@ -32,6 +32,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangem
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
+using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -81,6 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateModelFundingAgreementTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateEqualitiesAssessmentTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateImpactAssessmentTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEvidenceOfAcceptedOffersTaskService>();
 			services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();

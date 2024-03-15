@@ -1,9 +1,9 @@
-## NEXT
- * (151095 - Analysis: Confirm where 'data held elsewhere' is held)
- * (158630 - BUG: BLOCKER: Dev: 403 Forbidden Exception Occurs When Creating A New Project From Wizard - ENVIRONMENTAL - FIXED ON DEV, STAGING AND LIVE)
- * 158209 - Build: add 'Nursery' to 'What is the capacity?' page
- * 147097 - Build: Education brief
-
+## 0.1.0
+* 158209 - add 'Nursery' to 'What is the capacity?' page
+* 147097 - Education brief
+* 156945 - Add 'project lead' to the Create journey
+* 159394 - Filter Null projects from construct api
+* 157316 - Equalities assessment
  
 ## Sprint 14 Release C/Sprint 15 Release A - 05/03/2024
 * 147088 - Build: Draft governance plan (Presumption route)
