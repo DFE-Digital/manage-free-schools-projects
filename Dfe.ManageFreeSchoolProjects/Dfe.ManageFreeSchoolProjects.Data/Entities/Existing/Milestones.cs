@@ -379,6 +379,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         
         public bool? FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces { get; set; }
         
+        public bool? FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers{ get; set; }
+        
+        public string FsgPreOpeningMilestonesAcceptedOffersComments{ get; set; }
+        
+        public bool? FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces{ get; set; }
+        
         public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
 
         public YesNo? TrustOptInRPA { get; set; }
