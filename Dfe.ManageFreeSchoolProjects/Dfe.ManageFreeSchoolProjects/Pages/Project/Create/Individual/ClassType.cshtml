@@ -3,13 +3,17 @@
 @using Dfe.ManageFreeSchoolProjects.Utils;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ClassTypeModel
 @{
-    ViewData["Title"] = "What is the class type?";
+    ViewData["Title"] = "Will it have any of these provisions?";
 
     var nurseryOptions = new[] { ClassType.Nursery.Yes.ToString(), ClassType.Nursery.No.ToString() };
     var sixthFormOptions = new[] { ClassType.SixthForm.Yes.ToString(), ClassType.SixthForm.No.ToString() };
+    var alternativeProvisionOptions = new[] { ClassType.AlternativeProvision.Yes.ToString(), ClassType.AlternativeProvision.No.ToString() };
+    var specialEducationNeedsOptions = new[] { ClassType.SpecialEducationNeeds.Yes.ToString(), ClassType.SpecialEducationNeeds.No.ToString() };
 
     var nurseryTestIds = new[] { "nursery-Yes", "nursery-No" };
     var sixthFormTestIds = new[] { "sixth-form-Yes", "sixth-form-No" };
+    var alternativeProvisionTestIds = new[] { "alternative-provision-Yes", "alternative-provision-No" };
+    var specialEducationNeedsTestIds = new[] { "special-education-needs-Yes", "special-education-needs-No" }; 
 }
 
 @section BeforeMain {
@@ -20,7 +24,7 @@
 
 <div class="govuk-form-group">
     <partial name="_ErrorSummary"/>
-    <govuk-create-title label="Will it have any of these class types?" />
+    <govuk-create-title label="Will it have any of these provisions?" />
 
     <form method="post">
         <div class="govuk-form-group">
@@ -40,6 +44,30 @@
                                 values="@sixthFormOptions"
                                 test-ids="@sixthFormTestIds" />
         </div>
+
+        @{
+            List<SchoolType> SRPSchoolTypes = new List<SchoolType> { SchoolType.Mainstream, SchoolType.StudioSchool, SchoolType.UniversityTechnicalCollege };
+            if (SRPSchoolTypes.Contains(Model.SchoolType))
+            {
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-heading-m" for="alternative-provision">Alternative provision</label>
+                    <govuk-radios-input asp-for="@Model.AlternativeProvision"
+                    name="alternative-provision"
+                    labels="@alternativeProvisionOptions"
+                    values="@alternativeProvisionOptions"
+                    test-ids="@alternativeProvisionTestIds" />
+                </div>
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-heading-m" for="special-education-needs">Special education needs</label>
+                    <govuk-radios-input asp-for="@Model.SpecialEducationNeeds"
+                    name="special-education-needs"
+                    labels="@specialEducationNeedsOptions"
+                    values="@specialEducationNeedsOptions"
+                    test-ids="@specialEducationNeedsTestIds" />
+                </div>
+            }
+        }
 
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">

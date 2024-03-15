@@ -19,7 +19,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Display(Name = "Sixth form")]
         [Required(ErrorMessage = "Select yes if it will have a sixth form")]
         public ClassType.SixthForm SixthForm { get; set; }
-        
+
+        [BindProperty(Name = "alternative-provision")]
+        [Display(Name = "Alternative provision")]
+        [Required(ErrorMessage = "Select yes if it will have an alternative provision")]
+        public ClassType.AlternativeProvision AlternativeProvision { get; set; }
+
+        [BindProperty(Name = "special-education-needs")]
+        [Display(Name = "Special education needs")]
+        [Required(ErrorMessage = "Select yes if it will have a special education needs")]
+        public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
+
+        public SchoolType SchoolType{ get; set; }
+
+
+
         public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
             :base(createProjectCache)
         {
@@ -36,6 +50,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var project = _createProjectCache.Get();
             Nursery = project.Nursery;
             SixthForm = project.SixthForm;
+            AlternativeProvision = project.AlternativeProvision;
+            SpecialEducationNeeds = project.SpecialEducationNeeds;
+
+            SchoolType = project.SchoolType;
             
             BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
             
@@ -55,6 +73,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             project.Nursery = Nursery;
             project.SixthForm = SixthForm;
+            project.AlternativeProvision = AlternativeProvision;
+            project.SpecialEducationNeeds = SpecialEducationNeeds;
 
             _createProjectCache.Update(project);
 

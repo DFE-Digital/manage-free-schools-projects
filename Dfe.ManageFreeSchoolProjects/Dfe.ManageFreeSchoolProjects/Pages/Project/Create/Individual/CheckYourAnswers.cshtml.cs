@@ -68,6 +68,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
                 Nursery = project.Nursery,
                 SixthForm = project.SixthForm,
+                AlternativeProvision = project.AlternativeProvision,
+                SpecialEducationNeeds = project.SpecialEducationNeeds,
                 FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType,

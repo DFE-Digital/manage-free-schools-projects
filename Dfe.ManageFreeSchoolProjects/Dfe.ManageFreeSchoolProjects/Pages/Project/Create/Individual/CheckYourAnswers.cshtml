@@ -130,6 +130,36 @@
             </a>
         </dd>
     </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+            Alternative provision (Specialist resource provision)
+        </dt>
+        <dd class="govuk-summary-list__value" data-testid="alternative-provision">
+            @{
+                RenderValue(@Model.Project.AlternativeProvision.ToString());
+            }
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href=@RouteConstants.CreateClassType>
+                Change<span class="govuk-visually-hidden">Alternative provision</span>
+            </a>
+        </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+                    Special education needs (Specialist resource provision)
+        </dt>
+        <dd class="govuk-summary-list__value" data-testid="special-education-needs">
+            @{
+                RenderValue(@Model.Project.SpecialEducationNeeds.ToString());
+            }
+        </dd>
+        <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href=@RouteConstants.CreateClassType>
+                Change<span class="govuk-visually-hidden">Special education needs</span>
+            </a>
+        </dd>
+    </div>
 
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

@@ -24,6 +24,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public SchoolPhase SchoolPhase { get; set; }
         public ClassType.Nursery Nursery { get; set; }
         public ClassType.SixthForm SixthForm { get; set; }
+        public ClassType.AlternativeProvision AlternativeProvision { get; set; }
+        public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
         public string AgeRange { get; set; }
         public int NurseryCapacity { get; set; }
         public int YRY6Capacity { get; set; }
