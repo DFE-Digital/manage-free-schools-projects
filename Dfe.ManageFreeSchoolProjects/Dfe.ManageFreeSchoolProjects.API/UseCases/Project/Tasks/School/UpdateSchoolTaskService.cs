@@ -25,6 +25,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
             dbKpi.SchoolDetailsAgeRange = task.AgeRange;
             dbKpi.SchoolDetailsNursery = task.Nursery.ToString();
             dbKpi.SchoolDetailsSixthForm = task.SixthForm.ToString();
+            dbKpi.SchoolDetailsAlternativeProvision = task.AlternativeProvision.ToString();
+            dbKpi.SchoolDetailsSpecialEducationNeeds = task.SpecialEducationNeeds.ToString();
+
 
             dbKpi.SchoolDetailsFaithStatus = faithStatus;
             dbKpi.SchoolDetailsFaithType = faithType;

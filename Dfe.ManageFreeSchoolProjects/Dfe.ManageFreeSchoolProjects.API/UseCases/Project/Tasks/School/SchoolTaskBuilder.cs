@@ -16,6 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
                 Gender = EnumParsers.ParseGender(kpi.SchoolDetailsGender),
                 Nursery = EnumParsers.ParseNursery(kpi.SchoolDetailsNursery),
                 SixthForm = EnumParsers.ParseSixthForm(kpi.SchoolDetailsSixthForm),
+                AlternativeProvision = EnumParsers.ParseAlternativeProvision(kpi.SchoolDetailsAlternativeProvision),
+                SpecialEducationNeeds = EnumParsers.ParseSpecialEducationNeeds(kpi.SchoolDetailsSpecialEducationNeeds),
                 FaithStatus = EnumParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
                 FaithType = ProjectMapper.ToFaithType(kpi.SchoolDetailsFaithType),
                 OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType,
