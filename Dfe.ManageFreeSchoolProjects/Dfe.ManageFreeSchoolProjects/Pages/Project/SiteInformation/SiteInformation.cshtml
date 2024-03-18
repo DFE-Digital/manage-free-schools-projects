@@ -14,46 +14,5 @@
     </div>
 }
 
-<div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Temporary site</h2>
-        <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@editTemporarySite" data-testid="change-temporary-site">
-                View details<span class="govuk-visually-hidden">Change temporary site information</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="govuk-summary-card__content">
-        <dl class="govuk-summary-list">
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Address line 1
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="temporary-site-address-line-1">
-                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.AddressLine1" />
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Address line 2
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="temporary-site-address-line-2">
-                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.AddressLine2" />
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Postcode
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="temporary-site-postcode">
-                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.Postcode" />
-                </dd>
-            </div>
-
-        </dl>
-    </div>
-</div>
+<govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="Temporary" />
+<govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="Permanent" />

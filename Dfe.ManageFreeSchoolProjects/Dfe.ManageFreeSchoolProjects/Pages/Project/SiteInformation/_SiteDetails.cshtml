@@ -1,0 +1,45 @@
+﻿@model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.SiteDetailsViewModel
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">@Model.SiteType site</h2>
+        <div class="govuk-summary-card__actions">
+            <a class="govuk-link" href="@Model.EditLink" data-testid="change-@Model.IdPrefix-site">
+                View details<span class="govuk-visually-hidden">Change @Model.SiteType?.ToLower() site information</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address line 1
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-address-line-1">
+                    <govuk-display-value value="@Model.Site.Address.AddressLine1" />
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address line 2
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-address-line-2">
+                    <govuk-display-value value="@Model.Site.Address.AddressLine2" />
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Postcode
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-postcode">
+                    <govuk-display-value value="@Model.Site.Address.Postcode" />
+                </dd>
+            </div>
+
+        </dl>
+    </div>
+</div>
