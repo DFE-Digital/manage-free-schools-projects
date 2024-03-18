@@ -78,5 +78,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? DraftGovernancePlanFedBackToTrust { get; set; }
 
         public bool? DraftGovernancePlanDocumentsSavedInWorkplacesFolder { get; set; }
+
+        public bool? FsgPreOpeningMilestonesImpactAssessmentDone { get; set; }
+
+        public bool? FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces { get; set; }
+
+        public bool? EqualitiesAssessmentCompletedEPR { get; set; }
+
+        public bool? EqualitiesAssessmentSavedEPRInWorkplacesFolder { get; set; }
     }
 }
