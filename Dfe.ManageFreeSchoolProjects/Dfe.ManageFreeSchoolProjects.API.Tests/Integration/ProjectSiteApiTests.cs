@@ -36,10 +36,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
 
-            var actualPermenantSite = content.Data.PermenantSite;
+            var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            AssertProjectSite(content.Data.PermenantSite, updateSiteRequest.PermenantSite);
+            AssertProjectSite(content.Data.PermanentSite, updateSiteRequest.PermanentSite);
             AssertProjectSite(content.Data.TemporarySite, updateSiteRequest.TemporarySite);
         }
 
@@ -68,10 +68,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
 
-            var actualPermenantSite = content.Data.PermenantSite;
+            var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            AssertProjectSite(content.Data.PermenantSite, updateSiteRequest.PermenantSite);
+            AssertProjectSite(content.Data.PermanentSite, updateSiteRequest.PermanentSite);
             AssertProjectSite(content.Data.TemporarySite, updateSiteRequest.TemporarySite);
         }
 
@@ -90,7 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
 
-            AssertBlankSite(content.Data.PermenantSite);
+            AssertBlankSite(content.Data.PermanentSite);
             AssertBlankSite(content.Data.TemporarySite);
         }
 

@@ -62,8 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public record SiteInformationResponse
     {
-        public string Property { get; set; }
-        public string Postcode { get; set; }
+        public string TemporarySite { get; set; }
+        public string PermanentSite { get; set; }
     }
 
     public record ProjectRiskOverviewResponse

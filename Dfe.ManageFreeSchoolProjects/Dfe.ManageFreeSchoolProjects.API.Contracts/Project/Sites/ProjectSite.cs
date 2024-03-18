@@ -19,5 +19,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
         public string AddressLine2 { get; set; }
         public string City { get; set; }
         public string Postcode { get; set; }
+
+        public override string ToString()
+        {
+            var addressValues = new List<string>
+            {
+                AddressLine1,
+                AddressLine2,
+                Postcode
+            };
+
+            var allValuesUnset = addressValues.All(string.IsNullOrWhiteSpace);
+
+            if (allValuesUnset)
+            {
+                return string.Empty;
+            }
+
+            return string.Join(", ", addressValues.Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
     }
 }

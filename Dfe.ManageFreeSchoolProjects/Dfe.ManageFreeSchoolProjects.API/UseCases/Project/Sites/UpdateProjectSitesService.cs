@@ -33,10 +33,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 .Where(p => p.PRid == dbProject.Rid)
                 .ToListAsync();
 
-            var permenantSite = matchingSites.FirstOrDefault(p => p.IsMainSite());
+            var permanentSite = matchingSites.FirstOrDefault(p => p.IsMainSite());
             var temporarySite = matchingSites.FirstOrDefault(p => p.IsTemporarySite());
 
-            UpdateSite(request.PermenantSite, permenantSite, dbProject.Rid, "Main");
+            UpdateSite(request.PermanentSite, permanentSite, dbProject.Rid, "Main");
             UpdateSite(request.TemporarySite, temporarySite, dbProject.Rid, "Temporary");
 
             await _context.SaveChangesAsync();

@@ -9,6 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
     public interface IGetProjectSitesService
     {
         public Task<GetProjectSitesResponse> Execute(string projectId);
+        public Task<GetProjectSitesResponse> ExecuteWithRid(string rid);
     }
 
     public class GetProjectSitesService : IGetProjectSitesService
@@ -29,16 +30,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 throw new NotFoundException($"Project with id {projectId} not found");
             }
 
+            return await ExecuteWithRid(dbProject.Rid);
+        }
+
+        public async Task<GetProjectSitesResponse> ExecuteWithRid(string rid)
+        {
             var sites = await _context.Property
-                .Where(p => p.PRid == dbProject.Rid).ToListAsync();
+                .Where(p => p.PRid == rid).ToListAsync();
 
-
-            var permenantSite = sites.FirstOrDefault(p => p.IsMainSite());
+            var permanentSite = sites.FirstOrDefault(p => p.IsMainSite());
             var temporarySite = sites.FirstOrDefault(p => p.IsTemporarySite());
 
             var result = new GetProjectSitesResponse()
             {
-                PermenantSite = MapToSite(permenantSite),
+                PermanentSite = MapToSite(permanentSite),
                 TemporarySite = MapToSite(temporarySite)
             };
 

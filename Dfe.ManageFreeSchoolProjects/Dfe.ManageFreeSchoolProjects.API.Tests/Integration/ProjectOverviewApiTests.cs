@@ -10,6 +10,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -34,17 +35,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
             project.SchoolDetailsFaithType = "Roman Catholic";
 
-            var property = DatabaseModelBuilder.BuildProperty();
-            property.Rid = project.Rid;
-
             context.Kpi.Add(project);
-            context.Property.Add(property);
             await context.SaveChangesAsync();
 
             var createProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();
-
             var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/risk", createProjectRiskRequest.ConvertToJson());
             createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var updateProjectSitesRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updateProjectSitesResponse = await _client.PatchAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/sites", updateProjectSitesRequest.ConvertToJson());
+            updateProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -99,8 +99,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsFsgLeadContact);
 
             // Site
-            result.Data.SiteInformation.Postcode.Should().Be(property.SitePostcodeOfSite);
-            result.Data.SiteInformation.Property.Should().Be(property.SiteNameOfSite);
+            result.Data.SiteInformation.PermanentSite.Should().Be(updateProjectSitesRequest.PermanentSite.Address.ToString());
+            result.Data.SiteInformation.TemporarySite.Should().Be(updateProjectSitesRequest.TemporarySite.Address.ToString());
         }
 
         [Fact]

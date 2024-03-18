@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
 {
     public class UpdateProjectSitesRequest
     {
-        public ProjectSite PermenantSite { get; set; }
+        public ProjectSite PermanentSite { get; set; }
         public ProjectSite TemporarySite { get; set; }
     }
 }
