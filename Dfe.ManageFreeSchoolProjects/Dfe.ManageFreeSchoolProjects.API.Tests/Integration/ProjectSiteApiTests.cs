@@ -76,6 +76,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
+        public async Task When_SiteNotConfigured_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var getProjectSitesResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/sites");
+            getProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
+
+            AssertBlankSite(content.Data.PermenantSite);
+            AssertBlankSite(content.Data.TemporarySite);
+        }
+
+        [Fact]
         public async Task When_Get_ProjectDoesNotExist_Returns_404()
         {
             var projectId = Guid.NewGuid().ToString();
@@ -99,6 +118,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actual.Address.AddressLine1.Should().Be(expected.Address.AddressLine1);
             actual.Address.AddressLine2.Should().Be(expected.Address.AddressLine2);
             actual.Address.Postcode.Should().Be(expected.Address.Postcode);
-        } 
+        }
+
+        private static void AssertBlankSite(ProjectSite actual)
+        {
+            actual.Address.AddressLine1.Should().BeNull();
+            actual.Address.AddressLine2.Should().BeNull();
+            actual.Address.Postcode.Should().BeNull();
+        }
     }
 }
