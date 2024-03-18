@@ -19,6 +19,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         StatutoryConsultation,
         Gias,
         EducationBrief,
-        AdmissionsArrangements
+        AdmissionsArrangements,
+        EqualitiesAssessment,
+        ImpactAssessment
     }
 }

@@ -4928,6 +4928,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("DraftGovernancePlanReceivedFromTrust")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("EqualitiesAssessmentCompletedEPR")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("EqualitiesAssessmentSavedEPRInWorkplacesFolder")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory")
                         .HasColumnType("bit")
                         .HasColumnName("FSG Pre Opening Milestones. Pupil assessment and tracking history in place");
@@ -5214,6 +5220,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<DateTime?>("FsgPreOpeningMilestonesIaeaForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.IAEA Forecast date");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesImpactAssessmentDone")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Done");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Saved To Workplaces");
 
                     b.Property<string>("FsgPreOpeningMilestonesInspectionConditionsMet")
                         .HasMaxLength(100)

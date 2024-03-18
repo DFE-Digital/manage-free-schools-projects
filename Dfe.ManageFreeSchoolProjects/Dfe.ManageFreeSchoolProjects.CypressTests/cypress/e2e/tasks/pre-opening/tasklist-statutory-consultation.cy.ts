@@ -54,7 +54,7 @@ describe("Testing statutory consultation", () => {
 
         cy.log("Check all the fields are optional");
         statutoryConsultationtEditPage
-            .titleIs("Edit statutory consultation")
+            .titleIs("Edit Statutory consultation")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
@@ -71,13 +71,16 @@ describe("Testing statutory consultation", () => {
 
         cy.log("Testing validation");
         statutoryConsultationtEditPage
-            .withExpectedDateForReceivingFindingsFromTrust("2", "3", "2070")
+            .withExpectedDateForReceivingFindingsFromTrust("2", "", "")
+            .checkReceivedConsultationFindingsFromTrust()
+            .withDateReceived("4", "", "")
             .withCommentsExceedingMaxLength()
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Year must be between 2000 and 2050")
-            .hasValidationError("The comments must be 100 characters or less")
+            .hasValidationError("Date received must include a month and year")
+            .hasValidationError("Expected date for receiving findings from trust must include a month and year")
+            .hasValidationError("The comments must be 999 characters or less");
 
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
 
@@ -86,7 +89,6 @@ describe("Testing statutory consultation", () => {
 
         statutoryConsultationtEditPage
             .withExpectedDateForReceivingFindingsFromTrust("2", "3", "2020")
-            .checkReceivedConsultationFindingsFromTrust()
             .withDateReceived("4", "3", "2020")
             .checkConsultationFulfilsTrustSection10StatutoryDuty()
             .withComments("This is a comment")
@@ -132,7 +134,5 @@ describe("Testing statutory consultation", () => {
             .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("StatutoryConsultation");
-
-
-    })
+    });
 })

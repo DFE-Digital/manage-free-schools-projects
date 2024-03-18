@@ -27,5 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public EducationBriefTask EducationBrief { get; set; }
 
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
+
+        public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
+        
+        public ImpactAssessmentTask ImpactAssessment { get; set; }
     }
 }

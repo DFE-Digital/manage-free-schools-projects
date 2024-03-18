@@ -164,6 +164,22 @@
                 </dd>
 
             </div>
+            @{
+                if (Model.Project.ProjectStatus.DateSchoolClosed.HasValue)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Date school closed
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="date-school-closed">
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.DateSchoolClosed.ToDateString());
+                            }
+                        </dd>
+
+                    </div>
+                }
+            }
         </dl>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
@@ -444,7 +460,6 @@
                             <govuk-display-value value="@Model.Project.KeyContacts.ChairOfGovernors" />
                         </dd>
                     </div>
-
                 </dl>
             </div>
         </div>
@@ -482,7 +497,6 @@
                 </dl>
             </div>
         </div>
-
         <div class="govuk-summary-card" id="pupil-numbers">
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Pupil numbers and capacity</h2>

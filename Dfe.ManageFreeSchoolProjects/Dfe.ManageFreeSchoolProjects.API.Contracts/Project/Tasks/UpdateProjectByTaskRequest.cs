@@ -25,6 +25,10 @@
         public EducationBriefTask EducationBrief { get; set; }
 
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
+        
+        public ImpactAssessmentTask ImpactAssessment { get; set; }
+
+        public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
 
         public string TaskToUpdate
         {
@@ -60,6 +64,10 @@
                     return TaskName.EducationBrief.ToString();
                 if (AdmissionsArrangements != null)
                     return TaskName.AdmissionsArrangements.ToString();
+                if (EqualitiesAssessment != null)
+                    return TaskName.EqualitiesAssessment.ToString();
+                if (ImpactAssessment != null)
+                    return TaskName.ImpactAssessment.ToString();
                 return null;
             }
         }

@@ -231,7 +231,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildImpactAssessmentTask(string rid)
+        {
+            var result = new Milestones();
 
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesImpactAssessmentDone = true;
+            result.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = true;
+            return result;
+        }
+        
         public static Po PupilNumbersAndCapacity(string rid)
         {
             var result = new Po()
@@ -239,6 +249,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 Rid = rid,
                 PupilNumbersAndCapacityTotalOfCapacityTotals = _fixture.Create<int>().ToString()
             };
+
+            return result;
+        }
+
+        public static Milestones BuildEqualitiesAssessmentTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.EqualitiesAssessmentCompletedEPR = null;
+            result.EqualitiesAssessmentSavedEPRInWorkplacesFolder = null;
 
             return result;
         }

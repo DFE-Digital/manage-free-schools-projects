@@ -7,12 +7,15 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePla
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 
 using Dfe.ManageFreeSchoolProjects.Data;
 using DocumentFormat.OpenXml;
@@ -90,7 +93,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones),
                                       Gias = GiasTaskBuilder.Build(milestones),
                                       EducationBrief = EducationBriefTaskBuilder.Build(milestones),
-                                      AdmissionsArrangements = AdmissionsArrangementsTaskBuilder.Build(milestones)
+                                      AdmissionsArrangements = AdmissionsArrangementsTaskBuilder.Build(milestones),
+                                      ImpactAssessment = ImpactAssessmentTaskBuilder.Build(milestones),
+                                      EqualitiesAssessment = EqualitiesAssessmentTaskBuilder.Build(milestones),
+                                      StatutoryConsultation = StatutoryConsultationTaskBuilder.Build(milestones),
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
