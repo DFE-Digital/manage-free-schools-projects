@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API
         {
             services.AddApplicationInsightsTelemetry();
 
-            services.AddConcernsApiProject(Configuration);
+            services.AddMfspApiProject(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)

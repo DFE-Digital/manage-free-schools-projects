@@ -2,7 +2,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
 
 public static class StartupConfigurationExtensions
 {
-	public static IServiceCollection AddConcernsApiProject(this IServiceCollection services, IConfiguration configuration)
+	public static IServiceCollection AddMfspApiProject(this IServiceCollection services, IConfiguration configuration)
 	{
 		services.AddApiDependencies();
 		services.AddDatabase(configuration);

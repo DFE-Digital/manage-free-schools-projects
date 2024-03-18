@@ -33,6 +33,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.Data.Migrations;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -88,6 +89,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
 			services.AddScoped<ISfaApiKeyValidationService, SfaApiKeyValidationService>();
+			services.AddScoped<IGetProjectSitesService, GetProjectSitesService>();
+			services.AddScoped<IUpdateProjectSitesService,  UpdateProjectSitesService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;
