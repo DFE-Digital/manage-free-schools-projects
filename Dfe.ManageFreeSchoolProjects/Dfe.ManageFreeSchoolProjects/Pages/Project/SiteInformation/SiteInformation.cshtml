@@ -1,0 +1,59 @@
+﻿@page "/projects/{projectId}/site-information"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.SiteInformationModel
+@{
+    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var editPermanentSite = string.Format(RouteConstants.EditPermanentSiteInformation, Model.ProjectId);
+    var editTemporarySite = string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);
+
+    ViewData["Title"] = $"Site information - {Model.SchoolName}";
+}
+@section BeforeMain {
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
+    </div>
+}
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Temporary site</h2>
+        <div class="govuk-summary-card__actions">
+            <a class="govuk-link" href="@editTemporarySite" data-testid="change-temporary-site">
+                View details<span class="govuk-visually-hidden">Change temporary site information</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address line 1
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="temporary-site-address-line-1">
+                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.AddressLine1" />
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address line 2
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="temporary-site-address-line-2">
+                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.AddressLine2" />
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Postcode
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="temporary-site-postcode">
+                    <govuk-display-value value="@Model.SiteInformation.TemporarySite.Address.Postcode" />
+                </dd>
+            </div>
+
+        </dl>
+    </div>
+</div>

@@ -8,6 +8,7 @@
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsSummaryLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
+    var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
 }
 
 @section BeforeMain
@@ -468,7 +469,7 @@
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Site information</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="" data-testid="change-site-information">
+                    <a class="govuk-link" href="@siteInformationLink" data-testid="change-site-information">
                         View details<span class="govuk-visually-hidden">Change site information</span>
                     </a>
                 </div>

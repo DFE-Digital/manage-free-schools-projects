@@ -1,0 +1,34 @@
+﻿@page "/projects/{projectId}/site-information/temporary/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.EditSiteInformationModel
+@{
+    var backlink = string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit site information
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-text-input id="address-line-1" name="address-line-1" label="Address line 1" asp-for="@Model.AddressLine1" add-margin="true" />
+            <govuk-text-input id="address-line-2" name="address-line-2" label="Address line 2" asp-for="@Model.AddressLine2" add-margin="true" />
+            <govuk-text-input id="postcode" name="postcode" label="Postcode" asp-for="@Model.Postcode" add-margin="true" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

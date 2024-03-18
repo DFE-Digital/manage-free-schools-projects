@@ -6,6 +6,10 @@
         public const string TaskList = "/projects/{0}/tasks";
         public const string CreateProject = "/project/create";
 
+        public const string ViewSiteInformation = "/projects/{0}/site-information";
+        public const string EditPermanentSiteInformation = "/projects/{0}/site-information/permanent/edit";
+        public const string EditTemporarySiteInformation = "/projects/{0}/site-information/temporary/edit";
+
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
 
