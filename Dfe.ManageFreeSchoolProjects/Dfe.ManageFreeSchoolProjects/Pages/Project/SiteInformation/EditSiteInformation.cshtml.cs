@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -15,6 +16,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
+
+        [BindProperty(SupportsGet = true, Name = "siteType")]
+        public string SiteType { get; set; }
 
         public string SchoolName { get; set; }
 
@@ -46,7 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         {
             var sites = await _getProjectSitesService.Execute(ProjectId);
 
-            var site = sites.TemporarySite;
+            var site = GetProjectSite(sites.PermanentSite, sites.TemporarySite);
+
             AddressLine1 = site.Address.AddressLine1;
             AddressLine2 = site.Address.AddressLine2;
             Postcode = site.Address.Postcode;
@@ -58,19 +63,41 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         {
             var existingSites = await _getProjectSitesService.Execute(ProjectId);
 
-            existingSites.TemporarySite.Address.AddressLine1 = AddressLine1;
-            existingSites.TemporarySite.Address.AddressLine2 = AddressLine2;
-            existingSites.TemporarySite.Address.Postcode = Postcode;
-
             var updateRequest = new UpdateProjectSitesRequest
             {
                 PermanentSite = existingSites.PermanentSite,
                 TemporarySite = existingSites.TemporarySite
             };
 
+            ApplySiteUpdate(updateRequest);
+
             await _updateProjectSitesService.Execute(ProjectId, updateRequest);
 
             return Redirect(string.Format(RouteConstants.ViewSiteInformation, ProjectId));
+        }
+
+        private void ApplySiteUpdate(UpdateProjectSitesRequest updateProjectSitesRequest)
+        {
+            var site = GetProjectSite(updateProjectSitesRequest.PermanentSite, updateProjectSitesRequest.TemporarySite);
+
+            site.Address.AddressLine1 = AddressLine1;
+            site.Address.AddressLine2 = AddressLine2;
+            site.Address.Postcode = Postcode;
+        }
+
+        private ProjectSite GetProjectSite(ProjectSite permanentSite, ProjectSite temporarySite)
+        {
+            if (SiteType?.Equals("permanent", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                return permanentSite;
+            }
+
+            if (SiteType?.Equals("temporary", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                return temporarySite;
+            }
+
+            throw new ArgumentException($"Invalid site type {SiteType}");
         }
     }
 }
