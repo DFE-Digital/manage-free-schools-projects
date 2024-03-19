@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
 {
     public interface IUpdateProjectSitesService
     {
-        public Task Execute(string projectId, UpdateProjectSitesRequest request);
+        public Task Execute(string projectId, UpdateProjectSitesRequest request, ProjectSiteType siteType);
     }
 
     public class UpdateProjectSitesService : IUpdateProjectSitesService
@@ -20,7 +20,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
             _context = context;
         }
 
-        public async Task Execute(string projectId, UpdateProjectSitesRequest request)
+        public async Task Execute(
+            string projectId, 
+            UpdateProjectSitesRequest request,
+            ProjectSiteType siteType)
         {
             var dbProject = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
@@ -33,11 +36,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 .Where(p => p.PRid == dbProject.Rid)
                 .ToListAsync();
 
-            var permanentSite = matchingSites.FirstOrDefault(p => p.IsMainSite());
-            var temporarySite = matchingSites.FirstOrDefault(p => p.IsTemporarySite());
+            Property dbSite = null;
+            string dbTypeOfSite = null;
 
-            UpdateSite(request.PermanentSite, permanentSite, dbProject.Rid, "Main");
-            UpdateSite(request.TemporarySite, temporarySite, dbProject.Rid, "Temporary");
+            if (siteType == ProjectSiteType.Permanent)
+            {
+                dbSite = matchingSites.FirstOrDefault(p => p.IsPermanentSite());
+                dbTypeOfSite = "Main";
+            }
+            else if (siteType == ProjectSiteType.Temporary)
+            {
+                dbSite = matchingSites.FirstOrDefault(p => p.IsTemporarySite());
+                dbTypeOfSite = ProjectSiteType.Temporary.ToString();
+            }
+
+            UpdateSite(request.Site, dbSite, dbProject.Rid, dbTypeOfSite);
 
             await _context.SaveChangesAsync();
         }

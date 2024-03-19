@@ -4,7 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
 {
     public static class SiteExtensions
     {
-        public static bool IsMainSite(this Property property)
+        public static bool IsPermanentSite(this Property property)
         {
             return property.Tos == "Main";
         }

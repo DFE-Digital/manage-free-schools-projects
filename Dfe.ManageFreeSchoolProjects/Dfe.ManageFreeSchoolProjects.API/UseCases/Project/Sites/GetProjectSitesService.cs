@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
             var sites = await _context.Property
                 .Where(p => p.PRid == rid).ToListAsync();
 
-            var permanentSite = sites.FirstOrDefault(p => p.IsMainSite());
+            var permanentSite = sites.FirstOrDefault(p => p.IsPermanentSite());
             var temporarySite = sites.FirstOrDefault(p => p.IsTemporarySite());
 
             var result = new GetProjectSitesResponse()

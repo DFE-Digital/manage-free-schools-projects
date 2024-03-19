@@ -41,12 +41,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             { StatusCode = StatusCodes.Status200OK };
         }
 
-        [HttpPatch]
-        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectSites(string projectId, UpdateProjectSitesRequest request)
+        [HttpPatch("{siteType}")]
+        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectSites(string projectId, ProjectSiteType siteType, UpdateProjectSitesRequest request)
         {
             _logger.LogMethodEntered();
 
-            await _updateProjectSitesService.Execute(projectId, request);
+            await _updateProjectSitesService.Execute(projectId, request, siteType);
 
             return new ObjectResult(new ApiSingleResponseV2<object>(new object()))
             { StatusCode = StatusCodes.Status200OK };
