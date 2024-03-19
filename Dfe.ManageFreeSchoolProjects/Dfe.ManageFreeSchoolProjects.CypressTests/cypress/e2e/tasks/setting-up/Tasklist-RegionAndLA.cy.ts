@@ -2,11 +2,10 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import taskListPage from "cypress/pages/taskListPage";
-import regionAndLocalAuthoritySummaryPage from "cypress/pages/regionAndLocalAuthoritySummaryPage";
 import regionDetailsPage from "cypress/pages/regionDetailsPage";
-import localAuthorityDetailsPage from "cypress/pages/localAuthorityDetailsPage";
+import validationComponent from "cypress/pages/validationComponent";
+import summaryPage from "cypress/pages/task-summary-base";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -27,92 +26,90 @@ describe("Testing project overview", () => {
 
     it("Should successfully set Tasklist-Region And LA information", () => {
 
-        Logger.log("Clicking on Task list tab");
-        projectOverviewPage.selectTaskListTab();
+        Logger.log("Select region and local authority task");
+        taskListPage
+            .isTaskStatusIsNotStarted("RegionAndLocalAuthority")
+            .selectRegionAndLAFromTaskList();
 
-        cy.executeAccessibilityTests();
+        Logger.log("Go back to task list");
+        summaryPage.clickBack();
 
-        Logger.log("Selecting School link from Tasklist");
         taskListPage.selectRegionAndLAFromTaskList();
 
-        cy.executeAccessibilityTests();
-
-        Logger.log("Checking Region and LA Summary page elements present");
-        regionAndLocalAuthoritySummaryPage.verifyRegionAndLASummaryElementsVisible(project.schoolName);
-
-        Logger.log("Selecting first Change link from first 'Region' line");
-        regionAndLocalAuthoritySummaryPage.selectChangeRegionToGoToRegionDetails();
-
-        cy.executeAccessibilityTests();
-
-        regionDetailsPage.checkElementsVisible(project.schoolName);
-
-
-
-        Logger.log("Test that submitting a blank form on Region page results in a validation error prompting us to make a selection");
-        regionDetailsPage.selectContinue();
+        Logger.log("Region and local authority should be empty")
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Region and local authority")
+            .inOrder()
+            .summaryShows("Region").IsEmpty().HasChangeLink()
+            .summaryShows("Local authority").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
 
-        regionDetailsPage.verifyValidationMessage();
+        summaryPage.clickChange();
 
-        Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Region Details page");
+        Logger.log("Configuring region and local authority task")
+        regionDetailsPage
+            .hasSchoolName(project.schoolName)
+            .selectContinue();
 
-        regionDetailsPage.selectEastMidlands()
-            .selectEastOfEngland()
-            .selectLondon()
-            .selectNorthEast()
-            .selectNorthWest()
-            .selectSouthEast()
-            .selectSouthWest()
-            .selectWestMidlands()
-            .selectYorkshireAndHumber();
-
-
-        Logger.log("Testing that a user can select an option e.g. 'North West' and successfully continue to Local authority Details page");
-
-        regionDetailsPage.selectSouthWest();
-
-        regionDetailsPage.selectContinue();
+        validationComponent.hasValidationError("Select the region of the free school");
 
         cy.executeAccessibilityTests();
 
-        localAuthorityDetailsPage.checkElementsVisible(project.schoolName);
+        regionDetailsPage
+            .hasSchoolName(project.schoolName)
+            .withRegion("South West")
+            .selectContinue();
 
-        Logger.log("Testing that a user is unable to have >1 radio button checked at one time on the Local authority Details page");
+        regionDetailsPage
+            .hasSchoolName(project.schoolName)
+            .selectContinue();
 
-        localAuthorityDetailsPage.selectIslesOfScilly()
-            .selectBathAndNorthEastSomerset()
-            .selectBristol()
-            .selectNorthSomerset()
-            .selectSouthGloucestershire()
-            .selectPoole()
-            .selectDorset()
-            .selectBournemouthChristchurchAndPoole()
-            .selectWiltshire()
-            .selectSwindon()
-            .selectDevon()
-            .selectPlymouth()
-            .selectTorbay()
-            .selectCornwall()
-            .selectGloucestershire()
-            .selectSomerset();
-
-        Logger.log("Testing that a user can make a selection and save the Region and Local authority data and navigate to the Region and Local authority Summary page");
-
-        localAuthorityDetailsPage.selectPlymouth();
-
-        localAuthorityDetailsPage.selectContinue();
+        validationComponent.hasValidationError("Select the local authority of the free school");
 
         cy.executeAccessibilityTests();
 
-        regionAndLocalAuthoritySummaryPage.verifyRegionAndLASummaryCompleteElementsVisible(project.schoolName);
+        regionDetailsPage
+            .hasSchoolName(project.schoolName)
+            .withLocalAuthority("Gloucestershire")
+            .selectContinue();
 
-        regionAndLocalAuthoritySummaryPage.selectMarkItemAsComplete();
+        Logger.log("Region and local authority should be set")
+        summaryPage
+            .inOrder()
+            .summaryShows("Region").HasValue("South West")
+            .summaryShows("Local authority").HasValue("Gloucestershire");
 
-        regionAndLocalAuthoritySummaryPage.selectConfirmAndContinue();
+        Logger.log("Edit the region and local authority");
+        summaryPage.clickChange();
+
+        regionDetailsPage
+            .withRegion("North West")
+            .selectContinue();
+
+        regionDetailsPage
+            .withLocalAuthority("Liverpool")
+            .selectContinue();
+
+        Logger.log("Region and local authority should be set")
+        summaryPage
+            .inOrder()
+            .summaryShows("Region").HasValue("North West")
+            .summaryShows("Local authority").HasValue("Liverpool");
+
+        Logger.log("Should update the task status");
+        summaryPage.clickConfirmAndContinue();
+
+        taskListPage.isTaskStatusInProgress("RegionAndLocalAuthority");
+
+        taskListPage.selectRegionAndLAFromTaskList();
+
+        summaryPage
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
 
         taskListPage.isTaskStatusIsCompleted("RegionAndLocalAuthority");
-
     });
 });
