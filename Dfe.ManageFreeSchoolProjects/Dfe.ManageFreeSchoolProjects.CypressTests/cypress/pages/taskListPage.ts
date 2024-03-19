@@ -97,7 +97,7 @@ class TaskListPage {
     }
 
     public selectAcceptedOffersEvidenceFromTaskList(): this {
-        cy.getByTestId("accepted-offers-evidence").click()
+        cy.getByTestId("acceptedoffersevidence-task").click()
         return this;
     }
 

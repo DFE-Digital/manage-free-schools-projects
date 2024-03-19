@@ -24,7 +24,7 @@ describe("Testing the impact assessment task", () => {
             });
     });
 
-    it("Should be able to set impact assessment", () => {
+    it("Should be able to set accepted offers evidence", () => {
         Logger.log("Select Accepted offers evidence");
         taskListPage.isTaskStatusIsNotStarted("EvidenceOfAcceptedOffers")
             .selectAcceptedOffersEvidenceFromTaskList();
@@ -51,7 +51,7 @@ describe("Testing the impact assessment task", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Impact assessment")
+            .titleIs("Accepted offers evidence")
             .inOrder()
             .summaryShows("Seen evidence of accepted offers").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
@@ -61,44 +61,54 @@ describe("Testing the impact assessment task", () => {
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Impact assessment can be edited");
+        Logger.log("accepted offers evidence can be edited");
 
         acceptedOffersEvidenceEditPage
-            .checkImpactAssessmentDone()
+            .withComments("!")
+            .clickContinue()
+            .errorForComments().showsError("Comments must not include special characters other than , ( ) '")
+            .withComments("Valid text")
+            .checkSeenAcceptedOffersEvidence()
             .checkSavedToWorkplaces()
             .clickContinue()
+        
 
         Logger.log("Should update the task status");
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Impact assessment")
+            .titleIs("Accepted offers evidence")
             .inOrder()
-            .summaryShows("Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool").HasValue("Yes").HasChangeLink()
-            .summaryShows("Saved the signed-off impact assessment in Workplaces folder").HasValue("Yes").HasChangeLink()
+            .summaryShows("Seen evidence of accepted offers").HasValue("Yes").HasChangeLink()
+            .summaryShows("Comments").HasValue("Valid text").HasChangeLink()
+            .summaryShows("Saved email from the trust in Workplaces folder confirming accepted offers").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .clickConfirmAndContinue()
 
-        taskListPage.isTaskStatusInProgress("ImpactAssessment");
+        taskListPage.isTaskStatusInProgress("EvidenceOfAcceptedOffers");
 
-        taskListPage.selectImpactAssessmentFromTaskList();
+        taskListPage.selectAcceptedOffersEvidenceFromTaskList();
         summaryPage.clickChange();
 
+        Logger.log("Should be able to clear all values");
+
         acceptedOffersEvidenceEditPage
-            .uncheckImpactAssessmentDone()
+            .uncheckSeenAcceptedOffersEvidence()
             .uncheckSavedToWorkplaces()
+            .clearComments()
             .clickContinue()
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Impact assessment")
+            .titleIs("Accepted offers evidence")
             .inOrder()
-            .summaryShows("Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool").IsEmpty().HasChangeLink()
-            .summaryShows("Saved the signed-off impact assessment in Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Seen evidence of accepted offers").IsEmpty().HasChangeLink()
+            .summaryShows("Comments").IsEmpty().HasChangeLink()
+            .summaryShows("Saved email from the trust in Workplaces folder confirming accepted offers").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
             .clickConfirmAndContinue()
         
-        taskListPage.isTaskStatusIsCompleted("ImpactAssessment");
+        taskListPage.isTaskStatusIsCompleted("EvidenceOfAcceptedOffers");
     });
 });
