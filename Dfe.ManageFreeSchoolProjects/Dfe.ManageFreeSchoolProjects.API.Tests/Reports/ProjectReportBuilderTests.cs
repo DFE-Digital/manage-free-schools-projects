@@ -38,6 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Impact assessment");
             taskHeaders.Should().Contain("Equalities assessment");
             taskHeaders.Should().Contain("Statutory consultation");
+            taskHeaders.Should().Contain("Accepted offers evidence");
 
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
@@ -68,7 +69,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
             AssertEntry(nameof(ImpactAssessmentTask.ImpactAssessment), "Yes", project, columnHeaders);
             AssertEntry(nameof(EqualitiesAssessmentTask.CompletedEqualitiesProcessRecord), "Yes", project, columnHeaders);
-            AssertEntry(nameof(StatutoryConsultationTask.ExpectedDateForReceivingFindingsFromTrust), "01/01/2024" , project, columnHeaders);
+            AssertEntry(nameof(EvidenceOfAcceptedOffersTask.EvidenceOfAcceptedOffers), "Yes" , project, columnHeaders);
+            
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -151,6 +153,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         StatutoryConsultation = new StatutoryConsultationTask()
                         {
                             ExpectedDateForReceivingFindingsFromTrust = new DateTime(2024, 1, 1),
+                        },
+                        EvidenceOfAcceptedOffers = new EvidenceOfAcceptedOffersTask()
+                        {
+                            EvidenceOfAcceptedOffers = true,
                         }
                     }
                 }
