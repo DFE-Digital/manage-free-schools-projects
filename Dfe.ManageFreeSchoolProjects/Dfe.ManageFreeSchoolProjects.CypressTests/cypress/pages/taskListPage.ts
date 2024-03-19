@@ -96,6 +96,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectAcceptedOffersEvidenceFromTaskList(): this {
+        cy.getByTestId("accepted-offers-evidence").click()
+        return this;
+    }
+
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
         return this;

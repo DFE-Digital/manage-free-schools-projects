@@ -25,8 +25,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
 
-        public bool FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
-
         public DateTime? FsgPreOpeningMilestonesKickOffMeetingHeldActualDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesSiteKickOffMeetingHeldActualDate { get; set; }
@@ -44,15 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesSapBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesSapForecastDate { get; set; }
-        
-        
-        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate { get; set; }
-        
-        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies { get; set; }
-        
-        
-        public bool? FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces { get; set; }
-        
+                
         public DateTime? FsgPreOpeningMilestonesSapActualDateOfCompletion { get; set; }
 
         public string FsgPreOpeningMilestonesMi54CommentsOnDecisionToApproveIfApplicable { get; set; }
@@ -69,15 +59,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string FsgPreOpeningMilestonesMi107LinkToSavedDocument { get; set; }
 
-        public bool? FsgPreOpeningMilestonesMfadTailoredAModelFundingAgreement { get; set; }
-
-        public bool? FsgPreOpeningMilestonesMfadSharedFaWithTheTrust { get; set; }
-
-        public bool? FsgPreOpeningMilestonesMfadDraftedFaHealthCheck { get; set; }
-
-        public bool? FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder { get; set; }
-
-        public YesNo? FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa { get; set; }
         public DateTime? FsgPreOpeningMilestonesMfadBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesMfadForecastDate { get; set; }
@@ -203,12 +184,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesScrBaselineDate { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesScrForecastDate { get; set; }
-
-        public bool? FsgPreOpeningMilestonesScrReceived {  get; set; }
-
-        public bool? FsgPreOpeningMilestonesScrFulfilsSection10StatutoryDuty { get; set; }
-
-        public bool? FsgPreOpeningMilestonesScrSavedFindingsInWorkplacesFolder { get; set; }
 
         public DateTime? FsgPreOpeningMilestonesScrActualDateOfCompletion { get; set; }
 
@@ -346,69 +321,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public DateTime? FsgPreOpeningMilestonesGiasActualDateOfCompletion { get; set; }
 
-        public bool? FSGPreOpeningMilestonesGIASCheckedTrustInformation { get; set; }
-
-        public bool? FSGPreOpeningMilestonesGIASApplicationFormSent { get; set; }
-
-        public bool? FSGPreOpeningMilestonesGIASSavedToWorkspaces { get; set; }
-
-        public bool? FSGPreOpeningMilestonesGIASURNSent { get; set; }
         public string FsgPreOpeningMilestonesMi103CommentsOnDecisionToApproveIfApplicable { get; set; }
-        
-        public bool? FSGPreOpeningMilestonesEducationPlanInBrief { get; set; }
-        
-        public bool? FSGPreOpeningMilestonesEducationPolicesInBrief { get; set; }
-        
-        public bool? FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory { get; set; }
-        
-        public bool? FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces { get; set; }
 
         public string FsgPreOpeningMilestonesMi155LinkToSavedDocument { get; set; }
-
-        public bool MAACheckedSubmittedArticlesMatch { get; set; }
-
-        public bool MAAChairHaveSubmittedConfirmation { get; set; }
-
-        public bool MAAArrangementsMatchGovernancePlans { get; set; }
-
-        public YesNo? FinancePlanSavedInWorkplacesFolder { get; set; }
-
-        
-        public bool? FsgPreOpeningMilestonesImpactAssessmentDone { get; set; }
-        
-        
-        public bool? FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces { get; set; }
-        
-        public bool? FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers{ get; set; }
-        
-        public string FsgPreOpeningMilestonesAcceptedOffersComments{ get; set; }
-        
-        public bool? FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces{ get; set; }
-        
-        public YesNoNotApplicable? LAAgreedPupilNumbers { get; set; }
-
-        public YesNo? TrustOptInRPA { get; set; }
-
-        public DateTime? RPAStartDate { get; set; }
-
-        public string RPACoverType { get; set; }
-
-        public bool? DraftGovernancePlanReceivedFromTrust { get; set; }
-
-        public DateTime? DraftGovernancePlanReceivedDate { get; set; }
-
-        public bool? DraftGovernancePlanAssessedUsingTemplate { get; set; }
-
-        public bool? DraftGovernancePlanAndAssessmentSharedWithExpert { get; set; }
-
-        public bool? DraftGovernancePlanAndAssessmentSharedWithEsfa { get; set; }
-
-        public bool? DraftGovernancePlanFedBackToTrust { get; set; }
-
-        public bool? DraftGovernancePlanDocumentsSavedInWorkplacesFolder { get; set; }
-
-        public bool? EqualitiesAssessmentCompletedEPR { get; set; }
-
-        public bool? EqualitiesAssessmentSavedEPRInWorkplacesFolder { get; set; }
     }
 }
