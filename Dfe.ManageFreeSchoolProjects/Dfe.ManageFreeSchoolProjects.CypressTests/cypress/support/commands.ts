@@ -98,4 +98,15 @@ Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string,
     if (year.length > 0) {
         cy.getById(`${idPrefix}-year`).type(year);
     }
-})
+});
+
+Cypress.Commands.add("enterAddress", (id: string, line1: string, line2: string) => {
+    if (line1 === "Empty") {
+        cy.getByTestId(id).should("contain.text", "Empty");
+
+        return;
+    }
+
+    cy.getByTestId(id).find("[data-testid='address-line1']").should("contain.text", line1);
+    cy.getByTestId(id).find("[data-testid='address-line2']").should("contain.text", line2);
+});

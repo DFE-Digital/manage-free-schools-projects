@@ -22,12 +22,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         public string SchoolName { get; set; }
 
-        [BindProperty(Name = "address-line-1")]
+        [BindProperty(Name = "address-line1")]
         [Display(Name = "Address line 1")]
         [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine1 { get; set; }
 
-        [BindProperty(Name = "address-line-2")]
+        [BindProperty(Name = "address-line2")]
         [Display(Name = "Address line 2")]
         [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine2 { get; set; }

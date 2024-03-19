@@ -89,8 +89,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 },
                 SiteInformation = new()
                 {
-                    PermanentSite = sites.PermanentSite.Address.ToString(),
-                    TemporarySite = sites.TemporarySite.Address.ToString()
+                    PermanentSite = sites.PermanentSite,
+                    TemporarySite = sites.TemporarySite
                 }
             };
         }

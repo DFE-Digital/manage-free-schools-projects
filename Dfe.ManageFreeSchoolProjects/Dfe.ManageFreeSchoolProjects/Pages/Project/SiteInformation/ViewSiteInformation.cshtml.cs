@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 {
-    public class SiteInformationModel : PageModel
+    public class ViewSiteInformationModel : PageModel
     {
         private readonly IGetProjectSitesService _getProjectSitesService;
-        private readonly ILogger<SiteInformationModel> _logger;
+        private readonly ILogger<ViewSiteInformationModel> _logger;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -20,9 +20,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         public GetProjectSitesResponse SiteInformation { get; set; }
 
-        public SiteInformationModel(
+        public ViewSiteInformationModel(
             IGetProjectSitesService getProjectSitesService,
-            ILogger<SiteInformationModel> logger)
+            ILogger<ViewSiteInformationModel> logger)
         {
             _getProjectSitesService = getProjectSitesService;
             _logger = logger;

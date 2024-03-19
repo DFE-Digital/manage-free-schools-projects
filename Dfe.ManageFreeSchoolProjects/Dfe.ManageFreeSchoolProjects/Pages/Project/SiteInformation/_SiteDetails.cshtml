@@ -15,19 +15,11 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address line 1
+                    Address
                 </dt>
-                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-address-line-1">
-                    <govuk-display-value value="@Model.Site.Address.AddressLine1" />
-                </dd>
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Address line 2
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-address-line-2">
-                    <govuk-display-value value="@Model.Site.Address.AddressLine2" />
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-address">
+                    <govuk-address address-line1="@Model.Site.Address.AddressLine1"
+                                   address-line2="@Model.Site.Address.AddressLine2" />
                 </dd>
             </div>
 

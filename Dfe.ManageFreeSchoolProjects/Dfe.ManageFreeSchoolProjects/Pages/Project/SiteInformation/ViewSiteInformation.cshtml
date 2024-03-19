@@ -1,6 +1,6 @@
 ﻿@page "/projects/{projectId}/site-information"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.SiteInformationModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.ViewSiteInformationModel
 @{
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var editPermanentSite = string.Format(RouteConstants.EditPermanentSiteInformation, Model.ProjectId);

@@ -237,6 +237,38 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public hasTemporarySiteAddress(line1: string, line2: string = ""): this {
+
+        cy.enterAddress("temporary-site-address", line1, line2);
+
+        return this;
+    }
+
+    public hasTemporarySitePostcode(postcode: string): this {
+        cy.getByTestId("temporary-site-postcode").should("contain.text", postcode);
+
+        return this;
+    }
+
+    public hasPermanentSiteAddress(line1: string, line2: string = ""): this {
+        cy.enterAddress("permanent-site-address", line1, line2);
+
+        return this;
+    }
+
+    public hasPermanentSitePostcode(postcode: string): this {
+        cy.getByTestId("permanent-site-postcode").should("contain.text", postcode);
+
+        return this;
+    }
+
+    public changeSiteInformation(): this {
+        cy.getByTestId("change-site-information").click();
+
+        return this;
+
+    }
+
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);
     }

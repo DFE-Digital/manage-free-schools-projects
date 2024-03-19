@@ -34,6 +34,7 @@ declare global {
             assertChildList(selector: string, values: string[]): Chainable<Element>;
             executeAccessibilityTests(ruleExclusions?: RuleObject): Chainable<Element>;
             enterDate(idPrefix: string, day: string, month: string, year: string): Chainable<Element>;
+            enterAddress(id: string, line1: string, line2: string): Chainable<Element>;
         }
     }
 }

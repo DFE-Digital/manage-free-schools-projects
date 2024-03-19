@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
@@ -62,8 +63,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public record SiteInformationResponse
     {
-        public string TemporarySite { get; set; }
-        public string PermanentSite { get; set; }
+        public ProjectSite TemporarySite { get; set; }
+        public ProjectSite PermanentSite { get; set; }
     }
 
     public record ProjectRiskOverviewResponse
