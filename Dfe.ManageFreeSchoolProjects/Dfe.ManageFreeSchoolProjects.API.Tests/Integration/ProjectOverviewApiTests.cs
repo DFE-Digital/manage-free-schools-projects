@@ -103,8 +103,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsFsgLeadContact);
 
             // Site
-            result.Data.SiteInformation.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest.Site);
-            result.Data.SiteInformation.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest.Site);
+            result.Data.SiteInformation.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest);
+            result.Data.SiteInformation.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest);
         }
 
         [Fact]

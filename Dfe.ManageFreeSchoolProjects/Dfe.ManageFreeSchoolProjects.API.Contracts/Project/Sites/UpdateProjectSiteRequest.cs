@@ -1,7 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
 {
-    public class UpdateProjectSiteRequest
+    public class UpdateProjectSiteRequest : ProjectSite
     {
-        public ProjectSite Site { get; set; }
     }
 }

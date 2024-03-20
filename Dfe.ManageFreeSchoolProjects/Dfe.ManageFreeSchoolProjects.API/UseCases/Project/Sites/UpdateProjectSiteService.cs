@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 dbTypeOfSite = ProjectSiteType.Temporary.ToString();
             }
 
-            UpdateSite(request.Site, dbSite, dbProject.Rid, dbTypeOfSite);
+            UpdateSite(request, dbSite, dbProject.Rid, dbTypeOfSite);
 
             await _context.SaveChangesAsync();
         }

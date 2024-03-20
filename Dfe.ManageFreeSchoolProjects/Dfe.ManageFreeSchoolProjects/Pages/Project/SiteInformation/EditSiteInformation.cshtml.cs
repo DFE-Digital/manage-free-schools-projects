@@ -82,15 +82,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
             var updateRequest = new UpdateProjectSiteRequest
             {
-                Site = new ProjectSite
+                Address = new ProjectSiteAddress
                 {
-                    Address = new ProjectSiteAddress
-                    {
-                        AddressLine1 = AddressLine1,
-                        AddressLine2 = AddressLine2,
-                        TownOrCity = TownOrCity,
-                        Postcode = Postcode
-                    }
+                    AddressLine1 = AddressLine1,
+                    AddressLine2 = AddressLine2,
+                    TownOrCity = TownOrCity,
+                    Postcode = Postcode
                 }
             };
 
