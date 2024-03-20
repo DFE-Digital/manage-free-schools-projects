@@ -30,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.StatutoryConsultation, TaskName = "Statutory consultation", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.Gias, TaskName = "Gias", Section = "Sign-off preparation" },
                     new ProjectTaskInformation { Task = project.TaskInformation.EducationBrief, TaskName = "Education brief", Section = "Sign-off preparation" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.EvidenceOfAcceptedOffers, TaskName = "Accepted offers evidence", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.ImpactAssessment, TaskName = "Impact assessment", Section = "Getting ready to open" },
                 };
 

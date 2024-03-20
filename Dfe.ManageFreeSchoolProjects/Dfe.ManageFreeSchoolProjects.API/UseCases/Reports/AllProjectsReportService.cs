@@ -16,6 +16,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
 
 using Dfe.ManageFreeSchoolProjects.Data;
 using DocumentFormat.OpenXml;
@@ -97,6 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       ImpactAssessment = ImpactAssessmentTaskBuilder.Build(milestones),
                                       EqualitiesAssessment = EqualitiesAssessmentTaskBuilder.Build(milestones),
                                       StatutoryConsultation = StatutoryConsultationTaskBuilder.Build(milestones),
+                                      EvidenceOfAcceptedOffers = EvidenceOfAcceptedOffersTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {

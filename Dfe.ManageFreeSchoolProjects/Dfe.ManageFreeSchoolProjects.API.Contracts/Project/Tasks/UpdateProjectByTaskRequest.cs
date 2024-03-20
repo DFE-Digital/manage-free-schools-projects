@@ -27,6 +27,8 @@
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
         
         public ImpactAssessmentTask ImpactAssessment { get; set; }
+        
+        public EvidenceOfAcceptedOffersTask EvidenceOfAcceptedOffers { get; set; }
 
         public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
 
@@ -68,6 +70,8 @@
                     return TaskName.EqualitiesAssessment.ToString();
                 if (ImpactAssessment != null)
                     return TaskName.ImpactAssessment.ToString();
+                if (EvidenceOfAcceptedOffers != null)
+                    return TaskName.EvidenceOfAcceptedOffers.ToString();
                 return null;
             }
         }
