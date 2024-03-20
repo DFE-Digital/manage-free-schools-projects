@@ -44,6 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             AssertProjectSite(content.Data.PermanentSite, updatePermanentSiteRequest.Site);
             AssertProjectSite(content.Data.TemporarySite, updateTemporarySiteRequest.Site);
+            content.Data.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
         [Fact]

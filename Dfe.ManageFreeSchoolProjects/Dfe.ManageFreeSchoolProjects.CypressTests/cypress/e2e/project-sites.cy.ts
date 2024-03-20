@@ -5,6 +5,7 @@ import { Logger } from "cypress/common/logger";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import editSiteInformationPage from "cypress/pages/siteInformation/editSiteInformationPage";
 import viewSiteInformationPage from "cypress/pages/siteInformation/viewSiteInformationPage";
+import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing the setting up of project sites", () => {
     let project: ProjectDetailsRequest;
@@ -34,15 +35,28 @@ describe("Testing the setting up of project sites", () => {
         projectOverviewPage.changeSiteInformation();
 
         viewSiteInformationPage
+            .hasSchoolName(project.schoolName)
             .hasTemporarySiteAddress("Empty")
             .hasTemporarySitePostcode("Empty")
             .hasPermanentSiteAddress("Empty")
             .hasPermanentSitePostcode("Empty");
 
-        Logger.log("Add sites to the project");
+        cy.executeAccessibilityTests();
 
+        Logger.log("Add sites to the project");
         viewSiteInformationPage
             .changePermanentSite();
+
+        editSiteInformationPage
+            .withFieldsExceedingMaxLength()
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError("The Postcode must be 10 characters or less")
+            .hasValidationError("The Address line 1 must be 100 characters or less")
+            .hasValidationError("The Address line 2 must be 300 characters or less");
+
+        cy.executeAccessibilityTests();
 
         editSiteInformationPage
             .withAddressLine1("Permanent test house")

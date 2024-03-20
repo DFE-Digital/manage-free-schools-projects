@@ -14,5 +14,10 @@
     </div>
 }
 
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SiteInformation.SchoolName</span>
+    Edit site information
+</h1>
+
 <govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="Temporary" />
 <govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="Permanent" />

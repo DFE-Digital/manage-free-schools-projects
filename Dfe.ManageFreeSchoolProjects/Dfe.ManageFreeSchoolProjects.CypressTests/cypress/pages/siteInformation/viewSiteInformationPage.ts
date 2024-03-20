@@ -24,6 +24,12 @@ export class ViewSiteInformationPage {
         return this;
     }
 
+    public hasSchoolName(value: string): this {
+        cy.getByTestId("school-name").should("contain.text", value);
+
+        return this;
+    }
+
     public changeTemporarySite(): this {
         cy.getByTestId("change-temporary-site").click();
 

@@ -3,6 +3,8 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.EditSiteInformationModel
 @{
     var backlink = string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);
+
+    ViewData["Title"] = $"Edit Site information - {Model.SchoolName}";
 }
 
 @section BeforeMain {

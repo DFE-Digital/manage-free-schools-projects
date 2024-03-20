@@ -1,5 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
     {
         private readonly IGetProjectSitesService _getProjectSitesService;
         private readonly IUpdateProjectSitesService _updateProjectSitesService;
+        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -24,12 +27,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         [BindProperty(Name = "address-line1")]
         [Display(Name = "Address line 1")]
-        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine1 { get; set; }
 
         [BindProperty(Name = "address-line2")]
         [Display(Name = "Address line 2")]
-        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [StringLength(300, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine2 { get; set; }
 
         [BindProperty(Name = "postcode")]
@@ -40,10 +43,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         public EditSiteInformationModel(
             IGetProjectSitesService getProjectSitesService,
-            IUpdateProjectSitesService updateProjectSitesService)
+            IUpdateProjectSitesService updateProjectSitesService,
+            ErrorService errorService)
         {
             _getProjectSitesService = getProjectSitesService;
             _updateProjectSitesService = updateProjectSitesService;
+            _errorService = errorService;
         }
 
         public async Task<IActionResult> OnGet()
@@ -55,12 +60,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
             AddressLine1 = site.Address.AddressLine1;
             AddressLine2 = site.Address.AddressLine2;
             Postcode = site.Address.Postcode;
+            SchoolName = sites.SchoolName;
 
             return Page();
         }
 
         public async Task<IActionResult> OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
             var updateRequest = new UpdateProjectSitesRequest
             {
                 Site = new ProjectSite

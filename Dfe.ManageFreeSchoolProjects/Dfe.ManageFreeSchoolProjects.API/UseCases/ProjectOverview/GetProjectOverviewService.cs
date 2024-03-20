@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             }
 
             var risk = await GetRisk(project.Rid);
-            var sites = await _getProjectSitesService.ExecuteWithRid(project.Rid);
+            var sites = await _getProjectSitesService.Execute(project);
 
             return new ProjectOverviewResponse()
             {
