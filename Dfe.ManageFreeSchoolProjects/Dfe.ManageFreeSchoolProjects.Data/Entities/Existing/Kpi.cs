@@ -435,9 +435,5 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string RyooWd { get; set; }
 
         public string UpperStatus { get; set; }
-
-        public int? UserId { get; set; }
-
-        public User? User { get; set; }
     }
 }
