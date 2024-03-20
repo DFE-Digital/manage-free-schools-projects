@@ -96,6 +96,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
             return Redirect(string.Format(RouteConstants.ViewSiteInformation, ProjectId));
         }
 
+        /// <summary>
+        /// To avoid having to write another API for getting a single site
+        /// This figures out which site is being requested based on the requested route
+        /// </summary>
+        /// <param name="sites"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         private ProjectSite GetProjectSite(GetProjectSitesResponse sites)
         {
             if (SiteType == ProjectSiteType.Permanent)

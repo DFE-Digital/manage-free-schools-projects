@@ -1,4 +1,5 @@
 ﻿@page "/projects/{projectId}/site-information"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.ViewSiteInformationModel
 @{
@@ -19,5 +20,5 @@
     Edit site information
 </h1>
 
-<govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="Temporary" />
-<govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="Permanent" />
+<govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="@ProjectSiteType.Temporary.ToString()" />
+<govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="@ProjectSiteType.Permanent.ToString()" />
