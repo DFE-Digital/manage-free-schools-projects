@@ -3,6 +3,10 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using System.Text.RegularExpressions;
+using System;
+using DocumentFormat.OpenXml.EMMA;
+using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
@@ -22,12 +26,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         [BindProperty(Name = "alternative-provision")]
         [Display(Name = "Alternative provision")]
-        [Required(ErrorMessage = "Select yes if it will have an alternative provision")]
         public ClassType.AlternativeProvision AlternativeProvision { get; set; }
 
         [BindProperty(Name = "special-education-needs")]
         [Display(Name = "Special education needs")]
-        [Required(ErrorMessage = "Select yes if it will have a special education needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
 
         public SchoolType SchoolType{ get; set; }
@@ -53,8 +55,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             AlternativeProvision = project.AlternativeProvision;
             SpecialEducationNeeds = project.SpecialEducationNeeds;
 
+            if (project.ReachedCheckYourAnswers)
+            {
+                project.SchoolType = project.PreviousSchoolType;
+            }
+
             SchoolType = project.SchoolType;
-            
+
             BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
             
             return Page();
@@ -63,7 +70,28 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
+            if (project.ReachedCheckYourAnswers)
+            {
+                project.SchoolType = project.PreviousSchoolType;
+            }
+
+            SchoolType = project.SchoolType;
+
             BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
+
+            if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(SchoolType))
+            {   
+                if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
+                {
+                    ModelState.AddModelError("AlternativeProvision", "Select yes if it will have an alternative provision");
+                }
+
+                if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
+                {
+                    ModelState.AddModelError("SpecialEducationNeeds", "Select yes if it will have a special education needs");
+                }
+
+            }
 
             if (!ModelState.IsValid)
             {
