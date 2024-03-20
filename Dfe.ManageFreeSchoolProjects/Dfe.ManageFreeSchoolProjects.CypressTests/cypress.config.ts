@@ -1,6 +1,5 @@
 import { defineConfig } from "cypress";
 import { generateZapReport } from "cypress/plugins/generateZapReport";
-import 'cypress-grep';
 
 
 export default defineConfig({
@@ -29,7 +28,7 @@ export default defineConfig({
             on("before:run", () => {
                 // Map cypress env vars to process env vars for usage outside of Cypress run environment
                 process.env = config.env;
-                
+                require('@cypress/grep/src/plugin')(config);
             });
 
             on("after:run", async () => {
