@@ -86,5 +86,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? EqualitiesAssessmentCompletedEPR { get; set; }
 
         public bool? EqualitiesAssessmentSavedEPRInWorkplacesFolder { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers { get; set; }
+
+        public string FsgPreOpeningMilestonesAcceptedOffersComments { get; set; }
+
+        public bool? FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces { get; set; }
     }
 }

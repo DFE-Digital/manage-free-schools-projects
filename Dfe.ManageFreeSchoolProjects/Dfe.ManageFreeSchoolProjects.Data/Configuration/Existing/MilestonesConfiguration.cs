@@ -581,6 +581,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property((e => e.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces))
                 .HasColumnType("bit")
                 .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Saved To Workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Seen Evidence Of Accepted Offers");
+            builder.Property(e => e.FsgPreOpeningMilestonesAcceptedOffersComments)
+                .HasMaxLength(999)
+                .IsUnicode(false)
+                .HasColumnName("Fsg Pre Opening Milestones. Accepted Offers Comments");
+            builder.Property(e => e.FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Accepted Offers Email Saved To Workplaces");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)

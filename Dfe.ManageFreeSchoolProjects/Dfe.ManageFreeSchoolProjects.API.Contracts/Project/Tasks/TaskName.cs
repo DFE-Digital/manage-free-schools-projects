@@ -21,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         EducationBrief,
         AdmissionsArrangements,
         EqualitiesAssessment,
-        ImpactAssessment
+        ImpactAssessment,
+        EvidenceOfAcceptedOffers
     }
 }
