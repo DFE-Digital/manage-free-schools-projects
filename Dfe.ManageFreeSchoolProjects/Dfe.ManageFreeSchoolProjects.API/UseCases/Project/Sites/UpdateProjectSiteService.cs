@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
 {
-    public interface IUpdateProjectSitesService
+    public interface IUpdateProjectSiteService
     {
         public Task Execute(string projectId, UpdateProjectSiteRequest request, ProjectSiteType siteType);
     }
 
-    public class UpdateProjectSitesService : IUpdateProjectSitesService
+    public class UpdateProjectSiteService : IUpdateProjectSiteService
     {
         private readonly MfspContext _context;
 
-        public UpdateProjectSitesService(MfspContext context)
+        public UpdateProjectSiteService(MfspContext context)
         {
             _context = context;
         }
@@ -64,12 +64,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 dbSite = new Property();
                 dbSite.PRid = rid;
                 dbSite.Rid = IdentifierBuilder.BuildRid();
-                dbSite.Tos = tos;
                 _context.Property.Add(dbSite);
             }
 
+            dbSite.Tos = tos;
             dbSite.SiteNameOfSite = projectSite.Address.AddressLine1;
             dbSite.SiteAddressOfSite = projectSite.Address.AddressLine2;
+            dbSite.TownOrCity = projectSite.Address.TownOrCity;
             dbSite.SitePostcodeOfSite = projectSite.Address.Postcode;
         }
     }

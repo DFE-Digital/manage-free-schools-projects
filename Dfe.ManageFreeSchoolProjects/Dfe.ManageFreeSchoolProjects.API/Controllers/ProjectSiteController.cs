@@ -12,12 +12,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     public class ProjectSiteController
     {
         private readonly IGetProjectSitesService _getProjectSitesService;
-        private readonly IUpdateProjectSitesService _updateProjectSitesService;
+        private readonly IUpdateProjectSiteService _updateProjectSitesService;
         private readonly ILogger<ProjectSiteController> _logger;
 
         public ProjectSiteController(
             IGetProjectSitesService getProjectSitesService,
-            IUpdateProjectSitesService updateProjectSitesService,
+            IUpdateProjectSiteService updateProjectSitesService,
             ILogger<ProjectSiteController> logger)
         {
             _getProjectSitesService = getProjectSitesService;

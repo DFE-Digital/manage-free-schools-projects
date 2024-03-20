@@ -9,6 +9,11 @@ export class EditSiteInformationPage {
         return this;
     }
 
+    public withTownOrCity(value: string): this {
+        cy.getById("town-or-city").clear().type(value);
+        return this;
+    }
+
     public withPostcode(value: string): this {
         cy.getById("postcode").clear().type(value);
         return this;
@@ -22,6 +27,7 @@ export class EditSiteInformationPage {
     public withFieldsExceedingMaxLength(): this {
         cy.getById("address-line1").clear().invoke("val", "a".repeat(101));
         cy.getById("address-line2").clear().invoke("val", "a".repeat(301));
+        cy.getById("town-or-city").clear().invoke("val", "a".repeat(101));
         cy.getById("postcode").clear().invoke("val", "a".repeat(11));
 
         return this;

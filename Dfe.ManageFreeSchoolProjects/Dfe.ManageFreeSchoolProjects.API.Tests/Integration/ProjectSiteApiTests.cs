@@ -42,8 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            AssertProjectSite(content.Data.PermanentSite, updatePermanentSiteRequest.Site);
-            AssertProjectSite(content.Data.TemporarySite, updateTemporarySiteRequest.Site);
+            content.Data.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest.Site);
+            content.Data.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest.Site);
             content.Data.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
@@ -75,8 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            AssertProjectSite(content.Data.PermanentSite, updatePermanentSiteRequest.Site);
-            AssertProjectSite(content.Data.TemporarySite, updateTemporarySiteRequest.Site);
+            content.Data.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest.Site);
+            content.Data.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest.Site);
         }
 
         [Fact]
@@ -143,18 +143,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             setTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        private static void AssertProjectSite(ProjectSite actual, ProjectSite expected)
-        {
-            actual.Address.AddressLine1.Should().Be(expected.Address.AddressLine1);
-            actual.Address.AddressLine2.Should().Be(expected.Address.AddressLine2);
-            actual.Address.Postcode.Should().Be(expected.Address.Postcode);
-        }
-
         private static void AssertBlankSite(ProjectSite actual)
         {
             actual.Address.AddressLine1.Should().BeNull();
             actual.Address.AddressLine2.Should().BeNull();
             actual.Address.Postcode.Should().BeNull();
+            actual.Address.TownOrCity.Should().BeNull();
         }
     }
 }

@@ -90,7 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
 			services.AddScoped<ISfaApiKeyValidationService, SfaApiKeyValidationService>();
 			services.AddScoped<IGetProjectSitesService, GetProjectSitesService>();
-			services.AddScoped<IUpdateProjectSitesService,  UpdateProjectSitesService>();
+			services.AddScoped<IUpdateProjectSiteService,  UpdateProjectSiteService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

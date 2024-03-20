@@ -45,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
             {
                 PermanentSite = MapToSite(permanentSite),
                 TemporarySite = MapToSite(temporarySite),
-                SchoolName = project.ProjectStatusCurrentFreeSchoolName
+                SchoolName = project.ProjectStatusCurrentFreeSchoolName,
             };
 
             return result;
@@ -64,7 +64,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                 {
                     AddressLine1 = property.SiteNameOfSite,
                     AddressLine2 = property.SiteAddressOfSite,
-                    Postcode = property.SitePostcodeOfSite
+                    TownOrCity = property.TownOrCity,
+                    Postcode = property.SitePostcodeOfSite,
                 }
             };
         }

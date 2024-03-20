@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         [BindProperty(SupportsGet = true, Name = "siteType")]
         public ProjectSiteType SiteType { get; set; }
 
+        [BindProperty]
         public string SchoolName { get; set; }
 
         [BindProperty(Name = "address-line1")]
@@ -34,6 +35,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         [Display(Name = "Address line 2")]
         [StringLength(300, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine2 { get; set; }
+
+        [BindProperty(Name = "town-or-city")]
+        [Display(Name = "Town/City")]
+        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        public string TownOrCity { get; set; }
 
         [BindProperty(Name = "postcode")]
         [Display(Name = "Postcode")]
@@ -59,6 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
             AddressLine1 = site.Address.AddressLine1;
             AddressLine2 = site.Address.AddressLine2;
+            TownOrCity = site.Address.TownOrCity;
             Postcode = site.Address.Postcode;
             SchoolName = sites.SchoolName;
 
@@ -81,6 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
                     {
                         AddressLine1 = AddressLine1,
                         AddressLine2 = AddressLine2,
+                        TownOrCity = TownOrCity,
                         Postcode = Postcode
                     }
                 }

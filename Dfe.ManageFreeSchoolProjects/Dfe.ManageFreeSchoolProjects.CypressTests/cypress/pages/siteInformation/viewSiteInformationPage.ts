@@ -1,7 +1,7 @@
 export class ViewSiteInformationPage {
-    public hasTemporarySiteAddress(line1: string, line2: string = ""): this {
+    public hasTemporarySiteAddress(line1: string, line2: string, city: string): this {
 
-        cy.enterAddress("temporary-site-address", line1, line2);
+        cy.hasAddress("temporary-site-address", line1, line2, city);
 
         return this;
     }
@@ -12,8 +12,8 @@ export class ViewSiteInformationPage {
         return this;
     }
 
-    public hasPermanentSiteAddress(line1: string, line2: string = ""): this {
-        cy.enterAddress("permanent-site-address", line1, line2);
+    public hasPermanentSiteAddress(line1: string, line2: string, city: string): this {
+        cy.hasAddress("permanent-site-address", line1, line2, city);
 
         return this;
     }

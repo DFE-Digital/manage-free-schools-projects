@@ -26,7 +26,9 @@
         <form method="post">
             <govuk-text-input id="address-line1" name="address-line1" label="Address line 1" asp-for="@Model.AddressLine1" add-margin="true" />
             <govuk-text-input id="address-line2" name="address-line2" label="Address line 2" asp-for="@Model.AddressLine2" add-margin="true" />
+            <govuk-text-input id="town-or-city" name="town-or-city" label="Town/City" asp-for="@Model.TownOrCity" add-margin="true" />
             <govuk-text-input id="postcode" name="postcode" label="Postcode" asp-for="@Model.Postcode" add-margin="true" />
+            @Html.HiddenFor(m => m.SchoolName)
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
