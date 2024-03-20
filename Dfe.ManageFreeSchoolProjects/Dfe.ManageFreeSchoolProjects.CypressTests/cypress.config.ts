@@ -1,5 +1,7 @@
 import { defineConfig } from "cypress";
 import { generateZapReport } from "cypress/plugins/generateZapReport";
+import 'cypress-grep';
+
 
 export default defineConfig({
     defaultCommandTimeout: 20000,
@@ -14,11 +16,22 @@ export default defineConfig({
         reporterEnabled: "mochawesome",
         mochawesomeReporterOptions: {
             reportDir: "cypress/reports/mocha",
-            quite: true,
+            quiet: true,
             overwrite: false,
             html: false,
             json: true,
         },
+        //ADDING CYPRESS GREP CONFIG
+        grep: {
+            dev: {
+                tags: "@dev",
+                env: ["development"]
+            },
+            test: {
+                tags: "@test",
+                env: ["test"]
+            }
+        }
     },
     e2e: {
         // We've imported your old cypress plugins here.
