@@ -32,7 +32,7 @@ describe("Testing the home page", () => {
             });
         });
 
-        it("Should be able to filter projects by project ID", { tags: ['dev'] }, () => {
+        it("Should be able to filter projects by project ID", { tags: ['@dev'] }, () => {
             homePage.openFilter().withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
