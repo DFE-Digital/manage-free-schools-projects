@@ -73,7 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
                 return Page();
             }
 
-            var updateRequest = new UpdateProjectSitesRequest
+            var updateRequest = new UpdateProjectSiteRequest
             {
                 Site = new ProjectSite
                 {

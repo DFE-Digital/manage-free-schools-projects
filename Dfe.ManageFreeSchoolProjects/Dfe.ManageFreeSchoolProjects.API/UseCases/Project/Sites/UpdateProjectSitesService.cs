@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
 {
     public interface IUpdateProjectSitesService
     {
-        public Task Execute(string projectId, UpdateProjectSitesRequest request, ProjectSiteType siteType);
+        public Task Execute(string projectId, UpdateProjectSiteRequest request, ProjectSiteType siteType);
     }
 
     public class UpdateProjectSitesService : IUpdateProjectSitesService
@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
 
         public async Task Execute(
             string projectId, 
-            UpdateProjectSitesRequest request,
+            UpdateProjectSiteRequest request,
             ProjectSiteType siteType)
         {
             var dbProject = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);

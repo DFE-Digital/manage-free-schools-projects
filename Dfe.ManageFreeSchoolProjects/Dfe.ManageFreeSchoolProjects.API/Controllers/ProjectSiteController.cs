@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPatch("{siteType}")]
-        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectSites(string projectId, ProjectSiteType siteType, UpdateProjectSitesRequest request)
+        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectSites(string projectId, ProjectSiteType siteType, UpdateProjectSiteRequest request)
         {
             _logger.LogMethodEntered();
 

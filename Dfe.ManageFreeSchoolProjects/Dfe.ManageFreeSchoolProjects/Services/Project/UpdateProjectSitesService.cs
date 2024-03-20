@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IUpdateProjectSitesService
     {
-        public Task Execute(string projectId, UpdateProjectSitesRequest request, ProjectSiteType projectSiteType);
+        public Task Execute(string projectId, UpdateProjectSiteRequest request, ProjectSiteType projectSiteType);
     }
 
     public class UpdateProjectSitesService : IUpdateProjectSitesService
@@ -18,11 +18,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task Execute(string projectId, UpdateProjectSitesRequest request, ProjectSiteType projectSiteType)
+        public async Task Execute(string projectId, UpdateProjectSiteRequest request, ProjectSiteType projectSiteType)
         {
             var endpoint = $"/api/v1/client/projects/{projectId}/sites/{projectSiteType.ToString().ToLower()}";
 
-            await _apiClient.Patch<UpdateProjectSitesRequest, ApiSingleResponseV2<object>>(endpoint, request);
+            await _apiClient.Patch<UpdateProjectSiteRequest, ApiSingleResponseV2<object>>(endpoint, request);
         }
     }
 }

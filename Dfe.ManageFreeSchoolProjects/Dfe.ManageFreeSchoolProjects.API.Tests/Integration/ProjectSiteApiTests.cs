@@ -26,11 +26,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
 
-            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
             updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
             updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -59,11 +59,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await SetSites(projectId);
 
-            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
             updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
             updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -111,7 +111,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         public async Task When_Patch_ProjectDoesNotExist_Returns_404()
         {
             var projectId = Guid.NewGuid().ToString();
-            var updateSiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updateSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
 
             var updateSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updateSiteRequest.ConvertToJson());
             updateSiteResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -122,7 +122,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-            var updateSiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var updateSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
@@ -134,11 +134,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
         private async Task SetSites(string projectId)
         {
-            var setPermanentSiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var setPermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var setPermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", setPermanentSiteRequest.ConvertToJson());
             setPermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var setTemporarySiteRequest = _autoFixture.Create<UpdateProjectSitesRequest>();
+            var setTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var setTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", setTemporarySiteRequest.ConvertToJson());
             setTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
