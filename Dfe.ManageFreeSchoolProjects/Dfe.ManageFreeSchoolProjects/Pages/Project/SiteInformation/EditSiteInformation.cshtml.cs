@@ -1,5 +1,4 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -37,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         public string AddressLine2 { get; set; }
 
         [BindProperty(Name = "town-or-city")]
-        [Display(Name = "Town/City")]
+        [Display(Name = "Town or city")]
         [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string TownOrCity { get; set; }
 

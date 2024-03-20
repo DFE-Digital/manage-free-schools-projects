@@ -16,8 +16,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-        public string SchoolName { get; set; }
-
         public GetProjectSitesResponse SiteInformation { get; set; }
 
         public ViewSiteInformationModel(
