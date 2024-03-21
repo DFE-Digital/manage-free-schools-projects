@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                     routeParameter),
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
-                CreateProjectPageName.AgeRange => RouteConstants.CreateClassType,
+                CreateProjectPageName.AgeRange => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithType,

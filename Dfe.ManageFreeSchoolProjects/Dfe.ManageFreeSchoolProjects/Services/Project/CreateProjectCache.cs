@@ -39,6 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string LocalAuthorityCode { get; set; }
         public string ConfirmTrust { get; set; }
         public SchoolType SchoolType { get; set; }
+        public SchoolType PreviousSchoolType { get; set; }
         public SchoolPhase SchoolPhase { get; set; }
         public string TrustName { get; set; }
         public string TRN { get; set; }
