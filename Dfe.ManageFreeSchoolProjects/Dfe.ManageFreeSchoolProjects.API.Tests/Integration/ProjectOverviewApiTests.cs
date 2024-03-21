@@ -8,8 +8,8 @@ using System;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -33,18 +33,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
             project.SchoolDetailsSchoolPhasePrimarySecondary = "Primary";
             project.SchoolDetailsFaithType = "Roman Catholic";
-
-            var property = DatabaseModelBuilder.BuildProperty();
-            property.Rid = project.Rid;
+            var projectId = project.ProjectStatusProjectId;
 
             context.Kpi.Add(project);
-            context.Property.Add(property);
             await context.SaveChangesAsync();
 
             var createProjectRiskRequest = _autoFixture.Create<CreateProjectRiskRequest>();
-
-            var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/risk", createProjectRiskRequest.ConvertToJson());
+            var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/risk", createProjectRiskRequest.ConvertToJson());
             createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
+
+            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
+            var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
+            updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
+            var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
+            updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -99,8 +103,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsFsgLeadContact);
 
             // Site
-            result.Data.SiteInformation.Postcode.Should().Be(property.SitePostcodeOfSite);
-            result.Data.SiteInformation.Property.Should().Be(property.SiteNameOfSite);
+            result.Data.SiteInformation.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest);
+            result.Data.SiteInformation.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest);
         }
 
         [Fact]

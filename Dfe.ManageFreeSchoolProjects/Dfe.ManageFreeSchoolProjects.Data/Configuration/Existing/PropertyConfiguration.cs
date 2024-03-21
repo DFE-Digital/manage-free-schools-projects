@@ -331,6 +331,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(9)
                 .IsUnicode(false)
                 .HasColumnName("TOS");
+            builder.Property(e => e.TownOrCity)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasMaxLength(100)
+                .HasColumnName("TownOrCity");
 
             AuditConfiguration.Apply(builder);
         }

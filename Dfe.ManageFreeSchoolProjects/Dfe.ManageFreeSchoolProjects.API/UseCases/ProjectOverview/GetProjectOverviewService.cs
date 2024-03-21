@@ -1,8 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
-using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +17,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
     public class GetProjectOverviewService : IGetProjectOverviewService
     {
         private readonly MfspContext _context;
+        private readonly IGetProjectSitesService _getProjectSitesService;
 
-        public GetProjectOverviewService(MfspContext context)
+        public GetProjectOverviewService(
+            MfspContext context,
+            IGetProjectSitesService getProjectSitesService)
         {
             _context = context;
+            _getProjectSitesService = getProjectSitesService;
         }
 
         public async Task<ProjectOverviewResponse> Execute(string projectId)
@@ -32,9 +36,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
-            Property? property = await _context.Property.FirstOrDefaultAsync(p => p.Rid == project.Rid);
-
             var risk = await GetRisk(project.Rid);
+            var sites = await _getProjectSitesService.Execute(project);
 
             return new ProjectOverviewResponse()
             {
@@ -86,8 +89,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 },
                 SiteInformation = new()
                 {
-                    Property = property?.SiteNameOfSite,
-                    Postcode = property?.SitePostcodeOfSite
+                    PermanentSite = sites.PermanentSite,
+                    TemporarySite = sites.TemporarySite
                 }
             };
         }
