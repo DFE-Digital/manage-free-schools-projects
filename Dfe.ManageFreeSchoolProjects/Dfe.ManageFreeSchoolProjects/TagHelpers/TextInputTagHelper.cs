@@ -13,12 +13,12 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		public int Width { get; set; }
 		
 		public bool HeadingLabel { get; set; }
-
-		[HtmlAttributeName("bold-label")]
-		public bool BoldLabel { get; set; }
 		
 		[HtmlAttributeName("add-margin")]
 		public bool AddMargin { get; set; }
+
+		[HtmlAttributeName("input-styles")]
+		public string InputStyles { get; set; } = "";
 
 		public TextInputTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
 
@@ -35,8 +35,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Hint = Hint,
 				HeadingLabel = HeadingLabel,
 				BoldLabel = BoldLabel,
-				AddMargin = AddMargin
-			};
+				AddMargin = AddMargin,
+				InputStyles = InputStyles
+            };
 
 			if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)
 			{

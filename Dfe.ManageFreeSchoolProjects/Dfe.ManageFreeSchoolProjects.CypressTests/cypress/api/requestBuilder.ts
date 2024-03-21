@@ -10,7 +10,8 @@ export class RequestBuilder {
             applicationNumber: v4().substring(0, 9),
             applicationWave: v4(),
             createdBy: Cypress.env(EnvUsername),
-            schoolName: dataGenerator.generateSchoolName()
+            schoolName: dataGenerator.generateSchoolName(),
+            TRN: 'TR00111'
         };
 
         return result;
