@@ -63,6 +63,10 @@
         public const string ViewAcceptedOffersEvidenceTask = TaskList + "/accepted-offers-evidence";
         public const string EditAcceptedOffersEvidenceTask = ViewAcceptedOffersEvidenceTask + "/edit";
         
+        public const string ViewOfstedPreRegistrationTask = TaskList + "/ofsted-pre-registration";
+        public const string EditBeforeOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-before-inspection";
+        public const string EditAfterOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-after-inspection";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

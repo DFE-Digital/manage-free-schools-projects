@@ -92,5 +92,20 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string FsgPreOpeningMilestonesAcceptedOffersComments { get; set; }
 
         public bool? FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesProcessDetailsProvided { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesInspectionBlockDecided { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesSharedOutcomeWithTrust { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesProposedToOpenOnGias { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces { get; set; }
+        
     }
 }

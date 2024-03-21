@@ -19,6 +19,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultat
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -103,6 +104,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.EvidenceOfAcceptedOffers:
                     result = await new GetEvidenceOfAcceptedOffersTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.OfstedInspection:
+                    result = await new GetOfstedInspectionTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
