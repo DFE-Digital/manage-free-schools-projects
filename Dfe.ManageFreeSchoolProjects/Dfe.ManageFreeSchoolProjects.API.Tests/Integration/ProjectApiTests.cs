@@ -250,7 +250,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var content = await response.Content.ReadAsStringAsync();
 
-            content.Should().Contain("The TRN field is required.");
+            content.Should().Contain("'TRN' must not be empty.");
+            content.Should().Contain("'Project Id' must not be empty.");
+            content.Should().Contain("'Created By' must not be empty.");
         }
     }
 }

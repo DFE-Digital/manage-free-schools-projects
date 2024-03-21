@@ -16,6 +16,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         public CreateProjectDetailsValidator()
         {
             RuleFor(x => x.TRN).NotEmpty();
+            RuleFor(x => x.ProjectId).NotEmpty();
+            RuleFor(x => x.CreatedBy).NotEmpty();
         }
     }
 }
