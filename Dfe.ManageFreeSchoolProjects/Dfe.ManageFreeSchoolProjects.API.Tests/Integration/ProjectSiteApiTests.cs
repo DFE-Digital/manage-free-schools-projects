@@ -42,8 +42,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            content.Data.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest);
-            content.Data.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest);
+            AssertionHelper.AssertProjectSite(actualPermanentSite, updatePermanentSiteRequest);
+            AssertionHelper.AssertProjectSite(actualTemporarySite, updateTemporarySiteRequest);
+
             content.Data.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
 
@@ -75,8 +76,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var actualPermanentSite = content.Data.PermanentSite;
             var actualTemporarySite = content.Data.TemporarySite;
 
-            content.Data.PermanentSite.Should().BeEquivalentTo(updatePermanentSiteRequest);
-            content.Data.TemporarySite.Should().BeEquivalentTo(updateTemporarySiteRequest);
+            AssertionHelper.AssertProjectSite(actualPermanentSite, updatePermanentSiteRequest);
+            AssertionHelper.AssertProjectSite(actualTemporarySite, updateTemporarySiteRequest);
         }
 
         [Fact]
@@ -149,6 +150,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actual.Address.AddressLine2.Should().BeNull();
             actual.Address.Postcode.Should().BeNull();
             actual.Address.TownOrCity.Should().BeNull();
+            actual.StartDateOfSiteOccupation.Should().BeNull();
         }
     }
 }

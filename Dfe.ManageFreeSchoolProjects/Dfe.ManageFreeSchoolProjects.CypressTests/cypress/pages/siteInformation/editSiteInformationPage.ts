@@ -19,6 +19,11 @@ export class EditSiteInformationPage {
         return this;
     }
 
+    public withStartDateOfSiteOccupation(day: string, month: string, year: string): this {
+        cy.enterDate("start-date-of-site-occupation", day, month, year);
+        return this;
+    }
+
     public hasSchoolName(value: string): this {
         cy.getByTestId("school-name").should("contain.text", value);
         return this;

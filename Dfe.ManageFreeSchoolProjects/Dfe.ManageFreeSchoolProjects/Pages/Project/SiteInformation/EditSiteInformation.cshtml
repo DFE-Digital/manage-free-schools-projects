@@ -29,6 +29,7 @@
             <govuk-text-input id="address-line2" name="address-line2" label="Address line 2" asp-for="@Model.AddressLine2" add-margin="true" />
             <govuk-text-input id="town-or-city" name="town-or-city" label="Town or city" asp-for="@Model.TownOrCity" add-margin="true" input-styles="govuk-!-width-two-thirds" />
             <govuk-text-input id="postcode" name="postcode" label="Postcode" asp-for="@Model.Postcode" add-margin="true" width="10" />
+            <govuk-date-input id="start-date-of-site-occupation" name="start-date-of-site-occupation" label="Start date of site occupation" asp-for="@Model.StartDateOfSiteOccupation" hint="For example, 27 3 2021" add-margin="true" />
             @Html.HiddenFor(m => m.SchoolName)
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

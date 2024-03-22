@@ -1,11 +1,13 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -46,6 +48,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Postcode { get; set; }
 
+        [BindProperty(Name = "start-date-of-site-occupation", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Start date of site occupation")]
+        public DateTime? StartDateOfSiteOccupation { get; set; }
+
 
         public EditSiteInformationModel(
             IGetProjectSitesService getProjectSitesService,
@@ -67,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
             AddressLine2 = site.Address.AddressLine2;
             TownOrCity = site.Address.TownOrCity;
             Postcode = site.Address.Postcode;
+            StartDateOfSiteOccupation = site.StartDateOfSiteOccupation;
             SchoolName = sites.SchoolName;
 
             return Page();
@@ -88,7 +95,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
                     AddressLine2 = AddressLine2,
                     TownOrCity = TownOrCity,
                     Postcode = Postcode
-                }
+                },
+                StartDateOfSiteOccupation = StartDateOfSiteOccupation
             };
 
             await _updateProjectSitesService.Execute(ProjectId, updateRequest, SiteType);
