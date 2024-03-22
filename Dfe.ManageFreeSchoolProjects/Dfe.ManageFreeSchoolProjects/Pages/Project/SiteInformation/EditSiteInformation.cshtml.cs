@@ -2,6 +2,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
@@ -27,22 +28,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         [BindProperty(Name = "address-line1")]
         [Display(Name = "Address line 1")]
-        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [ValidText(100)]
         public string AddressLine1 { get; set; }
 
         [BindProperty(Name = "address-line2")]
         [Display(Name = "Address line 2")]
-        [StringLength(300, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [ValidText(300)]
         public string AddressLine2 { get; set; }
 
         [BindProperty(Name = "town-or-city")]
         [Display(Name = "Town or city")]
-        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [ValidText(100)]
         public string TownOrCity { get; set; }
 
         [BindProperty(Name = "postcode")]
         [Display(Name = "Postcode")]
-        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
+        [ValidText(10)]
         public string Postcode { get; set; }
 
 
@@ -114,7 +115,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
                 return sites.TemporarySite;
             }
 
-            throw new ArgumentException($"Invalid site type {SiteType}");
+            throw new ArgumentException($"Invalid site type");
         }
     }
 }
