@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditOfstedPreRegistrationBeforeTaskModel> _logger;
-        private readonly ErrorService _errorService;
+        
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -73,7 +73,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
             _getProjectService = getProjectService;
             _updateProjectTaskService = updateProjectTaskService;
             _logger = logger;
-            _errorService = errorService;
         }
 
         public async Task<ActionResult> OnGet()
