@@ -28,22 +28,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         [BindProperty(Name = "address-line1")]
         [Display(Name = "Address line 1")]
-        [ValidText(100)]
+        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine1 { get; set; }
 
         [BindProperty(Name = "address-line2")]
         [Display(Name = "Address line 2")]
-        [ValidText(300)]
+        [StringLength(300, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string AddressLine2 { get; set; }
 
         [BindProperty(Name = "town-or-city")]
         [Display(Name = "Town or city")]
-        [ValidText(100)]
+        [StringLength(100, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string TownOrCity { get; set; }
 
         [BindProperty(Name = "postcode")]
         [Display(Name = "Postcode")]
-        [ValidText(10)]
+        [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Postcode { get; set; }
 
 
