@@ -16,39 +16,39 @@ using Dfe.ManageFreeSchoolProjects.Validators;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
 {
-    public class EditOfstedPreRegistrationBeforeTaskModel : PageModel
+    public class EditOfstedPreRegistrationAfterTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditOfstedPreRegistrationBeforeTaskModel> _logger;
+        private readonly ILogger<EditOfstedPreRegistrationAfterTaskModel> _logger;
         
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
         
-        [BindProperty(Name = "process-details-provided")]
+        [BindProperty(Name = "shared-outcome-with-trust")]
         
-        public bool? ProcessDetailsProvided{ get; set; }
-        
-        
-        [BindProperty(Name = "inspection-block-decided")]
-        
-        public bool? InspectionBlockDecided{ get; set; }
-        
-        [BindProperty(Name = "ofsted-and-trust-liaison-details-confirmed")]
-        
-        public bool? OfstedAndTrustLiaisonDetailsConfirmed{ get; set; }
+        public bool? SharedOutcomeWithTrust{ get; set; }
         
         
-        [BindProperty(Name = "block-and-content-details-to-openers-spreadsheet")]
+        [BindProperty(Name = "inspection-conditions-met")]
         
-        public bool? BlockAndContentDetailsToOpenersSpreadSheet{ get; set; }
+        public bool? InspectionConditionsMet{ get; set; }
+        
+        
+        [BindProperty(Name = "proposed-to-open-on-gias")]
+        
+        public bool? ProposedToOpenOnGias{ get; set; }
+        
+        [BindProperty(Name = "saved-to-workplaces")]
+        
+        public bool? SavedToWorkplaces { get; set; }
         
         public string SchoolName { get; set; }
 
-        public EditOfstedPreRegistrationBeforeTaskModel(IGetProjectByTaskService getProjectService,
+        public EditOfstedPreRegistrationAfterTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditOfstedPreRegistrationBeforeTaskModel> logger,
+            ILogger<EditOfstedPreRegistrationAfterTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -74,14 +74,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
                 {
                     OfstedInspection = new OfstedInspectionTask()
                     {
-                        ProcessDetailsProvided =  ProcessDetailsProvided,
-                        InspectionBlockDecided = InspectionBlockDecided,
-                        OfstedAndTrustLiaisonDetailsConfirmed = OfstedAndTrustLiaisonDetailsConfirmed,
-                        BlockAndContentDetailsToOpenersSpreadSheet = BlockAndContentDetailsToOpenersSpreadSheet, 
-                        SharedOutcomeWithTrust  = project.OfstedInspection.SharedOutcomeWithTrust,
-                        InspectionConditionsMet  = project.OfstedInspection.InspectionConditionsMet,
-                        ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias,
-                        SavedToWorkplaces =  project.OfstedInspection.SavedToWorkplaces,
+                        ProcessDetailsProvided =  project.OfstedInspection.ProcessDetailsProvided,
+                        InspectionBlockDecided = project.OfstedInspection.InspectionBlockDecided,
+                        OfstedAndTrustLiaisonDetailsConfirmed = project.OfstedInspection.OfstedAndTrustLiaisonDetailsConfirmed,
+                        BlockAndContentDetailsToOpenersSpreadSheet = project.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet, 
+                        SharedOutcomeWithTrust  = SharedOutcomeWithTrust,
+                        InspectionConditionsMet  = InspectionConditionsMet,
+                        ProposedToOpenOnGias = ProposedToOpenOnGias,
+                        SavedToWorkplaces =  SavedToWorkplaces,
                     }
                 };
 
@@ -92,12 +92,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         private async Task LoadProject()
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
-
-            ProcessDetailsProvided = project.OfstedInspection.ProcessDetailsProvided;
-            InspectionBlockDecided = project.OfstedInspection.InspectionBlockDecided;
-            OfstedAndTrustLiaisonDetailsConfirmed = project.OfstedInspection.OfstedAndTrustLiaisonDetailsConfirmed;
-            BlockAndContentDetailsToOpenersSpreadSheet = project.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet;
             
+            SharedOutcomeWithTrust = project.OfstedInspection.SharedOutcomeWithTrust;
+            InspectionConditionsMet = project.OfstedInspection.InspectionConditionsMet;
+            ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias;
+            SavedToWorkplaces = project.OfstedInspection.SavedToWorkplaces;
+           
             SchoolName = project.SchoolName;
         }
     }

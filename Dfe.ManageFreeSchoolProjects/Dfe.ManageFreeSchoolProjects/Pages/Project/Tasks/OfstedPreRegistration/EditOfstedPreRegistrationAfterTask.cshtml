@@ -1,6 +1,6 @@
 @page "/projects/{projectId}/tasks/ofsted-pre-registration/edit-after-inspection"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration.EditOfstedPreRegistrationBeforeTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration.EditOfstedPreRegistrationAfterTaskModel
 @{
     ViewData["Title"] = $"Edit After the inspection - Ofsted pre-registration - {Model.SchoolName}";
     var backlink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
@@ -46,10 +46,6 @@
                                   name="saved-to-workplaces"
                                   id="saved-to-workplaces"
                                   add-margin="false"/>
-            <input asp-for="@Model.ProcessDetailsProvided" type="hidden" id="process-details-provided" name="process-details-provided">
-            <input asp-for="@Model.InspectionBlockDecided" type="hidden" id="inspection-block-decided" name="inspection-block-decided">
-            <input asp-for="@Model.OfstedAndTrustLiaisonDetailsConfirmed" type="hidden" id="ofsted-and-trust-liaison-details-confirmed" name="ofsted-and-trust-liaison-details-confirmed">
-            <input asp-for="@Model.BlockAndContentDetailsToOpenersSpreadSheet" type="hidden" id="block-and-content-details-to-openers-spreadsheet" name="block-and-content-details-to-openers-spreadsheet">
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>

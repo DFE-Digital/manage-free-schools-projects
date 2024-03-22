@@ -52,10 +52,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
                     return "Yes";
                 case false:
                     return "No";
-                case null:
-                    return null;
                 default:
-                    return "NULL";
+                    return null;
             }
         }
     }
