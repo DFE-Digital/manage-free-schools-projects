@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public ClassType.AlternativeProvision AlternativeProvision { get; set; }
 
         [BindProperty(Name = "special-education-needs")]
-        [Display(Name = "Special education needs")]
+        [Display(Name = "Special educational needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
 
         public SchoolType SchoolType{ get; set; }
@@ -83,12 +83,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {   
                 if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
                 {
-                    ModelState.AddModelError("AlternativeProvision", "Select yes if it will have an alternative provision");
+                    ModelState.AddModelError("alternative-provision", "Select yes if it will have an alternative provision");
                 }
 
                 if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
                 {
-                    ModelState.AddModelError("SpecialEducationNeeds", "Select yes if it will have a special education needs");
+                    ModelState.AddModelError("special-education-needs", "Select yes if it will have a special educational needs provision");
                 }
 
             }

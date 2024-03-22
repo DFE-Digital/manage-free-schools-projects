@@ -71,12 +71,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "alternative-provision")]
         [Display(Name = "Alternative provision")]
-        [Required]
         public ClassType.AlternativeProvision AlternativeProvision { get; set; }
 
         [BindProperty(Name = "special-education-needs")]
-        [Display(Name = "Special education needs")]
-        [Required]
+        [Display(Name = "Special educational needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
 
         [BindProperty(Name = "faith-status")]
@@ -154,6 +152,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             }
 
             ValidateFaithFields();
+
+            if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(SchoolType))
+            {
+                if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
+                {
+                    ModelState.AddModelError("AlternativeProvision", "Select yes if it will have alternative provision");
+                }
+
+                if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
+                {
+                    ModelState.AddModelError("SpecialEducationNeeds", "Select yes if it will have special educational needs provision");
+                }
+
+            }
 
             if (!ModelState.IsValid)
             {
