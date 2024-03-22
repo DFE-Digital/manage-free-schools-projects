@@ -72,18 +72,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
           
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    OfstedInspection = new OfstedInspectionTask()
-                    {
-                        ProcessDetailsProvided =  project.OfstedInspection.ProcessDetailsProvided,
-                        InspectionBlockDecided = project.OfstedInspection.InspectionBlockDecided,
-                        OfstedAndTrustLiaisonDetailsConfirmed = project.OfstedInspection.OfstedAndTrustLiaisonDetailsConfirmed,
-                        BlockAndContentDetailsToOpenersSpreadSheet = project.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet, 
-                        SharedOutcomeWithTrust  = SharedOutcomeWithTrust,
-                        InspectionConditionsMet  = InspectionConditionsMet,
-                        ProposedToOpenOnGias = ProposedToOpenOnGias,
-                        SavedToWorkplaces =  SavedToWorkplaces,
-                    }
+                    OfstedInspection = project.OfstedInspection
                 };
+
+                request.OfstedInspection.SharedOutcomeWithTrust = SharedOutcomeWithTrust;
+                request.OfstedInspection.InspectionConditionsMet = InspectionConditionsMet;
+                request.OfstedInspection.ProposedToOpenOnGias = ProposedToOpenOnGias;
+                request.OfstedInspection.SavedToWorkplaces = SavedToWorkplaces;
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
                 return Redirect(string.Format(RouteConstants.ViewOfstedPreRegistrationTask, ProjectId));

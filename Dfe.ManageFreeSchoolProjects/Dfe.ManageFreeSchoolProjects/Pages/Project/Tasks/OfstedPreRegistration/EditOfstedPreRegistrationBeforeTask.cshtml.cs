@@ -68,22 +68,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
             SchoolName = project.SchoolName;
-
+         
           
-                var request = new UpdateProjectByTaskRequest()
-                {
-                    OfstedInspection = new OfstedInspectionTask()
-                    {
-                        ProcessDetailsProvided =  ProcessDetailsProvided,
-                        InspectionBlockDecided = InspectionBlockDecided,
-                        OfstedAndTrustLiaisonDetailsConfirmed = OfstedAndTrustLiaisonDetailsConfirmed,
-                        BlockAndContentDetailsToOpenersSpreadSheet = BlockAndContentDetailsToOpenersSpreadSheet, 
-                        SharedOutcomeWithTrust  = project.OfstedInspection.SharedOutcomeWithTrust,
-                        InspectionConditionsMet  = project.OfstedInspection.InspectionConditionsMet,
-                        ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias,
-                        SavedToWorkplaces =  project.OfstedInspection.SavedToWorkplaces,
-                    }
-                };
+            var request = new UpdateProjectByTaskRequest()
+            {
+                OfstedInspection = project.OfstedInspection
+            };
+
+            request.OfstedInspection.ProcessDetailsProvided = ProcessDetailsProvided;
+            request.OfstedInspection.InspectionBlockDecided = InspectionBlockDecided;
+            request.OfstedInspection.OfstedAndTrustLiaisonDetailsConfirmed = OfstedAndTrustLiaisonDetailsConfirmed;
+            request.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet = BlockAndContentDetailsToOpenersSpreadSheet; 
+                     
+                            
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
                 return Redirect(string.Format(RouteConstants.ViewOfstedPreRegistrationTask, ProjectId));
