@@ -73,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
             dbSite.TownOrCity = projectSite.Address.TownOrCity;
             dbSite.SitePostcodeOfSite = projectSite.Address.Postcode;
             dbSite.SiteStartDateOfSchoolOccupationActual = projectSite.StartDateOfSiteOccupation;
+            dbSite.DatePlanningPermissionObtained = projectSite.DatePlanningPermissionObtained;
         }
     }
 }

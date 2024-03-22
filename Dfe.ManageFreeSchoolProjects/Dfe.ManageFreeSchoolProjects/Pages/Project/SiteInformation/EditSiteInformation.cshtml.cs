@@ -48,6 +48,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         [StringLength(10, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Postcode { get; set; }
 
+        [BindProperty(Name = "date-planning-permission-obtained", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date planning permission obtained")]
+        public DateTime? DatePlanningPermissionObtained { get; set; }
+
         [BindProperty(Name = "start-date-of-site-occupation", BinderType = typeof(DateInputModelBinder))]
         [DisplayName("Start date of site occupation")]
         public DateTime? StartDateOfSiteOccupation { get; set; }
@@ -74,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
             TownOrCity = site.Address.TownOrCity;
             Postcode = site.Address.Postcode;
             StartDateOfSiteOccupation = site.StartDateOfSiteOccupation;
+            DatePlanningPermissionObtained = site.DatePlanningPermissionObtained;
             SchoolName = sites.SchoolName;
 
             return Page();
@@ -96,7 +101,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
                     TownOrCity = TownOrCity,
                     Postcode = Postcode
                 },
-                StartDateOfSiteOccupation = StartDateOfSiteOccupation
+                StartDateOfSiteOccupation = StartDateOfSiteOccupation,
+                DatePlanningPermissionObtained = DatePlanningPermissionObtained
             };
 
             await _updateProjectSitesService.Execute(ProjectId, updateRequest, SiteType);

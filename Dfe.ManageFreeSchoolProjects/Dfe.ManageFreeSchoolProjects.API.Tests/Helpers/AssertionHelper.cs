@@ -1,9 +1,4 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
@@ -13,6 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
         {
             actual.Address.Should().BeEquivalentTo(expected.Address);
             actual.StartDateOfSiteOccupation.Value.Date.Should().Be(expected.StartDateOfSiteOccupation.Value.Date);
+            actual.DatePlanningPermissionObtained.Should().Be(expected.DatePlanningPermissionObtained);
         }
     }
 }

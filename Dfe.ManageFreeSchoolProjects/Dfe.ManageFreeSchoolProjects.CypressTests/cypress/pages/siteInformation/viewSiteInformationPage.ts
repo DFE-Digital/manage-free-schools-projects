@@ -12,6 +12,12 @@ export class ViewSiteInformationPage {
         return this;
     }
 
+    public hasTemporarySiteDatePlanningPermissionObtained(value: string): this {
+        cy.getByTestId("temporary-site-date-planning-permission-obtained").should("contain.text", value);
+
+        return this;
+    }
+
     public hasTemporarySiteStartDateOfOccupation(value: string): this {
         cy.getByTestId("temporary-site-start-date-of-site-occupation").should("contain.text", value);
 
@@ -26,6 +32,12 @@ export class ViewSiteInformationPage {
 
     public hasPermanentSitePostcode(postcode: string): this {
         cy.getByTestId("permanent-site-postcode").should("contain.text", postcode);
+
+        return this;
+    }
+
+    public hasPermanentSiteDatePlanningPermissionObtained(value: string): this {
+        cy.getByTestId("permanent-site-date-planning-permission-obtained").should("contain.text", value);
 
         return this;
     }
