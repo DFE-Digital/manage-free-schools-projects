@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
 {
     public class ProjectSite
     {
         public ProjectSiteAddress Address { get; set; } = new();
+        public DateTime? StartDateOfSiteOccupation { get; set; }
+        public DateTime? DatePlanningPermissionObtained { get; set; }
     }
 
     public class ProjectSiteAddress
