@@ -16,8 +16,8 @@
 }
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
                 @Model.Project.SchoolName
             </span>
             Region and local authority
@@ -33,7 +33,7 @@
                                   name="mark-as-completed"
                                   id="mark-as-completed" />
 
-            <button class="govuk-button" data-module="govuk-button">
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
             </button>
         </form>
