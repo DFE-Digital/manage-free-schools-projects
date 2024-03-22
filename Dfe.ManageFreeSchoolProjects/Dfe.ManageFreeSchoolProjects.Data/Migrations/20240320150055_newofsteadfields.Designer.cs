@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240320150055_newofsteadfields")]
+    partial class newofsteadfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5095,9 +5098,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.DGP Forecast date");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces")
+                    b.Property<bool?>("FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkspaces")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Documents And G6 Saved To Workplaces");
+                        .HasColumnName("Fsg Pre Opening Milestones. Milestones Documents And G6 Saved To Workspaces");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesEaoActualDateOfCompletion")
                         .HasColumnType("date")
@@ -5249,7 +5252,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool?>("FsgPreOpeningMilestonesInspectionBlockDecided")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Inspection Block Decided");
+                        .HasColumnName("Fsg Pre Opening Milestones. Milestones Inspection Block Decided");
 
                     b.Property<string>("FsgPreOpeningMilestonesInspectionConditionsMet")
                         .HasMaxLength(100)
@@ -5638,7 +5641,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool?>("FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Ofsted And Trust Liaison Details Confirmed");
+                        .HasColumnName("Fsg Pre Opening Milestones.Ofsted And Trust Liaison Details Confirmed");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesOprActualDateOfCompletion")
                         .HasColumnType("date")
@@ -5701,11 +5704,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool?>("FsgPreOpeningMilestonesProcessDetailsProvided")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Process Details Provided");
+                        .HasColumnName("Fsg Pre Opening Milestones. Milestones Process Details Provided");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesProposedToOpenOnGias")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Proposed To Open On Gias");
+                        .HasColumnName("Fsg Pre Opening Milestones. Milestones Proposed To Open On Gias");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesRomActualDateOfCompletion")
                         .HasColumnType("date")
@@ -5793,7 +5796,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool?>("FsgPreOpeningMilestonesSharedOutcomeWithTrust")
                         .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. Shared Outcome With Trust");
+                        .HasColumnName("Fsg Pre Opening Milestones. Milestones Shared Outcome With Trust");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesSiteKickOffMeetingHeldActualDate")
                         .HasColumnType("date")
@@ -10508,9 +10511,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.Property<DateTime?>("DatePlanningPermissionObtained")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
@@ -10976,12 +10976,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(9)")
                         .HasColumnName("TOS");
-
-                    b.Property<string>("TownOrCity")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("TownOrCity");
 
                     b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");

@@ -45,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Name = Name,
 				Label = Label,
 				HeadingLabel = HeadingLabel,
-				Hint = Hint,
+				Hint = Hint ?? "For example, 27 3 2021",
 				AddMargin = AddMargin
 			};
 

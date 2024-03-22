@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240321144823_newofsteadfieldsrenamedfields")]
+    partial class newofsteadfieldsrenamedfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -10508,9 +10511,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.Property<DateTime?>("DatePlanningPermissionObtained")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
@@ -10976,12 +10976,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(9)")
                         .HasColumnName("TOS");
-
-                    b.Property<string>("TownOrCity")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("TownOrCity");
 
                     b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");

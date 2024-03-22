@@ -33,6 +33,24 @@
                 </dd>
             </div>
 
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Date planning permission obtained
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-date-planning-permission-obtained">
+                    <govuk-display-value value="@Model.Site.DatePlanningPermissionObtained.ToDateString()" />
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Start date of site occupation
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="@Model.IdPrefix-site-start-date-of-site-occupation">
+                    <govuk-display-value value="@Model.Site.StartDateOfSiteOccupation.ToDateString()" />
+                </dd>
+            </div>
+
         </dl>
     </div>
 </div>
