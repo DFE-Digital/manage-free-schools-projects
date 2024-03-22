@@ -212,6 +212,26 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .selectOption("Mainstream")
                 .continue();
+            
+            
+            Logger.log("Check class types validation");
+            createProjectPage
+                .titleIs("Will it have any of these provisions?")
+                .continue()
+                .errorMessage("Select yes if it will have a nursery")
+                .errorMessage("Select yes if it will have a sixth form")
+                .errorMessage("Select yes if it will have an alternative provision")
+                .errorMessage("Select yes if it will have a special education needs")
+
+            cy.executeAccessibilityTests();
+
+            Logger.log("Set class types");
+            createProjectPage
+                .setNurseryTo("Yes")
+                .setSixthFormTo("Yes")
+                .setAlternativeProvisionTo("Yes")
+                .setSpecialEducationNeedsTo("No")
+                .continue();
 
             Logger.log("Check school phase validation");
             createProjectPage
@@ -224,21 +244,6 @@ describe("Testing the project creation journey", () => {
             Logger.log("Selecting Secondary school phase");
             createProjectPage
                 .selectOption("Secondary")
-                .continue();
-
-            Logger.log("Check class types validation");
-            createProjectPage
-                .titleIs("Will it have any of these class types?")
-                .continue()
-                .errorMessage("Select yes if it will have a nursery")
-                .errorMessage("Select yes if it will have a sixth form")
-
-            cy.executeAccessibilityTests();
-
-            Logger.log("Set class types");
-            createProjectPage
-                .setNurseryTo("Yes")
-                .setSixthFormTo("Yes")
                 .continue();
 
             Logger.log("Check age range validation-limited");
@@ -378,15 +383,18 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
                 .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
-                .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+                .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
+                .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+                .summaryShows("Alternative provision (Specialist resource provision)").HasValue("Yes").HasChangeLink()
+                .summaryShows("Special education needs (Specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
-                .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
+                .summaryShows("Forms of entry").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
@@ -455,15 +463,17 @@ describe("Testing the project creation journey", () => {
                 .selectOption("Mainstream")
                 .continue();
 
-            Logger.log("Selecting Secondary school phase");
-            createProjectPage
-                .selectOption("Secondary")
-                .continue();
-
             Logger.log("Select valid class types and continue");
             createProjectPage
                 .setSixthFormTo("Yes")
                 .setNurseryTo("No")
+                .setAlternativeProvisionTo("No")
+                .setSpecialEducationNeedsTo("Yes")
+                .continue();
+
+            Logger.log("Selecting Secondary school phase");
+            createProjectPage
+                .selectOption("Secondary")
                 .continue();
 
             Logger.log("Enter valid age range");
@@ -505,6 +515,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
+                .summaryShows("Alternative provision (Specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Special education (Specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
@@ -589,6 +601,20 @@ describe("Testing the project creation journey", () => {
                 .SummaryHasValue("Sixth form", "Yes")
                 .SummaryHasValue("Nursery", "No");
 
+            Logger.log("Change Alternative provision")
+            summaryPage.clickChangeFor("Alternative provision");
+            createProjectPage.setAlternativeProvisionTo("Yes")
+                .continue();
+            summaryPage
+                .SummaryHasValue("Alternative provision (Specialist resource provision)", "Yes")
+
+            Logger.log("Change Special education needs")
+            summaryPage.clickChangeFor("Special education needs");
+            createProjectPage.setAlternativeProvisionTo("No")
+                .continue();
+            summaryPage
+                .SummaryHasValue("Special education needs (Specialist resource provision)", "No")
+
             Logger.log("Change School phase")
             summaryPage.clickChangeFor("School phase");
             createProjectPage
@@ -614,9 +640,12 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .isOptionChecked("Mainstream")
                 .selectOption("Special")
+                .continue()
                 .continue();
             summaryPage
-                .SummaryHasValue("School type", "Special");
+                .SummaryHasValue("School type", "Special")
+                .SummaryHasValue("Alternative provision (Specialist resource provision)", "NotSet")
+                .SummaryHasValue("Special education needs (Specialist resource provision)", "NotSet");
 
             Logger.log("Nursery is not shown if No is selected");
             Logger.log("Change capacity")

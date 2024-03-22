@@ -79,6 +79,8 @@ describe("Testing project overview", () => {
         createProjectPage
             .setNurseryTo("Yes")
             .setSixthFormTo("Yes")
+            .setAlternativeProvisionTo("No")
+            .setSpecialEducationNeedsTo("Yes")
             .continue();
 
         createProjectPage
