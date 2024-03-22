@@ -31,6 +31,8 @@
         public EvidenceOfAcceptedOffersTask EvidenceOfAcceptedOffers { get; set; }
 
         public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
+        
+        public OfstedInspectionTask OfstedInspection { get; set; }
 
         public string TaskToUpdate
         {
@@ -72,6 +74,8 @@
                     return TaskName.ImpactAssessment.ToString();
                 if (EvidenceOfAcceptedOffers != null)
                     return TaskName.EvidenceOfAcceptedOffers.ToString();
+                if (OfstedInspection != null)
+                    return TaskName.OfstedInspection.ToString();
                 return null;
             }
         }

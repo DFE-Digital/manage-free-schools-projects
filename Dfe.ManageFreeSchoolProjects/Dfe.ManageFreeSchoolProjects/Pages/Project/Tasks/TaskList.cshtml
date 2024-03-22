@@ -23,7 +23,7 @@
     var equalitiesAssessmentLink = string.Format(RouteConstants.ViewEqualitiesAssessmentTask, Model.ProjectId);
     var impactAssessmentLink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
-    
+    var @OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -286,6 +286,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@OfstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
+                                Ofsted pre-registration
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.OfstedInspection);
                         }
                     </li>
                 </ul>

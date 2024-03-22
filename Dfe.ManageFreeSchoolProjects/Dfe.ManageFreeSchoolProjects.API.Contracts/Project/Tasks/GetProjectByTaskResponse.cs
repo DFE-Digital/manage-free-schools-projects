@@ -33,5 +33,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ImpactAssessmentTask ImpactAssessment { get; set; }
         
         public EvidenceOfAcceptedOffersTask EvidenceOfAcceptedOffers { get; set; }
+        
+        
+        public OfstedInspectionTask OfstedInspection { get; set; }
     }
 }
