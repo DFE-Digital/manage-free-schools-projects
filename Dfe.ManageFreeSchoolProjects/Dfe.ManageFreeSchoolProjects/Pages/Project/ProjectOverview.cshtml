@@ -8,6 +8,10 @@
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsSummaryLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
+    var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
+
+    var temporarySite = Model.Project.SiteInformation.TemporarySite;
+    var permanentSite = Model.Project.SiteInformation.PermanentSite;
 }
 
 @section BeforeMain
@@ -164,6 +168,22 @@
                 </dd>
 
             </div>
+            @{
+                if (Model.Project.ProjectStatus.DateSchoolClosed.HasValue)
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Date school closed
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="date-school-closed">
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.DateSchoolClosed.ToDateString());
+                            }
+                        </dd>
+
+                    </div>
+                }
+            }
         </dl>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
@@ -452,7 +472,7 @@
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Site information</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="" data-testid="change-site-information">
+                    <a class="govuk-link" href="@siteInformationLink" data-testid="change-site-information">
                         View details<span class="govuk-visually-hidden">Change site information</span>
                     </a>
                 </div>
@@ -463,19 +483,42 @@
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Property
+                            Temporary site address
                         </dt>
-                        <dd class="govuk-summary-list__value" data-testid="property">
-                            <govuk-display-value value="@Model.Project.SiteInformation.Property" />
+                        <dd class="govuk-summary-list__value" data-testid="temporary-site-address">
+                            <govuk-address
+                                address-line1="@temporarySite.Address.AddressLine1"
+                                address-line2="@temporarySite.Address.AddressLine2"
+                                address-line3="@temporarySite.Address.TownOrCity" />
                         </dd>
                     </div>
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Postcode
+                            Temporary site postcode
                         </dt>
-                        <dd class="govuk-summary-list__value" data-testid="postcode">
-                            <govuk-display-value value="@Model.Project.SiteInformation.Postcode" />
+                        <dd class="govuk-summary-list__value" data-testid="temporary-site-postcode">
+                            <govuk-display-value value="@temporarySite.Address.Postcode" />
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Permanent site address
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="permanent-site-address">
+                            <govuk-address address-line1="@permanentSite.Address.AddressLine1"
+                                           address-line2="@permanentSite.Address.AddressLine2"
+                                           address-line3="@permanentSite.Address.TownOrCity" />
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Permanent site postcode
+                        </dt>
+                        <dd class="govuk-summary-list__value" data-testid="permanent-site-postcode">
+                            <govuk-display-value value="@permanentSite.Address.Postcode" />
                         </dd>
                     </div>
                 </dl>

@@ -6,6 +6,10 @@
         public const string TaskList = "/projects/{0}/tasks";
         public const string CreateProject = "/project/create";
 
+        public const string ViewSiteInformation = "/projects/{0}/site-information";
+        public const string EditPermanentSiteInformation = "/projects/{0}/site-information/permanent/edit";
+        public const string EditTemporarySiteInformation = "/projects/{0}/site-information/temporary/edit";
+
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
 
@@ -59,6 +63,13 @@
         
         public const string ViewImpactAssessmentTask = TaskList + "/impact-assessment";
         public const string EditImpactAssessmentTask = ViewImpactAssessmentTask + "/edit";
+        
+        public const string ViewAcceptedOffersEvidenceTask = TaskList + "/accepted-offers-evidence";
+        public const string EditAcceptedOffersEvidenceTask = ViewAcceptedOffersEvidenceTask + "/edit";
+        
+        public const string ViewOfstedPreRegistrationTask = TaskList + "/ofsted-pre-registration";
+        public const string EditBeforeOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-before-inspection";
+        public const string EditAfterOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-after-inspection";
         
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";

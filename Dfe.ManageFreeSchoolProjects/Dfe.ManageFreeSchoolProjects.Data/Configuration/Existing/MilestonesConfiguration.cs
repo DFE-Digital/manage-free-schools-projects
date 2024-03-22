@@ -581,6 +581,37 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property((e => e.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces))
                 .HasColumnType("bit")
                 .HasColumnName("FSG Pre Opening. Milestones Impact Assessment Saved To Workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Seen Evidence Of Accepted Offers");
+            builder.Property(e => e.FsgPreOpeningMilestonesAcceptedOffersComments)
+                .HasMaxLength(999)
+                .IsUnicode(false)
+                .HasColumnName("Fsg Pre Opening Milestones. Accepted Offers Comments");
+            builder.Property(e => e.FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Accepted Offers Email Saved To Workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesProcessDetailsProvided)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Process Details Provided");
+            builder.Property(e => e.FsgPreOpeningMilestonesInspectionBlockDecided)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Inspection Block Decided");
+            builder.Property(e => e.FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Ofsted And Trust Liaison Details Confirmed");
+            builder.Property(e => e.FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Block And Content Details To Openers SpreadSheet");
+            builder.Property(e => e.FsgPreOpeningMilestonesSharedOutcomeWithTrust)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Shared Outcome With Trust");
+            builder.Property(e => e.FsgPreOpeningMilestonesProposedToOpenOnGias)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Proposed To Open On Gias");
+            builder.Property(e => e.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. Documents And G6 Saved To Workplaces");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)

@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
         public string ActualOpeningDate { get; set; }
         public string OpeningAcademicYear { get; set; }
+        public DateTime? DateSchoolClosed { get; set; }
     }
 
     public record SchoolDetailsResponse
@@ -63,8 +65,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public record SiteInformationResponse
     {
-        public string Property { get; set; }
-        public string Postcode { get; set; }
+        public ProjectSite TemporarySite { get; set; }
+        public ProjectSite PermanentSite { get; set; }
     }
 
     public record ProjectRiskOverviewResponse

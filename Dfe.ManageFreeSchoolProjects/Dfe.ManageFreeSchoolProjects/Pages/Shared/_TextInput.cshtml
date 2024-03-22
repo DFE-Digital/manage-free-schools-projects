@@ -17,7 +17,7 @@
 				</label>
 			</h1>
 		}
-		if (Model.BoldLabel)
+		if (Model.BoldLabel == true)
 		{
 			<label class="govuk-label govuk-label--m" for="@Model.Id">
 				@Model.Label
@@ -42,7 +42,7 @@
 			<span class="govuk-visually-hidden">Error:</span> @Model.ErrorMessage
 		</span>
 	}
-	<input class="govuk-input @width @(showError ? "govuk-input--error" : "") @margin"
+	<input class="govuk-input @width @(showError ? "govuk-input--error" : "") @margin @Model.InputStyles"
 	       id="@Model.Id"
 	       name="@Model.Name"
 	       value="@Model.Value"
