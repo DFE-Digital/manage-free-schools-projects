@@ -11,5 +11,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public int? UserId { get; set; }
 
         public User? User { get; set; }
+
+        public string SchoolDetailsAlternativeProvision { get; set; }
+
+        public string SchoolDetailsSpecialEducationNeeds { get; set; }
     }
 }

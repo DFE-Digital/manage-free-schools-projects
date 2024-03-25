@@ -164,10 +164,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string SchoolDetailsSixthFormType { get; set; }
 
-        public string SchoolDetailsAlternativeProvision { get; set; }
-
-        public string SchoolDetailsSpecialEducationNeeds { get; set; }
-
         public string SchoolDetailsIndependentConverter { get; set; }
 
         public string SchoolDetailsSpecialistResourceProvision { get; set; }

@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             AlternativeProvision = project.AlternativeProvision;
             SpecialEducationNeeds = project.SpecialEducationNeeds;
 
-            if (project.ReachedCheckYourAnswers)
+            if (project.ReachedCheckYourAnswers && !(project.PreviousSchoolType.Equals(SchoolType.NotSet)))
             {
                 project.SchoolType = project.PreviousSchoolType;
             }
@@ -83,12 +83,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {   
                 if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
                 {
-                    ModelState.AddModelError("alternative-provision", "Select yes if it will have an alternative provision");
+                    ModelState.AddModelError("alternative-provision", "Select yes if it will have alternative provision");
                 }
 
                 if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
                 {
-                    ModelState.AddModelError("special-education-needs", "Select yes if it will have a special educational needs provision");
+                    ModelState.AddModelError("special-education-needs", "Select yes if it will have special educational needs provision");
                 }
 
             }
