@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration.ViewOfstedPreRegistrationModel
 @{
-    ViewData["Title"] = $"Ofsted pre registration - {Model.Project.SchoolName}";
+    ViewData["Title"] = $"Ofsted pre-registration - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editBeforelink = string.Format(RouteConstants.EditBeforeOfstedInspectionTask, Model.ProjectId);
@@ -29,7 +29,7 @@
             Before the inspection
         </h2>
         <govuk-summary-list>
-            <govuk-summary-item label="Provided the trust with details about the process" asp-for="@ofstedPreRegistration.ProcessDetailsProvided" href="@editBeforelink"/>
+            <govuk-summary-item label="Provided the trust with details about the process" asp-for="@ofstedPreRegistration.ProcessDetailsProvided" href="@editBeforelink" id="beforepagelink"/>
             <govuk-summary-item label="Decided on the inspection block" asp-for="@ofstedPreRegistration.InspectionBlockDecided" href="@editBeforelink"/>
             <govuk-summary-item label="Confirmed contact details for Ofsted and the trust to liaise with each other" asp-for="@ofstedPreRegistration.OfstedAndTrustLiaisonDetailsConfirmed" href="@editBeforelink"/>
             <govuk-summary-item label="Added the block and contact details to openers spreadsheet" asp-for="@ofstedPreRegistration.BlockAndContentDetailsToOpenersSpreadSheet" href="@editBeforelink"/>
@@ -40,7 +40,7 @@
         </h2>
         
         <govuk-summary-list>
-            <govuk-summary-item label="Shared the outcome with the trust" asp-for="@ofstedPreRegistration.SharedOutcomeWithTrust" href="@editAfterlink" />
+            <govuk-summary-item label="Shared the outcome with the trust" asp-for="@ofstedPreRegistration.SharedOutcomeWithTrust" href="@editAfterlink" id="afterpagelink" />
             <govuk-summary-item label="Any actions to meet conditions have been taken - if applicable" asp-for="@ofstedPreRegistration.InspectionConditionsMet" href="@editAfterlink" />
             <govuk-summary-item label="Requested that the school is changed to 'proposed to open' on GIAS" asp-for="@ofstedPreRegistration.ProposedToOpenOnGias" href="@editAfterlink"/>
             <govuk-summary-item label="Saved inspection documents and G6 agreement in Workplaces folder" asp-for="@ofstedPreRegistration.SavedToWorkplaces" href="@editAfterlink" />
