@@ -66,7 +66,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites
                     AddressLine2 = property.SiteAddressOfSite,
                     TownOrCity = property.TownOrCity,
                     Postcode = property.SitePostcodeOfSite,
-                }
+                },
+                StartDateOfSiteOccupation = property.SiteStartDateOfSchoolOccupationActual,
+                DatePlanningPermissionObtained = property.DatePlanningPermissionObtained,
             };
         }
     }
