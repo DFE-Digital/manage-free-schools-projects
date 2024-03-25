@@ -82,6 +82,11 @@ export class SummaryPage {
         cy.contains("Change").click();
         return this;
     }
+    
+    public clickChangeById(string): this {
+        cy.getById(string).click();
+        return this;
+    }
 
     public SummaryHasValue(name: string, value: string): this {
         cy.get(".govuk-summary-list__key").contains(name).parent().should("contains.text", value);
