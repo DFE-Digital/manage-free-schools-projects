@@ -70,6 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(ImpactAssessmentTask.ImpactAssessment), "Yes", project, columnHeaders);
             AssertEntry(nameof(EqualitiesAssessmentTask.CompletedEqualitiesProcessRecord), "Yes", project, columnHeaders);
             AssertEntry(nameof(EvidenceOfAcceptedOffersTask.EvidenceOfAcceptedOffers), "Yes" , project, columnHeaders);
+            AssertEntry(nameof(OfstedInspectionTask.InspectionBlockDecided), "Yes" , project, columnHeaders);
             
         }
 
@@ -157,7 +158,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         EvidenceOfAcceptedOffers = new EvidenceOfAcceptedOffersTask()
                         {
                             EvidenceOfAcceptedOffers = true,
-                        }
+                        },
+                        OfstedInspection = new OfstedInspectionTask()
+                        {
+                            InspectionBlockDecided = true,
+                        },
+                        
                     }
                 }
             };

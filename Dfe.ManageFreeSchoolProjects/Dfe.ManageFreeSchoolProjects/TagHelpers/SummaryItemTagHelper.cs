@@ -12,6 +12,10 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         [HtmlAttributeName("label")]
         public string Label { get; set; }
+        
+        [HtmlAttributeName("id")]
+        
+        public string Id { get; set; }
 
         [HtmlAttributeName("asp-for")]
         public ModelExpression For { get; set; }
@@ -126,6 +130,16 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 return string.Empty;
             }
 
+            if (Id is not null)
+            {
+
+                return $@"<dd class=""govuk-summary-list__actions"">
+                        <a class=""govuk-link"" href={Href} Id={Id + "-changelink"}>
+                            Change<span class=""govuk-visually-hidden"">{Label}</span>
+                        </a>                   
+                     </dd>";
+            }
+            
             return $@"<dd class=""govuk-summary-list__actions"">
                         <a class=""govuk-link"" href={Href}>
                             Change<span class=""govuk-visually-hidden"">{Label}</span>
