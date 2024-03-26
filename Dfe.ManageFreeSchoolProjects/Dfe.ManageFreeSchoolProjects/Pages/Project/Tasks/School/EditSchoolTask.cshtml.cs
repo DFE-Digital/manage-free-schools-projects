@@ -167,6 +167,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
             }
 
+            else
+            {
+                AlternativeProvision = ClassType.AlternativeProvision.NotSet;
+                SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
+            }
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);

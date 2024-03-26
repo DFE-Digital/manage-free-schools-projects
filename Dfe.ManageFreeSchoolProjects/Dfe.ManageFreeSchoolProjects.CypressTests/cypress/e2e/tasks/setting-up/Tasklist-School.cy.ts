@@ -49,8 +49,6 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").IsEmpty().HasChangeLink()
             .summaryShows("Nursery").IsEmpty().HasChangeLink()
             .summaryShows("Sixth form").IsEmpty().HasChangeLink()
-            .summaryShows("Alternative provision").IsEmpty().HasChangeLink()
-            .summaryShows("Special education needs").IsEmpty().HasChangeLink()
             .summaryShows("Faith status").IsEmpty().HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -114,7 +112,7 @@ describe("Testing project overview", () => {
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
             .summaryShows("Alternative provision").HasValue("No")
-            .summaryShows("Special education needs").HasValue("No")
+            .summaryShows("Special educational needs").HasValue("No")
             .summaryShows("Faith status").HasValue("Designation")
             .summaryShows("Faith type").HasValue("Jewish")
             .clickChange();
@@ -128,8 +126,6 @@ describe("Testing project overview", () => {
             .withGender("BoysOnly")
             .withNursery("No")
             .withSixthForm("Yes")
-            .withAlternativeProvision("Yes")
-            .withSpecialEducationNeeds("Yes")
             .withFaithStatus("Ethos")
             .withFaithType("Christian")
             .clickContinue();
@@ -145,8 +141,6 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Boys only")
             .summaryShows("Nursery").HasValue("No")
             .summaryShows("Sixth form").HasValue("Yes")
-            .summaryShows("Alternative provision").HasValue("Yes")
-            .summaryShows("Special education needs").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Ethos")
             .summaryShows("Faith type").HasValue("Christian")
             .clickChange();
@@ -235,5 +229,28 @@ describe("Testing project overview", () => {
 
         validationComponent
             .hasValidationError("Faith type is required");
+    });
+
+    it("Should validate the class type field if a school type with specialist provisions is selected", () => {
+
+        taskListPage.selectSchoolFromTaskList();
+
+        summaryPage.clickChange();
+
+        schoolDetailsPage
+            .withSchoolType("Mainstream")
+            .withSchoolPhase("Secondary")
+            .withAgeRange("11", "16")
+            .withFormsOfEntry("3")
+            .withGender("Mixed")
+            .withNursery("Yes")
+            .withSixthForm("No")
+            .withFaithStatus("Designation")
+            .withFaithType("Christian")
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("Select yes if it will have alternative provision")
+            .hasValidationError("Select yes if it will have special educational needs provision");
     });
 });
