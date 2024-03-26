@@ -1,3 +1,9 @@
+## 0.2.0
+* 158662 - Build: add 'Date school closed' to the 'About the project page'
+* 147103 Build: Accepted offers evidence
+* 157319 Build: Site information
+* 147105 Build: Ofsted task
+
 ## 0.1.0
 * 158209 - add 'Nursery' to 'What is the capacity?' page
 * 147097 - Education brief
