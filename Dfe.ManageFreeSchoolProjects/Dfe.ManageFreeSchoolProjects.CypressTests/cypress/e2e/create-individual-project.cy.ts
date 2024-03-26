@@ -607,11 +607,11 @@ describe("Testing the project creation journey", () => {
             createProjectPage.setAlternativeProvisionTo("Yes")
                 .continue();
             summaryPage
-                .SummaryHasValue("Alternative provision (Specialist resource provision)", "Yes")
+                .SummaryHasValue("Alternative provision (specialist resource provision)", "Yes")
 
             Logger.log("Change Special educational needs")
             summaryPage.clickChangeFor("Special educational needs");
-            createProjectPage.setAlternativeProvisionTo("No")
+            createProjectPage.setSpecialEducationNeedsTo("No")
                 .continue();
             summaryPage
                 .SummaryHasValue("Special educational needs (specialist resource provision)", "No")
@@ -645,8 +645,8 @@ describe("Testing the project creation journey", () => {
                 .continue();
             summaryPage
                 .SummaryHasValue("School type", "Special")
-                .SummaryHasValue("Alternative provision (specialist resource provision)", "NotSet")
-                .SummaryHasValue("Special educational needs (specialist resource provision)", "NotSet");
+                .SummaryHasValue("Alternative provision (specialist resource provision)", "Empty")
+                .SummaryHasValue("Special educational needs (specialist resource provision)", "Empty");
 
             Logger.log("Nursery is not shown if No is selected");
             Logger.log("Change capacity")

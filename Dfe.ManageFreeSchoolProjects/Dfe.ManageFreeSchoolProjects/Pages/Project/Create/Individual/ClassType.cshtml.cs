@@ -70,7 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public IActionResult OnPost()
         {
             var project = _createProjectCache.Get();
-            if (project.ReachedCheckYourAnswers)
+            if (project.ReachedCheckYourAnswers && !(project.PreviousSchoolType.Equals(SchoolType.NotSet)))
             {
                 project.SchoolType = project.PreviousSchoolType;
             }
