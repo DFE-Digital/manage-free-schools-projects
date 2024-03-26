@@ -14,4 +14,16 @@ public abstract class ClassType
         Yes,
         No
     }
+    public enum AlternativeProvision
+    {
+        NotSet,
+        Yes,
+        No
+    }
+    public enum SpecialEducationNeeds
+    {
+        NotSet,
+        Yes,
+        No
+    }
 }

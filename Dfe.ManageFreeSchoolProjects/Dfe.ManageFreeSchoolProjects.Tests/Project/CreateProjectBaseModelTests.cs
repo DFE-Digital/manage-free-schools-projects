@@ -17,9 +17,9 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.SchoolName, RouteConstants.CreateProjectId)]
         [InlineData(CreateProjectPageName.Region, RouteConstants.CreateProjectSchool)]
         [InlineData(CreateProjectPageName.SearchTrust, RouteConstants.CreateProjectLocalAuthority)]
-        [InlineData(CreateProjectPageName.SchoolPhase, RouteConstants.CreateProjectSchoolType)]
-        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectSchoolPhase)]
-        [InlineData(CreateProjectPageName.AgeRange, RouteConstants.CreateClassType)]
+        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectSchoolType)]
+        [InlineData(CreateProjectPageName.SchoolPhase, RouteConstants.CreateClassType)]
+        [InlineData(CreateProjectPageName.AgeRange, RouteConstants.CreateProjectSchoolPhase)]
         [InlineData(CreateProjectPageName.Capacity, RouteConstants.CreateProjectAgeRange)]
         [InlineData(CreateProjectPageName.FaithStatus, RouteConstants.CreateProjectCapacity)]
         [InlineData(CreateProjectPageName.ProvisionalOpeningDate, RouteConstants.CreateFaithType)]
@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.FaithType, RouteConstants.CreateFaithStatus)]
         [InlineData(CreateProjectPageName.ConfirmTrustSearch, RouteConstants.CreateProjectSearchTrust)]
         [InlineData(CreateProjectPageName.SchoolPhase, RouteConstants.CreateProjectCheckYourAnswers)]
-        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectCheckYourAnswers)]
+        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectSchoolType)]
         public void GetPreviousPage_WhenReachedCheckYourAnswers_ReturnsCheckYourAnswers(CreateProjectPageName currentPage, string expectedPage)
         {
             var cache = Substitute.For<ICreateProjectCache>();
@@ -75,9 +75,9 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.SchoolName, RouteConstants.CreateProjectRegion)]
         [InlineData(CreateProjectPageName.LocalAuthority, RouteConstants.CreateProjectSearchTrust)]
         [InlineData(CreateProjectPageName.ConfirmTrustSearch, RouteConstants.CreateProjectSchoolType)]
-        [InlineData(CreateProjectPageName.SchoolType, RouteConstants.CreateProjectSchoolPhase)]
-        [InlineData(CreateProjectPageName.SchoolPhase, RouteConstants.CreateClassType)]
-        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectAgeRange)]
+        [InlineData(CreateProjectPageName.SchoolType, RouteConstants.CreateClassType)]
+        [InlineData(CreateProjectPageName.ClassType, RouteConstants.CreateProjectSchoolPhase)]
+        [InlineData(CreateProjectPageName.SchoolPhase, RouteConstants.CreateProjectAgeRange)]
         [InlineData(CreateProjectPageName.AgeRange, RouteConstants.CreateProjectCapacity)]
         [InlineData(CreateProjectPageName.Capacity, RouteConstants.CreateFaithStatus)]
         [InlineData(CreateProjectPageName.FaithType, RouteConstants.CreateProjectProvisionalOpeningDate)]
@@ -113,7 +113,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
         [InlineData(CreateProjectPageName.Region, RouteConstants.CreateProjectLocalAuthority)]
         [InlineData(CreateProjectPageName.ProjectId, RouteConstants.CreateProjectCheckYourAnswers)]
         [InlineData(CreateProjectPageName.SchoolName, RouteConstants.CreateProjectCheckYourAnswers)]
-        [InlineData(CreateProjectPageName.SchoolType, RouteConstants.CreateProjectCheckYourAnswers)]
+        [InlineData(CreateProjectPageName.SchoolType, RouteConstants.CreateClassType)]
         public void GetNextPage_WhenReachedCheckYourAnswers_ReturnsCheckYourAnswers(CreateProjectPageName currentPage, string expectedPage)
         {
             var cache = Substitute.For<ICreateProjectCache>();

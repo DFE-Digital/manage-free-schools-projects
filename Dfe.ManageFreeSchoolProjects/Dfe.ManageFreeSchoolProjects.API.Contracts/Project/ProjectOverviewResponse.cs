@@ -42,6 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string Gender { get; set; }
         public string Nursery { get; set; }
         public string SixthForm { get; set; }
+        public string AlternativeProvision { get; set; }
+        public string SpecialEducationNeeds { get; set; }
         public string IndependentConverter { get; set; }
         public string SpecialistResourceProvision { get; set; }
         public string FaithStatus { get; set; }

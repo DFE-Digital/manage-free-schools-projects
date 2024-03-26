@@ -69,6 +69,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
         [Required]
         public ClassType.SixthForm SixthForm { get; set; }
 
+        [BindProperty(Name = "alternative-provision")]
+        [Display(Name = "Alternative provision")]
+        public ClassType.AlternativeProvision AlternativeProvision { get; set; }
+
+        [BindProperty(Name = "special-education-needs")]
+        [Display(Name = "Special educational needs")]
+        public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
+
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
         [Required]
@@ -107,8 +115,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
+                AlternativeProvision = project.School.AlternativeProvision;
+                SpecialEducationNeeds = project.School.SpecialEducationNeeds;
                 Gender = project.School.Gender;
-                SixthForm = project.School.SixthForm;
                 FaithStatus = project.School.FaithStatus;
                 FaithType = project.School.FaithType;
                 OtherFaithType = project.School.OtherFaithType;
@@ -143,6 +152,26 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             }
 
             ValidateFaithFields();
+
+            if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(SchoolType))
+            {
+                if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
+                {
+                    ModelState.AddModelError("AlternativeProvision", "Select yes if it will have alternative provision");
+                }
+
+                if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
+                {
+                    ModelState.AddModelError("SpecialEducationNeeds", "Select yes if it will have special educational needs provision");
+                }
+
+            }
+
+            else
+            {
+                AlternativeProvision = ClassType.AlternativeProvision.NotSet;
+                SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -210,6 +239,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SchoolPhase = SchoolPhase,
                 Nursery = Nursery,
                 SixthForm = SixthForm,
+                AlternativeProvision = AlternativeProvision,
+                SpecialEducationNeeds = SpecialEducationNeeds,
                 Gender = Gender,
                 FaithStatus = FaithStatus,
                 FaithType = FaithType,

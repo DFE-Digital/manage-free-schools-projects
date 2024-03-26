@@ -39,6 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsGender = _fixture.Create<string>();
             result.SchoolDetailsNursery = _fixture.Create<string>();
             result.SchoolDetailsSixthForm = _fixture.Create<string>();
+            result.SchoolDetailsAlternativeProvision = _fixture.Create<string>();
+            result.SchoolDetailsSpecialEducationNeeds = _fixture.Create<string>();
             result.SchoolDetailsIndependentConverter = _fixture.Create<string>();
             result.SchoolDetailsSpecialistResourceProvision = _fixture.Create<string>();
             result.SchoolDetailsFaithStatus = _fixture.Create<string>();

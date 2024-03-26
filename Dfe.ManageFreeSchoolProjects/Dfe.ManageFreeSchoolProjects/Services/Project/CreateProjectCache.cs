@@ -39,11 +39,14 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public string LocalAuthorityCode { get; set; }
         public string ConfirmTrust { get; set; }
         public SchoolType SchoolType { get; set; }
+        public SchoolType PreviousSchoolType { get; set; }
         public SchoolPhase SchoolPhase { get; set; }
         public string TrustName { get; set; }
         public string TRN { get; set; }
         public ClassType.SixthForm SixthForm { get; set; }
         public ClassType.Nursery Nursery { get; set; }
+        public ClassType.AlternativeProvision AlternativeProvision { get; set; }
+        public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
         public string AgeRange { get; set; }
         public int? NurseryCapacity { get; set; }
         public int? YRY6Capacity { get; set; }

@@ -38,6 +38,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     SchoolPhase = SchoolPhase.Primary,
                     Nursery = ClassType.Nursery.No,
                     SixthForm = ClassType.SixthForm.No,
+                    AlternativeProvision = ClassType.AlternativeProvision.No,
+                    SpecialEducationNeeds = ClassType.SpecialEducationNeeds.Yes,
                     FaithStatus = FaithStatus.NotSet,
                     FaithType = FaithType.Other,
                     Gender = Gender.Mixed,
@@ -53,6 +55,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.School.AgeRange.Should().Be("11-18");
             projectResponse.School.Nursery.Should().Be(ClassType.Nursery.No);
             projectResponse.School.SixthForm.Should().Be(ClassType.SixthForm.No);
+            projectResponse.School.AlternativeProvision.Should().Be(ClassType.AlternativeProvision.No);
+            projectResponse.School.SpecialEducationNeeds.Should().Be(ClassType.SpecialEducationNeeds.Yes);
             projectResponse.SchoolName.Should().Be("Test High School");
             projectResponse.School.FormsOfEntry.Should().Be("3");
         }

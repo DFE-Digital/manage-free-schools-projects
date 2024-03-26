@@ -1,5 +1,7 @@
 ﻿@page "/projects/{projectId}/tasks/school/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Pages.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
@@ -17,6 +19,10 @@
     var nurseryTestIds = nurseryOptions.Select(x => $"nursery-{x}").ToArray();
     var sixthFormOptions = new[] { "No", "Yes" };
     var sixthFormTestIds = sixthFormOptions.Select(x => $"sixth-form-{x}").ToArray();
+    var alternativeProvisionOptions = new[] { "No", "Yes" };
+    var alternativeProvisionTestIds = alternativeProvisionOptions.Select(x => $"alternative-provision-{x}").ToArray();
+    var specialEducationNeedsOptions = new[] { "No", "Yes" };
+    var specialEducationNeedsTestIds = specialEducationNeedsOptions.Select(x => $"special-education-needs-{x}").ToArray();
 
     var genders = Enum.GetValues<Gender>().Except(new[] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
@@ -109,6 +115,27 @@
                                             values="@sixthFormOptions"
                                             test-ids="@sixthFormTestIds" />
                     </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="alternative-provision">Alternative provision</label>
+                        <govuk-radios-input name="alternative-provision"
+                        asp-for="@Model.AlternativeProvision"
+                        data-testid="alternative-provision"
+                        labels="@alternativeProvisionOptions"
+                        values="@alternativeProvisionOptions"
+                        test-ids="@alternativeProvisionTestIds" />
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="school-type">Special educational needs</label>
+                        <govuk-radios-input name="special-education-needs"
+                        asp-for="@Model.SpecialEducationNeeds"
+                        data-testid="special-education-needs"
+                        labels="@specialEducationNeedsOptions"
+                        values="@specialEducationNeedsOptions"
+                        test-ids="@specialEducationNeedsTestIds" />
+                    </div>
+
                     <div class="govuk-form-group">
                         <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
                         <govuk-radios-input name="faith-status"

@@ -94,6 +94,8 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withAlternativeProvision("No")
+            .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
             .withFaithType("Jewish")
             .clickContinue();
@@ -109,6 +111,8 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Mixed")
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
+            .summaryShows("Alternative provision").HasValue("No")
+            .summaryShows("Special educational needs").HasValue("No")
             .summaryShows("Faith status").HasValue("Designation")
             .summaryShows("Faith type").HasValue("Jewish")
             .clickChange();
@@ -218,10 +222,35 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withAlternativeProvision("No")
+            .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
             .clickContinue();
 
         validationComponent
             .hasValidationError("Faith type is required");
+    });
+
+    it("Should validate the class type field if a school type with specialist provisions is selected", () => {
+
+        taskListPage.selectSchoolFromTaskList();
+
+        summaryPage.clickChange();
+
+        schoolDetailsPage
+            .withSchoolType("Mainstream")
+            .withSchoolPhase("Secondary")
+            .withAgeRange("11", "16")
+            .withFormsOfEntry("3")
+            .withGender("Mixed")
+            .withNursery("Yes")
+            .withSixthForm("No")
+            .withFaithStatus("Designation")
+            .withFaithType("Christian")
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("Select yes if it will have alternative provision")
+            .hasValidationError("Select yes if it will have special educational needs provision");
     });
 });
