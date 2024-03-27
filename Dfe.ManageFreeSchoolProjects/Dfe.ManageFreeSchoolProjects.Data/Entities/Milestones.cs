@@ -107,5 +107,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         
         public bool? FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces { get; set; }
         
+        public bool? FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers { get; set; }
+        
+        public string FsgPreOpeningMilestonesApplicationsEvidenceComments { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces { get; set; }
+        
+        public bool? FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces { get; set; }
+        
     }
 }

@@ -612,6 +612,19 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces)
                 .HasColumnType("bit")
                 .HasColumnName("Fsg Pre Opening Milestones. Documents And G6 Saved To Workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. applications evidence confirmed pupil numbers");
+            builder.Property(e => e.FsgPreOpeningMilestonesApplicationsEvidenceComments)
+                .HasMaxLength(999)
+                .IsUnicode(false)
+                .HasColumnName("Fsg Pre Opening Milestones. applications evidence comments");
+            builder.Property(e => e.FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. applications evidence build up form saved to workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. applications evidence underwriting agreement saved to workplaces");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)
