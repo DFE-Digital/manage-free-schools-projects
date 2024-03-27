@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
@@ -19,6 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
+            var previousFreeSchoolName = project.ProjectStatusCurrentFreeSchoolName;
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
@@ -59,6 +61,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.School.SpecialEducationNeeds.Should().Be(ClassType.SpecialEducationNeeds.Yes);
             projectResponse.SchoolName.Should().Be("Test High School");
             projectResponse.School.FormsOfEntry.Should().Be("3");
+
+            using var updatedContext = _testFixture.GetContext();
+
+            var updatedProject = updatedContext.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+
+            updatedProject.ProjectStatusHasTheFreeSchoolChangedItsName.Should().Be("Yes");
+            updatedProject.ProjectStatusPreviousFreeSchoolName.Should().Be(previousFreeSchoolName);
         }
     }
 }
