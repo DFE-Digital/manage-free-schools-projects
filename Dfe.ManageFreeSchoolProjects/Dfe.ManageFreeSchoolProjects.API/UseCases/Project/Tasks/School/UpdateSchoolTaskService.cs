@@ -18,6 +18,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
             var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToString();
             var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
 
+            if (dbKpi.ProjectStatusCurrentFreeSchoolName != task.CurrentFreeSchoolName)
+            {
+                dbKpi.ProjectStatusPreviousFreeSchoolName = dbKpi.ProjectStatusCurrentFreeSchoolName;
+                dbKpi.ProjectStatusHasTheFreeSchoolChangedItsName = "Yes";
+            }
+
             dbKpi.ProjectStatusCurrentFreeSchoolName = task.CurrentFreeSchoolName;
             dbKpi.SchoolDetailsSchoolTypeMainstreamApEtc = ProjectMapper.ToSchoolType(task.SchoolType);
             dbKpi.SchoolDetailsSchoolPhasePrimarySecondary = ProjectMapper.ToSchoolPhase(task.SchoolPhase);
