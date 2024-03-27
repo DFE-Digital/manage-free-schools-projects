@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         EqualitiesAssessment,
         ImpactAssessment,
         EvidenceOfAcceptedOffers,
-        OfstedInspection
+        OfstedInspection,
+        ApplicationsEvidence
     }
 }

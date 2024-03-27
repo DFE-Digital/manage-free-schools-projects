@@ -270,6 +270,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones ApplicationsEvidenceTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers = false;
+            result.FsgPreOpeningMilestonesApplicationsEvidenceComments = "first test comments";
+            result.FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces = false;
+            result.FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces = false;
+            
+            return result;
+        }
+        
         public static Po PupilNumbersAndCapacity(string rid)
         {
             var result = new Po()

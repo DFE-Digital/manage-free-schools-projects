@@ -33,6 +33,8 @@
         public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
         
         public OfstedInspectionTask OfstedInspection { get; set; }
+        
+        public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
 
         public string TaskToUpdate
         {
@@ -76,6 +78,8 @@
                     return TaskName.EvidenceOfAcceptedOffers.ToString();
                 if (OfstedInspection != null)
                     return TaskName.OfstedInspection.ToString();
+                if (ApplicationsEvidence != null)
+                    return TaskName.ApplicationsEvidence.ToString();
                 return null;
             }
         }

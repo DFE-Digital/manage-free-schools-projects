@@ -1,6 +1,7 @@
 ﻿@page "/projects/{projectId}/tasks"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.TaskListModel
 @{
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
@@ -23,7 +24,8 @@
     var equalitiesAssessmentLink = string.Format(RouteConstants.ViewEqualitiesAssessmentTask, Model.ProjectId);
     var impactAssessmentLink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
-    var @OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
+    var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
+    var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -268,6 +270,19 @@
                     Getting ready to open
                 </h2>
                 <ul class="app-task-list__items">
+                    @if(Model.SchoolType is not (SchoolType.AlternativeProvision or SchoolType.Special))
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="@applicationsEvidenceLink" class="govuk-link" data-testid="applicationsevidence-task">
+                                    Applications evidence
+                                </a>
+                            </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.ApplicationsEvidence);
+                            }
+                        </li>
+                    }
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@acceptedOffersEvidenceLink" class="govuk-link" data-testid="acceptedoffersevidence-task">
