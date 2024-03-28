@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.EvidenceOfAcceptedOffers, TaskName = "Accepted offers evidence", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.ImpactAssessment, TaskName = "Impact assessment", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.OfstedInspection, TaskName = "Ofsted pre-registration", Section = "Getting ready to open" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.ApplicationsEvidence, TaskName = "Applications evidence", Section = "Getting ready to open" },
                 };
 
                 if (result.Headers.Count == 0)

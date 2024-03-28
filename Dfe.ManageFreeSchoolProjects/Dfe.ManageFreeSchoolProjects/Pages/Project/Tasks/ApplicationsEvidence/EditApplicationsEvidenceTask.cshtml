@@ -2,9 +2,9 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ApplicationsEvidence.EditApplicationsEvidenceTaskModel
 @{
-    ViewData["Title"] = $"Edit applications evidence - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Applications evidence - {Model.SchoolName}";
 
-    var backlink = string.Format(RouteConstants.EditApplicationsEvidenceTask, Model.ProjectId);
+    var backlink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -17,7 +17,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit applications evidence 
+    Edit Applications evidence 
 </h1>
 
 <div class="govuk-grid-row">

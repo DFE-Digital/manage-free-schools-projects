@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
@@ -99,7 +100,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       EqualitiesAssessment = EqualitiesAssessmentTaskBuilder.Build(milestones),
                                       StatutoryConsultation = StatutoryConsultationTaskBuilder.Build(milestones),
                                       EvidenceOfAcceptedOffers = EvidenceOfAcceptedOffersTaskBuilder.Build(milestones),
-                                      OfstedInspection = OfstedInspectionTaskBuilder.Build(milestones)
+                                      OfstedInspection = OfstedInspectionTaskBuilder.Build(milestones),
+                                      ApplicationsEvidence = ApplicationsEvidenceTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
