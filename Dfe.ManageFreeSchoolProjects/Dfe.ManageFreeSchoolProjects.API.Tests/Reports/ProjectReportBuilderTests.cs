@@ -71,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(EqualitiesAssessmentTask.CompletedEqualitiesProcessRecord), "Yes", project, columnHeaders);
             AssertEntry(nameof(EvidenceOfAcceptedOffersTask.EvidenceOfAcceptedOffers), "Yes" , project, columnHeaders);
             AssertEntry(nameof(OfstedInspectionTask.InspectionBlockDecided), "Yes" , project, columnHeaders);
-            
+            AssertEntry(nameof(ApplicationsEvidenceTask.ConfirmedPupilNumbers), "Yes" , project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -162,6 +162,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         OfstedInspection = new OfstedInspectionTask()
                         {
                             InspectionBlockDecided = true,
+                        },
+                        ApplicationsEvidence = new ApplicationsEvidenceTask()
+                        {
+                            ConfirmedPupilNumbers = true,
                         },
                         
                     }
