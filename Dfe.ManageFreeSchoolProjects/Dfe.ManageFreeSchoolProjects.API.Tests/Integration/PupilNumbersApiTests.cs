@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+﻿using Azure.Core;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
@@ -37,6 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var actualPupilNumbers = content.Data;
 
+            // CapacityWhenFull
             actualPupilNumbers.CapacityWhenFull.Nursery.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Nursery);
             actualPupilNumbers.CapacityWhenFull.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6);
             actualPupilNumbers.CapacityWhenFull.Year7ToYear11.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11);
@@ -44,12 +46,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.CapacityWhenFull.SpecialistEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialistEducationNeeds);
             actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
 
-            var totals = updatePupilNumbersRequest.CapacityWhenFull.Nursery +
+            var capacityTotals = updatePupilNumbersRequest.CapacityWhenFull.Nursery +
                          updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6 +
                          updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11 +
                          updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14;
 
-            actualPupilNumbers.CapacityWhenFull.TotalCapacity.Should().Be(totals);
+            actualPupilNumbers.CapacityWhenFull.Total.Should().Be(capacityTotals);
+
+            // Pre 16 PAN
+            //actualPupilNumbers.Pre16PublishedAdmissionNumber.Nursery.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Nursery);
+            //actualPupilNumbers.Pre16PublishedAdmissionNumber.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.ReceptionToYear6);
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Year7.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year7);
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Year10.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year10);
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.OtherPre16.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.OtherPre16);
+
+            var pre16PanTotals = updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year7 +
+                updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year10 +
+                updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.OtherPre16;
+
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Total.Should().Be(pre16PanTotals);
+
+            //// Post 16 PAN
+            actualPupilNumbers.Post16PublishedAdmissionNumber.Year12.Should().Be(updatePupilNumbersRequest.Post16PublishedAdmissionNumber.Year12);
+            actualPupilNumbers.Post16PublishedAdmissionNumber.OtherPost16.Should().Be(updatePupilNumbersRequest.Post16PublishedAdmissionNumber.OtherPost16);
+
+            var post16PanTotals = updatePupilNumbersRequest.Post16PublishedAdmissionNumber.Year12 + updatePupilNumbersRequest.Post16PublishedAdmissionNumber.OtherPost16;
+
+            actualPupilNumbers.Post16PublishedAdmissionNumber.Total.Should().Be(post16PanTotals);
         }
     }
 }

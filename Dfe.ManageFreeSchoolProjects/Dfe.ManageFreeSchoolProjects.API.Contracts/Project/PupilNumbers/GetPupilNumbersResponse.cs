@@ -10,15 +10,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
     {
         public CapacityWhenFullResponse CapacityWhenFull { get; set; }
         public RecruitmentAndViability RecruitmentAndViability { get; set; }
-        public Pre16PublishedAdmissionNumber Pre16PublishedAdmissionNumber { get; set; }
-        public Post16PublishedAdmissionNumber Post16PublishedAdmissionNumber { get; set; }
+        public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; }
+        public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; }
         public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; }
         public Post16CapacityBuildup Post16CapacityBuildup { get; set; }
     }
 
     public record CapacityWhenFullResponse : CapacityWhenFull
     {
-        public int TotalCapacity { get; set; }
+        public int Total { get; set; }
     }
 
     public record CapacityWhenFull
@@ -45,6 +45,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int ApplicationsReceived { get; set; }
     }
 
+    public record Pre16PublishedAdmissionNumberResponse : Pre16PublishedAdmissionNumber
+    {
+        public int Total { get; set; }
+    }
+
     public record Pre16PublishedAdmissionNumber
     {
         public int Nursery { get; set; }
@@ -54,11 +59,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int OtherPre16 { get; set; }
     }
 
+    public record Post16PublishedAdmissionNumberResponse : Post16PublishedAdmissionNumber
+    {
+        public int Total { get; set; }
+    }
+
     public record Post16PublishedAdmissionNumber
     {
         public int Year12 { get; set; }
         public int OtherPost16 { get; set; }
-        public int Total { get; set; }
     }
 
     public record Pre16CapacityBuildup

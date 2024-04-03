@@ -35,7 +35,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                         Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
                         SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
                         AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
-                        TotalCapacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
+                        Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
+                    },
+                    Pre16PublishedAdmissionNumber = new Pre16PublishedAdmissionNumberResponse()
+                    {
+                        Year7 = po.PupilNumbersAndCapacityY7Pan.ToInt(),
+                        Year10 = po.PupilNumbersAndCapacityY10Pan.ToInt(),
+                        OtherPre16 = po.PupilNumbersAndCapacityYOtherPanPre16.ToInt(),
+                        Total = po.PupilNumbersAndCapacityTotalPanPre16.ToInt()
+                    },
+                    Post16PublishedAdmissionNumber = new Post16PublishedAdmissionNumberResponse()
+                    {
+                        Year12 = po.PupilNumbersAndCapacityY12Pan.ToInt(),
+                        OtherPost16 = po.PupilNumbersAndCapacityYOtherPanPost16.ToInt(),
+                        Total = po.PupilNumbersAndCapacityTotalPanPost16.ToInt()
                     }
                 })
                 .FirstOrDefaultAsync();
