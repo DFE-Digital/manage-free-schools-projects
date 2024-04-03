@@ -100,8 +100,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                     PupilNumbersAndCapacityNurseryUnder5s = nurseryCapacity.ToString(),
                     PupilNumbersAndCapacityYrY6Capacity = proj.YRY6Capacity.ToString(),
                     PupilNumbersAndCapacityY7Y11Capacity = proj.Y7Y11Capacity.ToString(),
-                    PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
                     PupilNumbersAndCapacityYrY11Pre16Capacity = (proj.YRY6Capacity + proj.Y7Y11Capacity).ToString(),
+                    PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
                     PupilNumbersAndCapacityTotalOfCapacityTotals = (nurseryCapacity + proj.YRY6Capacity + proj.Y7Y11Capacity + proj.Y12Y14Capacity).ToString()
                 });
             }
