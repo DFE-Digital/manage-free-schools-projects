@@ -12,10 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 return;
             }
 
-            //TODO: Find out what to map these to
-            //request.Pre16PublishedAdmissionNumber.Nursery.ToString();
-            //request.Pre16PublishedAdmissionNumber.ReceptionToYear6.ToString();
-
+            po.PupilNumbersAndCapacityYrPan = request.Pre16PublishedAdmissionNumber.ReceptionToYear6.ToString();
             po.PupilNumbersAndCapacityY7Pan = request.Pre16PublishedAdmissionNumber.Year7.ToString();
             po.PupilNumbersAndCapacityY10Pan = request.Pre16PublishedAdmissionNumber.Year10.ToString();
             po.PupilNumbersAndCapacityYOtherPanPre16 = request.Pre16PublishedAdmissionNumber.OtherPre16.ToString();

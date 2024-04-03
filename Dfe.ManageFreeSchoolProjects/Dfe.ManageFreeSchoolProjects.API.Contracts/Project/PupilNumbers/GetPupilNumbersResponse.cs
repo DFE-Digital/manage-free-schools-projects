@@ -52,7 +52,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record Pre16PublishedAdmissionNumber
     {
-        public int Nursery { get; set; }
         public int ReceptionToYear6 { get; set; }
         public int Year7 { get; set; }
         public int Year10 { get; set; }
@@ -72,26 +71,27 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record Pre16CapacityBuildup
     {
-        public object Nursery { get; set; }
-        public object Reception { get; set; }
-        public object Year1 { get; set; }
-        public object Year2 { get; set; }
-        public object Year3 { get; set; }
-        public object Year4 { get; set; }
-        public object Year5 { get; set; }
-        public object Year6 { get; set; }
-        public object Year7 { get; set; }
-        public object Year8 { get; set; }
-        public object Year9 { get; set; }
-        public object Year10 { get; set; }
-        public object Year11 { get; set; }
+        public CapacityBuildupEntry Nursery { get; set; }
+        public CapacityBuildupEntry Reception { get; set; }
+        public CapacityBuildupEntry Year1 { get; set; }
+        public CapacityBuildupEntry Year2 { get; set; }
+        public CapacityBuildupEntry Year3 { get; set; }
+        public CapacityBuildupEntry Year4 { get; set; }
+        public CapacityBuildupEntry Year5 { get; set; }
+        public CapacityBuildupEntry Year6 { get; set; }
+        public CapacityBuildupEntry Total { get; set; }
     }
 
     public record Post16CapacityBuildup
     {
-        public object Year12 { get; set; }
-        public object Year13 { get; set; }
-        public object Year14 { get; set; }
+        public CapacityBuildupEntry Year7 { get; set; }
+        public CapacityBuildupEntry Year8 { get; set; }
+        public CapacityBuildupEntry Year9 { get; set; }
+        public CapacityBuildupEntry Year10 { get; set; }
+        public CapacityBuildupEntry Year11 { get; set; }
+        public CapacityBuildupEntry Year12 { get; set; }
+        public CapacityBuildupEntry Year13 { get; set; }
+        public CapacityBuildupEntry Year14 { get; set; }
     }
 
     public record CapacityBuildupEntry
