@@ -5,39 +5,38 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Contacts;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Users;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
-using Dfe.ManageFreeSchoolProjects.Data.Migrations;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -104,6 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePre16PublishedAdmissionNumberService>();
 			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePost16PublishedAdmissionNumberService>();
 			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePre16CapacityBuildupService>();
+			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePost16CapacityBuildupService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
