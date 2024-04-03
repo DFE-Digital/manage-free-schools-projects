@@ -37,8 +37,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var actualPupilNumbers = content.Data;
 
-            // Do some assertions
-            actualPupilNumbers.CapacityWhenFull.Should().BeEquivalentTo(updatePupilNumbersRequest.CapacityWhenFull);
+            actualPupilNumbers.CapacityWhenFull.Nursery.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Nursery);
+            actualPupilNumbers.CapacityWhenFull.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6);
+            actualPupilNumbers.CapacityWhenFull.Year7ToYear11.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11);
+            actualPupilNumbers.CapacityWhenFull.Year12ToYear14.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14);
+            actualPupilNumbers.CapacityWhenFull.SpecialistEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialistEducationNeeds);
+            actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
+
+            var totals = updatePupilNumbersRequest.CapacityWhenFull.Nursery +
+                         updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6 +
+                         updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11 +
+                         updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14;
+
+            actualPupilNumbers.CapacityWhenFull.TotalCapacity.Should().Be(totals);
         }
     }
 }

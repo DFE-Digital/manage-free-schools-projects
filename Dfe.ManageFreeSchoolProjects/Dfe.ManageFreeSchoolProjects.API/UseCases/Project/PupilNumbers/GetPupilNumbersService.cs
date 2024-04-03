@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,14 +27,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 .Where(po => po.Rid == kpi.Rid)
                 .Select(po => new GetPupilNumbersResponse
                 {
-                    CapacityWhenFull = new CapacityWhenFull
+                    CapacityWhenFull = new CapacityWhenFullResponse
                     {
-                        Nursery = int.Parse(po.PupilNumbersAndCapacityNurseryUnder5s),
-                        ReceptionToYear6 = int.Parse(po.PupilNumbersAndCapacityYrY6Capacity),
-                        Year7ToYear11 = int.Parse(po.PupilNumbersAndCapacityY7Y11Capacity),
-                        Year12ToYear14 = int.Parse(po.PupilNumbersAndCapacityY12Y14Post16Capacity),
-                        SpecalistEducationNeeds = int.Parse(po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial),
-                        AlternativeProvision = int.Parse(po.PupilNumbersAndCapacitySpecialistResourceProvisionAp)
+                        Nursery = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt(),
+                        ReceptionToYear6 = po.PupilNumbersAndCapacityYrY6Capacity.ToInt(),
+                        Year7ToYear11 = po.PupilNumbersAndCapacityY7Y11Capacity.ToInt(),
+                        Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
+                        SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
+                        AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
+                        TotalCapacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
                     }
                 })
                 .FirstOrDefaultAsync();

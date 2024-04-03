@@ -13,10 +13,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
     public class UpdatePupilNumbersService : IUpdatePupilNumbersService
     {
         private readonly MfspContext _context;
+        private readonly IEnumerable<IUpdatePupilNumbersSectionService> _updatePupilNumbersSectionServices;
 
-        public UpdatePupilNumbersService(MfspContext context)
+        public UpdatePupilNumbersService(
+            MfspContext context,
+            IEnumerable<IUpdatePupilNumbersSectionService> updatePupilNumbersSectionServices)
         {
             _context = context;
+            _updatePupilNumbersSectionServices = updatePupilNumbersSectionServices;
         }
 
         public async Task Execute(string projectId, UpdatePupilNumbersRequest request)
@@ -35,12 +39,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 _context.Po.Add(po);
             }
 
-            po.PupilNumbersAndCapacityNurseryUnder5s = request.CapacityWhenFull.Nursery.ToString();
-            po.PupilNumbersAndCapacityYrY6Capacity = request.CapacityWhenFull.ReceptionToYear6.ToString();
-            po.PupilNumbersAndCapacityY7Y11Capacity = request.CapacityWhenFull.Year7ToYear11.ToString();
-            po.PupilNumbersAndCapacityY12Y14Post16Capacity = request.CapacityWhenFull.Year12ToYear14.ToString();
-            po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial = request.CapacityWhenFull.SpecalistEducationNeeds.ToString();
-            po.PupilNumbersAndCapacitySpecialistResourceProvisionAp = request.CapacityWhenFull.AlternativeProvision.ToString();
+            foreach (var updatePupilNumbersSectionService in _updatePupilNumbersSectionServices)
+            {
+                updatePupilNumbersSectionService.Execute(po, request);
+            }
 
             await _context.SaveChangesAsync();
         }

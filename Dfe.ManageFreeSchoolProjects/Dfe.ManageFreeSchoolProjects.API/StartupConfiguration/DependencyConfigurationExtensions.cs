@@ -100,6 +100,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateProjectSiteService,  UpdateProjectSiteService>();
 			services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
 			services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
+			services.AddScoped<IUpdatePupilNumbersSectionService, UpdateCapacityWhenFullService>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

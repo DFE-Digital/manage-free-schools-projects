@@ -5,6 +5,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
 {
     public interface IUpdatePupilNumbersSectionService
     {
-        public void Execute(UpdatePupilNumbersRequest request, Po po);
+        public void Execute(Po po, UpdatePupilNumbersRequest request);
     }
 }

@@ -8,12 +8,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 {
     public record GetPupilNumbersResponse
     {
-        public CapacityWhenFull CapacityWhenFull { get; set; }
+        public CapacityWhenFullResponse CapacityWhenFull { get; set; }
         public RecruitmentAndViability RecruitmentAndViability { get; set; }
         public Pre16PublishedAdmissionNumber Pre16PublishedAdmissionNumber { get; set; }
         public Post16PublishedAdmissionNumber Post16PublishedAdmissionNumber { get; set; }
         public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; }
         public Post16CapacityBuildup Post16CapacityBuildup { get; set; }
+    }
+
+    public record CapacityWhenFullResponse : CapacityWhenFull
+    {
+        public int TotalCapacity { get; set; }
     }
 
     public record CapacityWhenFull
@@ -22,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int ReceptionToYear6 { get; set; }
         public int Year7ToYear11 { get; set; }
         public int Year12ToYear14 { get; set; }
-        public int SpecalistEducationNeeds { get; set; }
+        public int SpecialistEducationNeeds { get; set; }
         public int AlternativeProvision { get; set; }
     }
 
