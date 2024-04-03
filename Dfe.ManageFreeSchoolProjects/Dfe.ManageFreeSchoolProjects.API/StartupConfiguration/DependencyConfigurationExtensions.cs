@@ -36,6 +36,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessme
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -89,6 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateImpactAssessmentTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEvidenceOfAcceptedOffersTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateOfstedInspectionTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateApplicationsEvidenceTaskService>();
 			services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();

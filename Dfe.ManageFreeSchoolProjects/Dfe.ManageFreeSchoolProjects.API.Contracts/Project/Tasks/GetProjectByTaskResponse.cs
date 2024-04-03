@@ -36,5 +36,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         
         public OfstedInspectionTask OfstedInspection { get; set; }
+
+        
+        public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
     }
 }

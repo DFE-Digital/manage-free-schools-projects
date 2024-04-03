@@ -15,7 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.ProjectStatusProjectId = CreateProjectId();
             result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.TrustName = _fixture.Create<string>();
-            result.ProjectStatusCurrentFreeSchoolName = _fixture.Create<string>();
             result.ProjectStatusProjectStatus = _fixture.Create<string>();
             result.ProjectStatusFreeSchoolsApplicationNumber = _fixture.Create<string>().Substring(0, 9);
             result.ProjectStatusUrnWhenGivenOne = _fixture.Create<string>();
@@ -39,6 +38,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.SchoolDetailsGender = _fixture.Create<string>();
             result.SchoolDetailsNursery = _fixture.Create<string>();
             result.SchoolDetailsSixthForm = _fixture.Create<string>();
+            result.SchoolDetailsAlternativeProvision = _fixture.Create<string>();
+            result.SchoolDetailsSpecialEducationNeeds = _fixture.Create<string>();
             result.SchoolDetailsIndependentConverter = _fixture.Create<string>();
             result.SchoolDetailsSpecialistResourceProvision = _fixture.Create<string>();
             result.SchoolDetailsFaithStatus = _fixture.Create<string>();
@@ -264,6 +265,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces = true;
             result.FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet = true;
             result.FsgPreOpeningMilestonesInspectionConditionsMet = "Yes";
+            
+            return result;
+        }
+        
+        public static Milestones ApplicationsEvidenceTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers = false;
+            result.FsgPreOpeningMilestonesApplicationsEvidenceComments = "first test comments";
+            result.FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces = false;
+            result.FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces = false;
             
             return result;
         }

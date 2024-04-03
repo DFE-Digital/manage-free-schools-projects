@@ -10,6 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Construct
     {
         public DateTime? ActualOpeningDate { get; set; }
         public string AgeRange { get; set; }
+        public string AlternativeProvision { get; set; }
         public string ApplicationWave { get; set; }
         public string CurrentFreeSchoolName { get; set; }
         public DateTime? DateOfEntryIntoPreOpening { get; set; }
@@ -36,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Construct
         public string SchoolType { get; set; }
         public string SixthForm { get; set; }
         public string SixthFormType { get; set; }
+        public string SpecialEducationNeeds { get; set; }
         public string Specialism { get; set; }
         public string TrustId { get; set; }
         public string TrustName { get; set; }

@@ -61,6 +61,16 @@ class SchoolDetailsPage {
         return this;
     }
 
+    public withAlternativeProvision(value: string): this {
+        cy.getByTestId(`alternative-provision-${value}`).check();
+        return this;
+    }
+
+    public withSpecialEducationNeeds(value: string): this {
+        cy.getByTestId(`special-education-needs-${value}`).check();
+        return this;
+    }
+
     public withFaithStatus(value: string): this {
         cy.getByTestId(value).check();
         return this;

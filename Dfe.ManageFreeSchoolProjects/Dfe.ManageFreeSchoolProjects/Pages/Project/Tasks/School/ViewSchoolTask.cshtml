@@ -1,6 +1,8 @@
 ﻿@page "/projects/{projectId}/tasks/school"
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Pages.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.ViewSchoolTask
 @{
     var editLink = string.Format(RouteConstants.EditSchoolTask, Model.ProjectId);
@@ -32,6 +34,13 @@
             <govuk-summary-item label="Gender" asp-for="@schoolTask.Gender" href="@editLink" />
             <govuk-summary-item label="Nursery" asp-for="@schoolTask.Nursery" href="@editLink" />
             <govuk-summary-item label="Sixth form" asp-for="@schoolTask.SixthForm" href="@editLink" />
+            @{
+                if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(schoolTask.SchoolType))
+                {
+                    <govuk-summary-item label="Alternative provision" asp-for="@schoolTask.AlternativeProvision" href="@editLink" />
+                    <govuk-summary-item label="Special educational needs" asp-for="@schoolTask.SpecialEducationNeeds" href="@editLink" />
+                }
+            }
             <govuk-summary-item label="Faith status" asp-for="@schoolTask.FaithStatus" href="@editLink" />
             <govuk-summary-item label="Faith type" asp-for="@faithType" href="@editLink" />
 

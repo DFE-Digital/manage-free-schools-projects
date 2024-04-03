@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -49,7 +50,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return Page();
             }
 
-            project.SchoolType = (SchoolType)Enum.Parse(typeof(SchoolType), SchoolType);
+            if (!project.ReachedCheckYourAnswers)
+            {
+                project.SchoolType = (SchoolType)Enum.Parse(typeof(SchoolType), SchoolType);
+            }
+            else
+            {
+                project.PreviousSchoolType = (SchoolType)Enum.Parse(typeof(SchoolType), SchoolType);
+            }
 
             _createProjectCache.Update(project);
 

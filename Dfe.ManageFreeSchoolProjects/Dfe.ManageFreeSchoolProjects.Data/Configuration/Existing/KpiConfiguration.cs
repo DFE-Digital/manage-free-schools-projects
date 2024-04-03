@@ -729,6 +729,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("School Details.Nursery");
+            builder.Property(e => e.SchoolDetailsAlternativeProvision)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("School Details.Alternative Provision");
+            builder.Property(e => e.SchoolDetailsSpecialEducationNeeds)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("School Details.Special Education Needs");
             builder.Property(e => e.SchoolDetailsOtherPartners)
                 .HasMaxLength(100)
                 .IsUnicode(false)

@@ -79,6 +79,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.SchoolDetailsTrustType.Should().Be(trust.TrustsTrustType);
             createdProject.SchoolDetailsSixthForm.Should().Be(projectDetails.SixthForm.ToString());
             createdProject.SchoolDetailsNursery.Should().Be(projectDetails.Nursery.ToString());
+            createdProject.SchoolDetailsAlternativeProvision.Should().Be(projectDetails.AlternativeProvision.ToString());
+            createdProject.SchoolDetailsSpecialEducationNeeds.Should().Be(projectDetails.SpecialEducationNeeds.ToString());
             createdProject.SchoolDetailsAgeRange.Should().Be(projectDetails.AgeRange);
             createdProject.SchoolDetailsNumberOfFormsOfEntry.Should().Be(projectDetails.FormsOfEntry);
             createdProject.SchoolDetailsFaithStatus.Should().Be(projectDetails.FaithStatus.ToString());

@@ -92,6 +92,26 @@ class CreateProjectPage {
         return this;
     }
 
+    public setAlternativeProvisionTo(option: "Yes" | "No"): this {
+        cy.getByTestId(`alternative-provision-${option}`).check();
+        return this;
+    }
+
+    public hasAlternativeProvision(value: string): this {
+        cy.getByTestId(`alternative-provision-${value}`).should("be.checked");
+        return this;
+    }
+
+    public setSpecialEducationNeedsTo(option: "Yes" | "No"): this {
+        cy.getByTestId(`special-education-needs-${option}`).check();
+        return this;
+    }
+
+    public hasSpecialEducationNeeds(value: string): this {
+        cy.getByTestId(`special-education-needs-${value}`).should("be.checked");
+        return this;
+    }
+
     public enterAgeRangeFrom(value: string): this {
         cy.getByTestId("age-range-from").clear().type(value)
         return this;

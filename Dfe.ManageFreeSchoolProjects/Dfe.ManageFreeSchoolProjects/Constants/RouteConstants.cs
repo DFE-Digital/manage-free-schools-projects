@@ -71,6 +71,9 @@
         public const string EditBeforeOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-before-inspection";
         public const string EditAfterOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-after-inspection";
         
+        public const string ViewApplicationsEvidenceTask = TaskList + "/applications-evidence";
+        public const string EditApplicationsEvidenceTask = ViewApplicationsEvidenceTask + "/edit";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";

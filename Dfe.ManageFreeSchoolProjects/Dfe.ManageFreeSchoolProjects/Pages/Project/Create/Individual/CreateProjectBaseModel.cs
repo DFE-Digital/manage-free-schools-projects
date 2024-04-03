@@ -28,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
                 _ => DefaultPreviousRoute(currentPageName, routeParameter)
             };           
         }
@@ -47,9 +48,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust,
                     routeParameter),
-                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.AgeRange => RouteConstants.CreateClassType,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
+                CreateProjectPageName.AgeRange => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithType,
@@ -66,6 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.FaithStatus => NextFaithStatus(),
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
                 _ => DefaultNextRoute(currentPageName)
             };
         }
@@ -96,9 +98,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.SchoolType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateProjectAgeRange,
+                CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,

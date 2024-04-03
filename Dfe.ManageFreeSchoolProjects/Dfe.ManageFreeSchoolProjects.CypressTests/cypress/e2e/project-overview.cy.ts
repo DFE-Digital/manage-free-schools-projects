@@ -73,12 +73,14 @@ describe("Testing project overview", () => {
             .continue();
 
         createProjectPage
-            .selectOption("Secondary")
-            .continue();
-
-        createProjectPage
             .setNurseryTo("Yes")
             .setSixthFormTo("Yes")
+            .setAlternativeProvisionTo("No")
+            .setSpecialEducationNeedsTo("Yes")
+            .continue();
+        
+        createProjectPage
+            .selectOption("Secondary")
             .continue();
 
         createProjectPage

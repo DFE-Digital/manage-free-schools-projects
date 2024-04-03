@@ -4517,6 +4517,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("School Details.Age range");
 
+                    b.Property<string>("SchoolDetailsAlternativeProvision")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("School Details.Alternative Provision");
+
                     b.Property<string>("SchoolDetailsConstituency")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -4712,6 +4718,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(2)")
                         .HasColumnName("School Details.Size of Governing Body");
+
+                    b.Property<string>("SchoolDetailsSpecialEducationNeeds")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("School Details.Special Education Needs");
 
                     b.Property<string>("SchoolDetailsSpecialism")
                         .HasMaxLength(100)
@@ -5013,6 +5025,24 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("FSG Pre Opening Milestones.AppEv - Reason not applicable");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. applications evidence build up form saved to workplaces");
+
+                    b.Property<string>("FsgPreOpeningMilestonesApplicationsEvidenceComments")
+                        .HasMaxLength(999)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(999)")
+                        .HasColumnName("Fsg Pre Opening Milestones. applications evidence comments");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. applications evidence confirmed pupil numbers");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("Fsg Pre Opening Milestones. applications evidence underwriting agreement saved to workplaces");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesBefpActualDateOfCompletion")
                         .HasColumnType("date")

@@ -106,6 +106,16 @@ class TaskListPage {
         return this;
     }
 
+    public selectApplicationsEvidenceFromTaskList(): this {
+        cy.getByTestId("applicationsevidence-task").click()
+        return this;
+    }
+
+    public assertApplicationsEvidenceIsNotVisibleTaskList(): this {
+        cy.getByTestId("applicationsevidence-task").should("not.exist")
+        return this;
+    }
+
     public isTaskStatusIsNotStarted(taskName: string): this {
         cy.get(`[data-testid="task-${taskName}-status"]`).should("contains.text", "Not started");
         return this;

@@ -5,6 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using DocumentFormat.OpenXml.Packaging;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
@@ -69,6 +70,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     Gender = project.SchoolDetailsGender,
                     Nursery = project.SchoolDetailsNursery,
                     SixthForm = project.SchoolDetailsSixthForm,
+                    AlternativeProvision = project.SchoolDetailsAlternativeProvision,
+                    SpecialEducationNeeds = project.SchoolDetailsSpecialEducationNeeds,
                     IndependentConverter = project.SchoolDetailsIndependentConverter,
                     SpecialistResourceProvision = project.SchoolDetailsSpecialistResourceProvision,
                     FaithStatus = project.SchoolDetailsFaithStatus,
