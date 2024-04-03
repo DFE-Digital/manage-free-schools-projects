@@ -37,6 +37,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -97,6 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<ISfaApiKeyValidationService, SfaApiKeyValidationService>();
 			services.AddScoped<IGetProjectSitesService, GetProjectSitesService>();
 			services.AddScoped<IUpdateProjectSiteService,  UpdateProjectSiteService>();
+			services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
+			services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;
