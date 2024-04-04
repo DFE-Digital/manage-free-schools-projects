@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -18,21 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_PupilNumbers_CapacityWhenFull_Returns_200()
         {
-            var project = DatabaseModelBuilder.BuildProject();
+            var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
             var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
-            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
-            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
 
             var actualPupilNumbers = content.Data;
 
@@ -55,21 +46,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async void When_PupilNumbers_PublishedAdmissionsNumber_Returns_200()
         {
-            var project = DatabaseModelBuilder.BuildProject();
+            var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
             var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
-            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
-            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
 
             var actualPupilNumbers = content.Data;
 
@@ -95,21 +76,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async void When_PupilNumbers_Pre16CapacityBuildup_Returns_200()
         {
-            var project = DatabaseModelBuilder.BuildProject();
+            var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
             var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
-            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
-            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
 
             var actualPupilNumbers = content.Data;
 
@@ -140,21 +111,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async void When_PupilNumbers_Post16CapacityBuildup_Returns_200()
         {
-            var project = DatabaseModelBuilder.BuildProject();
+            var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
             var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
-            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
-            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
 
             var actualPupilNumbers = content.Data;
 
@@ -170,6 +131,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Post16CapacityBuildup.Total.FifthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FifthYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.SixthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SixthYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.SeventhYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SeventhYear)));
+        }
+
+        private async Task<Kpi> CreateProject()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            return project;
+        }
+
+        private async Task<ApiSingleResponseV2<GetPupilNumbersResponse>> UpdatePupilNumbers(string projectId, UpdatePupilNumbersRequest updatePupilNumbersRequest)
+        {
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
+            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+            return content;
         }
 
         private static int CalculatePre16BuildupTotal(UpdatePupilNumbersRequest request, string property)
