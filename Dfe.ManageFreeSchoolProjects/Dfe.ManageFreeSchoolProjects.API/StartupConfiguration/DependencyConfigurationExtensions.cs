@@ -99,12 +99,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateProjectSiteService,  UpdateProjectSiteService>();
 			services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
 			services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdateCapacityWhenFullService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePre16PublishedAdmissionNumberService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePost16PublishedAdmissionNumberService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePre16CapacityBuildupService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdatePost16CapacityBuildupService>();
-			services.AddScoped<IUpdatePupilNumbersSectionService, UpdateRecruitmentAndViabilityService>();
+			services.AddScoped<IUpdateCapacityWhenFullService, UpdateCapacityWhenFullService>();
+			services.AddScoped<IUpdatePre16PublishedAdmissionNumberService, UpdatePre16PublishedAdmissionNumberService>();
+			services.AddScoped<IUpdatePost16PublishedAdmissionNumberService, UpdatePost16PublishedAdmissionNumberService>();
+			services.AddScoped<IUpdatePre16CapacityBuildupService, UpdatePre16CapacityBuildupService>();
+			services.AddScoped<IUpdatePost16CapacityBuildupService, UpdatePost16CapacityBuildupService>();
+			services.AddScoped<IUpdateRecruitmentAndViabilityService, UpdateRecruitmentAndViabilityService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

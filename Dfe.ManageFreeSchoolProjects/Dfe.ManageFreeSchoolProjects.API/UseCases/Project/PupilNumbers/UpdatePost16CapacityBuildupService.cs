@@ -3,7 +3,12 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
 {
-    public class UpdatePost16CapacityBuildupService : IUpdatePupilNumbersSectionService
+    public interface IUpdatePost16CapacityBuildupService
+    {
+        public void Execute(Po po, UpdatePupilNumbersRequest request);
+    }
+
+    public class UpdatePost16CapacityBuildupService : IUpdatePost16CapacityBuildupService
     {
         public void Execute(Po po, UpdatePupilNumbersRequest request)
         {

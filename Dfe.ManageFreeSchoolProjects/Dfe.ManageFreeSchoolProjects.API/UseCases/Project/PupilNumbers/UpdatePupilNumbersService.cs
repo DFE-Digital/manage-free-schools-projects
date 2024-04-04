@@ -13,14 +13,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
     public class UpdatePupilNumbersService : IUpdatePupilNumbersService
     {
         private readonly MfspContext _context;
-        private readonly IEnumerable<IUpdatePupilNumbersSectionService> _updatePupilNumbersSectionServices;
+        private readonly IUpdateCapacityWhenFullService _updateCapacityWhenFullService;
+        private readonly IUpdatePost16CapacityBuildupService _updatePost16CapacityBuildupService;
+        private readonly IUpdatePost16PublishedAdmissionNumberService _updatePost16PublishedAdmissionNumberService;
+        private readonly IUpdatePre16CapacityBuildupService _updatePre16CapacityBuildupService;
+        private readonly IUpdatePre16PublishedAdmissionNumberService _updatePre16PublishedAdmissionNumberService;
+        private readonly IUpdateRecruitmentAndViabilityService _updateRecruitmentAndViabilityService;
 
         public UpdatePupilNumbersService(
             MfspContext context,
-            IEnumerable<IUpdatePupilNumbersSectionService> updatePupilNumbersSectionServices)
+            IUpdateCapacityWhenFullService updateCapacityWhenFullService,
+            IUpdatePost16CapacityBuildupService updatePost16CapacityBuildupService,
+            IUpdatePost16PublishedAdmissionNumberService updatePost16PublishedAdmissionNumberService,
+            IUpdatePre16CapacityBuildupService updatePre16CapacityBuildupService,
+            IUpdatePre16PublishedAdmissionNumberService updatePre16PublishedAdmissionNumberService,
+            IUpdateRecruitmentAndViabilityService updateRecruitmentAndViabilityService)
         {
             _context = context;
-            _updatePupilNumbersSectionServices = updatePupilNumbersSectionServices;
+            _updateCapacityWhenFullService = updateCapacityWhenFullService;
+            _updatePost16CapacityBuildupService = updatePost16CapacityBuildupService;
+            _updatePost16PublishedAdmissionNumberService = updatePost16PublishedAdmissionNumberService;
+            _updatePre16CapacityBuildupService = updatePre16CapacityBuildupService;
+            _updatePre16PublishedAdmissionNumberService = updatePre16PublishedAdmissionNumberService;
+            _updateRecruitmentAndViabilityService = updateRecruitmentAndViabilityService;
         }
 
         public async Task Execute(string projectId, UpdatePupilNumbersRequest request)
@@ -39,10 +54,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 _context.Po.Add(po);
             }
 
-            foreach (var updatePupilNumbersSectionService in _updatePupilNumbersSectionServices)
-            {
-                updatePupilNumbersSectionService.Execute(po, request);
-            }
+            _updateCapacityWhenFullService.Execute(po, request);
+            _updatePost16CapacityBuildupService.Execute(po, request);
+            _updatePost16PublishedAdmissionNumberService.Execute(po, request);
+            _updatePre16CapacityBuildupService.Execute(po, request);
+            _updatePre16PublishedAdmissionNumberService.Execute(po, request);
+            _updateRecruitmentAndViabilityService.Execute(po, request);
 
             await _context.SaveChangesAsync();
         }
