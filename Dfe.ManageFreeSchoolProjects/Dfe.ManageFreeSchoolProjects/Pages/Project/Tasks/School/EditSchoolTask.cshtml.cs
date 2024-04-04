@@ -145,24 +145,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         public async Task<ActionResult> OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
             ValidateFaithFields();
 
             if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(SchoolType))
             {
                 if (AlternativeProvision == ClassType.AlternativeProvision.NotSet)
                 {
-                    ModelState.AddModelError("AlternativeProvision", "Select yes if it will have alternative provision");
+                    ModelState.AddModelError("alternative-provision", "Select yes if it will have alternative provision");
                 }
 
                 if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.NotSet)
                 {
-                    ModelState.AddModelError("SpecialEducationNeeds", "Select yes if it will have special educational needs provision");
+                    ModelState.AddModelError("special-education-needs", "Select yes if it will have special educational needs provision");
                 }
 
             }

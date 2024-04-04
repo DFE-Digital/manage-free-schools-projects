@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Pages.Project;
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
@@ -116,7 +117,7 @@
                                             test-ids="@sixthFormTestIds" />
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group" id="alternative-provision">
                         <label class="govuk-label govuk-heading-m" for="alternative-provision">Alternative provision</label>
                         <govuk-radios-input name="alternative-provision"
                         asp-for="@Model.AlternativeProvision"
@@ -126,7 +127,7 @@
                         test-ids="@alternativeProvisionTestIds" />
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group" id="special-education-needs">
                         <label class="govuk-label govuk-heading-m" for="school-type">Special educational needs</label>
                         <govuk-radios-input name="special-education-needs"
                         asp-for="@Model.SpecialEducationNeeds"
@@ -166,8 +167,9 @@
 </div>
 
 <script type="application/javascript" asp-add-nonce>
-    const setVisibility = () =>
+    const setFaithVisibility = () =>
     {
+
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
@@ -187,18 +189,44 @@
             }
 
         }
+
+    }
+
+    const setClassTypeVisibility = () =>
+    {
+
+        const schoolType = $("input[type='radio']:checked[name='school-type']").val();
+        const schoolTypesWithSpecialistProvisions = ["Mainstream", "StudioSchool", "University Technical College"];
+        
+
+        if (schoolTypesWithSpecialistProvisions.includes(schoolType))
+        {
+            $('#alternative-provision').show();
+            $('#special-education-needs').show();
+        }
+        else
+        {
+            $('#alternative-provision').hide();
+            $('#special-education-needs').hide();
+        }
     }
 
 
     $(document).ready(() => {
-        setVisibility();
+
+        setFaithVisibility();
+        setClassTypeVisibility();
 
         $("input[type='radio'][name='faith-status']").click((e) => {
-            setVisibility();
+            setFaithVisibility();
         });
 
         $("input[type='radio'][name='faith-type']").click((e) => {
-            setVisibility();
+            setFaithVisibility();
+        });
+
+         $("input[type='radio'][name='school-type']").click((e) => {
+            setClassTypeVisibility();
         });
     });
 
