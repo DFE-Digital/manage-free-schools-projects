@@ -8,5 +8,12 @@
 
             return result;
         }
+
+        public static decimal ToDecimal(this string value)
+        {
+            decimal.TryParse(value, out var result);
+
+            return result;
+        }
     }
 }

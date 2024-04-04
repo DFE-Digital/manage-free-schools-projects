@@ -22,7 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             po.PupilNumbersAndCapacityY10Pan = request.Pre16PublishedAdmissionNumber.Year10.ToString();
             po.PupilNumbersAndCapacityYOtherPanPre16 = request.Pre16PublishedAdmissionNumber.OtherPre16.ToString();
 
-            var total = request.Pre16PublishedAdmissionNumber.Year7 +
+            var total = 
+                request.Pre16PublishedAdmissionNumber.ReceptionToYear6 +
+                request.Pre16PublishedAdmissionNumber.Year7 +
                 request.Pre16PublishedAdmissionNumber.Year10 +
                 request.Pre16PublishedAdmissionNumber.OtherPre16;
 
