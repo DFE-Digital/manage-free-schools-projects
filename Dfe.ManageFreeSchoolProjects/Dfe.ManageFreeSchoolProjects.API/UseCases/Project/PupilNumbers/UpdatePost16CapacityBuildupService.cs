@@ -15,6 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             UpdateYear12(po, request.Post16CapacityBuildup.Year12);
             UpdateYear13(po, request.Post16CapacityBuildup.Year13);
             UpdateYear14(po, request.Post16CapacityBuildup.Year14);
+            UpdateTotals(po, request);
         }
 
         private static void UpdateYear12(Po po, CapacityBuildupEntry entry)
@@ -55,6 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
 
         private static void UpdateTotals(Po po, UpdatePupilNumbersRequest request)
         {
+            int currentCapacityTotal = CalculateCurrentCapacityTotal(request);
             int firstYearTotal = CalculateFirstYearTotal(request);
             int secondYearTotal = CalculateSecondYearTotal(request);
             int thirdYearTotal = CalculateThirdYearTotal(request);
@@ -62,6 +64,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             int fifthYearTotal = CalculateFifthYearTotal(request);
             int sixthYearTotal = CalculateSixthYearTotal(request);
             int seventhYearTotal = CalculateSeventhYearTotal(request);
+
+            po.PupilNumbersAndCapacityTotalPost16A = currentCapacityTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16B = firstYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16C = secondYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16D = thirdYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16E = fourthYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16F = fifthYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16G = sixthYearTotal.ToString();
+            po.PupilNumbersAndCapacityTotalPost16H = seventhYearTotal.ToString();
+        }
+
+        private static int CalculateCurrentCapacityTotal(UpdatePupilNumbersRequest request)
+        {
+            return request.Post16CapacityBuildup.Year12.CurrentCapacity +
+                request.Post16CapacityBuildup.Year13.CurrentCapacity +
+                request.Post16CapacityBuildup.Year14.CurrentCapacity;
         }
 
         private static int CalculateFirstYearTotal(UpdatePupilNumbersRequest request)

@@ -74,7 +74,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                     {
                         Year12 = BuildYear12CapacityBuildup(po),
                         Year13 = BuildYear13CapacityBuildup(po),
-                        Year14 = BuildYear14CapacityBuildup(po)
+                        Year14 = BuildYear14CapacityBuildup(po),
+                        Total = BuildPost16TotalCapacityBuildup(po)
                     }
                 })
                 .FirstOrDefaultAsync();
@@ -206,13 +207,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         {
             return new CapacityBuildupEntry()
             {
-                FirstYear = po.PupilNumbersAndCapacityCellTotalBTotalFirstYear.ToInt(),
-                SecondYear = po.PupilNumbersAndCapacityCellTotalCTotalSecondYear.ToInt(),
-                ThirdYear = po.PupilNumbersAndCapacityCellTotalDTotalThirdYear.ToInt(),
-                FourthYear = po.PupilNumbersAndCapacityCellTotalETotalFourthYear.ToInt(),
-                FifthYear = po.PupilNumbersAndCapacityCellTotalFTotalFifthYear.ToInt(),
-                SixthYear = po.PupilNumbersAndCapacityCellTotalGTotalSixthYear.ToInt(),
-                SeventhYear = po.PupilNumbersAndCapacityCellTotalHTotalSeventhYear.ToInt()
+                CurrentCapacity = po.PupilNumbersAndCapacityTotalPre16A.ToInt(),
+                FirstYear = po.PupilNumbersAndCapacityTotalPre16B.ToInt(),
+                SecondYear = po.PupilNumbersAndCapacityTotalPre16C.ToInt(),
+                ThirdYear = po.PupilNumbersAndCapacityTotalPre16D.ToInt(),
+                FourthYear = po.PupilNumbersAndCapacityTotalPre16E.ToInt(),
+                FifthYear = po.PupilNumbersAndCapacityTotalPre16F.ToInt(),
+                SixthYear = po.PupilNumbersAndCapacityTotalPre16G.ToInt(),
+                SeventhYear = po.PupilNumbersAndCapacityTotalPre16H.ToInt()
             };
         }
 
@@ -333,6 +335,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 FifthYear = po.PupilNumbersAndCapacityCellF16Year14FifthYear.ToInt(),
                 SixthYear = po.PupilNumbersAndCapacityCellG16Year14SixthYear.ToInt(),
                 SeventhYear = po.PupilNumbersAndCapacityCellH16Year14SeventhYear.ToInt()
+            };
+        }
+
+        private static CapacityBuildupEntry BuildPost16TotalCapacityBuildup(Po po)
+        {
+            return new CapacityBuildupEntry()
+            {
+                CurrentCapacity = po.PupilNumbersAndCapacityTotalPost16A.ToInt(),
+                FirstYear = po.PupilNumbersAndCapacityTotalPost16B.ToInt(),
+                SecondYear = po.PupilNumbersAndCapacityTotalPost16C.ToInt(),
+                ThirdYear = po.PupilNumbersAndCapacityTotalPost16D.ToInt(),
+                FourthYear = po.PupilNumbersAndCapacityTotalPost16E.ToInt(),
+                FifthYear = po.PupilNumbersAndCapacityTotalPost16F.ToInt(),
+                SixthYear = po.PupilNumbersAndCapacityTotalPost16G.ToInt(),
+                SeventhYear = po.PupilNumbersAndCapacityTotalPost16H.ToInt()
             };
         }
     }

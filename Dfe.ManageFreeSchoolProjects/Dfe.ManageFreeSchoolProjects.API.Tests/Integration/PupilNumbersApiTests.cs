@@ -88,6 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Pre16CapacityBuildup.Year10.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year10);
             actualPupilNumbers.Pre16CapacityBuildup.Year11.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year11);
 
+            actualPupilNumbers.Pre16CapacityBuildup.Total.CurrentCapacity.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.CurrentCapacity)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.FirstYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FirstYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.SecondYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SecondYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.ThirdYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.ThirdYear)));
@@ -101,6 +102,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Post16CapacityBuildup.Year13.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year13);
             actualPupilNumbers.Post16CapacityBuildup.Year14.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year14);
 
+            actualPupilNumbers.Post16CapacityBuildup.Total.CurrentCapacity.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.CurrentCapacity)));
             actualPupilNumbers.Post16CapacityBuildup.Total.FirstYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FirstYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.SecondYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SecondYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.ThirdYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.ThirdYear)));
