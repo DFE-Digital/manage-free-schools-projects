@@ -1,11 +1,9 @@
-﻿using Azure.Core;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Net;
 using System.Net.Http.Json;
-using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
@@ -18,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
 
         [Fact]
-        public async Task When_PupilNumbersAreAllSet_Returns_200()
+        public async Task When_PupilNumbers_CapacityWhenFull_Returns_200()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -52,8 +50,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                          updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14;
 
             actualPupilNumbers.CapacityWhenFull.Total.Should().Be(capacityTotals);
+        }
 
-            // Pre 16 PAN
+        [Fact]
+        public async void When_PupilNumbers_PublishedAdmissionsNumber_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
+            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+
+            var actualPupilNumbers = content.Data;
+
             actualPupilNumbers.Pre16PublishedAdmissionNumber.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.ReceptionToYear6);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year7.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year7);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year10.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year10);
@@ -65,15 +84,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Total.Should().Be(pre16PanTotals);
 
-            //// Post 16 PAN
             actualPupilNumbers.Post16PublishedAdmissionNumber.Year12.Should().Be(updatePupilNumbersRequest.Post16PublishedAdmissionNumber.Year12);
             actualPupilNumbers.Post16PublishedAdmissionNumber.OtherPost16.Should().Be(updatePupilNumbersRequest.Post16PublishedAdmissionNumber.OtherPost16);
 
             var post16PanTotals = updatePupilNumbersRequest.Post16PublishedAdmissionNumber.Year12 + updatePupilNumbersRequest.Post16PublishedAdmissionNumber.OtherPost16;
 
             actualPupilNumbers.Post16PublishedAdmissionNumber.Total.Should().Be(post16PanTotals);
+        }
 
-            // Pre 16 Capacity Buildup
+        [Fact]
+        public async void When_PupilNumbers_Pre16CapacityBuildup_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
+            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+
+            var actualPupilNumbers = content.Data;
+
             actualPupilNumbers.Pre16CapacityBuildup.Nursery.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Nursery);
             actualPupilNumbers.Pre16CapacityBuildup.Reception.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Reception);
             actualPupilNumbers.Pre16CapacityBuildup.Year1.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year1);
@@ -96,8 +135,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Pre16CapacityBuildup.Total.FifthYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FifthYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.SixthYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SixthYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.SeventhYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SeventhYear)));
+        }
 
-            // Post 16 capacity buildup
+        [Fact]
+        public async void When_PupilNumbers_Post16CapacityBuildup_Returns_200()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
+            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+
+            var actualPupilNumbers = content.Data;
+
             actualPupilNumbers.Post16CapacityBuildup.Year12.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year12);
             actualPupilNumbers.Post16CapacityBuildup.Year13.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year13);
             actualPupilNumbers.Post16CapacityBuildup.Year14.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year14);
