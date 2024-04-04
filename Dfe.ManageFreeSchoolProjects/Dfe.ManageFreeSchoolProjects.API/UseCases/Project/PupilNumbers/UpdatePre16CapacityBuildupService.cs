@@ -21,6 +21,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             UpdateYear4(po, request.Pre16CapacityBuildup.Year4);
             UpdateYear5(po, request.Pre16CapacityBuildup.Year5);
             UpdateYear6(po, request.Pre16CapacityBuildup.Year6);
+            UpdateYear7(po, request.Pre16CapacityBuildup.Year7);
+            UpdateYear8(po, request.Pre16CapacityBuildup.Year8);
+            UpdateYear9(po, request.Pre16CapacityBuildup.Year9);
+            UpdateYear10(po, request.Pre16CapacityBuildup.Year10);
+            UpdateYear11(po, request.Pre16CapacityBuildup.Year11);
             UpdateTotals(po, request);
         }
 
@@ -119,6 +124,66 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             po.PupilNumbersAndCapacityCellH8Year6SeventhYear = entry.SeventhYear.ToString();
         }
 
+        private static void UpdateYear7(Po po, CapacityBuildupEntry entry)
+        {
+            po.PupilNumbersAndCapacityCellA9Year7CurrentPupilNumbersIfAlreadyOpen = entry.CurrentCapacity.ToString();
+            po.PupilNumbersAndCapacityCellB9Year7FirstYear = entry.FirstYear.ToString();
+            po.PupilNumbersAndCapacityCellC9Year7SecondYear = entry.SecondYear.ToString();
+            po.PupilNumbersAndCapacityCellD9Year7ThirdYear = entry.ThirdYear.ToString();
+            po.PupilNumbersAndCapacityCellE9Year7FourthYear = entry.FourthYear.ToString();
+            po.PupilNumbersAndCapacityCellF9Year7FifthYear = entry.FifthYear.ToString();
+            po.PupilNumbersAndCapacityCellG9Year7SixthYear = entry.SixthYear.ToString();
+            po.PupilNumbersAndCapacityCellH9Year7SeventhYear = entry.SeventhYear.ToString();
+        }
+
+        private static void UpdateYear8(Po po, CapacityBuildupEntry entry)
+        {
+            po.PupilNumbersAndCapacityCellA10Year8CurrentPupilNumbersIfAlreadyOpen = entry.CurrentCapacity.ToString();
+            po.PupilNumbersAndCapacityCellB10Year8FirstYear = entry.FirstYear.ToString();
+            po.PupilNumbersAndCapacityCellC10Year8SecondYear = entry.SecondYear.ToString();
+            po.PupilNumbersAndCapacityCellD10Year8ThirdYear = entry.ThirdYear.ToString();
+            po.PupilNumbersAndCapacityCellE10Year8FourthYear = entry.FourthYear.ToString();
+            po.PupilNumbersAndCapacityCellF10Year8FifthYear = entry.FifthYear.ToString();
+            po.PupilNumbersAndCapacityCellG10Year8SixthYear = entry.SixthYear.ToString();
+            po.PupilNumbersAndCapacityCellH10Year8SeventhYear = entry.SeventhYear.ToString();
+        }
+
+        private static void UpdateYear9(Po po, CapacityBuildupEntry entry)
+        {
+            po.PupilNumbersAndCapacityCellA11Year9CurrentPupilNumbersIfAlreadyOpen = entry.CurrentCapacity.ToString();
+            po.PupilNumbersAndCapacityCellB11Year9FirstYear = entry.FirstYear.ToString();
+            po.PupilNumbersAndCapacityCellC11Year9SecondYear = entry.SecondYear.ToString();
+            po.PupilNumbersAndCapacityCellD11Year9ThirdYear = entry.ThirdYear.ToString();
+            po.PupilNumbersAndCapacityCellE11Year9FourthYear = entry.FourthYear.ToString();
+            po.PupilNumbersAndCapacityCellF11Year9FifthYear = entry.FifthYear.ToString();
+            po.PupilNumbersAndCapacityCellG11Year9SixthYear = entry.SixthYear.ToString();
+            po.PupilNumbersAndCapacityCellH11Year9SeventhYear = entry.SeventhYear.ToString();
+        }
+
+        private static void UpdateYear10(Po po, CapacityBuildupEntry entry)
+        {
+            po.PupilNumbersAndCapacityCellA12Year10CurrentPupilNumbersIfAlreadyOpen = entry.CurrentCapacity.ToString();
+            po.PupilNumbersAndCapacityCellB12Year10FirstYear = entry.FirstYear.ToString();
+            po.PupilNumbersAndCapacityCellC12Year10SecondYear = entry.SecondYear.ToString();
+            po.PupilNumbersAndCapacityCellD12Year10ThirdYear = entry.ThirdYear.ToString();
+            po.PupilNumbersAndCapacityCellE12Year10FourthYear = entry.FourthYear.ToString();
+            po.PupilNumbersAndCapacityCellF12Year10FifthYear = entry.FifthYear.ToString();
+            po.PupilNumbersAndCapacityCellG12Year10SixthYear = entry.SixthYear.ToString();
+            po.PupilNumbersAndCapacityCellH12Year10SeventhYear = entry.SeventhYear.ToString();
+        }
+
+        private static void UpdateYear11(Po po, CapacityBuildupEntry entry)
+        {
+            po.PupilNumbersAndCapacityCellA13Year11CurrentPupilNumbersIfAlreadyOpen = entry.CurrentCapacity.ToString();
+            po.PupilNumbersAndCapacityCellB13Year11FirstYear = entry.FirstYear.ToString();
+            po.PupilNumbersAndCapacityCellC13Year11SecondYear = entry.SecondYear.ToString();
+            po.PupilNumbersAndCapacityCellD13Year11ThirdYear = entry.ThirdYear.ToString();
+            po.PupilNumbersAndCapacityCellE13Year11FourthYear = entry.FourthYear.ToString();
+            po.PupilNumbersAndCapacityCellF13Year11FifthYear = entry.FifthYear.ToString();
+            po.PupilNumbersAndCapacityCellG13Year11SixthYear = entry.SixthYear.ToString();
+            po.PupilNumbersAndCapacityCellH13Year11SeventhYear = entry.SeventhYear.ToString();
+        }
+
         private static void UpdateTotals(Po po, UpdatePupilNumbersRequest request)
         {
             int firstYearTotal = CalculateFirstYearTotal(request);
@@ -127,6 +192,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             int fourthYearTotal = CalculateFourthYearTotal(request);
             int fifthYearTotal = CalculateFifthYearTotal(request);
             int sixthYearTotal = CalculateSixthYearTotal(request);
+            int seventhYearTotal = CalculateSeventhYearTotal(request);
 
             po.PupilNumbersAndCapacityCellTotalBTotalFirstYear = firstYearTotal.ToString();
             po.PupilNumbersAndCapacityCellTotalCTotalSecondYear = secondYearTotal.ToString();
@@ -134,6 +200,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             po.PupilNumbersAndCapacityCellTotalETotalFourthYear = fourthYearTotal.ToString();
             po.PupilNumbersAndCapacityCellTotalFTotalFifthYear = fifthYearTotal.ToString();
             po.PupilNumbersAndCapacityCellTotalGTotalSixthYear = sixthYearTotal.ToString();
+            po.PupilNumbersAndCapacityCellTotalHTotalSeventhYear = seventhYearTotal.ToString();
         }
 
         private static int CalculateFirstYearTotal(UpdatePupilNumbersRequest request)
@@ -145,7 +212,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.FirstYear +
                 request.Pre16CapacityBuildup.Year4.FirstYear +
                 request.Pre16CapacityBuildup.Year5.FirstYear +
-                request.Pre16CapacityBuildup.Year6.FirstYear;
+                request.Pre16CapacityBuildup.Year6.FirstYear +
+                request.Pre16CapacityBuildup.Year7.FirstYear +
+                request.Pre16CapacityBuildup.Year8.FirstYear +
+                request.Pre16CapacityBuildup.Year9.FirstYear +
+                request.Pre16CapacityBuildup.Year10.FirstYear +
+                request.Pre16CapacityBuildup.Year11.FirstYear;
         }
 
         private static int CalculateSecondYearTotal(UpdatePupilNumbersRequest request)
@@ -157,7 +229,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.SecondYear +
                 request.Pre16CapacityBuildup.Year4.SecondYear +
                 request.Pre16CapacityBuildup.Year5.SecondYear +
-                request.Pre16CapacityBuildup.Year6.SecondYear;
+                request.Pre16CapacityBuildup.Year6.SecondYear +
+                request.Pre16CapacityBuildup.Year7.SecondYear +
+                request.Pre16CapacityBuildup.Year8.SecondYear +
+                request.Pre16CapacityBuildup.Year9.SecondYear +
+                request.Pre16CapacityBuildup.Year10.SecondYear +
+                request.Pre16CapacityBuildup.Year11.SecondYear;
         }
 
         private static int CalculateThirdYearTotal(UpdatePupilNumbersRequest request)
@@ -169,7 +246,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.ThirdYear +
                 request.Pre16CapacityBuildup.Year4.ThirdYear +
                 request.Pre16CapacityBuildup.Year5.ThirdYear +
-                request.Pre16CapacityBuildup.Year6.ThirdYear;
+                request.Pre16CapacityBuildup.Year6.ThirdYear +
+                request.Pre16CapacityBuildup.Year7.ThirdYear +
+                request.Pre16CapacityBuildup.Year8.ThirdYear +
+                request.Pre16CapacityBuildup.Year9.ThirdYear +
+                request.Pre16CapacityBuildup.Year10.ThirdYear +
+                request.Pre16CapacityBuildup.Year11.ThirdYear;
         }
 
         private static int CalculateFourthYearTotal(UpdatePupilNumbersRequest request)
@@ -181,7 +263,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.FourthYear +
                 request.Pre16CapacityBuildup.Year4.FourthYear +
                 request.Pre16CapacityBuildup.Year5.FourthYear +
-                request.Pre16CapacityBuildup.Year6.FourthYear;
+                request.Pre16CapacityBuildup.Year6.FourthYear +
+                request.Pre16CapacityBuildup.Year7.FourthYear +
+                request.Pre16CapacityBuildup.Year8.FourthYear +
+                request.Pre16CapacityBuildup.Year9.FourthYear +
+                request.Pre16CapacityBuildup.Year10.FourthYear +
+                request.Pre16CapacityBuildup.Year11.FourthYear;
         }
 
         private static int CalculateFifthYearTotal(UpdatePupilNumbersRequest request)
@@ -193,7 +280,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.FifthYear +
                 request.Pre16CapacityBuildup.Year4.FifthYear +
                 request.Pre16CapacityBuildup.Year5.FifthYear +
-                request.Pre16CapacityBuildup.Year6.FifthYear;
+                request.Pre16CapacityBuildup.Year6.FifthYear +
+                request.Pre16CapacityBuildup.Year7.FifthYear +
+                request.Pre16CapacityBuildup.Year8.FifthYear +
+                request.Pre16CapacityBuildup.Year9.FifthYear +
+                request.Pre16CapacityBuildup.Year10.FifthYear +
+                request.Pre16CapacityBuildup.Year11.FifthYear;
         }
 
         private static int CalculateSixthYearTotal(UpdatePupilNumbersRequest request)
@@ -205,7 +297,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 request.Pre16CapacityBuildup.Year3.SixthYear +
                 request.Pre16CapacityBuildup.Year4.SixthYear +
                 request.Pre16CapacityBuildup.Year5.SixthYear +
-                request.Pre16CapacityBuildup.Year6.SixthYear;
+                request.Pre16CapacityBuildup.Year6.SixthYear +
+                request.Pre16CapacityBuildup.Year7.SixthYear +
+                request.Pre16CapacityBuildup.Year8.SixthYear +
+                request.Pre16CapacityBuildup.Year9.SixthYear +
+                request.Pre16CapacityBuildup.Year10.SixthYear +
+                request.Pre16CapacityBuildup.Year11.SixthYear;
+        }
+
+        private static int CalculateSeventhYearTotal(UpdatePupilNumbersRequest request)
+        {
+            return request.Pre16CapacityBuildup.Nursery.SeventhYear +
+                request.Pre16CapacityBuildup.Reception.SeventhYear +
+                request.Pre16CapacityBuildup.Year1.SeventhYear +
+                request.Pre16CapacityBuildup.Year2.SeventhYear +
+                request.Pre16CapacityBuildup.Year3.SeventhYear +
+                request.Pre16CapacityBuildup.Year4.SeventhYear +
+                request.Pre16CapacityBuildup.Year5.SeventhYear +
+                request.Pre16CapacityBuildup.Year6.SeventhYear +
+                request.Pre16CapacityBuildup.Year7.SeventhYear +
+                request.Pre16CapacityBuildup.Year8.SeventhYear +
+                request.Pre16CapacityBuildup.Year9.SeventhYear +
+                request.Pre16CapacityBuildup.Year10.SeventhYear +
+                request.Pre16CapacityBuildup.Year11.SeventhYear;
         }
     }
 }

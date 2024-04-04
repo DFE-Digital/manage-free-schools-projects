@@ -82,6 +82,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Pre16CapacityBuildup.Year4.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year4);
             actualPupilNumbers.Pre16CapacityBuildup.Year5.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year5);
             actualPupilNumbers.Pre16CapacityBuildup.Year6.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year6);
+            actualPupilNumbers.Pre16CapacityBuildup.Year7.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year7);
+            actualPupilNumbers.Pre16CapacityBuildup.Year8.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year8);
+            actualPupilNumbers.Pre16CapacityBuildup.Year9.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year9);
+            actualPupilNumbers.Pre16CapacityBuildup.Year10.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year10);
+            actualPupilNumbers.Pre16CapacityBuildup.Year11.Should().BeEquivalentTo(updatePupilNumbersRequest.Pre16CapacityBuildup.Year11);
 
             actualPupilNumbers.Pre16CapacityBuildup.Total.FirstYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FirstYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.SecondYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SecondYear)));
@@ -89,17 +94,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Pre16CapacityBuildup.Total.FourthYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FourthYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.FifthYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FifthYear)));
             actualPupilNumbers.Pre16CapacityBuildup.Total.SixthYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SixthYear)));
+            actualPupilNumbers.Pre16CapacityBuildup.Total.SeventhYear.Should().Be(CalculatePre16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SeventhYear)));
 
             // Post 16 capacity buildup
-            actualPupilNumbers.Post16CapacityBuildup.Year7.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year7);
-            actualPupilNumbers.Post16CapacityBuildup.Year8.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year8);
-            actualPupilNumbers.Post16CapacityBuildup.Year9.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year9);
-            actualPupilNumbers.Post16CapacityBuildup.Year10.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year10);
-            actualPupilNumbers.Post16CapacityBuildup.Year11.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year11);
             actualPupilNumbers.Post16CapacityBuildup.Year12.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year12);
             actualPupilNumbers.Post16CapacityBuildup.Year13.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year13);
             actualPupilNumbers.Post16CapacityBuildup.Year14.Should().BeEquivalentTo(updatePupilNumbersRequest.Post16CapacityBuildup.Year14);
 
+            actualPupilNumbers.Post16CapacityBuildup.Total.FirstYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FirstYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.SecondYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SecondYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.ThirdYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.ThirdYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.FourthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FourthYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.FifthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FifthYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.SixthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SixthYear)));
+            actualPupilNumbers.Post16CapacityBuildup.Total.SeventhYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SeventhYear)));
         }
 
         private static int CalculatePre16BuildupTotal(UpdatePupilNumbersRequest request, string property)
@@ -114,8 +122,38 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var year4 = request.Pre16CapacityBuildup.Year4.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year4);
             var year5 = request.Pre16CapacityBuildup.Year5.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year5);
             var year6 = request.Pre16CapacityBuildup.Year6.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year6);
+            var year7 = request.Pre16CapacityBuildup.Year7.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year7);
+            var year8 = request.Pre16CapacityBuildup.Year8.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year8);
+            var year9 = request.Pre16CapacityBuildup.Year9.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year9);
+            var year10 = request.Pre16CapacityBuildup.Year10.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year10);
+            var year11 = request.Pre16CapacityBuildup.Year11.GetType().GetProperty(property).GetValue(request.Pre16CapacityBuildup.Year11);
 
-            return (int)nursery + (int)reception + (int)year1 + (int)year2 + (int)year3 + (int)year4 + (int)year5 + (int)year6;
+            return (int)nursery + 
+                (int)reception + 
+                (int)year1 + 
+                (int)year2 + 
+                (int)year3 + 
+                (int)year4 + 
+                (int)year5 + 
+                (int)year6 +
+                (int)year7 +
+                (int)year8 +
+                (int)year9 +
+                (int)year10 +
+                (int)year11;
+        }
+
+        private static int CalculatePost16BuildupTotal(UpdatePupilNumbersRequest request, string property)
+        {
+            // Helper to calculate the total of a property across all years
+            // Not using this in production, but it reduces the amount of code we have to write for the test
+            var year12 = request.Post16CapacityBuildup.Year12.GetType().GetProperty(property).GetValue(request.Post16CapacityBuildup.Year12);
+            var year13 = request.Post16CapacityBuildup.Year13.GetType().GetProperty(property).GetValue(request.Post16CapacityBuildup.Year13);
+            var year14 = request.Post16CapacityBuildup.Year14.GetType().GetProperty(property).GetValue(request.Post16CapacityBuildup.Year14);
+
+            return (int)year12 +
+                (int)year13 +
+                (int)year14;
         }
     }
 }

@@ -79,19 +79,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public CapacityBuildupEntry Year4 { get; set; }
         public CapacityBuildupEntry Year5 { get; set; }
         public CapacityBuildupEntry Year6 { get; set; }
-        public CapacityBuildupEntry Total { get; set; }
-    }
-
-    public record Post16CapacityBuildup
-    {
         public CapacityBuildupEntry Year7 { get; set; }
         public CapacityBuildupEntry Year8 { get; set; }
         public CapacityBuildupEntry Year9 { get; set; }
         public CapacityBuildupEntry Year10 { get; set; }
         public CapacityBuildupEntry Year11 { get; set; }
+        public CapacityBuildupEntry Total { get; set; }
+    }
+
+    public record Post16CapacityBuildup
+    {
         public CapacityBuildupEntry Year12 { get; set; }
         public CapacityBuildupEntry Year13 { get; set; }
         public CapacityBuildupEntry Year14 { get; set; }
+        public CapacityBuildupEntry Total { get; set; }
     }
 
     public record CapacityBuildupEntry
