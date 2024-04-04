@@ -33,10 +33,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record RecruitmentAndViability
     {
-        public RecruitmentAndViabilityEntry Nursery { get; set; }
         public RecruitmentAndViabilityEntry ReceptionToYear6 { get; set; }
         public RecruitmentAndViabilityEntry Year7ToYear11 { get; set; }
         public RecruitmentAndViabilityEntry Year12ToYear14 { get; set; }
+        public RecruitmentAndViabilityEntry Total { get; set; }
     }
 
     public record RecruitmentAndViabilityEntry

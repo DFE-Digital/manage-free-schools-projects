@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+﻿using Azure.Core;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
@@ -131,6 +132,33 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.Post16CapacityBuildup.Total.FifthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.FifthYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.SixthYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SixthYear)));
             actualPupilNumbers.Post16CapacityBuildup.Total.SeventhYear.Should().Be(CalculatePost16BuildupTotal(updatePupilNumbersRequest, nameof(CapacityBuildupEntry.SeventhYear)));
+        }
+
+        [Fact]
+        public async void When_PupilNumbers_RecruitmentAndViability_Returns_200()
+        {
+            var project = await CreateProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            var updatePupilNumbersRequest = _autoFixture.Create<UpdatePupilNumbersRequest>();
+            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
+
+            var actualPupilNumbers = content.Data;
+
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.ReceptionToYear6);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year7ToYear11);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year12ToYear14);
+
+            var totalMinimumViableNumber = updatePupilNumbersRequest.RecruitmentAndViability.ReceptionToYear6.MinimumViableNumber +
+                               updatePupilNumbersRequest.RecruitmentAndViability.Year7ToYear11.MinimumViableNumber +
+                               updatePupilNumbersRequest.RecruitmentAndViability.Year12ToYear14.MinimumViableNumber;
+
+            var totalApplicationsReceived = updatePupilNumbersRequest.RecruitmentAndViability.ReceptionToYear6.ApplicationsReceived +
+                                            updatePupilNumbersRequest.RecruitmentAndViability.Year7ToYear11.ApplicationsReceived +
+                                            updatePupilNumbersRequest.RecruitmentAndViability.Year12ToYear14.ApplicationsReceived;
+
+            actualPupilNumbers.RecruitmentAndViability.Total.MinimumViableNumber.Should().Be(totalMinimumViableNumber);
+            actualPupilNumbers.RecruitmentAndViability.Total.ApplicationsReceived.Should().Be(totalApplicationsReceived);
         }
 
         private async Task<Kpi> CreateProject()

@@ -39,6 +39,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                         AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
                         Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
                     },
+                    RecruitmentAndViability = new RecruitmentAndViability()
+                    {
+                        ReceptionToYear6 = new RecruitmentAndViabilityEntry()
+                        {
+                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6.ToInt(),
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt()
+                        },
+                        Year7ToYear11 = new RecruitmentAndViabilityEntry()
+                        {
+                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11.ToInt(),
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt()
+                        },
+                        Year12ToYear14 = new RecruitmentAndViabilityEntry()
+                        {
+                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14.ToInt(),
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt()
+                        },
+                        Total = new RecruitmentAndViabilityEntry()
+                        {
+                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
+                        }
+                    },
                     Pre16PublishedAdmissionNumber = new Pre16PublishedAdmissionNumberResponse()
                     {
                         ReceptionToYear6 = po.PupilNumbersAndCapacityYrPan.ToInt(),
