@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 _context.Po.Add(po);
             }
 
-            _updateCapacityWhenFullService.Execute(po, request);
+            _updateCapacityWhenFullService.Execute(po, request.CapacityWhenFull);
             _updatePost16CapacityBuildupService.Execute(po, request);
             _updatePost16PublishedAdmissionNumberService.Execute(po, request);
             _updatePre16CapacityBuildupService.Execute(po, request);

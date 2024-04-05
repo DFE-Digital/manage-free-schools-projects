@@ -164,6 +164,42 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
             po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.Should().Be(expected);
         }
 
+        [Theory]
+        [InlineData(10, 70, 160, "200.00")]
+        [InlineData(33, 88, 17, "14.05")]
+        public void PublishedAdmissionNumberRatioYear12ToYear14(
+            int year12PublishedAdmissionNumber,
+            int otherPost16PublishedAdmissionNumber,
+            int applicationsReceived,
+            string expected)
+        {
+            // Arrange
+            var po = new Po()
+            {
+                PupilNumbersAndCapacityY12Pan = year12PublishedAdmissionNumber.ToString(),
+                PupilNumbersAndCapacityYOtherPanPost16 = otherPost16PublishedAdmissionNumber.ToString(),
+            };
+
+            var request = new UpdatePupilNumbersRequest
+            {
+                RecruitmentAndViability = new()
+                {
+                    Year12ToYear14 = new()
+                    {
+                        ApplicationsReceived = applicationsReceived
+                    }
+                }
+            };
+
+            // Act
+            var service = new UpdateRecruitmentAndViabilityService();
+
+            service.Execute(po, request);
+
+            // Assert
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.Should().Be(expected);
+        }
+
         public static IEnumerable<object[]> MinimumViabilityRatioData()
         {
             yield return new object[] { 5, 10, "200.00" };

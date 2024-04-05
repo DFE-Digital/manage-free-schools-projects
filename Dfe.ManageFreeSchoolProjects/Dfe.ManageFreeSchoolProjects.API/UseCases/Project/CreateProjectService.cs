@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
@@ -18,10 +19,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
     public class CreateProject : ICreateProjectService
     {
         private readonly MfspContext _context;
+        private readonly IUpdateCapacityWhenFullService _updateCapacityWhenFullService;
 
-        public CreateProject(MfspContext context)
+        public CreateProject(
+            MfspContext context, 
+            IUpdateCapacityWhenFullService updateCapacityWhenFullService)
         {
             _context = context;
+            _updateCapacityWhenFullService = updateCapacityWhenFullService;
         }
 
         public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
@@ -56,28 +61,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return result;
         }
 
-        private static Po MapToPo(ProjectDetails proj, string rid)
+        private Po MapToPo(ProjectDetails proj, string rid)
         {
             var nurseryCapacity = proj.Nursery == ClassType.Nursery.Yes ? proj.NurseryCapacity : 0;
 
             var result = new Po()
             {
                 Rid = rid,
-                PupilNumbersAndCapacityNurseryUnder5s = nurseryCapacity.ToString(),
-                PupilNumbersAndCapacityYrY6Capacity = proj.YRY6Capacity.ToString(),
-                PupilNumbersAndCapacityY7Y11Capacity = proj.Y7Y11Capacity.ToString(),
-                PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
             };
 
-            var updatePupilNumberTotalsParameters = new UpdatePupilNumbersTotalsBuilderParameters()
+            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull()
             {
                 Nursery = nurseryCapacity,
                 ReceptionToYear6 = proj.YRY6Capacity,
                 Year7ToYear11 = proj.Y7Y11Capacity,
                 Year12ToYear14 = proj.Y12Y14Capacity
-            };
-
-            UpdatePupilNumbersTotalsBuilder.Build(result, updatePupilNumberTotalsParameters);
+            });
 
             return result;
         }
