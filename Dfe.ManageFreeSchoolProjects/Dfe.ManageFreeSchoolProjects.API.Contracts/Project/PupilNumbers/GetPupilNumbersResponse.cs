@@ -8,12 +8,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 {
     public record GetPupilNumbersResponse
     {
-        public CapacityWhenFullResponse CapacityWhenFull { get; set; }
-        public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; }
-        public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; }
-        public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; }
-        public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; }
-        public Post16CapacityBuildup Post16CapacityBuildup { get; set; }
+        public CapacityWhenFullResponse CapacityWhenFull { get; set; } = new();
+        public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; } = new();
+        public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; } = new();
+        public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; } = new();
+        public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; } = new();
+        public Post16CapacityBuildup Post16CapacityBuildup { get; set; } = new();
     }
 
     public record CapacityWhenFullResponse : CapacityWhenFull

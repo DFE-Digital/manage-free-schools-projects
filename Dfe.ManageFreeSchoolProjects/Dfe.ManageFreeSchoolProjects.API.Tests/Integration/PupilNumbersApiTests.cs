@@ -433,7 +433,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-
             // CapacityWhenFull
             var updateCapacityWhenFullRequest = new UpdatePupilNumbersRequest() { CapacityWhenFull = new() };
             var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updateCapacityWhenFullRequest.ConvertToJson());
@@ -463,6 +462,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var updatePost16CapacityBuildupRequest = new UpdatePupilNumbersRequest() { Post16CapacityBuildup = new() };
             updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePost16CapacityBuildupRequest.ConvertToJson());
             updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// PO entry does not exist, should return a 200
+        /// This can happen in cases we migrate from KIM
+        /// </summary>
+        [Fact]
+        public async void When_PupilNumbers_GetWithNoPupilNumbers_Returns_200()
+        {
+            var project = await CreateProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+
+            var actualPupilNumbers = content.Data;
+            actualPupilNumbers.CapacityWhenFull.Should().NotBeNull();
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Should().NotBeNull();
+            actualPupilNumbers.Post16PublishedAdmissionNumber.Should().NotBeNull();
+            actualPupilNumbers.RecruitmentAndViability.Should().NotBeNull();
+            actualPupilNumbers.Pre16CapacityBuildup.Should().NotBeNull();
+            actualPupilNumbers.Post16CapacityBuildup.Should().NotBeNull();
         }
 
         private async Task<Kpi> CreateProject()

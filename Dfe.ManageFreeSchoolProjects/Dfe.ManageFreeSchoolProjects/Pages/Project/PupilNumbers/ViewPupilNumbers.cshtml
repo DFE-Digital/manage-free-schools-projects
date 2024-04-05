@@ -3,6 +3,7 @@
 @{
     var capacityWhenFull = Model.PupilNumbers.CapacityWhenFull;
     var recruitmentAndViability = Model.PupilNumbers.RecruitmentAndViability;
+    var pre16PublishedAdmissionNumber = Model.PupilNumbers.Pre16PublishedAdmissionNumber;
 }
 
 <div class="govuk-grid-row">
@@ -27,7 +28,7 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Reception to year 6</td>
-                    <td class="govuk-table__cell" data-testid="reception-capacity">@capacityWhenFull.ReceptionToYear6</td>
+                    <td class="govuk-table__cell" data-testid="reception-to-year6-capacity">@capacityWhenFull.ReceptionToYear6</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">Year 7 to year 11</td>
@@ -57,6 +58,46 @@
         <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
             <button class="govuk-button" data-module="govuk-button">
                 Edit Capacity when full
+            </button>
+        </form>
+
+        <table class="govuk-table mfsp-pupil-numbers__table-container mfsp-pupil-numbers__table-container--small">
+            <caption class="govuk-table__caption govuk-table__caption--l">Pre-16 published admission number (PAN)</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header col1">School year</th>
+                    <th scope="col" class="govuk-table__header">PAN in first year of opening</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Reception</td>
+                    <td class="govuk-table__cell" data-testid="reception-pan">@pre16PublishedAdmissionNumber.ReceptionToYear6</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Year 7</td>
+                    <td class="govuk-table__cell" data-testid="year7-pan">@pre16PublishedAdmissionNumber.Year7</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Year 10</td>
+                    <td class="govuk-table__cell" data-testid="year10-pan">@pre16PublishedAdmissionNumber.Year10</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Other pre-16</td>
+                    <td class="govuk-table__cell" data-testid="other-pre16-pan">@pre16PublishedAdmissionNumber.OtherPre16</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Total</strong></td>
+                    <td class="govuk-table__cell" data-testid="total-pre16-pan">
+                        @pre16PublishedAdmissionNumber.Total
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
+            <button class="govuk-button" data-module="govuk-button">
+                Edit Pre-16 PAN
             </button>
         </form>
 

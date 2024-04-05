@@ -43,6 +43,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 })
                 .FirstOrDefaultAsync();
 
+            if (result == null)
+            {
+                // This might happen with imported data from KIM
+                // Our update will solve this but until an update has been performed the data could be missing
+                return new GetPupilNumbersResponse();
+            }
+
             return result;
         }
 
