@@ -487,11 +487,5 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
             return content;
         }
-
-        private static void AssertRecruitmentAndViability(RecruitmentAndViabilityEntryWithPercentage actual, RecruitmentAndViabilityEntry expected)
-        {
-            actual.MinimumViableNumber.Should().Be(expected.MinimumViableNumber);
-            actual.ApplicationsReceived.Should().Be(expected.ApplicationsReceived);
-        }
     }
 }

@@ -105,7 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         {
             return request.Post16CapacityBuildup.Year12.ThirdYear +
                 request.Post16CapacityBuildup.Year13.ThirdYear +
-                request.Post16CapacityBuildup.Year14.ThirdYear; ;
+                request.Post16CapacityBuildup.Year14.ThirdYear;
         }
 
         private static int CalculateFourthYearTotal(UpdatePupilNumbersRequest request)

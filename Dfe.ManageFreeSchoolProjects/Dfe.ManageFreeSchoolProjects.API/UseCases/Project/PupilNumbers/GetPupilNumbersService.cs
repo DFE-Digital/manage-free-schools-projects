@@ -3,7 +3,6 @@ using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using DocumentFormat.OpenXml.Bibliography;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
@@ -35,87 +34,117 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 .Where(po => po.Rid == kpi.Rid)
                 .Select(po => new GetPupilNumbersResponse()
                 {
-                    CapacityWhenFull = new CapacityWhenFullResponse()
-                    {
-                        Nursery = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt(),
-                        ReceptionToYear6 = po.PupilNumbersAndCapacityYrY6Capacity.ToInt(),
-                        Year7ToYear11 = po.PupilNumbersAndCapacityY7Y11Capacity.ToInt(),
-                        Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
-                        SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
-                        AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
-                        Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
-                    },
-                    RecruitmentAndViability = new RecruitmentAndViabilityResponse()
-                    {
-                        ReceptionToYear6 = new RecruitmentAndViabilityEntryWithPercentage()
-                        {
-                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt(),
-                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.ToDecimal(),
-                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6.ToDecimal()
-                        },
-                        Year7ToYear11 = new RecruitmentAndViabilityEntryWithPercentage()
-                        {
-                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt(),
-                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.ToDecimal(),
-                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.ToDecimal()
-                        },
-                        Year12ToYear14 = new RecruitmentAndViabilityEntryWithPercentage()
-                        {
-                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt(),
-                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.ToDecimal(),
-                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.ToDecimal()
-                        },
-                        Total = new RecruitmentAndViabilityEntry()
-                        {
-                            MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
-                        }
-                    },
-                    Pre16PublishedAdmissionNumber = new Pre16PublishedAdmissionNumberResponse()
-                    {
-                        ReceptionToYear6 = po.PupilNumbersAndCapacityYrPan.ToInt(),
-                        Year7 = po.PupilNumbersAndCapacityY7Pan.ToInt(),
-                        Year10 = po.PupilNumbersAndCapacityY10Pan.ToInt(),
-                        OtherPre16 = po.PupilNumbersAndCapacityYOtherPanPre16.ToInt(),
-                        Total = po.PupilNumbersAndCapacityTotalPanPre16.ToInt()
-                    },
-                    Post16PublishedAdmissionNumber = new Post16PublishedAdmissionNumberResponse()
-                    {
-                        Year12 = po.PupilNumbersAndCapacityY12Pan.ToInt(),
-                        OtherPost16 = po.PupilNumbersAndCapacityYOtherPanPost16.ToInt(),
-                        Total = po.PupilNumbersAndCapacityTotalPanPost16.ToInt()
-                    },
-                    Pre16CapacityBuildup = new Pre16CapacityBuildup()
-                    {
-                        Reception = BuildReceptionCapacityBuildup(po),
-                        Nursery = BuildNurseryCapacityBuildup(po),
-                        Year1 = BuildYear1CapacityBuildup(po),
-                        Year2 = BuildYear2CapacityBuildup(po),
-                        Year3 = BuildYear3CapacityBuildup(po),
-                        Year4 = BuildYear4CapacityBuildup(po),
-                        Year5 = BuildYear5CapacityBuildup(po),
-                        Year6 = BuildYear6CapacityBuildup(po),
-                        Year7 = BuildYear7CapacityBuildup(po),
-                        Year8 = BuildYear8CapacityBuildup(po),
-                        Year9 = BuildYear9CapacityBuildup(po),
-                        Year10 = BuildYear10CapacityBuildup(po),
-                        Year11 = BuildYear11CapacityBuildup(po),
-                        Total = BuildPre16TotalCapacityBuildup(po)
-                    },
-                    Post16CapacityBuildup = new Post16CapacityBuildup()
-                    {
-                        Year12 = BuildYear12CapacityBuildup(po),
-                        Year13 = BuildYear13CapacityBuildup(po),
-                        Year14 = BuildYear14CapacityBuildup(po),
-                        Total = BuildPost16TotalCapacityBuildup(po)
-                    }
+                    CapacityWhenFull = BuildCapacityWhenFull(po),
+                    RecruitmentAndViability = BuildRecruitmentAndViability(po),
+                    Pre16PublishedAdmissionNumber = BuildPre16PublishedAdmissionNumber(po),
+                    Post16PublishedAdmissionNumber = BuildPost16PublishedAdmissionNumber(po),
+                    Pre16CapacityBuildup = BuildPre16CapacityBuildup(po),
+                    Post16CapacityBuildup = BuildPost16CapacityBuildup(po)
                 })
                 .FirstOrDefaultAsync();
 
             return result;
+        }
+
+        private static CapacityWhenFullResponse BuildCapacityWhenFull(Po po)
+        {
+            return new CapacityWhenFullResponse()
+            {
+                Nursery = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt(),
+                ReceptionToYear6 = po.PupilNumbersAndCapacityYrY6Capacity.ToInt(),
+                Year7ToYear11 = po.PupilNumbersAndCapacityY7Y11Capacity.ToInt(),
+                Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
+                SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
+                AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
+                Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
+            };
+        }
+
+        private static RecruitmentAndViabilityResponse BuildRecruitmentAndViability(Po po)
+        {
+            return new RecruitmentAndViabilityResponse()
+            {
+                ReceptionToYear6 = new RecruitmentAndViabilityEntryWithPercentage()
+                {
+                    MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6.ToInt(),
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt(),
+                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.ToDecimal(),
+                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6.ToDecimal()
+                },
+                Year7ToYear11 = new RecruitmentAndViabilityEntryWithPercentage()
+                {
+                    MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11.ToInt(),
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt(),
+                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.ToDecimal(),
+                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.ToDecimal()
+                },
+                Year12ToYear14 = new RecruitmentAndViabilityEntryWithPercentage()
+                {
+                    MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14.ToInt(),
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt(),
+                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.ToDecimal(),
+                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.ToDecimal()
+                },
+                Total = new RecruitmentAndViabilityEntry()
+                {
+                    MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
+                }
+            };
+        }
+
+        private static Pre16PublishedAdmissionNumberResponse BuildPre16PublishedAdmissionNumber(Po po)
+        {
+            return new Pre16PublishedAdmissionNumberResponse()
+            {
+                ReceptionToYear6 = po.PupilNumbersAndCapacityYrPan.ToInt(),
+                Year7 = po.PupilNumbersAndCapacityY7Pan.ToInt(),
+                Year10 = po.PupilNumbersAndCapacityY10Pan.ToInt(),
+                OtherPre16 = po.PupilNumbersAndCapacityYOtherPanPre16.ToInt(),
+                Total = po.PupilNumbersAndCapacityTotalPanPre16.ToInt()
+            };
+        }
+
+        private static Post16PublishedAdmissionNumberResponse BuildPost16PublishedAdmissionNumber(Po po)
+        {
+            return new Post16PublishedAdmissionNumberResponse()
+            {
+                Year12 = po.PupilNumbersAndCapacityY12Pan.ToInt(),
+                OtherPost16 = po.PupilNumbersAndCapacityYOtherPanPost16.ToInt(),
+                Total = po.PupilNumbersAndCapacityTotalPanPost16.ToInt()
+            };
+        }
+
+        private static Pre16CapacityBuildup BuildPre16CapacityBuildup(Po po)
+        {
+            return new Pre16CapacityBuildup()
+            {
+                Reception = BuildReceptionCapacityBuildup(po),
+                Nursery = BuildNurseryCapacityBuildup(po),
+                Year1 = BuildYear1CapacityBuildup(po),
+                Year2 = BuildYear2CapacityBuildup(po),
+                Year3 = BuildYear3CapacityBuildup(po),
+                Year4 = BuildYear4CapacityBuildup(po),
+                Year5 = BuildYear5CapacityBuildup(po),
+                Year6 = BuildYear6CapacityBuildup(po),
+                Year7 = BuildYear7CapacityBuildup(po),
+                Year8 = BuildYear8CapacityBuildup(po),
+                Year9 = BuildYear9CapacityBuildup(po),
+                Year10 = BuildYear10CapacityBuildup(po),
+                Year11 = BuildYear11CapacityBuildup(po),
+                Total = BuildPre16TotalCapacityBuildup(po)
+            };
+        }
+
+        private static Post16CapacityBuildup BuildPost16CapacityBuildup(Po po)
+        {
+            return new Post16CapacityBuildup()
+            {
+                Year12 = BuildYear12CapacityBuildup(po),
+                Year13 = BuildYear13CapacityBuildup(po),
+                Year14 = BuildYear14CapacityBuildup(po),
+                Total = BuildPost16TotalCapacityBuildup(po)
+            };
         }
 
         private static CapacityBuildupEntry BuildReceptionCapacityBuildup(Po po)
