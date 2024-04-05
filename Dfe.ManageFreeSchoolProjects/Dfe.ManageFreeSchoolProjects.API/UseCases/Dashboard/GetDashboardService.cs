@@ -42,6 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var projectRecords = await 
                 query
+                    .Where(x => x.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption")
+                    .Where(x => x.Wave == "FS - Presumption")
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
                     .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
                     .Paginate(parameters.Page, parameters.Count)
