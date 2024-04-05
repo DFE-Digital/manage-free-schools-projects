@@ -4,6 +4,9 @@
     var capacityWhenFull = Model.PupilNumbers.CapacityWhenFull;
     var recruitmentAndViability = Model.PupilNumbers.RecruitmentAndViability;
     var pre16PublishedAdmissionNumber = Model.PupilNumbers.Pre16PublishedAdmissionNumber;
+    var post16PublishedAdmissionNumber = Model.PupilNumbers.Post16PublishedAdmissionNumber;
+    var pre16CapacityBuildup = Model.PupilNumbers.Pre16CapacityBuildup;
+    var post16CapacityBuildup = Model.PupilNumbers.Post16CapacityBuildup;
 }
 
 <div class="govuk-grid-row">
@@ -97,7 +100,39 @@
 
         <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
             <button class="govuk-button" data-module="govuk-button">
-                Edit Pre-16 PAN
+                Edit Post-16 PAN
+            </button>
+        </form>
+
+        <table class="govuk-table mfsp-pupil-numbers__table-container mfsp-pupil-numbers__table-container--small">
+            <caption class="govuk-table__caption govuk-table__caption--l">Post-16 published admission number (PAN)</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header col1">School year</th>
+                    <th scope="col" class="govuk-table__header">PAN in first year of opening</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Year 12</td>
+                    <td class="govuk-table__cell" data-testid="year12-pan">@post16PublishedAdmissionNumber.Year12</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Other post-16</td>
+                    <td class="govuk-table__cell" data-testid="other-post16-pan">@post16PublishedAdmissionNumber.OtherPost16</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell"><strong>Total</strong></td>
+                    <td class="govuk-table__cell" data-testid="total-post16-pan">
+                        @post16PublishedAdmissionNumber.Total
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
+            <button class="govuk-button" data-module="govuk-button">
+                Edit Post-16 PAN
             </button>
         </form>
 
@@ -173,182 +208,55 @@
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Nursery</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Reception</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">35</td>
-                    <td class="govuk-table__cell">35</td>
-                    <td class="govuk-table__cell">35</td>
-                    <td class="govuk-table__cell">40</td>
-                    <td class="govuk-table__cell">40</td>
-                    <td class="govuk-table__cell">40</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 1</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 2</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 3</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 4</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 5</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 6</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 7</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 8</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 9</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 10</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell">Year 11</td>
-                    <td class="govuk-table__cell">0</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                    <td class="govuk-table__cell">30</td>
-                </tr>
-                <tr class="govuk-table__row">
-                    <td class="govuk-table__cell"><strong>Total</strong></td>
-                    <td class="govuk-table__cell">
-                        0
-                    </td>
-                    <td class="govuk-table__cell">
-                        390
-                    </td>
-                    <td class="govuk-table__cell">
-                        395
-                    </td>
-                    <td class="govuk-table__cell">
-                        395
-                    </td>
-                    <td class="govuk-table__cell">
-                        395
-                    </td>
-                    <td class="govuk-table__cell">
-                        400
-                    </td>
-                    <td class="govuk-table__cell">
-                        400
-                    </td>
-                    <td class="govuk-table__cell">
-                        400
-                    </td>
-                </tr>
+                <govuk-capacity-buildup-row label="Nursery" asp-for="@pre16CapacityBuildup.Nursery" />
+                <govuk-capacity-buildup-row label="Reception" asp-for="@pre16CapacityBuildup.Reception" />
+                <govuk-capacity-buildup-row label="Year 1" asp-for="@pre16CapacityBuildup.Year1" />
+                <govuk-capacity-buildup-row label="Year 2" asp-for="@pre16CapacityBuildup.Year2" />
+                <govuk-capacity-buildup-row label="Year 3" asp-for="@pre16CapacityBuildup.Year3" />
+                <govuk-capacity-buildup-row label="Year 4" asp-for="@pre16CapacityBuildup.Year4" />
+                <govuk-capacity-buildup-row label="Year 5" asp-for="@pre16CapacityBuildup.Year5" />
+                <govuk-capacity-buildup-row label="Year 6" asp-for="@pre16CapacityBuildup.Year6" />
+                <govuk-capacity-buildup-row label="Year 7" asp-for="@pre16CapacityBuildup.Year7" />
+                <govuk-capacity-buildup-row label="Year 8" asp-for="@pre16CapacityBuildup.Year8" />
+                <govuk-capacity-buildup-row label="Year 9" asp-for="@pre16CapacityBuildup.Year9" />
+                <govuk-capacity-buildup-row label="Year 10" asp-for="@pre16CapacityBuildup.Year10" />
+                <govuk-capacity-buildup-row label="Year 11" asp-for="@pre16CapacityBuildup.Year11" />
+                <govuk-capacity-buildup-row label="Total" bold-label=true asp-for="@pre16CapacityBuildup.Total" />
             </tbody>
         </table>
 
         <form action="other-info-pupil-numbers-pre-16-build-up-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
             <button class="govuk-button" data-module="govuk-button">
                 Edit Pre-16 capacity build-up
+            </button>
+        </form>
+
+        <table class="govuk-table mfsp-pupil-numbers__table-container">
+            <caption class="govuk-table__caption govuk-table__caption--l">Post-16 capacity build-up</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header col1">School year</th>
+                    <th scope="col" class="govuk-table__header">Current capacity (if school is open)</th>
+                    <th scope="col" class="govuk-table__header">First year</th>
+                    <th scope="col" class="govuk-table__header">Second year</th>
+                    <th scope="col" class="govuk-table__header">Third year</th>
+                    <th scope="col" class="govuk-table__header">Fourth year</th>
+                    <th scope="col" class="govuk-table__header">Fifth year</th>
+                    <th scope="col" class="govuk-table__header">Sixth year</th>
+                    <th scope="col" class="govuk-table__header">Seventh year</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <govuk-capacity-buildup-row label="Year 12" asp-for="@post16CapacityBuildup.Year12" />
+                <govuk-capacity-buildup-row label="Year 13" asp-for="@post16CapacityBuildup.Year13" />
+                <govuk-capacity-buildup-row label="Year 14" asp-for="@post16CapacityBuildup.Year14" />
+                <govuk-capacity-buildup-row label="Total" bold-label=true asp-for="@post16CapacityBuildup.Total" />
+            </tbody>
+        </table>
+
+        <form action="other-info-pupil-numbers-pre-16-build-up-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
+            <button class="govuk-button" data-module="govuk-button">
+                Edit Post-16 capacity build-up
             </button>
         </form>
 
