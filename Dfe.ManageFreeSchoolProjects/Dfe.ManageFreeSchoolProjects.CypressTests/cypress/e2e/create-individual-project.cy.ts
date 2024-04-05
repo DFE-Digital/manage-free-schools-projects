@@ -645,8 +645,8 @@ describe("Testing the project creation journey", () => {
                 .continue();
             summaryPage
                 .SummaryHasValue("School type", "Special")
-                .SummaryHasValue("Alternative provision (specialist resource provision)", "Empty")
-                .SummaryHasValue("Special educational needs (specialist resource provision)", "Empty");
+                .summaryDoesNotShow("Alternative provision (specialist resource provision)")
+                .summaryDoesNotShow("Special educational needs (specialist resource provision")
 
             Logger.log("Nursery is not shown if No is selected");
             Logger.log("Change capacity")

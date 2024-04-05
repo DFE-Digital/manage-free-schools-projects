@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Pages.Project;
+@using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.EditSchoolTaskModel
 @{
     ViewData["Title"] = $"Edit School - {Model.CurrentFreeSchoolName}";
@@ -166,8 +167,9 @@
 </div>
 
 <script type="application/javascript" asp-add-nonce>
-    const setVisibility = () =>
+    const setFaithVisibility = () =>
     {
+
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
@@ -187,18 +189,44 @@
             }
 
         }
+
+    }
+
+    const setClassTypeVisibility = () =>
+    {
+
+        const schoolType = $("input[type='radio']:checked[name='school-type']").val();
+        const schoolTypesWithSpecialistProvisions = ["Mainstream", "StudioSchool", "University Technical College"];
+        
+
+        if (schoolTypesWithSpecialistProvisions.includes(schoolType))
+        {
+            $('#alternative-provision').show();
+            $('#special-education-needs').show();
+        }
+        else
+        {
+            $('#alternative-provision').hide();
+            $('#special-education-needs').hide();
+        }
     }
 
 
     $(document).ready(() => {
-        setVisibility();
+
+        setFaithVisibility();
+        setClassTypeVisibility();
 
         $("input[type='radio'][name='faith-status']").click((e) => {
-            setVisibility();
+            setFaithVisibility();
         });
 
         $("input[type='radio'][name='faith-type']").click((e) => {
-            setVisibility();
+            setFaithVisibility();
+        });
+
+         $("input[type='radio'][name='school-type']").click((e) => {
+            setClassTypeVisibility();
         });
     });
 
