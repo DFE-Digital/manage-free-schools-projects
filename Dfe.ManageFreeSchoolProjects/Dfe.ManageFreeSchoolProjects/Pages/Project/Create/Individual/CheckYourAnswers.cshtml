@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType
+@using Dfe.ManageFreeSchoolProjects.Pages.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.CheckYourAnswersModel
 @{
     ViewData["Title"] = "Check your answers";
@@ -146,36 +147,41 @@
         </dd>
     </div>
 
-    <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
-            Alternative provision (specialist resource provision)
-        </dt>
-        <dd class="govuk-summary-list__value" data-testid="alternative-provision">
-            @{
-                RenderValue(@Model.Project.AlternativeProvision.ToString());
-            }
-        </dd>
-        <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href=@RouteConstants.CreateClassType>
-                Change<span class="govuk-visually-hidden">Alternative provision</span>
-            </a>
-        </dd>
-    </div>
-    <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">
+    @{
+        if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(Model.Project.SchoolType))
+        {
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Alternative provision (specialist resource provision)
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="alternative-provision">
+                    @{
+                        RenderValue(@Model.Project.AlternativeProvision.ToString());
+                    }
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@RouteConstants.CreateClassType>
+                        Change<span class="govuk-visually-hidden">Alternative provision</span>
+                    </a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
                     Special educational needs (specialist resource provision)
-        </dt>
-        <dd class="govuk-summary-list__value" data-testid="special-education-needs">
-            @{
-                RenderValue(@Model.Project.SpecialEducationNeeds.ToString());
-            }
-        </dd>
-        <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href=@RouteConstants.CreateClassType>
-                Change<span class="govuk-visually-hidden">Special education needs</span>
-            </a>
-        </dd>
-    </div>
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="special-education-needs">
+                    @{
+                        RenderValue(@Model.Project.SpecialEducationNeeds.ToString());
+                    }
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@RouteConstants.CreateClassType>
+                        Change<span class="govuk-visually-hidden">Special education needs</span>
+                    </a>
+                </dd>
+            </div>
+        }
+    }
     
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">

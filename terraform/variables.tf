@@ -400,3 +400,9 @@ variable "storage_account_public_access_enabled" {
   description = "Should the Azure Storage Account have Public visibility?"
   type        = bool
 }
+
+variable "enable_cdn_frontdoor_health_probe" {
+  description = "Enable CDN Front Door health probe"
+  type        = bool
+  default     = false
+}
