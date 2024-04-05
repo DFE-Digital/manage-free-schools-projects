@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Vml.Office;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -26,6 +27,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             using var context = _testFixture.GetContext();
             var project = DatabaseModelBuilder.BuildProject();
+
+            var presumptionRoute = "FS - Presumption";
+            project.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            project.Wave = presumptionRoute;
 
             var dbUser = context.Users.First(u => u.Email == user.Email);
             dbUser.Projects.Add(project);
@@ -61,6 +66,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
             var projectThree = DatabaseModelBuilder.BuildProject();
+
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
+            projectThree.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectThree.Wave = presumptionRoute;
+
 
             context.Kpi.AddRange(projectOne, projectTwo, projectThree);
 
@@ -107,6 +121,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectThree = DatabaseModelBuilder.BuildProject();
             var projectFour = DatabaseModelBuilder.BuildProject();
 
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
+            projectThree.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectThree.Wave = presumptionRoute;
+
             context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
 
             await context.SaveChangesAsync();
@@ -145,6 +167,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectThree = DatabaseModelBuilder.BuildProject();
             var projectFour = DatabaseModelBuilder.BuildProject();
 
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
+            projectThree.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectThree.Wave = presumptionRoute;
+
+
             context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
 
             await context.SaveChangesAsync();
@@ -181,6 +212,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var projectThree = DatabaseModelBuilder.BuildProject();
 
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
+            projectThree.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectThree.Wave = presumptionRoute;
+
             context.Kpi.AddRange(projectOne, projectTwo, projectThree);
 
             await context.SaveChangesAsync();
@@ -211,6 +250,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             using var context = _testFixture.GetContext();
             var projectOne = DatabaseModelBuilder.BuildProject();
             var projectTwo = DatabaseModelBuilder.BuildProject();
+
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
 
             context.Kpi.AddRange(projectOne, projectTwo);
             await context.SaveChangesAsync();
@@ -244,6 +289,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var projectThree = DatabaseModelBuilder.BuildProject();
             var projectFour = DatabaseModelBuilder.BuildProject();
+
+            var presumptionRoute = "FS - Presumption";
+            projectOne.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectOne.Wave = presumptionRoute;
+            projectTwo.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectTwo.Wave = presumptionRoute;
+            projectThree.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+            projectThree.Wave = presumptionRoute;
 
             context.Kpi.AddRange(projectOne, projectTwo, projectThree, projectFour);
 
@@ -305,6 +358,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 projectFive,
                 projectSix
             };
+
+            var presumptionRoute = "FS - Presumption";
+            foreach (Kpi k in projects)
+            {
+                k.ProjectStatusFreeSchoolApplicationWave = presumptionRoute;
+                k.Wave = presumptionRoute;
+            }
 
             var orderedProjects = projects.OrderByDescending(p => p.ProjectStatusProvisionalOpeningDateAgreedWithTrust).ThenBy(p => p.ProjectStatusCurrentFreeSchoolName).ToList();
             var orderedProjectIds = orderedProjects.Select(p => p.ProjectStatusProjectId).ToList();
