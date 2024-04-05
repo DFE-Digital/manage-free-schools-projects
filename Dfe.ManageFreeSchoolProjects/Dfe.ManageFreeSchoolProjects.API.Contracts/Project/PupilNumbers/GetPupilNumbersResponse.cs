@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
     public record GetPupilNumbersResponse
     {
         public CapacityWhenFullResponse CapacityWhenFull { get; set; }
-        public RecruitmentAndViability RecruitmentAndViability { get; set; }
+        public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; }
         public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; }
         public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; }
         public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; }
@@ -31,6 +31,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int AlternativeProvision { get; set; }
     }
 
+    public record RecruitmentAndViabilityResponse
+    {
+        public RecruitmentAndViabilityEntryWithPercentage ReceptionToYear6 { get; set; } = new();
+        public RecruitmentAndViabilityEntryWithPercentage Year7ToYear11 { get; set; } = new();
+        public RecruitmentAndViabilityEntryWithPercentage Year12ToYear14 { get; set; } = new();
+        public RecruitmentAndViabilityEntry Total { get; set; } = new();
+    }
+
     public record RecruitmentAndViability
     {
         public RecruitmentAndViabilityEntry ReceptionToYear6 { get; set; } = new();
@@ -43,6 +51,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
     {
         public int MinimumViableNumber { get; set; }
         public int ApplicationsReceived { get; set; }
+    }
+
+    public record RecruitmentAndViabilityEntryWithPercentage : RecruitmentAndViabilityEntry
+    {
+        public decimal PercentageComparedToMinimumViable { get; set; }
+        public decimal PercentageComparedToPublishedAdmissionNumber { get; set; }
     }
 
     public record Pre16PublishedAdmissionNumberResponse : Pre16PublishedAdmissionNumber
@@ -71,28 +85,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record Pre16CapacityBuildup
     {
-        public CapacityBuildupEntry Nursery { get; set; }
-        public CapacityBuildupEntry Reception { get; set; }
-        public CapacityBuildupEntry Year1 { get; set; }
-        public CapacityBuildupEntry Year2 { get; set; }
-        public CapacityBuildupEntry Year3 { get; set; }
-        public CapacityBuildupEntry Year4 { get; set; }
-        public CapacityBuildupEntry Year5 { get; set; }
-        public CapacityBuildupEntry Year6 { get; set; }
-        public CapacityBuildupEntry Year7 { get; set; }
-        public CapacityBuildupEntry Year8 { get; set; }
-        public CapacityBuildupEntry Year9 { get; set; }
-        public CapacityBuildupEntry Year10 { get; set; }
-        public CapacityBuildupEntry Year11 { get; set; }
-        public CapacityBuildupEntry Total { get; set; }
+        public CapacityBuildupEntry Nursery { get; set; } = new();
+        public CapacityBuildupEntry Reception { get; set; } = new();
+        public CapacityBuildupEntry Year1 { get; set; } = new();
+        public CapacityBuildupEntry Year2 { get; set; } = new();
+        public CapacityBuildupEntry Year3 { get; set; } = new();
+        public CapacityBuildupEntry Year4 { get; set; } = new();
+        public CapacityBuildupEntry Year5 { get; set; } = new();
+        public CapacityBuildupEntry Year6 { get; set; } = new();
+        public CapacityBuildupEntry Year7 { get; set; } = new();
+        public CapacityBuildupEntry Year8 { get; set; } = new();
+        public CapacityBuildupEntry Year9 { get; set; } = new();
+        public CapacityBuildupEntry Year10 { get; set; } = new();
+        public CapacityBuildupEntry Year11 { get; set; } = new();
+        public CapacityBuildupEntry Total { get; set; } = new();
     }
 
     public record Post16CapacityBuildup
     {
-        public CapacityBuildupEntry Year12 { get; set; }
-        public CapacityBuildupEntry Year13 { get; set; }
-        public CapacityBuildupEntry Year14 { get; set; }
-        public CapacityBuildupEntry Total { get; set; }
+        public CapacityBuildupEntry Year12 { get; set; } = new();
+        public CapacityBuildupEntry Year13 { get; set; } = new();
+        public CapacityBuildupEntry Year14 { get; set; } = new();
+        public CapacityBuildupEntry Total { get; set; } = new();
     }
 
     public record CapacityBuildupEntry

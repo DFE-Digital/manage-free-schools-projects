@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         public async Task Execute(string projectId, UpdatePupilNumbersRequest request)
         {
             var kpi = await _context.Kpi.FirstOrDefaultAsync(kpi => kpi.ProjectStatusProjectId == projectId);
+
+            if (kpi == null)
+            {
+                throw new NotFoundException($"Project with ID {projectId} not found");
+            }
 
             var po = await _context.Po.FirstOrDefaultAsync(po => po.Rid == kpi.Rid);
 

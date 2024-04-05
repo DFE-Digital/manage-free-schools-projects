@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -25,6 +26,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         {
             var kpi = await _context.Kpi.FirstOrDefaultAsync(kpi => kpi.ProjectStatusProjectId == projectId);
 
+            if (kpi == null)
+            {
+                throw new NotFoundException($"Project with ID {projectId} not found");
+            }
+
             var result = await _context.Po
                 .Where(po => po.Rid == kpi.Rid)
                 .Select(po => new GetPupilNumbersResponse()
@@ -39,22 +45,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                         AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
                         Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
                     },
-                    RecruitmentAndViability = new RecruitmentAndViability()
+                    RecruitmentAndViability = new RecruitmentAndViabilityResponse()
                     {
-                        ReceptionToYear6 = new RecruitmentAndViabilityEntry()
+                        ReceptionToYear6 = new RecruitmentAndViabilityEntryWithPercentage()
                         {
                             MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt()
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt(),
+                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.ToDecimal(),
+                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6.ToDecimal()
                         },
-                        Year7ToYear11 = new RecruitmentAndViabilityEntry()
+                        Year7ToYear11 = new RecruitmentAndViabilityEntryWithPercentage()
                         {
                             MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt()
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt(),
+                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.ToDecimal(),
+                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.ToDecimal()
                         },
-                        Year12ToYear14 = new RecruitmentAndViabilityEntry()
+                        Year12ToYear14 = new RecruitmentAndViabilityEntryWithPercentage()
                         {
                             MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14.ToInt(),
-                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt()
+                            ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt(),
+                            PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.ToDecimal(),
+                            PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.ToDecimal()
                         },
                         Total = new RecruitmentAndViabilityEntry()
                         {
