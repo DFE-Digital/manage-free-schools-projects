@@ -119,6 +119,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
+
+            var truncatedWave = projectDetails.ApplicationWave.Substring(0, 15);
+            projectDetails.ApplicationWave = truncatedWave;
+
             request.Projects.Add(projectDetails);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();

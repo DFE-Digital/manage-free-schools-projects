@@ -75,7 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 FaithType = project.FaithType,
                 OtherFaithType = project.OtherFaithType,
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
-                ProjectLead = project.ProjectLeadName
+                ProjectLead = project.ProjectLeadName,
+                ApplicationWave = "FS - Presumption"
             };
 
             createProjectRequest.Projects.Add(projReq);
