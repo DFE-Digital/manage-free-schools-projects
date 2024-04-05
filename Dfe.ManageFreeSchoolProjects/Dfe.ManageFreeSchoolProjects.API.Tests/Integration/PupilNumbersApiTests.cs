@@ -60,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 Pre16PublishedAdmissionNumber = new()
                 {
-                    ReceptionToYear6 = 10,
+                    Reception = 10,
                     Year7 = 20,
                     Year10 = 30,
                     OtherPre16 = 40
@@ -71,7 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var actualPupilNumbers = content.Data;
 
-            actualPupilNumbers.Pre16PublishedAdmissionNumber.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.ReceptionToYear6);
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Reception.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Reception);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year7.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year7);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year10.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year10);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.OtherPre16.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.OtherPre16);
@@ -362,7 +362,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 Pre16PublishedAdmissionNumber = new()
                 {
-                    ReceptionToYear6 = 16,
+                    Reception = 16,
                     Year7 = 20,
                     Year10 = 30,
                     OtherPre16 = 40

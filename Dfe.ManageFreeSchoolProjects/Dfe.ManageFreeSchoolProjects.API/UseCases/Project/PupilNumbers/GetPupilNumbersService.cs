@@ -104,7 +104,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         {
             return new Pre16PublishedAdmissionNumberResponse()
             {
-                ReceptionToYear6 = po.PupilNumbersAndCapacityYrPan.ToInt(),
+                Reception = po.PupilNumbersAndCapacityYrPan.ToInt(),
                 Year7 = po.PupilNumbersAndCapacityY7Pan.ToInt(),
                 Year10 = po.PupilNumbersAndCapacityY10Pan.ToInt(),
                 OtherPre16 = po.PupilNumbersAndCapacityYOtherPanPre16.ToInt(),

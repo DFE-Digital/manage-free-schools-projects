@@ -66,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record Pre16PublishedAdmissionNumber
     {
-        public int ReceptionToYear6 { get; set; }
+        public int Reception { get; set; }
         public int Year7 { get; set; }
         public int Year10 { get; set; }
         public int OtherPre16 { get; set; }
