@@ -1,25 +1,28 @@
-﻿using Dfe.ManageFreeSchoolProjects.ViewModels;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Identity.Client;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
-    [HtmlTargetElement("govuk-number-input", TagStructure = TagStructure.WithoutEndTag)]
-    public class NumberInputTagHelper : InputTagHelperBase
+    /// <summary>
+    /// This tag helper is to be used on table cells that contain number inputs.
+    /// </summary>
+    [HtmlTargetElement("govuk-number-input-cell", TagStructure = TagStructure.WithoutEndTag)]
+    public class NumberInputCellTagHelper : InputTagHelperBase
     {
-        public NumberInputTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
+        public NumberInputCellTagHelper(IHtmlHelper htmlHelper) : base(htmlHelper) { }
 
         protected override async Task<IHtmlContent> RenderContentAsync()
         {
-            var model = new NumberInputViewModel
+            var model = new NumberInputCellViewModel
             {
                 Id = Id,
                 TestId = TestId,
                 Name = Name,
                 Value = For.Model?.ToString(),
+                Label = Label
             };
 
             if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)
@@ -27,16 +30,17 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 model.ErrorMessage = entry.Errors[0].ErrorMessage;
             }
 
-            return await _htmlHelper.PartialAsync("_NumberInput", model);
+            return await _htmlHelper.PartialAsync("_NumberInputCell", model);
         }
     }
 
-    public class NumberInputViewModel
+    public class NumberInputCellViewModel
     {
         public string Id { get; set; }
         public string TestId { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
         public string ErrorMessage { get; set; }
+        public string Label { get; set; }
     }
 }

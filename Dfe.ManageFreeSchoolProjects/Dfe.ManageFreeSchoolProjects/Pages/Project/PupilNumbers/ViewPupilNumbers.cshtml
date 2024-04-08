@@ -1,4 +1,5 @@
-﻿@page "/projects/{projectId}/pupil-numbers/summary"
+﻿@page "/projects/{projectId}/pupil-numbers"
+@using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.ViewPupilNumbersModel
 @{
     var capacityWhenFull = Model.PupilNumbers.CapacityWhenFull;
@@ -7,12 +8,13 @@
     var post16PublishedAdmissionNumber = Model.PupilNumbers.Post16PublishedAdmissionNumber;
     var pre16CapacityBuildup = Model.PupilNumbers.Pre16CapacityBuildup;
     var post16CapacityBuildup = Model.PupilNumbers.Post16CapacityBuildup;
+    var editCapacityWhenFullLink = string.Format(RouteConstants.EditCapacityWhenFull, Model.ProjectId);
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
-            <span class="govuk-caption-l">St George's Primary School</span>
+            <span class="govuk-caption-l">@Model.PupilNumbers.SchoolName</span>
             Pupil numbers
         </h1>
 
@@ -51,18 +53,12 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"><strong>Total</strong></td>
-                    <td class="govuk-table__cell" data-testid="total-capacity">
-                        @capacityWhenFull.Total
-                    </td>
+                    <td class="govuk-table__cell" data-testid="total-capacity">@capacityWhenFull.Total</td>
                 </tr>
             </tbody>
         </table>
 
-        <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
-            <button class="govuk-button" data-module="govuk-button">
-                Edit Capacity when full
-            </button>
-        </form>
+        <a class="govuk-button govuk-!-margin-bottom-9" href="@editCapacityWhenFullLink" data-testid="edit-capacity">Edit Capacity when full</a>
 
         <table class="govuk-table mfsp-pupil-numbers__table-container mfsp-pupil-numbers__table-container--small">
             <caption class="govuk-table__caption govuk-table__caption--l">Pre-16 published admission number (PAN)</caption>

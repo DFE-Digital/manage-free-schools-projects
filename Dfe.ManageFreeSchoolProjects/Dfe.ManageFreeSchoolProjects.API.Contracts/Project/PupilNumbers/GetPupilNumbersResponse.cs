@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 {
     public record GetPupilNumbersResponse
     {
+        public string SchoolName { get; set; }
         public CapacityWhenFullResponse CapacityWhenFull { get; set; } = new();
         public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; } = new();
         public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; } = new();

@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 .Where(po => po.Rid == kpi.Rid)
                 .Select(po => new GetPupilNumbersResponse()
                 {
+                    SchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                     CapacityWhenFull = BuildCapacityWhenFull(po),
                     RecruitmentAndViability = BuildRecruitmentAndViability(po),
                     Pre16PublishedAdmissionNumber = BuildPre16PublishedAdmissionNumber(po),

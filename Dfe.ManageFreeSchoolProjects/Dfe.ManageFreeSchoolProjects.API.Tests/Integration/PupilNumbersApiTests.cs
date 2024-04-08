@@ -46,6 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.CapacityWhenFull.Year12ToYear14.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14);
             actualPupilNumbers.CapacityWhenFull.SpecialEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialEducationNeeds);
             actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
+            actualPupilNumbers.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
 
             actualPupilNumbers.CapacityWhenFull.Total.Should().Be(210);
         }
