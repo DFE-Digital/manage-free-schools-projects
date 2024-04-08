@@ -310,5 +310,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+
+        public static Po BuildPaymentScheduleTask(string rid)
+        {
+            var result = new Po()
+            {
+                Rid = rid,
+                PupilNumbersAndCapacityTotalOfCapacityTotals = _fixture.Create<int>().ToString()
+            };
+
+            return result;
+        }
     }
 }

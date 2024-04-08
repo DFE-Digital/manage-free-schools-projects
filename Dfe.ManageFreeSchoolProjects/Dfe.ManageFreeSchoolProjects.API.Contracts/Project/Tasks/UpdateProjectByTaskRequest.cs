@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
     public class UpdateProjectByTaskRequest
     {
@@ -35,6 +37,8 @@
         public OfstedInspectionTask OfstedInspection { get; set; }
         
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
+
+        public PaymentScheduleTask PaymentSchedule { get; set; }
 
         public string TaskToUpdate
         {
@@ -80,6 +84,8 @@
                     return TaskName.OfstedInspection.ToString();
                 if (ApplicationsEvidence != null)
                     return TaskName.ApplicationsEvidence.ToString();
+                if (PaymentSchedule != null)
+                    return TaskName.PaymentSchedule.ToString();
                 return null;
             }
         }

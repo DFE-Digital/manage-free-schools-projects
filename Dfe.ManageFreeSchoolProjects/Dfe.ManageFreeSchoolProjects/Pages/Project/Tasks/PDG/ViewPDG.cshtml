@@ -1,0 +1,56 @@
+﻿@page "/projects/{projectId}/tasks/pdg";
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.ViewPDGModel;
+@{
+    ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditPDGPaymentSchedule, Model.ProjectId);
+
+    var pdgTask = Model.Project.PDGDashboard;
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Project development grant (PDG)
+        </h1>
+        <div class="govuk-summary-card" id="site-information">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">Payment schedule</h2>
+                <div class="govuk-summary-card__actions">
+                    <a class="govuk-link" href="@editlink" data-testid="change-payment-schedule">
+                        Change<span class="govuk-visually-hidden">payment schedule</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="govuk-summary-card__content">
+                <govuk-summary-list>
+                    <govuk-summary-item label="Payment due date" asp-for="@pdgTask.PaymentScheduleDate" />
+                    <govuk-summary-item label="Payment due amount" asp-for="@pdgTask.PaymentScheduleAmount" />
+                    <govuk-summary-item label="Actual payment date" asp-for="@pdgTask.PaymentActualDate" />
+                    <govuk-summary-item label="Actual Payment amount" asp-for="@pdgTask.PaymentActualAmount" />
+                </govuk-summary-list>
+            </div>
+        </div>
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>

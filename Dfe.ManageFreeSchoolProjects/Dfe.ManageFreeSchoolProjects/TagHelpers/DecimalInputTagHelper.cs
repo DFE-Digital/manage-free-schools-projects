@@ -13,14 +13,15 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 	public class DecimalInputTagHelper : InputTagHelperBase
 	{
 		private readonly ErrorService _errorService;
+		public bool HeadingLabel { get; set; }
+
+		[HtmlAttributeName("isMonetary")]
+		public bool IsMonetary { get; set; }
 
 		public DecimalInputTagHelper(IHtmlHelper htmlHelper, ErrorService errorService) : base(htmlHelper)
 		{
 			_errorService = errorService;
 		}
-
-		[HtmlAttributeName("isMonetary")]
-		public bool IsMonetary { get; set; }
 
 		protected override async Task<IHtmlContent> RenderContentAsync()
 		{
@@ -43,6 +44,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Name = Name,
 				Label = Label,
 				Suffix = Suffix,
+				Hint = Hint,
+				HeadingLabel = HeadingLabel,
 				Value = IsMonetary ? value?.ToMoneyString() : value.ToSafeString(),
 				IsMonetary = IsMonetary
 			};

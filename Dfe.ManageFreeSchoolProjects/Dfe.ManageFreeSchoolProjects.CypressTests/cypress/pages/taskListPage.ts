@@ -111,6 +111,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectPDGFromTaskList(): this {
+        cy.getByTestId("pdg-task").click()
+        return this;
+    }
+
     public assertApplicationsEvidenceIsNotVisibleTaskList(): this {
         cy.getByTestId("applicationsevidence-task").should("not.exist")
         return this;

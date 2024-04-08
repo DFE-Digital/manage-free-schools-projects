@@ -24,7 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			}
 
 			var modelType = bindingContext.ModelType;
-			if (modelType != typeof(Decimal) && modelType != typeof(Decimal?))
+			if (modelType != typeof(decimal) && modelType != typeof(decimal?))
 			{
 				throw new InvalidOperationException($"Cannot bind {modelType.Name}.");
 			}
@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			if (bindingContext.ModelState.TryGetValue(bindingContext.ModelName, out var entry) && entry.Errors.Count > 0)
 			{
 				var displayName = bindingContext.ModelMetadata.DisplayName ?? bindingContext.ModelName;
-				entry.Errors.Add($"'{displayName}' must be a valid format");
+				entry.Errors.Add($"'{displayName}' must be a number");
 			}
 
 			return Task.CompletedTask;

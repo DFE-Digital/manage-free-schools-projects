@@ -21,6 +21,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -111,6 +112,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.ApplicationsEvidence:
                     result = await new GetApplicationsEvidenceTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.PDG:
+                    result = await new GetPDGDashboardService(_context).Get(parameters);
+                    break;
+                case TaskName.PaymentSchedule:
+                    result = await new GetPaymentScheduleService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
