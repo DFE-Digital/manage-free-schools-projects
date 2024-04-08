@@ -8,7 +8,7 @@ export class RequestBuilder {
         const result: ProjectDetailsRequest = {
             projectId: dataGenerator.generateTemporaryId(),
             applicationNumber: v4().substring(0, 9),
-            applicationWave: v4(),
+            applicationWave: "FS - Presumption",
             createdBy: Cypress.env(EnvUsername),
             schoolName: dataGenerator.generateSchoolName(),
             TRN: 'TR00111'
