@@ -117,7 +117,7 @@
                                             test-ids="@sixthFormTestIds" />
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group" id="alternative-provision-container">
                         <label class="govuk-label govuk-heading-m" for="alternative-provision">Alternative provision</label>
                         <govuk-radios-input name="alternative-provision"
                         asp-for="@Model.AlternativeProvision"
@@ -127,7 +127,7 @@
                         test-ids="@alternativeProvisionTestIds" />
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group" id="special-education-needs-container">
                         <label class="govuk-label govuk-heading-m" for="school-type">Special educational needs</label>
                         <govuk-radios-input name="special-education-needs"
                         asp-for="@Model.SpecialEducationNeeds"
@@ -196,18 +196,18 @@
     {
 
         const schoolType = $("input[type='radio']:checked[name='school-type']").val();
-        const schoolTypesWithSpecialistProvisions = ["Mainstream", "StudioSchool", "University Technical College"];
+        const schoolTypesWithSpecialistProvisions = ["Mainstream", "StudioSchool", "UniversityTechnicalCollege"];
         
 
         if (schoolTypesWithSpecialistProvisions.includes(schoolType))
         {
-            $('#alternative-provision').show();
-            $('#special-education-needs').show();
+            $('#alternative-provision-container').show();
+            $('#special-education-needs-container').show();
         }
         else
         {
-            $('#alternative-provision').hide();
-            $('#special-education-needs').hide();
+            $('#alternative-provision-container').hide();
+            $('#special-education-needs-container').hide();
         }
     }
 
