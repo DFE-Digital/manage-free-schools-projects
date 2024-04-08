@@ -33,7 +33,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.SchoolType = SchoolType.Mainstream;
             projectDetails.SchoolPhase = SchoolPhase.Primary;
             projectDetails.Nursery = ClassType.Nursery.Yes;
-            
+
+            var truncatedWave = projectDetails.ApplicationWave.Substring(0, 15);
+            projectDetails.ApplicationWave = truncatedWave;
+
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
             request.Projects.Add(projectDetails);
@@ -57,10 +60,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.Rid.Should().HaveLength(11);
             createdProject.ProjectStatusProjectId.Should().Be(projectDetails.ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeEmpty();
+            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().Be(projectDetails.ApplicationWave);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeEmpty();
             createdProject.AprilIndicator.Should().BeEmpty();
-            createdProject.Wave.Should().BeEmpty();
+            createdProject.Wave.Should().Be(projectDetails.ApplicationWave);
             createdProject.UpperStatus.Should().BeEmpty();
             createdProject.FsType.Should().BeEmpty();
             createdProject.FsType1.Should().BeEmpty();
@@ -111,6 +114,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
+
+            var truncatedWave = projectDetails.ApplicationWave.Substring(0, 15);
+            projectDetails.ApplicationWave = truncatedWave;
+
             request.Projects.Add(projectDetails);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();
@@ -154,6 +161,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             proj2.TRN = trust2.TrustRef;
             proj3.TRN = trust3.TrustRef;
 
+            var truncatedWave1 = proj1.ApplicationWave.Substring(0, 15);
+            var truncatedWave2 = proj2.ApplicationWave.Substring(0, 15);
+            var truncatedWave3 = proj3.ApplicationWave.Substring(0, 15);
+            proj1.ApplicationWave = truncatedWave1;
+            proj2.ApplicationWave = truncatedWave2;
+            proj3.ApplicationWave = truncatedWave3;
+
+
             request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
@@ -195,6 +210,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             CreateProjectRequest request = new CreateProjectRequest();
             proj1.TRN = trust.TrustRef;
+            var truncatedWave = proj1.ApplicationWave.Substring(0, 15);
+            proj1.ApplicationWave = truncatedWave;
             request.Projects.Add(proj1);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();

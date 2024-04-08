@@ -88,10 +88,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 Rid = rid,
                 ProjectStatusProjectId = proj.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
-                ProjectStatusFreeSchoolApplicationWave = "",
+                ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
                 ProjectStatusFreeSchoolsApplicationNumber = "",
                 AprilIndicator = "",
-                Wave = "",
+                Wave = proj.ApplicationWave,
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",
@@ -118,7 +118,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsFaithType = proj.FaithType.ToDescription(),
                 SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType,
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
-                KeyContactsFsgLeadContact = proj.ProjectLead
+                KeyContactsFsgLeadContact = proj.ProjectLead,
+                
             };
         }
 
