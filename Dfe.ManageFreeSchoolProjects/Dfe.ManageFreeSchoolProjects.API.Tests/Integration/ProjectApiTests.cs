@@ -34,8 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.SchoolPhase = SchoolPhase.Primary;
             projectDetails.Nursery = ClassType.Nursery.Yes;
 
-            var truncatedWave = projectDetails.ApplicationWave.Substring(0, 15);
-            projectDetails.ApplicationWave = truncatedWave;
+            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
@@ -115,8 +114,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
 
-            var truncatedWave = projectDetails.ApplicationWave.Substring(0, 15);
-            projectDetails.ApplicationWave = truncatedWave;
+            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
 
             request.Projects.Add(projectDetails);
 
@@ -161,12 +159,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             proj2.TRN = trust2.TrustRef;
             proj3.TRN = trust3.TrustRef;
 
-            var truncatedWave1 = proj1.ApplicationWave.Substring(0, 15);
-            var truncatedWave2 = proj2.ApplicationWave.Substring(0, 15);
-            var truncatedWave3 = proj3.ApplicationWave.Substring(0, 15);
-            proj1.ApplicationWave = truncatedWave1;
-            proj2.ApplicationWave = truncatedWave2;
-            proj3.ApplicationWave = truncatedWave3;
+            proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            proj2.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            proj3.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
 
 
             request.Projects.AddRange(new List<ProjectDetails>
@@ -210,8 +205,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             CreateProjectRequest request = new CreateProjectRequest();
             proj1.TRN = trust.TrustRef;
-            var truncatedWave = proj1.ApplicationWave.Substring(0, 15);
-            proj1.ApplicationWave = truncatedWave;
+            proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
             request.Projects.Add(proj1);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();
