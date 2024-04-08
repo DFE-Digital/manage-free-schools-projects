@@ -1,7 +1,9 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -17,10 +19,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
     public class CreateProject : ICreateProjectService
     {
         private readonly MfspContext _context;
+        private readonly IUpdateCapacityWhenFullService _updateCapacityWhenFullService;
 
-        public CreateProject(MfspContext context)
+        public CreateProject(
+            MfspContext context, 
+            IUpdateCapacityWhenFullService updateCapacityWhenFullService)
         {
             _context = context;
+            _updateCapacityWhenFullService = updateCapacityWhenFullService;
         }
 
         public async Task<CreateProjectResponse> Execute(CreateProjectRequest createProjectRequest)
@@ -42,8 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
                 Kpi kpi = MapToKpi(proj, rid, trust);
 
-                var nurseryCapacity = proj.Nursery == ClassType.Nursery.Yes ? proj.NurseryCapacity : 0;
-                var po = MapToPo(proj, rid, nurseryCapacity);
+                var po = MapToPo(proj, rid);
 
                 _context.Kpi.Add(kpi);
                 _context.Tasks.AddRange(ProjectTaskBuilder.BuildTasks(rid));
@@ -56,18 +61,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return result;
         }
 
-        private static Po MapToPo(ProjectDetails proj, string rid, int nurseryCapacity)
+        private Po MapToPo(ProjectDetails proj, string rid)
         {
-            return new Po()
+            var nurseryCapacity = proj.Nursery == ClassType.Nursery.Yes ? proj.NurseryCapacity : 0;
+
+            var result = new Po()
             {
                 Rid = rid,
-                PupilNumbersAndCapacityNurseryUnder5s = nurseryCapacity.ToString(),
-                PupilNumbersAndCapacityYrY6Capacity = proj.YRY6Capacity.ToString(),
-                PupilNumbersAndCapacityY7Y11Capacity = proj.Y7Y11Capacity.ToString(),
-                PupilNumbersAndCapacityYrY11Pre16Capacity = (proj.YRY6Capacity + proj.Y7Y11Capacity).ToString(),
-                PupilNumbersAndCapacityY12Y14Post16Capacity = proj.Y12Y14Capacity.ToString(),
-                PupilNumbersAndCapacityTotalOfCapacityTotals = (nurseryCapacity + proj.YRY6Capacity + proj.Y7Y11Capacity + proj.Y12Y14Capacity).ToString()
             };
+
+            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull()
+            {
+                Nursery = nurseryCapacity,
+                ReceptionToYear6 = proj.YRY6Capacity,
+                Year7ToYear11 = proj.Y7Y11Capacity,
+                Year12ToYear14 = proj.Y12Y14Capacity
+            });
+
+            return result;
         }
 
         private static Kpi MapToKpi(ProjectDetails proj, string rid, Trust trust)
@@ -77,10 +88,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 Rid = rid,
                 ProjectStatusProjectId = proj.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
-                ProjectStatusFreeSchoolApplicationWave = "",
+                ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
                 ProjectStatusFreeSchoolsApplicationNumber = "",
                 AprilIndicator = "",
-                Wave = "",
+                Wave = proj.ApplicationWave,
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",
@@ -107,7 +118,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsFaithType = proj.FaithType.ToDescription(),
                 SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType,
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
-                KeyContactsFsgLeadContact = proj.ProjectLead
+                KeyContactsFsgLeadContact = proj.ProjectLead,
+                
             };
         }
 
