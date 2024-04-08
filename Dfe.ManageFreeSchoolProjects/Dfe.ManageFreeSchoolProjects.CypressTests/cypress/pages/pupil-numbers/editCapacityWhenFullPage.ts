@@ -1,4 +1,11 @@
 class EditCapacityWhenFullPage {
+
+    public hasSchoolName(value: string) {
+        cy.getByTestId("school-name").should("contain.text", value);
+
+        return this;
+    }
+
     public withNurseryCapacity(value: string) {
         cy.getById("nursery").clear().type(value);
 

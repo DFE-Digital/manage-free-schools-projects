@@ -1,4 +1,11 @@
 class ViewPupilNumbersPage {
+
+    public hasSchoolName(value: string) {
+        cy.getByTestId("school-name").should("contain.text", value);
+
+        return this;
+    }
+
     public hasNurseryCapacity(value: string): this {
         cy.getByTestId("nursery-capacity").should("contain.text", value);
 

@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [Display(Name = "Alternative provision")]
         public int AlternativeProvision { get; set; }
 
-        [BindProperty(Name = "school-name")]
+        [BindProperty]
         public string SchoolName { get; set; }
 
         private readonly IGetPupilNumbersService _getPupilNumbersService;
@@ -71,6 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             Year12ToYear14 = pupilNumbers.CapacityWhenFull.Year12ToYear14;
             SpecialEducationNeeds = pupilNumbers.CapacityWhenFull.SpecialEducationNeeds;
             AlternativeProvision = pupilNumbers.CapacityWhenFull.AlternativeProvision;
+            SchoolName = pupilNumbers.SchoolName;
 
             return Page();
         }

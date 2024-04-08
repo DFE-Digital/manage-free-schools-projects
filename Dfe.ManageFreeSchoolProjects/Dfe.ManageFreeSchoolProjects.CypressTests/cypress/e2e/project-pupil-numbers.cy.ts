@@ -30,6 +30,7 @@ describe("Testing the setting of pupil numbers", () => {
 
         Logger.log("Checking pupil numbers");
         viewPupilNumbersPage
+            .hasSchoolName(project.schoolName)
             .hasNurseryCapacity("0")
             .hasReceptionToYear6Capacity("0")
             .hasYear7ToYear11Capacity("0")
@@ -43,6 +44,7 @@ describe("Testing the setting of pupil numbers", () => {
         viewPupilNumbersPage.editCapacity();
 
         editCapacityWhenFullPage
+            .hasSchoolName(project.schoolName)
             .withNurseryCapacity("asd")
             .saveAndContinue();
 
@@ -69,6 +71,7 @@ describe("Testing the setting of pupil numbers", () => {
         cy.executeAccessibilityTests();
 
         editCapacityWhenFullPage
+            .hasSchoolName(project.schoolName)
             .withNurseryCapacity("10")
             .withReceptionToYear6Capacity("20")
             .withYear7ToYear11Capacity("30")
