@@ -49,7 +49,7 @@ describe("Testing the applications evidence task", () => {
         Logger.log("Applications evidence can save null values");
 
         applicationsEvidenceEditPage
-        .clickContinue()
+            .clickContinue()
 
         summaryPage
             .schoolNameIs(project.schoolName)
@@ -65,8 +65,8 @@ describe("Testing the applications evidence task", () => {
         cy.executeAccessibilityTests();
 
         Logger.log("Applications evidence can be edited");
-        
-        
+
+
 
         applicationsEvidenceEditPage
             .withComments("!")
@@ -77,7 +77,7 @@ describe("Testing the applications evidence task", () => {
             .checkBuildUpFormSavedToWorkplaces()
             .checkUnderWritingAgreementSavedToWorkplaces()
             .clickContinue()
-        
+
 
         Logger.log("Should update the task status");
 
@@ -119,12 +119,12 @@ describe("Testing the applications evidence task", () => {
             .clickConfirmAndContinue()
 
         Logger.log("Should not be able to see task if school type special");
-        
+
         taskListPage.isTaskStatusIsCompleted("ApplicationsEvidence")
             .selectSchoolFromTaskList()
-        
+
         summaryPage.clickChange()
-        
+
         schoolDetailsPage
             .withSchoolName("Test School")
             .withSchoolType("Special")
@@ -134,19 +134,17 @@ describe("Testing the applications evidence task", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
-            .withAlternativeProvision("No")
-            .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
             .withFaithType("Jewish")
             .clickContinue();
-        
+
         summaryPage.clickConfirmAndContinue()
-        
+
         taskListPage.assertApplicationsEvidenceIsNotVisibleTaskList()
             .selectSchoolFromTaskList()
 
         Logger.log("Should not be able to see task if school type AP");
-        
+
         summaryPage.clickChange()
 
         schoolDetailsPage

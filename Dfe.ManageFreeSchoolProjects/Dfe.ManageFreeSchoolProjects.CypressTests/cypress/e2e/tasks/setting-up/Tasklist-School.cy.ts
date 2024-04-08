@@ -118,6 +118,7 @@ describe("Testing project overview", () => {
             .clickChange();
 
         Logger.log("Update the existing values");
+        Logger.log("When special is selected alternative provision and special educational needs are not displayed");
         schoolDetailsPage
             .withSchoolType("Special")
             .withSchoolPhase("Primary")
@@ -128,6 +129,8 @@ describe("Testing project overview", () => {
             .withSixthForm("Yes")
             .withFaithStatus("Ethos")
             .withFaithType("Christian")
+            .hasNoAlternativeProvision()
+            .hasNoSpecialEducationNeeds()
             .clickContinue();
 
         summaryPage
@@ -143,6 +146,8 @@ describe("Testing project overview", () => {
             .summaryShows("Sixth form").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Ethos")
             .summaryShows("Faith type").HasValue("Christian")
+            .summaryDoesNotShow("Alternative provision")
+            .summaryDoesNotShow("Special educational needs")
             .clickChange();
 
         Logger.log("Checking faith type 'Other'");
