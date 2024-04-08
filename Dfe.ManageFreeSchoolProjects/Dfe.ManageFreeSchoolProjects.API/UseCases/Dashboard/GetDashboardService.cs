@@ -3,7 +3,6 @@ using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Http;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
@@ -42,10 +41,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var projectRecords = await 
                 query
-                    .Where(x =>
-                                x.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption"
-                                    && x.Wave == "FS - Presumption"
-                          )
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
                     .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
                     .Paginate(parameters.Page, parameters.Count)
@@ -94,6 +89,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             {
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
             }
+
+            query = query.Where(kpi =>
+                kpi.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption"
+                    && kpi.Wave == "FS - Presumption"
+            );
 
             return query;
         }
