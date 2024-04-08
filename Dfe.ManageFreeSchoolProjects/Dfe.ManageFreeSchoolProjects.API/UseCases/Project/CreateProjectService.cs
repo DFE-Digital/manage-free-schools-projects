@@ -119,7 +119,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType,
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
                 KeyContactsFsgLeadContact = proj.ProjectLead,
-                
             };
         }
 
