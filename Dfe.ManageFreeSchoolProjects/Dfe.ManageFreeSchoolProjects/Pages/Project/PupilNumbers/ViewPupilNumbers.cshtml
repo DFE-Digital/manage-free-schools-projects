@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.ViewPupilNumbersModel
 @{
+    var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var capacityWhenFull = Model.PupilNumbers.CapacityWhenFull;
     var recruitmentAndViability = Model.PupilNumbers.RecruitmentAndViability;
     var pre16PublishedAdmissionNumber = Model.PupilNumbers.Pre16PublishedAdmissionNumber;
@@ -9,6 +10,12 @@
     var pre16CapacityBuildup = Model.PupilNumbers.Pre16CapacityBuildup;
     var post16CapacityBuildup = Model.PupilNumbers.Post16CapacityBuildup;
     var editCapacityWhenFullLink = string.Format(RouteConstants.EditCapacityWhenFull, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back to about the project</a>
+    </div>
 }
 
 <div class="govuk-grid-row">
