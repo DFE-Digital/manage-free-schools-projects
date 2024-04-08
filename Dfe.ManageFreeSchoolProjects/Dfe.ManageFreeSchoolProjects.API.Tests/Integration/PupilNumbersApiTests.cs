@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ReceptionToYear6 = 20,
                     Year7ToYear11 = 30,
                     Year12ToYear14 = 40,
-                    SpecialistEducationNeeds = 50,
+                    SpecialEducationNeeds = 50,
                     AlternativeProvision = 60
                 }
             };
@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.CapacityWhenFull.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6);
             actualPupilNumbers.CapacityWhenFull.Year7ToYear11.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11);
             actualPupilNumbers.CapacityWhenFull.Year12ToYear14.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14);
-            actualPupilNumbers.CapacityWhenFull.SpecialistEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialistEducationNeeds);
+            actualPupilNumbers.CapacityWhenFull.SpecialEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialEducationNeeds);
             actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
 
             actualPupilNumbers.CapacityWhenFull.Total.Should().Be(210);

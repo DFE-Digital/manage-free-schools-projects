@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int ReceptionToYear6 { get; set; }
         public int Year7ToYear11 { get; set; }
         public int Year12ToYear14 { get; set; }
-        public int SpecialistEducationNeeds { get; set; }
+        public int SpecialEducationNeeds { get; set; }
         public int AlternativeProvision { get; set; }
     }
 

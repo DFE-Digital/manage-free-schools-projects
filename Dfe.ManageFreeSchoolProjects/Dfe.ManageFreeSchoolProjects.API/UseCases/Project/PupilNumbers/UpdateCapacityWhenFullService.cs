@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             po.PupilNumbersAndCapacityY7Y11Capacity = capacityWhenFull.Year7ToYear11.ToString();
             po.PupilNumbersAndCapacityYrY11Pre16Capacity = (capacityWhenFull.ReceptionToYear6 + capacityWhenFull.Year7ToYear11).ToString();
             po.PupilNumbersAndCapacityY12Y14Post16Capacity = capacityWhenFull.Year12ToYear14.ToString();
-            po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial = capacityWhenFull.SpecialistEducationNeeds.ToString();
+            po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial = capacityWhenFull.SpecialEducationNeeds.ToString();
             po.PupilNumbersAndCapacitySpecialistResourceProvisionAp = capacityWhenFull.AlternativeProvision.ToString();
 
             var total =
@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 capacityWhenFull.ReceptionToYear6 +
                 capacityWhenFull.Year7ToYear11 +
                 capacityWhenFull.Year12ToYear14 +
-                capacityWhenFull.SpecialistEducationNeeds +
+                capacityWhenFull.SpecialEducationNeeds +
                 capacityWhenFull.AlternativeProvision;
 
             po.PupilNumbersAndCapacityTotalOfCapacityTotals = total.ToString();

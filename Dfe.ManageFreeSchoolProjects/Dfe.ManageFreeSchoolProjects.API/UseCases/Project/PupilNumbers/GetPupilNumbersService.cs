@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 ReceptionToYear6 = po.PupilNumbersAndCapacityYrY6Capacity.ToInt(),
                 Year7ToYear11 = po.PupilNumbersAndCapacityY7Y11Capacity.ToInt(),
                 Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
-                SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
+                SpecialEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
                 AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
                 Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
             };
