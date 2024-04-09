@@ -1,7 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using DocumentFormat.OpenXml.Drawing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 {
@@ -20,12 +19,50 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 PaymentScheduleDate = GetPaymentScheduleDate(po),
                 PaymentActualAmount = GetPaymentActualAmount(po),
                 PaymentActualDate = GetPaymentActualDate(po),
+                TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
+                PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
             };
+        }
+
+        private static bool? GetPDGLetterSavedInWorkspaces(Po po)
+        {
+            var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkspaces(po);
+            return linkSaved == false ? null : linkSaved;
+        }
+
+        private static DateTime? GetTrustSignedPDGLetterDate(Po po)
+        {
+            if (po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate != null)
+            {
+                return po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate;
+            }
+
+            if (po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate != null)
+            {
+                return po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate;
+            }
+
+            if (po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate != null)
+            {
+                return po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate;
+            }
+
+            if (po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate != null)
+            {
+                return po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate;
+            }
+
+            if (po.ProjectDevelopmentGrantFundingPdgGrantLetterDate != null)
+            {
+                return po.ProjectDevelopmentGrantFundingPdgGrantLetterDate;
+            }
+
+            return null;
         }
 
         private static decimal? GetPaymentActualAmount(Po po)
         {
-            if(po.ProjectDevelopmentGrantFundingAmountOf1stPayment == null &&
+            if (po.ProjectDevelopmentGrantFundingAmountOf1stPayment == null &&
                 po.ProjectDevelopmentGrantFundingAmountOf2ndPayment == null &&
                 po.ProjectDevelopmentGrantFundingAmountOf3rdPayment == null &&
                 po.ProjectDevelopmentGrantFundingAmountOf4thPayment == null &&
@@ -37,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 po.ProjectDevelopmentGrantFundingAmountOf10thPayment == null &&
                 po.ProjectDevelopmentGrantFundingAmountOf11thPayment == null &&
                 po.ProjectDevelopmentGrantFundingAmountOf12thPayment == null)
-            return null;
+                return null;
 
             return ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf1stPayment) +
                    ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf2ndPayment) +
@@ -85,47 +122,47 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 
         private static DateTime? GetPaymentScheduleDate(Po po)
         {
-            if(po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue;
             }
@@ -151,47 +188,47 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
         private static DateTime? GetPaymentActualDate(Po po)
         {
 
-            if(po.ProjectDevelopmentGrantFundingDateOf12thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf12thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf12thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf11thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf11thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf11thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf10thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf10thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf10thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf9thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf9thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf9thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf8thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf8thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf8thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf7thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf7thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf7thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf6thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf6thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf6thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf5thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf5thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf5thActualPayment;
             }
 
-            if(po.ProjectDevelopmentGrantFundingDateOf4thActualPayment != null)
+            if (po.ProjectDevelopmentGrantFundingDateOf4thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf4thActualPayment;
             }

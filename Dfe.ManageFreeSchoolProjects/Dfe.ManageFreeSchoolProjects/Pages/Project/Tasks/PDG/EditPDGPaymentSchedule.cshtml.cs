@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
         public string CurrentFreeSchoolName { get; set; }
         [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "When is the payment due?")]
-        [DateValidation(DateRangeValidationService.DateRange.Future)]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? PaymentScheduleDate { get; set; }
 
         [BindProperty(Name = "payment-due-amount", BinderType = typeof(DecimalInputModelBinder))]

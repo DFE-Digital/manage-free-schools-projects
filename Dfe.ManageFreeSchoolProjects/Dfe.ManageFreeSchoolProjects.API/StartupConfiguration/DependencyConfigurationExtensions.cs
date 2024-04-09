@@ -26,7 +26,6 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreem
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.StatutoryConsultation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Trusts;
@@ -38,6 +37,8 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -92,6 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateOfstedInspectionTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateApplicationsEvidenceTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
+            services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();

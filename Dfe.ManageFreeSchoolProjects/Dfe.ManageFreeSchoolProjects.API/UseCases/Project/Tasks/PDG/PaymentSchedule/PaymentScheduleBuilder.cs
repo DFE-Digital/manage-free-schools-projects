@@ -1,7 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule
 {
     public static class PaymentScheduleBuilder
     {

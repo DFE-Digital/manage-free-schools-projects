@@ -103,6 +103,20 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 return For.Model.ToDescription();
             }
 
+            if (For.ModelExplorer.ModelType == typeof(decimal))
+            {
+                return ((decimal)For.Model).ToString("£0.00");
+            }
+
+            if (For.ModelExplorer.ModelType == typeof(decimal?))
+            {
+                if (For.Model == null)
+                {
+                    return empty;
+                }
+                return ((decimal)For.Model).ToString("£0.00");
+            }
+
             if (Nullable.GetUnderlyingType(For.ModelExplorer.ModelType)?.IsEnum == true)
             {
                 if (For.Model == null)

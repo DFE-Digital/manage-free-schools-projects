@@ -40,6 +40,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public PaymentScheduleTask PaymentSchedule { get; set; }
 
+        public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
+
         public string TaskToUpdate
         {
             get
@@ -86,6 +88,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.ApplicationsEvidence.ToString();
                 if (PaymentSchedule != null)
                     return TaskName.PaymentSchedule.ToString();
+                if (TrustPDGLetterSent != null)
+                    return TaskName.TrustPDGLetterSent.ToString();
                 return null;
             }
         }

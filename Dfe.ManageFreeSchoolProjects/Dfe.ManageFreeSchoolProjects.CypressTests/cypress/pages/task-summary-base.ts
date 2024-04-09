@@ -6,6 +6,11 @@ export class SummaryPage {
         return this;
     }
 
+    public skip(amount: number): this {
+        this.summaryCounter += amount;
+        return this;
+    }
+
     public startFromRow(row: number): this {
         this.summaryCounter = row - 1;
         return this;

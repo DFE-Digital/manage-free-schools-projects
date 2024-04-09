@@ -316,7 +316,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             var result = new Po()
             {
                 Rid = rid,
-                PupilNumbersAndCapacityTotalOfCapacityTotals = _fixture.Create<int>().ToString()
+                ProjectDevelopmentGrantFundingDateOf1stActualPayment = new DateTime().AddDays(1),
+                ProjectDevelopmentGrantFundingAmountOf1stPayment = _fixture.Create<decimal>().ToString(),
+                ProjectDevelopmentGrantFundingAmountOf1stPaymentDue = _fixture.Create<decimal>().ToString(),
+                ProjectDevelopmentGrantFundingDateOf1stPaymentDue = new DateTime().AddDays(2),
+            };
+
+            return result;
+        }
+
+        public static Po BuildTrustLetterTask(string rid)
+        {
+            var result = new Po()
+            {
+                Rid = rid,
+                PdgGrantLetterLinkSavedToWorkplaces = false,
+                ProjectDevelopmentGrantFundingPdgGrantLetterDate = new DateTime().AddDays(1),
             };
 
             return result;

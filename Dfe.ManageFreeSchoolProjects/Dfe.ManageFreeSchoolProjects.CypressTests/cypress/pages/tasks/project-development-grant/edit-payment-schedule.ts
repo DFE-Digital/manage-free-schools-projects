@@ -1,5 +1,6 @@
 class editPaymentSchedule {
-    
+    private errorTracking = "";
+
     public titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
         return this;
@@ -38,47 +39,52 @@ class editPaymentSchedule {
         cy.get('#' + `${key}-year`).clear().type(year);
     }
     
-
-
     // public HasValue(value): this {
     //     cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", value);
     //     return this;
     // }
+
+    errorForPaymentDueDate(): this {
+        this.errorTracking = "payment-due-date";
+        return this;
+    }
     
+    errorForPaymentActualDate(): this {
+        this.errorTracking = "actual-payment-date";
+        return this;
+    }
+
+    errorForPaymentDueAmount(): this {
+        this.errorTracking = "payment-due-amount";
+        return this;
+    }
+
+    errorForPaymentActualAmount(): this {
+        this.errorTracking = "payment-actual-amount";
+        return this;
+    }
     
+    showsError(error: string)
+    {
+        cy.get(`#${this.errorTracking}-error-link`)
+            .should("contain.text", error);
 
-    // errorForAgreedDate(): this {
-    //     this.errorTracking = "date-trust-agrees-with-model-fa";
-    //     return this;
-    // }
+        cy.get(`#${this.errorTracking}-error-link`)
+            .invoke('attr', 'href')
+            .then((href) => {
+                cy.get(href as string).should("exist");
+            });
 
-    // errorForComments(): this {
-    //     this.errorTracking = "comments";
-    //     return this;
-    // }
-    
-    // showsError(error: string)
-    // {
-    //     cy.get(`#${this.errorTracking}-error-link`)
-    //         .should("contain.text", error);
+        cy.get(`#${this.errorTracking}-error`)
+            .should("contain.text", error);
+        return this;
+    }
 
-    //     cy.get(`#${this.errorTracking}-error-link`)
-    //         .invoke('attr', 'href')
-    //         .then((href) => {
-    //             cy.get(href as string).should("exist");
-    //         });
-
-    //     cy.get(`#${this.errorTracking}-error`)
-    //         .should("contain.text", error);
-    //     return this;
-    // }
-    // clickContinue() : this {
-    //     cy.getByTestId("continue").click();
-    //     return this;
-    // }
-
+    public clickContinue() : this {
+        cy.getByTestId("continue").click();
+        return this;
+    }
 }
-
 
 const paymentSchedule = new editPaymentSchedule();
 export default paymentSchedule;

@@ -103,6 +103,8 @@
         public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
 
         public const string ViewPDG = TaskList + "/pdg";
-        public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/edit";
+        public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
+        public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
+        
     }
 }

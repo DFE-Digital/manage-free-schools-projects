@@ -27,5 +27,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         ApplicationsEvidence,
         PDG,
         PaymentSchedule,
+        TrustPDGLetterSent,
     }
 }

@@ -2,20 +2,20 @@
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent
 {
-    public class UpdatePDGPaymentSchedule : IUpdateTaskService
+    public class UpdatePDGTrustLetterSent : IUpdateTaskService
     {
         private readonly MfspContext _context;
 
-        public UpdatePDGPaymentSchedule(MfspContext context)
+        public UpdatePDGTrustLetterSent(MfspContext context)
         {
             _context = context;
         }
 
         public async Task Update(UpdateTaskServiceParameters parameters)
         {
-            var task = parameters.Request.PaymentSchedule;
+            var task = parameters.Request.TrustPDGLetterSent;
             var dbKpi = parameters.Kpi;
 
             if (task is null)
@@ -32,10 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 _context.Add(db);
             }
 
-            db.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue = task.PaymentScheduleAmount?.ToString("0.00");
-            db.ProjectDevelopmentGrantFundingAmountOf1stPayment = task.PaymentActualAmount?.ToString("0.00");
-            db.ProjectDevelopmentGrantFundingDateOf1stPaymentDue = task.PaymentScheduleDate;
-            db.ProjectDevelopmentGrantFundingDateOf1stActualPayment = task.PaymentActualDate;
+            db.ProjectDevelopmentGrantFundingPdgGrantLetterDate = task.TrustSignedPDGLetterDate;
+            db.PdgGrantLetterLinkSavedToWorkplaces = task.PDGLetterSavedInWorkspaces;
         }
     }
 }
