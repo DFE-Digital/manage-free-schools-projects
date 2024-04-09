@@ -151,7 +151,7 @@ describe("Testing the setting of pupil numbers", () => {
             .hasTotal("110");
     });
 
-    it("Should be able to edit the pre-16 published admission numbers", () => {
+    it("Should be able to edit the post-16 published admission numbers", () => {
         pupilNumbersSummaryComponent.viewDetails();
 
         Logger.log("Check all values are 0 initially");
@@ -190,6 +190,5 @@ describe("Testing the setting of pupil numbers", () => {
             .hasYear12("12")
             .hasOtherPost16("23")
             .hasTotal("35");
-
     });
 });
