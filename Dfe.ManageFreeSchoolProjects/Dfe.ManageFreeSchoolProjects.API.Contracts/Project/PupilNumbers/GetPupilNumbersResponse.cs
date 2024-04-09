@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 {
     public record GetPupilNumbersResponse
     {
-        public CapacityWhenFullResponse CapacityWhenFull { get; set; }
-        public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; }
-        public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; }
-        public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; }
-        public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; }
-        public Post16CapacityBuildup Post16CapacityBuildup { get; set; }
+        public string SchoolName { get; set; }
+        public CapacityWhenFullResponse CapacityWhenFull { get; set; } = new();
+        public RecruitmentAndViabilityResponse RecruitmentAndViability { get; set; } = new();
+        public Pre16PublishedAdmissionNumberResponse Pre16PublishedAdmissionNumber { get; set; } = new();
+        public Post16PublishedAdmissionNumberResponse Post16PublishedAdmissionNumber { get; set; } = new();
+        public Pre16CapacityBuildup Pre16CapacityBuildup { get; set; } = new();
+        public Post16CapacityBuildup Post16CapacityBuildup { get; set; } = new();
     }
 
     public record CapacityWhenFullResponse : CapacityWhenFull
@@ -27,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
         public int ReceptionToYear6 { get; set; }
         public int Year7ToYear11 { get; set; }
         public int Year12ToYear14 { get; set; }
-        public int SpecialistEducationNeeds { get; set; }
+        public int SpecialEducationNeeds { get; set; }
         public int AlternativeProvision { get; set; }
     }
 
@@ -66,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers
 
     public record Pre16PublishedAdmissionNumber
     {
-        public int ReceptionToYear6 { get; set; }
+        public int Reception { get; set; }
         public int Year7 { get; set; }
         public int Year10 { get; set; }
         public int OtherPre16 { get; set; }

@@ -101,5 +101,8 @@
         public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
         public const string ViewTrustChairContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit";
         public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
+
+        public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
+        public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
     }
 }
