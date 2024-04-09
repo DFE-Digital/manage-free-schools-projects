@@ -66,8 +66,19 @@ class SchoolDetailsPage {
         return this;
     }
 
+    public hasNoAlternativeProvision(): this {
+        cy.containsByTestId(`alternative-provision`).should("not.be.visible");
+        return this;
+    }
+
     public withSpecialEducationNeeds(value: string): this {
         cy.getByTestId(`special-education-needs-${value}`).check();
+        return this;
+    }
+
+    public hasNoSpecialEducationNeeds(): this {
+        cy.containsByTestId(`special-education-needs`).should("not.be.visible");
+
         return this;
     }
 

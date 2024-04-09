@@ -76,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             {
                 Rid = _fixture.Create<string>().Substring(0, 10),
                 AprilIndicator = _fixture.Create<string>().Substring(0, 9),
-                Wave = _fixture.Create<string>().Substring(0, 15),
+                Wave = CreateProjectWave(),
                 UpperStatus = _fixture.Create<string>().Substring(0, 10),
                 FsType = _fixture.Create<string>().Substring(0, 13),
                 FsType1 = _fixture.Create<string>().Substring(0, 15),
@@ -117,6 +117,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
         public static string CreateProjectId()
         {
             return _fixture.Create<string>().Substring(0, 24);
+        }
+
+        public static string CreateProjectWave()
+        {
+            return _fixture.Create<string>().Substring(0, 15);
         }
 
         public static RiskAppraisalMeetingTask BuildRiskAppraisalMeetingTask(string rid)

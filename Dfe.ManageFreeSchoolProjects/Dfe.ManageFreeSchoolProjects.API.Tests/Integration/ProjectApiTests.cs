@@ -33,7 +33,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.SchoolType = SchoolType.Mainstream;
             projectDetails.SchoolPhase = SchoolPhase.Primary;
             projectDetails.Nursery = ClassType.Nursery.Yes;
-            
+
+            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
             request.Projects.Add(projectDetails);
@@ -57,10 +59,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.Rid.Should().HaveLength(11);
             createdProject.ProjectStatusProjectId.Should().Be(projectDetails.ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().BeEmpty();
+            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().Be(projectDetails.ApplicationWave);
             createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeEmpty();
             createdProject.AprilIndicator.Should().BeEmpty();
-            createdProject.Wave.Should().BeEmpty();
+            createdProject.Wave.Should().Be(projectDetails.ApplicationWave);
             createdProject.UpperStatus.Should().BeEmpty();
             createdProject.FsType.Should().BeEmpty();
             createdProject.FsType1.Should().BeEmpty();
@@ -111,6 +113,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
+
+            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+
             request.Projects.Add(projectDetails);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();
@@ -154,6 +159,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             proj2.TRN = trust2.TrustRef;
             proj3.TRN = trust3.TrustRef;
 
+            proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            proj2.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            proj3.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+
+
             request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
@@ -195,6 +205,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             CreateProjectRequest request = new CreateProjectRequest();
             proj1.TRN = trust.TrustRef;
+            proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
             request.Projects.Add(proj1);
 
             var projectId = DatabaseModelBuilder.CreateProjectId();

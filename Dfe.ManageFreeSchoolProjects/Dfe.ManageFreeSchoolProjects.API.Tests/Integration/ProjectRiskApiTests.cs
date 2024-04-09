@@ -329,7 +329,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             
             project.TRN = truncatedTRN;
             trust.TrustRef = truncatedTRN;
-            
+            project.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+
             context.Trust.Add(trust);
             await context.SaveChangesAsync();
             
