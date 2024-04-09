@@ -23,5 +23,12 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			string sentence = input.ToLower();
 			return char.ToUpper(sentence[0]) + sentence[1..];
 		}
-	}
+
+        public static int ToInt(this string value)
+        {
+            var succeeded = int.TryParse(value, out var result);
+
+            return succeeded ? result : 0;
+        }
+    }
 }

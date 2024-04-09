@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 .Where(po => po.Rid == kpi.Rid)
                 .Select(po => new GetPupilNumbersResponse()
                 {
+                    SchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                     CapacityWhenFull = BuildCapacityWhenFull(po),
                     RecruitmentAndViability = BuildRecruitmentAndViability(po),
                     Pre16PublishedAdmissionNumber = BuildPre16PublishedAdmissionNumber(po),
@@ -42,6 +43,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                     Post16CapacityBuildup = BuildPost16CapacityBuildup(po)
                 })
                 .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                // This might happen with imported data from KIM
+                // Our update will solve this but until an update has been performed the data could be missing
+                return new GetPupilNumbersResponse();
+            }
 
             return result;
         }
@@ -54,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 ReceptionToYear6 = po.PupilNumbersAndCapacityYrY6Capacity.ToInt(),
                 Year7ToYear11 = po.PupilNumbersAndCapacityY7Y11Capacity.ToInt(),
                 Year12ToYear14 = po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(),
-                SpecialistEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
+                SpecialEducationNeeds = po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt(),
                 AlternativeProvision = po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
                 Total = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt()
             };
@@ -97,7 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
         {
             return new Pre16PublishedAdmissionNumberResponse()
             {
-                ReceptionToYear6 = po.PupilNumbersAndCapacityYrPan.ToInt(),
+                Reception = po.PupilNumbersAndCapacityYrPan.ToInt(),
                 Year7 = po.PupilNumbersAndCapacityY7Pan.ToInt(),
                 Year10 = po.PupilNumbersAndCapacityY10Pan.ToInt(),
                 OtherPre16 = po.PupilNumbersAndCapacityYOtherPanPre16.ToInt(),
