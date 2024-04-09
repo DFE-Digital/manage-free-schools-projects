@@ -1,10 +1,10 @@
-﻿@page "/projects/{projectId}/pupil-numbers/pre16-published-admission-number/edit"
+﻿@page "/projects/{projectId}/pupil-numbers/post16-published-admission-number/edit"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.EditPre16PublishedAdmissionNumberModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.EditPost16PublishedAdmissionNumberModel
 
 @{
     var backlink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
-    ViewData["Title"] = $"Edit Pre-16 published admission number (PAN) - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Post-16 published admission number (PAN) - {Model.SchoolName}";
 }
 
 @section BeforeMain {
@@ -21,13 +21,13 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-            Edit Pre-16 published admission number (PAN)
+            Edit Post-16 published admission number (PAN)
         </h1>
 
         <form class="form" method="post">
 
             <table class="govuk-table mfsp-pupil-numbers__table-container mfsp-pupil-numbers__table-container--small">
-                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Edit Pre-16 published admission number (PAN)</caption>
+                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Edit Post-16 published admission number (PAN)</caption>
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header col1">School year</th>
@@ -36,29 +36,15 @@
                 </thead>
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Reception</td>
+                        <td class="govuk-table__cell">Year 12</td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="reception" name="reception" asp-for="@Model.Reception" label="Reception" />
+                            <govuk-number-input-cell id="year12" name="year12" asp-for="@Model.Year12" label="Year 12" />
                         </td>
                     </tr>
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Year 7</td>
+                        <td class="govuk-table__cell">Other post-16</td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year7" name="year7" asp-for="@Model.Year7" label="Year 7" />
-
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Year 10</td>
-                        <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year10" name="year10" asp-for="@Model.Year10" label="Year 10" />
-
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Other pre-16</td>
-                        <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="other-pre16" name="other-pre16" asp-for="@Model.OtherPre16" label="Other pre-16" />
+                            <govuk-number-input-cell id="other-post16" name="other-post16" asp-for="@Model.OtherPost16" label="Other post-16" />
 
                         </td>
                     </tr>

@@ -18,6 +18,13 @@ class ViewPupilNumbersPage {
         return this;
 
     }
+
+    public editPost16PublishedAdmissionNumber(): this {
+        cy.getByTestId("edit-post16-pan").click();
+
+        return this;
+
+    }
 }
 
 const viewPupilNumbersPage = new ViewPupilNumbersPage();

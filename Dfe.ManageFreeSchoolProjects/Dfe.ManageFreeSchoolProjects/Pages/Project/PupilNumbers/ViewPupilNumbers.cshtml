@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.ViewPupilNumbersModel
 @{
+    ViewData["Title"] = $"Pupil numbers - {Model.PupilNumbers.SchoolName}";
     var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var capacityWhenFull = Model.PupilNumbers.CapacityWhenFull;
     var recruitmentAndViability = Model.PupilNumbers.RecruitmentAndViability;
@@ -11,6 +12,7 @@
     var post16CapacityBuildup = Model.PupilNumbers.Post16CapacityBuildup;
     var editCapacityWhenFullLink = string.Format(RouteConstants.EditCapacityWhenFull, Model.ProjectId);
     var editPre16PanLink = string.Format(RouteConstants.EditPre16PublishedAdmissionNumber, Model.ProjectId);
+    var editPost16PanLink = string.Format(RouteConstants.EditPost16PublishedAdmissionNumber, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -131,11 +133,8 @@
             </tbody>
         </table>
 
-        <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
-            <button class="govuk-button" data-module="govuk-button">
-                Edit Post-16 PAN
-            </button>
-        </form>
+        <a class="govuk-button govuk-!-margin-bottom-9" href="@editPost16PanLink" data-testid="edit-post16-pan">Edit Post-16 PAN</a>
+
 
         <table class="govuk-table mfsp-pupil-numbers__table-container">
             <caption class="govuk-table__caption govuk-table__caption--l">Recruitment and viability</caption>

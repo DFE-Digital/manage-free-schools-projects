@@ -3,6 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.EditCapacityWhenFullModel
 @{
     var backlink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
+    ViewData["Title"] = $"Edit Capacity when full - {Model.SchoolName}";
 }
 
 @section BeforeMain {

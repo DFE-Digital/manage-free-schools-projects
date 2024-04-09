@@ -1,7 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
-using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;

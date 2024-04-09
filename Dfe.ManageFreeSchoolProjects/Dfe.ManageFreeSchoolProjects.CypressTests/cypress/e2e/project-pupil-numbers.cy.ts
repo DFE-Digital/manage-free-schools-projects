@@ -3,9 +3,11 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import editCapacityWhenFullPage from "cypress/pages/pupil-numbers/editCapacityWhenFullPage";
+import editPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPost16PublishedAdmissionNumberPage";
 import editPre16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPre16PublishedAdmissionNumberPage";
 import pupilNumbersSummaryComponent from "cypress/pages/pupil-numbers/pupilNumbersSummaryComponent";
 import viewCapacityWhenFullPage from "cypress/pages/pupil-numbers/viewCapacityWhenFullPage";
+import viewPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/viewPost16PublishedAdmissionNumberPage";
 import viewPre16PublishedAdmissionNumber from "cypress/pages/pupil-numbers/viewPre16PublishedAdmissionNumberPage";
 import viewPupilNumbersPage from "cypress/pages/pupil-numbers/viewPupilNumbersPage";
 import validationComponent from "cypress/pages/validationComponent";
@@ -98,7 +100,7 @@ describe("Testing the setting of pupil numbers", () => {
             .hasTotal("210");
     });
 
-    it("Should be able to edit the published admission numbers", () => {
+    it("Should be able to edit the pre-16 published admission numbers", () => {
         pupilNumbersSummaryComponent.viewDetails();
 
         Logger.log("Check all values are 0 initially");
@@ -147,5 +149,47 @@ describe("Testing the setting of pupil numbers", () => {
             .hasYear10("33")
             .hasOtherPre16("44")
             .hasTotal("110");
+    });
+
+    it("Should be able to edit the pre-16 published admission numbers", () => {
+        pupilNumbersSummaryComponent.viewDetails();
+
+        Logger.log("Check all values are 0 initially");
+        viewPost16PublishedAdmissionNumberPage
+            .hasYear12("0")
+            .hasOtherPost16("0")
+            .hasTotal("0");
+
+        viewPupilNumbersPage.editPost16PublishedAdmissionNumber();
+
+        Logger.log("Validate fields");
+        editPost16PublishedAdmissionNumberPage
+            .withYear12("asd")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(isNumberValidationMessage.replace("{0}", "Year 12"));
+
+        editPost16PublishedAdmissionNumberPage
+            .withYear12("-1")
+            .withOtherPost16("-1")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Other post-16"));
+
+        cy.executeAccessibilityTests();
+
+        editPost16PublishedAdmissionNumberPage
+            .withYear12("12")
+            .withOtherPost16("23")
+            .saveAndContinue();
+
+        viewPost16PublishedAdmissionNumberPage
+            .hasYear12("12")
+            .hasOtherPost16("23")
+            .hasTotal("35");
+
     });
 });
