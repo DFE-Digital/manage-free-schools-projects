@@ -10,6 +10,7 @@
     var pre16CapacityBuildup = Model.PupilNumbers.Pre16CapacityBuildup;
     var post16CapacityBuildup = Model.PupilNumbers.Post16CapacityBuildup;
     var editCapacityWhenFullLink = string.Format(RouteConstants.EditCapacityWhenFull, Model.ProjectId);
+    var editPre16PanLink = string.Format(RouteConstants.EditPre16PublishedAdmissionNumber, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -101,11 +102,8 @@
             </tbody>
         </table>
 
-        <form action="other-info-pupil-numbers-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
-            <button class="govuk-button" data-module="govuk-button">
-                Edit Post-16 PAN
-            </button>
-        </form>
+        <a class="govuk-button govuk-!-margin-bottom-9" href="@editPre16PanLink" data-testid="edit-pre16-pan">Edit Pre-16 PAN</a>
+
 
         <table class="govuk-table mfsp-pupil-numbers__table-container mfsp-pupil-numbers__table-container--small">
             <caption class="govuk-table__caption govuk-table__caption--l">Post-16 published admission number (PAN)</caption>

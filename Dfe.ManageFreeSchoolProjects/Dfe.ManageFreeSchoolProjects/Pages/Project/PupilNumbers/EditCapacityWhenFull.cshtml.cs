@@ -1,5 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -16,33 +17,33 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "nursery")]
-        [ValidNumberPupilNumbers]
-        public int Nursery { get; set; }
+        [ValidNumberForPupilNumbers]
+        public string Nursery { get; set; }
 
         [BindProperty(Name = "reception-to-year6")]
-        [ValidNumberPupilNumbers]
+        [ValidNumberForPupilNumbers]
         [Display(Name = "Reception to year 6")]
-        public int ReceptionToYear6 { get; set; }
+        public string ReceptionToYear6 { get; set; }
 
         [BindProperty(Name = "year7-to-year11")]
-        [ValidNumberPupilNumbers]
+        [ValidNumberForPupilNumbers]
         [Display(Name = "Year 7 to year 11")]
-        public int Year7ToYear11 { get; set; }
+        public string Year7ToYear11 { get; set; }
 
         [BindProperty(Name = "year12-to-year14")]
-        [ValidNumberPupilNumbers]
+        [ValidNumberForPupilNumbers]
         [Display(Name = "Year 12 to year 14")]
-        public int Year12ToYear14 { get; set; }
+        public string Year12ToYear14 { get; set; }
 
         [BindProperty(Name = "special-education-needs")]
-        [ValidNumberPupilNumbers]
+        [ValidNumberForPupilNumbers]
         [Display(Name = "Special educational needs")]
-        public int SpecialEducationNeeds { get; set; }
+        public string SpecialEducationNeeds { get; set; }
 
         [BindProperty(Name = "alternative-provision")]
-        [ValidNumberPupilNumbers]
+        [ValidNumberForPupilNumbers]
         [Display(Name = "Alternative provision")]
-        public int AlternativeProvision { get; set; }
+        public string AlternativeProvision { get; set; }
 
         [BindProperty]
         public string SchoolName { get; set; }
@@ -65,12 +66,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         {
             var pupilNumbers = await _getPupilNumbersService.Execute(ProjectId);
 
-            Nursery = pupilNumbers.CapacityWhenFull.Nursery;
-            ReceptionToYear6 = pupilNumbers.CapacityWhenFull.ReceptionToYear6;
-            Year7ToYear11 = pupilNumbers.CapacityWhenFull.Year7ToYear11;
-            Year12ToYear14 = pupilNumbers.CapacityWhenFull.Year12ToYear14;
-            SpecialEducationNeeds = pupilNumbers.CapacityWhenFull.SpecialEducationNeeds;
-            AlternativeProvision = pupilNumbers.CapacityWhenFull.AlternativeProvision;
+            Nursery = pupilNumbers.CapacityWhenFull.Nursery.ToString();
+            ReceptionToYear6 = pupilNumbers.CapacityWhenFull.ReceptionToYear6.ToString();
+            Year7ToYear11 = pupilNumbers.CapacityWhenFull.Year7ToYear11.ToString();
+            Year12ToYear14 = pupilNumbers.CapacityWhenFull.Year12ToYear14.ToString();
+            SpecialEducationNeeds = pupilNumbers.CapacityWhenFull.SpecialEducationNeeds.ToString();
+            AlternativeProvision = pupilNumbers.CapacityWhenFull.AlternativeProvision.ToString();
             SchoolName = pupilNumbers.SchoolName;
 
             return Page();
@@ -88,12 +89,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             {
                 CapacityWhenFull = new CapacityWhenFull()
                 {
-                    Nursery = Nursery,
-                    ReceptionToYear6 = ReceptionToYear6,
-                    Year7ToYear11 = Year7ToYear11,
-                    Year12ToYear14 = Year12ToYear14,
-                    SpecialEducationNeeds = SpecialEducationNeeds,
-                    AlternativeProvision = AlternativeProvision
+                    Nursery = Nursery.ToInt(),
+                    ReceptionToYear6 = ReceptionToYear6.ToInt(),
+                    Year7ToYear11 = Year7ToYear11.ToInt(),
+                    Year12ToYear14 = Year12ToYear14.ToInt(),
+                    SpecialEducationNeeds = SpecialEducationNeeds.ToInt(),
+                    AlternativeProvision = AlternativeProvision.ToInt()
                 }
             };
 
