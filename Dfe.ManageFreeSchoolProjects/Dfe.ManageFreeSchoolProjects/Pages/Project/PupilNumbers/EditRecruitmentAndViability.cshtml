@@ -36,48 +36,48 @@
                 </thead>
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Reception</td>
+                        <td class="govuk-table__cell">Reception to year 6</td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="reception-minimum-viable-number"
-                                                     name="reception.MinimumViableNumber"
-                                                     asp-for="@Model.Reception.MinimumViableNumber"
-                                                     label="Reception minimum viable number" />
+                            <govuk-number-input-cell 
+                                asp-for="@Model.ReceptionToYear6.MinimumViableNumber" 
+                                label="Reception to year 6 minimum viable number"
+                                test-id="reception-to-year6-mvn"/>
                         </td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="reception-applications-received"
-                                                     name="reception.ApplicationsReceived"
-                                                     asp-for="@Model.Reception.ApplicationsReceived"
-                                                     label="Reception applications received" />
+                            <govuk-number-input-cell 
+                                asp-for="@Model.ReceptionToYear6.ApplicationsReceived" 
+                                label="Reception to year 6 applications received"
+                                test-id="reception-to-year6-applications-received"/>
                         </td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Year 7 to year 11</td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year7-to-year11-minimum-viable-number"
-                                                     name="year7-to-year11.MinimumViableNumber"
-                                                     asp-for="@Model.Year7ToYear11.MinimumViableNumber"
-                                                     label="Year 7 to year 11 minimum viable number" />
+                            <govuk-number-input-cell 
+                                asp-for="@Model.Year7ToYear11.MinimumViableNumber"
+                                label="Year 7 to year 11 minimum viable number"
+                                test-id="year7-to-year11-mvn"/>
                         </td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year7-to-year11-applications-received"
-                                                     name="year7-to-year11.ApplicationsReceived"
-                                                     asp-for="@Model.Year7ToYear11.ApplicationsReceived"
-                                                     label="Year 7 to year 11 applications received" />
+                            <govuk-number-input-cell 
+                                asp-for="@Model.Year7ToYear11.ApplicationsReceived"
+                                label="Year 7 to year 11 applications received"
+                                test-id="year7-to-year11-applications-received"/>
                         </td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">Year 12 to year 14</td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year12-to-year14-minimum-viable-number"
-                                                     name="year12-to-year14.MinimumViableNumber"
-                                                     asp-for="@Model.Year12ToYear14.MinimumViableNumber"
-                                                     label="Year 12 to year 14 minimum viable number" />
+                            <govuk-number-input-cell 
+                                asp-for="@Model.Year12ToYear14.MinimumViableNumber"
+                                label="Year 12 to year 14 minimum viable number"
+                                test-id="year12-to-year14-mvn"/>
                         </td>
                         <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year12-to-year14-applications-received"
-                                                     name="year12-to-year14.ApplicationsReceived"
-                                                     asp-for="@Model.Year12ToYear14.ApplicationsReceived"
-                                                     label="Year 12 to year 14 applications received" />
+                            <govuk-number-input-cell
+                                asp-for="@Model.Year12ToYear14.ApplicationsReceived"
+                                label="Year 12 to year 14 applications received"
+                                test-id="year12-to-year14-applications-received"/>
                         </td>
                     </tr>
                 </tbody>

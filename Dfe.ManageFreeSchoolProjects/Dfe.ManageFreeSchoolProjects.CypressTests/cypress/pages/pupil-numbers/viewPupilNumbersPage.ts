@@ -25,6 +25,12 @@ class ViewPupilNumbersPage {
         return this;
 
     }
+
+    public editRecruitmentAndViability(): this {
+        cy.getByTestId("edit-recruitment-and-viability").click();
+
+        return this;
+    }
 }
 
 const viewPupilNumbersPage = new ViewPupilNumbersPage();

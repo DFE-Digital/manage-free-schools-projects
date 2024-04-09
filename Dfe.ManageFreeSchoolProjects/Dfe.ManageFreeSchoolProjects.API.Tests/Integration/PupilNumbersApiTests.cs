@@ -359,20 +359,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            var updatePupilNumbersRequest = new UpdatePupilNumbersRequest()
+            var updateRecruitmentAndViabilityRequest = new UpdatePupilNumbersRequest()
             {
-                Pre16PublishedAdmissionNumber = new()
-                {
-                    Reception = 16,
-                    Year7 = 20,
-                    Year10 = 30,
-                    OtherPre16 = 40
-                },
-                Post16PublishedAdmissionNumber = new()
-                {
-                    Year12 = 10,
-                    OtherPost16 = 20
-                },
                 RecruitmentAndViability = new RecruitmentAndViability()
                 {
                     ReceptionToYear6 = new RecruitmentAndViabilityEntry()
@@ -393,24 +381,48 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             };
 
-            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
+            var content = await UpdatePupilNumbers(projectId, updateRecruitmentAndViabilityRequest);
 
             var actualPupilNumbers = content.Data;
 
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.ReceptionToYear6);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.ReceptionToYear6);
             actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToMinimumViable.Should().Be(50);
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year7ToYear11);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year7ToYear11);
             actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToMinimumViable.Should().Be(333.33m);
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year12ToYear14);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year12ToYear14);
             actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToMinimumViable.Should().Be(126.67m);
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
             actualPupilNumbers.RecruitmentAndViability.Total.MinimumViableNumber.Should().Be(28);
             actualPupilNumbers.RecruitmentAndViability.Total.ApplicationsReceived.Should().Be(34);
+
+            var updatePanRequest = new UpdatePupilNumbersRequest()
+            {
+                Pre16PublishedAdmissionNumber = new()
+                {
+                    Reception = 16,
+                    Year7 = 20,
+                    Year10 = 30,
+                    OtherPre16 = 40
+                },
+                Post16PublishedAdmissionNumber = new()
+                {
+                    Year12 = 10,
+                    OtherPost16 = 20
+                },
+            };
+
+            content = await UpdatePupilNumbers(projectId, updatePanRequest);
+
+            actualPupilNumbers = content.Data;
+
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
         }
 
         [Fact]
