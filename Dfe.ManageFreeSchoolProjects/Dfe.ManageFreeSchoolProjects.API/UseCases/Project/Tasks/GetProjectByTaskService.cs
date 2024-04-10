@@ -22,7 +22,10 @@ using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
-using DocumentFormat.OpenXml.Wordprocessing;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -116,6 +119,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.FundingAgreementHealthCheck:
                     result = await new GetFundingAgreementHealthCheckTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.PDG:
+                    result = await new GetPDGDashboardService(_context).Get(parameters);
+                    break;
+                case TaskName.PaymentSchedule:
+                    result = await new GetPaymentScheduleService(_context).Get(parameters);
+                    break;
+                case TaskName.TrustPDGLetterSent:
+                    result = await new GetTrustPDGLetterSentService(_context).Get(parameters);
+                    break;
+                case TaskName.StopPayment:
+                    result = await new GetStopPaymentService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

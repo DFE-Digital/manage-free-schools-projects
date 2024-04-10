@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ReceptionToYear6 = 20,
                     Year7ToYear11 = 30,
                     Year12ToYear14 = 40,
-                    SpecialistEducationNeeds = 50,
+                    SpecialEducationNeeds = 50,
                     AlternativeProvision = 60
                 }
             };
@@ -44,8 +44,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.CapacityWhenFull.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.ReceptionToYear6);
             actualPupilNumbers.CapacityWhenFull.Year7ToYear11.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year7ToYear11);
             actualPupilNumbers.CapacityWhenFull.Year12ToYear14.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.Year12ToYear14);
-            actualPupilNumbers.CapacityWhenFull.SpecialistEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialistEducationNeeds);
+            actualPupilNumbers.CapacityWhenFull.SpecialEducationNeeds.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.SpecialEducationNeeds);
             actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
+            actualPupilNumbers.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
 
             actualPupilNumbers.CapacityWhenFull.Total.Should().Be(210);
         }
@@ -60,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 Pre16PublishedAdmissionNumber = new()
                 {
-                    ReceptionToYear6 = 10,
+                    Reception = 10,
                     Year7 = 20,
                     Year10 = 30,
                     OtherPre16 = 40
@@ -71,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var actualPupilNumbers = content.Data;
 
-            actualPupilNumbers.Pre16PublishedAdmissionNumber.ReceptionToYear6.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.ReceptionToYear6);
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Reception.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Reception);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year7.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year7);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.Year10.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.Year10);
             actualPupilNumbers.Pre16PublishedAdmissionNumber.OtherPre16.Should().Be(updatePupilNumbersRequest.Pre16PublishedAdmissionNumber.OtherPre16);
@@ -358,20 +359,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
-            var updatePupilNumbersRequest = new UpdatePupilNumbersRequest()
+            var updateRecruitmentAndViabilityRequest = new UpdatePupilNumbersRequest()
             {
-                Pre16PublishedAdmissionNumber = new()
-                {
-                    ReceptionToYear6 = 16,
-                    Year7 = 20,
-                    Year10 = 30,
-                    OtherPre16 = 40
-                },
-                Post16PublishedAdmissionNumber = new()
-                {
-                    Year12 = 10,
-                    OtherPost16 = 20
-                },
                 RecruitmentAndViability = new RecruitmentAndViability()
                 {
                     ReceptionToYear6 = new RecruitmentAndViabilityEntry()
@@ -392,24 +381,48 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             };
 
-            var content = await UpdatePupilNumbers(projectId, updatePupilNumbersRequest);
+            var content = await UpdatePupilNumbers(projectId, updateRecruitmentAndViabilityRequest);
 
             var actualPupilNumbers = content.Data;
 
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.ReceptionToYear6);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.ReceptionToYear6);
             actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToMinimumViable.Should().Be(50);
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year7ToYear11);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year7ToYear11);
             actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToMinimumViable.Should().Be(333.33m);
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updatePupilNumbersRequest.RecruitmentAndViability.Year12ToYear14);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year12ToYear14);
             actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToMinimumViable.Should().Be(126.67m);
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
             actualPupilNumbers.RecruitmentAndViability.Total.MinimumViableNumber.Should().Be(28);
             actualPupilNumbers.RecruitmentAndViability.Total.ApplicationsReceived.Should().Be(34);
+
+            var updatePanRequest = new UpdatePupilNumbersRequest()
+            {
+                Pre16PublishedAdmissionNumber = new()
+                {
+                    Reception = 16,
+                    Year7 = 20,
+                    Year10 = 30,
+                    OtherPre16 = 40
+                },
+                Post16PublishedAdmissionNumber = new()
+                {
+                    Year12 = 10,
+                    OtherPost16 = 20
+                },
+            };
+
+            content = await UpdatePupilNumbers(projectId, updatePanRequest);
+
+            actualPupilNumbers = content.Data;
+
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
         }
 
         [Fact]
@@ -432,7 +445,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
-
 
             // CapacityWhenFull
             var updateCapacityWhenFullRequest = new UpdatePupilNumbersRequest() { CapacityWhenFull = new() };
@@ -463,6 +475,30 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var updatePost16CapacityBuildupRequest = new UpdatePupilNumbersRequest() { Post16CapacityBuildup = new() };
             updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePost16CapacityBuildupRequest.ConvertToJson());
             updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// PO entry does not exist, should return a 200
+        /// This can happen in cases we migrate from KIM
+        /// </summary>
+        [Fact]
+        public async void When_PupilNumbers_GetWithNoPupilNumbers_Returns_200()
+        {
+            var project = await CreateProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            var getPupilNumbersResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/pupil-numbers");
+            getPupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await getPupilNumbersResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetPupilNumbersResponse>>();
+
+            var actualPupilNumbers = content.Data;
+            actualPupilNumbers.CapacityWhenFull.Should().NotBeNull();
+            actualPupilNumbers.Pre16PublishedAdmissionNumber.Should().NotBeNull();
+            actualPupilNumbers.Post16PublishedAdmissionNumber.Should().NotBeNull();
+            actualPupilNumbers.RecruitmentAndViability.Should().NotBeNull();
+            actualPupilNumbers.Pre16CapacityBuildup.Should().NotBeNull();
+            actualPupilNumbers.Post16CapacityBuildup.Should().NotBeNull();
         }
 
         private async Task<Kpi> CreateProject()

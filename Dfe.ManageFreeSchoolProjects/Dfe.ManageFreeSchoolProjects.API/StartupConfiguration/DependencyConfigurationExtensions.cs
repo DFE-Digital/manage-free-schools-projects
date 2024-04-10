@@ -38,7 +38,9 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
-
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -93,6 +95,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateOfstedInspectionTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateApplicationsEvidenceTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementHealthCheckTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
+            services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
+            services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
@@ -107,6 +112,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdatePre16CapacityBuildupService, UpdatePre16CapacityBuildupService>();
 			services.AddScoped<IUpdatePost16CapacityBuildupService, UpdatePost16CapacityBuildupService>();
 			services.AddScoped<IUpdateRecruitmentAndViabilityService, UpdateRecruitmentAndViabilityService>();
+			services.AddScoped<IUpdatePublishedAdmissionNumberPercentageService, UpdatePublishedAdmissionNumberPercentageService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

@@ -22,11 +22,12 @@
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
     var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
     var equalitiesAssessmentLink = string.Format(RouteConstants.ViewEqualitiesAssessmentTask, Model.ProjectId);
-    var impactAssessmentLink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
+    var impactAssessmentLink = string.Format(RouteConstants .ViewImpactAssessmentTask, Model.ProjectId);
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
+    var pdgLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -151,6 +152,23 @@
                         }
                     </li>
                 </ul>
+
+                <h2 class="app-task-list__section">
+                    Project development grant (PDG)
+                </h2>
+                <ul class="app-task-list__items">
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@pdgLink" class="govuk-link" data-testid="pdg-task">
+                                Project development grant (PDG)
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.PDG);
+                        }
+                    </li>
+                </ul>
+
 
                 <h2 class="app-task-list__section">
                     Pre-opening

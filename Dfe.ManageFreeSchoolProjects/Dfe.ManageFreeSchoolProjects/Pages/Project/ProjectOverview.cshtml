@@ -9,6 +9,7 @@
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsSummaryLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
     var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
+    var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
 
     var temporarySite = Model.Project.SiteInformation.TemporarySite;
     var permanentSite = Model.Project.SiteInformation.PermanentSite;
@@ -528,7 +529,7 @@
             <div class="govuk-summary-card__title-wrapper">
                 <h2 class="govuk-summary-card__title">Pupil numbers and capacity</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="" data-testid="change-pupil-numbers">
+                    <a class="govuk-link" href="@pupilNumbersLink" data-testid="change-pupil-numbers">
                         View details<span class="govuk-visually-hidden">Change pupil numbers and capacity</span>
                     </a>
                 </div>

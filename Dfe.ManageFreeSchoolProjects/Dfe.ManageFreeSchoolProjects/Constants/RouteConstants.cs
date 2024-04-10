@@ -104,5 +104,16 @@
         public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
         public const string ViewTrustChairContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit";
         public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
+
+        public const string ViewPDG = TaskList + "/pdg";
+        public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
+        public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
+        public const string EditStopPayment = ViewPDG + "/edit-stop-payment/";
+
+        public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
+        public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
+        public const string EditPre16PublishedAdmissionNumber = ViewPupilNumbers + "/pre16-published-admission-number/edit";
+        public const string EditPost16PublishedAdmissionNumber = ViewPupilNumbers + "/post16-published-admission-number/edit";
+        public const string EditRecruitmentAndViability = ViewPupilNumbers + "/recruitment-and-viability/edit";
     }
 }

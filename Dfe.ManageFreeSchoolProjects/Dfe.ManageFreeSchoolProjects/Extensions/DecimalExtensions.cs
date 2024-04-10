@@ -22,6 +22,11 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			return string.Format("{0:G0}%", value);
 		}
 
+		public static string ToPercentageWith2Dp(this decimal value)
+		{
+            return string.Format("{0:0.00}%", value);
+        }
+
 		public static string ToSafeString(this decimal? value)
 		{
 			if (!value.HasValue)

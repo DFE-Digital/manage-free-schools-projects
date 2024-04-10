@@ -4,7 +4,6 @@ using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {

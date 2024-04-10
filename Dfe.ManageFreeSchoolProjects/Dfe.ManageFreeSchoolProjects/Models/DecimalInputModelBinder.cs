@@ -24,25 +24,31 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			}
 
 			var modelType = bindingContext.ModelType;
-			if (modelType != typeof(Decimal) && modelType != typeof(Decimal?))
+			if (modelType != typeof(decimal) && modelType != typeof(decimal?))
 			{
 				throw new InvalidOperationException($"Cannot bind {modelType.Name}.");
 			}
 
 			var decimalResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 
-			if (decimalResult.FirstValue == string.Empty)
+			if (modelType == typeof(decimal?) && decimalResult.FirstValue == string.Empty)
 			{
-				bindingContext.Result = ModelBindingResult.Success(0.0m);
+				bindingContext.Result = ModelBindingResult.Success(null);
 				return Task.CompletedTask;
 			}
 
-			(new DecimalModelBinder(NumberStyles.Any, _loggerFactory)).BindModelAsync(bindingContext);
+            if (modelType == typeof(decimal) && decimalResult.FirstValue == string.Empty)
+            {
+                bindingContext.Result = ModelBindingResult.Success(0.0m);
+                return Task.CompletedTask;
+            }
+
+            (new DecimalModelBinder(NumberStyles.Any, _loggerFactory)).BindModelAsync(bindingContext);
 
 			if (bindingContext.ModelState.TryGetValue(bindingContext.ModelName, out var entry) && entry.Errors.Count > 0)
 			{
 				var displayName = bindingContext.ModelMetadata.DisplayName ?? bindingContext.ModelName;
-				entry.Errors.Add($"'{displayName}' must be a valid format");
+				entry.Errors.Add($"{displayName} must be a number");
 			}
 
 			return Task.CompletedTask;

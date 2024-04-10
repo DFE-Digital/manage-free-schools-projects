@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using System.ComponentModel;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
@@ -26,5 +27,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public OfstedInspectionTask OfstedInspection { get; set; }
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
         public FundingAgreementHealthCheckTask FundingAgreementHealthCheck { get; set; }
+
+        public PDGDashboard PDGDashboard { get; set; }
+
+        public PaymentScheduleTask PaymentSchedule { get; set; }
+
+        public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
+
+        public StopPaymentTask StopPayment { get; set; }
     }
 }
