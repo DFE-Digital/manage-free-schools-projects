@@ -12,5 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
         public DateTime? TrustSignedPDGLetterDate { get; set; }
 
         public bool? PDGLetterSavedInWorkspaces { get; set; }
+
+        public string PaymentStopped { get; set; }
     }
 }

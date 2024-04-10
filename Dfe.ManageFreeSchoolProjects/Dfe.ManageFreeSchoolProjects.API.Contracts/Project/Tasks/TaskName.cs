@@ -28,5 +28,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         PDG,
         PaymentSchedule,
         TrustPDGLetterSent,
+        StopPayment,
     }
 }

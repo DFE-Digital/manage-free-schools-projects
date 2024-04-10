@@ -11,13 +11,14 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 
+
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 {
-    public class EditPDGTrustGrantLetterModel : PageModel
+    public class EditStopPaymentModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditPDGTrustGrantLetterModel> _logger;
+        private readonly ILogger<EditStopPaymentModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -25,16 +26,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         public string CurrentFreeSchoolName { get; set; }
 
-        [BindProperty(Name = "trust-letter-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date when DfE signed PDG letter sent from the trust")]
+        [BindProperty(Name = "payment-stopped-date", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date you want to stop the payments from")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? TrustSignedPDGLetterDate { get; set; }
+        public DateTime? PaymentStoppedDate { get; set; }
 
-        [BindProperty(Name = "saved-letter-in-workplaces-folder")]
-        [Display(Name = "Saved the signed trust letter in Workplaces folder")]
-        public bool? SavedLetterInWorkplacesFolder { get; set; }
+        [BindProperty(Name = "payment-stopped")]
+        [Display(Name = "Are you sure you want to stop payments?")]
+        public string PaymentStopped { get; set; }
 
-        public EditPDGTrustGrantLetterModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditPDGTrustGrantLetterModel> logger,
+        public EditStopPaymentModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditStopPaymentModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -53,16 +54,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.TrustPDGLetterSent);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
 
-            TrustSignedPDGLetterDate = project.TrustPDGLetterSent.TrustSignedPDGLetterDate;
-            SavedLetterInWorkplacesFolder = project.TrustPDGLetterSent.PDGLetterSavedInWorkspaces;
+            PaymentStoppedDate = project.StopPayment.PaymentStoppedDate;
+            PaymentStopped = project.StopPayment.PaymentStopped;
             CurrentFreeSchoolName = project.SchoolName;
         }
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.TrustPDGLetterSent);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -75,10 +76,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    TrustPDGLetterSent = new()
+                    StopPayment = new()
                     {
-                        TrustSignedPDGLetterDate = TrustSignedPDGLetterDate,
-                        PDGLetterSavedInWorkspaces = SavedLetterInWorkplacesFolder
+                        PaymentStoppedDate = PaymentStopped == "Yes" ? PaymentStoppedDate : null,
+                        PaymentStopped = PaymentStopped,
                     }
                 };
 

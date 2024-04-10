@@ -336,5 +336,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+
+        public static Po BuildStopPaymentTask(string rid)
+        {
+            var result = new Po()
+            {
+                Rid = rid,
+                ProjectDevelopmentGrantFundingPaymentsStopped = "No",
+                ProjectDevelopmentGrantFundingDatePaymentsStopped = new DateTime().AddDays(1),
+            };
+
+            return result;
+        }
     }
 }

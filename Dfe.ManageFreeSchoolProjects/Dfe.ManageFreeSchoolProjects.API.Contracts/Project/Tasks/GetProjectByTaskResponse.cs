@@ -46,5 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public PaymentScheduleTask PaymentSchedule { get; set; }
 
         public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
+
+        public StopPaymentTask StopPayment { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 PaymentActualDate = GetPaymentActualDate(po),
                 TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
                 PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
+                PaymentStopped = po.ProjectDevelopmentGrantFundingPaymentsStopped,
             };
         }
 
