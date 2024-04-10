@@ -64,8 +64,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.EqualitiesAssessment.Name.Should().Be("EqualitiesAssessment");
             result.EqualitiesAssessment.Status.Should().Be(ProjectTaskStatus.NotStarted);
 
-            result.EqualitiesAssessment.Name.Should().Be("PDG");
-            result.EqualitiesAssessment.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.PDG.Name.Should().Be(TaskName.PDG.ToString());
+            result.PDG.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }
