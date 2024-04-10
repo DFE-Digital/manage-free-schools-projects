@@ -9,5 +9,7 @@
 		public string Suffix { get; set; }
 		public string ErrorMessage { get; set; }
 		public bool IsMonetary { get; set; }
+		public string Hint { get; set; }
+		public bool HeadingLabel { get; set; }
 	}
 }

@@ -8500,6 +8500,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
 
+                    b.Property<bool?>("PdgGrantLetterLinkSavedToWorkplaces")
+                        .HasColumnType("bit")
+                        .HasColumnName("PdgGrantLetterLinkSavedToWorkplaces");
+
                     b.Property<DateTime>("PeriodEnd")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
