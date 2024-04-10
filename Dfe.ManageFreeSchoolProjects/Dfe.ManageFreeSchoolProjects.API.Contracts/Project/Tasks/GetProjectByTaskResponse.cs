@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using System.ComponentModel;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 {
@@ -39,5 +40,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
+
+        public PDGDashboard PDGDashboard { get; set; }
+
+        public PaymentScheduleTask PaymentSchedule { get; set; }
+
+        public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
+
+        public StopPaymentTask StopPayment { get; set; }
     }
 }

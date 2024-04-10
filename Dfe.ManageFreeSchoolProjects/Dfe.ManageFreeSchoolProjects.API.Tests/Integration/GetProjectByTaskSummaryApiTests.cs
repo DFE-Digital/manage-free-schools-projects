@@ -6,10 +6,6 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
-using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using System;
-using NSubstitute.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -67,6 +63,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.EqualitiesAssessment.Name.Should().Be("EqualitiesAssessment");
             result.EqualitiesAssessment.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
+            result.PDG.Name.Should().Be(TaskName.PDG.ToString());
+            result.PDG.Status.Should().Be(ProjectTaskStatus.NotStarted);
         }
     }
 }

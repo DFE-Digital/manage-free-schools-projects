@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         public bool? PlanSavedInWorkplacesFolder { get; set; }
 
         [BindProperty(Name = "local-authority-agreed-to-pupil-numbers")]
-        public string? LocalAuthorityAgreedToPupilNumbers { get; set; }
+        public string LocalAuthorityAgreedToPupilNumbers { get; set; }
 
         [BindProperty(Name = "comments")]
         [Display(Name = "Comments")]
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         public string Comments { get; set; }
 
         [BindProperty(Name = "trust-opt-into-rpa")]
-        public string? TrustOptIntoRpa { get; set; }
+        public string TrustOptIntoRpa { get; set; }
 
         [BindProperty(Name = "rpa-start-date", BinderType = typeof(DateInputModelBinder))]
         [DisplayName("RPA start date")]
