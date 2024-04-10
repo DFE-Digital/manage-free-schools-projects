@@ -26,6 +26,7 @@
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
+    var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -174,6 +175,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.ModelFundingAgreement);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@fundingAgreementHealthCheckLink" class="govuk-link" data-testid="funding-agreement-health-check-task">
+                                Funding agreement health check
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreementHealthCheck);
                         }
                     </li>
                     <li class="app-task-list__item">

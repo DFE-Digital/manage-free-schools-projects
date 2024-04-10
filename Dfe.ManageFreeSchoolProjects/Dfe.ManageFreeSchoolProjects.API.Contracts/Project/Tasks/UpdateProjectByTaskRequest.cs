@@ -36,6 +36,8 @@
         
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
 
+        public FundingAgreementHealthCheckTask FundingAgreementHealthCheck { get; set; }
+
         public string TaskToUpdate
         {
             get
@@ -80,6 +82,11 @@
                     return TaskName.OfstedInspection.ToString();
                 if (ApplicationsEvidence != null)
                     return TaskName.ApplicationsEvidence.ToString();
+                if (FundingAgreementHealthCheck != null)
+                    return TaskName.FundingAgreementHealthCheck.ToString();
+                {
+
+                }
                 return null;
             }
         }
