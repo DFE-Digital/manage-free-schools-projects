@@ -14,6 +14,7 @@
     var editPre16PanLink = string.Format(RouteConstants.EditPre16PublishedAdmissionNumber, Model.ProjectId);
     var editPost16PanLink = string.Format(RouteConstants.EditPost16PublishedAdmissionNumber, Model.ProjectId);
     var editRecruitmentAndViabilityLink = string.Format(RouteConstants.EditRecruitmentAndViability, Model.ProjectId);
+    var editPre16CapacityBuildupLink = string.Format(RouteConstants.EditPre16CapacityBuildup, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -222,11 +223,8 @@
             </tbody>
         </table>
 
-        <form action="other-info-pupil-numbers-pre-16-build-up-capacity-edit" method="post" class="govuk-!-margin-bottom-9">
-            <button class="govuk-button" data-module="govuk-button">
-                Edit Pre-16 capacity build-up
-            </button>
-        </form>
+        <a class="govuk-button govuk-!-margin-bottom-9" href="@editPre16CapacityBuildupLink" data-testid="edit-pre16-capacity buildup">Edit Pre-16 capacity buildup</a>
+
 
         <table class="govuk-table mfsp-pupil-numbers__table-container">
             <caption class="govuk-table__caption govuk-table__caption--l">Post-16 capacity build-up</caption>

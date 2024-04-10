@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
     [HtmlTargetElement("govuk-capacity-buildup-row", TagStructure = TagStructure.WithoutEndTag)]
-    public class CapacityRowBuildupTagHelper : TagHelper
+    public class CapacityBuildupRowTagHelper : TagHelper
     {
         [HtmlAttributeName("label")]
         public string Label { get; set; }
@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
         private readonly IHtmlHelper _htmlHelper;
 
-        public CapacityRowBuildupTagHelper(IHtmlHelper htmlHelper)
+        public CapacityBuildupRowTagHelper(IHtmlHelper htmlHelper)
         {
             _htmlHelper = htmlHelper;
         }
@@ -35,7 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
                 viewContextAware.Contextualize(ViewContext);
             }
 
-            var model = new CapacityRowBuildupViewModel()
+            var model = new CapacityBuildupRowViewModel()
             {
                 Label = Label,
                 CapacityBuildupEntry = For,
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         }
     }
 
-    public class CapacityRowBuildupViewModel
+    public class CapacityBuildupRowViewModel
     {
         public string Label { get; set; }
 
