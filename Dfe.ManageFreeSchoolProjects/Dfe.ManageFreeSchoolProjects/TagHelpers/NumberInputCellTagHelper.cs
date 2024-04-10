@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Identity.Client;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
@@ -16,6 +15,16 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         protected override async Task<IHtmlContent> RenderContentAsync()
         {
+            if (string.IsNullOrEmpty(Id))
+            {
+                Id = For.Name;
+            }
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                Name = For.Name;
+            }
+
             var model = new NumberInputCellViewModel
             {
                 Id = Id,

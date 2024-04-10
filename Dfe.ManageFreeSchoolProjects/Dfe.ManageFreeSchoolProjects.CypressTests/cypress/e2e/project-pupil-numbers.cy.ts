@@ -5,11 +5,13 @@ import { Logger } from "cypress/common/logger";
 import editCapacityWhenFullPage from "cypress/pages/pupil-numbers/editCapacityWhenFullPage";
 import editPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPost16PublishedAdmissionNumberPage";
 import editPre16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPre16PublishedAdmissionNumberPage";
+import editRecruitmentAndViabilityPage from "cypress/pages/pupil-numbers/editRecruitmentAndViabilityPage";
 import pupilNumbersSummaryComponent from "cypress/pages/pupil-numbers/pupilNumbersSummaryComponent";
 import viewCapacityWhenFullPage from "cypress/pages/pupil-numbers/viewCapacityWhenFullPage";
 import viewPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/viewPost16PublishedAdmissionNumberPage";
 import viewPre16PublishedAdmissionNumber from "cypress/pages/pupil-numbers/viewPre16PublishedAdmissionNumberPage";
 import viewPupilNumbersPage from "cypress/pages/pupil-numbers/viewPupilNumbersPage";
+import viewRecruitmentAndViabilityPage from "cypress/pages/pupil-numbers/viewRecruitmentAndViabilityPage";
 import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing the setting of pupil numbers", () => {
@@ -136,6 +138,7 @@ describe("Testing the setting of pupil numbers", () => {
 
         cy.executeAccessibilityTests();
 
+        Logger.log("Set valid values");
         editPre16PublishedAdmissionNumberPage
             .withReception("11")
             .withYear7("22")
@@ -181,6 +184,7 @@ describe("Testing the setting of pupil numbers", () => {
 
         cy.executeAccessibilityTests();
 
+        Logger.log("Set valid values");
         editPost16PublishedAdmissionNumberPage
             .withYear12("12")
             .withOtherPost16("23")
@@ -190,5 +194,79 @@ describe("Testing the setting of pupil numbers", () => {
             .hasYear12("12")
             .hasOtherPost16("23")
             .hasTotal("35");
+    });
+
+    it("Should be able to edit recruitment and viability", () => {
+        pupilNumbersSummaryComponent.viewDetails();
+
+        Logger.log("Check all values are 0 initially");
+        viewRecruitmentAndViabilityPage
+            .hasReceptionToYear6("0", "0", "0.00%", "0.00%")
+            .hasYear7ToYear11("0", "0", "0.00%", "0.00%")
+            .hasYear12ToYear14("0", "0", "0.00%", "0.00%")
+            .hasTotal("0", "0");
+
+        Logger.log("Validate fields");
+        viewPupilNumbersPage.editRecruitmentAndViability();
+
+        editRecruitmentAndViabilityPage
+            .withReceptionToYear6("asd", "asd")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 minimum viable number"))
+            .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 applications received"));
+
+        editRecruitmentAndViabilityPage
+            .withReceptionToYear6("-1", "-1")
+            .withYear7ToYear11("-1", "-1")
+            .withYear12ToYear14("-1", "-1")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Reception to year 6 minimum viable number"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Reception to year 6 applications received"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 7 to year 11 minimum viable number"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 7 to year 11 applications received"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 minimum viable number"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 applications received"));
+
+        cy.executeAccessibilityTests();
+
+        Logger.log("Set valid values");
+        editRecruitmentAndViabilityPage
+            .withReceptionToYear6("10", "20")
+            .withYear7ToYear11("62", "17")
+            .withYear12ToYear14("96", "11")
+            .saveAndContinue();
+
+        viewRecruitmentAndViabilityPage
+            .hasReceptionToYear6("10", "20", "200.00%", "0.00%")
+            .hasYear7ToYear11("62", "17", "27.42%", "0.00%")
+            .hasYear12ToYear14("96", "11", "11.46%", "0.00%")
+            .hasTotal("168", "48");
+
+        Logger.log("Add PAN values to check percentages are calculated correctly");
+        viewPupilNumbersPage.editPre16PublishedAdmissionNumber();
+
+        editPre16PublishedAdmissionNumberPage
+            .withReception("60")
+            .withYear7("20")
+            .withYear10("30")
+            .withOtherPre16("40")
+            .saveAndContinue();
+
+        viewPupilNumbersPage.editPost16PublishedAdmissionNumber();
+
+        editPost16PublishedAdmissionNumberPage
+            .withYear12("12")
+            .withOtherPost16("23")
+            .saveAndContinue();
+
+        viewRecruitmentAndViabilityPage
+            .hasReceptionToYear6("10", "20", "200.00%", "33.33%")
+            .hasYear7ToYear11("62", "17", "27.42%", "18.89%")
+            .hasYear12ToYear14("96", "11", "11.46%", "31.43%")
+            .hasTotal("168", "48");
     });
 });
