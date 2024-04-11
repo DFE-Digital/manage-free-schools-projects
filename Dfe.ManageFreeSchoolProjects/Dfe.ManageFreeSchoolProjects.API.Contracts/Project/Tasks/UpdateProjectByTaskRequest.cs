@@ -38,6 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
 
+        public FundingAgreementHealthCheckTask FundingAgreementHealthCheck { get; set; }
         public PaymentScheduleTask PaymentSchedule { get; set; }
 
         public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
@@ -88,6 +89,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.OfstedInspection.ToString();
                 if (ApplicationsEvidence != null)
                     return TaskName.ApplicationsEvidence.ToString();
+                if (FundingAgreementHealthCheck != null)
+                    return TaskName.FundingAgreementHealthCheck.ToString();
                 if (PaymentSchedule != null)
                     return TaskName.PaymentSchedule.ToString();
                 if (TrustPDGLetterSent != null)

@@ -92,6 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 EvidenceOfAcceptedOffers = SafeRetrieveTaskSummary(projectTasks, "EvidenceOfAcceptedOffers"),
                 OfstedInspection = SafeRetrieveTaskSummary(projectTasks, "OfstedInspection"),
                 ApplicationsEvidence = SafeRetrieveTaskSummary(projectTasks, "ApplicationsEvidence"),
+                FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
                 PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
             };
            

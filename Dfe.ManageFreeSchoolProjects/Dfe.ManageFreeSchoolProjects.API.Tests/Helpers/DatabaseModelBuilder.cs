@@ -191,7 +191,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
+        public static Milestones BuildFundingAgreementHealthCheckTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck = true;
+            result.FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck = false;
+            result.FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck = false;
+            result.FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder = false;
+
+            return result;
+        }
+
         public static Milestones BuildGiasTask(string rid)
         {
             var result = new Milestones();

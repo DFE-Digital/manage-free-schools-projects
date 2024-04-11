@@ -24,6 +24,7 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -90,6 +91,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
                                       KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
                                       ModelFundingAgreement = ModelFundingAgreementTaskBuilder.Build(milestones),
+                                      FundingAgreementHealthCheck = FundingAgreementHealthCheckTaskBuilder.Build(milestones),
                                       ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
                                       FinancePlan = FinancePlanTaskBuilder.Build(milestones),
                                       DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones),

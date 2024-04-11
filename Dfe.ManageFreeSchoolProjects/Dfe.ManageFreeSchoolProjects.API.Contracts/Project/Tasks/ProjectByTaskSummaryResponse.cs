@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         public string SchoolName { get; set; }
         public TaskSummaryResponse School { get; set; }
-        
+
         public TaskSummaryResponse Dates { get; set; }
 
         public TaskSummaryResponse Trust { get; set; }
@@ -30,22 +30,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse DraftGovernancePlan { get; set; }
         
         public TaskSummaryResponse Gias { get; set; }
-        
+
         public TaskSummaryResponse EducationBrief { get; set; }
 
         public TaskSummaryResponse AdmissionsArrangements { get; set; }
 
         public TaskSummaryResponse EqualitiesAssessment { get; set; }
-        
+
         public TaskSummaryResponse ImpactAssessment { get; set; }
-        
-        
+
         public TaskSummaryResponse EvidenceOfAcceptedOffers { get; set; }
-        
-        
+
         public TaskSummaryResponse OfstedInspection { get; set; }
 
         public TaskSummaryResponse ApplicationsEvidence { get; set; }
+
+        public TaskSummaryResponse FundingAgreementHealthCheck { get; set; }
         public TaskSummaryResponse PDG { get; set; }
     }
 
