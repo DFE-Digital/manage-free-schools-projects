@@ -24,9 +24,13 @@ public class ValidNumberAttribute : ValidationAttribute
 
         var valueAsString = (string)value;
 
+        if (string.IsNullOrEmpty(valueAsString))
+            return ValidationResult.Success;
+
         bool success = int.TryParse(valueAsString, out int valueAsInt);
+
         if (!success)
-            return new ValidationResult($"{validationContext.DisplayName} must be a number");
+            return new ValidationResult($"{validationContext.DisplayName} must be a number, like 30");
 
         if (valueAsInt < _minValue || valueAsInt > _maxValue)
             return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, validationContext.DisplayName, _minValue, _maxValue));

@@ -18,7 +18,7 @@ import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing the setting of pupil numbers", () => {
     let project: ProjectDetailsRequest;
-    const numberOutsideRangeValidationMessage = "{0} must be 0 or more";
+    const numberOutsideRangeValidationMessage = "{0} must be between 0 and 9999";
     const isNumberValidationMessage = "{0} must be a number, like 30";
 
     beforeEach(() => {
@@ -64,6 +64,13 @@ describe("Testing the setting of pupil numbers", () => {
 
         validationComponent
             .hasValidationError(isNumberValidationMessage.replace("{0}", "Nursery"));
+
+        editCapacityWhenFullPage
+            .withNurseryCapacity("10000")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Nursery"));
 
         editCapacityWhenFullPage
             .withNurseryCapacity("-1")
