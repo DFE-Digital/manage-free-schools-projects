@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         EvidenceOfAcceptedOffers,
         OfstedInspection,
         ApplicationsEvidence,
+        FundingAgreementHealthCheck,
         PDG,
         PaymentSchedule,
         TrustPDGLetterSent,

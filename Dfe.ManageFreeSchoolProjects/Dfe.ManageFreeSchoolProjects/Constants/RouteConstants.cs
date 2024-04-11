@@ -73,7 +73,10 @@
         
         public const string ViewApplicationsEvidenceTask = TaskList + "/applications-evidence";
         public const string EditApplicationsEvidenceTask = ViewApplicationsEvidenceTask + "/edit";
-        
+
+        public const string ViewFundingAgreementHealthCheckTask = TaskList + "/funding-agreement-health-check";
+        public const string EditFundingAgreementHealthCheckTask = ViewFundingAgreementHealthCheckTask + "/edit";
+
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
