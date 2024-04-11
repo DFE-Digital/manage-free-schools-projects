@@ -41,6 +41,7 @@ using System.Reflection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -98,6 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
             services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
+            services.AddScoped<IUpdateTaskService, UpdateRefundsService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();

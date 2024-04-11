@@ -8,6 +8,7 @@
     var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentSchedule, Model.ProjectId);
     var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetter, Model.ProjectId);
     var editStopPaymentLink = string.Format(RouteConstants.EditStopPayment, Model.ProjectId);
+    var editRefundsLink = string.Format(RouteConstants.EditRefunds, Model.ProjectId);
 
     var pdgTask = Model.Project.PDGDashboard;
 }
@@ -43,6 +44,12 @@
         <govuk-summary-card id="stop-payments" label="Stop payments" href="@editStopPaymentLink">
             <govuk-summary-list>
                 <govuk-summary-item label="Are you sure you want to stop payments?" asp-for="@pdgTask.PaymentStopped" />
+            </govuk-summary-list>
+        </govuk-summary-card>
+        <govuk-summary-card id="refunds" label="Refunds" href="@editRefundsLink">
+            <govuk-summary-list>
+                <govuk-summary-item label="Latest refund date" asp-for="@pdgTask.LatestRefundDate" />
+                <govuk-summary-item label="Total amount" asp-for="@pdgTask.RefundsTotalAmount" />
             </govuk-summary-list>
         </govuk-summary-card>
 

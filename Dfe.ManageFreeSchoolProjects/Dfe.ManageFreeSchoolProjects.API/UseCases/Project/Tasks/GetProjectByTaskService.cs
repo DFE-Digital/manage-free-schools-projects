@@ -26,6 +26,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -131,6 +132,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.StopPayment:
                     result = await new GetStopPaymentService(_context).Get(parameters);
+                    break;
+                case TaskName.Refunds:
+                    result = await new GetRefundsService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

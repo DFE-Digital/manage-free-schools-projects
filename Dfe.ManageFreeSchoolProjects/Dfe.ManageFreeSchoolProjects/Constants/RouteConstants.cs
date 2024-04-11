@@ -109,6 +109,7 @@
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
         public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
         public const string EditStopPayment = ViewPDG + "/edit-stop-payment/";
+        public const string EditRefunds = ViewPDG + "/edit-refunds/";
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
