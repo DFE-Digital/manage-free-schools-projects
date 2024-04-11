@@ -19,6 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
             var valueAsString = value.ToString();
 
+            if (string.IsNullOrEmpty(valueAsString))
+                return ValidationResult.Success;
+
             bool success = int.TryParse(valueAsString, out int valueAsInt);
 
             if (!success)
