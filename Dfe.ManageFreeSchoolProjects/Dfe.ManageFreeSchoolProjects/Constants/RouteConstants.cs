@@ -113,5 +113,6 @@
         public const string EditPost16PublishedAdmissionNumber = ViewPupilNumbers + "/post16-published-admission-number/edit";
         public const string EditRecruitmentAndViability = ViewPupilNumbers + "/recruitment-and-viability/edit";
         public const string EditPre16CapacityBuildup = ViewPupilNumbers + "/pre16-capacity-buildup/edit";
+        public const string EditPost16CapacityBuildup = ViewPupilNumbers + "/post16-capacity-buildup/edit";
     }
 }

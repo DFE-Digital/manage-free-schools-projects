@@ -1,4 +1,11 @@
-class EditPre16CapacityBuildupPage {
+class EditCapacityBuildupPage {
+
+    public hasSchoolName(schoolName: string): this {
+        cy.getByTestId("school-name").should("contain.text", schoolName);
+
+        return this;
+    }
+
     public withNursery(
         currentCapacity: string,
         firstYear: string,
@@ -194,6 +201,51 @@ class EditPre16CapacityBuildupPage {
         return this;
     }
 
+    public withYear12(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+
+        this.withRow("year12", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public withYear13(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+
+        this.withRowSetDirectly("year13", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public withYear14(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+
+        this.withRowSetDirectly("year14", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
     private withRow(
         idPrefix: string,
         currentCapacity: string,
@@ -253,6 +305,6 @@ class EditPre16CapacityBuildupPage {
     }
 }
 
-const editPre16CapacityBuildupPage = new EditPre16CapacityBuildupPage();
+const editCapacityBuildupPage = new EditCapacityBuildupPage();
 
-export default editPre16CapacityBuildupPage;
+export default editCapacityBuildupPage;

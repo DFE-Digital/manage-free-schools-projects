@@ -1,4 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
+using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -17,6 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
         [HtmlAttributeName("asp-for")]
         public CapacityBuildupEntry For { get; set; }
+
+        [HtmlAttributeName("id-prefix")]
+        public string IdPrefix { get;set; }
 
         [ViewContext]
         public ViewContext ViewContext { get; set; }
@@ -39,7 +44,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             {
                 Label = Label,
                 CapacityBuildupEntry = For,
-                BoldLabel = BoldLabel
+                BoldLabel = BoldLabel,
+                IdPrefix = GetIdPrefix()
             };
 
             var content = await _htmlHelper.PartialAsync("_CapacityBuildupRow", model);
@@ -47,11 +53,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             output.TagName = null;
             output.PostContent.AppendHtml(content);
         }
+
+        private string GetIdPrefix()
+        {
+            if (!string.IsNullOrEmpty(IdPrefix))
+            {
+                return IdPrefix;
+            }
+
+            return Label.ToLower().Replace(" ", string.Empty);
+        }
     }
 
     public class CapacityBuildupRowViewModel
     {
         public string Label { get; set; }
+
+        public string IdPrefix { get; set; }
 
         public bool BoldLabel { get; set; }
 

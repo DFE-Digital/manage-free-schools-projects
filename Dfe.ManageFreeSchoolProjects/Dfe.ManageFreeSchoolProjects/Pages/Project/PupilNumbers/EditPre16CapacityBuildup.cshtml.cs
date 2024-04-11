@@ -88,19 +88,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         {
             var pupilNumbers = await _getPupilNumbersService.Execute(ProjectId);
 
-            Nursery = BuildRow(pupilNumbers.Pre16CapacityBuildup.Nursery);
-            Reception = BuildRow(pupilNumbers.Pre16CapacityBuildup.Reception);
-            Year1 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year1);
-            Year2 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year2);
-            Year3 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year3);
-            Year4 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year4);
-            Year5 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year5);
-            Year6 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year6);
-            Year7 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year7);
-            Year8 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year8);
-            Year9 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year9);
-            Year10 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year10);
-            Year11 = BuildRow(pupilNumbers.Pre16CapacityBuildup.Year11);
+            Nursery = ToRow(pupilNumbers.Pre16CapacityBuildup.Nursery);
+            Reception = ToRow(pupilNumbers.Pre16CapacityBuildup.Reception);
+            Year1 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year1);
+            Year2 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year2);
+            Year3 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year3);
+            Year4 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year4);
+            Year5 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year5);
+            Year6 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year6);
+            Year7 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year7);
+            Year8 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year8);
+            Year9 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year9);
+            Year10 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year10);
+            Year11 = ToRow(pupilNumbers.Pre16CapacityBuildup.Year11);
             SchoolName = pupilNumbers.SchoolName;
 
             return Page();
@@ -139,7 +139,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
         }
 
-        private CapacityBuildupRowModel BuildRow(CapacityBuildupEntry entry)
+        private CapacityBuildupRowModel ToRow(CapacityBuildupEntry entry)
         {
             return new CapacityBuildupRowModel()
             {

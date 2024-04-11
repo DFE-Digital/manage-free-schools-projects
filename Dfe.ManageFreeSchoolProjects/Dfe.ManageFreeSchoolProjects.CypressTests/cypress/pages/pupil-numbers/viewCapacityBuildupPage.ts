@@ -181,6 +181,76 @@ class ViewPre16CapacityBuildupPage {
         return this;
     }
 
+    public hasYear12(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+        this.hasRow("year12", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public hasYear13(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+        this.hasRow("year13", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public hasYear14(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+        this.hasRow("year14", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public hasPre16Total(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+        this.hasRow("pre16-total", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
+    public hasPost16Total(
+        currentCapacity: string,
+        firstYear: string,
+        secondYear: string,
+        thirdYear: string,
+        fourthYear: string,
+        fifthYear: string,
+        sixthYear: string,
+        seventhYear: string): this {
+        this.hasRow("post16-total", currentCapacity, firstYear, secondYear, thirdYear, fourthYear, fifthYear, sixthYear, seventhYear);
+
+        return this;
+    }
+
     private hasRow(
         idPrefix: string,
         currentCapacity: string,
