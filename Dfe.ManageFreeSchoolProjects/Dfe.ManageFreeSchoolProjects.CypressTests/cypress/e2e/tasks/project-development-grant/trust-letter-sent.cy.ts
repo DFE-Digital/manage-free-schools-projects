@@ -44,7 +44,7 @@ describe("Trust Letter Sent Task", () => {
 
         cy.log("All fields are optional");
         trustLetter
-            .titleIs("Edit trust letter")
+            .titleIs("Edit Trust letter")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
@@ -57,15 +57,15 @@ describe("Trust Letter Sent Task", () => {
             .isNotMarkedAsComplete();
 
         pdgDashboard.selectChangeTrustLetter();
-        
+
         cy.log("Check DG letter sent from the trust validation");
         trustLetter
             .withTrustLetterDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentDueDate().showsError("Enter a date in the correct format")
-            
+
         cy.executeAccessibilityTests();
-       
+
         cy.log('Confirm all set')
 
         trustLetter
