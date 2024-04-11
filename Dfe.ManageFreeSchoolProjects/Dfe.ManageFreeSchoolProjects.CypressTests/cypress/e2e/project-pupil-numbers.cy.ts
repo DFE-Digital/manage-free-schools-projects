@@ -4,11 +4,13 @@ import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import editCapacityWhenFullPage from "cypress/pages/pupil-numbers/editCapacityWhenFullPage";
 import editPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPost16PublishedAdmissionNumberPage";
+import editPre16CapacityBuildupPage from "cypress/pages/pupil-numbers/editPre16CapacityBuildupPage";
 import editPre16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/editPre16PublishedAdmissionNumberPage";
 import editRecruitmentAndViabilityPage from "cypress/pages/pupil-numbers/editRecruitmentAndViabilityPage";
 import pupilNumbersSummaryComponent from "cypress/pages/pupil-numbers/pupilNumbersSummaryComponent";
 import viewCapacityWhenFullPage from "cypress/pages/pupil-numbers/viewCapacityWhenFullPage";
 import viewPost16PublishedAdmissionNumberPage from "cypress/pages/pupil-numbers/viewPost16PublishedAdmissionNumberPage";
+import viewPre16CapacityBuildupPage from "cypress/pages/pupil-numbers/viewPre16CapacityBuildupPage";
 import viewPre16PublishedAdmissionNumber from "cypress/pages/pupil-numbers/viewPre16PublishedAdmissionNumberPage";
 import viewPupilNumbersPage from "cypress/pages/pupil-numbers/viewPupilNumbersPage";
 import viewRecruitmentAndViabilityPage from "cypress/pages/pupil-numbers/viewRecruitmentAndViabilityPage";
@@ -269,4 +271,199 @@ describe("Testing the setting of pupil numbers", () => {
             .hasYear12ToYear14("96", "11", "11.46%", "31.43%")
             .hasTotal("168", "48");
     });
+
+    it("Should be able to edit pre-16 capacity buildup", () => {
+        pupilNumbersSummaryComponent.viewDetails();
+
+        viewPre16CapacityBuildupPage
+            .hasNursery("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasReception("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear1("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear2("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear3("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear4("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear5("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear6("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear7("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear8("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear9("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear10("0", "0", "0", "0", "0", "0", "0", "0")
+            .hasYear11("0", "0", "0", "0", "0", "0", "0", "0")
+
+        viewPupilNumbersPage
+            .editPre16CapacityBuildup();
+
+        Logger.log("Configuring nursery");
+
+        editPre16CapacityBuildupPage
+            .withNursery("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Nursery");
+
+        editPre16CapacityBuildupPage
+            .withNursery("1", "2", "3", "4", "5", "6", "7", "8");
+
+        Logger.log("Configuring reception");
+
+        editPre16CapacityBuildupPage
+            .withReception("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Reception");
+
+        editPre16CapacityBuildupPage
+            .withReception("9", "10", "11", "12", "13", "14", "15", "16");
+
+        Logger.log("Configuring year 1");
+
+        editPre16CapacityBuildupPage
+            .withYear1("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 1");
+
+        editPre16CapacityBuildupPage
+            .withYear1("17", "18", "19", "20", "21", "22", "23", "24");
+
+        Logger.log("Configuring year 2");
+
+        editPre16CapacityBuildupPage
+            .withYear2("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 2");
+
+        editPre16CapacityBuildupPage
+            .withYear2("25", "26", "27", "28", "29", "30", "31", "32");
+
+        Logger.log("Configuring year 3");
+
+        editPre16CapacityBuildupPage
+            .withYear3("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 3");
+
+        editPre16CapacityBuildupPage
+            .withYear3("33", "34", "35", "36", "37", "38", "39", "40");
+
+        Logger.log("Configuring year 4");
+
+        editPre16CapacityBuildupPage
+            .withYear4("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 4");
+
+        editPre16CapacityBuildupPage
+            .withYear4("41", "42", "43", "44", "45", "46", "47", "48");
+
+        Logger.log("Configuring year 5");
+
+        editPre16CapacityBuildupPage
+            .withYear5("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 5");
+
+        editPre16CapacityBuildupPage
+            .withYear5("49", "50", "51", "52", "53", "54", "55", "56");
+
+        Logger.log("Configuring year 6");
+
+        editPre16CapacityBuildupPage
+            .withYear6("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 6");
+
+        editPre16CapacityBuildupPage
+            .withYear6("57", "58", "59", "60", "61", "62", "63", "64");
+
+        Logger.log("Configuring year 7");
+
+        editPre16CapacityBuildupPage
+            .withYear7("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 7");
+
+        editPre16CapacityBuildupPage
+            .withYear7("65", "66", "67", "68", "69", "70", "71", "72");
+
+        Logger.log("Configuring year 8");
+
+        editPre16CapacityBuildupPage
+            .withYear8("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 8");
+
+        editPre16CapacityBuildupPage
+            .withYear8("73", "74", "75", "76", "77", "78", "79", "80");
+
+        Logger.log("Configuring year 9");
+
+        editPre16CapacityBuildupPage
+            .withYear9("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 9");
+
+        editPre16CapacityBuildupPage
+            .withYear9("81", "82", "83", "84", "85", "86", "87", "88");
+
+        Logger.log("Configuring year 10");
+
+        editPre16CapacityBuildupPage
+            .withYear10("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 10");
+
+        editPre16CapacityBuildupPage
+            .withYear10("89", "90", "91", "92", "93", "94", "95", "96");
+
+        Logger.log("Configuring year 11");
+
+        editPre16CapacityBuildupPage
+            .withYear11("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1")
+            .saveAndContinue();
+
+        validateCapacityBuildupRow("Year 11");
+
+        editPre16CapacityBuildupPage
+            .withYear11("97", "98", "99", "100", "101", "102", "103", "104");
+
+        Logger.log("Check the values have been set correctly");
+        editPre16CapacityBuildupPage.saveAndContinue();
+
+        viewPre16CapacityBuildupPage
+            .hasNursery("1", "2", "3", "4", "5", "6", "7", "8")
+            .hasReception("9", "10", "11", "12", "13", "14", "15", "16")
+            .hasYear1("17", "18", "19", "20", "21", "22", "23", "24")
+            .hasYear2("25", "26", "27", "28", "29", "30", "31", "32")
+            .hasYear3("33", "34", "35", "36", "37", "38", "39", "40")
+            .hasYear4("41", "42", "43", "44", "45", "46", "47", "48")
+            .hasYear5("49", "50", "51", "52", "53", "54", "55", "56")
+            .hasYear6("57", "58", "59", "60", "61", "62", "63", "64")
+            .hasYear7("65", "66", "67", "68", "69", "70", "71", "72")
+            .hasYear8("73", "74", "75", "76", "77", "78", "79", "80")
+            .hasYear9("81", "82", "83", "84", "85", "86", "87", "88")
+            .hasYear10("89", "90", "91", "92", "93", "94", "95", "96")
+            .hasYear11("97", "98", "99", "100", "101", "102", "103", "104");
+    });
+
+    function validateCapacityBuildupRow(schoolYear: string) {
+        validationComponent
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} current capacity`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} first year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} second year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} third year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} fourth year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} fifth year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} sixth year`))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} seventh year`));
+    }
 });
