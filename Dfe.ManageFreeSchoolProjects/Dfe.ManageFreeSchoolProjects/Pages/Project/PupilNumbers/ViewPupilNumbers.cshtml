@@ -25,6 +25,27 @@
 }
 
 <div class="govuk-grid-row">
+    @if (Model.ShowBanner)
+    {
+        <div 
+            class="govuk-notification-banner govuk-notification-banner--success" 
+            role="alert" 
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner"
+            data-testid="save-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <h3 class="govuk-notification-banner__heading">
+                    Pupil numbers updated.
+                </h3>
+            </div>
+        </div>
+    }
+
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name">@Model.PupilNumbers.SchoolName</span>

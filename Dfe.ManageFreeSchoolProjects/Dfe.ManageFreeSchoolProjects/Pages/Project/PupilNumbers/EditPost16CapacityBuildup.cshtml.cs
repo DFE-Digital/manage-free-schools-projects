@@ -10,11 +10,8 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
-    public class EditPost16CapacityBuildupModel : PageModel
+    public class EditPost16CapacityBuildupModel : EditPupilNumbersBaseModel
     {
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
-
         [BindProperty(Name = "year12", BinderType = typeof(CapacityBuildupRowModelBinder))]
         [Display(Name = "Year 12")]
         public CapacityBuildupRowModel Year12 { get; set; }
@@ -26,9 +23,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [BindProperty(Name = "year14", BinderType = typeof(CapacityBuildupRowModelBinder))]
         [Display(Name = "Year 14")]
         public CapacityBuildupRowModel Year14 { get; set; }
-
-        [BindProperty]
-        public string SchoolName { get; set; }
 
         private readonly IGetPupilNumbersService _getPupilNumbersService;
         private readonly IUpdatePupilNumbersService _updatePupilNumbersService;
@@ -76,7 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
             await _updatePupilNumbersService.Execute(ProjectId, request);
 
-            return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
+            return GoToViewPage();
         }
 
         private static CapacityBuildupRowModel ToRow(CapacityBuildupEntry entry)
