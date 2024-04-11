@@ -272,7 +272,7 @@ describe("Testing the setting of pupil numbers", () => {
             .hasTotal("168", "48");
     });
 
-    it.only("Should be able to edit pre-16 capacity buildup", () => {
+    it("Should be able to edit pre-16 capacity buildup", () => {
         pupilNumbersSummaryComponent.viewDetails();
 
         viewPre16CapacityBuildupPage
