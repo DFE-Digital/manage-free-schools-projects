@@ -139,7 +139,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
         }
 
-        private CapacityBuildupRowModel ToRow(CapacityBuildupEntry entry)
+        private static CapacityBuildupRowModel ToRow(CapacityBuildupEntry entry)
         {
             return new CapacityBuildupRowModel()
             {
@@ -154,7 +154,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             };
         }
 
-        private CapacityBuildupEntry ToCapacityBuildupEntry(CapacityBuildupRowModel row)
+        private static CapacityBuildupEntry ToCapacityBuildupEntry(CapacityBuildupRowModel row)
         {
             return new CapacityBuildupEntry()
             {

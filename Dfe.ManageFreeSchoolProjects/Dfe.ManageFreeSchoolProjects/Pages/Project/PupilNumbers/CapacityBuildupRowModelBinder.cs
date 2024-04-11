@@ -59,7 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
         private static void ValidateBindingContext(ModelBindingContext bindingContext)
         {
-            ArgumentNullException.ThrowIfNull(bindingContext, nameof(bindingContext));
+            ArgumentNullException.ThrowIfNull(bindingContext, "bindingContext");
 
             var modelType = bindingContext.ModelType;
 
@@ -86,7 +86,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             if (validationResult != ValidationResult.Success)
             {
                 bindingContext.ModelState.AddModelError(bindingName, $"{validationResult.ErrorMessage}");
-                bindingContext.ModelState.SetModelValue(bindingName, valueProviderResult);
             }
         }
     }
