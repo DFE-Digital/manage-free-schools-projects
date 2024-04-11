@@ -89,20 +89,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.OfstedInspection.ToString();
                 if (ApplicationsEvidence != null)
                     return TaskName.ApplicationsEvidence.ToString();
-<<<<<<< HEAD
                 if (FundingAgreementHealthCheck != null)
                     return TaskName.FundingAgreementHealthCheck.ToString();
-                {
-
-                }
-=======
                 if (PaymentSchedule != null)
                     return TaskName.PaymentSchedule.ToString();
                 if (TrustPDGLetterSent != null)
                     return TaskName.TrustPDGLetterSent.ToString();
                 if (StopPayment != null)
                     return TaskName.StopPayment.ToString();
->>>>>>> main
                 return null;
             }
         }
