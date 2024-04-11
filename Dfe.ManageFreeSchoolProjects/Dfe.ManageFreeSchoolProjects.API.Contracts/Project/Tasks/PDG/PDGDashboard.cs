@@ -13,5 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
         public string PaymentStopped { get; set; }
         public DateTime? LatestRefundDate { get; set; }
         public decimal? RefundsTotalAmount { get; set; }
+        public string WriteOffReason { get; set; }
+        public decimal? WriteOffAmount { get; set; }
     }
 }

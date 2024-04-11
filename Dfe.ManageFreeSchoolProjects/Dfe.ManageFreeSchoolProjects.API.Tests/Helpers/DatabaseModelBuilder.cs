@@ -374,5 +374,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+
+        internal static Po BuildWriteOffTask(string rid)
+        {
+            var result = new Po()
+            {
+                Rid = rid,
+                ProjectDevelopmentGrantFundingDateOf1stWriteOff = new DateTime().AddDays(1),
+                ProjectDevelopmentGrantFundingAmountApprovedFor1stWriteOff = "100",
+                ProjectDevelopmentGrantFundingReasonFor1stWriteOff = "29525",
+                ProjectDevelopmentGrantFundingFinanceBusinessPartnerApprovalReceivedFrom = "asgaas",
+                ProjectDevelopmentGrantFundingDateWriteOffApprovedByFinanceBusinessPartners = new DateTime().AddDays(2),
+            };
+
+            return result;
+        }
     }
 }

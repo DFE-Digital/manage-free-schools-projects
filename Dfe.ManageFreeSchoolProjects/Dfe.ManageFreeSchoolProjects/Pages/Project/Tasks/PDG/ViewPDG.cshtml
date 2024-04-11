@@ -9,7 +9,7 @@
     var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetter, Model.ProjectId);
     var editStopPaymentLink = string.Format(RouteConstants.EditStopPayment, Model.ProjectId);
     var editRefundsLink = string.Format(RouteConstants.EditRefunds, Model.ProjectId);
-
+    var editWriteOffLink = string.Format(RouteConstants.EditWriteOff, Model.ProjectId);
     var pdgTask = Model.Project.PDGDashboard;
 }
 
@@ -50,6 +50,12 @@
             <govuk-summary-list>
                 <govuk-summary-item label="Latest refund date" asp-for="@pdgTask.LatestRefundDate" />
                 <govuk-summary-item label="Total amount" asp-for="@pdgTask.RefundsTotalAmount" />
+            </govuk-summary-list>
+        </govuk-summary-card>
+        <govuk-summary-card id="write-off" label="Write-off" href="@editWriteOffLink">
+            <govuk-summary-list>
+                <govuk-summary-item label="Write-off reason" asp-for="@pdgTask.WriteOffReason" />
+                <govuk-summary-item label="Write-off amount" asp-for="@pdgTask.WriteOffAmount" />
             </govuk-summary-list>
         </govuk-summary-card>
 

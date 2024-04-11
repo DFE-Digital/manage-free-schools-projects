@@ -110,6 +110,7 @@
         public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
         public const string EditStopPayment = ViewPDG + "/edit-stop-payment/";
         public const string EditRefunds = ViewPDG + "/edit-refunds/";
+        public const string EditWriteOff = ViewPDG + "/edit-write-off/";
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";

@@ -42,6 +42,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedul
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -100,6 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
             services.AddScoped<IUpdateTaskService, UpdateRefundsService>();
+            services.AddScoped<IUpdateTaskService, UpdateWriteOffService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();

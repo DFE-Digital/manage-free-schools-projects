@@ -46,6 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public StopPaymentTask StopPayment { get; set; }
 
         public RefundsTask Refunds { get; set; }
+        
+        public WriteOffTask WriteOff { get; set; }
 
         public string TaskToUpdate
         {
@@ -101,6 +103,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.StopPayment.ToString();
                 if (Refunds != null)
                     return TaskName.Refunds.ToString();
+                if (WriteOff != null)
+                    return TaskName.WriteOff.ToString();
                 return null;
             }
         }
