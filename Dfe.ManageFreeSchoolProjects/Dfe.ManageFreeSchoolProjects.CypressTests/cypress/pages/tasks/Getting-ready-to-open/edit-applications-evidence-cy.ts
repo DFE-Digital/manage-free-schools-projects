@@ -32,7 +32,7 @@ class ApplicationsEvidenceEditPage {
         return this
     }
     withComments(comment: string): this {
-        cy.getById("comments").clear().type(comment)
+        cy.getById("comments").typeFast(comment)
         return this;
     }
 
