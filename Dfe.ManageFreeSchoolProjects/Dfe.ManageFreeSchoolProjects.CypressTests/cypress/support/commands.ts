@@ -87,20 +87,17 @@ Cypress.Commands.add('typeFast', { prevSubject: 'element' }, (subject: JQuery<HT
   });
 
 Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string, year: string) => {
-    cy.getById(`${idPrefix}-day`).clear();
-    cy.getById(`${idPrefix}-month`).clear();
-    cy.getById(`${idPrefix}-year`).clear();
 
     if (day.length > 0) {
-        cy.getById(`${idPrefix}-day`).type(day);
+        cy.getById(`${idPrefix}-day`).typeFast(day);
     }
 
     if (month.length > 0) {
-        cy.getById(`${idPrefix}-month`).type(month);
+        cy.getById(`${idPrefix}-month`).typeFast(month);
     }
 
     if (year.length > 0) {
-        cy.getById(`${idPrefix}-year`).type(year);
+        cy.getById(`${idPrefix}-year`).typeFast(year);
     }
 });
 
