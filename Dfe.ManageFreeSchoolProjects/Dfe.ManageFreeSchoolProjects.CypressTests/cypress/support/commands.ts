@@ -82,6 +82,10 @@ Cypress.Commands.add("executeAccessibilityTests", (ruleOverride?: RuleObject) =>
     }, undefined, continueOnFail);
 });
 
+Cypress.Commands.add('typeFast', { prevSubject: 'element' }, (subject: JQuery<HTMLElement>, text: string) => {
+    cy.wrap(subject).invoke('val', text);
+  });
+
 Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string, year: string) => {
     cy.getById(`${idPrefix}-day`).clear();
     cy.getById(`${idPrefix}-month`).clear();
