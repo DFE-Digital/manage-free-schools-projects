@@ -6,6 +6,18 @@ class ViewPupilNumbersPage {
         return this;
     }
 
+    public hasSaveBanner() {
+        this.getSaveBanner().should("exist");
+
+        return this;
+    }
+
+    public hasNoSaveBanner() {
+        this.getSaveBanner().should("not.exist");
+
+        return this;
+    }
+
     public editCapacity(): this {
         cy.getByTestId("edit-capacity").click();
 
@@ -42,6 +54,17 @@ class ViewPupilNumbersPage {
         cy.getByTestId("edit-post16-capacity-buildup").click();
 
         return this;
+    }
+
+    public backToProjectOverview(): this {
+        cy.getByTestId("back-to-project-overview").click();
+
+        return this;
+    
+    }
+
+    private getSaveBanner() {
+        return cy.getByTestId("save-banner");
     }
 }
 

@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
-    public class EditPre16PublishedAdmissionNumberModel : PageModel
+    public class EditPre16PublishedAdmissionNumberModel : EditPupilNumbersBaseModel
     {
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
-
         [BindProperty(Name = "reception")]
         [ValidNumberForPupilNumbers]
         public string Reception { get; set; }
@@ -34,9 +31,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [ValidNumberForPupilNumbers]
         [Display(Name = "Other pre-16")]
         public string OtherPre16 { get; set; }
-
-        [BindProperty]
-        public string SchoolName { get; set; }
 
         private readonly IGetPupilNumbersService _getPupilNumbersService;
         private readonly IUpdatePupilNumbersService _updatePupilNumbersService;
@@ -86,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
             await _updatePupilNumbersService.Execute(ProjectId, request);
 
-            return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
+            return GoToViewPage();
         }
     }
 }

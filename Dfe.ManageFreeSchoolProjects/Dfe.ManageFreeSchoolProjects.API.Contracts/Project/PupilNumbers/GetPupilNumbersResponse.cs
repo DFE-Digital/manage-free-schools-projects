@@ -39,7 +39,6 @@
         public RecruitmentAndViabilityEntry ReceptionToYear6 { get; set; } = new();
         public RecruitmentAndViabilityEntry Year7ToYear11 { get; set; } = new();
         public RecruitmentAndViabilityEntry Year12ToYear14 { get; set; } = new();
-        public RecruitmentAndViabilityEntry Total { get; set; } = new();
     }
 
     public record RecruitmentAndViabilityEntry

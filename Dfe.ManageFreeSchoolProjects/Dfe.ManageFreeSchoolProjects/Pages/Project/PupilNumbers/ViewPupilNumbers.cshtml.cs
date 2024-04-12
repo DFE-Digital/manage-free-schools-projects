@@ -13,6 +13,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
         public GetPupilNumbersResponse PupilNumbers { get; set; }
 
+        [BindProperty(SupportsGet = true, Name = "fromSaveForm")]
+        public bool ShowBanner { get; set; }
+
         private readonly IGetPupilNumbersService _getPupilNumbersService;
 
         public ViewPupilNumbersModel(IGetPupilNumbersService getPupilNumbersService)
