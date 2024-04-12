@@ -1,14 +1,16 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds
 {
-    public class GetStopPaymentService
+    public class GetRefundsService
     {
         private readonly MfspContext _context;
 
-        public GetStopPaymentService(MfspContext context)
+        public GetRefundsService(MfspContext context)
         {
             _context = context;
         }
@@ -20,10 +22,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPaymen
                                 from po in joinedPO.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    StopPayment = StopPaymentBuilder.Build(po)
+                                    Refunds = RefundsBuilder.Build(po)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { StopPayment = new() };
+            return result ?? new GetProjectByTaskResponse() { Refunds = new() };
         }
 
     }

@@ -1,8 +1,8 @@
-﻿@page "/projects/{projectId}/tasks/pdg/edit-stop-payment"
+﻿@page "/projects/{projectId}/tasks/pdg/edit-refunds"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.EditStopPaymentModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.EditRefundsModel
 @{
-    ViewData["Title"] = $"Edit Stop payments - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit Refunds  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
 }
 
@@ -18,15 +18,14 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Edit Stop payments
+    Edit Refunds
 </h1>
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
-            <govuk-conditional-radio id="payment-stopped" label="Are you sure you want to stop payments?" asp-for="@Model.PaymentStopped">
-                <govuk-date-input id="payment-stopped-date" name="payment-stopped-date" asp-for="@Model.PaymentStoppedDate" data-testid="payment-stopped-date" label="Date you want to stop the payments from" hint="For example, 27 3 2021" />
-            </govuk-conditional-radio>
+            <govuk-date-input id="latest-refund-date" name="latest-refund-date" asp-for="@Model.LatestRefundDate" data-testid="latest-refund-date" label="Latest refund date" hint="For example, 27 3 2021" />
+            <govuk-decimal-input id="total-amount" name="total-amount" asp-for="@Model.TotalAmount" data-testid="total-amount" label="Total amount" hint="If there are multiple refunds, just add them up and change the below number each time there's a refund." isMonetary="true" />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
