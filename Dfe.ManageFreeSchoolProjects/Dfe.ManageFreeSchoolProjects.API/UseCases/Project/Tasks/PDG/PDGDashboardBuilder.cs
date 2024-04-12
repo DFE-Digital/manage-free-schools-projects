@@ -1,5 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
@@ -22,6 +24,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
                 PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
                 PaymentStopped = po.ProjectDevelopmentGrantFundingPaymentsStopped,
+                LatestRefundDate = RefundsBuilder.Build(po).LatestRefundDate,
+                RefundsTotalAmount = RefundsBuilder.Build(po).TotalAmount,
+                WriteOffAmount = WriteOffBuilder.Build(po).WriteOffAmount,
+                WriteOffReason = WriteOffBuilder.Build(po).WriteOffReason
             };
         }
 

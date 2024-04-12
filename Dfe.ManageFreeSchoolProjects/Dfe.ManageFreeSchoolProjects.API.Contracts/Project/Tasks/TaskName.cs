@@ -30,5 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         PaymentSchedule,
         TrustPDGLetterSent,
         StopPayment,
+        Refunds,
+        WriteOff,
     }
 }
