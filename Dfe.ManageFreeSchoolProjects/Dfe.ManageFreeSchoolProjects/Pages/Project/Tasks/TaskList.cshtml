@@ -299,7 +299,7 @@
                     Getting ready to open
                 </h2>
                 <ul class="app-task-list__items">
-                    @if(Model.SchoolType is not (SchoolType.AlternativeProvision or SchoolType.Special))
+                    @if (!Model.ProjectTaskListSummary.ApplicationsEvidence.IsHidden)
                     {
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">
