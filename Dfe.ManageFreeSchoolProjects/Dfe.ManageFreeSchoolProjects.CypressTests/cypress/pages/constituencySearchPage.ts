@@ -27,7 +27,7 @@ class ConstituencySearchPage {
     }
 
     public enterSearch(searchTerm: string): this {
-        cy.get("#search-constituency").clear().type(searchTerm);
+        cy.get("#search-constituency").typeFast(searchTerm);
         return this;
     }
 
