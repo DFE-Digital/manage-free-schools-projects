@@ -56,6 +56,13 @@ class ViewPupilNumbersPage {
         return this;
     }
 
+    public backToProjectOverview(): this {
+        cy.getByTestId("back-to-project-overview").click();
+
+        return this;
+    
+    }
+
     private getSaveBanner() {
         return cy.getByTestId("save-banner");
     }

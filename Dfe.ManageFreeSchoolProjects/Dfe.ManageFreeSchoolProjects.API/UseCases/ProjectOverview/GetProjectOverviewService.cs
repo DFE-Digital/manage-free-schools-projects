@@ -1,5 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
@@ -32,14 +34,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         {
             var project = await _context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
 
-            if (project == null) 
+            if (project == null)
             {
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
             var risk = await GetRisk(project.Rid);
             var sites = await _getProjectSitesService.Execute(project);
+            var pupilNumbers = await GetPupilNumbers(project.Rid);
 
+            return BuildOverviewResponse(project, risk, sites, pupilNumbers);
+        }
+
+        private static ProjectOverviewResponse BuildOverviewResponse(
+            Kpi project, 
+            ProjectRiskOverviewResponse risk, 
+            GetProjectSitesResponse sites, 
+            PupilNumbersOverviewResponse pupilNumbers)
+        {
             return new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
@@ -94,7 +106,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 {
                     PermanentSite = sites.PermanentSite,
                     TemporarySite = sites.TemporarySite
-                }
+                },
+                PupilNumbers = pupilNumbers
             };
         }
 
@@ -130,6 +143,29 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 RiskRating = ProjectRiskMapper.ToRiskRating(rag.RiskRating),
                 Summary = rag.Summary
             };
+
+            return result;
+        }
+
+        private async Task<PupilNumbersOverviewResponse> GetPupilNumbers(string rid)
+        {
+            var result = await _context.Po
+                .Where(p => p.Rid == rid)
+                .Select(po =>
+                    new PupilNumbersOverviewResponse()
+                    {
+                        Capacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt(),
+                        Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
+                        Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
+                        MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                        ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
+                    })
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                return new PupilNumbersOverviewResponse();
+            }
 
             return result;
         }

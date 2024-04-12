@@ -540,6 +540,61 @@ describe("Testing the setting of pupil numbers", () => {
             .hasPost16Total("30", "33", "36", "39", "42", "45", "48", "51");
     });
 
+    it("Should update the pupil numbers summary component", () => {
+        pupilNumbersSummaryComponent
+            .hasCapacity("0")
+            .hasPre16PublishedAdmissionNumber("0")
+            .hasPost16PublishedAdmissionNumber("0")
+            .hasMinimumViableNumber("0")
+            .hasApplicationsReceived("0");
+
+        pupilNumbersSummaryComponent.viewDetails();
+
+        Logger.log("configuration capacity");
+        viewPupilNumbersPage.editCapacity();
+        editCapacityWhenFullPage
+            .withNurseryCapacity("10")
+            .withReceptionToYear6Capacity("20")
+            .withYear7ToYear11Capacity("30")
+            .withYear12ToYear14Capacity("40")
+            .withSpecialEducationalNeedsCapacity("50")
+            .withAlternativeProvisionCapacity("60")
+            .saveAndContinue();
+
+        Logger.log("Configuring pre-16 published admission numbers");
+        viewPupilNumbersPage.editPre16PublishedAdmissionNumber();
+        editPre16PublishedAdmissionNumberPage
+            .withReception("11")
+            .withYear7("22")
+            .withYear10("33")
+            .withOtherPre16("44")
+            .saveAndContinue();
+
+        Logger.log("Configuring post-16 published admission numbers");
+        viewPupilNumbersPage.editPost16PublishedAdmissionNumber();
+        editPost16PublishedAdmissionNumberPage
+            .withYear12("12")
+            .withOtherPost16("23")
+            .saveAndContinue();
+
+        Logger.log("Configuring recruitment and viability");
+        viewPupilNumbersPage.editRecruitmentAndViability();
+        editRecruitmentAndViabilityPage
+            .withReceptionToYear6("10", "20")
+            .withYear7ToYear11("62", "17")
+            .withYear12ToYear14("96", "11")
+            .saveAndContinue();
+
+        viewPupilNumbersPage.backToProjectOverview();
+
+        pupilNumbersSummaryComponent
+            .hasCapacity("210")
+            .hasPre16PublishedAdmissionNumber("110")
+            .hasPost16PublishedAdmissionNumber("35")
+            .hasMinimumViableNumber("168")
+            .hasApplicationsReceived("48");
+    });
+
     function validateCapacityBuildupRow(schoolYear: string) {
         validationComponent
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", `${schoolYear} current capacity`))

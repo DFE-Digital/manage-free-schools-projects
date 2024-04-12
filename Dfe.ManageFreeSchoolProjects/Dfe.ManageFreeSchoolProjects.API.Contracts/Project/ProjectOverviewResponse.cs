@@ -11,6 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public KeyContactsResponse KeyContacts { get; set; }
         public SiteInformationResponse SiteInformation { get; set; }
         public ProjectRiskOverviewResponse Risk { get; set; }
+
+        public PupilNumbersOverviewResponse PupilNumbers { get; set; }
     }
 
     public record ProjectStatusResponse
@@ -74,5 +76,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public DateTime? Date { get; set; }
         public ProjectRiskRating? RiskRating { get; set; }
         public string Summary { get; set; }
+    }
+
+    public record PupilNumbersOverviewResponse
+    {
+        public int Capacity { get; set; }
+        public int Pre16PublishedAdmissionNumber { get; set; }
+        public int Post16PublishedAdmissionNumber { get; set; }
+        public int MinimumViableNumberForFirstYear { get; set; }
+        public int ApplicationsReceived { get; set; }
     }
 }

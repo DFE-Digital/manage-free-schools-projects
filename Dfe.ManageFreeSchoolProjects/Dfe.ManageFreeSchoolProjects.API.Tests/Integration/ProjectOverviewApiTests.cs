@@ -10,6 +10,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -49,6 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
             var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
             updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            await UpdatePupilNumbers(projectId);
 
             var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -107,6 +110,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Site
             AssertionHelper.AssertProjectSite(result.Data.SiteInformation.PermanentSite, updatePermanentSiteRequest);
             AssertionHelper.AssertProjectSite(result.Data.SiteInformation.TemporarySite, updateTemporarySiteRequest);
+
+            // Pupil numbers
+            var pupilNumbers = result.Data.PupilNumbers;
+            pupilNumbers.Capacity.Should().Be(300);
+            pupilNumbers.Pre16PublishedAdmissionNumber.Should().Be(15);
+            pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(67);
+            pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(121);
+            pupilNumbers.ApplicationsReceived.Should().Be(600);
         }
 
         [Fact]
@@ -148,6 +159,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             // Site information
             result.Data.SiteInformation.Should().NotBeNull();
+
+            // Pupil numbers
+            var pupilNumbers = result.Data.PupilNumbers;
+            pupilNumbers.Capacity.Should().Be(0);
+            pupilNumbers.Pre16PublishedAdmissionNumber.Should().Be(0);
+            pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(0);
+            pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(0);
+            pupilNumbers.ApplicationsReceived.Should().Be(0);
         }
 
         [Fact]
@@ -155,6 +174,36 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var overviewResponse = await _client.GetAsync($"/api/v1/client/project/overview/NotExist");
             overviewResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        private async Task UpdatePupilNumbers(string projectId)
+        {
+            var updatePupilNumbersRequest = new UpdatePupilNumbersRequest()
+            {
+                CapacityWhenFull = new()
+                {
+                    ReceptionToYear6 = 100,
+                    Year12ToYear14 = 200
+                },
+                Pre16PublishedAdmissionNumber = new()
+                {
+                    Year7 = 5,
+                    OtherPre16 = 10
+                },
+                Post16PublishedAdmissionNumber = new()
+                {
+                    Year12 = 10,
+                    OtherPost16 = 57
+                },
+                RecruitmentAndViability = new()
+                {
+                    ReceptionToYear6 = new() { MinimumViableNumber = 76, ApplicationsReceived = 100 },
+                    Year7ToYear11 = new() { MinimumViableNumber = 45, ApplicationsReceived = 500 },
+                }
+            };
+
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
+            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }
