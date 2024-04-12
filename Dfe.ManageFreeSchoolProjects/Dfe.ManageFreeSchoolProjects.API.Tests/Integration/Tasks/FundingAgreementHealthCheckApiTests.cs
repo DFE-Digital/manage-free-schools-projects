@@ -29,9 +29,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 FundingAgreementHealthCheck = new FundingAgreementHealthCheckTask()
                 {
                     DraftedFundingAgreementHealthCheck = true,
-                    RegionalDirectorSignedOffFundingAgreementHealthCheck = false,
-                    MinisterSignedOffFundingAgreementHealthCheck = false,
-                    SavedFundingAgreementHealthCheckInWorkplacesFolder = false
                 }
             };
 
@@ -69,7 +66,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     DraftedFundingAgreementHealthCheck = true,
                     RegionalDirectorSignedOffFundingAgreementHealthCheck = true,
-                    MinisterSignedOffFundingAgreementHealthCheck = false,
                     SavedFundingAgreementHealthCheckInWorkplacesFolder = true
                 }
             };

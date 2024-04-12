@@ -72,10 +72,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
             {
                 FundingAgreementHealthCheck = new()
                 {
-                    DraftedFundingAgreementHealthCheck = DraftedFAHealthCheck ?? false,
-                    RegionalDirectorSignedOffFundingAgreementHealthCheck = RegionalDirectorSignedOffFaHealthCheck ?? false,
-                    MinisterSignedOffFundingAgreementHealthCheck = MinisterSignedOffFaHealthCheck ?? false,
-                    SavedFundingAgreementHealthCheckInWorkplacesFolder = SavedFaHealthCheckInWorkplacesFolder ?? false
+                    DraftedFundingAgreementHealthCheck = DraftedFAHealthCheck,
+                    RegionalDirectorSignedOffFundingAgreementHealthCheck = RegionalDirectorSignedOffFaHealthCheck,
+                    MinisterSignedOffFundingAgreementHealthCheck = MinisterSignedOffFaHealthCheck,
+                    SavedFundingAgreementHealthCheckInWorkplacesFolder = SavedFaHealthCheckInWorkplacesFolder
                 }
             };
 
