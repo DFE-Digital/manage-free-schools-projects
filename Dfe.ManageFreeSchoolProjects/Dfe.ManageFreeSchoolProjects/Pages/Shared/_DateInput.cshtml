@@ -16,6 +16,12 @@
                     </h1>
                 </legend>
             }
+            if (Model.SmallLabel)
+            {
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                    @Model.Label
+                </legend>
+            }
             else
             {
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">

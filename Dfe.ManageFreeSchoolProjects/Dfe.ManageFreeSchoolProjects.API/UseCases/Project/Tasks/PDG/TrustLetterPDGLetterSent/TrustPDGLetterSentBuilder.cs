@@ -3,7 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent
 {
-    public class TrustPDGLetterSentBuilder
+    public static class TrustPDGLetterSentBuilder
     {
         public static TrustPDGLetterSentTask Build(Po po)
         {

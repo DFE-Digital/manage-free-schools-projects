@@ -13,8 +13,10 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 		public int Width { get; set; }
 		
 		public bool HeadingLabel { get; set; }
-		
-		[HtmlAttributeName("add-margin")]
+
+        public bool SmallLabel { get; set; }
+
+        [HtmlAttributeName("add-margin")]
 		public bool AddMargin { get; set; }
 
 		[HtmlAttributeName("input-styles")]
@@ -34,7 +36,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Width = Width,
 				Hint = Hint,
 				HeadingLabel = HeadingLabel,
-				BoldLabel = BoldLabel,
+                SmallLabel = SmallLabel,
+                BoldLabel = BoldLabel,
 				AddMargin = AddMargin,
 				InputStyles = InputStyles
             };
