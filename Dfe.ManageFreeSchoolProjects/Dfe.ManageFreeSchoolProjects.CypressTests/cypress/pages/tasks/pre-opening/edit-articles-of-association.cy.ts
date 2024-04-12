@@ -13,9 +13,9 @@ class ArticlesOfAssociationEditPage {
 
 
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
 
     checkSubmittedArticlesMatch(): this {
@@ -47,12 +47,12 @@ class ArticlesOfAssociationEditPage {
     }
 
     withComments(comment: string): this {
-        cy.getByTestId("comments-on-decision").clear().type(comment)
+        cy.getByTestId("comments-on-decision").typeFast(comment)
         return this;
     }
 
     withSharepointLink(value: string): this {
-        cy.getByTestId("sharepoint-link").clear().type(value)
+        cy.getByTestId("sharepoint-link").typeFast(value)
         return this;
     }
 
