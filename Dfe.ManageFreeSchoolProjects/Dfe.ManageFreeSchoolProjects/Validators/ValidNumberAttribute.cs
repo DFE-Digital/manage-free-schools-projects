@@ -24,7 +24,7 @@ public class ValidNumberAttribute : ValidationAttribute
 
         var valueAsString = (string)value;
 
-        if (string.IsNullOrEmpty(valueAsString))
+        if (string.IsNullOrWhiteSpace(valueAsString))
             return ValidationResult.Success;
 
         bool success = int.TryParse(valueAsString, out int valueAsInt);

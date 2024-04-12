@@ -14,7 +14,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
         protected IActionResult GoToViewPage()
         {
-            return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId) + "?fromSaveForm=true");
+            var viewPage = string.Format(RouteConstants.ViewPupilNumbers, ProjectId);
+
+            return Redirect($"{viewPage}?fromSaveForm=true");
         }
     }
 }
