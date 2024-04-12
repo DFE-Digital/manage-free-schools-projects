@@ -13,9 +13,9 @@ class KickOffMeetingEditPage {
 
 
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
 
     checkFundingArrangementsAgreed(): this {
@@ -23,17 +23,17 @@ class KickOffMeetingEditPage {
         return this
     }
     withComments(comment: string): this {
-        cy.getById("funding-arrangements-details-agreed").clear().type(comment)
+        cy.getById("funding-arrangements-details-agreed").typeFast(comment)
         return this;
     }
 
     withRealisticYearOfOpeningStartDate(year: string): this {
-        cy.getById("realistic-year-of-opening-startyear").clear().type(year)
+        cy.getById("realistic-year-of-opening-startyear").typeFast(year)
         return this;
     }
 
     withRealisticYearOfOpeningEndDate(year: string): this {
-        cy.getById("realistic-year-of-opening-endyear").clear().type(year)
+        cy.getById("realistic-year-of-opening-endyear").typeFast(year)
         return this;
     }
 
@@ -47,7 +47,7 @@ class KickOffMeetingEditPage {
 
 
     withSharepointLink(value: string): this {
-        cy.getByTestId("sharepoint-link").clear().type(value)
+        cy.getByTestId("sharepoint-link").typeFast(value)
         return this;
     }
 
