@@ -1,20 +1,15 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
-    public class EditCapacityWhenFullModel : PageModel
+    public class EditCapacityWhenFullModel : EditPupilNumbersBaseModel
     {
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
-
         [BindProperty(Name = "nursery")]
         [ValidNumberForPupilNumbers]
         public string Nursery { get; set; }
@@ -43,9 +38,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [ValidNumberForPupilNumbers]
         [Display(Name = "Alternative provision")]
         public string AlternativeProvision { get; set; }
-
-        [BindProperty]
-        public string SchoolName { get; set; }
 
         private readonly IGetPupilNumbersService _getPupilNumbersService;
         private readonly IUpdatePupilNumbersService _updatePupilNumbersService;
@@ -99,7 +91,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
             await _updatePupilNumbersService.Execute(ProjectId, request);
 
-            return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
+            return GoToViewPage();
         }
     }
 }

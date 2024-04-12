@@ -4,17 +4,13 @@ using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
-    public class EditPre16CapacityBuildupModel : PageModel
+    public class EditPre16CapacityBuildupModel : EditPupilNumbersBaseModel
     {
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
-
         [BindProperty(Name = "nursery", BinderType = typeof(CapacityBuildupRowModelBinder))]
         [Display(Name = "Nursery")]
         public CapacityBuildupRowModel Nursery { get; set; }
@@ -66,9 +62,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [BindProperty(Name = "year11", BinderType = typeof(CapacityBuildupRowModelBinder))]
         [Display(Name = "Year 11")]
         public CapacityBuildupRowModel Year11 { get; set; }
-
-        [BindProperty]
-        public string SchoolName { get; set; }
 
         private readonly IGetPupilNumbersService _getPupilNumbersService;
         private readonly IUpdatePupilNumbersService _updatePupilNumbersService;
@@ -136,7 +129,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 
             await _updatePupilNumbersService.Execute(ProjectId, request);
 
-            return Redirect(string.Format(RouteConstants.ViewPupilNumbers, ProjectId));
+            return GoToViewPage();
         }
 
         private static CapacityBuildupRowModel ToRow(CapacityBuildupEntry entry)

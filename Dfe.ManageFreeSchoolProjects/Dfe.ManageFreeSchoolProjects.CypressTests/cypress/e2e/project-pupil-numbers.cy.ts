@@ -18,7 +18,7 @@ import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing the setting of pupil numbers", () => {
     let project: ProjectDetailsRequest;
-    const numberOutsideRangeValidationMessage = "{0} must be 0 or more";
+    const numberOutsideRangeValidationMessage = "{0} must be between 0 and 9999";
     const isNumberValidationMessage = "{0} must be a number, like 30";
 
     beforeEach(() => {
@@ -40,6 +40,7 @@ describe("Testing the setting of pupil numbers", () => {
 
         viewPupilNumbersPage
             .hasSchoolName(project.schoolName)
+            .hasNoSaveBanner();
 
         Logger.log("Check all values are 0 initially");
         viewCapacityWhenFullPage
@@ -63,6 +64,13 @@ describe("Testing the setting of pupil numbers", () => {
 
         validationComponent
             .hasValidationError(isNumberValidationMessage.replace("{0}", "Nursery"));
+
+        editCapacityWhenFullPage
+            .withNurseryCapacity("10000")
+            .saveAndContinue();
+
+        validationComponent
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Nursery"));
 
         editCapacityWhenFullPage
             .withNurseryCapacity("-1")
@@ -93,6 +101,8 @@ describe("Testing the setting of pupil numbers", () => {
             .withSpecialEducationalNeedsCapacity("50")
             .withAlternativeProvisionCapacity("60")
             .saveAndContinue();
+
+        viewPupilNumbersPage.hasSaveBanner();
 
         viewCapacityWhenFullPage
             .hasNursery("10")
@@ -148,6 +158,8 @@ describe("Testing the setting of pupil numbers", () => {
             .withOtherPre16("44")
             .saveAndContinue();
 
+        viewPupilNumbersPage.hasSaveBanner();
+
         viewPre16PublishedAdmissionNumber
             .hasReception("11")
             .hasYear7("22")
@@ -191,6 +203,8 @@ describe("Testing the setting of pupil numbers", () => {
             .withYear12("12")
             .withOtherPost16("23")
             .saveAndContinue();
+
+        viewPupilNumbersPage.hasSaveBanner();
 
         viewPost16PublishedAdmissionNumberPage
             .hasYear12("12")
@@ -264,6 +278,8 @@ describe("Testing the setting of pupil numbers", () => {
             .withYear12("12")
             .withOtherPost16("23")
             .saveAndContinue();
+
+        viewPupilNumbersPage.hasSaveBanner();
 
         viewRecruitmentAndViabilityPage
             .hasReceptionToYear6("10", "20", "200.00%", "33.33%")
@@ -444,6 +460,8 @@ describe("Testing the setting of pupil numbers", () => {
         Logger.log("Check the values have been set correctly");
         editCapacityBuildupPage.saveAndContinue();
 
+        viewPupilNumbersPage.hasSaveBanner();
+
         viewPre16CapacityBuildupPage
             .hasNursery("1", "2", "3", "4", "5", "6", "7", "8")
             .hasReception("9", "10", "11", "12", "13", "14", "15", "16")
@@ -512,6 +530,8 @@ describe("Testing the setting of pupil numbers", () => {
 
         Logger.log("Check the values have been set correctly");
         editCapacityBuildupPage.saveAndContinue();
+
+        viewPupilNumbersPage.hasSaveBanner();
 
         viewPre16CapacityBuildupPage
             .hasYear12("2", "3", "4", "5", "6", "7", "8", "9")
