@@ -11,7 +11,7 @@ class SchoolDetailsPage {
     }
 
     public withSchoolName(school: string): this {
-        cy.getByTestId("current-free-school-name").clear().type(school);
+        cy.getByTestId("current-free-school-name").typeFast(school);
         return this;
     }
 
@@ -31,13 +31,13 @@ class SchoolDetailsPage {
     }
 
     public withAgeRange(from: string, to: string): this {
-        cy.getByTestId("age-range-from").clear().type(from);
-        cy.getByTestId("age-range-to").clear().type(to);
+        cy.getByTestId("age-range-from").typeFast(from);
+        cy.getByTestId("age-range-to").typeFast(to);
         return this;
     }
 
     public withFormsOfEntry(value: string): this {
-        cy.getByTestId("forms-of-entry").clear().type(value);
+        cy.getByTestId("forms-of-entry").typeFast(value);
         return this;
     }
 
@@ -99,7 +99,7 @@ class SchoolDetailsPage {
     }
 
     public withFaithTypeOtherDescription(value: string): this {
-        this.getFaithTypeOtherDescription().clear().type(value);
+        this.getFaithTypeOtherDescription().typeFast(value);
         return this;
     }
 

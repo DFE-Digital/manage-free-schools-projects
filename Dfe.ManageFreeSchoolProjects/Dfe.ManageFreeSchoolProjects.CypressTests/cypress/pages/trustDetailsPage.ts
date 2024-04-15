@@ -22,61 +22,55 @@ class TrustDetailsPage {
 
     public enterInvalidTRNStringInTRNPage(): this {
         cy.getById("trn").click();
-        cy.getById("trn").type(invalidTRNString);
+        cy.getById("trn").typeFast(invalidTRNString);
 
         return this;
 
     }
 
     public enterInvalidTRNStringWithSpacesInTRNPage(): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(invalidTRNStringWithSpaces);
+        cy.getById("trn").typeFast(invalidTRNStringWithSpaces);
 
         return this;
 
     }
 
     public enterInvalidTRNNumbersStringInTRNPage(): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(invalidTRNNumbersString);
+        cy.getById("trn").typeFast(invalidTRNNumbersString);
 
         return this;
 
     }
 
     public enterNonExistentTrustIdInTRNPage(): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(nonExistentTrustId);
+        cy.getById("trn").typeFast(nonExistentTrustId);
 
         return this;
 
     }
 
     public enterSQLInjectionAttemptInTRNPage(): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(SQLInjectionAttempt);
+        cy.getById("trn").typeFast(SQLInjectionAttempt);
 
         return this;
 
     }
 
     public enterCrossSiteScriptingAttemptInTRNPage(): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(crossSiteScriptingAttempt);
+        cy.getById("trn").typeFast(crossSiteScriptingAttempt);
 
         return this;
 
     }
 
     public enterValidTrustId(validTrustId: string): this {
-        cy.getById("trn").clear();
         cy.getById("trn").click();
-        cy.getById("trn").type(validTrustId);
+        cy.getById("trn").typeFast(validTrustId);
 
         return this;
     }
