@@ -2,13 +2,13 @@
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff
 {
-    public class GetStopPaymentService
+    public class GetWriteOffService
     {
         private readonly MfspContext _context;
 
-        public GetStopPaymentService(MfspContext context)
+        public GetWriteOffService(MfspContext context)
         {
             _context = context;
         }
@@ -20,10 +20,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPaymen
                                 from po in joinedPO.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    StopPayment = StopPaymentBuilder.Build(po)
+                                    WriteOff = WriteOffBuilder.Build(po)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { StopPayment = new() };
+            return result ?? new GetProjectByTaskResponse() { WriteOff = new() };
         }
 
     }

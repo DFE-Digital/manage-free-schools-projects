@@ -51,6 +51,18 @@ class PDGDashboard {
         cy.getByTestId("change-trust-letter").click();
     }
 
+    selectChangeStopPayments() {
+        cy.getByTestId("change-stop-payments").click();
+    }
+
+    selectChangeRefunds() {
+        cy.getByTestId("change-refunds").click();
+    }
+
+    selectChangeWriteOff() {
+        cy.getByTestId("change-write-off").click();
+    }
+
     // withAgreedDate(day: string, month: string, year: string): this {
     //     const key = "date-trust-agrees-with-model-fa";
     //     this.setDate(key, day, month, year);

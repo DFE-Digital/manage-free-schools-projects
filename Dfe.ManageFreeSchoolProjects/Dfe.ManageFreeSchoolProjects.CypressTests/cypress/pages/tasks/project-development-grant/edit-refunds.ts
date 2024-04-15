@@ -1,4 +1,4 @@
-class editTrustLetter {
+class editRefunds {
     private errorTracking = "";
 
     public titleIs(title: string): this {
@@ -11,14 +11,14 @@ class editTrustLetter {
         return this;
     }
 
-    public withTrustLetterDate(day: string, month: string, year: string): this {
-        const key = "trust-letter-date";
+    public withLatestRefundDate(day: string, month: string, year: string): this {
+        const key = "latest-refund-date";
         this.setDate(key, day, month, year);
         return this
     }
 
-    public checkSavedInWorkplaces(): this {
-        cy.getById("saved-letter-in-workplaces-folder").click();
+    public withTotalAmount(value: string): this {
+        cy.getById("total-amount").typeFast(value)
         return this;
     }
 
@@ -28,8 +28,13 @@ class editTrustLetter {
         cy.get('#' + `${key}-year`).typeFast(year);
     }
     
-    errorForPaymentDueDate(): this {
-        this.errorTracking = "trust-letter-date";
+    errorForLatestRefundDate(): this {
+        this.errorTracking = "latest-refund-date";
+        return this;
+    }
+        
+    errorForTotalAmount(): this {
+        this.errorTracking = "total-amount";
         return this;
     }
     
@@ -57,5 +62,5 @@ class editTrustLetter {
 }
 
 
-const trustLetter = new editTrustLetter();
-export default trustLetter;
+const refunds = new editRefunds();
+export default refunds;

@@ -51,7 +51,7 @@ class EditDraftGovernancePlanPage {
     }
 
     public withComments(value: string): this {
-        cy.getById("comments").clear().type(value);
+        cy.getById("comments").typeFast(value);
 
         return this;
     }

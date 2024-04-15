@@ -1,4 +1,4 @@
-class editTrustLetter {
+class editStopPayments {
     private errorTracking = "";
 
     public titleIs(title: string): this {
@@ -11,15 +11,34 @@ class editTrustLetter {
         return this;
     }
 
-    public withTrustLetterDate(day: string, month: string, year: string): this {
-        const key = "trust-letter-date";
+    public paymentStoppedDateIsVisible(): this {
+        cy.getById("payment-stopped-date").should('be.visible');
+        return this;
+    }
+    
+    public paymentStoppedDateIsNotVisible(): this {
+        cy.getById("payment-stopped-date").should('be.not.visible');
+        return this;
+    }
+
+    public withPaymentStopped(value: string): this {
+        cy.getById(`payment-stopped-${value}`).click();
+        return this;
+    }
+
+    public withPaymentStoppedDate(day: string, month: string, year: string): this {
+        const key = "payment-stopped-date";
         this.setDate(key, day, month, year);
         return this
     }
 
-    public checkSavedInWorkplaces(): this {
-        cy.getById("saved-letter-in-workplaces-folder").click();
-        return this;
+    
+    public paymentStoppedDateIsBlank(): this {
+        const key = "payment-stopped-date";
+        cy.get('#' + `${key}-day`).should('be.empty');
+        cy.get('#' + `${key}-month`).should('be.empty');
+        cy.get('#' + `${key}-year`).should('be.empty');
+        return this
     }
 
     private setDate(key: string, day: string, month: string, year: string) {
@@ -28,11 +47,11 @@ class editTrustLetter {
         cy.get('#' + `${key}-year`).typeFast(year);
     }
     
-    errorForPaymentDueDate(): this {
-        this.errorTracking = "trust-letter-date";
+    errorForPaymentStoppedDate(): this {
+        this.errorTracking = "payment-stopped-date";
         return this;
     }
-    
+   
     showsError(error: string)
     {
         cy.get(`#${this.errorTracking}-error-link`)
@@ -53,9 +72,7 @@ class editTrustLetter {
         cy.getByTestId("continue").click();
         return this;
     }
-
 }
 
-
-const trustLetter = new editTrustLetter();
-export default trustLetter;
+const stopPayments = new editStopPayments();
+export default stopPayments;

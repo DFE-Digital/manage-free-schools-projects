@@ -25,7 +25,7 @@ class HomePage {
     }
 
     public withProjectFilter(project: string): this {
-        cy.getByTestId("search-by-project").clear().type(project);
+        cy.getByTestId("search-by-project").typeFast(project);
 
         return this;
     }

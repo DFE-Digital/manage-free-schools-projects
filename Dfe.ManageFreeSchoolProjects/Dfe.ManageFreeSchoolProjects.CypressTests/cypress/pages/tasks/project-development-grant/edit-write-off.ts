@@ -1,4 +1,4 @@
-class editPaymentSchedule {
+class editWriteOff {
     private errorTracking = "";
 
     public titleIs(title: string): this {
@@ -10,58 +10,63 @@ class editPaymentSchedule {
         cy.getByTestId("school-name").should("contains.text", school);
         return this;
     }
-
-    public withPaymentDueDate(day: string, month: string, year: string): this {
-        const key = "payment-due-date";
-        this.setDate(key, day, month, year);
-        return this
+        
+    public withWriteOffReason(comment: string): this {
+        cy.getById("write-off-reason").typeFast(comment)
+        return this;
     }
 
-    public withPaymentActualDate(day: string, month: string, year: string): this {
-        const key = "actual-payment-date";
+    public withWriteOffAmount(comment: string): this {
+        cy.getById("write-off-amount").typeFast(comment)
+        return this;
+    }
+
+    public withWriteOffDate(day: string, month: string, year: string): this {
+        const key = "write-off-date";
         this.setDate(key, day, month, year);
         return this
     }
     
-    public withPaymentDueAmount(comment: string): this {
-        cy.getById("payment-due-amount").typeFast(comment)
+    public withFinanceBusinessPartnerApproval(comment: string): this {
+        cy.getById("finance-partner").typeFast(comment)
         return this;
     }
 
-    public withPaymentActualAmount(comment: string): this {
-        cy.getById("payment-actual-amount").typeFast(comment)
-        return this;
+    public withApprovalDate(day: string, month: string, year: string): this {
+        const key = "approval-date";
+        this.setDate(key, day, month, year);
+        return this
     }
-
+    
     private setDate(key: string, day: string, month: string, year: string) {
         cy.get('#' + `${key}-day`).typeFast(day);
         cy.get('#' + `${key}-month`).typeFast(month);
         cy.get('#' + `${key}-year`).typeFast(year);
     }
-    
-    // public HasValue(value): this {
-    //     cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", value);
-    //     return this;
-    // }
 
-    errorForPaymentDueDate(): this {
-        this.errorTracking = "payment-due-date";
+    public errorForWriteOffReason(): this {
+        this.errorTracking = "write-off-reason"
         return this;
+    }
+
+    public errorForWriteOffAmount(): this {
+        this.errorTracking = "write-off-amount"
+        return this;
+    }
+
+    public errorForWriteOffDate(): this {
+        this.errorTracking =  "write-off-date";
+        return this
     }
     
-    errorForPaymentActualDate(): this {
-        this.errorTracking = "actual-payment-date";
+    public errorForFinanceBusinessPartnerApproval(): this {
+        this.errorTracking = "finance-partner"
         return this;
     }
 
-    errorForPaymentDueAmount(): this {
-        this.errorTracking = "payment-due-amount";
-        return this;
-    }
-
-    errorForPaymentActualAmount(): this {
-        this.errorTracking = "payment-actual-amount";
-        return this;
+    public errorForApprovalDate(): this {
+        this.errorTracking = "approval-date";
+        return this
     }
     
     showsError(error: string)
@@ -86,5 +91,5 @@ class editPaymentSchedule {
     }
 }
 
-const paymentSchedule = new editPaymentSchedule();
-export default paymentSchedule;
+const writeOff = new editWriteOff();
+export default writeOff;

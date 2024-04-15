@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLette
                                     TrustPDGLetterSent = TrustPDGLetterSentBuilder.Build(po)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { PaymentSchedule = new() };
+            return result ?? new GetProjectByTaskResponse() { TrustPDGLetterSent = new() };
         }
 
     }
