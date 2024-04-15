@@ -2,32 +2,25 @@
 @{
     var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
     var dateInputClass = $"govuk-date-input" + (Model.AddMargin ? " govuk-!-margin-bottom-6" : "");
+    var legendClass = "govuk-fieldset__legend govuk-fieldset__legend--m";
+
+    if(Model.HeadingLabel)
+    {
+        legendClass = "govuk-fieldset__legend--l";
+    }
+    else if(Model.SmallLabel)
+    {
+        legendClass = "govuk-fieldset__legend govuk-fieldset__legend--s";
+    }
 }
 
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="@Model.Id-hint">
         @if (!string.IsNullOrWhiteSpace(Model.Label))
         {
-            @if (Model.HeadingLabel)
-            {
-                <legend class="govuk-fieldset__legend--l">
-                    <h1 class="govuk-fieldset__heading">
-                        @Model.Label
-                    </h1>
-                </legend>
-            }
-            if (Model.SmallLabel)
-            {
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                    @Model.Label
-                </legend>
-            }
-            else
-            {
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                    @Model.Label
-                </legend>
-            }
+            <legend class="@legendClass">
+                @Model.Label
+            </legend>
         }
 
         <div id="@Model.Id-hint" class="govuk-hint">

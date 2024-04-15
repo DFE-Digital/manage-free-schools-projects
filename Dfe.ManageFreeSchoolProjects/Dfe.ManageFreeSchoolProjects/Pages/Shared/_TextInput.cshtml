@@ -5,10 +5,16 @@
 	var width = Model.Width > 0 ? $"govuk-input--width-{Model.Width}" : "";
 	var testId = Model.TestId ?? Model.Id;
 	var margin = Model.AddMargin ? "govuk-!-margin-bottom-6" : "";
-	var labelClass = Model.HeadingLabel ? "govuk-label govuk-label--l" 
-					 : Model.BoldLabel == true ? "govuk-label govuk-label--m" 
-					 : Model.SmallLabel ? "govuk-label govuk-label--s" 
-					 : "govuk-label";
+	var labelClass = "govuk-label";
+
+	if (Model.HeadingLabel)
+		labelClass = "govuk-label govuk-label--l";
+
+	if (Model.BoldLabel == true)
+		labelClass = "govuk-label govuk-label--m";
+
+	if(Model.SmallLabel)
+		labelClass = "govuk-label govuk-label--s";
 }
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
 	@if (!string.IsNullOrWhiteSpace(Model.Label))
