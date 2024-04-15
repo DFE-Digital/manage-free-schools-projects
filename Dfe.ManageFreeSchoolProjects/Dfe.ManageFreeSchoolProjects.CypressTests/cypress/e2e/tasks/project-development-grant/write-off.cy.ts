@@ -33,7 +33,7 @@ describe("Write off Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(9)
+            .skip(11)
             .summaryShows("Write-off reason").IsEmpty()
             .summaryShows("Write-off amount").IsEmpty()
             .isNotMarkedAsComplete();
@@ -53,7 +53,7 @@ describe("Write off Task", () => {
         cy.log("Confirm empty dashboard");
         summaryPage
             .inOrder()
-            .skip(9)
+            .skip(11)
             .summaryShows("Write-off reason").IsEmpty()
             .summaryShows("Write-off amount").IsEmpty()
             .isNotMarkedAsComplete();

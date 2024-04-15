@@ -33,6 +33,8 @@ describe("Payment Schedule Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
+            .summaryShows("Amount").IsEmpty()
+            .summaryShows("Actual payment date").IsEmpty()
             .summaryShows("Payment due date").IsEmpty()
             .summaryShows("Payment due amount").IsEmpty()
             .summaryShows("Actual payment date").IsEmpty()
@@ -68,6 +70,8 @@ describe("Payment Schedule Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
+            .summaryShows("Amount").IsEmpty()
+            .summaryShows("Actual payment date").IsEmpty()
             .summaryShows("Payment due date").IsEmpty()
             .summaryShows("Payment due amount").IsEmpty()
             .summaryShows("Actual payment date").IsEmpty()
@@ -143,6 +147,8 @@ describe("Payment Schedule Task", () => {
 
         summaryPage
             .inOrder()
+            .summaryShows("Amount").HasValue("£200.36")
+            .summaryShows("Actual payment date").HasValue("1 February 2021")
             .summaryShows("Payment due date").HasValue("1 February 2021")
             .summaryShows("Payment due amount").HasValue("£100.25")
             .summaryShows("Actual payment date").HasValue("1 February 2021")
