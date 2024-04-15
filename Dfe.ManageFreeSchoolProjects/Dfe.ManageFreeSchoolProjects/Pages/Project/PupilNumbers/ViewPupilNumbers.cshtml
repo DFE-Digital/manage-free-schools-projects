@@ -16,6 +16,7 @@
     var editRecruitmentAndViabilityLink = string.Format(RouteConstants.EditRecruitmentAndViability, Model.ProjectId);
     var editPre16CapacityBuildupLink = string.Format(RouteConstants.EditPre16CapacityBuildup, Model.ProjectId);
     var editPost16CapacityBuildupLink = string.Format(RouteConstants.EditPost16CapacityBuildup, Model.ProjectId);
+    var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -273,7 +274,7 @@
 
         <a class="govuk-button govuk-!-margin-bottom-9" href="@editPost16CapacityBuildupLink" data-testid="edit-post16-capacity-buildup">Edit Post-16 capacity buildup</a>
 
-
+        @*
         <div class="govuk-grid-row govuk-!-margin-top-6">
             <div class="govuk-grid-column-two-thirds">
 
@@ -284,32 +285,10 @@
                 <p class="govuk-body">You may want to complete the following related tasks.</p>
 
                 <ol class="app-task-list">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="task-applications-evidence-landing-page" aria-describedby="contact-details-status">
-                                Applications evidence
-                            </a>
-                        </span>
-                        <strong class='govuk-tag govuk-tag--grey app-task-list__tag'>Not started</strong>
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="task-accepted-place-offers-evidence-landing-page" aria-describedby="contact-details-status">
-                                Accepted place offers evidence
-                            </a>
-                        </span>
-                        <strong class='govuk-tag govuk-tag--grey app-task-list__tag'>Not started</strong>
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="task-pupil-numbers-checks-landing-page" aria-describedby="contact-details-status">
-                                Pupil numbers checks
-                            </a>
-                        </span>
-                        <strong class='govuk-tag govuk-tag--grey app-task-list__tag'>Not started</strong>
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
                 </ol>
             </div>
         </div>
+        *@
     </div>
 </div>

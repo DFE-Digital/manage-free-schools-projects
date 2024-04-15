@@ -141,7 +141,6 @@ describe("Testing the applications evidence task", () => {
         summaryPage.clickConfirmAndContinue()
 
         Logger.log("Should not be able to see applications evidence task if school type is not special")
-        taskListPage.assertApplicationsEvidenceIsNotVisibleTaskList()
-            .selectSchoolFromTaskList();
+        taskListPage.assertApplicationsEvidenceIsNotVisibleTaskList();
     });
 });

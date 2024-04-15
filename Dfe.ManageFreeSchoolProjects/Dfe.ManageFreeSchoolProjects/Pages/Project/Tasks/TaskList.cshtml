@@ -299,19 +299,7 @@
                     Getting ready to open
                 </h2>
                 <ul class="app-task-list__items">
-                    @if (!Model.ProjectTaskListSummary.ApplicationsEvidence.IsHidden)
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">
-                                <a href="@applicationsEvidenceLink" class="govuk-link" data-testid="applicationsevidence-task">
-                                    Applications evidence
-                                </a>
-                            </span>
-                            @{
-                                RenderStatus(Model.ProjectTaskListSummary.ApplicationsEvidence);
-                            }
-                        </li>
-                    }
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@acceptedOffersEvidenceLink" class="govuk-link" data-testid="acceptedoffersevidence-task">
