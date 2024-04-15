@@ -69,6 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.ApplicationsEvidence.Name.Should().Be(TaskName.ApplicationsEvidence.ToString());
             result.ApplicationsEvidence.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.ApplicationsEvidence.IsHidden.Should().BeFalse();
         }
 
         [Fact]
