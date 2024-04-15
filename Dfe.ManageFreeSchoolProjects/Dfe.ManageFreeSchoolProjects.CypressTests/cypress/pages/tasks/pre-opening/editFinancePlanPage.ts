@@ -37,7 +37,7 @@ class EditFinancePlanPage {
     }
 
     public withComments(value: string): this {
-        cy.getByTestId("comments").clear().type(value);
+        cy.getByTestId("comments").typeFast(value);
         return this;
     }
 
@@ -65,7 +65,7 @@ class EditFinancePlanPage {
     }
 
     public withRpaCoverType(value: string): this {
-        cy.getByTestId(`rpa-cover-type`).clear().type(value);
+        cy.getByTestId(`rpa-cover-type`).typeFast(value);
         return this;
     }
 

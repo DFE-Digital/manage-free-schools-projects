@@ -24,19 +24,19 @@ class editPaymentSchedule {
     }
     
     public withPaymentDueAmount(comment: string): this {
-        cy.getById("payment-due-amount").clear().type(comment)
+        cy.getById("payment-due-amount").typeFast(comment)
         return this;
     }
 
     public withPaymentActualAmount(comment: string): this {
-        cy.getById("payment-actual-amount").clear().type(comment)
+        cy.getById("payment-actual-amount").typeFast(comment)
         return this;
     }
 
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
     
     // public HasValue(value): this {
