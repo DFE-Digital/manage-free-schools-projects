@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
+using System.Globalization;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
@@ -114,7 +115,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 {
                     return empty;
                 }
-                return ((decimal)For.Model).ToString("£0.00");
+                return ((decimal)For.Model).ToString("C", new CultureInfo("en-GB"));
             }
 
             if (Nullable.GetUnderlyingType(For.ModelExplorer.ModelType)?.IsEnum == true)

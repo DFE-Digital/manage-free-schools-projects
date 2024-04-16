@@ -1,7 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -64,46 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string projectId)
         {
             _logger.LogMethodEntered();
-            
-            var result = await _getTasksService.Execute(projectId);
-            
-            var projectTasks = result.taskSummaryResponses;
 
-            var summary = new ProjectByTaskSummaryResponse
-            {
-                SchoolName = result.CurrentFreeSchoolName,
-                School = SafeRetrieveTaskSummary(projectTasks, "School"),
-                Dates = SafeRetrieveTaskSummary(projectTasks,"Dates"),
-                Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"), 
-                RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
-                RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
-                Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
-                ModelFundingAgreement = SafeRetrieveTaskSummary(projectTasks,"ModelFundingAgreement"),
-                StatutoryConsultation = SafeRetrieveTaskSummary(projectTasks, "StatutoryConsultation"),
-                ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
-                FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
-                KickOffMeeting = SafeRetrieveTaskSummary(projectTasks,"KickOffMeeting"),
-                Gias = SafeRetrieveTaskSummary(projectTasks,"Gias"),
-                DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
-                EducationBrief = SafeRetrieveTaskSummary(projectTasks,"EducationBrief"),
-                EqualitiesAssessment = SafeRetrieveTaskSummary(projectTasks, "EqualitiesAssessment"),
-                AdmissionsArrangements = SafeRetrieveTaskSummary(projectTasks, "AdmissionsArrangements"),  
-                ImpactAssessment = SafeRetrieveTaskSummary(projectTasks, "ImpactAssessment"), 
-                EvidenceOfAcceptedOffers = SafeRetrieveTaskSummary(projectTasks, "EvidenceOfAcceptedOffers"),
-                OfstedInspection = SafeRetrieveTaskSummary(projectTasks, "OfstedInspection"),
-                ApplicationsEvidence = SafeRetrieveTaskSummary(projectTasks, "ApplicationsEvidence"),
-                FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
-                PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
-            };
+            var summary = await _getTasksService.Execute(projectId);
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 
             return new ObjectResult(response) { StatusCode = StatusCodes.Status200OK };
-        }
-
-        private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
-        {
-            return projectTasks.FirstOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
         }
     }
 }

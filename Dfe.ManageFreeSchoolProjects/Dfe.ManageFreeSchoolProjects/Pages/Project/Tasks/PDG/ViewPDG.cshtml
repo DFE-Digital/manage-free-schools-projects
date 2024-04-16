@@ -27,6 +27,11 @@
             </span>
             Project development grant (PDG)
         </h1>
+        <h2 class="govuk-heading-m">Initial payment</h2>
+        <govuk-summary-list no-border="true">
+            <govuk-summary-item label="Amount" asp-for="@pdgTask.PaymentActualAmount" />
+            <govuk-summary-item label="Actual payment date" asp-for="@pdgTask.PaymentActualDate" />
+        </govuk-summary-list>
         <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
             <govuk-summary-list>
                 <govuk-summary-item label="Payment due date" asp-for="@pdgTask.PaymentScheduleDate" />

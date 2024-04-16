@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Draft governance plan");
             taskHeaders.Should().Contain("Finance plan");
+            taskHeaders.Should().Contain("Final finance plan");
             taskHeaders.Should().Contain("Gias");
             taskHeaders.Should().Contain("Education brief");
             taskHeaders.Should().Contain("Impact assessment");
@@ -63,6 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
+            AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
             AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
@@ -173,7 +175,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             ConfirmedPupilNumbers = true,
                         },
-                        
+                        FinalFinancePlan = new FinalFinancePlanTask()
+                        {
+                            Grade6SignedOffFinalPlanDate = new DateTime(2023, 1, 1),
+                        },
+
                     }
                 }
             };

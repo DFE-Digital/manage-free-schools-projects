@@ -47,11 +47,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public TaskSummaryResponse FundingAgreementHealthCheck { get; set; }
         public TaskSummaryResponse PDG { get; set; }
+        public TaskSummaryResponse FinalFinancePlan { get; set; }
     }
 
     public class TaskSummaryResponse
     {
         public string Name { get; set; }
         public ProjectTaskStatus Status { get; set; }
+
+        public bool IsHidden { get; set; }
     }
 }

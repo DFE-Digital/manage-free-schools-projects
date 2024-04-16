@@ -14,5 +14,6 @@
 		public string TestId { get; set; }
 		public bool AddMargin { get; set; }
 		public string InputStyles { get; set; }
-	}
+        public bool SmallLabel { get; set; }
+    }
 }

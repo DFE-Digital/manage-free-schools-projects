@@ -2,10 +2,10 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -66,6 +66,44 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.PDG.Name.Should().Be(TaskName.PDG.ToString());
             result.PDG.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
+            result.FinalFinancePlan.Name.Should().Be(TaskName.FinalFinancePlan.ToString());
+            result.FinalFinancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
+            result.ApplicationsEvidence.Name.Should().Be(TaskName.ApplicationsEvidence.ToString());
+            result.ApplicationsEvidence.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.ApplicationsEvidence.IsHidden.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task GetProjectTaskList_ApplicationsEvidence_HiddenWithSchoolType_Returns_200()
+        {
+            using var context = _testFixture.GetContext();
+            
+            var project = DatabaseModelBuilder.BuildProject();
+            project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
+
+            context.Kpi.Add(project);
+
+            await context.SaveChangesAsync();
+
+            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
+            taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
+
+            var result = content.Data;
+
+            result.ApplicationsEvidence.Name.Should().Be(TaskName.ApplicationsEvidence.ToString());
+            result.ApplicationsEvidence.Status.Should().Be(ProjectTaskStatus.NotStarted);
+            result.ApplicationsEvidence.IsHidden.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Get_ProjectTaskList_ProjectDoesNotExist_Returns_404()
+        {
+            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks/summary");
+            taskListResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
     }
 }

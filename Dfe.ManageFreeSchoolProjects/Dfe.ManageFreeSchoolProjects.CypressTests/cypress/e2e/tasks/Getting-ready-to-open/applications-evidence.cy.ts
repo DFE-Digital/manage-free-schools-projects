@@ -140,19 +140,7 @@ describe("Testing the applications evidence task", () => {
 
         summaryPage.clickConfirmAndContinue()
 
-        taskListPage.assertApplicationsEvidenceIsNotVisibleTaskList()
-            .selectSchoolFromTaskList()
-
-        Logger.log("Should not be able to see task if school type AP");
-
-        summaryPage.clickChange()
-
-        schoolDetailsPage
-            .withSchoolType("AlternativeProvision")
-            .clickContinue();
-
-        summaryPage.clickConfirmAndContinue()
-
-        Logger.log("Should not be able to see task if school type AP");
+        Logger.log("Should not be able to see applications evidence task if school type is not special")
+        taskListPage.assertApplicationsEvidenceIsNotVisibleTaskList();
     });
 });
