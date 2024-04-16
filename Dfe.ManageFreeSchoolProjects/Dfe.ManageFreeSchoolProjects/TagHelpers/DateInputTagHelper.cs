@@ -13,8 +13,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 	public class DateInputTagHelper : InputTagHelperBase
 	{
 		public bool HeadingLabel { get; set; }
-		
-		[HtmlAttributeName("add-margin")]
+        public bool SmallLabel { get; set; }
+
+        [HtmlAttributeName("add-margin")]
 		public bool AddMargin { get; set; } = true;
 		
 		private readonly ErrorService _errorService;
@@ -45,7 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				Name = Name,
 				Label = Label,
 				HeadingLabel = HeadingLabel,
-				Hint = Hint ?? "For example, 27 3 2021",
+                SmallLabel = SmallLabel,
+                Hint = Hint ?? "For example, 27 3 2021",
 				AddMargin = AddMargin
 			};
 

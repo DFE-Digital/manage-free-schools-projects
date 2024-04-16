@@ -112,7 +112,7 @@ class TaskListPage {
     }
 
     public selectApplicationsEvidenceFromTaskList(): this {
-        cy.getByTestId("applicationsevidence-task").click()
+        this.getApplicationsEvidenceTask().click()
         return this;
     }
 
@@ -122,7 +122,7 @@ class TaskListPage {
     }
 
     public assertApplicationsEvidenceIsNotVisibleTaskList(): this {
-        cy.getByTestId("applicationsevidence-task").should("not.exist")
+        this.getApplicationsEvidenceTask().should("not.exist")
         return this;
     }
 
@@ -143,6 +143,11 @@ class TaskListPage {
 
     private getDraftGovernancePlanTask() {
         return cy.getByTestId("draft-governance-plan-task");
+    }
+
+    private getApplicationsEvidenceTask() {
+        return cy.getByTestId("ApplicationsEvidence-task");
+
     }
 }
 

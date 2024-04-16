@@ -33,7 +33,7 @@ describe("Trust Letter Sent Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(7)
+            .skip(9)
             .summaryShows("Latest refund date").IsEmpty()
             .summaryShows("Total amount").IsEmpty()
             .isNotMarkedAsComplete();
@@ -51,7 +51,7 @@ describe("Trust Letter Sent Task", () => {
         cy.log("Confirm empty dashboard");
         summaryPage
             .inOrder()
-            .skip(7)
+            .skip(9)
             .summaryShows("Latest refund date").IsEmpty()
             .summaryShows("Total amount").IsEmpty()
 
@@ -79,7 +79,7 @@ describe("Trust Letter Sent Task", () => {
         
         summaryPage
             .inOrder()
-            .skip(7)
+            .skip(9)
             .summaryShows("Latest refund date").HasValue("5 December 2025")
             .summaryShows("Total amount").HasValue("£250.25")
 
