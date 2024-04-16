@@ -63,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string projectId)
         {
             _logger.LogMethodEntered();
-            
+
             var summary = await _getTasksService.Execute(projectId);
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);

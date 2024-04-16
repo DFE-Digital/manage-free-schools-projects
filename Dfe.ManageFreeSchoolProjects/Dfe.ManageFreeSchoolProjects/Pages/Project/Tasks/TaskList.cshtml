@@ -27,6 +27,7 @@
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
+    var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var pdgLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
@@ -329,6 +330,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.OfstedInspection);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@finalFinancePlanLink" class="govuk-link" data-testid="finalFinancePlan-task">
+                                Final finance plan
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
                         }
                     </li>
                 </ul>

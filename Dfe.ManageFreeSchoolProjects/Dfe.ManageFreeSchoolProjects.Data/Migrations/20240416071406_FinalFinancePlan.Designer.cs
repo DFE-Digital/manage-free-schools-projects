@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240416071406_FinalFinancePlan")]
+    partial class FinalFinancePlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -10276,9 +10279,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.YR PAN");
 
                     b.Property<string>("PupilNumbersAndCapacityYrY11Pre16Capacity")
-                        .HasMaxLength(100)
+                        .HasMaxLength(4)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(4)")
                         .HasColumnName("Pupil numbers and capacity.YR-Y11 (pre-16) capacity");
 
                     b.Property<string>("PupilNumbersAndCapacityYrY6Capacity")
