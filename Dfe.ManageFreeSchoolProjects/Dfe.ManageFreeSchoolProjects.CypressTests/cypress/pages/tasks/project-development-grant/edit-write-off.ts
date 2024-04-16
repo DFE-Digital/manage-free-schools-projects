@@ -12,12 +12,12 @@ class editWriteOff {
     }
         
     public withWriteOffReason(comment: string): this {
-        cy.getById("write-off-reason").clear().type(comment)
+        cy.getById("write-off-reason").typeFast(comment)
         return this;
     }
 
     public withWriteOffAmount(comment: string): this {
-        cy.getById("write-off-amount").clear().type(comment)
+        cy.getById("write-off-amount").typeFast(comment)
         return this;
     }
 
@@ -28,7 +28,7 @@ class editWriteOff {
     }
     
     public withFinanceBusinessPartnerApproval(comment: string): this {
-        cy.getById("finance-partner").clear().type(comment)
+        cy.getById("finance-partner").typeFast(comment)
         return this;
     }
 
@@ -39,9 +39,9 @@ class editWriteOff {
     }
     
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
 
     public errorForWriteOffReason(): this {

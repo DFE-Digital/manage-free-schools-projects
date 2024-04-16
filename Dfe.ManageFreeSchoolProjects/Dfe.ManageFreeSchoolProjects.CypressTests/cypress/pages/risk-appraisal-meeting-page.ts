@@ -24,9 +24,9 @@ class RiskAppraisalMeetingEditPage {
     }
     
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
 
     withForecastDate(day: string, month: string, year: string): this {
@@ -42,12 +42,12 @@ class RiskAppraisalMeetingEditPage {
     }
 
     withComments(comment: string): this {
-        cy.getByTestId("comments-on-decision").clear().type(comment)
+        cy.getByTestId("comments-on-decision").typeFast(comment)
         return this;
     }
 
     withReason(reason: string): this {
-        cy.getByTestId("reason-not-applicable").clear().type(reason)
+        cy.getByTestId("reason-not-applicable").typeFast(reason)
         return this;
     }
 

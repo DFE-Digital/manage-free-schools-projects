@@ -38,7 +38,7 @@ class StatutoryConsultationEditPage {
     }
 
     public withComments(value: string): this {
-        cy.getByTestId("comments").clear().type(value);
+        cy.getByTestId("comments").typeFast(value);
         return this;
     }
 

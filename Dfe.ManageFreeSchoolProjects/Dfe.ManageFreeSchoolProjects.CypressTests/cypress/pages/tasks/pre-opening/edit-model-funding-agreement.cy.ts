@@ -2,9 +2,9 @@ class ModelFundingAgreementEditPage {
     private errorTracking = "";
     private summaryCounter = -1;
     private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).clear().type(day);
-        cy.get('#' + `${key}-month`).clear().type(month);
-        cy.get('#' + `${key}-year`).clear().type(year);
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
     }
 
    
@@ -68,7 +68,7 @@ class ModelFundingAgreementEditPage {
     }
 
     withComments(comment: string): this {
-        cy.getById("comments").clear().type(comment)
+        cy.getById("comments").typeFast(comment)
         return this;
     }
 
