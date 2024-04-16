@@ -446,34 +446,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = await CreateProject();
             var projectId = project.ProjectStatusProjectId;
 
+            var updatePupilNumbersRequest = new UpdatePupilNumbersRequest()
+            {
+                CapacityWhenFull = new(),
+                Pre16PublishedAdmissionNumber = new(),
+                Post16PublishedAdmissionNumber = new(),
+                RecruitmentAndViability = new(),
+                Pre16CapacityBuildup = new(),
+                Post16CapacityBuildup = new()
+            };
+
             // CapacityWhenFull
-            var updateCapacityWhenFullRequest = new UpdatePupilNumbersRequest() { CapacityWhenFull = new() };
-            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updateCapacityWhenFullRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            // Pre 16 pan
-            var updatePre16PublishedAdmissionNumberRequest = new UpdatePupilNumbersRequest() { Pre16PublishedAdmissionNumber = new() };
-            updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePre16PublishedAdmissionNumberRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            // Post 16 pan
-            var updatePost16PublishedAdmissionNumberRequest = new UpdatePupilNumbersRequest() { Post16PublishedAdmissionNumber = new() };
-            updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePost16PublishedAdmissionNumberRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            // recruitment and viability
-            var updateRecruitmentAndViabilityRequest = new UpdatePupilNumbersRequest() { RecruitmentAndViability = new() };
-            updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updateRecruitmentAndViabilityRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            // Pre 16 capacity buildup
-            var updatePre16CapacityBuildupRequest = new UpdatePupilNumbersRequest() { Pre16CapacityBuildup = new() };
-            updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePre16CapacityBuildupRequest.ConvertToJson());
-            updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            // Post 16 capacity buildup
-            var updatePost16CapacityBuildupRequest = new UpdatePupilNumbersRequest() { Post16CapacityBuildup = new() };
-            updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePost16CapacityBuildupRequest.ConvertToJson());
+            var updatePupilNumbersResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/pupil-numbers", updatePupilNumbersRequest.ConvertToJson());
             updatePupilNumbersResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 

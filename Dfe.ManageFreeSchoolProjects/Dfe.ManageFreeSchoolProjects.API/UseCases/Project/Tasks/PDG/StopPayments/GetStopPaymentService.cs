@@ -23,7 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPaymen
                                     StopPayment = StopPaymentBuilder.Build(po)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { PaymentSchedule = new() };
+            return result ?? new GetProjectByTaskResponse() { StopPayment = new() };
         }
 
     }

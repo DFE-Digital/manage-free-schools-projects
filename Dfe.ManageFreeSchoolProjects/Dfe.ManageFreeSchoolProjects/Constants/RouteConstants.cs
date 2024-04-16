@@ -109,11 +109,15 @@
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
         public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
         public const string EditStopPayment = ViewPDG + "/edit-stop-payment/";
+        public const string EditRefunds = ViewPDG + "/edit-refunds/";
+        public const string EditWriteOff = ViewPDG + "/edit-write-off/";
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
         public const string EditPre16PublishedAdmissionNumber = ViewPupilNumbers + "/pre16-published-admission-number/edit";
         public const string EditPost16PublishedAdmissionNumber = ViewPupilNumbers + "/post16-published-admission-number/edit";
         public const string EditRecruitmentAndViability = ViewPupilNumbers + "/recruitment-and-viability/edit";
+        public const string EditPre16CapacityBuildup = ViewPupilNumbers + "/pre16-capacity-buildup/edit";
+        public const string EditPost16CapacityBuildup = ViewPupilNumbers + "/post16-capacity-buildup/edit";
     }
 }

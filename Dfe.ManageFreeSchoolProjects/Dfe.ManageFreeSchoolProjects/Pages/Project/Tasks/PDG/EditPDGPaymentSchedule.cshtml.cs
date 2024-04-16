@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System;
-using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
@@ -20,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditKickOffMeetingTaskModel> _logger;
+        private readonly ILogger<EditPDGPaymentScheduleModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -47,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
         [ValidMoney(0, 25000)]
         public decimal? PaymentActualAmount { get; set; }
 
-        public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditKickOffMeetingTaskModel> logger,
+        public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditPDGPaymentScheduleModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;

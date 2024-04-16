@@ -59,7 +59,7 @@ describe("Payment Schedule Task", () => {
 
         cy.log("All fields are optional");
         paymentSchedule
-            .titleIs("Edit payment schedule")
+            .titleIs("Edit Payment schedule")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
@@ -75,20 +75,19 @@ describe("Payment Schedule Task", () => {
             .isNotMarkedAsComplete();
 
         pdgDashboard.selectChangePaymentSchedule();
-        
+
         cy.log("Check Payment Due Date validation");
         paymentSchedule
-            .titleIs("Edit payment schedule")
+            .titleIs("Edit Payment schedule")
             .schoolNameIs(project.schoolName)
             .withPaymentDueDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentDueDate().showsError("Enter a date in the correct format")
-            
+
         cy.executeAccessibilityTests();
 
         cy.log("Check Payment Actual Date");
         paymentSchedule
-            .titleIs("Edit payment schedule")
             .schoolNameIs(project.schoolName)
             .withPaymentActualDate("a", "12", "2025")
             .clickContinue()
@@ -98,7 +97,6 @@ describe("Payment Schedule Task", () => {
 
         cy.log("Check Payment Due Amount");
         paymentSchedule
-            .titleIs("Edit payment schedule")
             .schoolNameIs(project.schoolName)
             .withPaymentDueAmount("a")
             .clickContinue()
@@ -117,7 +115,6 @@ describe("Payment Schedule Task", () => {
 
         cy.log("Check Payment Actual Amount");
         paymentSchedule
-            .titleIs("Edit payment schedule")
             .schoolNameIs(project.schoolName)
             .withPaymentActualAmount("a")
             .clickContinue()
@@ -132,12 +129,11 @@ describe("Payment Schedule Task", () => {
             .clickContinue()
             .errorForPaymentActualAmount().showsError("What is the payment amount? must be between 0 and 25000")
 
-        cy.executeAccessibilityTests();   
-       
+        cy.executeAccessibilityTests();
+
         cy.log('Confirm all set')
 
         paymentSchedule
-            .titleIs("Edit payment schedule")
             .schoolNameIs(project.schoolName)
             .withPaymentDueDate("1", "2", "2021")
             .withPaymentActualDate("1", "2", "2021")
