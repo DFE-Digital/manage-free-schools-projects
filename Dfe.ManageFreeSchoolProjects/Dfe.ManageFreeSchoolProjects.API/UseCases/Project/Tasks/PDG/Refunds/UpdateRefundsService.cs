@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds
             }
 
             db.ProjectDevelopmentGrantFundingDateOf1stRefund = task.LatestRefundDate;
-            db.ProjectDevelopmentGrantFundingAmountOf1stRefund = task.TotalAmount?.ToString("0.00"); ;
+            db.ProjectDevelopmentGrantFundingAmountOf1stRefund = task.TotalAmount?.ToString("0.00");
         }
     }
 }
