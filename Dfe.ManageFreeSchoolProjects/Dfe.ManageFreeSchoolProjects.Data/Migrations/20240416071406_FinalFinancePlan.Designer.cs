@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240416071406_FinalFinancePlan")]
+    partial class FinalFinancePlan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -9994,21 +9997,21 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Total");
 
                     b.Property<string>("PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Y12-Y14");
 
                     b.Property<string>("PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Y7-Y11");
 
                     b.Property<string>("PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability YR-Y6");
 
                     b.Property<string>("PupilNumbersAndCapacityNoApplicationsAcceptedTotal")
@@ -10042,21 +10045,21 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.No. applications received Total");
 
                     b.Property<string>("PupilNumbersAndCapacityNoApplicationsReceivedY12Y14")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.No. applications received Y12-Y14");
 
                     b.Property<string>("PupilNumbersAndCapacityNoApplicationsReceivedY7Y11")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.No. applications received Y7-Y11");
 
                     b.Property<string>("PupilNumbersAndCapacityNoApplicationsReceivedYrY6")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.No. applications received YR-Y6");
 
                     b.Property<string>("PupilNumbersAndCapacityNurseryUnder5s")
@@ -10234,9 +10237,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.Y10 PAN");
 
                     b.Property<string>("PupilNumbersAndCapacityY12Pan")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.Y12 PAN");
 
                     b.Property<string>("PupilNumbersAndCapacityY12Y14Post16Capacity")
@@ -10258,9 +10261,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.Y7-Y11 capacity");
 
                     b.Property<string>("PupilNumbersAndCapacityYOtherPanPost16")
-                        .HasMaxLength(4)
+                        .HasMaxLength(3)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)")
+                        .HasColumnType("varchar(3)")
                         .HasColumnName("Pupil numbers and capacity.Y other PAN post-16");
 
                     b.Property<string>("PupilNumbersAndCapacityYOtherPanPre16")
@@ -10276,9 +10279,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Pupil numbers and capacity.YR PAN");
 
                     b.Property<string>("PupilNumbersAndCapacityYrY11Pre16Capacity")
-                        .HasMaxLength(100)
+                        .HasMaxLength(4)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(4)")
                         .HasColumnName("Pupil numbers and capacity.YR-Y11 (pre-16) capacity");
 
                     b.Property<string>("PupilNumbersAndCapacityYrY6Capacity")

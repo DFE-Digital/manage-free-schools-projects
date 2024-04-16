@@ -206,6 +206,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
+        public static Milestones BuildFinalFinancePlanTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan = true;
+            result.FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate = DateTime.Now;
+            result.FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox = false;
+            result.FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder = false;
+
+            return result;
+        }
+
         public static Milestones BuildGiasTask(string rid)
         {
             var result = new Milestones();

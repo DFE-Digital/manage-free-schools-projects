@@ -117,7 +117,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder { get; set; }
-            
+
+        public bool? FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan { get; set; }
+        public DateTime? FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate { get; set; }
+        public bool? FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox { get; set; }
+        public bool? FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder { get; set; }
+
 
 
 
