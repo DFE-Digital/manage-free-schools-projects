@@ -54,8 +54,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
 
-            var milestone = DatabaseModelBuilder.BuildMilestone(project.Rid);
-            context.Milestones.Add(milestone);
+            var FinalFinancePlan = DatabaseModelBuilder.BuildFinalFinancePlanTask(project.Rid);
+            context.Milestones.Add(FinalFinancePlan);
 
             await context.SaveChangesAsync();
 
