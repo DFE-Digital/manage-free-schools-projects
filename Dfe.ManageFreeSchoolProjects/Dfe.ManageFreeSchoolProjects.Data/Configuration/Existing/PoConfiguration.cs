@@ -1197,7 +1197,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.YR PAN");
             builder.Property(e => e.PupilNumbersAndCapacityYrY11Pre16Capacity)
-                .HasMaxLength(4)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.YR-Y11 (pre-16) capacity");
             builder.Property(e => e.PupilNumbersAndCapacityYrY6Capacity)
