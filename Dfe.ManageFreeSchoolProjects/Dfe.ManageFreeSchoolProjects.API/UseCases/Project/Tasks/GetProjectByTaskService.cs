@@ -28,6 +28,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedul
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -139,6 +140,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.WriteOff:
                     result = await new GetWriteOffService(_context).Get(parameters);
+                    break;
+                case TaskName.FinalFinancePlan:
+                    result = await new GetFinalFinancePlanTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
