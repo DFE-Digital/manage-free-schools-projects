@@ -1009,15 +1009,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Total");
             builder.Property(e => e.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Y12-Y14");
             builder.Property(e => e.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability Y7-Y11");
             builder.Property(e => e.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Minimum first year recruitment for viability YR-Y6");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsAcceptedTotal)
@@ -1041,15 +1041,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications received Total");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications received Y12-Y14");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications received Y7-Y11");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsReceivedYrY6)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications received YR-Y6");
             builder.Property(e => e.PupilNumbersAndCapacityNurseryUnder5s)
@@ -1169,7 +1169,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Y10 PAN");
             builder.Property(e => e.PupilNumbersAndCapacityY12Pan)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Y12 PAN");
             builder.Property(e => e.PupilNumbersAndCapacityY12Y14Post16Capacity)
@@ -1185,7 +1185,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Y7-Y11 capacity");
             builder.Property(e => e.PupilNumbersAndCapacityYOtherPanPost16)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.Y other PAN post-16");
             builder.Property(e => e.PupilNumbersAndCapacityYOtherPanPre16)
