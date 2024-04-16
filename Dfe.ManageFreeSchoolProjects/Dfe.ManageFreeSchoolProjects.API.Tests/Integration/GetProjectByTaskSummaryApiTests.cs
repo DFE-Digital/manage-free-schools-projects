@@ -67,6 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.PDG.Name.Should().Be(TaskName.PDG.ToString());
             result.PDG.Status.Should().Be(ProjectTaskStatus.NotStarted);
 
+            result.FinalFinancePlan.Name.Should().Be(TaskName.FinalFinancePlan.ToString());
+            result.FinalFinancePlan.Status.Should().Be(ProjectTaskStatus.NotStarted);
+
             result.ApplicationsEvidence.Name.Should().Be(TaskName.ApplicationsEvidence.ToString());
             result.ApplicationsEvidence.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.ApplicationsEvidence.IsHidden.Should().BeFalse();

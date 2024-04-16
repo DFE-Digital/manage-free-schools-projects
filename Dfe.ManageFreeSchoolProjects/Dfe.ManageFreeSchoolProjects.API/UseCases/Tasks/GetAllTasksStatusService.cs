@@ -73,6 +73,7 @@ public class GetAllTasksStatusService : IGetTasksService
             OfstedInspection = SafeRetrieveTaskSummary(projectTasks, "OfstedInspection"),
             FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
             PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
+            FinalFinancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.FinalFinancePlan.ToString())
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
