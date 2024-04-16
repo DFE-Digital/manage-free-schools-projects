@@ -33,7 +33,7 @@ describe("Trust Letter Sent Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(4)
+            .skip(6)
             .summaryShows("Date when DfE signed PDG letter sent from the trust").IsEmpty()
             .summaryShows("Saved the signed trust letter in Workplaces folder").IsEmpty()
             .isNotMarkedAsComplete();
@@ -51,7 +51,7 @@ describe("Trust Letter Sent Task", () => {
         cy.log("Confirm empty dashboard");
         summaryPage
             .inOrder()
-            .skip(4)
+            .skip(6)
             .summaryShows("Date when DfE signed PDG letter sent from the trust").IsEmpty()
             .summaryShows("Saved the signed trust letter in Workplaces folder").IsEmpty()
             .isNotMarkedAsComplete();
@@ -75,7 +75,7 @@ describe("Trust Letter Sent Task", () => {
 
         summaryPage
             .inOrder()
-            .skip(4)
+            .skip(6)
             .summaryShows("Date when DfE signed PDG letter sent from the trust").HasValue("1 February 2021")
             .summaryShows("Saved the signed trust letter in Workplaces folder").HasValue("Yes")
 

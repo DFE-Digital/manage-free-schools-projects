@@ -3,7 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments
 {
-    public class StopPaymentBuilder
+    public static class StopPaymentBuilder
     {
         public static StopPaymentTask Build(Po po)
         {

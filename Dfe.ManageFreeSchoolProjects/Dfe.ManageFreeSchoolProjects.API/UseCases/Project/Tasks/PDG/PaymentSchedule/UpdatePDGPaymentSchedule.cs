@@ -36,6 +36,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSch
             db.ProjectDevelopmentGrantFundingAmountOf1stPayment = task.PaymentActualAmount?.ToString("0.00");
             db.ProjectDevelopmentGrantFundingDateOf1stPaymentDue = task.PaymentScheduleDate;
             db.ProjectDevelopmentGrantFundingDateOf1stActualPayment = task.PaymentActualDate;
+
+            db.ProjectDevelopmentGrantFundingInitialGrantAllocation = task.PaymentScheduleAmount?.ToString("0.00");
+            db.ProjectDevelopmentGrantFundingRevisedGrantAllocation = task.PaymentScheduleAmount?.ToString("0.00");
+            db.ProjectDevelopmentGrantFundingTotalPaymentsMade = task.PaymentActualAmount?.ToString("0.00");
         }
     }
 }

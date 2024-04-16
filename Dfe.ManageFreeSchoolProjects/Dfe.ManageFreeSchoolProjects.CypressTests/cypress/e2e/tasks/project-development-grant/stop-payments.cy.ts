@@ -36,7 +36,7 @@ describe("Stop Payments Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(6)
+            .skip(8)
             .summaryShows("Are you sure you want to stop payments?").IsEmpty()
             .isNotMarkedAsComplete();
 
@@ -57,7 +57,7 @@ describe("Stop Payments Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(6)
+            .skip(8)
             .summaryShows("Are you sure you want to stop payments?").IsEmpty()
             .isNotMarkedAsComplete();
 
@@ -87,7 +87,7 @@ describe("Stop Payments Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Project development grant (PDG)")
             .inOrder()
-            .skip(6)
+            .skip(8)
             .summaryShows("Are you sure you want to stop payments?").HasValue("Yes")
         
         cy.log('Confirm no set')
@@ -100,7 +100,7 @@ describe("Stop Payments Task", () => {
 
         summaryPage
             .inOrder()
-            .skip(6)
+            .skip(8)
             .summaryShows("Are you sure you want to stop payments?").HasValue("No")
 
         pdgDashboard.selectChangeStopPayments();

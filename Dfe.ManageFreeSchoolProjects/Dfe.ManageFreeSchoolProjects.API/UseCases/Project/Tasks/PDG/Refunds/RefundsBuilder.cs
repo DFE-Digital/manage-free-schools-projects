@@ -3,7 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds
 {
-    public class RefundsBuilder
+    public static class RefundsBuilder
     {
         public static RefundsTask Build(Po po)
         {
