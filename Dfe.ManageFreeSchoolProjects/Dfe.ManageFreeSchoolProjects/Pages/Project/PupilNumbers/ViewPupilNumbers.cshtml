@@ -1,5 +1,6 @@
 ﻿@page "/projects/{projectId}/pupil-numbers"
 @using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers.ViewPupilNumbersModel
 @{
     ViewData["Title"] = $"Pupil numbers - {Model.PupilNumbers.SchoolName}";
@@ -16,6 +17,7 @@
     var editRecruitmentAndViabilityLink = string.Format(RouteConstants.EditRecruitmentAndViability, Model.ProjectId);
     var editPre16CapacityBuildupLink = string.Format(RouteConstants.EditPre16CapacityBuildup, Model.ProjectId);
     var editPost16CapacityBuildupLink = string.Format(RouteConstants.EditPost16CapacityBuildup, Model.ProjectId);
+    var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId) + $"?back={BackBehaviour.Previous}";
 }
 
 @section BeforeMain {
@@ -273,7 +275,6 @@
 
         <a class="govuk-button govuk-!-margin-bottom-9" href="@editPost16CapacityBuildupLink" data-testid="edit-post16-capacity-buildup">Edit Post-16 capacity buildup</a>
 
-        @*
         <div class="govuk-grid-row govuk-!-margin-top-6">
             <div class="govuk-grid-column-two-thirds">
 
@@ -288,6 +289,5 @@
                 </ol>
             </div>
         </div>
-        *@
     </div>
 </div>

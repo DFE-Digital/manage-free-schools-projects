@@ -1,57 +1,74 @@
-﻿using Dfe.ManageFreeSchoolProjects.Models;
+﻿using DocumentFormat.OpenXml.EMMA;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Net;
+using System;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
-	[HtmlTargetElement("govuk-back-link", TagStructure = TagStructure.WithoutEndTag)]
-	public class BackLinkTagHelper : AnchorTagHelper
+    [HtmlTargetElement("govuk-back-link", TagStructure = TagStructure.WithoutEndTag)]
+	public class BackLinkTagHelper : TagHelper
 	{
-		[HtmlAttributeName("link-item")]
-		public LinkItem LinkItem { get; set; }
+		[HtmlAttributeName("href")]
+		public string Href { get; set; }
 
-		[HtmlAttributeName("back")]
-		public LinkItem Back { get; set; }
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
 
-		[HtmlAttributeName("return")]
-		public LinkItem Return { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHtmlHelper _htmlHelper;
 
-		public BackLinkTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public BackLinkTagHelper(IHttpContextAccessor httpContextAccessor, IHtmlHelper htmlHelper)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _htmlHelper = htmlHelper;
+        }
 
-      private LinkItem LinkItemLookup => (Links.ByPage(LinkItem.Page) ?? Links.TaskList.Index);
-      private LinkItem BackLookup => (Links.ByPage(Back.Page) ?? Links.TaskList.Index);
-      private LinkItem ReturnLookup => (Links.ByPage(Return.Page) ?? Links.TaskList.Index);
-
-		public override void Process(TagHelperContext context, TagHelperOutput output)
+        public override async void Process(TagHelperContext context, TagHelperOutput output)
 		{
-			RouteValues.Add("id", ViewContext.RouteData.Values["id"].ToString());
-         Page = LinkItemLookup.Page;
-			output.TagName = "a";
-			output.TagMode = TagMode.StartTagAndEndTag;
-			output.Attributes.Add("class", "govuk-back-link");
-			var backLinkText = LinkItemLookup.BackText;
+            if (_htmlHelper is IViewContextAware viewContextAware)
+            {
+                viewContextAware.Contextualize(ViewContext);
+            }
 
-			if (ViewContext.HttpContext.Request.Query.ContainsKey("back") && ViewContext.HttpContext.Request.Query["back"].Count == 1)
-			{
-				var returnPage = ViewContext.HttpContext.Request.Query["back"][0];
-            Page = (Links.ByPage(WebUtility.UrlDecode(returnPage)) ?? Links.TaskList.Index).Page;
-				if(Back != null) RouteValues.Add("back", BackLookup.Page);
-				if(Return != null) RouteValues.Add("return", ReturnLookup.Page);
-			}
-			else if (ViewContext.HttpContext.Request.Query.ContainsKey("return") && ViewContext.HttpContext.Request.Query["return"].Count == 1)
-			{
-				var returnPage = ViewContext.HttpContext.Request.Query["return"][0];
-            Page = (Links.ByPage(WebUtility.UrlDecode(returnPage)) ?? Links.TaskList.Index).Page;
-				if (ViewContext.HttpContext.Request.Query.ContainsKey("backText") && ViewContext.HttpContext.Request.Query["backText"].Count == 1)
-				{
-					backLinkText = ViewContext.HttpContext.Request.Query["backText"][0];
-				}
-			}
+            var model = new BackLinkViewModel()
+            {
+                Href = Href,
+                BackBehaviour = GetBackBehaviour()
+            };
 
-         output.Content.SetHtmlContent(backLinkText);
-         base.Process(context, output);
-		}
+            var content = await _htmlHelper.PartialAsync("_BackLink", model);
+
+            output.TagName = null;
+            output.PostContent.AppendHtml(content);
+        }
+
+        private BackBehaviour GetBackBehaviour()
+        {
+            if (_httpContextAccessor.HttpContext.Request.Query.ContainsKey("back"))
+            {
+                var backQuery = _httpContextAccessor.HttpContext.Request.Query["back"];
+
+                Enum.TryParse(backQuery, out BackBehaviour backBehaviourEnum);
+
+                return backBehaviourEnum;
+            }
+
+            return BackBehaviour.DirectLink;
+        }
 	}
+
+    public class BackLinkViewModel
+    {
+        public string Href { get; set; }
+        public BackBehaviour BackBehaviour { get; set; }
+    }
+
+    public enum BackBehaviour
+    {
+        DirectLink = 0,
+        Previous = 1,
+    }
 }
