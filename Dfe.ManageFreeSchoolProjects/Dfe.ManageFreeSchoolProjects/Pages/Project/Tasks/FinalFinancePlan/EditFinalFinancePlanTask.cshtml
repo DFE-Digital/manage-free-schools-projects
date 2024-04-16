@@ -6,10 +6,6 @@
     ViewData["Title"] = $"Edit final finance plan - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
-
-    var yesNoNotApplicableLabels  = new[] { "Yes", "No", "Not applicable" };
-    var yesNoNotApplicableValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString(), YesNoNotApplicable.NotApplicable.ToString() };
-    var localAuthorityAgreedTestIds = yesNoNotApplicableValues.Select(v => $"local-authority-agreed-{v}").ToArray();
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
