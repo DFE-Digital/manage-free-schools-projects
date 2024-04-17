@@ -45,6 +45,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectFinalFinancePlanFromTaskList(): this {
+        cy.getByTestId("finalFinancePlan-task").click()
+        return this;
+    }
+
     public selectKickOffMeetingFromTaskList(): this {
         cy.getByTestId("kick-off-meeting-task").click()
         return this;
