@@ -74,9 +74,9 @@ describe("Testing Funding agreement health check Task", () => {
             .titleIs("Funding agreement health check")
             .inOrder()
             .summaryShows("Drafted a funding agreement (FA) health check").HasValue("Yes").HasChangeLink()
-            .summaryShows("Regional Director has signed-off the FA health check (if applicable)").HasValue("No").HasChangeLink()
+            .summaryShows("Regional Director has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Minister has signed-off the FA health check (if applicable)").HasValue("Yes").HasChangeLink()
-            .summaryShows("Saved the health check in Workplaces folder").HasValue("No").HasChangeLink()
+            .summaryShows("Saved the health check in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.log("Edit funding agreement health check")
@@ -95,7 +95,7 @@ describe("Testing Funding agreement health check Task", () => {
             .inOrder()
             .summaryShows("Drafted a funding agreement (FA) health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Regional Director has signed-off the FA health check (if applicable)").HasValue("Yes").HasChangeLink()
-            .summaryShows("Minister has signed-off the FA health check (if applicable)").HasValue("No").HasChangeLink()
+            .summaryShows("Minister has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Saved the health check in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()

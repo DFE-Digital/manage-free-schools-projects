@@ -25,10 +25,10 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <govuk-checkbox-input id="drafted-fa-health-check" name="drafted-fa-health-check" asp-for="@Model.DraftedFAHealthCheck" bold-label="true" label="Drafted a funding agreement (FA) health check" />
-            <govuk-checkbox-input id="regional-director-signed-off-fa-health-check" name="regional-director-signed-off-fa-health-check" asp-for="@Model.RegionalDirectorSignedOffFaHealthCheck" bold-label="true" label="Regional Director has signed-off the FA health check (if applicable)" />
-            <govuk-checkbox-input id="minister-signed-off-fa-health-check" name="minister-signed-off-fa-health-check" asp-for="@Model.MinisterSignedOffFaHealthCheck" bold-label="true" label="Minister has signed-off the FA health check (if applicable)" />
-            <govuk-checkbox-input id="saved-fa-health-check-in-workplaces-folder" name="saved-fa-health-check-in-workplaces-folder" asp-for="@Model.SavedFaHealthCheckInWorkplacesFolder" bold-label="true" label="Saved the health check in Workplaces folder" />
+            <govuk-checkbox-input id="drafted-fa-health-check" name="drafted-fa-health-check" asp-for="@Model.DraftedFAHealthCheck" label="Drafted a funding agreement (FA) health check" />
+            <govuk-checkbox-input id="regional-director-signed-off-fa-health-check" name="regional-director-signed-off-fa-health-check" asp-for="@Model.RegionalDirectorSignedOffFaHealthCheck" label="Regional Director has signed-off the FA health check (if applicable)" />
+            <govuk-checkbox-input id="minister-signed-off-fa-health-check" name="minister-signed-off-fa-health-check" asp-for="@Model.MinisterSignedOffFaHealthCheck" label="Minister has signed-off the FA health check (if applicable)" />
+            <govuk-checkbox-input id="saved-fa-health-check-in-workplaces-folder" name="saved-fa-health-check-in-workplaces-folder" asp-for="@Model.SavedFaHealthCheckInWorkplacesFolder" label="Saved the health check in Workplaces folder" />
             
             @Html.HiddenFor(m => m.SchoolName)
 
