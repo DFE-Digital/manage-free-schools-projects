@@ -95,7 +95,7 @@ describe("Testing Funding agreement health check Task", () => {
             .inOrder()
             .summaryShows("Drafted a funding agreement (FA) health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Regional Director has signed-off the FA health check (if applicable)").HasValue("Yes").HasChangeLink()
-            .summaryShows("Minister has signed-off the FA health check (if applicable)").HasValue("No").HasChangeLink()
+            .summaryShows("Minister has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Saved the health check in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
