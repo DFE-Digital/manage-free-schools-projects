@@ -26,6 +26,7 @@ COPY ./script/api-docker-entrypoint.sh /app/docker-entrypoint.sh
 
 # Stage 3 - Final
 FROM "mcr.microsoft.com/dotnet/aspnet:${ASPNET_IMAGE_TAG}" AS final
+LABEL org.opencontainers.image.source=https://github.com/DFE-Digital/manage-free-school-projects
 
 ENV ASPNETCORE_HTTP_PORTS=80
 
