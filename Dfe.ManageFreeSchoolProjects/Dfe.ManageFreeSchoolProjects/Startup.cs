@@ -1,4 +1,4 @@
-using Azure.Storage.Blobs;
+using Azure.Identity;
 using Dfe.ManageFreeSchoolProjects.Authorization;
 using Dfe.ManageFreeSchoolProjects.Configuration;
 using Dfe.ManageFreeSchoolProjects.Security;
@@ -25,6 +25,7 @@ using Microsoft.FeatureManagement;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using System;
+using System.IO;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Reports;
 
@@ -146,25 +147,26 @@ public class Startup
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
- 
+
     }
 
     private void SetupDataprotection(IServiceCollection services)
     {
-        if (!string.IsNullOrEmpty(Configuration["ConnectionStrings:BlobStorage"]))
-        {
-            string blobName = "keys.xml";
-            BlobContainerClient container = new BlobContainerClient(new Uri(Configuration["ConnectionStrings:BlobStorage"]));
+      // Setup basic Data Protection and persist keys.xml to local file system
+      var dp = services.AddDataProtection();
 
-            BlobClient blobClient = container.GetBlobClient(blobName);
+      // If a Key Vault Key URI is defined, expect to encrypt the keys.xml
+      string? kvProtectionKeyUri = Configuration.GetValue<string>("DataProtection:KeyVaultKey");
+      if (!string.IsNullOrEmpty(kvProtectionKeyUri))
+      {
+        dp.PersistKeysToFileSystem(new DirectoryInfo(@"/srv/app/storage"));
 
-            services.AddDataProtection()
-                .PersistKeysToAzureBlobStorage(blobClient);
-        }
-        else
-        {
-            services.AddDataProtection();
-        }
+        var credentials = new DefaultAzureCredential();
+        dp.ProtectKeysWithAzureKeyVault(
+          new Uri(kvProtectionKeyUri),
+          credentials
+        );
+      }
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
