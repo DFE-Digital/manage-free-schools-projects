@@ -58,6 +58,7 @@ locals {
   statuscake_contact_group_integrations           = var.statuscake_contact_group_integrations
   statuscake_contact_group_email_addresses        = var.statuscake_contact_group_email_addresses
   enable_container_app_blob_storage               = var.enable_container_app_blob_storage
+  enable_container_app_file_share                 = var.enable_container_app_file_share
   storage_account_ipv4_allow_list                 = var.storage_account_ipv4_allow_list
   storage_account_public_access_enabled           = var.storage_account_public_access_enabled
 }
