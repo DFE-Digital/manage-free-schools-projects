@@ -1211,6 +1211,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.PdgGrantLetterLinkSavedToWorkplaces)
                 .HasColumnType("bit")
                 .HasColumnName("PdgGrantLetterLinkSavedToWorkplaces");
+            builder.Property(e => e.PdgIsWriteOffSetup)
+                .HasColumnType("bit")
+                .HasColumnName("PdgIsWriteOffSetup");
 
             AuditConfiguration.Apply(builder);
         }

@@ -37,6 +37,11 @@ class editWriteOff {
         this.setDate(key, day, month, year);
         return this
     }
+
+    public withIsWriteOff(value: string): this {
+        cy.getById(`is-write-off-${value}`).click();
+        return this;
+    }
     
     private setDate(key: string, day: string, month: string, year: string) {
         cy.get('#' + `${key}-day`).typeFast(day);

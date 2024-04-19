@@ -49,6 +49,10 @@
         <govuk-summary-card id="stop-payments" label="Stop payments" href="@editStopPaymentLink">
             <govuk-summary-list>
                 <govuk-summary-item label="Are you sure you want to stop payments?" asp-for="@pdgTask.PaymentStopped" />
+                @if (pdgTask.PaymentStopped == "Yes")
+                {
+                    <govuk-summary-item label="Date when payments should stop" asp-for="@pdgTask.PaymentStoppedDate" />
+                }
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="refunds" label="Refunds" href="@editRefundsLink">
@@ -59,8 +63,15 @@
         </govuk-summary-card>
         <govuk-summary-card id="write-off" label="Write-off" href="@editWriteOffLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Write-off reason" asp-for="@pdgTask.WriteOffReason" />
-                <govuk-summary-item label="Write-off amount" asp-for="@pdgTask.WriteOffAmount" />
+                <govuk-summary-item label="Is there any write-off?" asp-for="@pdgTask.IsWriteOffSetup" />
+                @if (pdgTask.IsWriteOffSetup == true)
+                {
+                    <govuk-summary-item label="Write-off reason" asp-for="@pdgTask.WriteOffReason" />
+                    <govuk-summary-item label="Write-off amount" asp-for="@pdgTask.WriteOffAmount" />
+                    <govuk-summary-item label="Write-off date" asp-for="@pdgTask.WriteOffDate" />
+                    <govuk-summary-item label="Finance business partner approval received from" asp-for="@pdgTask.FinanceBusinessPartnerApprovalReceivedFrom" />
+                    <govuk-summary-item label="Approval date" asp-for="@pdgTask.ApprovalDate" />
+                }
             </govuk-summary-list>
         </govuk-summary-card>
 

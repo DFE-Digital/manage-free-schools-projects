@@ -32,6 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff
                 _context.Add(db);
             }
 
+            db.PdgIsWriteOffSetup = task.IsWriteOffSetup;
             db.ProjectDevelopmentGrantFundingDateOf1stWriteOff = task.WriteOffDate;
             db.ProjectDevelopmentGrantFundingAmountApprovedFor1stWriteOff = task.WriteOffAmount.ToString();
             db.ProjectDevelopmentGrantFundingReasonFor1stWriteOff = task.WriteOffReason;

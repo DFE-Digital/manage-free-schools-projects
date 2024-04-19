@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         [BindProperty(Name = "total-amount", BinderType = typeof(DecimalInputModelBinder))]
         [Display(Name = "Total amount")]
-        [ValidMoney(0, 999999)]
+        [ValidMoney(0, 25000)]
         public decimal? TotalAmount { get; set; }
 
         public EditRefundsModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditRefundsModel> logger,

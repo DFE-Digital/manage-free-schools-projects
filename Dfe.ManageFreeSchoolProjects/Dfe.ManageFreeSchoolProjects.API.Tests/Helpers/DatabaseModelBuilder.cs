@@ -406,6 +406,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             var result = new Po()
             {
                 Rid = rid,
+                PdgIsWriteOffSetup = true,
                 ProjectDevelopmentGrantFundingDateOf1stWriteOff = new DateTime().AddDays(1),
                 ProjectDevelopmentGrantFundingAmountApprovedFor1stWriteOff = "100",
                 ProjectDevelopmentGrantFundingReasonFor1stWriteOff = "29525",

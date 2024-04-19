@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -15,6 +16,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 return new PDGDashboard();
             }
 
+
+            var stopPaymentTask = StopPaymentBuilder.Build(po);
+            var refundsTask = RefundsBuilder.Build(po);
+            var writeOffTask = WriteOffBuilder.Build(po);
+
             return new PDGDashboard()
             {
                 PaymentScheduleAmount = GetPaymentScheduleAmount(po),
@@ -23,11 +29,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 PaymentActualDate = GetPaymentActualDate(po),
                 TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
                 PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
-                PaymentStopped = po.ProjectDevelopmentGrantFundingPaymentsStopped,
-                LatestRefundDate = RefundsBuilder.Build(po).LatestRefundDate,
-                RefundsTotalAmount = RefundsBuilder.Build(po).TotalAmount,
-                WriteOffAmount = WriteOffBuilder.Build(po).WriteOffAmount,
-                WriteOffReason = WriteOffBuilder.Build(po).WriteOffReason
+                PaymentStopped = stopPaymentTask.PaymentStopped,
+                PaymentStoppedDate = stopPaymentTask.PaymentStoppedDate,
+                LatestRefundDate = refundsTask.LatestRefundDate,
+                RefundsTotalAmount = refundsTask.TotalAmount,
+                IsWriteOffSetup = writeOffTask.IsWriteOffSetup,
+                WriteOffAmount = writeOffTask.WriteOffAmount,
+                WriteOffReason = writeOffTask.WriteOffReason,
+                WriteOffDate = writeOffTask.WriteOffDate,
+                FinanceBusinessPartnerApprovalReceivedFrom = writeOffTask.FinanceBusinessPartnerApprovalReceivedFrom,
+                ApprovalDate = writeOffTask.ApprovalDate,
             };
         }
 

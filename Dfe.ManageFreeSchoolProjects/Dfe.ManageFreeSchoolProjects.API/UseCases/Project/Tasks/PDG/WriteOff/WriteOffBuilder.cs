@@ -14,6 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff
 
             return new WriteOffTask()
             {
+                IsWriteOffSetup = po.PdgIsWriteOffSetup,
                 WriteOffReason = po.ProjectDevelopmentGrantFundingReasonFor1stWriteOff,
                 WriteOffAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountApprovedFor1stWriteOff),
                 WriteOffDate = po.ProjectDevelopmentGrantFundingDateOf1stWriteOff,

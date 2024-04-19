@@ -11,9 +11,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
         public DateTime? TrustSignedPDGLetterDate { get; set; }
         public bool? PDGLetterSavedInWorkspaces { get; set; }
         public string PaymentStopped { get; set; }
+        public DateTime? PaymentStoppedDate { get; set; }
         public DateTime? LatestRefundDate { get; set; }
         public decimal? RefundsTotalAmount { get; set; }
+        public bool? IsWriteOffSetup { get; set; }
         public string WriteOffReason { get; set; }
         public decimal? WriteOffAmount { get; set; }
+        public DateTime? WriteOffDate { get; set; }
+        public string FinanceBusinessPartnerApprovalReceivedFrom { get; set; }
+        public DateTime? ApprovalDate { get; set; }
     }
 }
