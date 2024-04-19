@@ -28,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
             {
                 WriteOff = new()
                 {
+                    IsWriteOffSetup = true,
                     WriteOffDate = new DateTime().AddDays(10),
                     WriteOffAmount = 123,
                     WriteOffReason = "Reason",
@@ -38,6 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.WriteOff.ToString());
 
+            projectResponse.WriteOff.IsWriteOffSetup.Should()
+                .Be(request.WriteOff.IsWriteOffSetup);
             projectResponse.WriteOff.WriteOffDate.Should()
                 .Be(request.WriteOff.WriteOffDate);
             projectResponse.WriteOff.WriteOffAmount.Should()
@@ -68,6 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
             {
                 WriteOff = new()
                 {
+                    IsWriteOffSetup = true,
                     WriteOffDate = new DateTime().AddDays(10),
                     WriteOffAmount = 123,
                     WriteOffReason = "Reason",
@@ -83,6 +87,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.WriteOff.ToString());
 
+            projectResponse.WriteOff.IsWriteOffSetup.Should()
+                .Be(request.WriteOff.IsWriteOffSetup);
             projectResponse.WriteOff.WriteOffDate.Should()
                 .Be(request.WriteOff.WriteOffDate);
             projectResponse.WriteOff.WriteOffAmount.Should()

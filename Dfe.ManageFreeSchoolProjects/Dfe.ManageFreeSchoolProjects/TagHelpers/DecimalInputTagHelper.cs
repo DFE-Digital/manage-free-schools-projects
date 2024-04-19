@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				throw new ArgumentException("For.ModelExplorer.ModelType is not a decimal");
 			}
 
-			var value = (decimal?)For.Model;
+            var value = (decimal?)For.Model;
 			var model = new DecimalInputViewModel
 			{
 				Id = Id,

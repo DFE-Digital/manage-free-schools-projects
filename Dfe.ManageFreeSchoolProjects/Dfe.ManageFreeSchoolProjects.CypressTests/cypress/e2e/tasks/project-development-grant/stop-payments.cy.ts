@@ -89,6 +89,7 @@ describe("Stop Payments Task", () => {
             .inOrder()
             .skip(8)
             .summaryShows("Are you sure you want to stop payments?").HasValue("Yes")
+            .summaryShows("Date when payments should stop").HasValue("5 December 2025")
         
         cy.log('Confirm no set')
 

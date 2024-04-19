@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Dfe.ManageFreeSchoolProjects.Extensions;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
@@ -10,7 +11,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         public string Label { get; set; }
 
         [HtmlAttributeName("id")]
-
         public string Id { get; set; }
 
         [HtmlAttributeName("asp-for")]
@@ -21,16 +21,32 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             output.TagName = "div";
             output.Attributes.SetAttribute("class", "govuk-form-group");
 
-            output.PreContent.SetHtmlContent(GetPreContent());
+            string value = GetValue();
 
-            output.PostContent.SetHtmlContent(GetPostContent());
+            output.PreContent.SetHtmlContent(GetPreContent(value));
+
+            output.PostContent.SetHtmlContent(GetPostContent(value));
 
             output.TagMode = TagMode.StartTagAndEndTag;
         }
 
-        private string GetPreContent()
+        private string GetValue()
         {
-            string value = For.Model?.ToString();
+            if (For.Model == null)
+            {
+                return null;
+            }
+
+            if (For.ModelExplorer.ModelType == typeof(bool) || For.ModelExplorer.ModelType == typeof(bool?))
+            {
+                return ((bool)For.Model).ToYesNoString();
+            }
+
+            return For.Model?.ToString();
+        }
+
+        private string GetPreContent(string value)
+        {
             string checkedTemplate = "checked=\"checked\"";
             string showChecked = value == "Yes" ? checkedTemplate : string.Empty;
 
@@ -59,9 +75,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             return output;
         }
 
-        private string GetPostContent()
+        private string GetPostContent(string value)
         {
-            string value = For.Model?.ToString();
             string checkedTemplate = "checked=\"checked\"";
             string showChecked = value == "No" ? checkedTemplate : string.Empty;
 
