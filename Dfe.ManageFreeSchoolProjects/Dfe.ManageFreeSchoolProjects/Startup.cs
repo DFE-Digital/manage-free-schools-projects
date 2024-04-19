@@ -156,7 +156,7 @@ public class Startup
       var dp = services.AddDataProtection();
 
       // If a Key Vault Key URI is defined, expect to encrypt the keys.xml
-      string? kvProtectionKeyUri = Configuration.GetValue<string>("DataProtection:KeyVaultKey");
+      string kvProtectionKeyUri = Configuration.GetValue<string>("DataProtection:KeyVaultKey");
       if (!string.IsNullOrEmpty(kvProtectionKeyUri))
       {
         dp.PersistKeysToFileSystem(new DirectoryInfo(@"/srv/app/storage"));
