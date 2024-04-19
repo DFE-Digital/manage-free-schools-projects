@@ -1,5 +1,5 @@
 module "azure_container_apps_hosting" {
-  source = "github.com/DFE-Digital/terraform-azurerm-container-apps-hosting?ref=v1.6.2"
+  source = "github.com/DFE-Digital/terraform-azurerm-container-apps-hosting?ref=v1.6.3"
 
   environment    = local.environment
   project_name   = local.project_name
@@ -59,6 +59,7 @@ module "azure_container_apps_hosting" {
   cdn_frontdoor_health_probe_protocol = local.cdn_frontdoor_health_probe_protocol
 
   enable_container_app_blob_storage     = local.enable_container_app_blob_storage
+  enable_container_app_file_share       = local.enable_container_app_file_share
   storage_account_ipv4_allow_list       = local.storage_account_ipv4_allow_list
   storage_account_public_access_enabled = local.storage_account_public_access_enabled
 
