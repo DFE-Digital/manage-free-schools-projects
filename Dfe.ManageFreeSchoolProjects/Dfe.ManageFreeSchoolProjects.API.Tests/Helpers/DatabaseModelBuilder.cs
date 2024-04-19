@@ -388,6 +388,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+        
+        public static Milestones PupilNumbersChecksTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers = false;
+            result.FsgPreOpeningMilestonesCapacityDataMatchesFundingAgreement = false;
+            result.FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration = false;
+            return result;
+        }
 
         internal static Po BuildWriteOffTask(string rid)
         {

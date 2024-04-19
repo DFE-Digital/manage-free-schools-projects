@@ -24,6 +24,7 @@
     var equalitiesAssessmentLink = string.Format(RouteConstants.ViewEqualitiesAssessmentTask, Model.ProjectId);
     var impactAssessmentLink = string.Format(RouteConstants .ViewImpactAssessmentTask, Model.ProjectId);
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
+    var pupilNumbersChecksLink = string.Format(RouteConstants.ViewPupilNumbersChecksTask, Model.ProjectId);
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
@@ -310,6 +311,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.EvidenceOfAcceptedOffers);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@pupilNumbersChecksLink" class="govuk-link" data-testid="pupilnumberschecks-task">
+                                Pupil numbers checks
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
                         }
                     </li>
                     <li class="app-task-list__item">
