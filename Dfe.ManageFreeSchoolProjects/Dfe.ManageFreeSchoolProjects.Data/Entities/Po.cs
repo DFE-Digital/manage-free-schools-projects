@@ -9,5 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     public partial class Po
     {
         public bool? PdgGrantLetterLinkSavedToWorkplaces { get; set; }
+
+        public bool? PdgIsWriteOffSetup { get; set; }
     }
 }

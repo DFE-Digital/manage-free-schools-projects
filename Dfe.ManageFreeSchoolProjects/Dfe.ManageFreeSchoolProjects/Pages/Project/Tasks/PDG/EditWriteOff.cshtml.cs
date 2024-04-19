@@ -26,6 +26,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         public string CurrentFreeSchoolName { get; set; }
 
+        [BindProperty(Name = "is-write-off", BinderType = typeof(YesNoToBoolBinder))]
+        [Display(Name = "Is there any write-off?")]
+        public bool? IsWriteOffSetup { get; set; }
+
         [BindProperty(Name = "write-off-reason")]
         [Display(Name = "Write-off reason")]
         [ValidText(100)]
@@ -33,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         [BindProperty(Name = "write-off-amount", BinderType = typeof(DecimalInputModelBinder))]
         [Display(Name = "Write-off amount")]
-        [ValidMoney(0, 999999)]
+        [ValidMoney(0, 25000)]
         public decimal? WriteOffAmount { get; set; }
 
         [BindProperty(Name = "write-off-date", BinderType = typeof(DateInputModelBinder))]
@@ -71,7 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
         private async Task LoadProject()
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.WriteOff);
-
+            IsWriteOffSetup = project.WriteOff.IsWriteOffSetup;
             WriteOffReason = project.WriteOff.WriteOffReason;
             WriteOffAmount = project.WriteOff.WriteOffAmount;
             WriteOffDate = project.WriteOff.WriteOffDate;
@@ -92,12 +96,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
                 return Page();
             }
 
+            if(IsWriteOffSetup != true)
+            {
+                WriteOffReason = null;
+                WriteOffAmount = null;
+                WriteOffDate = null;
+                FinanceBusinessPartnerApprovalReceivedFrom = null;
+                ApprovalDate = null;
+            }
+
             try
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
                     WriteOff = new()
                     {
+                        IsWriteOffSetup = IsWriteOffSetup,
                         WriteOffReason = WriteOffReason,
                         WriteOffAmount = WriteOffAmount,
                         WriteOffDate = WriteOffDate,
