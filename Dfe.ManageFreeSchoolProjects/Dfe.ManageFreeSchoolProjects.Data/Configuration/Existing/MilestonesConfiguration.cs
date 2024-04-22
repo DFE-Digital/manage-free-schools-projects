@@ -639,9 +639,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasColumnType("bit");
             builder.Property(e => e.MAAArrangementsMatchGovernancePlans)
                 .HasColumnType("bit");
-            builder.Property(e => e.RPACoverType)
-                .HasMaxLength(100)
-                .IsUnicode(false);
 
             AuditConfiguration.Apply(builder);
         }

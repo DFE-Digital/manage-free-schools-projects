@@ -15,21 +15,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
 
         }
 
-        public async Task<Milestones> Get(GetTaskServiceParameters parameters)
+        public async Task<GetProjectByTaskResponse> Get(GetTaskServiceParameters parameters)
         {
             var result = await (from kpi in parameters.BaseQuery
-                                join milestones in _context.Milestones on kpi.Rid equals milestones.Rid
-                                into joinedMilestones
-
+                                join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
                                 from milestones in joinedMilestones.DefaultIfEmpty()
+                                join po in _context.Po on kpi.Rid equals po.Rid into joinedPo
+                                from po in joinedPo.DefaultIfEmpty()
+                                select new GetProjectByTaskResponse()
+                                {
+                                    FinancePlan = FinancePlanTaskBuilder.Build(milestones, po)
+                                }).FirstOrDefaultAsync();
 
-
-                                select milestones).FirstOrDefaultAsync(); //new GetProjectByTaskResponse()
-                                                                          //{
-                                                                          //    FinancePlan = FinancePlanTaskBuilder.Build(milestones, po)
-                                                                          //});.FirstOrDefaultAsync();
-
-            return result; //?? new GetProjectByTaskResponse() { FinancePlan = new() };
+            return result ?? new GetProjectByTaskResponse() { FinancePlan = new() };
         }
     }
 }
