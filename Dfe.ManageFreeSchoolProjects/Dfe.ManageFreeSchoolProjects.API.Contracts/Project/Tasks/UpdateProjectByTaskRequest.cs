@@ -49,6 +49,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public WriteOffTask WriteOff { get; set; }
         public FinalFinancePlanTask FinalFinancePlan { get; set; }
+        
+        public PupilNumbersChecksTask PupilNumbersChecks { get; set; }
 
         public string TaskToUpdate
         {
@@ -108,6 +110,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.WriteOff.ToString();
                 if (FinalFinancePlan != null)
                     return TaskName.FinalFinancePlan.ToString();
+                if (PupilNumbersChecks != null)
+                    return TaskName.PupilNumbersChecks.ToString();
                 return null;
             }
         }

@@ -388,12 +388,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+        
+        public static Milestones PupilNumbersChecksTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers = false;
+            result.FsgPreOpeningMilestonesCapacityDataMatchesFundingAgreement = false;
+            result.FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration = false;
+            return result;
+        }
 
         internal static Po BuildWriteOffTask(string rid)
         {
             var result = new Po()
             {
                 Rid = rid,
+                PdgIsWriteOffSetup = true,
                 ProjectDevelopmentGrantFundingDateOf1stWriteOff = new DateTime().AddDays(1),
                 ProjectDevelopmentGrantFundingAmountApprovedFor1stWriteOff = "100",
                 ProjectDevelopmentGrantFundingReasonFor1stWriteOff = "29525",

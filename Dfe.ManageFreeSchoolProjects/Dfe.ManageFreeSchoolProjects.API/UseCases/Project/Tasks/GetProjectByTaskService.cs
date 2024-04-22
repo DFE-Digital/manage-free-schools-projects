@@ -29,6 +29,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -122,6 +123,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.FundingAgreementHealthCheck:
                     result = await new GetFundingAgreementHealthCheckTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.PupilNumbersChecks:
+                    result = await new GetPupilNumbersChecksTaskService(_context).Get(parameters);
                     break;
                 case TaskName.PDG:
                     result = await new GetPDGDashboardService(_context).Get(parameters);

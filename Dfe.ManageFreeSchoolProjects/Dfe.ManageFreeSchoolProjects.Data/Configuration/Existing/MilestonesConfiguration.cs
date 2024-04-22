@@ -625,6 +625,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces)
                 .HasColumnType("bit")
                 .HasColumnName("Fsg Pre Opening Milestones. applications evidence underwriting agreement saved to workplaces");
+            builder.Property(e => e.FsgPreOpeningMilestonesSchoolReceivedEnoughApplications)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. school received enough applications");
+            builder.Property(e => e.FsgPreOpeningMilestonesCapacityDataMatchesFundingAgreement)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. capacity data matches funding agreement");
+            builder.Property(e => e.FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. capacity data matches gias registration");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)

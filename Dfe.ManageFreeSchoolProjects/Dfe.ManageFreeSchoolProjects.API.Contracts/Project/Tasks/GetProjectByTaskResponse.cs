@@ -34,5 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public RefundsTask Refunds { get; set; }
         public WriteOffTask WriteOff { get; set; }
         public FinalFinancePlanTask FinalFinancePlan { get; set; }
+        
+        public PupilNumbersChecksTask PupilNumbersChecks { get; set; }
     }
 }

@@ -76,6 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(EvidenceOfAcceptedOffersTask.EvidenceOfAcceptedOffers), "Yes" , project, columnHeaders);
             AssertEntry(nameof(OfstedInspectionTask.InspectionBlockDecided), "Yes" , project, columnHeaders);
             AssertEntry(nameof(ApplicationsEvidenceTask.ConfirmedPupilNumbers), "Yes" , project, columnHeaders);
+            AssertEntry(nameof(PupilNumbersChecksTask.SchoolReceivedEnoughApplications), "Yes" , project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -179,6 +180,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             Grade6SignedOffFinalPlanDate = new DateTime(2023, 1, 1),
                         },
+                        PupilNumbersChecks = new PupilNumbersChecksTask()
+                        {
+                            SchoolReceivedEnoughApplications = true,
+                        }
 
                     }
                 }

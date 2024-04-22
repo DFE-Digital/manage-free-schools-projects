@@ -1,0 +1,57 @@
+﻿@page "/projects/{projectId}/tasks/pupil-numbers-checks"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks.ViewPupilNumbersChecksModel
+@{
+    ViewData["Title"] = $"Pupil numbers checks - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditPupilNumbersChecksTask, Model.ProjectId);
+    var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId) + $"?back={BackBehaviour.Previous}";
+    var pupilNumbersChecks = Model.Project.PupilNumbersChecks;
+}
+
+@section BeforeMain {
+<govuk-back-link href="@backlink" xmlns="http://www.w3.org/1999/html">
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Pupil numbers checks
+        </h1>
+        <govuk-summary-list>
+            <govuk-summary-item label="School has received enough applications to be viable" asp-for="@pupilNumbersChecks.SchoolReceivedEnoughApplications" href="@editlink" />
+            <govuk-summary-item label="Capacity data matches what's on the funding agreement" asp-for="@pupilNumbersChecks.CapacityDataMatchesFundingAgreement" href="@editlink" />
+            <govuk-summary-item label="Capacity data matches what's on the GIAS registration form" asp-for="@pupilNumbersChecks.CapacityDataMatchesGiasRegistration" href="@editlink" />
+        </govuk-summary-list>
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>
+<div class="govuk-grid-row govuk-!-margin-top-6">
+    <div class="govuk-grid-column-full">
+
+        <h2 class="govuk-heading-m">
+            Related tasks
+        </h2>
+
+        <p class="govuk-body">You may want to complete the following related tasks.</p>
+
+        <ol class="app-task-list">
+            <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
+        </ol>
+    </div>
+</div>

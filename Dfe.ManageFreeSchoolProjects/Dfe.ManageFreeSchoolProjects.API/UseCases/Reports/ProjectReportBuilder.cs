@@ -36,6 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.OfstedInspection, TaskName = "Ofsted pre-registration", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.ApplicationsEvidence, TaskName = "Applications evidence", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
                 };
 
                 if (result.Headers.Count == 0)

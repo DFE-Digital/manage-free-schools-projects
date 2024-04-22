@@ -1,0 +1,50 @@
+@page "/projects/{projectId}/tasks/pupil-numbers-checks/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks.EditPupilNumbersChecksTaskModel
+@{
+    ViewData["Title"] = $"Edit Pupil numbers checks - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewPupilNumbersChecksTask, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit Pupil numbers checks 
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-checkbox-input label="School has received enough applications to be viable"
+                                  asp-for="@Model.SchoolReceivedEnoughApplications"
+                                  name="school-received-enough-applications"
+                                  id="school-received-enough-applications"
+                                  add-margin=false />
+            
+            <govuk-checkbox-input label="Capacity data matches what's on the funding agreement"
+                                  asp-for="@Model.CapacityDataMatchesFundingAgreement"
+                                  name="capacity-data-matches-funding-agreement"
+                                  id="build-up-form-in-workplaces"
+                                  add-margin="false"/>
+            
+            <govuk-checkbox-input label="Capacity data matches what's on the GIAS registration form"
+                                              asp-for="@Model.CapacityDataMatchesGiasRegistration"
+                                              name="capacity-data-matches-gias-registration"
+                                              id="capacity-data-matches-gias-registration"
+                                              add-margin="false"/>
+            
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
