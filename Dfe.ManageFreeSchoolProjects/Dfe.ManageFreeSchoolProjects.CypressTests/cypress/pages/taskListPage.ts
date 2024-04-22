@@ -111,6 +111,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectPupilNumbersChecksTaskList(): this {
+        cy.getByTestId("pupilnumberschecks-task").click()
+        return this;
+    }
+
     public selectOfstedPreregistrationFromTaskList(): this {
         cy.getByTestId("ofstedpreregistration-task").click()
         return this;
