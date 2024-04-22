@@ -8,7 +8,6 @@
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditPupilNumbersChecksTask, Model.ProjectId);
-    var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId) + $"?back={BackBehaviour.Previous}";
     var pupilNumbersChecks = Model.Project.PupilNumbersChecks;
 }
 
