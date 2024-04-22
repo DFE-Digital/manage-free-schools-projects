@@ -67,6 +67,7 @@ public class GetAllTasksStatusService : IGetTasksService
             DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
             EducationBrief = SafeRetrieveTaskSummary(projectTasks, "EducationBrief"),
             EqualitiesAssessment = SafeRetrieveTaskSummary(projectTasks, "EqualitiesAssessment"),
+            PupilNumbersChecks = SafeRetrieveTaskSummary(projectTasks, "PupilNumbersChecks"),
             AdmissionsArrangements = SafeRetrieveTaskSummary(projectTasks, "AdmissionsArrangements"),
             ImpactAssessment = SafeRetrieveTaskSummary(projectTasks, "ImpactAssessment"),
             EvidenceOfAcceptedOffers = SafeRetrieveTaskSummary(projectTasks, "EvidenceOfAcceptedOffers"),

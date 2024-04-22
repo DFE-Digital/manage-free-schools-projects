@@ -67,6 +67,9 @@
         public const string ViewAcceptedOffersEvidenceTask = TaskList + "/accepted-offers-evidence";
         public const string EditAcceptedOffersEvidenceTask = ViewAcceptedOffersEvidenceTask + "/edit";
         
+        public const string ViewPupilNumbersChecksTask = TaskList + "/pupil-numbers-checks";
+        public const string EditPupilNumbersChecksTask = ViewPupilNumbersChecksTask + "/edit";
+        
         public const string ViewOfstedPreRegistrationTask = TaskList + "/ofsted-pre-registration";
         public const string EditBeforeOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-before-inspection";
         public const string EditAfterOfstedInspectionTask = ViewOfstedPreRegistrationTask  + "/edit-after-inspection";

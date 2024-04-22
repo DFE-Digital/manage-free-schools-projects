@@ -33,5 +33,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         Refunds,
         WriteOff,
         FinalFinancePlan,
+        PupilNumbersChecks
     }
 }

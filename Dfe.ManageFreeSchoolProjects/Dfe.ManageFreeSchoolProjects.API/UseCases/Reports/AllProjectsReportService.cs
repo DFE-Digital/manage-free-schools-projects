@@ -26,6 +26,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -105,7 +106,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       EvidenceOfAcceptedOffers = EvidenceOfAcceptedOffersTaskBuilder.Build(milestones),
                                       OfstedInspection = OfstedInspectionTaskBuilder.Build(milestones),
                                       ApplicationsEvidence = ApplicationsEvidenceTaskBuilder.Build(milestones),
-                                      FinalFinancePlan = FinalFinancePlanTaskBuilder.Build(milestones)
+                                      FinalFinancePlan = FinalFinancePlanTaskBuilder.Build(milestones),
+                                      PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
