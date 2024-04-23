@@ -37,12 +37,12 @@
                 <govuk-summary-item label="Payment due date" asp-for="@pdgTask.PaymentScheduleDate" />
                 <govuk-summary-item label="Payment due amount" asp-for="@pdgTask.PaymentScheduleAmount" />
                 <govuk-summary-item label="Actual payment date" asp-for="@pdgTask.PaymentActualDate" />
-                <govuk-summary-item label="Actual Payment amount" asp-for="@pdgTask.PaymentActualAmount" />
+                <govuk-summary-item label="Actual payment amount" asp-for="@pdgTask.PaymentActualAmount" />
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="trust-letter" label="Trust letter" href="@editTrustLetterLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Date when DfE signed PDG letter sent from the trust" asp-for="@pdgTask.TrustSignedPDGLetterDate" />
+                <govuk-summary-item label="Date when DfE signed PDG letter sent to the trust" asp-for="@pdgTask.TrustSignedPDGLetterDate" />
                 <govuk-summary-item label="Saved the signed trust letter in Workplaces folder " asp-for="@pdgTask.PDGLetterSavedInWorkspaces" />
             </govuk-summary-list>
         </govuk-summary-card>
