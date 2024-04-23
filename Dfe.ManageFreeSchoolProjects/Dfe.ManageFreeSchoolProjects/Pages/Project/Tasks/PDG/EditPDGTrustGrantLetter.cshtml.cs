@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
         public string CurrentFreeSchoolName { get; set; }
 
         [BindProperty(Name = "trust-letter-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date when DfE signed PDG letter sent from the trust")]
+        [Display(Name = "Date when DfE signed PDG letter sent to the trust")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? TrustSignedPDGLetterDate { get; set; }
 

@@ -38,7 +38,7 @@ describe("Payment Schedule Task", () => {
             .summaryShows("Payment due date").IsEmpty()
             .summaryShows("Payment due amount").IsEmpty()
             .summaryShows("Actual payment date").IsEmpty()
-            .summaryShows("Actual Payment amount").IsEmpty()
+            .summaryShows("Actual payment amount").IsEmpty()
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
@@ -75,7 +75,7 @@ describe("Payment Schedule Task", () => {
             .summaryShows("Payment due date").IsEmpty()
             .summaryShows("Payment due amount").IsEmpty()
             .summaryShows("Actual payment date").IsEmpty()
-            .summaryShows("Actual Payment amount").IsEmpty()
+            .summaryShows("Actual payment amount").IsEmpty()
             .isNotMarkedAsComplete();
 
         pdgDashboard.selectChangePaymentSchedule();
@@ -152,7 +152,7 @@ describe("Payment Schedule Task", () => {
             .summaryShows("Payment due date").HasValue("1 February 2021")
             .summaryShows("Payment due amount").HasValue("£100.25")
             .summaryShows("Actual payment date").HasValue("1 February 2021")
-            .summaryShows("Actual Payment amount").HasValue("£200.36")
+            .summaryShows("Actual payment amount").HasValue("£200.36")
 
         summaryPage.MarkAsComplete()
             .clickConfirmAndContinue();
