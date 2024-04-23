@@ -81,6 +81,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                               from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                               join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
                               from milestones in joinedMilestones.DefaultIfEmpty()
+                              join po in _context.Po on kpi.Rid equals po.Rid into joinedPo
+                              from po in joinedPo.DefaultIfEmpty()
                               select new ProjectReportSourceData()
                               {
                                   TaskInformation = new GetProjectByTaskResponse()
@@ -95,7 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       ModelFundingAgreement = ModelFundingAgreementTaskBuilder.Build(milestones),
                                       FundingAgreementHealthCheck = FundingAgreementHealthCheckTaskBuilder.Build(milestones),
                                       ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
-                                      FinancePlan = FinancePlanTaskBuilder.Build(milestones),
+                                      FinancePlan = FinancePlanTaskBuilder.Build(milestones, po),
                                       DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones),
                                       Gias = GiasTaskBuilder.Build(milestones),
                                       EducationBrief = EducationBriefTaskBuilder.Build(milestones),
