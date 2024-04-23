@@ -13,27 +13,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks
     public class ViewPupilNumbersChecksModel : ViewTaskBaseModel
     {
         public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
-
-        private readonly IGetProjectByTaskSummaryService _getProjectByTaskSummaryService;
         
         private readonly ILogger<ViewPupilNumbersChecksModel> _logger;
 
         public ViewPupilNumbersChecksModel(
-            IGetProjectByTaskSummaryService getProjectByTaskSummaryService,
             IGetProjectByTaskService getProjectService,
             ILogger<ViewPupilNumbersChecksModel> logger,
             IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
-            _getProjectByTaskSummaryService = getProjectByTaskSummaryService;
         }
         public ProjectOverviewResponse ProjectOverview { get; set; }
         
         public async Task<ActionResult> OnGet()
         {
             _logger.LogMethodEntered();
-            
-            ProjectTaskListSummary = await _getProjectByTaskSummaryService.Execute(ProjectId);
             
             await GetTask(TaskName.PupilNumbersChecks);
 

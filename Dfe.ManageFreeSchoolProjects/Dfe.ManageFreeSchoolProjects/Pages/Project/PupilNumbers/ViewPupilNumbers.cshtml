@@ -18,6 +18,7 @@
     var editPre16CapacityBuildupLink = string.Format(RouteConstants.EditPre16CapacityBuildup, Model.ProjectId);
     var editPost16CapacityBuildupLink = string.Format(RouteConstants.EditPost16CapacityBuildup, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId) + $"?back={BackBehaviour.Previous}";
+    var pupilNumbersChecksLink = string.Format(RouteConstants.ViewPupilNumbersChecksTask, Model.ProjectId) + $"?back={BackBehaviour.Previous}";
 }
 
 @section BeforeMain {
@@ -285,7 +286,10 @@
                 <p class="govuk-body">You may want to complete the following related tasks.</p>
 
                 <ol class="app-task-list">
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence"/>
+                </ol>
+                <ol class="app-task-list">
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PupilNumbersChecks" href="@pupilNumbersChecksLink" label="Pupil numbers checks"/>
                 </ol>
             </div>
         </div>
