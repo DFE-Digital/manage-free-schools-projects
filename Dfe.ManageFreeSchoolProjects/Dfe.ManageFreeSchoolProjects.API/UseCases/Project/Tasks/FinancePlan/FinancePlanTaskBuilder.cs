@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
     {
         public static FinancePlanTask Build(Milestones milestones, Po po)
         {
-            if (milestones == null && po == null)
+            if (milestones == null || po == null)
             {
                 return new FinancePlanTask();
             }
