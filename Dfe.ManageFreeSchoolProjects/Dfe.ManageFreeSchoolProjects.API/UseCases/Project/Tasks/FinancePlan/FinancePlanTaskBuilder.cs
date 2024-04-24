@@ -6,9 +6,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
 {
     public static class FinancePlanTaskBuilder
     {
-        public static FinancePlanTask Build(Milestones milestones)
+        public static FinancePlanTask Build(Milestones milestones, Po po)
         {
-            if (milestones == null)
+            if (milestones == null || po == null)
             {
                 return new FinancePlanTask();
             }
@@ -20,9 +20,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
                 PlanSavedInWorksplacesFolder = milestones.FinancePlanSavedInWorkplacesFolder,
                 LocalAuthorityAgreedPupilNumbers = milestones.LAAgreedPupilNumbers,
                 Comments = milestones.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable,
-                TrustWillOptIntoRpa = milestones.TrustOptInRPA,
-                RpaStartDate = milestones.RPAStartDate,
-                RpaCoverType = milestones.RPACoverType
+                TrustWillOptIntoRpa = ConvertYesNo(po.FinancialPlanningOptInToRpa),
+                RpaStartDate = po.FinancialPlanningStartDateOfRpa,
+                RpaCoverType = po.FinancialPlanningTypeOfRpaCover
             };
         }
 

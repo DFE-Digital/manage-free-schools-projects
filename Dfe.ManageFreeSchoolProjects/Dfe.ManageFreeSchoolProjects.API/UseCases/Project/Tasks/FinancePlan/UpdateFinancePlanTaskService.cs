@@ -39,9 +39,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
             milestone.FinancePlanSavedInWorkplacesFolder = task.PlanSavedInWorksplacesFolder;
             milestone.LAAgreedPupilNumbers = task.LocalAuthorityAgreedPupilNumbers;
             milestone.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable = task.Comments;
-            milestone.TrustOptInRPA = task.TrustWillOptIntoRpa;
-            milestone.RPAStartDate = task.RpaStartDate;
-            milestone.RPACoverType = task.RpaCoverType;
+
+            var po = await _context.Po.FirstOrDefaultAsync(r => r.Rid == dbKpi.Rid);
+
+            if (po == null)
+            {
+                po = new Po();
+                po.Rid = dbKpi.Rid;
+                _context.Add(po);
+            }
+
+            po.FinancialPlanningOptInToRpa = task.TrustWillOptIntoRpa?.ToString();
+            po.FinancialPlanningStartDateOfRpa = task.RpaStartDate;
+            po.FinancialPlanningTypeOfRpaCover = task.RpaCoverType;
 
             await _context.SaveChangesAsync();
         }
