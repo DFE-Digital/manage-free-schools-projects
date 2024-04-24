@@ -1,3 +1,18 @@
+## 0.3.0
+* 147102 - Build: Applications evidence
+* 161214 - Build: Update additional fields when school name is changed
+* 161213 - Build: Limit system to work with presumption projects only
+* 159375 - Build: Specialist resource provision
+* 159368 - Build: test the Gov Notify template - (New Project created email template content changes)
+
+* 147109 - Build: Final finance plan
+* 157582 - Build: Funding agreement health check page
+* 160721 - Build: Change the 'Subject' field in 'Get help' emails
+* 161749 - Build: Pupil numbers checks
+* 157318 - Build: Pupil numbers and capacity
+* 142461 - Build: Project development grant (PDG) page (Presumption route)
+* 161752 - Build: Financial Plan fields have possible existing fields
+
 ## 0.2.0
 * 158662 - Build: add 'Date school closed' to the 'About the project page'
 * 147103 Build: Accepted offers evidence

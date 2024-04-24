@@ -34,7 +34,7 @@ describe("Trust Letter Sent Task", () => {
             .titleIs("Project development grant (PDG)")
             .inOrder()
             .skip(6)
-            .summaryShows("Date when DfE signed PDG letter sent from the trust").IsEmpty()
+            .summaryShows("Date when DfE signed PDG letter sent to the trust").IsEmpty()
             .summaryShows("Saved the signed trust letter in Workplaces folder").IsEmpty()
             .isNotMarkedAsComplete();
 
@@ -52,7 +52,7 @@ describe("Trust Letter Sent Task", () => {
         summaryPage
             .inOrder()
             .skip(6)
-            .summaryShows("Date when DfE signed PDG letter sent from the trust").IsEmpty()
+            .summaryShows("Date when DfE signed PDG letter sent to the trust").IsEmpty()
             .summaryShows("Saved the signed trust letter in Workplaces folder").IsEmpty()
             .isNotMarkedAsComplete();
 
@@ -76,7 +76,7 @@ describe("Trust Letter Sent Task", () => {
         summaryPage
             .inOrder()
             .skip(6)
-            .summaryShows("Date when DfE signed PDG letter sent from the trust").HasValue("1 February 2021")
+            .summaryShows("Date when DfE signed PDG letter sent to the trust").HasValue("1 February 2021")
             .summaryShows("Saved the signed trust letter in Workplaces folder").HasValue("Yes")
 
         summaryPage.MarkAsComplete()
