@@ -44,12 +44,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse OfstedInspection { get; set; }
 
         public TaskSummaryResponse ApplicationsEvidence { get; set; }
-
         public TaskSummaryResponse FundingAgreementHealthCheck { get; set; }
         public TaskSummaryResponse PDG { get; set; }
         public TaskSummaryResponse FinalFinancePlan { get; set; }
         
         public TaskSummaryResponse PupilNumbersChecks { get; set; }
+        
+        public TaskSummaryResponse CommissionedExternalExpert { get; set; }
     }
 
     public class TaskSummaryResponse
