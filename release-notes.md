@@ -11,7 +11,6 @@
 * 161749 - Build: Pupil numbers checks
 * 157318 - Build: Pupil numbers and capacity
 * 142461 - Build: Project development grant (PDG) page (Presumption route)
-* 161752 - Build: Financial Plan fields have possible existing fields
 
 ## 0.2.0
 * 158662 - Build: add 'Date school closed' to the 'About the project page'
