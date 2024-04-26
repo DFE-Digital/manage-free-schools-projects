@@ -38,6 +38,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
@@ -104,6 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
             services.AddScoped<IUpdateTaskService, UpdateRefundsService>();
             services.AddScoped<IUpdateTaskService, UpdateWriteOffService>();
+            services.AddScoped<IUpdateTaskService, UpdateCommissionedExternalExpertTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePupilNumbersChecksTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFinalFinancePlanTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();

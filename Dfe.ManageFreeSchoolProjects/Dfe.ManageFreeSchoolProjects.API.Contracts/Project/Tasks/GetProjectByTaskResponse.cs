@@ -36,5 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public FinalFinancePlanTask FinalFinancePlan { get; set; }
         
         public PupilNumbersChecksTask PupilNumbersChecks { get; set; }
+        
+        public CommissionedExternalExpertTask CommissionedExternalExpert { get; set; }
     }
 }
