@@ -1,5 +1,4 @@
 ﻿@page "/projects/{projectId}/tasks/external-expert-visit"
-"
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.CommissionedExternalExpert.ViewCommissionedExternalExpertModel
 @{
@@ -8,6 +7,7 @@
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditCommissionedExternalExpertTask, Model.ProjectId);
     var commissionedExternalExpert = Model.Project.CommissionedExternalExpert;
+    var riskRatingLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -24,6 +24,9 @@
             </span>
             External expert visit
         </h1>
+        <div class="govuk-inset-text">
+                    You need to complete this task if the <a class="govuk-link" href="@riskRatingLink">project's risk rating</a> is amber green and above, or it's the first school to be opened by a trust.
+                </div>
             <govuk-summary-list>
                     <govuk-summary-item label="Commissioned an external expert (EE) visit" asp-for="@commissionedExternalExpert.CommissionedExternalExpertVisit" href="@editlink" />
                     <govuk-summary-item label="Date the EE visit took place" asp-for="@commissionedExternalExpert.ExternalExpertVisitDate" href="@editlink" />
