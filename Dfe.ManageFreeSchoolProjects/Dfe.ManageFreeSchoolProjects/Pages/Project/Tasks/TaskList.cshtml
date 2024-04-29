@@ -29,6 +29,7 @@
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
+    var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
     var pdgLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
@@ -301,59 +302,74 @@
                 <h2 class="app-task-list__section">
                     Getting ready to open
                 </h2>
-                <ul class="app-task-list__items">
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@acceptedOffersEvidenceLink" class="govuk-link" data-testid="acceptedoffersevidence-task">
-                                Accepted offers evidence
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.EvidenceOfAcceptedOffers);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@pupilNumbersChecksLink" class="govuk-link" data-testid="pupilnumberschecks-task">
-                                Pupil numbers checks
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
-                                Impact assessment
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@OfstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
-                                Ofsted pre-registration
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.OfstedInspection);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@finalFinancePlanLink" class="govuk-link" data-testid="finalFinancePlan-task">
-                                Final finance plan
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
-                        }
-                    </li>
-                </ul>
+            <ul class="app-task-list__items">
+                <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@acceptedOffersEvidenceLink" class="govuk-link" data-testid="acceptedoffersevidence-task">
+                            Accepted offers evidence
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.EvidenceOfAcceptedOffers);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@pupilNumbersChecksLink" class="govuk-link" data-testid="pupilnumberschecks-task">
+                            Pupil numbers checks
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
+                            Impact assessment
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@OfstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
+                            Ofsted pre-registration
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.OfstedInspection);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@finalFinancePlanLink" class="govuk-link" data-testid="finalFinancePlan-task">
+                            Final finance plan
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
+                    }
+                </li>
+            </ul>
+            <h2 class="app-task-list__section">
+                After Opening
+            </h2>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                                        <span class="app-task-list__task-name">
+                                            <a href="@commissionedExternalExpert" class="govuk-link" data-testid="externalExpertVisit-task">
+                                                External expert visit
+                                            </a>
+                                        </span>
+                                        @{
+                                            RenderStatus(Model.ProjectTaskListSummary.CommissionedExternalExpert);
+                                        }
+                                    </li>
+            </ul>
             </li>
         </ol>
     </div>
