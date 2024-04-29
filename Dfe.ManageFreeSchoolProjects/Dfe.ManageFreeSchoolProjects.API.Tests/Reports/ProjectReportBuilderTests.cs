@@ -47,6 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             sectionHeaders.Should().Contain("Pre-opening");
             sectionHeaders.Should().Contain("Sign-off preparation");
             sectionHeaders.Should().Contain("Getting ready to open");
+            sectionHeaders.Should().Contain("After opening");
 
             result.Projects.Count.Should().Be(1);
 
@@ -77,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(OfstedInspectionTask.InspectionBlockDecided), "Yes" , project, columnHeaders);
             AssertEntry(nameof(ApplicationsEvidenceTask.ConfirmedPupilNumbers), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PupilNumbersChecksTask.SchoolReceivedEnoughApplications), "Yes" , project, columnHeaders);
+            AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -183,6 +185,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         PupilNumbersChecks = new PupilNumbersChecksTask()
                         {
                             SchoolReceivedEnoughApplications = true,
+                        },
+                        CommissionedExternalExpert = new CommissionedExternalExpertTask()
+                        {
+                        CommissionedExternalExpertVisit = true,
                         }
 
                     }
