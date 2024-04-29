@@ -374,7 +374,7 @@ variable "custom_container_apps" {
 variable "image_tag" {
   description = "Default image tag for the primary container"
   type        = string
-  default     = "web-latest"
+  default     = "latest"
 }
 
 variable "statuscake_api_token" {
