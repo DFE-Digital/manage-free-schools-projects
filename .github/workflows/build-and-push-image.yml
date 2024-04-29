@@ -15,7 +15,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.inputs.environment }}
 
 env:
-  DOCKER_IMAGE: mfsp-app
   NODE_VERSION: 20.x
 
 jobs:
@@ -106,46 +105,6 @@ jobs:
             } catch (error) {
               core.setFailed(error.message);
             }
-
-  deploy-image:
-    name: Deploy to ${{ needs.set-env.outputs.environment }} (${{ needs.set-env.outputs.release }})
-    needs: [ build-and-push-image, set-env ]
-    runs-on: ubuntu-22.04
-    environment: ${{ needs.set-env.outputs.environment }}
-    strategy:
-      matrix:
-        image: ['web', 'api']
-    steps:
-      - name: Azure login with ACA credentials
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_ACA_CREDENTIALS }}
-
-      - name: Update Web Container Revision
-        uses: azure/CLI@v2
-        if: matrix.image == 'web'
-        with:
-          azcliversion: 2.45.0
-          inlineScript: |
-            az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp update \
-              --name ${{ secrets.AZURE_ACA_NAME }} \
-              --resource-group ${{ secrets.AZURE_ACA_RESOURCE_GROUP }} \
-              --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }} \
-              --output none
-
-      - name: Update API Container Revision
-        uses: azure/CLI@v2
-        if: matrix.image == 'api'
-        with:
-          azcliversion: 2.45.0
-          inlineScript: |
-            az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp update \
-              --name ${{ secrets.AZURE_API_ACA_NAME }} \
-              --resource-group ${{ secrets.AZURE_ACA_RESOURCE_GROUP }} \
-              --image ${{ secrets.AZURE_ACR_URL }}/${{ env.DOCKER_IMAGE }}:${{ matrix.image }}-${{ needs.set-env.outputs.release }} \
-              --output none
 
   cypress-tests:
     name: Run Cypress Tests
