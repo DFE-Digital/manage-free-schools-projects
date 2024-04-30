@@ -338,6 +338,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
+        
+        public static Milestones BuildCommissionedExternalExpertTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesCommissionedExternalExpertVisit = false;
+            result.FsgPreOpeningMilestonesExternalExpertVisitDate = new DateTime().AddDays(1);
+            result.FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder = false;
+
+            return result;
+        }
 
         public static Po BuildPaymentScheduleTask(string rid)
         {

@@ -1,0 +1,50 @@
+@page "/projects/{projectId}/tasks/external-expert-visit/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.CommissionedExternalExpert.EditCommissionedExternalExpertTaskModel
+@{
+    ViewData["Title"] = $"Edit External expert visit - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit External expert visit
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-checkbox-input label="Commissioned an external expert (EE) visit"
+                                  asp-for="@Model.CommissionedExternalExpertVisit"
+                                  name="commissioned-external-expert-visit"
+                                  id="commissioned-external-expert-visit"
+                                  add-margin=false />
+            
+            <govuk-date-input label="Date the EE visit took place"
+                                  asp-for="@Model.ExternalExpertVisitDate"
+                                  name="external-expert-visit-date"
+                                  id="external-expert-visit-date"
+                                  hint="For example, 27 3 2021"/>
+
+            <govuk-checkbox-input label="Saved EE specification and report in Workplaces folder"
+                                  asp-for="@Model.SavedToWorkplaces"
+                                  name="saved-to-workplaces"
+                                  id="saved-to-workplaces"
+                                  add-margin=false />
+            
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>

@@ -55,6 +55,12 @@ variable "registry_use_managed_identity" {
   default     = true
 }
 
+variable "registry_server" {
+  description = "Container registry server (required if `enable_container_registry` is false)"
+  type        = string
+  default     = ""
+}
+
 variable "registry_managed_identity_assign_role" {
   description = "Assign the 'AcrPull' Role to the Container App User-Assigned Managed Identity. Note: If you do not have 'Microsoft.Authorization/roleAssignments/write' permission, you will need to manually assign the 'AcrPull' Role to the identity"
   type        = bool
@@ -368,7 +374,7 @@ variable "custom_container_apps" {
 variable "image_tag" {
   description = "Default image tag for the primary container"
   type        = string
-  default     = "web-latest"
+  default     = "latest"
 }
 
 variable "statuscake_api_token" {

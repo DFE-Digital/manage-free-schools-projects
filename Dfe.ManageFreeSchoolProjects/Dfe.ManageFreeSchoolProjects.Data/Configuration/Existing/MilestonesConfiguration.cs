@@ -634,6 +634,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration)
                 .HasColumnType("bit")
                 .HasColumnName("Fsg Pre Opening Milestones. capacity data matches gias registration");
+            builder.Property(e => e.FsgPreOpeningMilestonesCommissionedExternalExpertVisit)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit");
+            builder.Property(e => e.FsgPreOpeningMilestonesExternalExpertVisitDate)
+                .HasColumnType("date")
+                .HasColumnName("Fsg Pre Opening Milestones. external expert visit date");
+            builder.Property(e => e.FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder)
+                .HasColumnType("bit")
+                .HasColumnName("Fsg Pre Opening Milestones. saved external expert specs to workplaces folder");
             builder.Property(e => e.PRid)
                 .HasMaxLength(11)
                 .IsUnicode(false)
@@ -648,9 +657,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasColumnType("bit");
             builder.Property(e => e.MAAArrangementsMatchGovernancePlans)
                 .HasColumnType("bit");
-            builder.Property(e => e.RPACoverType)
-                .HasMaxLength(100)
-                .IsUnicode(false);
 
             AuditConfiguration.Apply(builder);
         }

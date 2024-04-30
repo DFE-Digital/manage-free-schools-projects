@@ -51,6 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public FinalFinancePlanTask FinalFinancePlan { get; set; }
         
         public PupilNumbersChecksTask PupilNumbersChecks { get; set; }
+        
+        public CommissionedExternalExpertTask CommissionedExternalExpert { get; set; }
 
         public string TaskToUpdate
         {
@@ -112,6 +114,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.FinalFinancePlan.ToString();
                 if (PupilNumbersChecks != null)
                     return TaskName.PupilNumbersChecks.ToString();
+                if (CommissionedExternalExpert != null)
+                    return TaskName.CommissionedExternalExpert.ToString();
                 return null;
             }
         }
