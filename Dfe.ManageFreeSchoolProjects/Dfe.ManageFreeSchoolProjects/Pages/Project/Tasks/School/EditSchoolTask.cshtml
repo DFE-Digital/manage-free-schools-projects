@@ -32,6 +32,8 @@
     var faiths = Enum.GetValues<FaithType>().Except(new[] { FaithType.NotSet });
     var faithTypeLabels = faiths.Select(x => x.ToDescription()).ToArray();
     var faithTypeValues = faiths.Select(x => x.ToString()).ToArray();
+    var faithTypeTestIds = faiths.Select(x => $"faith-type-{x}").ToArray();
+
     var backlink = $"/projects/{Model.ProjectId}/tasks/school";
 }
 @section BeforeMain {
@@ -152,7 +154,8 @@
                                             asp-for="@Model.FaithType"
                                             data-testid="faith-type"
                                             labels="@faithTypeLabels"
-                                            values="@faithTypeValues" />
+                                            values="@faithTypeValues"
+                                            test-ids="@faithTypeTestIds"/>
                     </div>
 
                     <govuk-text-input width="10" id="other-faith-type" name="other-faith-type" asp-for="@Model.OtherFaithType" data-testid="other-faith-type" label="Other faith type" />
@@ -173,8 +176,15 @@
         const faithStatus = $("input[type='radio']:checked[name='faith-status']").val();
         if(faithStatus === 'None' || faithStatus == null)
         {
+             if(faithStatus === 'None')
+            {
+                 $("input[type='radio'][name='faith-type'][value='None']").prop("checked", true);
+            }
+
             $('#faith-type-group').hide();
             $('#other-faith-type').parent().hide();
+
+           
         }
         else
         {
