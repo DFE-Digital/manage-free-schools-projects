@@ -97,7 +97,7 @@ describe("Testing project overview", () => {
             .withAlternativeProvision("No")
             .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
-            .withFaithType("Jewish")
+            .withFaithType("faith-type-Jewish")
             .clickContinue();
 
         summaryPage
@@ -128,7 +128,7 @@ describe("Testing project overview", () => {
             .withNursery("No")
             .withSixthForm("Yes")
             .withFaithStatus("Ethos")
-            .withFaithType("Christian")
+            .withFaithType("faith-type-Christian")
             .hasNoAlternativeProvision()
             .hasNoSpecialEducationNeeds()
             .clickContinue();
@@ -152,7 +152,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Checking faith type 'Other'");
         schoolDetailsPage
-            .withFaithType("Other")
+            .withFaithType("faith-type-Other")
             .clickContinue();
 
         validationComponent.hasValidationError("Other faith type is required");
@@ -182,7 +182,7 @@ describe("Testing project overview", () => {
         summaryPage.clickChange();
 
         schoolDetailsPage
-            .withFaithType("Christian")
+            .withFaithType("faith-type-Christian")
             .faithTypeOtherDescriptionIsNotVisible()
             .clickContinue();
 
@@ -199,7 +199,7 @@ describe("Testing project overview", () => {
 
         summaryPage
             .startFromRow(9)
-            .summaryShows("Faith type").IsEmpty();
+            .summaryShows("Faith type").HasValue("None");
 
         Logger.log("Should update the task status");
         summaryPage.clickConfirmAndContinue();
@@ -234,6 +234,16 @@ describe("Testing project overview", () => {
 
         validationComponent
             .hasValidationError("Faith type is required");
+
+        Logger.log("Change faith status to none and back to designation to check validation against faith type none");
+
+        schoolDetailsPage
+            .withFaithStatus("None")
+            .withFaithStatus("Designation")
+            .clickContinue();
+
+        validationComponent
+            .hasValidationError("Select a different faith type, if faith status is designation.");
     });
 
     it("Should validate the class type field if a school type with specialist provisions is selected", () => {
@@ -251,7 +261,7 @@ describe("Testing project overview", () => {
             .withNursery("Yes")
             .withSixthForm("No")
             .withFaithStatus("Designation")
-            .withFaithType("Christian")
+            .withFaithType("faith-type-Christian")
             .clickContinue();
 
         validationComponent
