@@ -135,7 +135,7 @@ describe("Testing the applications evidence task", () => {
             .withNursery("Yes")
             .withSixthForm("No")
             .withFaithStatus("Designation")
-            .withFaithType("Jewish")
+            .withFaithType("faith-type-Jewish")
             .clickContinue();
 
         summaryPage.clickConfirmAndContinue()
