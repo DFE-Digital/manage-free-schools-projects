@@ -57,7 +57,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         [Description("Sikh")]
         Sikh,
         [Description("Other")]
-        Other
+        Other,
+        [Description("None")]
+        None,
     }
 
     public enum FaithStatus
