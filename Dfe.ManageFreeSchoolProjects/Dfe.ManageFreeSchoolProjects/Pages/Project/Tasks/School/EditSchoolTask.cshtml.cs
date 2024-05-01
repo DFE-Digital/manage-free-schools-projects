@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -163,8 +164,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
             else
             {
-                AlternativeProvision = ClassType.AlternativeProvision.NotSet;
-                SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
+                if (AlternativeProvision == ClassType.AlternativeProvision.Yes)
+                {
+                    ModelState.AddModelError("alternative-provision", $"Select no if school type is {SchoolType.ToDescription()}");
+                }
+
+                else
+                {
+                    AlternativeProvision = ClassType.AlternativeProvision.NotSet;
+                }
+
+                if (SpecialEducationNeeds == ClassType.SpecialEducationNeeds.Yes)
+                {
+                    ModelState.AddModelError("special-education-needs", $"Select no if school type is {SchoolType.ToDescription()}");
+                }
+                else {
+                    SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
+                }
             }
 
             if (!ModelState.IsValid)
@@ -193,17 +209,29 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         private void ValidateFaithFields()
         {
-            if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation) && (FaithType == FaithType.NotSet))
+            if ((FaithStatus == FaithStatus.Ethos || FaithStatus == FaithStatus.Designation))
             {
-                ModelState.AddModelError("faith-type", "Faith type is required.");
+                if (FaithType == FaithType.NotSet)
+                {
+                    ModelState.AddModelError("faith-type", "Faith type is required.");
+                }
+                if (FaithType == FaithType.None)
+                {
+                    ModelState.AddModelError("faith-type", $"Select a different faith type, if faith status is {FaithStatus.ToDescription().ToLower()}.");
+                }
+
             }
 
             if (FaithStatus == FaithStatus.None)
             {
-                FaithType = FaithType.NotSet;
+                if (FaithType != FaithType.None && FaithType != FaithType.NotSet)
+                {
+                    ModelState.AddModelError("faith-type", "Select none if faith status is none.");
+                }
+
             }
 
-            if (FaithType == FaithType.Other)
+            if (FaithType == FaithType.Other && FaithStatus != FaithStatus.None)
             {
                 if (string.IsNullOrEmpty(OtherFaithType))
                 {
