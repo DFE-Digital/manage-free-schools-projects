@@ -120,6 +120,10 @@ class TaskListPage {
         cy.getByTestId("ofstedpreregistration-task").click()
         return this;
     }
+    public selectExternalExpertVisitFromTaskList(): this {
+        cy.getByTestId("externalExpertVisit-task").click()
+        return this;
+    }
 
     public selectApplicationsEvidenceFromTaskList(): this {
         this.getApplicationsEvidenceTask().click()
