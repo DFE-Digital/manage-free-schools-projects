@@ -27,13 +27,26 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.ProvisionalOpeningDate => PreviousProvisionalOpeningDate(),
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
                 _ => DefaultPreviousRoute(currentPageName, routeParameter)
             };           
         }
+		private string PreviousProvisionalOpeningDate()
+		{
+			var cache = _createProjectCache.Get();
 
-        private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
+			var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
+
+			if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
+				return cache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers
+													 : RouteConstants.CreateFaithStatus;
+
+			return RouteConstants.CreateFaithType;
+		}
+
+		private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
         {
             var cache = _createProjectCache.Get();
 
@@ -53,7 +66,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateFaithType,
                 CreateProjectPageName.ProjectLead => RouteConstants.CreateProjectProvisionalOpeningDate,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectLead,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
