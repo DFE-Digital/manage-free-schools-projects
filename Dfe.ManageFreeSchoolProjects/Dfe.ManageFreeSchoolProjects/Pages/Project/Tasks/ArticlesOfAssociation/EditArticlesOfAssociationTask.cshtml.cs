@@ -33,11 +33,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
         
         [BindProperty(Name = "arrangements-match-governance-plans")]
         public bool? ArrangementsMatchGovernancePlans { get; set; }
-        
-        [BindProperty(Name = "forecast-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Forecast date")]
-
-        public DateTime? ForecastDate { get; set; }
 
         [BindProperty(Name = "actual-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Actual date")]
@@ -95,7 +90,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
                         CheckedSubmittedArticlesMatch = CheckedSubmittedArticlesMatch,
                         ChairHaveSubmittedConfirmation = ChairHaveSubmittedConfirmation,
                         ArrangementsMatchGovernancePlans = ArrangementsMatchGovernancePlans,
-                        ForecastDate = ForecastDate,
                         ActualDate = ActualDate,
                         CommentsOnDecision = CommentsOnDecision,
                         SharepointLink = SharepointLink
@@ -120,7 +114,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation
             CheckedSubmittedArticlesMatch = project.ArticlesOfAssociation.CheckedSubmittedArticlesMatch;
             ChairHaveSubmittedConfirmation = project.ArticlesOfAssociation.ChairHaveSubmittedConfirmation;
             ArrangementsMatchGovernancePlans = project.ArticlesOfAssociation.ArrangementsMatchGovernancePlans;
-            ForecastDate = project.ArticlesOfAssociation.ForecastDate;
             ActualDate = project.ArticlesOfAssociation.ActualDate;
             CommentsOnDecision = project.ArticlesOfAssociation.CommentsOnDecision;
             SharepointLink = project.ArticlesOfAssociation.SharepointLink;

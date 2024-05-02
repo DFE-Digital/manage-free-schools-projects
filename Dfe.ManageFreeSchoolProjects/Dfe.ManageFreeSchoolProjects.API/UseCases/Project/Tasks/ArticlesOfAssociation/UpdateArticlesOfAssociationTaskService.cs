@@ -35,7 +35,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
             db.MAACheckedSubmittedArticlesMatch = task.CheckedSubmittedArticlesMatch ?? false;
             db.MAAChairHaveSubmittedConfirmation = task.ChairHaveSubmittedConfirmation ?? false;
             db.MAAArrangementsMatchGovernancePlans = task.ArrangementsMatchGovernancePlans ?? false;
-            db.FsgPreOpeningMilestonesMaaForecastDate = task.ForecastDate;
             db.FsgPreOpeningMilestonesMaaActualDateOfCompletion = task.ActualDate;
             db.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable = task.CommentsOnDecision;
             db.FsgPreOpeningMilestonesMi107LinkToSavedDocument = task.SharepointLink;
