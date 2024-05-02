@@ -23,8 +23,7 @@ describe("!!SMOKE Testing education brief", () => {
             });
     });
 
-    it("!!SMOKE Should successfully set education brief task", () => {
-        // tag: smoke
+    it("!!SMOKE Should successfully set education brief task", { tags:['smoke']},() => {
         cy.log("!!SMOKE education brief");
         taskListPage.isTaskStatusIsNotStarted("EducationBrief")
             .selectEducationBriefFromList();

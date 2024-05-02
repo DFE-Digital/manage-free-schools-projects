@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "cy:open": "cypress open --browser edge",
-        "cy:run": "npm run clean:reports && cypress run --tag smoke --browser edge",
+        "cy:run": "npm run grepTags=@smoke --browser edge",
         "cy:zap": "npm run clean:reports && cypress run --browser electron",
         "cy:notify": "cypress-slack-reporter",
         "clean:reports": "rm -rf cypress/reports/mocha/*.json",
@@ -27,6 +27,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@cypress/grep": "^4.0.1",
         "@types/node": "^20.4.7",
         "@types/uuid": "^9.0.2",
         "@typescript-eslint/eslint-plugin": "^6.2.1",
