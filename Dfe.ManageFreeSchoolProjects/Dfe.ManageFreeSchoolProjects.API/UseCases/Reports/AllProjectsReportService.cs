@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArrangements;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
@@ -109,7 +110,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       OfstedInspection = OfstedInspectionTaskBuilder.Build(milestones),
                                       ApplicationsEvidence = ApplicationsEvidenceTaskBuilder.Build(milestones),
                                       FinalFinancePlan = FinalFinancePlanTaskBuilder.Build(milestones),
-                                      PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones)
+                                      PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones),
+                                      CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
