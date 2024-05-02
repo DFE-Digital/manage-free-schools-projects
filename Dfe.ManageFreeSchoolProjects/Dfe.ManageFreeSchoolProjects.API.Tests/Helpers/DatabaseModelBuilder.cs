@@ -142,7 +142,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.MAACheckedSubmittedArticlesMatch = false;
             result.MAAChairHaveSubmittedConfirmation = false;
             result.MAAArrangementsMatchGovernancePlans = false;
-            result.FsgPreOpeningMilestonesMaaForecastDate = new DateTime(2030, 3, 1);
             result.FsgPreOpeningMilestonesMaaActualDateOfCompletion = new DateTime(2030, 3, 1);
             result.FsgPreOpeningMilestonesMi107LinkToSavedDocument = "No comments";
             result.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable = "https://www.test.com/";

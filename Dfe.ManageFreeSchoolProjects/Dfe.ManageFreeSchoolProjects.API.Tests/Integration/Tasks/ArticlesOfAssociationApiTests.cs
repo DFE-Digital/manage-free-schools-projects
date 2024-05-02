@@ -30,7 +30,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 ArticlesOfAssociation = new ArticlesOfAssociationTask()
                 {
-                    ForecastDate = DateTenDaysInFuture,
                     ActualDate = DateNineDaysInFuture,
                     CommentsOnDecision = "CommentsOnDecisionToApprove",
                     ChairHaveSubmittedConfirmation = true,
@@ -42,7 +41,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.ArticlesOfAssociation.ToString());
 
-            projectResponse.ArticlesOfAssociation.ForecastDate.Should().Be(DateTenDaysInFuture);
             projectResponse.ArticlesOfAssociation.ActualDate.Should().Be(DateNineDaysInFuture);
             projectResponse.ArticlesOfAssociation.CommentsOnDecision.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.ArticlesOfAssociation.ChairHaveSubmittedConfirmation.Should().Be(true);
@@ -73,7 +71,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 ArticlesOfAssociation = new ArticlesOfAssociationTask()
                 {
-                    ForecastDate = DateTenDaysInFuture,
                     ActualDate = DateNineDaysInFuture,
                     CommentsOnDecision = "CommentsOnDecisionToApprove",
                     ChairHaveSubmittedConfirmation = true,
@@ -85,7 +82,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.ArticlesOfAssociation.ToString());
 
-            projectResponse.ArticlesOfAssociation.ForecastDate.Should().Be(DateTenDaysInFuture);
             projectResponse.ArticlesOfAssociation.ActualDate.Should().Be(DateNineDaysInFuture);
             projectResponse.ArticlesOfAssociation.CommentsOnDecision.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.ArticlesOfAssociation.ChairHaveSubmittedConfirmation.Should().Be(true);
