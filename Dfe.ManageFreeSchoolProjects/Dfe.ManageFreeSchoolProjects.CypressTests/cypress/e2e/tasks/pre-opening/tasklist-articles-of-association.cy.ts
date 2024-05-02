@@ -36,7 +36,6 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Checked that the submitted articles match the model articles").IsEmpty().HasChangeLink()
             .summaryShows("Chair of trustees and senior executive lead have submitted confirmation").IsEmpty().HasChangeLink()
             .summaryShows("Governance arrangements match the details given in governance plans").IsEmpty().HasChangeLink()
-            .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
@@ -75,7 +74,6 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Checked that the submitted articles match the model articles").HasValue("No").HasChangeLink()
             .summaryShows("Chair of trustees and senior executive lead have submitted confirmation").HasValue("No").HasChangeLink()
             .summaryShows("Governance arrangements match the details given in governance plans").HasValue("No").HasChangeLink()
-            .summaryShows("Forecast date").IsEmpty().HasChangeLink()
             .summaryShows("Actual date").IsEmpty().HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
@@ -118,21 +116,6 @@ describe("Testing articles of association Task", () => {
         summaryPage.SummaryHasValue("Comments on decision to approve (if applicable)", "comment that's ok")
             .clickChange();
 
-        cy.log('Forecast date validation')
-
-        articlesOfAssociationEditPage
-            .withForecastDate("Z", "3", "2020")
-            .clickContinue()
-            .errorForForecastDate().showsError("Enter a date in the correct format")
-            .withForecastDate("1", "3", "2051")
-            .clickContinue()
-            .errorForForecastDate().showsError("Year must be between 2000 and 2050")
-            .withForecastDate("1", "3", "2050")
-            .clickContinue();
-
-        summaryPage.SummaryHasValue("Forecast date", "1 March 2050")
-            .clickChange();
-
         cy.log('Actual date validation')
 
         articlesOfAssociationEditPage
@@ -164,7 +147,6 @@ describe("Testing articles of association Task", () => {
             .summaryShows("Checked that the submitted articles match the model articles").HasValue("Yes").HasChangeLink()
             .summaryShows("Chair of trustees and senior executive lead have submitted confirmation").HasValue("Yes").HasChangeLink()
             .summaryShows("Governance arrangements match the details given in governance plans").HasValue("Yes").HasChangeLink()
-            .summaryShows("Forecast date").HasValue("1 March 2050").HasChangeLink()
             .summaryShows("Actual date").HasValue("5 April 2050").HasChangeLink()
             .summaryShows("Comments on decision to approve (if applicable)").HasValue("comment that's ok").HasChangeLink()
             .summaryShows("SharePoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()

@@ -17,7 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAsso
                 CheckedSubmittedArticlesMatch = milestones.MAACheckedSubmittedArticlesMatch,
                 ChairHaveSubmittedConfirmation = milestones.MAAChairHaveSubmittedConfirmation,
                 ArrangementsMatchGovernancePlans = milestones.MAAArrangementsMatchGovernancePlans,
-                ForecastDate = milestones.FsgPreOpeningMilestonesMaaForecastDate,
                 ActualDate = milestones.FsgPreOpeningMilestonesMaaActualDateOfCompletion,
                 CommentsOnDecision = milestones.FsgPreOpeningMilestonesMi56CommentsOnDecisionToApproveIfApplicable,
                 SharepointLink = milestones.FsgPreOpeningMilestonesMi107LinkToSavedDocument

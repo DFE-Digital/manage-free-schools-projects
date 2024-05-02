@@ -33,13 +33,6 @@ class ArticlesOfAssociationEditPage {
         return this
     }
 
-
-    withForecastDate(day: string, month: string, year: string): this {
-        const key = "forecast-date";
-        this.setDate(key, day, month, year);
-        return this
-    }
-
     withActualDate(day: string, month: string, year: string): this {
         const key = "actual-date";
         this.setDate(key, day, month, year);
@@ -70,12 +63,7 @@ class ArticlesOfAssociationEditPage {
         this.errorTracking = "sharepoint-link";
         return this;
     }
-
-    errorForForecastDate(): this {
-        this.errorTracking = "forecast-date";
-        return this;
-    }
-
+    
     errorForActualDate(): this {
         this.errorTracking = "actual-date";
         return this;
