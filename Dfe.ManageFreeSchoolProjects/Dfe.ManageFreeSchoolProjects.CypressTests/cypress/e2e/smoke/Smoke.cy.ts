@@ -5,6 +5,7 @@ import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import riskPage from "cypress/pages/risk/projectRiskSummaryPage"
 
+
 describe("!!SMOKE Testing education brief", () => {
 
     let project: ProjectDetailsRequest;
@@ -23,7 +24,7 @@ describe("!!SMOKE Testing education brief", () => {
             });
     });
 
-    it("!!SMOKE Should successfully set education brief task smokey", { tags:['@smoke']},() => {
+    it("!!SMOKE Should successfully set education brief task smokey", { tags:['smoke']},() => {
         cy.log("!!SMOKE education brief");
         taskListPage.isTaskStatusIsNotStarted("EducationBrief")
             .selectEducationBriefFromList();

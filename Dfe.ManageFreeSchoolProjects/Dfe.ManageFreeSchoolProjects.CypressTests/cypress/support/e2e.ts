@@ -17,6 +17,8 @@
 import { AuthenticationInterceptorParams } from "cypress/auth/authenticationInterceptor";
 import "./commands";
 import { RuleObject } from "axe-core";
+import registerCypressGrep from '@Cypress/grep/src/support';
+registerCypressGrep()
 
 declare global {
     namespace Cypress {
