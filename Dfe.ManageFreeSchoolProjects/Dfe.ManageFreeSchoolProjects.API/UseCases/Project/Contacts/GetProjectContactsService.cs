@@ -33,12 +33,19 @@ public class GetProjectContactsService : IGetProjectContactsService
         {
            Contacts = new ContactsTask()
            {
-               
-               ChairOfGovernorsName = dbProject.KeyContactsChairOfGovernorsName,
-               ChairOfGovernorsEmail = dbProject.KeyContactsChairOfGovernorsEmail,
-               SchoolChairOfGovernorsName = dbProject.KeyContactsChairOfGovernorsMat,
-               SchoolChairOfGovernorsEmail = dbProject.KeyContactsChairOfGovernorsMatEmail,
-               
+                ProjectManagedByName = dbProject.KeyContactsFsgLeadContact,
+                ProjectManagedByEmail = dbProject.KeyContactsFsgLeadContactEmail,
+                TeamLeadName = dbProject.KeyContactsFsgTeamLeader,
+                TeamLeadEmail = dbProject.KeyContactsFsgTeamLeaderEmail,
+                Grade6Name = dbProject.KeyContactsFsgGrade6,
+                Grade6Email = dbProject.KeyContactsFsgGrade6Email,
+                ProjectDirectorName = dbProject.KeyContactsEsfaCapitalProjectDirector,
+                ProjectDirectorEmail = dbProject.KeyContactsEsfaCapitalProjectDirectorEmail,
+                TrustChairName = dbProject.KeyContactsChairOfGovernorsName,
+                TrustChairEmail = dbProject.KeyContactsChairOfGovernorsEmail,
+                SchoolChairName = dbProject.KeyContactsChairOfGovernorsMat,
+                SchoolChairEmail = dbProject.KeyContactsChairOfGovernorsMatEmail,
+
            }
         };
 

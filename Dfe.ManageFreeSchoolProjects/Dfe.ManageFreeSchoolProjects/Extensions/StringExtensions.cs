@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Dfe.ManageFreeSchoolProjects.Extensions
@@ -10,12 +12,19 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			return source == null ? string.Empty : Regex.Replace(source.ToString(), "[A-Z]", " $0", RegexOptions.None, TimeSpan.FromSeconds(1)).Trim();
 		}
 
-		/// <summary>
-		///     Converts a string to sentence case.
-		/// </summary>
-		/// <param name="input">The string to convert.</param>
-		/// <returns>A string</returns>
-		public static string SentenceCase(this string input)
+        public static string KebabToPascalCase(this string input)
+        {
+            input = input.Replace("-", " ");
+            TextInfo info = CultureInfo.CurrentCulture.TextInfo;
+            return info.ToTitleCase(input).Replace(" ", "");
+        }
+
+        /// <summary>
+        ///     Converts a string to sentence case.
+        /// </summary>
+        /// <param name="input">The string to convert.</param>
+        /// <returns>A string</returns>
+        public static string SentenceCase(this string input)
 		{
 			if (input.Length < 2)
 				return input.ToUpper();

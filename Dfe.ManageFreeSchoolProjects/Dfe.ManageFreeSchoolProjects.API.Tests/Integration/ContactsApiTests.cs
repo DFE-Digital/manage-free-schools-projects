@@ -33,10 +33,10 @@ public class ContactsApiTests : ApiTestsBase
         
         var expectedContacts = new ContactsTask()
         {
-            ChairOfGovernorsName = _project.KeyContactsChairOfGovernorsName,
-            ChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsEmail,
-            SchoolChairOfGovernorsName = _project.KeyContactsChairOfGovernorsMat,
-            SchoolChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsMatEmail
+            TrustChairName = _project.KeyContactsChairOfGovernorsName,
+            TrustChairEmail = _project.KeyContactsChairOfGovernorsEmail,
+            SchoolChairName = _project.KeyContactsChairOfGovernorsMat,
+            SchoolChairEmail = _project.KeyContactsChairOfGovernorsMatEmail
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);
@@ -58,8 +58,8 @@ public class ContactsApiTests : ApiTestsBase
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsName = Fixture.Create<string>(),
-                ChairOfGovernorsEmail = Fixture.Create<string>()
+                TrustChairName = Fixture.Create<string>(),
+                TrustChairEmail = Fixture.Create<string>()
             }
         };
 
@@ -75,10 +75,10 @@ public class ContactsApiTests : ApiTestsBase
 
         var expectedContacts = new ContactsTask()
         {
-            ChairOfGovernorsName = contactToUpdate.Contacts.ChairOfGovernorsName.ToString(),
-            ChairOfGovernorsEmail = contactToUpdate.Contacts.ChairOfGovernorsEmail.ToString(),
-            SchoolChairOfGovernorsName = _project.KeyContactsChairOfGovernorsMat,
-            SchoolChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsMatEmail
+            TrustChairName = contactToUpdate.Contacts.TrustChairName.ToString(),
+            TrustChairEmail = contactToUpdate.Contacts.TrustChairEmail.ToString(),
+            SchoolChairName = _project.KeyContactsChairOfGovernorsMat,
+            SchoolChairEmail = _project.KeyContactsChairOfGovernorsMatEmail
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.Constants;
@@ -10,13 +11,16 @@ using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Contacts;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Validators;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Dfe.ManageFreeSchoolProjects.Extensions;
+using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditTrustChairContactModel : PageModel
+public class EditContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,24 +28,26 @@ public class EditTrustChairContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditTrustChairContactModel> _logger;
+    private readonly ILogger<EditContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
-    
-    [BindProperty(Name = "trust-chair-name")]
-    [ValidText(100)]
-    [DisplayName("Trust chair name")]
-    [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string TrustChairName { get; set; }
 
-    [BindProperty(Name = "trust-chair-email")]
-    [DisplayName("Trust chair email")]
+    [BindProperty(Name = "contact")]
+    public string Contact { get; set; }
+
+    [BindProperty(Name = "contact-name")]
+    [ValidText(100)]
+    [DisplayName("Contact name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    
-    public string TrustChairEmail { get; set; }
+    public string ContactName { get; set; }
+
+    [BindProperty(Name = "contact-email")]
+    [DisplayName("Contact email")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
+    public string ContactEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -53,12 +59,12 @@ public class EditTrustChairContactModel : PageModel
         return string.Format(RouteConstants.ViewContacts, ProjectId);
     }
 
-    public EditTrustChairContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditTrustChairContactModel> logger )
+    public EditContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditContactModel> logger )
     {
         _getContactsService = getContactsService;
-        _getProjectOverviewService = projectOverviewService;
         _errorService = errorService;
         _addContactsService = addContactsService;
+        _getProjectOverviewService = projectOverviewService;
         _logger = logger;
     }
     
@@ -68,9 +74,11 @@ public class EditTrustChairContactModel : PageModel
 
         try
         {
+            var contact = RouteData.Values["contact"] as string;
+            Contact = contact;
             var projectId = RouteData.Values["projectId"] as string;
-            PageContacts = await _getContactsService.Execute(projectId);
             ProjectId = projectId;
+            PageContacts = await _getContactsService.Execute(projectId);
             var project = await _getProjectOverviewService.Execute(projectId);
             SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         }
@@ -84,34 +92,36 @@ public class EditTrustChairContactModel : PageModel
     
     public async Task<IActionResult> OnPost()
     {
-        PageContacts = new GetContactsResponse()
-        {
-            Contacts = new ContactsTask()
-            {
-                TrustChairEmail = TrustChairEmail,
-                TrustChairName = TrustChairName
-            }
-        };
 
+        var contactNamePropertyName = StringExtensions.KebabToPascalCase(Contact) + "Name";
+        var contactEmailPropertyName = StringExtensions.KebabToPascalCase(Contact) + "Email";
+        PropertyInfo contactNameProperty = typeof(ContactsTask).GetProperty(contactNamePropertyName);
+        PropertyInfo contactEmailProperty = typeof(ContactsTask).GetProperty(contactEmailPropertyName);
+
+        GetContactsResponse PageContacts = new GetContactsResponse();
+        ContactsTask Contacts = new ContactsTask();
+        contactNameProperty.SetValue(Contacts, ContactName);
+        contactEmailProperty.SetValue(Contacts, ContactEmail);
+        PageContacts.Contacts = Contacts;
+        
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         ProjectId = projectId;
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         
-        
-        if (TrustChairEmail?.Length > 100)
+        if (ContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-chair-email", "The trust chair email must be 100 characters or less");
+            ModelState.AddModelError("contact-email", "Email must be 100 characters or less");
         }
         
-        if (!IsEmailValid(TrustChairEmail))
+        if (!IsEmailValid(ContactEmail))
         {
-            ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format");
+            ModelState.AddModelError("contact-email", "Enter an email address in the correct format");
         }
         
-        if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
+        if (ContactName != null && ContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-chair-name", "Trust chair name cannot contain numbers");
+            ModelState.AddModelError("contact-name", "Name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)
@@ -120,15 +130,12 @@ public class EditTrustChairContactModel : PageModel
             return Page();
         }
 
-        var updateContactsRequest = new UpdateContactsRequest()
-        {
-            Contacts = new ContactsTask()
-            {
-                TrustChairName = TrustChairName,
-                TrustChairEmail = TrustChairEmail
-            }
-            
-        };
+        UpdateContactsRequest updateContactsRequest = new UpdateContactsRequest();
+        ContactsTask UpdateContacts = new ContactsTask();
+        contactNameProperty.SetValue(UpdateContacts, ContactName);
+        contactEmailProperty.SetValue(UpdateContacts, ContactEmail);
+        updateContactsRequest.Contacts = UpdateContacts;
+
 
         await _addContactsService.Execute(ProjectId, updateContactsRequest);
 

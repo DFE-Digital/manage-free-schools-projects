@@ -265,6 +265,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.ESFA Capital project director");
+            builder.Property(e => e.KeyContactsEsfaCapitalProjectDirectorEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.ESFA Capital project director email");
             builder.Property(e => e.KeyContactsEsfaCapitalProjectManager)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -309,14 +313,26 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.FSG Grade 6");
+            builder.Property(e => e.KeyContactsFsgGrade6Email)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.FSG Grade 6 email");
             builder.Property(e => e.KeyContactsFsgLeadContact)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.FSG lead contact");
+            builder.Property(e => e.KeyContactsFsgLeadContactEmail)
+               .HasMaxLength(100)
+               .IsUnicode(false)
+               .HasColumnName("Key Contacts.FSG lead contact email");
             builder.Property(e => e.KeyContactsFsgTeamLeader)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.FSG team leader");
+            builder.Property(e => e.KeyContactsFsgTeamLeaderEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.FSG team leader email");
             builder.Property(e => e.KeyContactsIctAdviser)
                 .HasMaxLength(100)
                 .IsUnicode(false)

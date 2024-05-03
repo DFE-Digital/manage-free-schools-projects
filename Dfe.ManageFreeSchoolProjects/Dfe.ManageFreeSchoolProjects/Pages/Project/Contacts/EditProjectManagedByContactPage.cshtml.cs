@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditSchoolChairContactModel : PageModel
+public class EditProjectManagedByContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,23 +24,24 @@ public class EditSchoolChairContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditSchoolChairContactModel> _logger;
+    private readonly ILogger<EditProjectManagedByContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(Name = "school-chair-name")]
+    [BindProperty(Name = "project-managed-by-name")]
     [ValidText(100)]
-    [DisplayName("School chair name")]
+    [DisplayName("Project managed by name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string SchoolChairName { get; set; }
+    public string ProjectManagedByName { get; set; }
 
-    [BindProperty(Name = "school-chair-email")]
-    [DisplayName("School chair email")]
+    [BindProperty(Name = "project-managed-by-email")]
+    [DisplayName("Project managed by email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string SchoolChairEmail { get; set; }
+    
+    public string ProjectManagedByEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -52,12 +53,12 @@ public class EditSchoolChairContactModel : PageModel
         return string.Format(RouteConstants.ViewContacts, ProjectId);
     }
 
-    public EditSchoolChairContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditSchoolChairContactModel> logger )
+    public EditProjectManagedByContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditProjectManagedByContactModel> logger )
     {
         _getContactsService = getContactsService;
+        _getProjectOverviewService = projectOverviewService;
         _errorService = errorService;
         _addContactsService = addContactsService;
-        _getProjectOverviewService = projectOverviewService;
         _logger = logger;
     }
     
@@ -68,8 +69,8 @@ public class EditSchoolChairContactModel : PageModel
         try
         {
             var projectId = RouteData.Values["projectId"] as string;
-            ProjectId = projectId;
             PageContacts = await _getContactsService.Execute(projectId);
+            ProjectId = projectId;
             var project = await _getProjectOverviewService.Execute(projectId);
             SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         }
@@ -87,29 +88,30 @@ public class EditSchoolChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                SchoolChairOfGovernorsEmail = SchoolChairEmail,
-                SchoolChairOfGovernorsName = SchoolChairName
+                ProjectManagedByName = ProjectManagedByEmail,
+                ProjectManagedByEmail = ProjectManagedByName
             }
         };
-        
+
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         ProjectId = projectId;
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         
-        if (SchoolChairEmail?.Length > 100)
+        
+        if (ProjectManagedByEmail?.Length > 100)
         {
-            ModelState.AddModelError("school-chair-email", "The school chair email must be 100 characters or less");
+            ModelState.AddModelError("project-managed-by-email", "The project managed by email must be 100 characters or less");
         }
         
-        if (!IsEmailValid(SchoolChairEmail))
+        if (!IsEmailValid(ProjectManagedByEmail))
         {
-            ModelState.AddModelError("school-chair-email", "Enter an email address in the correct format");
+            ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format");
         }
         
-        if (SchoolChairName != null && SchoolChairName.Any(char.IsDigit))
+        if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("school-chair-name", "School chair name cannot contain numbers");
+            ModelState.AddModelError("project-managed-by-name", "Project managed by name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)
@@ -122,8 +124,8 @@ public class EditSchoolChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                SchoolChairOfGovernorsName = SchoolChairName,
-                SchoolChairOfGovernorsEmail = SchoolChairEmail
+                ProjectManagedByName = ProjectManagedByName,
+                ProjectManagedByEmail = ProjectManagedByEmail
             }
             
         };
