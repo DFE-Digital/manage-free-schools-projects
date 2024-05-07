@@ -5,7 +5,7 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-    describe("Smoke Test Create an individual project - (Up Until Check your answers Page)", () => {
+    describe("Smoke Test Create an individual project - (Up Until Check your answers Page)", { tags: ['@smoke'] }, () => {
         beforeEach(() => {
             cy.login({ role: ProjectRecordCreator });
             cy.visit('/');
