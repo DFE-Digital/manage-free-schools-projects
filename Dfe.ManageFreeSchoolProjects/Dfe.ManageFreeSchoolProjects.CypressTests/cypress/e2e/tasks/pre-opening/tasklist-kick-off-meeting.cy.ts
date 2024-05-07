@@ -36,7 +36,7 @@ describe("Testing kick off meeting Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
             .inOrder()
-            .summaryShows("Funding arrangement details agreed between local authority and sponsor").IsEmpty().HasChangeLink()
+            .summaryShows("Funding arrangement details agreed between local authority and trust").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
@@ -75,7 +75,7 @@ describe("Testing kick off meeting Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
             .inOrder()
-            .summaryShows("Funding arrangement details agreed between local authority and sponsor").HasValue("No").HasChangeLink()
+            .summaryShows("Funding arrangement details agreed between local authority and trust").HasValue("No").HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
@@ -152,7 +152,7 @@ describe("Testing kick off meeting Task", () => {
             .withFundingArrangementsAgreed("Yes")
             .clickContinue()
 
-        summaryPage.SummaryHasValue("Funding arrangement details agreed between local authority and sponsor", "Yes")
+        summaryPage.SummaryHasValue("Funding arrangement details agreed between local authority and trust", "Yes")
             .clickChange();
 
         cy.log('Confirm all set')
@@ -165,7 +165,7 @@ describe("Testing kick off meeting Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
             .inOrder()
-            .summaryShows("Funding arrangement details agreed between local authority and sponsor").HasValue("Yes").HasChangeLink()
+            .summaryShows("Funding arrangement details agreed between local authority and trust").HasValue("Yes").HasChangeLink()
             .summaryShows("Comments").HasValue("comment that's ok").HasChangeLink()
             .summaryShows("Realistic year of opening").HasValue("2049/50").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 March 2050").HasChangeLink()
