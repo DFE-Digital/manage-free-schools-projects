@@ -62,7 +62,7 @@ class KickOffMeetingEditPage {
     }
 
     withFundingArrangementsAgreed(setting: "Yes" | "No"): this {
-        const control = "Funding arrangement details agreed between local authority and sponsor";
+        const control = "Funding arrangement details agreed between local authority and trust";
         cy.contains(control)
             .parent()
             .contains(setting)
