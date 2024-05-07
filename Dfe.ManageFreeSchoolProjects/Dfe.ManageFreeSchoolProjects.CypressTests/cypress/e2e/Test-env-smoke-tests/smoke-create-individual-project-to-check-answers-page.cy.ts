@@ -5,13 +5,13 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-    describe("Smoke Test Create an individual project - (Up Until Check your answers Page)", { tags: ['@smoke'] }, () => {
+    describe("Smoke Test Create an individual project - (Up Until Check your answers Page)", () => {
         beforeEach(() => {
             cy.login({ role: ProjectRecordCreator });
             cy.visit('/');
         });
 
-        it("Should go through create a project wizard happy path up until Check your answers page", () => {
+        it("Should go through create a project wizard happy path up until Check your answers page", { tags: ['@smoke'] }, () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId();
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
