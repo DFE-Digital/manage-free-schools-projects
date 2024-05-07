@@ -98,12 +98,11 @@ public class EditContactModel : PageModel
         PropertyInfo contactNameProperty = typeof(ContactsTask).GetProperty(contactNamePropertyName);
         PropertyInfo contactEmailProperty = typeof(ContactsTask).GetProperty(contactEmailPropertyName);
 
-        GetContactsResponse PageContacts = new GetContactsResponse();
         ContactsTask Contacts = new ContactsTask();
         contactNameProperty.SetValue(Contacts, ContactName);
         contactEmailProperty.SetValue(Contacts, ContactEmail);
         PageContacts.Contacts = Contacts;
-        
+
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         ProjectId = projectId;

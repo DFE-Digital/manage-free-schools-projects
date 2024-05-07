@@ -33,6 +33,14 @@ public class ContactsApiTests : ApiTestsBase
         
         var expectedContacts = new ContactsTask()
         {
+            ProjectManagedByName = _project.KeyContactsFsgLeadContact,
+            ProjectManagedByEmail = _project.KeyContactsFsgLeadContactEmail,
+            TeamLeadName = _project.KeyContactsFsgTeamLeader,
+            TeamLeadEmail = _project.KeyContactsFsgTeamLeaderEmail,
+            Grade6Name = _project.KeyContactsFsgGrade6,
+            Grade6Email = _project.KeyContactsFsgGrade6Email,
+            ProjectDirectorName = _project.KeyContactsEsfaCapitalProjectDirector,
+            ProjectDirectorEmail = _project.KeyContactsEsfaCapitalProjectDirectorEmail,
             TrustChairName = _project.KeyContactsChairOfGovernorsName,
             TrustChairEmail = _project.KeyContactsChairOfGovernorsEmail,
             SchoolChairName = _project.KeyContactsChairOfGovernorsMat,
@@ -58,8 +66,12 @@ public class ContactsApiTests : ApiTestsBase
         {
             Contacts = new ContactsTask()
             {
-                TrustChairName = Fixture.Create<string>(),
-                TrustChairEmail = Fixture.Create<string>()
+                ProjectManagedByName = Fixture.Create<string>(),
+                ProjectManagedByEmail = Fixture.Create<string>(),
+                TeamLeadName = Fixture.Create<string>(),
+                TeamLeadEmail = Fixture.Create<string>(),
+                Grade6Name = Fixture.Create<string>(),
+                Grade6Email = Fixture.Create<string>(),
             }
         };
 
@@ -75,8 +87,17 @@ public class ContactsApiTests : ApiTestsBase
 
         var expectedContacts = new ContactsTask()
         {
-            TrustChairName = contactToUpdate.Contacts.TrustChairName.ToString(),
-            TrustChairEmail = contactToUpdate.Contacts.TrustChairEmail.ToString(),
+
+            ProjectManagedByName = contactToUpdate.Contacts.ProjectManagedByName.ToString(),
+            ProjectManagedByEmail = contactToUpdate.Contacts.ProjectManagedByEmail.ToString(),
+            TeamLeadName = contactToUpdate.Contacts.TeamLeadName.ToString(),
+            TeamLeadEmail = contactToUpdate.Contacts.TeamLeadEmail.ToString(),
+            Grade6Name = contactToUpdate.Contacts.Grade6Name.ToString(),
+            Grade6Email = contactToUpdate.Contacts.Grade6Email.ToString(),
+            ProjectDirectorName = _project.KeyContactsEsfaCapitalProjectDirector,
+            ProjectDirectorEmail = _project.KeyContactsEsfaCapitalProjectDirectorEmail,
+            TrustChairName = _project.KeyContactsChairOfGovernorsName,
+            TrustChairEmail = _project.KeyContactsChairOfGovernorsEmail,
             SchoolChairName = _project.KeyContactsChairOfGovernorsMat,
             SchoolChairEmail = _project.KeyContactsChairOfGovernorsMatEmail
         };
