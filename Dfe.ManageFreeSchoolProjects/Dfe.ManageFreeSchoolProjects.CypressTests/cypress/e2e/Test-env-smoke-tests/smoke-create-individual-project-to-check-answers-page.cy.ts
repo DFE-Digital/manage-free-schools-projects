@@ -11,7 +11,7 @@ import summaryPage from "cypress/pages/task-summary-base";
             cy.visit('/');
         });
 
-        it("Should go through create a project wizard happy path up until Check your answers page", { tags: ['@smoke'] }, () => {
+        it("Should Smoke Test go through create a project wizard happy path up until Check your answers page", () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId();
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
