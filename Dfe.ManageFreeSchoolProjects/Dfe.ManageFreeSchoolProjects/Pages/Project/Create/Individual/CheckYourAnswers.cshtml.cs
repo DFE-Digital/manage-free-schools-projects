@@ -63,6 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 TRN = project.TRN,
                 TrustName = project.TrustName,
                 AgeRange = project.AgeRange,
+                NurseryCapacity = (int)project.NurseryCapacity,
                 YRY6Capacity = (int)project.YRY6Capacity,
                 Y7Y11Capacity = (int)project.Y7Y11Capacity,
                 Y12Y14Capacity = (int)project.Y12Y14Capacity,
