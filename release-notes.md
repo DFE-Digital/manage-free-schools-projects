@@ -1,3 +1,8 @@
+## 0.4.0
+* Changes to deployment process
+* 159351 - Build Commission external expert fixes
+* 161752 - Build: Financial Plan fields have possible existing fields
+
 ## 0.3.0
 * 147102 - Build: Applications evidence
 * 161214 - Build: Update additional fields when school name is changed
