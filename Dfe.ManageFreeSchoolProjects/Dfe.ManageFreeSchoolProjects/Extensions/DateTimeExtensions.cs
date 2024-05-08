@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 		{
 			if (includeDayOfWeek)
 			{
-				return truncateMonth ? dateTime.ToString("dddd d MMM yyyy") : dateTime.ToString("dddd d MMMM yyyy"); ;
+				return truncateMonth ? dateTime.ToString("dddd d MMM yyyy") : dateTime.ToString("dddd d MMMM yyyy");
 			}
 
 			return truncateMonth ? dateTime.ToString("d MMM yyyy"): dateTime.ToString("d MMMM yyyy");
