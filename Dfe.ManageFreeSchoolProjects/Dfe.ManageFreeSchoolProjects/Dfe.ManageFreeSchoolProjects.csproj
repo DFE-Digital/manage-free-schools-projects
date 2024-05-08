@@ -58,6 +58,8 @@
 	  <PackageReference Include="FluentValidation" Version="11.7.1" />
 	  <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
 	  <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.6.1" />
+	  <PackageReference Include="Microsoft.Graph" Version="5.50.0" />
+	  <PackageReference Include="Microsoft.Graph.Communications.Core" Version="1.2.0.10563" />
 	  <PackageReference Include="Microsoft.Identity.Web" Version="2.13.3" />
 	  <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.13.3" />
 	  <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.20.0" />
@@ -82,6 +84,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.API.Contracts\Dfe.ManageFreeSchoolProjects.API.Contracts.csproj" />
+	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Data\Dfe.ManageFreeSchoolProjects.Data.csproj" />
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.Logging\Dfe.ManageFreeSchoolProjects.Logging.csproj" />
 	  <ProjectReference Include="..\Dfe.ManageFreeSchoolProjects.UserContext\Dfe.ManageFreeSchoolProjects.UserContext.csproj" />
 	</ItemGroup>

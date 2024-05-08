@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
@@ -49,6 +50,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             var project = await _getProjectOverviewService.Execute(ProjectId);
 
             SchoolType = project.SchoolDetails.SchoolType;
+
+            IntegratedWindowsTokenProvider.GetIt();
 
             if (ProjectTaskListSummary is not null)
             {
