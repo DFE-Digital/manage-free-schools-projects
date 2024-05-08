@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using Microsoft.Net.Http.Headers;
 
 namespace Dfe.ManageFreeSchoolProjects.Authorization
@@ -25,9 +27,11 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
 
             if (string.IsNullOrWhiteSpace(secret))
             {
+                Console.Write(secret + "test666 secret is not present in header");
                 return false;
             }
 
+            Console.Write("test666" + authHeader + "authheader<" + secret + "<secret");
             return authHeader == secret;
         }
     }
