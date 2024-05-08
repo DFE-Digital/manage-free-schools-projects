@@ -3,7 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan.EditFinancePlanTaskModel
 @{
-    ViewData["Title"] = $"Edit finance plan - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Finance plan - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
 
@@ -21,7 +21,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit finance plan
+    Edit Finance plan
 </h1>
 
 <div class="govuk-grid-row">

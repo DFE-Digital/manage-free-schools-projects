@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RiskAppraisalMeeting.EditRiskAppraisalMeetingModel
 @{
-    ViewData["Title"] = $"Edit risk appraisal meeting - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit Risk appraisal meeting - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewRiskAppraisalMeetingTask, Model.ProjectId);
 }
 @section BeforeMain {
@@ -15,7 +15,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.CurrentFreeSchoolName</span>
-    Edit risk appraisal meeting
+    Edit Risk appraisal meeting
 </h1>
 
 <div class="govuk-grid-row">
