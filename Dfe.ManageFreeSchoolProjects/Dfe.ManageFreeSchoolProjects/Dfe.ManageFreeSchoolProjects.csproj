@@ -77,7 +77,6 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\src\images" />
 	  <Folder Include="Services\Trust\" />
-	  <Folder Include="Pages\Project\Tasks\RiskAppraisalMeeting\" />
 	</ItemGroup>
 
 	<ItemGroup>

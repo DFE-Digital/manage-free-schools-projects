@@ -6,7 +6,7 @@
 
 
 @{
-    ViewData["Title"] = $"Edit {Model.Contact.Replace("-", " ")}";
+    ViewData["Title"] = $"Edit {StringExtensions.SentenceCase(Model.Contact.Replace("-", " "))}";
     var contactPascal = StringExtensions.KebabToPascalCase(Model.Contact);
 
     var backLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
