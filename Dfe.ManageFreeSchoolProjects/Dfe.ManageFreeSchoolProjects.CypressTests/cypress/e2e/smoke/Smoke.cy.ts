@@ -3,8 +3,10 @@ import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
 
 describe("Pioneer smoke test", () => {
     beforeEach(() => {
-        //cy.login({role: "POTATO"});
-        //cy.visit(Cypress.env('url'));
+        console.log(Cypress.env('url')+"bef")
+        cy.login({role: "POTATO"});
+        cy.visit(Cypress.env('url'));
+        console.log(Cypress.env('url')+"aft")
     });
     
     describe("Inital smoke tests to verify pipelines are running ok", () => {
