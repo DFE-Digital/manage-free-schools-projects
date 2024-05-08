@@ -35,7 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string OtherFaithType { get; set; }
         public DateTime? ProvisionalOpeningDate { get; set; }
         public string CreatedBy { get; set; }
-        public string ProjectLead { get; set; }
-        public string ApplicationWave {  get; set; }
+        public string ProjectLeadName { get; set; }
+		public string ProjectLeadEmail { get; set; }
+		public string ApplicationWave {  get; set; }
     }
 }
