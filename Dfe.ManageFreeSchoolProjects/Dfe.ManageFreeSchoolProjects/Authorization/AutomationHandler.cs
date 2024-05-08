@@ -28,8 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
                 return false;
             }
 
-            //return authHeader == secret;
-            return true;
+            return authHeader == secret;
         }
     }
 }
