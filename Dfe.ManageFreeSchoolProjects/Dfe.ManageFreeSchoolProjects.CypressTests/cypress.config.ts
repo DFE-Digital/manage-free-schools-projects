@@ -28,7 +28,6 @@ export default defineConfig({
                 // Map cypress env vars to process env vars for usage outside of Cypress run environment
                 process.env = config.env;
             });
-
             on("after:run", async () => {
                 if (process.env.zapReport) {
                     await generateZapReport();
@@ -42,9 +41,8 @@ export default defineConfig({
                     return null;
                 },
             });
-
+            require('@cypress/grep/src/plugin')(config);
             config.baseUrl = config.env.url;
-
             return config;
         },
     },
