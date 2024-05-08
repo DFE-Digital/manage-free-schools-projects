@@ -35,8 +35,8 @@ public class EditContactModel : PageModel
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [BindProperty(Name = "contact")]
-    public string Contact { get; set; }
+    [BindProperty(Name = "contactType")]
+    public string ContactType { get; set; }
 
     [BindProperty(Name = "contact-name")]
     [ValidText(100)]
@@ -74,8 +74,8 @@ public class EditContactModel : PageModel
 
         try
         {
-            var contact = RouteData.Values["contact"] as string;
-            Contact = contact;
+            var contactType = RouteData.Values["contactType"] as string;
+            ContactType = contactType;
             var projectId = RouteData.Values["projectId"] as string;
             ProjectId = projectId;
             PageContacts = await _getContactsService.Execute(projectId);
@@ -93,14 +93,17 @@ public class EditContactModel : PageModel
     public async Task<IActionResult> OnPost()
     {
 
-        var contactNamePropertyName = StringExtensions.KebabToPascalCase(Contact) + "Name";
-        var contactEmailPropertyName = StringExtensions.KebabToPascalCase(Contact) + "Email";
-        PropertyInfo contactNameProperty = typeof(ContactsTask).GetProperty(contactNamePropertyName);
-        PropertyInfo contactEmailProperty = typeof(ContactsTask).GetProperty(contactEmailPropertyName);
+        var contactPropertyName = StringExtensions.KebabToPascalCase(ContactType);
+        PropertyInfo contactPropertyInfo = typeof(ContactsTask).GetProperty(contactPropertyName);
 
         ContactsTask Contacts = new ContactsTask();
-        contactNameProperty.SetValue(Contacts, ContactName);
-        contactEmailProperty.SetValue(Contacts, ContactEmail);
+        Contact contact = new Contact()
+        {
+            Name = ContactName,
+            Email = ContactEmail
+        };
+
+        contactPropertyInfo.SetValue(Contacts, contact);
         PageContacts.Contacts = Contacts;
 
         var projectId = RouteData.Values["projectId"] as string;
@@ -130,11 +133,7 @@ public class EditContactModel : PageModel
         }
 
         UpdateContactsRequest updateContactsRequest = new UpdateContactsRequest();
-        ContactsTask UpdateContacts = new ContactsTask();
-        contactNameProperty.SetValue(UpdateContacts, ContactName);
-        contactEmailProperty.SetValue(UpdateContacts, ContactEmail);
-        updateContactsRequest.Contacts = UpdateContacts;
-
+        updateContactsRequest.Contacts = Contacts;
 
         await _addContactsService.Execute(ProjectId, updateContactsRequest);
 

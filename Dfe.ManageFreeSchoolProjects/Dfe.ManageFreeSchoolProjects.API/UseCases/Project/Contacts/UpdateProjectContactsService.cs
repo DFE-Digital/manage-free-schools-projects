@@ -34,23 +34,23 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
             Contacts = request.Contacts
         };
 
-        dbProject.KeyContactsFsgLeadContact = updateRequest.Contacts.ProjectManagedByName ?? dbProject.KeyContactsFsgLeadContact;
-        dbProject.KeyContactsFsgLeadContactEmail = updateRequest.Contacts.ProjectManagedByEmail ?? dbProject.KeyContactsFsgLeadContactEmail;
+        dbProject.KeyContactsFsgLeadContact = updateRequest.Contacts.ProjectManagedBy.Name ?? dbProject.KeyContactsFsgLeadContact;
+        dbProject.KeyContactsFsgLeadContactEmail = updateRequest.Contacts.ProjectManagedBy.Email ?? dbProject.KeyContactsFsgLeadContactEmail;
 
-        dbProject.KeyContactsFsgTeamLeader = updateRequest.Contacts.TeamLeadName ?? dbProject.KeyContactsFsgTeamLeader;
-        dbProject.KeyContactsFsgTeamLeaderEmail = updateRequest.Contacts.TeamLeadEmail ?? dbProject.KeyContactsFsgTeamLeaderEmail;
+        dbProject.KeyContactsFsgTeamLeader = updateRequest.Contacts.TeamLead.Name ?? dbProject.KeyContactsFsgTeamLeader;
+        dbProject.KeyContactsFsgTeamLeaderEmail = updateRequest.Contacts.TeamLead.Email ?? dbProject.KeyContactsFsgTeamLeaderEmail;
 
-        dbProject.KeyContactsFsgGrade6 = updateRequest.Contacts.Grade6Name ?? dbProject.KeyContactsFsgGrade6;
-        dbProject.KeyContactsFsgGrade6Email = updateRequest.Contacts.Grade6Email ?? dbProject.KeyContactsFsgGrade6Email;
+        dbProject.KeyContactsFsgGrade6 = updateRequest.Contacts.Grade6.Name ?? dbProject.KeyContactsFsgGrade6;
+        dbProject.KeyContactsFsgGrade6Email = updateRequest.Contacts.Grade6.Email ?? dbProject.KeyContactsFsgGrade6Email;
 
-        dbProject.KeyContactsEsfaCapitalProjectDirector = updateRequest.Contacts.ProjectDirectorName ?? dbProject.KeyContactsEsfaCapitalProjectDirector;
-        dbProject.KeyContactsEsfaCapitalProjectDirectorEmail = updateRequest.Contacts.ProjectDirectorEmail ?? dbProject.KeyContactsEsfaCapitalProjectDirectorEmail;
+        dbProject.KeyContactsEsfaCapitalProjectDirector = updateRequest.Contacts.ProjectDirector.Name ?? dbProject.KeyContactsEsfaCapitalProjectDirector;
+        dbProject.KeyContactsEsfaCapitalProjectDirectorEmail = updateRequest.Contacts.ProjectDirector.Email ?? dbProject.KeyContactsEsfaCapitalProjectDirectorEmail;
 
-        dbProject.KeyContactsChairOfGovernorsName = updateRequest.Contacts.TrustChairName ?? dbProject.KeyContactsChairOfGovernorsName;
-        dbProject.KeyContactsChairOfGovernorsEmail = updateRequest.Contacts.TrustChairEmail ?? dbProject.KeyContactsChairOfGovernorsEmail;
+        dbProject.KeyContactsChairOfGovernorsName = updateRequest.Contacts.TrustChair.Name ?? dbProject.KeyContactsChairOfGovernorsName;
+        dbProject.KeyContactsChairOfGovernorsEmail = updateRequest.Contacts.TrustChair.Email ?? dbProject.KeyContactsChairOfGovernorsEmail;
 
-        dbProject.KeyContactsChairOfGovernorsMat = updateRequest.Contacts.SchoolChairName ?? dbProject.KeyContactsChairOfGovernorsMat;
-        dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.SchoolChairEmail ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
+        dbProject.KeyContactsChairOfGovernorsMat = updateRequest.Contacts.SchoolChair.Name ?? dbProject.KeyContactsChairOfGovernorsMat;
+        dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.SchoolChair.Email ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
         
         await _context.SaveChangesAsync();
     }

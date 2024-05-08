@@ -1,4 +1,4 @@
-@page "/projects/{projectId}/contacts/other-info-contacts-edit/{contact}"
+@page "/projects/{projectId}/contacts/other-info-contacts-edit/{contactType}"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.Extensions;
@@ -6,12 +6,13 @@
 
 
 @{
-    ViewData["Title"] = $"Edit {StringExtensions.SentenceCase(Model.Contact.Replace("-", " "))}";
-    var contactPascal = StringExtensions.KebabToPascalCase(Model.Contact);
+    ViewData["Title"] = $"Edit {StringExtensions.SentenceCase(Model.ContactType.Replace("-", " "))}";
+    var contactPascal = StringExtensions.KebabToPascalCase(Model.ContactType);
 
     var backLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
-    var contactName = Model.PageContacts.Contacts.GetType().GetProperty(contactPascal + "Name").GetValue(Model.PageContacts.Contacts, null);
-    var contactEmail = Model.PageContacts.Contacts.GetType().GetProperty(contactPascal + "Email").GetValue(Model.PageContacts.Contacts, null);
+    var contact = Model.PageContacts.Contacts.GetType().GetProperty(contactPascal).GetValue(Model.PageContacts.Contacts, null);
+    var contactName = contact.GetType().GetProperty("Name").GetValue(contact, null);
+    var contactEmail = contact.GetType().GetProperty("Email").GetValue(contact, null);
 
 }
 

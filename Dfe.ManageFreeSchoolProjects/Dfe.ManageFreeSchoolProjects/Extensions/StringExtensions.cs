@@ -19,6 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
             return info.ToTitleCase(input).Replace(" ", "");
         }
 
+        public static string SentenceToKebabCase(this string input)
+        {
+           return input.Replace(" ", "-").ToLower();
+        }
+
         /// <summary>
         ///     Converts a string to sentence case.
         /// </summary>

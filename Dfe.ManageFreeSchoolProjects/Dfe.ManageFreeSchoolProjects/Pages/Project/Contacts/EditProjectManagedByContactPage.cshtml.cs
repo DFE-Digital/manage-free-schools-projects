@@ -88,8 +88,11 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedByName = ProjectManagedByEmail,
-                ProjectManagedByEmail = ProjectManagedByName
+                ProjectManagedBy = new Contact()
+                {
+                    Name = ProjectManagedByName,
+                    Email = ProjectManagedByEmail
+                }
             }
         };
 
@@ -124,8 +127,11 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedByName = ProjectManagedByName,
-                ProjectManagedByEmail = ProjectManagedByEmail
+                ProjectManagedBy = new Contact()
+                {
+                    Name = ProjectManagedByName,
+                    Email = ProjectManagedByEmail
+                }
             }
             
         };

@@ -39,7 +39,7 @@
             <govuk-text-input 
                 id="project-managed-by-name" 
                 name="project-managed-by-name" 
-                asp-for="@Model.PageContacts.Contacts.ProjectManagedByName" 
+                asp-for="@Model.PageContacts.Contacts.ProjectManagedBy.Name" 
                 test-id="edit-project-managed-by-name"
                 />
             
@@ -49,7 +49,7 @@
                         <govuk-text-input 
                             id="project-managed-by-email" 
                             name="project-managed-by-email" 
-                            asp-for="@Model.PageContacts.Contacts.ProjectManagedByEmail" 
+                            asp-for="@Model.PageContacts.Contacts.ProjectManagedBy.Email" 
                             test-id="edit-project-managed-by-email"
                             />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

@@ -8,11 +8,6 @@
     ViewData["Title"] = $"Contacts";
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var projectManagedByLink = string.Format(RouteConstants.EditProjectManagedByContact, Model.ProjectId);
-    //var teamLeadLink = string.Format(RouteConstants.ViewContact, Model.ProjectId);
-    // var grade6Link = string.Format(RouteConstants.ViewGrade6Contact, Model.ProjectId);
-    // var projectDirectorLink = string.Format(RouteConstants.ViewProjectDirectorContact, Model.ProjectId);
-    // var trustChairLink = string.Format(RouteConstants.ViewTrustChairContact, Model.ProjectId);
-    //var schoolChairLink = string.Format(RouteConstants.ViewSchoolChairContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -51,7 +46,7 @@
                             Name
                         </dt>
                         <dd class="govuk-summary-list__value" data-testid="project-managed-by-name">
-                            @Model.Contacts.Contacts.ProjectManagedByName
+                            @Model.Contacts.Contacts.ProjectManagedBy.Name
                         </dd>
 
                     </div>
@@ -60,7 +55,7 @@
                             Email address
                         </dt>
                         <dd class="govuk-summary-list__value" data-testid="project-managed-by-email">
-                            @Model.Contacts.Contacts.ProjectManagedByEmail
+                            @Model.Contacts.Contacts.ProjectManagedBy.Email
                         </dd>
                     </div>
                 </dl>
@@ -70,8 +65,10 @@
         @{
             foreach (var contactType in ProjectConstants.ContactTypes)
             {
-                var contactTypeKebab = @contactType.Replace(" ", "-").ToLower();
+                var contactTypeKebab = StringExtensions.SentenceToKebabCase(contactType);
                 var contactTypePascal = @contactType.Replace(" ", "");
+
+                var contact = Model.Contacts.Contacts.GetType().GetProperty(contactTypePascal).GetValue(@Model.Contacts.Contacts, null);
 
                 <div class="govuk-summary-card">
                     <div class="govuk-summary-card__title-wrapper">
@@ -87,13 +84,12 @@
                     <div class="govuk-summary-card__content">
                         <dl class="govuk-summary-list">
 
-
                             <div class="govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">
                                     Name
                                 </dt>
                                 <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-name">
-                                    @Model.Contacts.Contacts.GetType().GetProperty(contactTypePascal + "Name").GetValue(@Model.Contacts.Contacts, null)
+                                    @contact.GetType().GetProperty("Name").GetValue(contact, null)
                                 </dd>
 
                             </div>
@@ -102,7 +98,7 @@
                                     Email address
                                 </dt>
                                 <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-email">
-                                    @Model.Contacts.Contacts.GetType().GetProperty(contactTypePascal + "Email").GetValue(@Model.Contacts.Contacts, null)
+                                    @contact.GetType().GetProperty("Email").GetValue(contact, null)
                                 </dd>
                             </div>
                         </dl>
@@ -111,219 +107,5 @@
             }
         }
 
-        @* <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Project managed by</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-project-managed-by">
-                        Change
-                        <span class="govuk-visually-hidden">Project managed by</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-managed-by-name">
-                            @Model.Contacts.Contacts.ProjectManagedByName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-managed-by-email">
-                            @Model.Contacts.Contacts.ProjectManagedByEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Team lead</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@teamLeadLink" data-testid="edit-team-lead">
-                        Change
-                        <span class="govuk-visually-hidden">Team lead</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="team-lead-name">
-                            @Model.Contacts.Contacts.TeamLeadName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="team-lead-email">
-                            @Model.Contacts.Contacts.TeamLeadEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Grade 6</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@grade6Link" data-testid="edit-grade-6">
-                        Change
-                        <span class="govuk-visually-hidden">Grade 6</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="grade-6-name">
-                            @Model.Contacts.Contacts.Grade6Name
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="grade-6-email">
-                            @Model.Contacts.Contacts.Grade6Email
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Project director</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@projectDirectorLink" data-testid="edit-project-director">
-                        Change
-                        <span class="govuk-visually-hidden">Project director</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-director-name">
-                            @Model.Contacts.Contacts.ProjectDirectorName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-director-email">
-                            @Model.Contacts.Contacts.ProjectDirectorEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">School chair of governors</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@schoolChairLink" data-testid="edit-school-chair">
-                        Change
-                        <span class="govuk-visually-hidden">School chair of governors</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="school-chair-name">
-                            @Model.Contacts.Contacts.SchoolChairOfGovernorsName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="school-chair-email">
-                            @Model.Contacts.Contacts.SchoolChairOfGovernorsEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Trust chair</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@trustChairLink" data-testid="edit-trust-chair">
-                        Change
-                        <span class="govuk-visually-hidden">Trust chair</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="trust-chair-name">
-                            @Model.Contacts.Contacts.ChairOfGovernorsName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="trust-chair-email">
-                            @Model.Contacts.Contacts.ChairOfGovernorsEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div> *@
     </div>
 </div>

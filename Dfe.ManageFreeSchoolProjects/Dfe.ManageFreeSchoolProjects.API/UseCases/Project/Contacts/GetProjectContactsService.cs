@@ -33,19 +33,12 @@ public class GetProjectContactsService : IGetProjectContactsService
         {
            Contacts = new ContactsTask()
            {
-                ProjectManagedByName = dbProject.KeyContactsFsgLeadContact,
-                ProjectManagedByEmail = dbProject.KeyContactsFsgLeadContactEmail,
-                TeamLeadName = dbProject.KeyContactsFsgTeamLeader,
-                TeamLeadEmail = dbProject.KeyContactsFsgTeamLeaderEmail,
-                Grade6Name = dbProject.KeyContactsFsgGrade6,
-                Grade6Email = dbProject.KeyContactsFsgGrade6Email,
-                ProjectDirectorName = dbProject.KeyContactsEsfaCapitalProjectDirector,
-                ProjectDirectorEmail = dbProject.KeyContactsEsfaCapitalProjectDirectorEmail,
-                TrustChairName = dbProject.KeyContactsChairOfGovernorsName,
-                TrustChairEmail = dbProject.KeyContactsChairOfGovernorsEmail,
-                SchoolChairName = dbProject.KeyContactsChairOfGovernorsMat,
-                SchoolChairEmail = dbProject.KeyContactsChairOfGovernorsMatEmail,
-
+                ProjectManagedBy = new Contact() { Name = dbProject.KeyContactsFsgLeadContact, Email = dbProject.KeyContactsFsgLeadContactEmail },
+                TeamLead = new Contact() { Name = dbProject.KeyContactsFsgTeamLeader, Email = dbProject.KeyContactsFsgTeamLeaderEmail },
+                Grade6 = new Contact() { Name = dbProject.KeyContactsFsgGrade6, Email = dbProject.KeyContactsFsgGrade6Email },
+                ProjectDirector = new Contact() { Name = dbProject.KeyContactsEsfaCapitalProjectDirector, Email = dbProject.KeyContactsEsfaCapitalProjectDirectorEmail },
+                TrustChair = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsName, Email = dbProject.KeyContactsChairOfGovernorsEmail },
+                SchoolChair = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsMat, Email = dbProject.KeyContactsChairOfGovernorsMatEmail },
            }
         };
 

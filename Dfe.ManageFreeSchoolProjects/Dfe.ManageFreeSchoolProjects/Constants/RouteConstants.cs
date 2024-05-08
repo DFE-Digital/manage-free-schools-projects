@@ -112,11 +112,6 @@
         
         public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
         public const string EditProjectManagedByContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-project-managed-by-edit";
-        //public const string ViewTeamLeadContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-team-lead-edit";
-        //public const string ViewGrade6Contact = "/projects/{0}/contacts/other-info-contacts-multi-academy-grade-6-edit";
-        //public const string ViewProjectDirectorContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-project-director-edit";
-        //public const string ViewTrustChairContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit";
-        //public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
         public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
 
         public const string ViewPDG = TaskList + "/pdg";
