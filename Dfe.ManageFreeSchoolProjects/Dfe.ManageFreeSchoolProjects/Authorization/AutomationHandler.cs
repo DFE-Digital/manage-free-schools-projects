@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
             IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             //Header authorisation not applicable for production
-            if (!hostEnvironment.IsStaging() && !hostEnvironment.IsDevelopment())
+            if (hostEnvironment.IsProduction())
             {
                 return false;
             }
