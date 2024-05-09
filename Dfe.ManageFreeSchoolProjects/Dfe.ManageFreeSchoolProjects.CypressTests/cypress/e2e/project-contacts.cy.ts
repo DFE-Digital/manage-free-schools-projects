@@ -166,7 +166,7 @@ describe("Testing that we can add contacts", () => {
             cy.executeAccessibilityTests();
 
             editProjectManagedByPage
-                .hasTitle("Edit project managed by")
+                .hasTitle("Edit Project managed by")
                 .hasSchoolName(project.schoolName)
                 .withNullProjectManagedByName()
                 .withNullProjectManagedByEmail()
