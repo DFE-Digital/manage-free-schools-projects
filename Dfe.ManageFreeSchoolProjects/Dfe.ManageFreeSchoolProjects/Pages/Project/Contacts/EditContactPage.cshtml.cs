@@ -113,7 +113,7 @@ public class EditContactModel : PageModel
         
         if (ContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("contact-email", "Email must be 100 characters or less");
+            ModelState.AddModelError("contact-email", "The contact email must be 100 characters or less");
         }
         
         if (!IsEmailValid(ContactEmail))
@@ -123,7 +123,7 @@ public class EditContactModel : PageModel
         
         if (ContactName != null && ContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("contact-name", "Name cannot contain numbers");
+            ModelState.AddModelError("contact-name", "The contact name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)

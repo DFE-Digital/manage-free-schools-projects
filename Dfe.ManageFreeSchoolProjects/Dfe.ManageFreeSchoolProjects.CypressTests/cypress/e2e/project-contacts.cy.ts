@@ -5,8 +5,8 @@ import { Logger } from "cypress/common/logger";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import contactsSummaryPage from "cypress/pages/contacts/contactsSummaryPage";
 import dataGenerator from "cypress/fixtures/dataGenerator";
-import editSchoolChairPage from "../pages/contacts/editSchoolChairPage";
-import editTrustChairPage from "../pages/contacts/editTrustChairPage";
+import editContactPage from "../pages/contacts/editContactPage";
+import editProjectManagedByPage from "../pages/contacts/editProjectManagedByPage";
 
 describe("Testing that we can add contacts", () => {
     let project: ProjectDetailsRequest;
@@ -35,7 +35,7 @@ describe("Testing that we can add contacts", () => {
 
             projectOverviewPage
                 .hasSchoolChairOfGovernors("Empty")
-                .hasTrustChair("Empty");
+                .hasProjectManagedBy("Empty");
             
 
             Logger.log("Changing contacts")
@@ -47,37 +47,37 @@ describe("Testing that we can add contacts", () => {
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
-                .hasTrustChairName("")
-                .hasTrustChairEmail("")
+                .hasProjectManagedByName("")
+                .hasProjectManagedByEmail("")
                 .hasSchoolChairName("")
                 .hasSchoolChairEmail("");
 
-            Logger.log("Edit School Chair");
+            Logger.log("Edit Contact");
             contactsSummaryPage.goToEditSchoolChair();
 
             cy.executeAccessibilityTests();
 
-            Logger.log("Check edit school chair validation");
-            editSchoolChairPage
-                .hasTitle("Edit school chair of governors")
+            Logger.log("Check edit contact validation");
+            editContactPage
+                .hasTitle("Edit School chair")
                 .hasSchoolName(project.schoolName)
-                .withSchoolChairName("$da")
+                .withContactName("$da")
                 .clickContinue()
-                .errorForSchoolChairName("School chair name must not include special characters other than , ( )")
-                .withSchoolChairName("4da")
+                .errorForContactName("Contact name must not include special characters other than , ( )")
+                .withContactName("4da")
                 .clickContinue()
-                .errorForSchoolChairName("School chair name cannot contain numbers")
-                .withSchoolChairName(dataGenerator.generateAlphaNumeric(101))
+                .errorForContactName("The contact name cannot contain numbers")
+                .withContactName(dataGenerator.generateAlphaNumeric(101))
                 .clickContinue()
-                .errorForSchoolChairName("The school chair name must be 100 characters or less")
-                .withSchoolChairEmail("da")
+                .errorForContactName("The contact name must be 100 characters or less")
+                .withContactEmail("da")
                 .clickContinue()
-                .errorForSchoolChairEmail("Enter an email address in the correct format")
-                .withSchoolChairEmail(dataGenerator.generateAlphaNumeric(101))
+                .errorForContactEmail("Enter an email address in the correct format")
+                .withContactEmail(dataGenerator.generateAlphaNumeric(101))
                 .clickContinue()
-                .errorForSchoolChairEmail("The school chair email must be 100 characters or less")
-                .withSchoolChairName("School Chair")
-                .withSchoolChairEmail("school@chair.com")
+                .errorForContactEmail("The contact email must be 100 characters or less")
+                .withContactName("Contact")
+                .withContactEmail("school@chair.com")
                 .clickContinue();
             
             cy.executeAccessibilityTests();
@@ -86,37 +86,37 @@ describe("Testing that we can add contacts", () => {
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
-                .hasTrustChairName("")
-                .hasTrustChairEmail("")
-                .hasSchoolChairName("School Chair")
+                .hasProjectManagedByName("")
+                .hasProjectManagedByEmail("")
+                .hasSchoolChairName("Contact")
                 .hasSchoolChairEmail("school@chair.com");
 
-            Logger.log("Edit trust chair");
-            contactsSummaryPage.goToEditTrustChair();
+            Logger.log("Edit project managed by");
+            contactsSummaryPage.goToEditProjectManagedBy();
 
             cy.executeAccessibilityTests();
 
-            Logger.log("Check edit trust chair validation");
-            editTrustChairPage
-                .hasTitle("Edit trust chair")
+            Logger.log("Check edit project managed by validation");
+            editProjectManagedByPage
+                .hasTitle("Edit Project managed by")
                 .hasSchoolName(project.schoolName)
-                .withTrustChairName("$da")
+                .withProjectManagedByName("$da")
                 .clickContinue()
-                .errorForTrustChairName("Trust chair name must not include special characters other than , ( )")
-                .withTrustChairName("4da")
+                .errorForProjectManagedByName("Project managed by name must not include special characters other than , ( )")
+                .withProjectManagedByName("4da")
                 .clickContinue()
-                .errorForTrustChairName("Trust chair name cannot contain numbers")
-                .withTrustChairName(dataGenerator.generateAlphaNumeric(101))
+                .errorForProjectManagedByName("The project managed by name cannot contain numbers")
+                .withProjectManagedByName(dataGenerator.generateAlphaNumeric(101))
                 .clickContinue()
-                .errorForTrustChairName("The trust chair name must be 100 characters or less")
-                .withTrustChairEmail("da")
+                .errorForProjectManagedByName("The project managed by name must be 100 characters or less")
+                .withProjectManagedByEmail("da")
                 .clickContinue()
-                .errorForTrustChairEmail("Enter an email address in the correct format")
-                .withTrustChairEmail(dataGenerator.generateAlphaNumeric(101))
+                .errorForProjectManagedByEmail("Enter an email address in the correct format")
+                .withProjectManagedByEmail(dataGenerator.generateAlphaNumeric(101))
                 .clickContinue()
-                .errorForTrustChairEmail("The trust chair email must be 100 characters or less")
-                .withTrustChairName("Trust Chair")
-                .withTrustChairEmail("trust@chair.com")
+                .errorForProjectManagedByEmail("The project managed by email must be 100 characters or less")
+                .withProjectManagedByName("Project Managed By")
+                .withProjectManagedByEmail("trust@chair.com")
                 .clickContinue();
             
             cy.executeAccessibilityTests();
@@ -125,9 +125,9 @@ describe("Testing that we can add contacts", () => {
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
-                .hasTrustChairName("Trust Chair")
-                .hasTrustChairEmail("trust@chair.com")
-                .hasSchoolChairName("School Chair")
+                .hasProjectManagedByName("Project Managed By")
+                .hasProjectManagedByEmail("trust@chair.com")
+                .hasSchoolChairName("Contact")
                 .hasSchoolChairEmail("school@chair.com")
                 .goToProjectsOverviewPage();
             
@@ -135,20 +135,20 @@ describe("Testing that we can add contacts", () => {
 
             Logger.log("Check user is back to projects overview page");
             projectOverviewPage
-                .hasSchoolChairOfGovernors("School Chair")
-                .hasTrustChair("Trust Chair");
+                .hasSchoolChairOfGovernors("Contact")
+                .hasProjectManagedBy("Project Managed By");
 
-            Logger.log("Check existing contacts can be resaved as null strings/empty on TrustChair Page");
+            Logger.log("Check existing contacts can be resaved as null strings/empty on ProjectManagedBy Page");
             projectOverviewPage.changeContacts();
 
             cy.executeAccessibilityTests();
 
             contactsSummaryPage.goToEditSchoolChair();
-            editSchoolChairPage
-                .hasTitle("Edit school chair of governors")
+            editContactPage
+                .hasTitle("Edit School chair")
                 .hasSchoolName(project.schoolName)
-                .withNullSchoolChairName()
-                .withNullSchoolChairEmail()
+                .withNullContactName()
+                .withNullContactEmail()
                 .clickContinue();
             
             cy.executeAccessibilityTests();
@@ -156,20 +156,20 @@ describe("Testing that we can add contacts", () => {
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
-                .hasTrustChairName("Trust Chair")
-                .hasTrustChairEmail("trust@chair.com")
+                .hasProjectManagedByName("Project Managed By")
+                .hasProjectManagedByEmail("trust@chair.com")
                 .hasSchoolChairName("")
                 .hasSchoolChairEmail("");
             
-            contactsSummaryPage.goToEditTrustChair();
+            contactsSummaryPage.goToEditProjectManagedBy();
 
             cy.executeAccessibilityTests();
 
-            editTrustChairPage
-                .hasTitle("Edit trust chair")
+            editProjectManagedByPage
+                .hasTitle("Edit project managed by")
                 .hasSchoolName(project.schoolName)
-                .withNullTrustChairName()
-                .withNullTrustChairEmail()
+                .withNullProjectManagedByName()
+                .withNullProjectManagedByEmail()
                 .clickContinue();
             
             cy.executeAccessibilityTests();
@@ -177,8 +177,8 @@ describe("Testing that we can add contacts", () => {
             contactsSummaryPage
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
-                .hasTrustChairName("")
-                .hasTrustChairEmail("")
+                .hasProjectManagedByName("")
+                .hasProjectManagedByEmail("")
                 .hasSchoolChairName("")
                 .hasSchoolChairEmail("");
 

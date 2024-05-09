@@ -231,8 +231,8 @@ class ProjectOverviewPage {
         return this;
     }
 
-    public hasTrustChair(value: string): this {
-        cy.getByTestId("trust-chair").should("contain.text", value);
+    public hasProjectManagedBy(value: string): this {
+        cy.getByTestId("project-managed-by").should("contain.text", value);
 
         return this;
     }

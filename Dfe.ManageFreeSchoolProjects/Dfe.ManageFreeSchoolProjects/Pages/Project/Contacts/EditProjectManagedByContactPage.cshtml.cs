@@ -114,7 +114,7 @@ public class EditProjectManagedByContactModel : PageModel
         
         if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("project-managed-by-name", "Project managed by name cannot contain numbers");
+            ModelState.AddModelError("project-managed-by-name", "The project managed by name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)
