@@ -7,21 +7,14 @@ describe("Pioneer smoke test", () => {
         Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey) + " <<<")
         Logger.log("this is the base URL >> "+Cypress.env(EnvUrl) + " <<<")
         Logger.log("this is the API key >> "+Cypress.env(EnvApiKey) + " <<<")
-        cy.login({ role: ProjectRecordCreator })
-        cy.visit(Cypress.env('url'));
+        cy.login()
+        cy.visit('/');
     });
-    
-    describe("Inital smoke tests to verify pipelines are running ok", () => {
-        beforeEach(() => {
-            cy.login({ role: ProjectRecordCreator })
-            cy.visit('/');
-        });
 
         it("Should run in test enviroment only", { tags:['smoke']},() =>  {
             Logger.log("this log should only show in test environment");
             cy.contains('Create new projects').should('be.visible');
             cy.executeAccessibilityTests();
         });
-    });
 
 })
