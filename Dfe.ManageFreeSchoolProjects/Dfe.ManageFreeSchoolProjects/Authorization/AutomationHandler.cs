@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
             Console.Write("bypassdebug the auth key is" + authHeader);
 
             Console.Write("bypassdebug auth header should be here >>> " + authHeader + " <<<  usersecret should be here >>> " + secret +" <<!!!!endofdebugmessage!!!  ");
-            return false;
+            return authHeader == secret;
         }
     }
 }
