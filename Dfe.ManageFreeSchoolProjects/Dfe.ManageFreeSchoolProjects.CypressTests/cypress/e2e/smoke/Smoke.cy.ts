@@ -7,13 +7,13 @@ describe("Pioneer smoke test", () => {
         Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey) + " <<<")
         Logger.log("this is the base URL >> "+Cypress.env(EnvUrl) + " <<<")
         Logger.log("this is the API key >> "+Cypress.env(EnvApiKey) + " <<<")
-        cy.login({role: "POTATO"});
+        cy.login({ role: ProjectRecordCreator })
         cy.visit(Cypress.env('url'));
     });
     
     describe("Inital smoke tests to verify pipelines are running ok", () => {
         beforeEach(() => {
-            cy.login({role: ProjectRecordCreator});
+            cy.login({ role: ProjectRecordCreator })
             cy.visit('/');
         });
 
