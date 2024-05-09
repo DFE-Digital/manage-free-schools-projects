@@ -1,20 +1,18 @@
 import { Logger } from "cypress/common/logger";
-import { ProjectRecordCreator } from "cypress/constants/cypressConstants";
+import {EnvApiKey, EnvAuthKey, EnvUrl, ProjectRecordCreator} from "cypress/constants/cypressConstants";
 
 describe("Pioneer smoke test", () => {
     beforeEach(() => {
-        Logger.log(Cypress.env('CypressTestSecret')+"bef")
-        Logger.log(Cypress.env('url')+"bef")
+        
+        Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey) + " <<<")
+        Logger.log("this is the base URL >> "+Cypress.env(EnvUrl) + " <<<")
+        Logger.log("this is the API key >> "+Cypress.env(EnvApiKey) + " <<<")
         cy.login({role: "POTATO"});
         cy.visit(Cypress.env('url'));
-        Logger.log(Cypress.env('CypressTestSecret')+"aft")
-        Logger.log(Cypress.env('url')+"aft")
     });
     
     describe("Inital smoke tests to verify pipelines are running ok", () => {
         beforeEach(() => {
-            Logger.log(Cypress.env('CypressTestSecret')+"second bef")
-            Logger.log(Cypress.env('url')+"second bef")
             cy.login({role: ProjectRecordCreator});
             cy.visit('/');
         });

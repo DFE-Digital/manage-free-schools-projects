@@ -27,12 +27,19 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
 
             if (string.IsNullOrWhiteSpace(secret))
             {
-                Console.Write(secret + "test666 secret is not present in header");
+                Console.Write("bypassdebug cypress secret is not present");
+                return false;
+            }
+            
+            if (string.IsNullOrWhiteSpace(authHeader))
+            {
+                Console.Write("bypassdebug authKey is not present in header");
                 return false;
             }
 
-            Console.Write("test666" + authHeader + "authheader<" + secret + "<secret");
+            Console.Write("bypassdebug auth header should be here >>> " + authHeader + " <<<  usersecret should be here >>> " + secret +" <<!!!!endofdebugmessage!!!  ");
             return authHeader == secret;
+            //return true;
         }
     }
 }
