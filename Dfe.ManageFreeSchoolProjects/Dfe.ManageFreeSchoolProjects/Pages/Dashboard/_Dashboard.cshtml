@@ -265,7 +265,7 @@ else
                     }
                     <td class="govuk-table__cell" data-testid="provisional-opening-date">
                         @{
-                            RenderValue(project.RealisticOpeningDate.ToDateString());
+                            RenderValue(project.RealisticOpeningDate.ToDateString(false, true));
                         }
                     </td>
                     <td class="govuk-table__cell" data-testid="status">

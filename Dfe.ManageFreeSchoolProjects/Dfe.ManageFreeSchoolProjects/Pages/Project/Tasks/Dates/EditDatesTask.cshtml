@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditDatesTaskModel
 @{
-    ViewData["Title"] = $"Edit dates - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit Dates - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewDatesTask, Model.ProjectId);
 }
 
@@ -18,7 +18,7 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Edit dates
+    Edit Dates
 </h1>
 
 <div class="govuk-grid-row">
