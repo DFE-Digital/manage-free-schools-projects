@@ -31,11 +31,15 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
                 return false;
             }
             
+            Console.Write("bypassdebug the secret is" + secret);
+            
             if (string.IsNullOrWhiteSpace(authHeader))
             {
                 Console.Write("bypassdebug authKey is not present in header");
                 return false;
             }
+            
+            Console.Write("bypassdebug the auth key is" + authHeader);
 
             Console.Write("bypassdebug auth header should be here >>> " + authHeader + " <<<  usersecret should be here >>> " + secret +" <<!!!!endofdebugmessage!!!  ");
             return authHeader == secret;
