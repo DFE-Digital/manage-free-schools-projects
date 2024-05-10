@@ -4,13 +4,8 @@ import {EnvApiKey, EnvAuthKey, EnvUrl, ProjectRecordCreator} from "cypress/const
 describe("Pioneer smoke test", () => {
     beforeEach(() => {
         
-        Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey).toString() + " <<<")
-        Logger.log("this is the base URL >> "+Cypress.env(EnvUrl) + " <<<")
-        Logger.log("this is the API key >> "+Cypress.env(EnvApiKey) + " <<<")
         cy.login()
-        Logger.log("cylogin has run")
         cy.visit('/');
-        Logger.log("cyvisit has run")
     });
 
         it("Should run in test enviroment only", { tags:['smoke']},() =>  {
