@@ -6,7 +6,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration;
 
