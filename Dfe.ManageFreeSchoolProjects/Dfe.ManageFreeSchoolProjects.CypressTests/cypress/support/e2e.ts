@@ -21,10 +21,6 @@ import {EnvAuthKey} from "../constants/cypressConstants";
 const registerCypressGrep = require('@cypress/grep')
 registerCypressGrep()
 
-beforeEach(() => {
-    (req) => req.headers['Authorization'] = 'Bearer ' + Cypress.env(EnvAuthKey)
-})
-
 declare global {
     namespace Cypress {
         interface Chainable {

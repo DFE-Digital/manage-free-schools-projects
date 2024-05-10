@@ -3,8 +3,8 @@ import {EnvApiKey, EnvAuthKey, EnvUrl, ProjectRecordCreator} from "cypress/const
 
 describe("Pioneer smoke test", () => {
     beforeEach(() => {
-        (req) => req.headers['Authorization'] = 'Bearer ' + Cypress.env(EnvAuthKey)
-        Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey) + " <<<")
+        
+        Logger.log("this is the authkey >> " +Cypress.env(EnvAuthKey).toString() + " <<<")
         Logger.log("this is the base URL >> "+Cypress.env(EnvUrl) + " <<<")
         Logger.log("this is the API key >> "+Cypress.env(EnvApiKey) + " <<<")
         cy.login()
