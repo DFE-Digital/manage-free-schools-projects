@@ -29,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     TrustConfirmedAdmissionsArrangementsPolicies = true,
                     TrustConfirmedAdmissionsArrangementsTemplate = true,
+                    ForecastDateForConfirmingAdmissionsArrangements = new DateTime().AddDays(11),
                     AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(10),
                     SavedToWorkplaces = true
                 }
@@ -40,6 +41,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
+            projectResponse.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements.Should()
+                .Be(request.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements);
             projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
                 .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
             projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()

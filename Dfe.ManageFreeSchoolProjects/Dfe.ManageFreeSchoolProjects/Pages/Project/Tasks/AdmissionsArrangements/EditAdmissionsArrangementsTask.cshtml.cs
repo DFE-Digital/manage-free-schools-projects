@@ -35,7 +35,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
         [BindProperty(Name = "saved-to-workplaces")]
         
         public bool? SavedToWorkplaces { get; set; }
-        
+
+        [BindProperty(Name = "forecast-date-for-confirming-admissions-arrangements", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Forecast date for confirming admissions arrangements")]
+        public DateTime? ForecastDateForConfirmingAdmissionsArrangement { get; set; }
+
         [BindProperty(Name = "admissions-arrangements-confirmed-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Admissions arrangements confirmed date")]
         public DateTime? AdmissionsArrangementsConfirmedDate{ get; set; }
@@ -80,6 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
                         TrustConfirmedAdmissionsArrangementsPolicies = TrustConfirmedAdmissionsArrangementsPolicies,
                         TrustConfirmedAdmissionsArrangementsTemplate = TrustConfirmedAdmissionsArrangementsTemplate,
                         SavedToWorkplaces = SavedToWorkplaces,
+                        ForecastDateForConfirmingAdmissionsArrangements = ForecastDateForConfirmingAdmissionsArrangement,
                         AdmissionsArrangementsConfirmedDate = AdmissionsArrangementsConfirmedDate
                     }
                 };
@@ -101,6 +106,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
             TrustConfirmedAdmissionsArrangementsTemplate = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate;
             TrustConfirmedAdmissionsArrangementsPolicies = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies;
             SavedToWorkplaces = project.AdmissionsArrangements.SavedToWorkplaces;
+            ForecastDateForConfirmingAdmissionsArrangement = project.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements;
             AdmissionsArrangementsConfirmedDate = project.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate;
            
             SchoolName = project.SchoolName;
