@@ -10,6 +10,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangements
@@ -36,13 +37,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
         
         public bool? SavedToWorkplaces { get; set; }
 
-        [BindProperty(Name = "forecast-date-for-confirming-admissions-arrangements", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Forecast date for confirming admissions arrangements")]
-        public DateTime? ForecastDateForConfirmingAdmissionsArrangement { get; set; }
+        [BindProperty(Name = "expected-date-that-trust-will-confirm-arrangements", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Expected date that trust will confirm arrangements")]
+        public DateTime? ExpectedDateThatTrustWillConfirmArrangements { get; set; }
 
-        [BindProperty(Name = "admissions-arrangements-confirmed-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Admissions arrangements confirmed date")]
-        public DateTime? AdmissionsArrangementsConfirmedDate{ get; set; }
+        [BindProperty(Name = "actual-date-that-trust-confirmed-arrangements", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Actual date that trust confirmed arrangement")]
+        public DateTime? ActualDateThatTrustConfirmedArrangements { get; set; }
         public string SchoolName { get; set; }
 
         public EditAdmissionsArrangementsTaskModel(IGetProjectByTaskService getProjectService,
@@ -81,11 +82,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
                 {
                     AdmissionsArrangements = new AdmissionsArrangementsTask()
                     {
-                        ForecastDateForConfirmingAdmissionsArrangements = ForecastDateForConfirmingAdmissionsArrangement,
+                        ExpectedDateThatTrustWillConfirmArrangements = ExpectedDateThatTrustWillConfirmArrangements,
                         TrustConfirmedAdmissionsArrangementsPolicies = TrustConfirmedAdmissionsArrangementsPolicies,
                         TrustConfirmedAdmissionsArrangementsTemplate = TrustConfirmedAdmissionsArrangementsTemplate,
                         SavedToWorkplaces = SavedToWorkplaces,
-                        AdmissionsArrangementsConfirmedDate = AdmissionsArrangementsConfirmedDate
+                        ActualDateThatTrustConfirmedArrangements = ActualDateThatTrustConfirmedArrangements
                     }
                 };
 
@@ -103,11 +104,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.AdmissionsArrangements);
 
-            ForecastDateForConfirmingAdmissionsArrangement = project.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements;
+            ExpectedDateThatTrustWillConfirmArrangements = project.AdmissionsArrangements.ExpectedDateThatTrustWillConfirmArrangements;
             TrustConfirmedAdmissionsArrangementsTemplate = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate;
             TrustConfirmedAdmissionsArrangementsPolicies = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies;
             SavedToWorkplaces = project.AdmissionsArrangements.SavedToWorkplaces;
-            AdmissionsArrangementsConfirmedDate = project.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate;
+            ActualDateThatTrustConfirmedArrangements = project.AdmissionsArrangements.ActualDateThatTrustConfirmedArrangements;
            
             SchoolName = project.SchoolName;
         }

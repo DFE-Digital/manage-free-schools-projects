@@ -24,10 +24,10 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <govuk-date-input label="Forecast date for confirming admissions arrangements"
-                              asp-for="@Model.ForecastDateForConfirmingAdmissionsArrangement"
-                              name="forecast-date-for-confirming-admissions-arrangements"
-                              id="forecast-date-for-confirming-admissions-arrangements"
+            <govuk-date-input label="Expected date that trust will confirm arrangements"
+                              asp-for="@Model.ExpectedDateThatTrustWillConfirmArrangements"
+                              name="expected-date-that-trust-will-confirm-arrangements"
+                              id="expected-date-that-trust-will-confirm-arrangements"
                               hint="For example, 27 3 2021" />
 
             <govuk-checkbox-input label="Trust has confirmed they developed their admissions arrangements using the recommended template"
@@ -42,10 +42,10 @@
                                   id="trust-confirmed-admissions-arrangements-policies"
                                   add-margin=false />
 
-            <govuk-date-input label="Admissions arrangements confirmed date"
-                                  asp-for="@Model.AdmissionsArrangementsConfirmedDate"
-                                  name="admissions-arrangements-confirmed-date"
-                                  id="admissions-arrangements-confirmed-date"
+            <govuk-date-input label="Actual date that trust confirmed arrangement"
+                                  asp-for="@Model.ActualDateThatTrustConfirmedArrangements"
+                                  name="actual-date-that-trust-confirmed-arrangements"
+                                  id="actual-date-that-trust-confirmed-arrangements"
                                   hint="For example, 27 3 2021"/>
 
             <govuk-checkbox-input label="Saved the confirmation email in Workplaces folder"
