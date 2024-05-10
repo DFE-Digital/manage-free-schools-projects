@@ -85,7 +85,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Adding new values");
         schoolDetailsPage
-            .titleIs("Edit school")
+            .titleIs("Edit School")
             .withSchoolName(updatedSchoolName)
             .withSchoolType("Mainstream")
             .withSchoolPhase("Secondary")

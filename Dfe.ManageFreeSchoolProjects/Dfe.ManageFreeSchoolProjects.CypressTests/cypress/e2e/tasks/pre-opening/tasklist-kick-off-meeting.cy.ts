@@ -65,7 +65,7 @@ describe("Testing kick off meeting Task", () => {
 
         cy.log("All fields are optional");
         kickOffMeetingEditPage
-            .titleIs("Edit kick-off meeting")
+            .titleIs("Edit Kick-off meeting")
             .schoolNameIs(project.schoolName)
             .clickContinue()
 
