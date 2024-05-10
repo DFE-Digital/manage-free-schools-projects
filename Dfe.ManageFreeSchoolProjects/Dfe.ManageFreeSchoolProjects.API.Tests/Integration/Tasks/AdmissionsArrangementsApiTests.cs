@@ -27,9 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 AdmissionsArrangements = new AdmissionsArrangementsTask()
                 {
+                    ForecastDateForConfirmingAdmissionsArrangements = new DateTime().AddDays(11),
                     TrustConfirmedAdmissionsArrangementsPolicies = true,
                     TrustConfirmedAdmissionsArrangementsTemplate = true,
-                    ForecastDateForConfirmingAdmissionsArrangements = new DateTime().AddDays(11),
                     AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(10),
                     SavedToWorkplaces = true
                 }
@@ -37,12 +37,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
 
+            projectResponse.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements.Should()
+                .Be(request.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
-            projectResponse.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements.Should()
-                .Be(request.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements);
             projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
                 .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
             projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()
@@ -66,6 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 AdmissionsArrangements = new AdmissionsArrangementsTask()
                 {
+                    ForecastDateForConfirmingAdmissionsArrangements = new DateTime().AddDays(8),
                     TrustConfirmedAdmissionsArrangementsPolicies = false,
                     TrustConfirmedAdmissionsArrangementsTemplate = false,
                     AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(9),
@@ -81,7 +82,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
-
+            
+            projectResponse.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements.Should()
+                .Be(request.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()

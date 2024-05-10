@@ -7,6 +7,12 @@ class AdmissionsArrangementsEditPage {
         cy.get('#' + `${key}-year`).typeFast(year);
     }
     
+    withForecastDate(day: string, month: string, year: string): this {
+        const key = "forecast-date-for-confirming-admissions-arrangements";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
     withConfirmedDate(day: string, month: string, year: string): this {
         const key = "admissions-arrangements-confirmed-date";
         this.setDate(key, day, month, year);
@@ -50,6 +56,11 @@ class AdmissionsArrangementsEditPage {
         return this;
     }
     
+    errorForForecastDate(): this {
+        this.errorTracking = "forecast-date-for-confirming-admissions-arrangements";
+        return this;
+    }
+
     errorForConfirmedDate(): this {
         this.errorTracking = "admissions-arrangements-confirmed-date";
         return this;

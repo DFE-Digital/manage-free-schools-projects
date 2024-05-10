@@ -24,9 +24,9 @@
             Admissions arrangements
         </h1>
             <govuk-summary-list>
+                    <govuk-summary-item label="Forecast date for confirming admissions arrangements" asp-for="@admissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements" href="@editlink" />
                     <govuk-summary-item label="Trust has confirmed they developed their admissions arrangements using the recommended template" asp-for="@admissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate" href="@editlink" />
                     <govuk-summary-item label="Trust has confirmed their arrangements comply with the School Admissions Code and School Admission Appeals Code" asp-for="@admissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies" href="@editlink" />
-            <govuk-summary-item label="Forecast date for confirming admissions arrangements" asp-for="@admissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements" href="@editlink" />
                     <govuk-summary-item label="Admissions arrangements confirmed date" asp-for="@admissionsArrangements.AdmissionsArrangementsConfirmedDate" href="@editlink" />
                     <govuk-summary-item label="Saved the confirmation email in Workplaces folder" asp-for="@admissionsArrangements.SavedToWorkplaces" href="@editlink" />
                 </govuk-summary-list>

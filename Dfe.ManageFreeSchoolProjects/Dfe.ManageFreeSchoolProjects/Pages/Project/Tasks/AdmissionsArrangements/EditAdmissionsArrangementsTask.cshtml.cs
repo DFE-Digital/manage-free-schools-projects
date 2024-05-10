@@ -81,10 +81,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
                 {
                     AdmissionsArrangements = new AdmissionsArrangementsTask()
                     {
+                        ForecastDateForConfirmingAdmissionsArrangements = ForecastDateForConfirmingAdmissionsArrangement,
                         TrustConfirmedAdmissionsArrangementsPolicies = TrustConfirmedAdmissionsArrangementsPolicies,
                         TrustConfirmedAdmissionsArrangementsTemplate = TrustConfirmedAdmissionsArrangementsTemplate,
                         SavedToWorkplaces = SavedToWorkplaces,
-                        ForecastDateForConfirmingAdmissionsArrangements = ForecastDateForConfirmingAdmissionsArrangement,
                         AdmissionsArrangementsConfirmedDate = AdmissionsArrangementsConfirmedDate
                     }
                 };
@@ -103,10 +103,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.AdmissionsArrangements);
 
+            ForecastDateForConfirmingAdmissionsArrangement = project.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements;
             TrustConfirmedAdmissionsArrangementsTemplate = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate;
             TrustConfirmedAdmissionsArrangementsPolicies = project.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies;
             SavedToWorkplaces = project.AdmissionsArrangements.SavedToWorkplaces;
-            ForecastDateForConfirmingAdmissionsArrangement = project.AdmissionsArrangements.ForecastDateForConfirmingAdmissionsArrangements;
             AdmissionsArrangementsConfirmedDate = project.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate;
            
             SchoolName = project.SchoolName;
