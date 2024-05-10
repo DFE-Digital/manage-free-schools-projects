@@ -72,8 +72,8 @@ import summaryPage from "cypress/pages/task-summary-base";
 
             createProjectPage
                 .titleIs("Confirm the trust")
-                .hasCorrectTrustName("Aurora Academies Trust")
-                .hasCorrectTrustType("MAT (multi-academy trust)")
+                .hasCorrectTrustName("The James Web School")
+                .hasCorrectTrustType("SAT (single academy trust)")
                 .selectOption("Yes")
                 .continue();
 
@@ -153,7 +153,7 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-                .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+                .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
