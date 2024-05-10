@@ -63,7 +63,7 @@ describe("Testing articles of association Task", () => {
 
         cy.log("All fields are optional");
         articlesOfAssociationEditPage
-            .titleIs("Edit articles of association")
+            .titleIs("Edit Articles of association")
             .schoolNameIs(project.schoolName)
             .clickContinue()
 

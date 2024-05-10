@@ -3,7 +3,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.RegionAndLA.EditRegion
 
 @{
-    ViewData["Title"] = $"Edit region - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit Region - {Model.CurrentFreeSchoolName}";
 
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var labels = new List<string>();
@@ -28,7 +28,7 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name"> @Model.CurrentFreeSchoolName </span>
-            Edit region
+            Edit Region
         </h1>
 
         <div class="govuk-grid-row">

@@ -6,22 +6,23 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 	{
 		public static string ToUkDateString(this DateTime dateTime) => dateTime.ToString("dd/MM/yyyy");
 
-		public static string ToDateString(this DateTime? dateTime, bool includeDayOfWeek = false)
+		public static string ToDateString(this DateTime? dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
 		{
 			if (!dateTime.HasValue)
 			{
 				return string.Empty;
 			}
-			return ToDateString(dateTime.Value, includeDayOfWeek);
+			return ToDateString(dateTime.Value, includeDayOfWeek, truncateMonth);
 		}
 
-		public static string ToDateString(this DateTime dateTime, bool includeDayOfWeek = false)
+		public static string ToDateString(this DateTime dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
 		{
 			if (includeDayOfWeek)
 			{
-				return dateTime.ToString("dddd d MMMM yyyy");
+				return truncateMonth ? dateTime.ToString("dddd d MMM yyyy") : dateTime.ToString("dddd d MMMM yyyy");
 			}
-			return dateTime.ToString("d MMMM yyyy");
+
+			return truncateMonth ? dateTime.ToString("d MMM yyyy"): dateTime.ToString("d MMMM yyyy");
 		}
 
 		public static DateTime FirstOfMonth(this DateTime thisMonth, int monthsToAdd)

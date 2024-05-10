@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ArticlesOfAssociation.EditArticlesOfAssociationTaskModel
 @{
-    ViewData["Title"] = $"Edit articles of association - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Articles of association - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
 }
@@ -16,7 +16,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit articles of association
+    Edit Articles of association
 </h1>
 
 <div class="govuk-grid-row">

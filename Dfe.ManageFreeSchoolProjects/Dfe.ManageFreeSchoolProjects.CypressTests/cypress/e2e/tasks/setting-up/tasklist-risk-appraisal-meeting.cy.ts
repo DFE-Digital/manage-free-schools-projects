@@ -67,7 +67,7 @@ describe("Testing Risk appraisal meeting Task", () => {
         Logger.log("Check all fields optional");
         riskAppraisalMeetingEditPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Edit risk appraisal meeting")
+            .titleIs("Edit Risk appraisal meeting")
             .clickContinue();
 
         summaryPage

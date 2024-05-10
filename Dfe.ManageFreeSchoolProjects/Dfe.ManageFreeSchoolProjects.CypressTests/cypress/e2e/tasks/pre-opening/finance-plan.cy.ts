@@ -59,7 +59,7 @@ describe("Testing finance plan task", () => {
 
         Logger.log("Check all the fields are optional");
         editFinancePlanPage
-            .titleIs("Edit finance plan")
+            .titleIs("Edit Finance plan")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
