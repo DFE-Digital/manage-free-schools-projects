@@ -6,15 +6,15 @@ on:
     - main
     - develop
     paths:
-    - 'Dfe.ManageFreeSchoolProjects/'
-    - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests'
+    - 'Dfe.ManageFreeSchoolProjects/**'
+    - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/**'
     - '!*.csproj'
   pull_request:
     branches: [ main, develop, release/** ]
     types: [ opened, synchronize, reopened ]
     paths:
-    - 'Dfe.ManageFreeSchoolProjects/'
-    - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests'
+    - 'Dfe.ManageFreeSchoolProjects/**'
+    - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/**'
     - '!*.csproj'
 
 jobs:
