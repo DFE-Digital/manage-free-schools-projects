@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using Microsoft.Net.Http.Headers;
 
 namespace Dfe.ManageFreeSchoolProjects.Authorization
@@ -11,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
             IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             //Header authorisation not applicable for production
-            if (!hostEnvironment.IsStaging() && !hostEnvironment.IsDevelopment())
+            if (hostEnvironment.IsProduction())
             {
                 return false;
             }
@@ -26,7 +29,11 @@ namespace Dfe.ManageFreeSchoolProjects.Authorization
             {
                 return false;
             }
-
+            
+            if (string.IsNullOrWhiteSpace(authHeader))
+            {
+                return false;
+            }
             return authHeader == secret;
         }
     }

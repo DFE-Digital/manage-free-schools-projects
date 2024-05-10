@@ -7,6 +7,7 @@ import {
 } from "../constants/cypressConstants";
 
 export class AuthenticationInterceptor {
+    
     register(params?: AuthenticationInterceptorParams) {
         cy.intercept(
             {
