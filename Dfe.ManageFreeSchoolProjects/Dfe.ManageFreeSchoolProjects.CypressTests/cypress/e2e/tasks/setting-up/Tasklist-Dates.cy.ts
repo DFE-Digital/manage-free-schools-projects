@@ -48,7 +48,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Check all the fields are optional");
         datesDetailsPage
-            .titleIs("Edit dates")
+            .titleIs("Edit Dates")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
