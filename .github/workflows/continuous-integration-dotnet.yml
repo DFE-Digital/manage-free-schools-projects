@@ -8,14 +8,14 @@ on:
     paths:
     - 'Dfe.ManageFreeSchoolProjects/**'
     - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/**'
-    - '!*.csproj'
+    - '!**/*.csproj'
   pull_request:
     branches: [ main, develop, release/** ]
     types: [ opened, synchronize, reopened ]
     paths:
     - 'Dfe.ManageFreeSchoolProjects/**'
     - '!Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/**'
-    - '!*.csproj'
+    - '!**/*.csproj'
 
 jobs:
   build-test:
