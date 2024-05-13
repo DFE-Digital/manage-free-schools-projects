@@ -33,9 +33,10 @@ describe("Testing the admissions arragements task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Admissions arrangements")
             .inOrder()
+            .summaryShows("Expected date that trust will confirm arrangements").IsEmpty().HasChangeLink()
             .summaryShows("Trust has confirmed they developed their admissions arrangements using the recommended template").IsEmpty().HasChangeLink()
             .summaryShows("Trust has confirmed their arrangements comply with the School Admissions Code and School Admission Appeals Code").IsEmpty().HasChangeLink()
-            .summaryShows("Admissions arrangements confirmed date").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date that trust confirmed arrangements").IsEmpty().HasChangeLink()
             .summaryShows("Saved the confirmation email in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -52,6 +53,7 @@ describe("Testing the admissions arragements task", () => {
         cy.executeAccessibilityTests
 
         admissionsArrangementsEditPage
+            .withExpectedDate("15","1","2049")
             .checkTrustConfirmedAdmissionsArrangementsTemplate()
             .checkTrustConfirmedAdmissionsArrangementsPolicies()
             .withConfirmedDate("21","1","2049")
@@ -64,9 +66,10 @@ describe("Testing the admissions arragements task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Admissions arrangements")
             .inOrder()
+            .summaryShows("Expected date that trust will confirm arrangements").HasValue("15 January 2049").HasChangeLink()
             .summaryShows("Trust has confirmed they developed their admissions arrangements using the recommended template").HasValue("Yes").HasChangeLink()
             .summaryShows("Trust has confirmed their arrangements comply with the School Admissions Code and School Admission Appeals Code").HasValue("Yes").HasChangeLink()
-            .summaryShows("Admissions arrangements confirmed date").HasValue("21 January 2049").HasChangeLink()
+            .summaryShows("Actual date that trust confirmed arrangements").HasValue("21 January 2049").HasChangeLink()
             .summaryShows("Saved the confirmation email in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .clickConfirmAndContinue()
@@ -77,6 +80,16 @@ describe("Testing the admissions arragements task", () => {
         summaryPage.clickChange();
         
         admissionsArrangementsEditPage
+            .withExpectedDate("zx","12","2010")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Enter a date in the correct format")
+            .withExpectedDate("15","12","1999")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
+            .withExpectedDate("15","4","2051")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
+            .withExpectedDate("15","4","2050")
             .withConfirmedDate("aq","12","2010")
             .clickContinue()
             .errorForConfirmedDate().showsError("Enter a date in the correct format")
@@ -96,9 +109,10 @@ describe("Testing the admissions arragements task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Admissions arrangements")
             .inOrder()
+            .summaryShows("Expected date that trust will confirm arrangements").HasValue("15 April 2050").HasChangeLink()
             .summaryShows("Trust has confirmed they developed their admissions arrangements using the recommended template").HasValue(["Empty"]).HasChangeLink()
             .summaryShows("Trust has confirmed their arrangements comply with the School Admissions Code and School Admission Appeals Code").HasValue(["Empty"]).HasChangeLink()
-            .summaryShows("Admissions arrangements confirmed date").HasValue("21 April 2050").HasChangeLink()
+            .summaryShows("Actual date that trust confirmed arrangements").HasValue("21 April 2050").HasChangeLink()
             .summaryShows("Saved the confirmation email in Workplaces folder").HasValue(["Empty"]).HasChangeLink()
             .MarkAsComplete()
             .clickConfirmAndContinue();

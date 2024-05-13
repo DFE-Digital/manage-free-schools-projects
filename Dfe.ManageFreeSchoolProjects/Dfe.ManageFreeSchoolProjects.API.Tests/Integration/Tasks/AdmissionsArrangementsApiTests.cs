@@ -27,21 +27,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 AdmissionsArrangements = new AdmissionsArrangementsTask()
                 {
+                    ExpectedDateThatTrustWillConfirmArrangements = new DateTime().AddDays(11),
                     TrustConfirmedAdmissionsArrangementsPolicies = true,
                     TrustConfirmedAdmissionsArrangementsTemplate = true,
-                    AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(10),
+                    ActualDateThatTrustConfirmedArrangements = new DateTime().AddDays(10),
                     SavedToWorkplaces = true
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
 
+            projectResponse.AdmissionsArrangements.ExpectedDateThatTrustWillConfirmArrangements.Should()
+                .Be(request.AdmissionsArrangements.ExpectedDateThatTrustWillConfirmArrangements);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
-            projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
-                .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
+            projectResponse.AdmissionsArrangements.ActualDateThatTrustConfirmedArrangements.Should()
+                .Be(request.AdmissionsArrangements.ActualDateThatTrustConfirmedArrangements);
             projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()
                 .Be(request.AdmissionsArrangements.SavedToWorkplaces);
         }
@@ -63,9 +66,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 AdmissionsArrangements = new AdmissionsArrangementsTask()
                 {
+                    ExpectedDateThatTrustWillConfirmArrangements = new DateTime().AddDays(8),
                     TrustConfirmedAdmissionsArrangementsPolicies = false,
                     TrustConfirmedAdmissionsArrangementsTemplate = false,
-                    AdmissionsArrangementsConfirmedDate = new DateTime().AddDays(9),
+                    ActualDateThatTrustConfirmedArrangements = new DateTime().AddDays(9),
                     SavedToWorkplaces = false
                 }
             };
@@ -78,13 +82,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.AdmissionsArrangements.ToString());
-
+            
+            projectResponse.AdmissionsArrangements.ExpectedDateThatTrustWillConfirmArrangements.Should()
+                .Be(request.AdmissionsArrangements.ExpectedDateThatTrustWillConfirmArrangements);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsPolicies);
             projectResponse.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate.Should()
                 .Be(request.AdmissionsArrangements.TrustConfirmedAdmissionsArrangementsTemplate);
-            projectResponse.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate.Should()
-                .Be(request.AdmissionsArrangements.AdmissionsArrangementsConfirmedDate);
+            projectResponse.AdmissionsArrangements.ActualDateThatTrustConfirmedArrangements.Should()
+                .Be(request.AdmissionsArrangements.ActualDateThatTrustConfirmedArrangements);
             projectResponse.AdmissionsArrangements.SavedToWorkplaces.Should()
                 .Be(request.AdmissionsArrangements.SavedToWorkplaces);
         }

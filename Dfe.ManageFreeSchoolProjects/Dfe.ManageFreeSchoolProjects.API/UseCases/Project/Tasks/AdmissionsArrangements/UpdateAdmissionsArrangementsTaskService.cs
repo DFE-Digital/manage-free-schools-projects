@@ -34,11 +34,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArra
                 _context.Add(db);
             }
 
+            db.FsgPreOpeningMilestonesSapForecastDate = task.ExpectedDateThatTrustWillConfirmArrangements;
             db.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate =
                 task.TrustConfirmedAdmissionsArrangementsTemplate;
             db.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies =
                 task.TrustConfirmedAdmissionsArrangementsPolicies;
-            db.FsgPreOpeningMilestonesSapActualDateOfCompletion = task.AdmissionsArrangementsConfirmedDate;
+            db.FsgPreOpeningMilestonesSapActualDateOfCompletion = task.ActualDateThatTrustConfirmedArrangements;
             db.FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces = task.SavedToWorkplaces;
             
         }

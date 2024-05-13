@@ -14,11 +14,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.AdmissionsArra
 
             return new AdmissionsArrangementsTask()
             {
-                TrustConfirmedAdmissionsArrangementsTemplate =
-                    milestones.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate,
-                TrustConfirmedAdmissionsArrangementsPolicies =
-                    milestones.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies,
-                AdmissionsArrangementsConfirmedDate = milestones.FsgPreOpeningMilestonesSapActualDateOfCompletion,
+                ExpectedDateThatTrustWillConfirmArrangements = milestones.FsgPreOpeningMilestonesSapForecastDate,
+                TrustConfirmedAdmissionsArrangementsTemplate = milestones.FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate,
+                TrustConfirmedAdmissionsArrangementsPolicies = milestones.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies,
+                ActualDateThatTrustConfirmedArrangements = milestones.FsgPreOpeningMilestonesSapActualDateOfCompletion,
                 SavedToWorkplaces = milestones.FsgPreOpeningMilestonesAdmissionsArrangementsSavedToWorkplaces
             };
 
