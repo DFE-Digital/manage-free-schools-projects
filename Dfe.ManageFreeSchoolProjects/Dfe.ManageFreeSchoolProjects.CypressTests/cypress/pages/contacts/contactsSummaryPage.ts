@@ -1,12 +1,12 @@
 class ContactsSummaryPage {
 
-    public hasTrustChairName(value: string): this {
-        cy.getByTestId(`trust-chair-name`).should(`contain.text`, value);
+    public hasProjectManagedByName(value: string): this {
+        cy.getByTestId(`project-managed-by-name`).should(`contain.text`, value);
         return this;
     }
 
-    public hasTrustChairEmail(value: string): this {
-        cy.getByTestId(`trust-chair-email`).should(`contain.text`, value);
+    public hasProjectManagedByEmail(value: string): this {
+        cy.getByTestId(`project-managed-by-email`).should(`contain.text`, value);
         return this;
     }
 
@@ -37,8 +37,8 @@ class ContactsSummaryPage {
         return this;
     }
 
-    public goToEditTrustChair(): this {
-        cy.getByTestId("edit-trust-chair").click();
+    public goToEditProjectManagedBy(): this {
+        cy.getByTestId("edit-project-managed-by").click();
 
         return this;
     }

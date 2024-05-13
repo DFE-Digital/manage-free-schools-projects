@@ -33,10 +33,12 @@ public class ContactsApiTests : ApiTestsBase
         
         var expectedContacts = new ContactsTask()
         {
-            ChairOfGovernorsName = _project.KeyContactsChairOfGovernorsName,
-            ChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsEmail,
-            SchoolChairOfGovernorsName = _project.KeyContactsChairOfGovernorsMat,
-            SchoolChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsMatEmail
+            ProjectManagedBy = new Contact() { Name = _project.KeyContactsFsgLeadContact, Email = _project.KeyContactsFsgLeadContactEmail },
+            TeamLead = new Contact() { Name = _project.KeyContactsFsgTeamLeader, Email = _project.KeyContactsFsgTeamLeaderEmail },
+            Grade6 = new Contact() { Name = _project.KeyContactsFsgGrade6, Email = _project.KeyContactsFsgGrade6Email },
+            ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
+            TrustChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsName, Email = _project.KeyContactsChairOfGovernorsEmail },
+            SchoolChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail },
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);
@@ -58,8 +60,9 @@ public class ContactsApiTests : ApiTestsBase
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsName = Fixture.Create<string>(),
-                ChairOfGovernorsEmail = Fixture.Create<string>()
+                ProjectManagedBy = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
+                TeamLead = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
+                Grade6 = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
             }
         };
 
@@ -75,10 +78,13 @@ public class ContactsApiTests : ApiTestsBase
 
         var expectedContacts = new ContactsTask()
         {
-            ChairOfGovernorsName = contactToUpdate.Contacts.ChairOfGovernorsName.ToString(),
-            ChairOfGovernorsEmail = contactToUpdate.Contacts.ChairOfGovernorsEmail.ToString(),
-            SchoolChairOfGovernorsName = _project.KeyContactsChairOfGovernorsMat,
-            SchoolChairOfGovernorsEmail = _project.KeyContactsChairOfGovernorsMatEmail
+
+            ProjectManagedBy = new Contact() { Name = contactToUpdate.Contacts.ProjectManagedBy.Name, Email = contactToUpdate.Contacts.ProjectManagedBy.Email },
+            TeamLead = new Contact() { Name = contactToUpdate.Contacts.TeamLead.Name, Email = contactToUpdate.Contacts.TeamLead.Email },
+            Grade6 = new Contact() { Name = contactToUpdate.Contacts.Grade6.Name, Email = contactToUpdate.Contacts.Grade6.Email },
+            ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
+            TrustChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsName, Email = _project.KeyContactsChairOfGovernorsEmail },
+            SchoolChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail },
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);

@@ -1,13 +1,13 @@
 @page "/projects/{projectId}/contacts/other-info-contacts-landing-page"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model ContactsSummaryModel
 
 @{
     ViewData["Title"] = $"Contacts";
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var trustChairLink = string.Format(RouteConstants.ViewTrustChairContact, Model.ProjectId);
-    var schoolChairLink = string.Format(RouteConstants.ViewSchoolChairContact, Model.ProjectId);
+    var projectManagedByLink = string.Format(RouteConstants.EditProjectManagedByContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -26,49 +26,13 @@
             @ViewData["Title"]
         </h1>
 
-
         <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">School chair of governors</h2>
+                <h2 class="govuk-summary-card__title">Project managed by</h2>
                 <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@schoolChairLink" data-testid="edit-school-chair">
+                    <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-project-managed-by">
                         Change
-                        <span class="govuk-visually-hidden">School chair of governors</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="school-chair-name">
-                            @Model.Contacts.Contacts.SchoolChairOfGovernorsName
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="school-chair-email">
-                            @Model.Contacts.Contacts.SchoolChairOfGovernorsEmail
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Trust chair</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@trustChairLink" data-testid="edit-trust-chair">
-                        Change
-                        <span class="govuk-visually-hidden">Trust chair</span>
+                        <span class="govuk-visually-hidden">Project managed by</span>
                     </a>
                 </div>
             </div>
@@ -81,8 +45,8 @@
                         <dt class="govuk-summary-list__key">
                             Name
                         </dt>
-                        <dd class="govuk-summary-list__value" data-testid="trust-chair-name">
-                            @Model.Contacts.Contacts.ChairOfGovernorsName
+                        <dd class="govuk-summary-list__value" data-testid="project-managed-by-name">
+                            @Model.Contacts.Contacts.ProjectManagedBy.Name
                         </dd>
 
                     </div>
@@ -90,12 +54,58 @@
                         <dt class="govuk-summary-list__key">
                             Email address
                         </dt>
-                        <dd class="govuk-summary-list__value" data-testid="trust-chair-email">
-                            @Model.Contacts.Contacts.ChairOfGovernorsEmail
+                        <dd class="govuk-summary-list__value" data-testid="project-managed-by-email">
+                            @Model.Contacts.Contacts.ProjectManagedBy.Email
                         </dd>
                     </div>
                 </dl>
             </div>
         </div>
+
+        @{
+            foreach (var contactType in ProjectConstants.ContactTypes)
+            {
+                var contactTypeKebab = StringExtensions.SentenceToKebabCase(contactType);
+                var contactTypePascal = @contactType.Replace(" ", "");
+
+                var contact = Model.Contacts.Contacts.GetType().GetProperty(contactTypePascal).GetValue(@Model.Contacts.Contacts, null);
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">@contactType</h2>
+                        <div class="govuk-summary-card__actions">
+                            <a class="govuk-link" href="@string.Format(RouteConstants.EditContact, Model.ProjectId, @contactTypeKebab)" data-testid="edit-@contactTypeKebab">
+                                Change
+                                <span class="govuk-visually-hidden">@contactType</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Name
+                                </dt>
+                                <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-name">
+                                    @contact.GetType().GetProperty("Name").GetValue(contact, null)
+                                </dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Email address
+                                </dt>
+                                <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-email">
+                                    @contact.GetType().GetProperty("Email").GetValue(contact, null)
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            }
+        }
+
     </div>
 </div>

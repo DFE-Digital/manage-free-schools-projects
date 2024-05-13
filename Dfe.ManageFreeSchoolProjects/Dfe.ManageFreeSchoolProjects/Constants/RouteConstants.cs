@@ -111,8 +111,8 @@
         public const string CreateFaithType = CreateProject + "/faith-type";
         
         public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
-        public const string ViewTrustChairContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-trust-chair-of-governors-edit";
-        public const string ViewSchoolChairContact = "/projects/{0}/contacts/other-info-contacts-school-chair-of-governors-edit";
+        public const string EditProjectManagedByContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-project-managed-by-edit";
+        public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
 
         public const string ViewPDG = TaskList + "/pdg";
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";

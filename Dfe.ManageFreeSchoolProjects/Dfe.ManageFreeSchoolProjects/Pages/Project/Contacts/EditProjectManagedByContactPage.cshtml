@@ -1,11 +1,11 @@
-@page "/projects/{projectId}/contacts/other-info-contacts-school-chair-of-governors-edit"
+@page "/projects/{projectId}/contacts/other-info-contacts-multi-academy-project-managed-by-edit"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model EditSchoolChairContactModel
+@model EditProjectManagedByContactModel
 
 
 @{
-    ViewData["Title"] = $"Edit school chair of governors";
+    ViewData["Title"] = $"Edit Project managed by";
     var backLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
     
 }
@@ -19,7 +19,7 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full" data-testid="edit-school-chair-title">
+    <div class="govuk-grid-column-full" data-testid="edit-project-managed-by-title">
         <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
         <h1 class="govuk-heading-xl">
             @ViewData["Title"]
@@ -32,25 +32,25 @@
 
         <form class="form" method="post">
 
-            <label class="govuk-label govuk-heading-m" for="school-chair-name">
+            <label class="govuk-label govuk-heading-m" for="project-managed-by-name">
             Name
             </label>
 
             <govuk-text-input 
-                id="school-chair-name" 
-                name="school-chair-name" 
-                asp-for="@Model.PageContacts.Contacts.SchoolChairOfGovernorsName" 
-                test-id="edit-school-chair-name"
+                id="project-managed-by-name" 
+                name="project-managed-by-name" 
+                asp-for="@Model.PageContacts.Contacts.ProjectManagedBy.Name" 
+                test-id="edit-project-managed-by-name"
                 />
             
-             <label class="govuk-label govuk-heading-m" for="school-chair-email">
+             <label class="govuk-label govuk-heading-m" for="project-managed-by-email">
                             Email
                         </label>
                         <govuk-text-input 
-                            id="school-chair-email" 
-                            name="school-chair-email" 
-                            asp-for="@Model.PageContacts.Contacts.SchoolChairOfGovernorsEmail" 
-                            test-id="edit-school-chair-email"
+                            id="project-managed-by-email" 
+                            name="project-managed-by-email" 
+                            asp-for="@Model.PageContacts.Contacts.ProjectManagedBy.Email" 
+                            test-id="edit-project-managed-by-email"
                             />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

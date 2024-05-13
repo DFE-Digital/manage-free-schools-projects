@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditTrustChairContactModel : PageModel
+public class EditProjectManagedByContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,24 +24,24 @@ public class EditTrustChairContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditTrustChairContactModel> _logger;
+    private readonly ILogger<EditProjectManagedByContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(Name = "trust-chair-name")]
+    [BindProperty(Name = "project-managed-by-name")]
     [ValidText(100)]
-    [DisplayName("Trust chair name")]
+    [DisplayName("Project managed by name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string TrustChairName { get; set; }
+    public string ProjectManagedByName { get; set; }
 
-    [BindProperty(Name = "trust-chair-email")]
-    [DisplayName("Trust chair email")]
+    [BindProperty(Name = "project-managed-by-email")]
+    [DisplayName("Project managed by email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     
-    public string TrustChairEmail { get; set; }
+    public string ProjectManagedByEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -53,7 +53,7 @@ public class EditTrustChairContactModel : PageModel
         return string.Format(RouteConstants.ViewContacts, ProjectId);
     }
 
-    public EditTrustChairContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditTrustChairContactModel> logger )
+    public EditProjectManagedByContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditProjectManagedByContactModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
@@ -88,8 +88,11 @@ public class EditTrustChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsEmail = TrustChairEmail,
-                ChairOfGovernorsName = TrustChairName
+                ProjectManagedBy = new Contact()
+                {
+                    Name = ProjectManagedByName,
+                    Email = ProjectManagedByEmail
+                }
             }
         };
 
@@ -99,19 +102,19 @@ public class EditTrustChairContactModel : PageModel
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         
         
-        if (TrustChairEmail?.Length > 100)
+        if (ProjectManagedByEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-chair-email", "The trust chair email must be 100 characters or less");
+            ModelState.AddModelError("project-managed-by-email", "The project managed by email must be 100 characters or less");
         }
         
-        if (!IsEmailValid(TrustChairEmail))
+        if (!IsEmailValid(ProjectManagedByEmail))
         {
-            ModelState.AddModelError("trust-chair-email", "Enter an email address in the correct format");
+            ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format");
         }
         
-        if (TrustChairName != null && TrustChairName.Any(char.IsDigit))
+        if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-chair-name", "Trust chair name cannot contain numbers");
+            ModelState.AddModelError("project-managed-by-name", "The project managed by name cannot contain numbers");
         }
         
         if (!ModelState.IsValid)
@@ -124,8 +127,11 @@ public class EditTrustChairContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ChairOfGovernorsName = TrustChairName,
-                ChairOfGovernorsEmail = TrustChairEmail
+                ProjectManagedBy = new Contact()
+                {
+                    Name = ProjectManagedByName,
+                    Email = ProjectManagedByEmail
+                }
             }
             
         };
