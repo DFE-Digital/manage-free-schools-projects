@@ -40,7 +40,6 @@ describe("Testing Model funding agreement Task", () => {
             .summaryShows("Shared FA with trust").IsEmpty().HasChangeLink()
             .summaryShows("Trust agrees with model FA").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
-            .summaryShows("Drafted FA health check").IsEmpty().HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -95,7 +94,6 @@ describe("Testing Model funding agreement Task", () => {
             .withComments("comments are valid")
             .checkTailoredAModelFundingAgreement()
             .checkSharedFAWithTrust()
-            .checkDraftedFAHealthcheck()
             .checkSavedFADocumentsInWorkplacesFolder()
             .clickContinue()
 
@@ -108,7 +106,6 @@ describe("Testing Model funding agreement Task", () => {
             .summaryShows("Trust agrees with model FA").HasValue("Yes").HasChangeLink()
             .summaryShows("Date Agreed").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
-            .summaryShows("Drafted FA health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("Yes").HasChangeLink()
 
         cy.log("Unselect select date agreed")
@@ -119,7 +116,6 @@ describe("Testing Model funding agreement Task", () => {
             .uncheckTailoredAModelFundingAgreement()
             .uncheckSharedFAWithTrust()
             .uncheckSavedFADocumentsInWorkplacesFolder()
-            .uncheckDraftedFAHealthcheck()
             .clickContinue()
             
 
@@ -132,7 +128,6 @@ describe("Testing Model funding agreement Task", () => {
             .summaryShows("Trust agrees with model FA").HasValue("No").HasChangeLink()
             .summaryDoesNotShow("Date Agreed")
             .summaryShows("Comments").HasValue("comments are valid").HasChangeLink()
-            .summaryShows("Drafted FA health check").HasValue("No").HasChangeLink()
             .summaryShows("Saved FA documents in Workplaces folder").HasValue("No").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()

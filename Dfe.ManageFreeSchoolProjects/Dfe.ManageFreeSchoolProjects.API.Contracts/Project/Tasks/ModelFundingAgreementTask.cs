@@ -9,7 +9,5 @@ public class ModelFundingAgreementTask
     public YesNo? TrustAgreesWithModelFA { get; set; }
     public DateTime? DateTrustAgreesWithModelFA { get; set; }
     public string Comments { get; set; }
-    public bool? DraftedFAHealthCheck { get; set; }
-    
     public bool? SavedFADocumentsInWorkplacesFolder { get; set; }
 }
