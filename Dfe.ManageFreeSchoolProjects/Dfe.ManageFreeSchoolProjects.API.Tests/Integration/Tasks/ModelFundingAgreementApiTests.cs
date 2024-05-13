@@ -35,7 +35,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     TrustAgreesWithModelFA = YesNo.Yes,
                     DateTrustAgreesWithModelFA = dateNineDaysInFuture,
                     Comments = "new comments",
-                    DraftedFAHealthCheck = true,
                     SavedFADocumentsInWorkplacesFolder = true
                 }
             };
@@ -53,8 +52,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
             projectResponse.ModelFundingAgreement.Comments.Should()
                 .Be(request.ModelFundingAgreement.Comments);
-            projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
-                .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
             projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
                 .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
@@ -84,7 +81,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     TrustAgreesWithModelFA = YesNo.Yes,
                     DateTrustAgreesWithModelFA = dateNineDaysInFuture,
                     Comments = "new comments dave",
-                    DraftedFAHealthCheck = true,
                     SavedFADocumentsInWorkplacesFolder = false
                 }
             };
@@ -102,8 +98,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
             projectResponse.ModelFundingAgreement.Comments.Should()
                 .Be(request.ModelFundingAgreement.Comments);
-            projectResponse.ModelFundingAgreement.DraftedFAHealthCheck.Should()
-                .Be(request.ModelFundingAgreement.DraftedFAHealthCheck);
             projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
                 .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }

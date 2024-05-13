@@ -47,9 +47,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
         [ValidText(999)]
         public string Comments { get; set; }
         
-        [BindProperty(Name = "drafted-fa-health-check")]
-        public bool?  DraftedFAHealthCheck { get; set; }
-        
         [BindProperty(Name = "saved-fa-documents-in-workplaces-folder")]
         public bool? SavedFADocumentsInWorkplacesFolder { get; set; }
 
@@ -103,7 +100,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
                     ModelFundingAgreement = new ModelFundingAgreementTask()
                     {
                         TrustAgreesWithModelFA = ConvertYesNo(TrustAgreesWithModelFA),
-                        DraftedFAHealthCheck = DraftedFAHealthCheck ?? false,
                         DateTrustAgreesWithModelFA = null,
                         Comments = Comments,
                         SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder ?? false,
@@ -133,7 +129,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement
             var project = await _getProjectService.Execute(ProjectId, TaskName.ModelFundingAgreement);
 
             TrustAgreesWithModelFA = project.ModelFundingAgreement.TrustAgreesWithModelFA?.ToString();
-            DraftedFAHealthCheck = project.ModelFundingAgreement.DraftedFAHealthCheck;
             DateTrustAgreesWithModelFA = project.ModelFundingAgreement.DateTrustAgreesWithModelFA;
             Comments = project.ModelFundingAgreement.Comments;
             SavedFADocumentsInWorkplacesFolder = project.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder;

@@ -47,16 +47,6 @@ class ModelFundingAgreementEditPage {
         return this
     }
 
-    checkDraftedFAHealthcheck(): this {
-        cy.getById("drafted-fa-health-check").check()
-        return this
-    }
-
-    uncheckDraftedFAHealthcheck(): this {
-        cy.getById("drafted-fa-health-check").uncheck()
-        return this
-    }
-
     checkSavedFADocumentsInWorkplacesFolder(): this {
         cy.getById("saved-fa-documents-in-workplaces-folder").check()
         return this

@@ -15,7 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
 			return new ModelFundingAgreementTask()
 			{
 				TrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa,
-				DraftedFAHealthCheck = milestones.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck,
 				DateTrustAgreesWithModelFA = milestones.FsgPreOpeningMilestonesMfadActualDateOfCompletion,
 				Comments = milestones.FsgPreOpeningMilestonesMi58CommentsOnDecisionToApproveIfApplicable,
 				SavedFADocumentsInWorkplacesFolder = milestones.FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder,
