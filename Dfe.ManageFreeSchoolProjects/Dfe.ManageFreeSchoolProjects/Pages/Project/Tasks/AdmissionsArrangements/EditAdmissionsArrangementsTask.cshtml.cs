@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.AdmissionsArrangement
         public DateTime? ExpectedDateThatTrustWillConfirmArrangements { get; set; }
 
         [BindProperty(Name = "actual-date-that-trust-confirmed-arrangements", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Actual date that trust confirmed arrangement")]
+        [Display(Name = "Actual date that trust confirmed arrangements")]
         public DateTime? ActualDateThatTrustConfirmedArrangements { get; set; }
         public string SchoolName { get; set; }
 
