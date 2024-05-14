@@ -6,7 +6,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
     public static class SfaReportBuilder
     {
-        private const string NotAvailable = "NA";
 
         public static SfaReport Build(List<SfaReportSourceData> sourceData)
         {
@@ -112,14 +111,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             }
 
             entry.Stage = GetStage(bs);
-        }
-
-        private static double? CalculateDaysOverdueAfterOneYear(DateTime? datePaymentSecond, DateTime? entryPo)
-        {
-            var timeSpan = datePaymentSecond - entryPo;
-            var differenceInDays = timeSpan?.TotalDays - 365;
-
-            return differenceInDays;
         }
 
         private static string GetStage(Bs bs)
