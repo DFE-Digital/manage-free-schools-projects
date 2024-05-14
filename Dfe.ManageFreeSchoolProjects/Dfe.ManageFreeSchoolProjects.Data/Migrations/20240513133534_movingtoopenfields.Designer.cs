@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240513133534_movingtoopenfields")]
+    partial class movingtoopenfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5005,37 +5008,20 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<int?>("FinancePlanSavedInWorkplacesFolder")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To Education Estates");
+                    b.Property<string>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolder")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder");
 
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenProjectBriefToNewDeliveryOfficer")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To New Delivery Officer");
+                    b.Property<string>("FsgPreOpeningMilestoneMovingToOpenSentEmailsTo")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To");
 
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenProjectBriefToSfso")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To Sfso");
-
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexB")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexB");
-
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexE");
-
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderProjectBrief")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder Project Brief");
-
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSentEmailsToRelevantContacts")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To Relevant Contacts");
-
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSentEmailsToSchoolsPrinciple")
-                        .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To Schools Principle");
+                    b.Property<string>("FsgPreOpeningMilestoneMovingToOpenSentProjectBriefTo")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Project Brief To");
 
                     b.Property<bool?>("FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder")
                         .HasColumnType("bit")
