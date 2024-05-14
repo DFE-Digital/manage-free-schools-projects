@@ -93,7 +93,6 @@
 				<div class="govuk-radios__item">
 					<input class="govuk-radios__input" id="@Id(Model.Id, i)" name="@Model.Name" type="radio" value="@Model.Values[i]" checked="@(Model.Values[i].Equals(Model.Value, StringComparison.OrdinalIgnoreCase))" data-testid="@testIds.ElementAtOrDefault(i)">
 					<label class="govuk-label govuk-radios__label" id="@Id(Model.Id, i)-label" for="@Id(Model.Id, i)">
-						<span class="govuk-visually-hidden">@Model.Label</span>
 						@if (Model.HtmlLabels.Any())
 						{
 							@Html.Raw(@Model.HtmlLabels[i])
@@ -102,7 +101,7 @@
 						{
 							@Model.Labels[i]
 						}
-
+						<span class="govuk-visually-hidden">@Model.Label</span>
 					</label>
 					@if (Model.Hints != null)
 					{
