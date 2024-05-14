@@ -109,7 +109,7 @@ public class EditProjectManagedByContactModel : PageModel
         
         if (!IsEmailValid(ProjectManagedByEmail))
         {
-            ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format");
+            ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
         
         if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
@@ -140,9 +140,9 @@ public class EditProjectManagedByContactModel : PageModel
 
         return Redirect(GetNextPage());
     }
-    
+
     private static bool IsEmailValid(string email)
     {
-        return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
+        return string.IsNullOrEmpty(email) || (email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email));
     }
 }

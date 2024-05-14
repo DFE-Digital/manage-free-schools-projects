@@ -111,12 +111,12 @@ describe("Testing that we can add contacts", () => {
                 .errorForProjectManagedByName("The project managed by name must be 100 characters or less")
                 .withProjectManagedByEmail("da")
                 .clickContinue()
-                .errorForProjectManagedByEmail("Enter an email address in the correct format")
+                .errorForProjectManagedByEmail("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
                 .withProjectManagedByEmail(dataGenerator.generateAlphaNumeric(101))
                 .clickContinue()
                 .errorForProjectManagedByEmail("The project managed by email must be 100 characters or less")
                 .withProjectManagedByName("Project Managed By")
-                .withProjectManagedByEmail("trust@chair.com")
+                .withProjectManagedByEmail("project.manager@education.gov.uk")
                 .clickContinue();
             
             cy.executeAccessibilityTests();
@@ -126,7 +126,7 @@ describe("Testing that we can add contacts", () => {
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
                 .hasProjectManagedByName("Project Managed By")
-                .hasProjectManagedByEmail("trust@chair.com")
+                .hasProjectManagedByEmail("project.manager@education.gov.uk")
                 .hasSchoolChairName("Contact")
                 .hasSchoolChairEmail("school@chair.com")
                 .goToProjectsOverviewPage();
@@ -157,7 +157,7 @@ describe("Testing that we can add contacts", () => {
                 .hasTitle("Contacts")
                 .hasSchoolName(project.schoolName)
                 .hasProjectManagedByName("Project Managed By")
-                .hasProjectManagedByEmail("trust@chair.com")
+                .hasProjectManagedByEmail("project.manager@education.gov.uk")
                 .hasSchoolChairName("")
                 .hasSchoolChairEmail("");
             
