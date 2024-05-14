@@ -15,8 +15,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using System.Reflection;
-using DocumentFormat.OpenXml.EMMA;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
