@@ -7,7 +7,7 @@
 * 155392 - Build: "Edit page" titles and h1 Casing Needs to Change
 * 164754 - Build: iterate Admissions arrangements
 * 164609 - Build: Content change to kick-off meeting task
-* 165117 - Build: update accessibility statement
+* 165117 - Build: update accessibility statement - (displaces #163497 - update accessiblity statement)
 * 157603 - Build: remove forecast date from Articles of association
 * 161173 - Build: History migration tool
 * 163497 - Build: Update accessibility statement
