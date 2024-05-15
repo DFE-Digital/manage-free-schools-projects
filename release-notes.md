@@ -1,3 +1,20 @@
+## 0.5.0
+* 158697 - Build: make all 'Contacts' editable (MINUS 166131 - BUG: Validation doesn't appear to be present for 'education.gov.uk' domain)
+* 165706 - Build: fix broken feedback link in footer
+* 165707 - Build: move phase banner to the top of the page
+* 165709 - Build: add forecast date to Admissions arrangements task
+* (164967 - Spike: Create smoke test for test environment)
+* 155392 - Build: "Edit page" titles and h1 Casing Needs to Change
+* 164754 - Build: iterate Admissions arrangements
+* 164609 - Build: Content change to kick-off meeting task
+* 165117 - Build: update accessibility statement - (displaces #163497 - update accessiblity statement)
+* 157603 - Build: remove forecast date from Articles of association
+* 161173 - Build: History migration tool
+* 163497 - Build: Update accessibility statement
+* 164895 - Live: Navigation: User Can Get to Faith Type page in Error Clicking Back if School is Non-religious
+* 162857 - Live: BUG: Create Project: Nursery figures Fail to be accepted Post-Project Create
+* 161875 - Edgecase: Validation: User with JavaScript disabled not prompted with validation that "Special educational needs"/"Alternative provision" class type options cannot be selected for "Special needs"/"Alternative provision" schools
+
 ## 0.4.0
 * Changes to deployment process
 * 159351 - Build Commission external expert fixes
