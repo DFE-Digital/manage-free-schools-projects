@@ -113,10 +113,17 @@ public class EditContactModel : PageModel
         {
             ModelState.AddModelError("contact-email", "The contact email must be 100 characters or less");
         }
-        
-        if (!IsEmailValid(ContactEmail))
+
+        string[] internalContactTypes = { "team-lead", "grade-6" };
+
+        if (!IsInternalEmailValid(ContactEmail) && internalContactTypes.Contains(ContactType))
         {
-            ModelState.AddModelError("contact-email", "Enter an email address in the correct format");
+            ModelState.AddModelError("contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+        }
+
+        if (!IsEmailValid(ContactEmail) && !internalContactTypes.Contains(ContactType))
+        {
+            ModelState.AddModelError("contact-email", "Enter an email address in the correct format.");
         }
         
         if (ContactName != null && ContactName.Any(char.IsDigit))
@@ -141,5 +148,10 @@ public class EditContactModel : PageModel
     private static bool IsEmailValid(string email)
     {
         return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
+    }
+
+    private static bool IsInternalEmailValid(string email)
+    {
+        return string.IsNullOrEmpty(email) || (email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email));
     }
 }
