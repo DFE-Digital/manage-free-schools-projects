@@ -140,27 +140,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
         }
 
         [Theory]
-        [MemberData(nameof(FlagData))]
-        public void When_Flag(
-            DateTime? datePaymentSecond,
-            string paymentFirst,
-            DateTime? entryPo,
-            int expectedFlag)
-        {
-            var reportSourceData = CreateSfaReportSourceData();
-            var sourceEntry = reportSourceData.First();
-
-            sourceEntry.Po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue = datePaymentSecond;
-            sourceEntry.Po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue = paymentFirst;
-            sourceEntry.Kpi.ProjectStatusDateOfEntryIntoPreOpening = entryPo;
-
-            var report = SfaReportBuilder.Build(reportSourceData);
-            var project = report.Projects.First();
-
-            project.Flag.Should().Be(expectedFlag);
-        }
-
-        [Theory]
         [MemberData(nameof(StageData))]
         public void When_Stage(
             string costsAtPracticalCompletionApproved,
@@ -180,66 +159,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             var project = report.Projects.First();
 
             project.Stage.Should().Be(expectedStage);
-        }
-
-        [Theory]
-        [MemberData(nameof(WaveNumberData))]
-        public void When_WaveNumber(
-            string wave,
-            string phase,
-            string expectedWaveNumber)
-        {
-            var reportSourceData = CreateSfaReportSourceData();
-            var sourceEntry = reportSourceData.First();
-
-            sourceEntry.Kpi.ProjectStatusFreeSchoolApplicationWave = wave;
-            sourceEntry.Kpi.SchoolDetailsSchoolPhasePrimarySecondary = phase;
-
-            var report = SfaReportBuilder.Build(reportSourceData);
-
-            var project = report.Projects.First();
-
-            project.WaveNumber.Should().Be(expectedWaveNumber);
-        }
-
-        [Theory]
-        [MemberData(nameof(PhaseCategoryData))]
-        public void When_PhaseCategory(
-            string type,
-            string expectedPhaseCategory)
-        {
-            var reportSourceData = CreateSfaReportSourceData();
-            var sourceEntry = reportSourceData.First();
-
-            sourceEntry.Kpi.SchoolDetailsSchoolTypeMainstreamApEtc = type;
-
-            var report = SfaReportBuilder.Build(reportSourceData);
-            var project = report.Projects.First();
-
-            project.PhaseCategory.Should().Be(expectedPhaseCategory);
-        }
-
-        [Theory]
-        [MemberData(nameof(OmitData))]
-        public void When_Omit(
-            string wave,
-            string revisedAllocation,
-            string paymentFirst,
-            string expectedOmit)
-        {
-            var reportSourceData = CreateSfaReportSourceData();
-            var sourceEntry = reportSourceData.First();
-
-            sourceEntry.Kpi.ProjectStatusFreeSchoolApplicationWave = wave;
-            sourceEntry.Po.ProjectDevelopmentGrantFundingRevisedGrantAllocation = revisedAllocation;
-            sourceEntry.Po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue = paymentFirst;
-            sourceEntry.Po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue = null;
-
-
-            var report = SfaReportBuilder.Build(reportSourceData);
-            var project = report.Projects.First();
-
-            project.Omit.Should().Be(expectedOmit);
         }
 
         public static IEnumerable<object[]> FlagData()

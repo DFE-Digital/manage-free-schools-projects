@@ -6,7 +6,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
     public static class SfaReportBuilder
     {
-        private const string NotAvailable = "NA";
 
         public static SfaReport Build(List<SfaReportSourceData> sourceData)
         {
@@ -36,15 +35,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                 ApplyOpens(entry, project.Opens);
                 ApplyPo(entry, project.Po);
                 ApplyBs(entry, project.Bs);
-
-                entry.WaveNumber = GetWaveNumber(entry.Wave, entry.Phase);
-                entry.PhaseCategory = GetPhaseCategory(entry.Type);
-                entry.Flag = GetFlag(
-                    project.Po?.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue,
-                    project.Po?.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue,
-                    project.Kpi?.ProjectStatusDateOfEntryIntoPreOpening);
-
-                entry.Omit = GetOmit(entry);
 
                 result.Projects.Add(entry);
             }
@@ -123,33 +113,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             entry.Stage = GetStage(bs);
         }
 
-        private static int GetFlag(DateTime? datePaymentSecond, string paymentFirst, DateTime? entryPo)
-        {
-            double.TryParse(paymentFirst, out var paymentFirstValue);
-
-            if (!datePaymentSecond.HasValue && paymentFirstValue >= 25000)
-            {
-                return 1;
-            }
-
-            var differenceInDays = CalculateDaysOverdueAfterOneYear(datePaymentSecond, entryPo);
-
-            if (differenceInDays > 0)
-            {
-                return (int)differenceInDays.Value;
-            }
-
-            return -1;
-        }
-
-        private static double? CalculateDaysOverdueAfterOneYear(DateTime? datePaymentSecond, DateTime? entryPo)
-        {
-            var timeSpan = datePaymentSecond - entryPo;
-            var differenceInDays = timeSpan?.TotalDays - 365;
-
-            return differenceInDays;
-        }
-
         private static string GetStage(Bs bs)
         {
             if (bs.BudgetSummaryCostsAtPracticalCompletionApproved == "Yes")
@@ -168,86 +131,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             }
 
             return "2";
-        }
-
-        private static string GetWaveNumber(string wave, string phase)
-        {
-            if (string.IsNullOrEmpty(wave))
-            {
-                return NotAvailable;
-            }
-
-            if (wave == "LA Special - Wave 1")
-            {
-                return "12.1";
-            }
-
-            if (wave == "LA Special - Wave 2")
-            {
-                return "13.1";
-            }
-
-            if (wave == "Outside of wave")
-            {
-                return "0.1";
-            }
-
-            if (wave == "VA - Wave 1")
-            {
-                return phase == "Primary" ? "14.1" : "14.2";
-            }
-
-            if (wave == "FS - Presumption")
-            {
-                return "99";
-            }
-
-            var lastTwoChars = wave.Substring(wave.Length - 2);
-
-            if (int.TryParse(lastTwoChars, out var waveNumber))
-            {
-                return waveNumber.ToString();
-            }
-
-            return NotAvailable;
-        }
-
-        private static string GetPhaseCategory(string phase)
-        {
-            if (phase == "FS - Mainstream" || phase == "FS - Special" || phase == "FS - AP")
-            {
-                return "free schools";
-            }
-
-            if (phase == "UTC")
-            {
-                return "UTC";
-            }
-
-            if (phase == "SS" || phase == "FS - SS")
-            {
-                return "SS";
-            }
-
-            return NotAvailable;
-        }
-
-        private static string GetOmit(SfaReportEntry entry)
-        {
-            double.TryParse(entry.WaveNumber, out var waveNumber);
-            double.TryParse(entry.RevisedAllocation, out var revisedAllocation);
-
-            if (waveNumber < 99 && revisedAllocation > 3000 && entry.Flag > 0)
-            {
-                return "payment";
-            }
-
-            if (entry.Wave == "FS - Presumption" && revisedAllocation > 0)
-            {
-                return "payment";
-            }
-
-            return "omit";
         }
     }
 
@@ -420,16 +303,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         [DisplayName("third_refund_date")]
         public string ThirdRefundDate { get; set; }
 
-        [DisplayName("flag")]
-        public double Flag { get; set; }
-
-        [DisplayName("wave_number")]
-        public string WaveNumber { get; set; }
-
-        [DisplayName("phase_category")]
-        public string PhaseCategory { get; set; }
-
-        [DisplayName("omit")]
-        public string Omit { get; set; }
     }
 }
+
