@@ -27,6 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 Label = Label, 
                 HeadingLabel = 
                 HeadingLabel, 
+                Hint = Hint,
                 BoldLabel = BoldLabel, 
                 Value = For.Model?.ToString(),
                 AddMargin = AddMargin

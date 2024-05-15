@@ -1,0 +1,31 @@
+@using DocumentFormat.OpenXml.Vml.Spreadsheet
+@using DocumentFormat.OpenXml.Drawing.Diagrams
+@using Microsoft.IdentityModel.Tokens
+@model Dfe.ManageFreeSchoolProjects.TagHelpers.SummaryItemListViewModel
+
+@functions {
+}
+
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">@Model.Label</dt>
+    @if (!Model.List.IsNullOrEmpty())
+    {
+        <dd class="govuk-summary-list__value">
+            @foreach (string value in @Model.List)
+            {
+                @value<br/>
+                <br/>
+            }
+        </dd>
+    }
+    
+    else
+    {
+    <span class="empty">Empty</span>
+    }
+    <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href=@Model.Href Id="@Model.Id+-changeLink">
+            Change<span class="govuk-visually-hidden">@Model.Label</span>
+        </a>
+    </dd>
+</div>

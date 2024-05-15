@@ -14,8 +14,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen
             _context = context;
         }
         
-        
-        
         public async Task Update(UpdateTaskServiceParameters parameters)
         {
             var task = parameters.Request.MovingToOpen;

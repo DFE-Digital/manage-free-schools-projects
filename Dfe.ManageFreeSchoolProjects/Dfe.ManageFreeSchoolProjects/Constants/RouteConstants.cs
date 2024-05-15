@@ -86,6 +86,9 @@
         public const string ViewCommissionedExternalExpertTask = TaskList + "/external-expert-visit";
         public const string EditCommissionedExternalExpertTask = ViewCommissionedExternalExpertTask + "/edit";
         
+        public const string ViewMovingToOpenTask = TaskList + "/moving-to-open";
+        public const string EditMovingToOpenTask = ViewMovingToOpenTask + "/edit";
+        
         public const string CreateProjectMethod = CreateProject + "/method";
         public const string CreateProjectId = CreateProject + "/projectid";
         public const string CreateProjectSchool = CreateProject + "/school";
