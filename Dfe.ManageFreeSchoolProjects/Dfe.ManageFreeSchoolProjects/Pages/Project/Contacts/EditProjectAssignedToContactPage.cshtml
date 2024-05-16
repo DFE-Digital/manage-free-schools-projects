@@ -1,0 +1,59 @@
+@page "/projects/{projectId}/contacts/project-assigned-to-edit"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model EditProjectAssignedToContactModel
+
+
+@{
+    ViewData["Title"] = $"Edit Project assigned to";
+    var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
+    
+}
+
+<partial name="_ErrorSummary" />
+
+@section BeforeMain {
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to contacts summary</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" data-testid="edit-project-assigned-to-title">
+        <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+        <h1 class="govuk-heading-xl">
+            @ViewData["Title"]
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <label class="govuk-label govuk-heading-m" for="project-assigned-to-name">
+            Name
+            </label>
+
+            <govuk-text-input 
+                id="project-assigned-to-name"
+                name="project-assigned-to-name"
+                asp-for="@Model.PageContacts.Contacts.ProjectAssignedTo.Name"
+                test-id="edit-project-assigned-to-name" />
+            
+             <label class="govuk-label govuk-heading-m" for="project-managed-by-email">
+            Email
+            </label>
+            <govuk-text-input id="project-assigned-to-email"
+                name="project-assigned-to-email"
+                asp-for="@Model.PageContacts.Contacts.ProjectAssignedTo.Email"
+                test-id="edit-project-assigned-to-email" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+
+        </form>
+    </div>
+</div>

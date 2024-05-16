@@ -2,7 +2,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 
     public record ContactsTask
     {
-        public Contact ProjectManagedBy { get; set; } = new();
+        public Contact ProjectAssignedTo { get; set; } = new();
 
         public Contact TeamLead { get; set; } = new();
 

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditProjectManagedByContactModel : PageModel
+public class EditProjectAssignedToContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,24 +24,24 @@ public class EditProjectManagedByContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditProjectManagedByContactModel> _logger;
+    private readonly ILogger<EditProjectAssignedToContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(Name = "project-managed-by-name")]
+    [BindProperty(Name = "project-assigned-to-name")]
     [ValidText(100)]
-    [DisplayName("Project managed by name")]
+    [DisplayName("Project assigned to name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string ProjectManagedByName { get; set; }
+    public string ProjectAssignedToName { get; set; }
 
-    [BindProperty(Name = "project-managed-by-email")]
-    [DisplayName("Project managed by email")]
+    [BindProperty(Name = "project-assigned-to-email")]
+    [DisplayName("Project assigned to email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     
-    public string ProjectManagedByEmail { get; set; }
+    public string ProjectAssignedToEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -50,10 +50,10 @@ public class EditProjectManagedByContactModel : PageModel
     
     public string GetNextPage()
     {
-        return string.Format(RouteConstants.ViewContacts, ProjectId);
+        return string.Format(RouteConstants.Contacts, ProjectId);
     }
 
-    public EditProjectManagedByContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditProjectManagedByContactModel> logger )
+    public EditProjectAssignedToContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditProjectAssignedToContactModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
@@ -88,10 +88,10 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedBy = new Contact()
+                ProjectAssignedTo = new Contact()
                 {
-                    Name = ProjectManagedByName,
-                    Email = ProjectManagedByEmail
+                    Name = ProjectAssignedToName,
+                    Email = ProjectAssignedToEmail
                 }
             }
         };
@@ -102,17 +102,17 @@ public class EditProjectManagedByContactModel : PageModel
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         
         
-        if (ProjectManagedByEmail?.Length > 100)
+        if (ProjectAssignedToEmail?.Length > 100)
         {
             ModelState.AddModelError("project-managed-by-email", "The project managed by email must be 100 characters or less");
         }
         
-        if (!IsEmailValid(ProjectManagedByEmail))
+        if (!IsEmailValid(ProjectAssignedToEmail))
         {
             ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
         
-        if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
+        if (ProjectAssignedToName != null && ProjectAssignedToName.Any(char.IsDigit))
         {
             ModelState.AddModelError("project-managed-by-name", "The project managed by name cannot contain numbers");
         }
@@ -127,10 +127,10 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedBy = new Contact()
+                ProjectAssignedTo = new Contact()
                 {
-                    Name = ProjectManagedByName,
-                    Email = ProjectManagedByEmail
+                    Name = ProjectAssignedToName,
+                    Email = ProjectAssignedToEmail
                 }
             }
             

@@ -10,7 +10,7 @@
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
-    var projectManagedByLink = string.Format(RouteConstants.EditProjectManagedByContact, Model.ProjectId);
+    var projectAssignedToLink = string.Format(RouteConstants.EditProjectAssignedTo, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -53,10 +53,14 @@
                     </a>
                 </li>
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" href="@taskListLink">Task list</a>
+                    <a class="app-sub-navigation__link" href="@taskListLink">
+                        Task list
+                    </a>
                 </li>
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" aria-current="page" href="@contactsLink">Contacts</a>
+                    <a class="app-sub-navigation__link" aria-current="page" href="@contactsLink">
+                        Contacts
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -69,7 +73,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Project assigned to</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-project-managed-by">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-project-assigned-to">
                 Change
                 <span class="govuk-visually-hidden">Change Project assigned to (Regions Group)</span>
             </a>
@@ -84,8 +88,8 @@
                 <dt class="govuk-summary-list__key">
                     Name
                 </dt>
-                <dd class="govuk-summary-list__value" data-testid="project-managed-by-name">
-                    @Model.Contacts.Contacts.ProjectManagedBy.Name
+                <dd class="govuk-summary-list__value" data-testid="project-assigned-to">
+                    @Model.Contacts.Contacts.ProjectAssignedTo.Name
                 </dd>
 
             </div>
@@ -93,8 +97,8 @@
                 <dt class="govuk-summary-list__key">
                     Email address
                 </dt>
-                <dd class="govuk-summary-list__value" data-testid="project-managed-by-email">
-                    @Model.Contacts.Contacts.ProjectManagedBy.Email
+                <dd class="govuk-summary-list__value" data-testid="project-assigned-to">
+                    @Model.Contacts.Contacts.ProjectAssignedTo.Email
                 </dd>
             </div>
         </dl>
@@ -105,7 +109,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Team lead</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-team-lead">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-team-lead">
                 Change
                 <span class="govuk-visually-hidden">Change Team lead (Regions Group)</span>
             </a>
@@ -141,7 +145,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Grade 6</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-grade-6">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-grade-6">
                 Change
                 <span class="govuk-visually-hidden" Change Grade 6 (Regions Group)</span>
             </a>
@@ -179,7 +183,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Project manager</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-project-manager">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-project-manager">
                 Change
                 <span class="govuk-visually-hidden">Change Project manager (Education Estates)</span>
             </a>
@@ -215,7 +219,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Project director</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-project-director">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-project-director">
                 Change
                 <span class="govuk-visually-hidden">Change Project director (Education Estates)</span>
             </a>
@@ -253,7 +257,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Trust contact</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectManagedByLink" data-testid="edit-trust-contact">
+            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-trust-contact">
                 Change
                 <span class="govuk-visually-hidden">Change Project director (External)</span>
             </a>

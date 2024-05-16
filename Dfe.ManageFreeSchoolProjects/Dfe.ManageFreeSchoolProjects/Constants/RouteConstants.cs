@@ -114,8 +114,7 @@
         public const string CreateFaithStatus = CreateProject + "/faith-status";
         public const string CreateFaithType = CreateProject + "/faith-type";
         
-        public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
-        public const string EditProjectManagedByContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-project-managed-by-edit";
+        public const string EditProjectAssignedTo = "/projects/{0}/contacts/project-assigned-to-edit";
         public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
 
         public const string ViewPDG = TaskList + "/pdg";

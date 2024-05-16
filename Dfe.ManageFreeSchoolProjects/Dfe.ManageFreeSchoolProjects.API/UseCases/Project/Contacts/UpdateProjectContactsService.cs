@@ -34,8 +34,8 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
             Contacts = request.Contacts
         };
 
-        dbProject.KeyContactsFsgLeadContact = updateRequest.Contacts.ProjectManagedBy.Name ?? dbProject.KeyContactsFsgLeadContact;
-        dbProject.KeyContactsFsgLeadContactEmail = updateRequest.Contacts.ProjectManagedBy.Email ?? dbProject.KeyContactsFsgLeadContactEmail;
+        dbProject.KeyContactsFsgLeadContact = updateRequest.Contacts.ProjectAssignedTo.Name ?? dbProject.KeyContactsFsgLeadContact;
+        dbProject.KeyContactsFsgLeadContactEmail = updateRequest.Contacts.ProjectAssignedTo.Email ?? dbProject.KeyContactsFsgLeadContactEmail;
 
         dbProject.KeyContactsFsgTeamLeader = updateRequest.Contacts.TeamLead.Name ?? dbProject.KeyContactsFsgTeamLeader;
         dbProject.KeyContactsFsgTeamLeaderEmail = updateRequest.Contacts.TeamLead.Email ?? dbProject.KeyContactsFsgTeamLeaderEmail;
@@ -49,8 +49,8 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
         dbProject.KeyContactsEsfaCapitalProjectDirector = updateRequest.Contacts.ProjectDirector.Name ?? dbProject.KeyContactsEsfaCapitalProjectDirector;
         dbProject.KeyContactsEsfaCapitalProjectDirectorEmail = updateRequest.Contacts.ProjectDirector.Email ?? dbProject.KeyContactsEsfaCapitalProjectDirectorEmail;
 
-        dbProject.KeyContactsChairOfGovernorsName = updateRequest.Contacts.TrustChair.Name ?? dbProject.KeyContactsChairOfGovernorsName;
-        dbProject.KeyContactsChairOfGovernorsEmail = updateRequest.Contacts.TrustChair.Email ?? dbProject.KeyContactsChairOfGovernorsEmail;
+        dbProject.KeyContactsChairOfGovernorsName = updateRequest.Contacts.TrustContact.Name ?? dbProject.KeyContactsChairOfGovernorsName;
+        dbProject.KeyContactsChairOfGovernorsEmail = updateRequest.Contacts.TrustContact.Email ?? dbProject.KeyContactsChairOfGovernorsEmail;
 
         dbProject.KeyContactsChairOfGovernorsMat = updateRequest.Contacts.SchoolChair.Name ?? dbProject.KeyContactsChairOfGovernorsMat;
         dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.SchoolChair.Email ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
