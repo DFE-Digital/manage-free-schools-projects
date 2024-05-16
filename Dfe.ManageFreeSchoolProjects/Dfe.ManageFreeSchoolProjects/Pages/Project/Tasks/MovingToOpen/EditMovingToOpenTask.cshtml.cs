@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen
         
         public bool? SavedToWorkplacesFolderAnnexE { get; set; }
         
-        [BindProperty(Name = "saved-to-workplaces-folder-annexb")]
+        [BindProperty(Name = "saved-to-workplaces-folder-annexe")]
         
         public bool? SavedToWorkplacesFolderAnnexB { get; set; }
         

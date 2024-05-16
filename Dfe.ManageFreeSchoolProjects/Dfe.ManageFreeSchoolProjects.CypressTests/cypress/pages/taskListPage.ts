@@ -125,6 +125,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectMovingToOpenFromTaskList(): this {
+        cy.getByTestId("movingToOpen-task").click()
+        return this;
+    }
+
     public selectApplicationsEvidenceFromTaskList(): this {
         this.getApplicationsEvidenceTask().click()
         return this;
