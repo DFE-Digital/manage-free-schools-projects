@@ -75,7 +75,8 @@ public class GetAllTasksStatusService : IGetTasksService
             FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
             PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
             FinalFinancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.FinalFinancePlan.ToString()),
-            CommissionedExternalExpert = SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString())
+            CommissionedExternalExpert = SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
+            MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString())
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());

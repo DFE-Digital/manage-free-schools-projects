@@ -1,5 +1,6 @@
 ﻿@using DocumentFormat.OpenXml.Office2010.Excel
 @using Microsoft.IdentityModel.Tokens
+@using System.Runtime.CompilerServices
 @model Dfe.ManageFreeSchoolProjects.ViewModels.CheckboxInputViewModel
 @{
     var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
@@ -37,18 +38,16 @@
                     </label>
                 }
                 else
-                {  <div>
+                {  
                     <label class="govuk-label govuk-checkboxes__label" for="@Model.Id">
                         @Model.Label
-                  
-                         @if (!@Model.Hint.IsNullOrEmpty())
-                                            {
-                                                <div id="@Model.Id-hint" class="govuk-hint">
-                                                    @Model.Hint
-                                                </div>
-                                            }
                     </label>
-                    </div>
+                    @if (!Model.Hint.IsNullOrEmpty())
+                    {
+                        <div class="govuk-hint govuk-checkboxes__hint">
+                            @Model.Hint
+                        </div>
+                    }
                 }
             </div>
         </div>

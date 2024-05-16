@@ -84,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.MovingToOpen);
             SchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)

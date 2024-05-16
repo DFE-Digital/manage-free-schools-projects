@@ -5,14 +5,14 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen.ViewMovingToOpenTask
 @{
-    ViewData["Title"] = $"Kick-off Meeting - {Model.Project.SchoolName}";
+    ViewData["Title"] = $"Moving to open - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditMovingToOpenTask, Model.ProjectId);
     var movingtoopen = Model.Project.MovingToOpen;
-    List<string> sentProjectBriefTo = new List<string>();
-    List<string> sentEmailTo = new List<string>();
-    //List<string> savedDocumentsToWorkplaces= new List<string>();
+    var sentProjectBriefTo = new List<string>();
+    var sentEmailTo = new List<string>();
+    var sentToWorkplaces = new List<string>();
     if (movingtoopen.ProjectBriefToSfso == true)
     {
         sentProjectBriefTo.Add("SFSO (Schools Financial Support and Oversight)");
@@ -34,6 +34,18 @@
     {
         sentEmailTo.Add("The school's principal about handing project over to SFSO");
     }
+    if (movingtoopen.SavedToWorkplacesFolderProjectBrief== true)
+    {
+        sentToWorkplaces.Add("Project brief");
+    }
+    if (movingtoopen.SavedToWorkplacesFolderAnnexB== true)
+    {
+        sentToWorkplaces.Add("Annex B checklist documents");
+    }
+    if (movingtoopen.SavedToWorkplacesFolderAnnexE== true)
+    {
+        sentToWorkplaces.Add("Completed Annex E checklist");
+    }
 }
 
 @section BeforeMain {
@@ -53,7 +65,7 @@
         <govuk-summary-list>
             <govuk-summary-list-item label="Sent the project brief to" list="@sentProjectBriefTo" href="@editlink"/>
             <govuk-summary-list-item label="Sent emails to" list="@sentEmailTo" href="@editlink"/>
-            <govuk-summary-list-item label="Saved documents in moving to open Workplaces folder" list="@sentProjectBriefTo" href="@editlink"/>
+            <govuk-summary-list-item label="Saved documents in moving to open Workplaces folder" list="@sentToWorkplaces" href="@editlink"/>
             <govuk-summary-item label="Actual opening date" asp-for="@movingtoopen.ActualOpeningDate" href="@editlink"/>
         </govuk-summary-list>
 

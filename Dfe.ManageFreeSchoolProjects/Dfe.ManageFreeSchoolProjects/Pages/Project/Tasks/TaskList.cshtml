@@ -30,6 +30,7 @@
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
+    var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
     var pdgLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
@@ -354,21 +355,31 @@
                         RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
                     }
                 </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@movingToOpenLink" class="govuk-link" data-testid="movingToOpen-task">
+                            Moving to open
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.MovingToOpen);
+                    }
+                </li>
             </ul>
             <h2 class="app-task-list__section">
                 After Opening
             </h2>
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
-                                        <span class="app-task-list__task-name">
-                                            <a href="@commissionedExternalExpert" class="govuk-link" data-testid="externalExpertVisit-task">
-                                                External expert visit
-                                            </a>
-                                        </span>
-                                        @{
-                                            RenderStatus(Model.ProjectTaskListSummary.CommissionedExternalExpert);
-                                        }
-                                    </li>
+                    <span class="app-task-list__task-name">
+                        <a href="@commissionedExternalExpert" class="govuk-link" data-testid="externalExpertVisit-task">
+                            External expert visit
+                        </a>
+                    </span>
+                    @{
+                        RenderStatus(Model.ProjectTaskListSummary.CommissionedExternalExpert);
+                    }
+                </li>
             </ul>
             </li>
         </ol>
