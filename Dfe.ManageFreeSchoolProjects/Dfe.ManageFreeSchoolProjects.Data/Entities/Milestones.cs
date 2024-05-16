@@ -128,5 +128,19 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateTime? FsgPreOpeningMilestonesExternalExpertVisitDate { get; set; }
             
         public bool? FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder { get; set; }
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToSfso{ get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates{ get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToNewDeliveryOfficer{ get; set; }
+        public bool? FsgPreOpeningMilestoneMovingToOpenSentEmailsToRelevantContacts { get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenSentEmailsToSchoolsPrinciple { get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderProjectBrief { get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexB { get; set; }
+        
+        public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE { get; set; }
     }
 }

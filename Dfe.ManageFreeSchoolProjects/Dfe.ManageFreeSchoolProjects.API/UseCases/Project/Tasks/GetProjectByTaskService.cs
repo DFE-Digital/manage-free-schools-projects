@@ -152,6 +152,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.CommissionedExternalExpert:
                     result = await new GetCommissionedExternalExpertTaskService(_context).Get(parameters);
                     break;
+                case TaskName.MovingToOpen:
+                    result = await new GetMovingToOpenTaskService(_context).Get(parameters);
+                    break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
             }

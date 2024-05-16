@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 TestId = TestId,
                 Name = Name, 
                 Label = Label, 
+                Hint = Hint,
                 HeadingLabel = 
                 HeadingLabel, 
                 BoldLabel = BoldLabel, 

@@ -83,10 +83,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 MatUnitProjects = _fixture.Create<string>().Substring(0, 31),
                 SponsorUnitProjects = _fixture.Create<string>()
             };
-
+            
             return result;
         }
-
+        
         public static Trust BuildTrust()
         {
             var result = new Trust
@@ -348,6 +348,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesExternalExpertVisitDate = new DateTime().AddDays(1);
             result.FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder = false;
 
+            return result;
+        }
+        
+        public static Milestones MovingToOpenTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates = false;
+            
             return result;
         }
 

@@ -1,0 +1,77 @@
+﻿@page "/projects/{projectId}/tasks/moving-to-open/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen.EditMovingToOpenTaskModel
+@{
+    ViewData["Title"] = $"Edit Moving to open - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Moving to open
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-checkbox-input id="project-brief-to-sfso"
+                                  name="project-brief-to-sfso"
+                                  asp-for="@Model.ProjectBriefToSfso"
+                                  heading-label="Sent the project brief to"
+                                  label="SFSO (Schools Financial Support and Oversight)"
+                                  add-margin="false" />
+            <govuk-checkbox-input label="Education Estates"
+                                  asp-for="@Model.ProjectBriefToEducationEstates"
+                                  name="project-brief-to-education-estates"
+                                  id="project-brief-to-education-estates"
+                                  add-margin="false"/>
+            <govuk-checkbox-input label="New delivery officer (if applicable)"
+                                  asp-for="@Model.ProjectBriefToNewDeliveryOfficer"
+                                  name="project-brief-to-new-delivery-officer"
+                                  id="project-brief-to-new-delivery-officer"
+                                  add-margin="false"/>
+            <govuk-checkbox-input heading-label="Sent emails to" label="Relevant contacts to confirm school is moving to open (if applicable)"
+                                  hint="You only need to send an email to relevant contacts if your project is low or medium risk."
+                                  asp-for="@Model.SentEmailsToRelevantContacts"
+                                  name="sent-emails-to-relevant-contacts"
+                                  id="sent-emails-to-relevant-contacts"
+                                  add-margin="false"/>
+            <govuk-checkbox-input label="The school's principal about handing project over to SFSO"
+                                  asp-for="@Model.SentEmailsToSchoolsPrinciple"
+                                  name="sent-emails-to-schools-principle"
+                                  id="sent-emails-to-schools-principler"
+                                  add-margin="false"/>
+            <govuk-checkbox-input heading-label="Saved documents in moving to open Workplaces folder"
+                                  label="Project brief"
+                                  asp-for="@Model.SavedToWorkplacesFolderProjectBrief"
+                                  name="saved-to-workplaces-folder-project-brief"
+                                  id="saved-to-workplaces-folder-project-brief"
+                                  add-margin="false"/>
+            <govuk-checkbox-input label="Annex B checklist documents"
+                                  asp-for="@Model.SavedToWorkplacesFolderAnnexB"
+                                  name="saved-to-workplaces-folder-annexb"
+                                  id="saved-to-workplaces-folder-annexb"
+                                  add-margin="false"/>
+            <govuk-checkbox-input label="Completed Annex E checklist"
+                                  asp-for="@Model.SavedToWorkplacesFolderAnnexE"
+                                  name="saved-to-workplaces-folder-annexe"
+                                  id="saved-to-workplaces-folder-annexbe"
+                                  add-margin="false"/>
+            <govuk-date-input id="actual-opening-date" name="actual-opening-date" asp-for="@Model.ActualOpeningDate" label="Date agreed" hint="For example, 27 3 2021"/>
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

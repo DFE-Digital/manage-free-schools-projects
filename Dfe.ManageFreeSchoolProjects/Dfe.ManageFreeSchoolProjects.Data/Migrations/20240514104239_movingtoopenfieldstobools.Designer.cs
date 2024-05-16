@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240514104239_movingtoopenfieldstobools")]
+    partial class movingtoopenfieldstobools
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5021,9 +5024,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexB");
 
-                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE")
+                    b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexC")
                         .HasColumnType("bit")
-                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexE");
+                        .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexC");
 
                     b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderProjectBrief")
                         .HasColumnType("bit")

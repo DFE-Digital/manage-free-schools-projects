@@ -51,6 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse PupilNumbersChecks { get; set; }
         
         public TaskSummaryResponse CommissionedExternalExpert { get; set; }
+        
+        public TaskSummaryResponse MovingToOpen { get; set; }
     }
 
     public class TaskSummaryResponse

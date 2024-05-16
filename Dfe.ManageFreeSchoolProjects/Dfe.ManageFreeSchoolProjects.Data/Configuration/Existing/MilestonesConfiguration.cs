@@ -200,6 +200,34 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.FsgPreOpeningMilestonesIaeaForecastDate)
                 .HasColumnType("date")
                 .HasColumnName("FSG Pre Opening Milestones.IAEA Forecast date");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenProjectBriefToSfso)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To Sfso");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To Education Estates");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenProjectBriefToNewDeliveryOfficer)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To New Delivery Officer");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSentEmailsToRelevantContacts)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To Relevant Contacts");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSentEmailsToRelevantContacts)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To Relevant Contacts");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSentEmailsToSchoolsPrinciple)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Sent Emails To Schools Principle");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderProjectBrief)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder Project Brief");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexB)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexB");
+            builder.Property(e => e.FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE)
+                .HasColumnType("bit")
+                .HasColumnName("FSG Pre Opening Milestones. Moving To Open Saved To Workplaces Folder AnnexE");
+            
             builder.Property(e => e.FsgPreOpeningMilestonesInspectionConditionsMet)
                 .HasMaxLength(100)
                 .IsUnicode(false)
