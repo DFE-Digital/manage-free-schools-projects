@@ -14,8 +14,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
     {
         private readonly IHtmlHelper _htmlHelper;
         
-        const string empty = @"<span class=""empty"">Empty</span>";
-
         [HtmlAttributeName("label")]
         public string Label { get; set; }
         
@@ -24,15 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         
         [HtmlAttributeName("list")]
         public List<string> List { get; set; }
-
-        [HtmlAttributeName("asp-for")]
-        public ModelExpression For { get; set; }
-
+        
         [HtmlAttributeName("href")]
         public string Href { get; set; }
-
-        [HtmlAttributeName("render-link")]
-        public bool RenderLink { get; set; }
         
         [ViewContext]
         public ViewContext ViewContext { get; set; }
@@ -57,16 +49,12 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 List = List
             };
             
-           
-
             var content = await _htmlHelper.PartialAsync("_SummaryList", model);
 
             output.TagName = null;
             output.PostContent.AppendHtml(content);
            
         }
-
-      
     }
     
     public class SummaryItemListViewModel
