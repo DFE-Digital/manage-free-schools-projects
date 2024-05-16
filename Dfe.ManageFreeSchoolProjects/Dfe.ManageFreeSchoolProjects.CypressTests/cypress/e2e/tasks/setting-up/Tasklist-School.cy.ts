@@ -111,8 +111,8 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Mixed")
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
-            .summaryShows("Alternative provision").HasValue("No")
-            .summaryShows("Special educational needs").HasValue("No")
+            .summaryShows("Alternative provision (specialist resource provision)").HasValue("No")
+            .summaryShows("Special educational needs (specialist resource provision)").HasValue("No")
             .summaryShows("Faith status").HasValue("Designation")
             .summaryShows("Faith type").HasValue("Jewish")
             .clickChange();
@@ -146,8 +146,8 @@ describe("Testing project overview", () => {
             .summaryShows("Sixth form").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Ethos")
             .summaryShows("Faith type").HasValue("Christian")
-            .summaryDoesNotShow("Alternative provision")
-            .summaryDoesNotShow("Special educational needs")
+            .summaryDoesNotShow("Alternative provision (specialist resource provision)")
+            .summaryDoesNotShow("Special educational needs (specialist resource provision)")
             .clickChange();
 
         Logger.log("Checking faith type 'Other'");

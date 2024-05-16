@@ -37,8 +37,8 @@
             @{
                 if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(schoolTask.SchoolType))
                 {
-                    <govuk-summary-item label="Alternative provision" asp-for="@schoolTask.AlternativeProvision" href="@editLink" />
-                    <govuk-summary-item label="Special educational needs" asp-for="@schoolTask.SpecialEducationNeeds" href="@editLink" />
+                    <govuk-summary-item label="Alternative provision (specialist resource provision)" asp-for="@schoolTask.AlternativeProvision" href="@editLink" />
+                    <govuk-summary-item label="Special educational needs (specialist resource provision)" asp-for="@schoolTask.SpecialEducationNeeds" href="@editLink" />
                 }
             }
             <govuk-summary-item label="Faith status" asp-for="@schoolTask.FaithStatus" href="@editLink" />
