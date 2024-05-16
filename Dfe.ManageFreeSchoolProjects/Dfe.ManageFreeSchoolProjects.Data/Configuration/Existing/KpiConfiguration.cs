@@ -273,6 +273,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.ESFA Capital project manager");
+            builder.Property(e => e.KeyContactsEsfaCapitalProjectManagerEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.ESFA Capital project manager email");
             builder.Property(e => e.KeyContactsEsfaCapitalProjectManagerFirm)
                 .HasMaxLength(100)
                 .IsUnicode(false)

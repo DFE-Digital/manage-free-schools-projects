@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
-public class ProjectLead : CreateProjectBaseModel
+public class ProjectAssignedTo : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
 
@@ -18,7 +18,7 @@ public class ProjectLead : CreateProjectBaseModel
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
-    public ProjectLead(ErrorService errorService, ICreateProjectCache createProjectCache)
+    public ProjectAssignedTo(ErrorService errorService, ICreateProjectCache createProjectCache)
         :base(createProjectCache)
     {
         _errorService = errorService;
@@ -34,10 +34,10 @@ public class ProjectLead : CreateProjectBaseModel
 
         var projectCache = _createProjectCache.Get();
 
-        BackLink = GetPreviousPage(CreateProjectPageName.ProjectLead);
+        BackLink = GetPreviousPage(CreateProjectPageName.ProjectAssignedTo);
 
-        Name = projectCache.ProjectLeadName;
-        Email = projectCache.ProjectLeadEmail;
+        Name = projectCache.ProjectAssignedToName;
+        Email = projectCache.ProjectAssignedToEmail;
 
         return Page();
     }
@@ -46,7 +46,7 @@ public class ProjectLead : CreateProjectBaseModel
     public IActionResult OnPost()
     {
         var projectCache = _createProjectCache.Get();
-        BackLink = GetPreviousPage(CreateProjectPageName.ProjectLead);
+        BackLink = GetPreviousPage(CreateProjectPageName.ProjectAssignedTo);
 
         if (!ModelState.IsValid)
         {
@@ -68,8 +68,8 @@ public class ProjectLead : CreateProjectBaseModel
             return Page();
         }
 
-        projectCache.ProjectLeadName = Name;
-        projectCache.ProjectLeadEmail = Email;
+        projectCache.ProjectAssignedToName = Name;
+        projectCache.ProjectAssignedToEmail = Email;
         _createProjectCache.Update(projectCache);
         
         return Redirect(RouteConstants.CreateProjectCheckYourAnswers);

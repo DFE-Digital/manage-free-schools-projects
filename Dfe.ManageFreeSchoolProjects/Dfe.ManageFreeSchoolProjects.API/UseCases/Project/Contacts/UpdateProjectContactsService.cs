@@ -43,6 +43,9 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
         dbProject.KeyContactsFsgGrade6 = updateRequest.Contacts.Grade6.Name ?? dbProject.KeyContactsFsgGrade6;
         dbProject.KeyContactsFsgGrade6Email = updateRequest.Contacts.Grade6.Email ?? dbProject.KeyContactsFsgGrade6Email;
 
+        dbProject.KeyContactsEsfaCapitalProjectManager = updateRequest.Contacts.ProjectManager.Name ?? dbProject.KeyContactsEsfaCapitalProjectManager;
+        dbProject.KeyContactsEsfaCapitalProjectManagerEmail = updateRequest.Contacts.ProjectManager.Email ?? dbProject.KeyContactsEsfaCapitalProjectManagerEmail;
+
         dbProject.KeyContactsEsfaCapitalProjectDirector = updateRequest.Contacts.ProjectDirector.Name ?? dbProject.KeyContactsEsfaCapitalProjectDirector;
         dbProject.KeyContactsEsfaCapitalProjectDirectorEmail = updateRequest.Contacts.ProjectDirector.Email ?? dbProject.KeyContactsEsfaCapitalProjectDirectorEmail;
 

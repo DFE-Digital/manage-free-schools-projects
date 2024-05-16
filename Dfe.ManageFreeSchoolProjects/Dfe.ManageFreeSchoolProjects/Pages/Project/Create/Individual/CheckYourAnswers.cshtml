@@ -13,7 +13,7 @@
 
 @section BeforeMain {
     <div class="govuk-width-container">
-        <a href=@RouteConstants.CreateProjectLead class="govuk-back-link" data-testid="back">Back</a>
+        <a href=@RouteConstants.CreateProjectAssignedTo class="govuk-back-link" data-testid="back">Back</a>
     </div>
 }
 
@@ -321,15 +321,15 @@
 
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-            Project lead name
+            Project assigned to
         </dt>
         <dd class="govuk-summary-list__value" data-test-id="project-lead-name">
-            @Model.Project.ProjectLeadName
+                    @Model.Project.ProjectAssignedToName
         </dd>
         <dd class="govuk-summary-list__actions">
 
-            <a class="govuk-link" href="@RouteConstants.CreateProjectLead">
-                Change<span class="govuk-visually-hidden"> Project lead name</span>
+                    <a class="govuk-link" href="@RouteConstants.CreateProjectAssignedTo">
+                Change<span class="govuk-visually-hidden"> Project assigned to name</span>
             </a>
 
         </dd>
@@ -337,15 +337,15 @@
 
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-            Project lead email
+            Email
         </dt>
         <dd class="govuk-summary-list__value" data-test-id="project-lead-email">
-            @Model.Project.ProjectLeadEmail
+            @Model.Project.ProjectAssignedToEmail
         </dd>
         <dd class="govuk-summary-list__actions">
 
-            <a class="govuk-link" href="@RouteConstants.CreateProjectLead">
-                Change<span class="govuk-visually-hidden"> Project lead email</span>
+            <a class="govuk-link" href="@RouteConstants.CreateProjectAssignedTo">
+                Change<span class="govuk-visually-hidden">Project assigned to email</span>
             </a>
 
         </dd>

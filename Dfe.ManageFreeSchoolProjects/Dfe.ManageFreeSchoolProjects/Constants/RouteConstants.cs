@@ -4,6 +4,7 @@
     {
         public const string ProjectOverview = "/projects/{0}/overview";
         public const string TaskList = "/projects/{0}/tasks";
+        public const string Contacts = "/projects/{0}/contacts";
         public const string CreateProject = "/project/create";
 
         public const string ViewSiteInformation = "/projects/{0}/site-information";
@@ -102,7 +103,7 @@
         public const string CreateProjectAgeRange = CreateProject + "/age-range";
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateProjectCapacity = CreateProject + "/capacity";
-        public const string CreateProjectLead = CreateProject + "/projectlead";
+        public const string CreateProjectAssignedTo = CreateProject + "/project-assigned-to";
         public const string CreateClassType = CreateProject + "/class-type";
         public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
         public const string CreateProjectProvisionalOpeningDate = CreateProject + "/provisional-opening-date";

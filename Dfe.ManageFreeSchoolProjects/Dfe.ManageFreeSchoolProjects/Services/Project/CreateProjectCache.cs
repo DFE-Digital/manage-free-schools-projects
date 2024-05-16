@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public FaithType FaithType { get; set; }
         public string OtherFaithType { get; set; }
         public DateTime? ProvisionalOpeningDate { get; set; }
-        public string ProjectLeadName { get; set; }
-        public string ProjectLeadEmail { get; set; }
+        public string ProjectAssignedToName { get; set; }
+        public string ProjectAssignedToEmail { get; set; }
     }
 }

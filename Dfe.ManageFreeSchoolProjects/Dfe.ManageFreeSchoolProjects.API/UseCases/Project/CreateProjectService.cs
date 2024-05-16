@@ -118,8 +118,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsFaithType = proj.FaithType.ToDescription(),
                 SchoolDetailsPleaseSpecifyOtherFaithType = proj.OtherFaithType,
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
-                KeyContactsFsgLeadContact = proj.ProjectLeadName,
-                KeyContactsFsgLeadContactEmail = proj.ProjectLeadEmail,
+                KeyContactsFsgLeadContact = proj.ProjectAssignedToName,
+                KeyContactsFsgLeadContactEmail = proj.ProjectAssignedToEmail,
             };
         }
 

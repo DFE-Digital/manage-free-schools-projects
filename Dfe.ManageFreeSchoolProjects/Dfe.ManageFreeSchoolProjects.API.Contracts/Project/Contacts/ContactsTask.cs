@@ -8,9 +8,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 
         public Contact Grade6 { get; set; } = new();
 
+        public Contact ProjectManager { get; set; } = new();
+
         public Contact ProjectDirector { get; set; } = new();
 
-        public Contact TrustChair { get; set; } = new();
+        public Contact TrustContact { get; set; } = new();
 
         public Contact SchoolChair { get; set; } = new();
 

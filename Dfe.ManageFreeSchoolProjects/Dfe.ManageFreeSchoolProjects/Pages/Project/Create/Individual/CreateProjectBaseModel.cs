@@ -66,8 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectSchoolPhase,
                 CreateProjectPageName.Capacity => RouteConstants.CreateProjectAgeRange,
                 CreateProjectPageName.FaithStatus => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.ProjectLead => RouteConstants.CreateProjectProvisionalOpeningDate,
-                CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectLead,
+                CreateProjectPageName.ProjectAssignedTo => RouteConstants.CreateProjectProvisionalOpeningDate,
+                CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectAssignedTo,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
@@ -116,8 +116,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
                 CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
-                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateProjectLead,
-                CreateProjectPageName.ProjectLead => RouteConstants.CreateProjectCheckYourAnswers,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateProjectAssignedTo,
+                CreateProjectPageName.ProjectAssignedTo => RouteConstants.CreateProjectCheckYourAnswers,
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
