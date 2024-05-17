@@ -1,12 +1,12 @@
-class ContactsSummaryPage {
+class ContactsPage {
 
-    public hasProjectManagedByName(value: string): this {
-        cy.getByTestId(`project-managed-by-name`).should(`contain.text`, value);
+    public hasProjectAssignedToName(value: string): this {
+        cy.getByTestId(`project-assigned-to-name`).should(`contain.text`, value);
         return this;
     }
 
-    public hasProjectManagedByEmail(value: string): this {
-        cy.getByTestId(`project-managed-by-email`).should(`contain.text`, value);
+    public hasProjectAssignedToEmail(value: string): this {
+        cy.getByTestId(`project-assigned-to-email`).should(`contain.text`, value);
         return this;
     }
 
@@ -37,8 +37,8 @@ class ContactsSummaryPage {
         return this;
     }
 
-    public goToEditProjectManagedBy(): this {
-        cy.getByTestId("edit-project-managed-by").click();
+    public goToEditProjectAssignedTo(): this {
+        cy.getByTestId("edit-project-assigned-to").click();
 
         return this;
     }
@@ -50,6 +50,6 @@ class ContactsSummaryPage {
     }
 }
 
-const contactsSummaryPage = new ContactsSummaryPage();
+const contactsPage = new ContactsPage();
 
-export default contactsSummaryPage;
+export default contactsPage;
