@@ -15,6 +15,7 @@
     var grade6Link = string.Format(RouteConstants.EditGrade6, Model.ProjectId);
     var projectManagerLink = string.Format(RouteConstants.EditProjectManager, Model.ProjectId);
     var projectDirectorLink = string.Format(RouteConstants.EditProjectDirector, Model.ProjectId);
+    var trustContactLink = string.Format(RouteConstants.EditTrustContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -261,7 +262,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Trust contact</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-trust-contact">
+            <a class="govuk-link" href="@trustContactLink" data-testid="edit-trust-contact">
                 Change
                 <span class="govuk-visually-hidden">Change Project director (External)</span>
             </a>
@@ -287,6 +288,23 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="trust-contact-email">
                     @Model.Contacts.Contacts.TrustContact.Email
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Phone number
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="trust-contact-phone-number">
+                    @Model.Contacts.Contacts.TrustContact.PhoneNumber
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Role
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="trust-contact-role">
+                    @Model.Contacts.Contacts.TrustContact.Role
                 </dd>
             </div>
         </dl>
