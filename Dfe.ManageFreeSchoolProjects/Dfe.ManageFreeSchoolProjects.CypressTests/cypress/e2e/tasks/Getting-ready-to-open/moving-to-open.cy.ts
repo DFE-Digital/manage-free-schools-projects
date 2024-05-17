@@ -76,40 +76,56 @@ describe("Testing the moving to open task", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Moving to Open")
+            .titleIs("Moving to open")
             .inOrder()
-            .summaryShows("Sent the project brief to").HasValue("SFSO (Schools Financial Support and Oversight").HasChangeLink()
-            .summaryShows("Sent the project brief to").HasValue("Education Estates").HasChangeLink()
-            .summaryShows("Sent emails to").HasValue("Relevant contacts to confirm school is moving to open").HasChangeLink()
-            .summaryShows("Saved documents in moving to open Workplaces folder").HasValue("Project brief").HasChangeLink()
+            .summaryShows("Sent the project brief to")
+            .HasValue("SFSO (Schools Financial Support and Oversight)").HasChangeLink()
+            .HasValue("Education Estates").HasChangeLink()
+            .HasValue("New delivery officer").HasChangeLink()
+            .summaryShows("Sent emails to")
+            .HasValue("The school's principal about handing project over to SFSO").HasChangeLink()
+            .HasValue("Relevant contacts to confirm school is moving to open").HasChangeLink()
+            .summaryShows("Saved documents in moving to open Workplaces folder")
+            .HasValue("Project brief").HasChangeLink()
+            .HasValue("Annex B checklist documents").HasChangeLink()
+            .HasValue("Completed Annex E checklist").HasChangeLink()
             .summaryShows("Actual opening date").HasValue("30 December 2050").HasChangeLink()
             .isNotMarkedAsComplete()
             .clickConfirmAndContinue()
 
         taskListPage.isTaskStatusInProgress("MovingToOpen");
-        //
-        // taskListPage.selectAcceptedOffersEvidenceFromTaskList();
-        // summaryPage.clickChange();
-        //
-        // Logger.log("Should be able to clear all values");
-        //
-        // acceptedOffersEvidenceEditPage
-        //     .uncheckSeenAcceptedOffersEvidence()
-        //     .uncheckSavedToWorkplaces()
-        //     .clearComments()
-        //     .clickContinue()
-        //
-        // summaryPage
-        //     .schoolNameIs(project.schoolName)
-        //     .titleIs("Accepted offers evidence")
-        //     .inOrder()
-        //     .summaryShows("Seen evidence of accepted offers").IsEmpty().HasChangeLink()
-        //     .summaryShows("Comments").IsEmpty().HasChangeLink()
-        //     .summaryShows("Saved email from the trust in Workplaces folder confirming accepted offers").IsEmpty().HasChangeLink()
-        //     .isNotMarkedAsComplete()
-        //     .MarkAsComplete()
-        //     .clickConfirmAndContinue()
-        //
-        // taskListPage.isTaskStatusIsCompleted("EvidenceOfAcceptedOffers");
+        
+        taskListPage.selectMovingToOpenFromTaskList();
+        summaryPage.clickChange();
+        
+        Logger.log("Should be able to clear some values");
+        
+        movingToOpenEditPage
+            .withActualOpeningDate("29","12","2050")
+            .uncheckSentToDeliverOfficer()
+            .uncheckEmailSentToRelevantContact()
+            .uncheckSavedToWorkspacesProjectBrief()
+            .uncheckSavedToWorkspacesAnnexE()
+            .uncheckSavedToWorkspacesAnnexB()
+            .clickContinue()
+        
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Moving to open")
+            .inOrder()
+            .summaryShows("Sent the project brief to")
+            .HasValue("SFSO (Schools Financial Support and Oversight)").HasChangeLink()
+            .HasValue("Education Estates").HasChangeLink()
+            .DoesNotHaveValue("New delivery officer").HasChangeLink()
+            .summaryShows("Sent emails to")
+            .HasValue("The school's principal about handing project over to SFSO").HasChangeLink()
+            .DoesNotHaveValue("Relevant contacts to confirm school is moving to open").HasChangeLink()
+            .summaryShows("Saved documents in moving to open Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Actual opening date").HasValue("29 December 2050").HasChangeLink()
+            .isNotMarkedAsComplete()
+            .MarkAsComplete()
+            .clickConfirmAndContinue()
+
+        taskListPage.isTaskStatusIsCompleted("MovingToOpen");
     });
 });

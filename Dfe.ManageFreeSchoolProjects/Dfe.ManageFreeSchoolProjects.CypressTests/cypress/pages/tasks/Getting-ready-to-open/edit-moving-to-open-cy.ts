@@ -42,8 +42,6 @@ class MovingToOpenEditPage {
         return this
     }
     
-    //
-
     uncheckSentToSfso(): this {
         cy.getById("project-brief-to-sfso").uncheck()
         return this
