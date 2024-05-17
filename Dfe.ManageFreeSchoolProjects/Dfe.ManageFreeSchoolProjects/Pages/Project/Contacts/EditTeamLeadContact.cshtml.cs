@@ -130,6 +130,12 @@ public class EditTeamLeadContactModel : PageModel
             ModelState.AddModelError("team-lead-email", "The team lead email must be 100 characters or less");
         }
 
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         var updateContactsRequest = new UpdateContactsRequest()
         {
             Contacts = new ContactsTask()

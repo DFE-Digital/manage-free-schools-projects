@@ -79,6 +79,12 @@ public class ProjectAssignedTo : CreateProjectBaseModel
             ModelState.AddModelError("email", "The email must be 100 characters or less");
         }
 
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         projectCache.ProjectAssignedToName = Name;
         projectCache.ProjectAssignedToEmail = Email;
         _createProjectCache.Update(projectCache);

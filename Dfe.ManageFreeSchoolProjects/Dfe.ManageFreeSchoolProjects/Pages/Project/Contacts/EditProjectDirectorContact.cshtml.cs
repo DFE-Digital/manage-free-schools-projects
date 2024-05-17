@@ -130,6 +130,12 @@ public class EditProjectDirectorContactModel : PageModel
             ModelState.AddModelError("project-director-email", "The project director email must be 100 characters or less");
         }
 
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         var updateContactsRequest = new UpdateContactsRequest()
         {
             Contacts = new ContactsTask()

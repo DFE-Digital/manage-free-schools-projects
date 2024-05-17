@@ -130,6 +130,12 @@ public class EditGrade6ContactModel : PageModel
             ModelState.AddModelError("grade-6-email", "The grade 6 email must be 100 characters or less");
         }
 
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         var updateContactsRequest = new UpdateContactsRequest()
         {
             Contacts = new ContactsTask()
