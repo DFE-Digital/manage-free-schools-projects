@@ -6,7 +6,6 @@
 
 @{
     ViewData["Title"] = $"Contacts";
-    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
@@ -152,7 +151,7 @@
         <div class="govuk-summary-card__actions">
             <a class="govuk-link" href="@grade6Link" data-testid="edit-grade-6">
                 Change
-                <span class="govuk-visually-hidden" Change Grade 6 (Regions Group)</span>
+                <span class="govuk-visually-hidden">Change Grade 6 (Regions Group)</span>
             </a>
         </div>
     </div>
@@ -310,48 +309,3 @@
         </dl>
     </div>
 </div>
-@* 
-@{
-    foreach (var contactType in ProjectConstants.ContactTypes)
-    {
-        var contactTypeKebab = StringExtensions.SentenceToKebabCase(contactType);
-        var contactTypePascal = @contactType.Replace(" ", "");
-
-        var contact = Model.Contacts.Contacts.GetType().GetProperty(contactTypePascal).GetValue(@Model.Contacts.Contacts, null);
-
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">@contactType</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@string.Format(RouteConstants.EditContact, Model.ProjectId, @contactTypeKebab)" data-testid="edit-@contactTypeKebab">
-                        Change
-                        <span class="govuk-visually-hidden">@contactType</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Name
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-name">
-                            @contact.GetType().GetProperty("Name").GetValue(contact, null)
-                        </dd>
-
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Email address
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="@contactTypeKebab-email">
-                            @contact.GetType().GetProperty("Email").GetValue(contact, null)
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-    }
-} *@

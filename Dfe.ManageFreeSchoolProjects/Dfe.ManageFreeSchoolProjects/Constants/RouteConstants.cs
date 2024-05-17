@@ -119,7 +119,7 @@
         public const string EditGrade6 = "/projects/{0}/contacts/grade-6-edit";
         public const string EditProjectManager = "/projects/{0}/contacts/project-manager-edit";
         public const string EditProjectDirector = "/projects/{0}/contacts/project-director-edit";
-        public const string EditTrustContact = "/projects/{0}/contacts/project-director-edit";
+        public const string EditTrustContact = "/projects/{0}/contacts/trust-contact-edit";
 
         public const string ViewPDG = TaskList + "/pdg";
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
