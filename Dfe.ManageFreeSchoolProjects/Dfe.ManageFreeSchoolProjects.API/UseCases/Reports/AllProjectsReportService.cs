@@ -27,6 +27,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
@@ -111,7 +112,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       ApplicationsEvidence = ApplicationsEvidenceTaskBuilder.Build(milestones),
                                       FinalFinancePlan = FinalFinancePlanTaskBuilder.Build(milestones),
                                       PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones),
-                                      CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones)
+                                      CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones),
+                                      MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {

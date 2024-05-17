@@ -31,7 +31,13 @@ export class SummaryPage {
         cy.get(".govuk-summary-list__key").eq(this.summaryCounter).should("contains.text", key);
         return this;
     }
+    
+    public summaryShowsWithoutCount(key: string): this {
+        cy.get(".govuk-summary-list__value").should("contains.text", key);
 
+        return this;
+    }
+    
     public summaryDoesNotShow(key: string): this {
         cy.get(".govuk-summary-list__key").each($el => {
             cy.wrap($el).should("not.contains.text", key);
@@ -47,6 +53,11 @@ export class SummaryPage {
 
     public HasValue(value): this {
         cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", value);
+        return this;
+    }
+
+    public DoesNotHaveValue(value): this {
+        cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("not.contains.text", value);
         return this;
     }
 
