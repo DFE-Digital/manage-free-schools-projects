@@ -1,0 +1,59 @@
+@page "/projects/{projectId}/contacts/project-manager-edit"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model EditProjectManagerContactModel
+
+
+@{
+    ViewData["Title"] = $"Edit Project manager";
+    var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
+    
+}
+
+<partial name="_ErrorSummary" />
+
+@section BeforeMain {
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to contacts summary</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" data-testid="edit-project-manager-title">
+        <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+        <h1 class="govuk-heading-xl">
+            @ViewData["Title"]
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <label class="govuk-label govuk-heading-m" for="project-manager-name">
+            Name
+            </label>
+
+            <govuk-text-input 
+                id="project-manager-name"
+                name="project-manager-name"
+                asp-for="@Model.PageContacts.Contacts.ProjectManager.Name"
+                test-id="edit-project-manager-name" />
+            
+             <label class="govuk-label govuk-heading-m" for="project-manager-email">
+            Email
+            </label>
+            <govuk-text-input id="project-manager-email"
+                name="project-manager-email"
+                asp-for="@Model.PageContacts.Contacts.ProjectManager.Email"
+                test-id="edit-project-manager-email" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+
+        </form>
+    </div>
+</div>

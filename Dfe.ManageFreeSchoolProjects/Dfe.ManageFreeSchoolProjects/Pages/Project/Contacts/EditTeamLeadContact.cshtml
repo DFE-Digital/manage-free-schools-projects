@@ -1,11 +1,11 @@
-@page "/projects/{projectId}/contacts/project-assigned-to-edit"
+@page "/projects/{projectId}/contacts/team-lead-edit"
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model EditProjectAssignedToContactModel
+@model EditTeamLeadContactModel
 
 
 @{
-    ViewData["Title"] = $"Edit Project assigned to";
+    ViewData["Title"] = $"Edit Team lead";
     var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     
 }
@@ -19,7 +19,7 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full" data-testid="edit-project-assigned-to-title">
+    <div class="govuk-grid-column-full" data-testid="edit-team-lead-title">
         <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
         <h1 class="govuk-heading-xl">
             @ViewData["Title"]
@@ -32,23 +32,23 @@
 
         <form class="form" method="post">
 
-            <label class="govuk-label govuk-heading-m" for="project-assigned-to-name">
+            <label class="govuk-label govuk-heading-m" for="team-lead-name">
             Name
             </label>
 
             <govuk-text-input 
-                id="project-assigned-to-name"
-                name="project-assigned-to-name"
-                asp-for="@Model.PageContacts.Contacts.ProjectAssignedTo.Name"
-                test-id="edit-project-assigned-to-name" />
+                id="team-lead-name"
+                name="team-lead-name"
+                asp-for="@Model.PageContacts.Contacts.TeamLead.Name"
+                test-id="edit-team-lead-name" />
             
-             <label class="govuk-label govuk-heading-m" for="project-managed-by-email">
+             <label class="govuk-label govuk-heading-m" for="team-lead-email">
             Email
             </label>
-            <govuk-text-input id="project-assigned-to-email"
-                name="project-assigned-to-email"
-                asp-for="@Model.PageContacts.Contacts.ProjectAssignedTo.Email"
-                test-id="edit-project-assigned-to-email" />
+            <govuk-text-input id="team-lead-email"
+                name="team-lead-email"
+                asp-for="@Model.PageContacts.Contacts.TeamLead.Email"
+                test-id="edit-team-lead-email" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

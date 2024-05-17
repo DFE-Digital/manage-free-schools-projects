@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -54,18 +55,28 @@ public class ProjectAssignedTo : CreateProjectBaseModel
             return Page();
         }
 
-        if (!IsNameValid(Name))
+        if (!IsNamePopulated(Name))
         {
             ModelState.AddModelError("name", "Enter the full name, for example John Smith");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
-        if (!IsEmailValid(Email))
+        if (Name.Any(char.IsDigit))
+        {
+            ModelState.AddModelError("name", "The name cannot contain numbers");
+        }
+
+        if (!IsEducationEmailValid(Email))
         {
             ModelState.AddModelError("email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
+        }
+
+        if (Email?.Length > 100)
+        {
+            ModelState.AddModelError("email", "The email must be 100 characters or less");
         }
 
         projectCache.ProjectAssignedToName = Name;
@@ -75,13 +86,14 @@ public class ProjectAssignedTo : CreateProjectBaseModel
         return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
     }
 
-    private static bool IsEmailValid(string email)
+    private static bool IsNamePopulated(string name)
+    {
+        return name != null && name.Contains(' ');
+    }
+
+    private static bool IsEducationEmailValid(string email)
     {
         return email != null && email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email);
     }
 
-    private static bool IsNameValid(string name)
-    {
-        return name != null && name.Contains(' ');
-    }
 }

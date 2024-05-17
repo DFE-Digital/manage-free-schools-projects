@@ -115,7 +115,11 @@
         public const string CreateFaithType = CreateProject + "/faith-type";
         
         public const string EditProjectAssignedTo = "/projects/{0}/contacts/project-assigned-to-edit";
-        public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
+        public const string EditTeamLead = "/projects/{0}/contacts/team-lead-edit";
+        public const string EditGrade6 = "/projects/{0}/contacts/grade-6-edit";
+        public const string EditProjectManager = "/projects/{0}/contacts/project-manager-edit";
+        public const string EditProjectDirector = "/projects/{0}/contacts/project-director-edit";
+        //public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
 
         public const string ViewPDG = TaskList + "/pdg";
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";

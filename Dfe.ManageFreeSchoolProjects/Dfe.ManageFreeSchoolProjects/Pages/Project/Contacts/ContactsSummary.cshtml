@@ -11,6 +11,10 @@
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     var projectAssignedToLink = string.Format(RouteConstants.EditProjectAssignedTo, Model.ProjectId);
+    var teamLeadLink = string.Format(RouteConstants.EditTeamLead, Model.ProjectId);
+    var grade6Link = string.Format(RouteConstants.EditGrade6, Model.ProjectId);
+    var projectManagerLink = string.Format(RouteConstants.EditProjectManager, Model.ProjectId);
+    var projectDirectorLink = string.Format(RouteConstants.EditProjectDirector, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -109,7 +113,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Team lead</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-team-lead">
+            <a class="govuk-link" href="@teamLeadLink" data-testid="edit-team-lead">
                 Change
                 <span class="govuk-visually-hidden">Change Team lead (Regions Group)</span>
             </a>
@@ -145,7 +149,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Grade 6</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-grade-6">
+            <a class="govuk-link" href="@grade6Link" data-testid="edit-grade-6">
                 Change
                 <span class="govuk-visually-hidden" Change Grade 6 (Regions Group)</span>
             </a>
@@ -183,7 +187,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Project manager</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-project-manager">
+            <a class="govuk-link" href="@projectManagerLink" data-testid="edit-project-manager">
                 Change
                 <span class="govuk-visually-hidden">Change Project manager (Education Estates)</span>
             </a>
@@ -219,7 +223,7 @@
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Project director</h2>
         <div class="govuk-summary-card__actions">
-            <a class="govuk-link" href="@projectAssignedToLink" data-testid="edit-project-director">
+            <a class="govuk-link" href="@projectDirectorLink" data-testid="edit-project-director">
                 Change
                 <span class="govuk-visually-hidden">Change Project director (Education Estates)</span>
             </a>
