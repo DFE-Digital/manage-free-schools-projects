@@ -15,6 +15,7 @@
     var projectManagerLink = string.Format(RouteConstants.EditProjectManager, Model.ProjectId);
     var projectDirectorLink = string.Format(RouteConstants.EditProjectDirector, Model.ProjectId);
     var trustContactLink = string.Format(RouteConstants.EditTrustContact, Model.ProjectId);
+    var ofstedContactLink = string.Format(RouteConstants.EditOfstedContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -263,7 +264,7 @@
         <div class="govuk-summary-card__actions">
             <a class="govuk-link" href="@trustContactLink" data-testid="edit-trust-contact">
                 Change
-                <span class="govuk-visually-hidden">Change Project director (External)</span>
+                <span class="govuk-visually-hidden">Change Trust contact (External)</span>
             </a>
         </div>
     </div>
@@ -304,6 +305,59 @@
                 </dt>
                 <dd class="govuk-summary-list__value" data-testid="trust-contact-role">
                     @Model.Contacts.Contacts.TrustContact.Role
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Ofsted contact</h2>
+        <div class="govuk-summary-card__actions">
+            <a class="govuk-link" href="@ofstedContactLink" data-testid="edit-ofsted-contact">
+                Change
+                <span class="govuk-visually-hidden">Change Ofsted contact (External)</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Name
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="ofsted-contact-name">
+                    @Model.Contacts.Contacts.OfstedContact.Name
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Email address
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="ofsted-contact-email">
+                    @Model.Contacts.Contacts.OfstedContact.Email
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Phone number
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="ofsted-contact-phone-number">
+                    @Model.Contacts.Contacts.OfstedContact.PhoneNumber
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Role
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="ofsted-contact-role">
+                    @Model.Contacts.Contacts.OfstedContact.Role
                 </dd>
             </div>
         </dl>

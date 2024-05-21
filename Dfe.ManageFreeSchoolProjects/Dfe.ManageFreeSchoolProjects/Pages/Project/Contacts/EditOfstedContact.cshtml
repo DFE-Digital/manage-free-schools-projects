@@ -1,0 +1,76 @@
+@page "/projects/{projectId}/contacts/ofsted-contact-edit"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model EditOfstedContactContactModel
+
+
+@{
+    ViewData["Title"] = $"Edit Ofsted contact";
+    var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
+    
+}
+
+<partial name="_ErrorSummary" />
+
+@section BeforeMain {
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to contacts summary</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" data-testid="edit-ofsted-contact-title">
+        <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+        <h1 class="govuk-heading-xl">
+            @ViewData["Title"]
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <label class="govuk-label govuk-heading-m" for="ofsted-contact-name">
+            Name
+            </label>
+
+            <govuk-text-input 
+                id="ofsted-contact-name"
+                name="ofsted-contact-name"
+                asp-for="@Model.PageContacts.Contacts.OfstedContact.Name"
+                test-id="edit-ofsted-contact-name" />
+            
+             <label class="govuk-label govuk-heading-m" for="ofsted-contact-email">
+            Email
+            </label>
+            <govuk-text-input id="ofsted-contact-email"
+                name="ofsted-contact-email"
+                asp-for="@Model.PageContacts.Contacts.OfstedContact.Email"
+                test-id="edit-ofsted-contact-email" />
+
+            <label class="govuk-label govuk-heading-m" for="ofsted-contact-phone-number">
+                Phone number
+            </label>
+
+            <govuk-text-input id="ofsted-contact-phone-number"
+                              name="ofsted-contact-phone-number"
+                              asp-for="@Model.PageContacts.Contacts.OfstedContact.PhoneNumber"
+                              test-id="edit-ofsted-contact-phone-number" />
+
+            <label class="govuk-label govuk-heading-m" for="ofsted-contact-role">
+                Role
+            </label>
+            <govuk-text-input id="ofsted-contact-role"
+                              name="ofsted-contact-role"
+                              asp-for="@Model.PageContacts.Contacts.OfstedContact.Role"
+                              test-id="edit-ofsted-contact-role" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+
+        </form>
+    </div>
+</div>

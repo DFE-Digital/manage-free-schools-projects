@@ -38,7 +38,8 @@ public class ContactsApiTests : ApiTestsBase
             Grade6 = new Contact() { Name = _project.KeyContactsFsgGrade6, Email = _project.KeyContactsFsgGrade6Email },
             ProjectManager = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectManager, Email = _project.KeyContactsEsfaCapitalProjectManagerEmail },
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
-            TrustContact = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = _project.KeyContactsChairOfGovernorsMatPhone },
+            TrustContact = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = _project.KeyContactsChairOfGovernorsMatPhone, Role = _project.KeyContactsChairOfGovernorsMatRole },
+            OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);
@@ -85,7 +86,8 @@ public class ContactsApiTests : ApiTestsBase
             Grade6 = new Contact() { Name = _project.KeyContactsFsgGrade6, Email = _project.KeyContactsFsgGrade6Email },
             ProjectManager = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectManager, Email = _project.KeyContactsEsfaCapitalProjectManagerEmail },
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
-           
+            OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
+
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);

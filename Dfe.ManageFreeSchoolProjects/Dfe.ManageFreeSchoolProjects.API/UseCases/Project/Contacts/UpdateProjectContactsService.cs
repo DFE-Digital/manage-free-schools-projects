@@ -52,6 +52,13 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
         dbProject.KeyContactsChairOfGovernorsMat = updateRequest.Contacts.TrustContact.Name ?? dbProject.KeyContactsChairOfGovernorsMat;
         dbProject.KeyContactsChairOfGovernorsMatEmail = updateRequest.Contacts.TrustContact.Email ?? dbProject.KeyContactsChairOfGovernorsMatEmail;
         dbProject.KeyContactsChairOfGovernorsMatPhone = updateRequest.Contacts.TrustContact.PhoneNumber ?? dbProject.KeyContactsChairOfGovernorsMatPhone;
+        dbProject.KeyContactsChairOfGovernorsMatRole = updateRequest.Contacts.TrustContact.Role ?? dbProject.KeyContactsChairOfGovernorsMatRole;
+
+
+        dbProject.KeyContactsOfstedContact = updateRequest.Contacts.OfstedContact.Name ?? dbProject.KeyContactsOfstedContact;
+        dbProject.KeyContactsOfstedContactEmail = updateRequest.Contacts.OfstedContact.Email ?? dbProject.KeyContactsOfstedContactEmail;
+        dbProject.KeyContactsOfstedContactPhone = updateRequest.Contacts.OfstedContact.PhoneNumber ?? dbProject.KeyContactsOfstedContactPhone;
+        dbProject.KeyContactsOfstedContactRole = updateRequest.Contacts.OfstedContact.Role ?? dbProject.KeyContactsOfstedContactRole;
 
         await _context.SaveChangesAsync();
     }

@@ -14,5 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 
         public Contact TrustContact { get; set; } = new();
 
+        public Contact OfstedContact { get; set; } = new();
+
 }
 

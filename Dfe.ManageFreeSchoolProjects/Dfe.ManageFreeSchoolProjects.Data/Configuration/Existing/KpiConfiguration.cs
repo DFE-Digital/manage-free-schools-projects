@@ -229,6 +229,26 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Key Contacts.Chair of governors MAT phone");
+            builder.Property(e => e.KeyContactsChairOfGovernorsMatRole)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.Chair of governors MAT role");
+            builder.Property(e => e.KeyContactsOfstedContact)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.Ofsted contact");
+            builder.Property(e => e.KeyContactsOfstedContactEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.Ofsted contact email");
+            builder.Property(e => e.KeyContactsOfstedContactPhone)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.Ofsted contact phone");
+            builder.Property(e => e.KeyContactsOfstedContactRole)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Key Contacts.Ofsted contact role");
             builder.Property(e => e.KeyContactsChairOfGovernorsName)
                 .HasMaxLength(100)
                 .IsUnicode(false)

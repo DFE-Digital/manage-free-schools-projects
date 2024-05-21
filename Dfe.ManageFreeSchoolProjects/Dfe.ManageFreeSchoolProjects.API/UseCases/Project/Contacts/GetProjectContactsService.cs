@@ -38,7 +38,8 @@ public class GetProjectContactsService : IGetProjectContactsService
                 Grade6 = new Contact() { Name = dbProject.KeyContactsFsgGrade6, Email = dbProject.KeyContactsFsgGrade6Email },
                 ProjectManager = new Contact() { Name = dbProject.KeyContactsEsfaCapitalProjectManager, Email = dbProject.KeyContactsEsfaCapitalProjectManagerEmail },
                 ProjectDirector = new Contact() { Name = dbProject.KeyContactsEsfaCapitalProjectDirector, Email = dbProject.KeyContactsEsfaCapitalProjectDirectorEmail },
-                TrustContact = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsMat, Email = dbProject.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = dbProject.KeyContactsChairOfGovernorsMatPhone },
+                TrustContact = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsMat, Email = dbProject.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = dbProject.KeyContactsChairOfGovernorsMatPhone, Role = dbProject.KeyContactsChairOfGovernorsMatRole },
+                OfstedContact = new Contact() { Name = dbProject.KeyContactsOfstedContact, Email = dbProject.KeyContactsOfstedContactEmail, PhoneNumber = dbProject.KeyContactsOfstedContactPhone, Role = dbProject.KeyContactsOfstedContactRole },
            }
         };
 
