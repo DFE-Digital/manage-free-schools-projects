@@ -32,6 +32,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             return File(excelStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
+        
+        [HttpGet("filtered-projects-export")]
+        public async Task<FileStreamResult> GetFilteredProjects(string projectIds)
+        {
+            var excelStream = await _allProjectsReportService.ExecuteWithFilter(projectIds);
+            excelStream.Position = 0;
+
+            var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            var fileName = $"{now}-mfsp-filtered-projects-export.xlsx";
+
+            return File(excelStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
 
         [HttpGet("sfa-export")]
         public async Task<FileStreamResult> GetSfaExport()

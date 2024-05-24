@@ -88,6 +88,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             var response = await _getDashboardService.Execute(getDashboardServiceParameters);
 
+            List<string> projectIds = new List<string>(); 
+            if (
+                !string.IsNullOrWhiteSpace(ProjectSearchTerm)
+                || RegionSearchTerm.Any()
+                || LocalAuthoritySearchTerm.Any()
+                || ProjectManagedBySearchTerm.Any())
+            {
+
+                projectIds = await _getDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
+
+            }
+
             var projectManagersResponse = _getProjectManagersService.Execute();
 
             var paginationModel = PaginationMapping.ToModel(response.Paging);
@@ -104,7 +116,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
                 ProjectManagers = projectManagersResponse.Result.ProjectManagers,
-                IsMyProjectsPage = loadDashboardParameters.Url.Contains("/my")
+                IsMyProjectsPage = loadDashboardParameters.Url.Contains("/my"),
+                TotalProjectIds = projectIds
             };  
         }
 
@@ -134,6 +147,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             return query.ToString();
         }
+        
 
         protected class LoadDashboardParameters
         {

@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Count = count.Value
             };
 
-            var (projects, recordCount) = await _getDashboard.Execute(parameters);
+            var (projects, recordCount,totalProjectsId) = await _getDashboard.Execute(parameters);
 
             PagingResponse pagingResponse = BuildPaginationResponse(recordCount, page, count);
 
@@ -70,5 +70,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             return result;
         }
+
+        [HttpGet("project-ids")] 
+        public async Task<ActionResult<IEnumerable<string>>> GetFilteredProjectIds(
+        string userId,
+        string regions,
+        string localAuthorities,
+        string project,
+        string projectManagedBy){
+            
+            var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
+            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
+            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? new List<string>();
+
+            var parameters = new GetDashboardParameters()
+            {
+                UserId = userId,
+                Regions = regionsToSearch,
+                Project = project,
+                ProjectManagedBy = projectManagedByToSearch,
+                LocalAuthority = localAuthoritiesToSearch
+            };
+        
+            var listOfIds  = await _getDashboard.ExecuteProjectIds(parameters);
+            
+            _logger.LogInformation("Found {listOfIds} projects", listOfIds.Count());
+
+            return Ok(listOfIds);
+        }
+
+
     }
 }

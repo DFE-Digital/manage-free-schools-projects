@@ -10,6 +10,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
     public interface IGetDashboardService
     {
         public Task<ApiListWrapper<GetDashboardResponse>> Execute(GetDashboardServiceParameters parameters);
+
+        public Task<List<string>> ExecuteProjectIdList(GetDashboardServiceParameters parameters);
     }
 
     public record GetDashboardServiceParameters
@@ -68,6 +70,44 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             endpoint += query.ToString();
 
             var result = await _apiClient.Get<ApiListWrapper<GetDashboardResponse>>(endpoint);
+
+            return result;
+        }
+
+        public async Task<List<string>> ExecuteProjectIdList(GetDashboardServiceParameters parameters)
+        {
+            QueryString query = new QueryString("");
+
+            if (!string.IsNullOrEmpty(parameters.UserId))
+            {
+                query = query.Add("userId", parameters.UserId);
+            }
+
+            if (!string.IsNullOrEmpty(parameters.Project))
+            {
+                query = query.Add("project", parameters.Project);
+            }
+
+            if (parameters.Regions.Any())
+            {
+                query = query.Add("regions", string.Join(",", parameters.Regions));
+            }
+
+            if (parameters.LocalAuthorities.Any())
+            {
+                query = query.Add("localAuthorities", string.Join(",", parameters.LocalAuthorities));
+            }
+
+            if (parameters.ProjectManagedBy.Count > 0)
+            {
+                query = query.Add("projectManagedBy", string.Join(",", parameters.ProjectManagedBy));
+            }
+            
+            var endpoint = $"/api/v1/client/dashboard/project-ids";
+            
+            endpoint += query.ToString();
+            
+            var result = await _apiClient.Get<List<string>>(endpoint);
 
             return result;
         }

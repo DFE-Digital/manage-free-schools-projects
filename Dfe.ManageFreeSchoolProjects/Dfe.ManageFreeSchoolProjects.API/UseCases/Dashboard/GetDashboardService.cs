@@ -8,7 +8,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
     public interface IGetDashboardService
     {
-        Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters);
+        Task<(List<GetDashboardResponse>, int,IQueryable<string>)> Execute(GetDashboardParameters parameters);
+        Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters);
     }
 
     public record GetDashboardParameters
@@ -20,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public List<string> ProjectManagedBy { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
+        
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -31,13 +33,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             _context = context;
         }
 
-        public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
+        
+        public async Task<(List<GetDashboardResponse>, int, IQueryable<string>)> Execute(GetDashboardParameters parameters)
         {
             var query = _context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
             var count = query.Count();
+            
+            var projectRecordTotal = await 
+                query
+                    .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
+                    .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
+                    .ToListAsync();
+
+            var totalListOfIds = query.Select(x => x.ProjectStatusCurrentFreeSchoolName).Distinct();
 
             var projectRecords = await 
                 query
@@ -58,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 Status = "1"
             }).ToList();
 
-            return (result, count);
+            return (result, count, totalListOfIds);
         }
 
         private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
@@ -96,6 +107,26 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             );
 
             return query;
+        }
+        
+        
+        public async Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters)
+        {
+            var query = _context.Kpi.AsQueryable();
+
+            query = ApplyFilters(query, parameters);
+
+            var count = query.Count();
+            
+            var projectRecordTotal = await 
+                query
+                    .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
+                    .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
+                    .ToListAsync();
+
+            var totalListOfIds = query.Select(x => x.ProjectStatusProjectId).Distinct();
+
+            return totalListOfIds.ToList();
         }
     }
 }
