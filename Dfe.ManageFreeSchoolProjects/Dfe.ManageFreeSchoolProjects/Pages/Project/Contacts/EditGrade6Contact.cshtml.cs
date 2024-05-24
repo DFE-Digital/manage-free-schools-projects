@@ -110,7 +110,7 @@ public class EditGrade6ContactModel : PageModel
 
         if (!IsNamePopulated(Grade6Name))
         {
-            ModelState.AddModelError("grade=6-name", "Enter the full name, for example John Smith");
+            ModelState.AddModelError("grade-6-name", "Enter the full name, for example John Smith");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
@@ -120,14 +120,14 @@ public class EditGrade6ContactModel : PageModel
             ModelState.AddModelError("grade-6-name", "The grade 6 name cannot contain numbers");
         }
 
-        if (!IsEducationEmailValid(Grade6Email))
-        {
-            ModelState.AddModelError("grade-6-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
         if (Grade6Email?.Length > 100)
         {
             ModelState.AddModelError("grade-6-email", "The grade 6 email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(Grade6Email))
+        {
+            ModelState.AddModelError("grade-6-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

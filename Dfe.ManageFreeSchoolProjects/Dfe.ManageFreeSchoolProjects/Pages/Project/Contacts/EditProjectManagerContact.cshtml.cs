@@ -120,14 +120,14 @@ public class EditProjectManagerContactModel : PageModel
             ModelState.AddModelError("project-manager-name", "The project manager name cannot contain numbers");
         }
 
-        if (!IsEmailValid(ProjectManagerEmail))
-        {
-            ModelState.AddModelError("project-manager-email", "Enter an email address in the correct format.");
-        }
-
         if (ProjectManagerEmail?.Length > 100)
         {
             ModelState.AddModelError("project-manager-email", "The project manager email must be 100 characters or less");
+        }
+
+        if (!IsEmailValid(ProjectManagerEmail))
+        {
+            ModelState.AddModelError("project-manager-email", "Enter an email address in the correct format.");
         }
 
         if (!ModelState.IsValid)

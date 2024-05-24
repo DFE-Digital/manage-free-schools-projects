@@ -44,6 +44,7 @@ public class EditTrustContactContactModel : PageModel
     public string TrustContactEmail { get; set; }
 
     [BindProperty(Name = "trust-contact-phone-number")]
+    [ValidPhoneNumber]
     [DisplayName("Trust contact phone number")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string TrustContactPhoneNumber { get; set; }
@@ -133,14 +134,14 @@ public class EditTrustContactContactModel : PageModel
             ModelState.AddModelError("trust-contact-name", "The trust contact name cannot contain numbers");
         }
 
-        if (!IsEducationEmailValid(TrustContactEmail))
-        {
-            ModelState.AddModelError("trust-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
         if (TrustContactEmail?.Length > 100)
         {
             ModelState.AddModelError("trust-contact-email", "The trust contact email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(TrustContactEmail))
+        {
+            ModelState.AddModelError("trust-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

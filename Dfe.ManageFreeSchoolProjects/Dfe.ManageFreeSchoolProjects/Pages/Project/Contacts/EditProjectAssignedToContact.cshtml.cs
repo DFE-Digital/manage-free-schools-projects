@@ -119,14 +119,14 @@ public class EditProjectAssignedToContactModel : PageModel
             ModelState.AddModelError("project-assigned-to-name", "The project assigned to name cannot contain numbers");
         }
 
-        if (!IsEducationEmailValid(ProjectAssignedToEmail))
-        {
-            ModelState.AddModelError("project-assigned-to-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
         if (ProjectAssignedToEmail?.Length > 100)
         {
             ModelState.AddModelError("project-assigned-to-email", "The project assigned to email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(ProjectAssignedToEmail))
+        {
+            ModelState.AddModelError("project-assigned-to-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

@@ -44,6 +44,7 @@ public class EditOfstedContactContactModel : PageModel
     public string OfstedContactEmail { get; set; }
 
     [BindProperty(Name = "ofsted-contact-phone-number")]
+    [ValidPhoneNumber]
     [DisplayName("Ofsted contact phone number")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string OfstedContactPhoneNumber { get; set; }
@@ -133,14 +134,14 @@ public class EditOfstedContactContactModel : PageModel
             ModelState.AddModelError("ofsted-contact-name", "The ofsted contact name cannot contain numbers");
         }
 
-        if (!IsEducationEmailValid(OfstedContactEmail))
-        {
-            ModelState.AddModelError("ofsted-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
         if (OfstedContactEmail?.Length > 100)
         {
             ModelState.AddModelError("ofsted-contact-email", "The ofsted contact email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(OfstedContactEmail))
+        {
+            ModelState.AddModelError("ofsted-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

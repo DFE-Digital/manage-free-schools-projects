@@ -1,6 +1,12 @@
 
 class EditProjectAssignedToPage {
 
+    public hasProjectAssignedToTitle(value: string): this {
+        cy.getByTestId(`edit-project-assigned-to-title`).should("contain.text", value);
+
+        return this;
+    }
+
     withProjectAssignedToName(value: string): this {
         cy.getByTestId("edit-project-assigned-to-name").clear().type(value)
         return this;
@@ -28,18 +34,6 @@ class EditProjectAssignedToPage {
     errorForProjectAssignedToEmail(error: string): this {
         cy.getById('project-assigned-to-email-error').contains(error)
         return this
-    }
-
-    public hasTitle(value: string): this {
-        cy.getByTestId(`edit-project-assigned-to-title`).should("contain.text", value);
-
-        return this;
-    }
-    public hasSchoolName(value: string): this {
-
-        cy.getByTestId(`school-name`).should("contain.text", value);
-
-        return this;
     }
 
     clickContinue() : this {

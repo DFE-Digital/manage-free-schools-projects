@@ -350,21 +350,21 @@ describe("Testing the project creation journey", () => {
                 .setProvisionalOpeningDate("1", "10", "2035")
                 .continue();
 
-            Logger.log("Check project lead validation");
+            Logger.log("Check project assigned to validation");
             createProjectPage
-                .titleIs("Who is the project lead?")
+                .titleIs("Who do you want to assign this project to?")
                 .continue()
                 .errorMessage("Please enter the name")
                 .errorMessage("Please enter an email")
-                .enterProjectLeadName("j")
-                .enterProjectLeadEmail("test.person@education.gov.uk")
+                .enterProjectAssignedToName("j")
+                .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue()
                 .errorMessage("Enter the full name, for example John Smith")
-                .enterProjectLeadName("joe bloggs")
-                .enterProjectLeadEmail("test.person@edunation.gov.uk")
+                .enterProjectAssignedToName("joe bloggs")
+                .enterProjectAssignedToEmail("test.person@edunation.gov.uk")
                 .continue()
                 .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
-                .enterProjectLeadEmail("@education.gov.uk")
+                .enterProjectAssignedToEmail("@education.gov.uk")
                 .continue()
                 .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
 
@@ -372,8 +372,8 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Set email");
             createProjectPage
-                .enterProjectLeadName("joe bloggs")
-                .enterProjectLeadEmail("test.person@education.gov.uk")
+                .enterProjectAssignedToName("joe bloggs")
+                .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue();
 
             Logger.log("Check answers");
@@ -397,8 +397,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
-                .summaryShows("Project lead name").HasValue("joe bloggs").HasChangeLink()
-                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
+                .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
+                .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             cy.executeAccessibilityTests();
 
@@ -498,10 +498,10 @@ describe("Testing the project creation journey", () => {
                 .setProvisionalOpeningDate("1", "10", "2035")
                 .continue();
 
-            Logger.log("Set project lead");
+            Logger.log("Set project assigned to");
             createProjectPage
-                .enterProjectLeadName("test person")
-                .enterProjectLeadEmail("test.person@education.gov.uk")
+                .enterProjectAssignedToName("test person")
+                .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue();
 
             Logger.log("Check answers");
@@ -525,8 +525,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Faith status").HasValue("None").HasChangeLink()
                 .summaryShows("Faith type").IsEmpty().HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
-                .summaryShows("Project lead name").HasValue("test person").HasChangeLink()
-                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
+                .summaryShows("Project assigned to").HasValue("test person").HasChangeLink()
+                .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             Logger.log("Update Temporary Project ID")
             summaryPage.clickChangeFor("Temporary Project ID");
@@ -697,14 +697,14 @@ describe("Testing the project creation journey", () => {
             summaryPage
                 .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
 
-            Logger.log("Change project lead")
-            summaryPage.clickChangeFor("Project lead name")
-            createProjectPage.enterProjectLeadName("Anne Jones")
-            createProjectPage.enterProjectLeadEmail("anne.jones@education.gov.uk")
+            Logger.log("Change project assigned to")
+            summaryPage.clickChangeFor("Project assigned to")
+            createProjectPage.enterProjectAssignedToName("Anne Jones")
+            createProjectPage.enterProjectAssignedToEmail("anne.jones@education.gov.uk")
                 .continue();
             summaryPage
-                .SummaryHasValue("Project lead name", "Anne Jones")
-                .SummaryHasValue("Project lead email", "anne.jones@education.gov.uk");
+                .SummaryHasValue("Project assigned to", "Anne Jones")
+                .SummaryHasValue("Email", "anne.jones@education.gov.uk");
 
             createProjectPage.clickCreateProject();
 

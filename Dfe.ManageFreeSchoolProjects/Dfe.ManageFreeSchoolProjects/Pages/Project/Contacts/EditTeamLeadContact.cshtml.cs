@@ -120,14 +120,14 @@ public class EditTeamLeadContactModel : PageModel
             ModelState.AddModelError("team-lead-name", "The team lead name cannot contain numbers");
         }
 
-        if (!IsEducationEmailValid(TeamLeadEmail))
-        {
-            ModelState.AddModelError("team-lead-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
         if (TeamLeadEmail?.Length > 100)
         {
             ModelState.AddModelError("team-lead-email", "The team lead email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(TeamLeadEmail))
+        {
+            ModelState.AddModelError("team-lead-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)
