@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Count = count.Value
             };
 
-            var (projects, recordCount,totalProjectsId) = await _getDashboard.Execute(parameters);
+            var (projects, recordCount) = await _getDashboard.Execute(parameters);
 
             PagingResponse pagingResponse = BuildPaginationResponse(recordCount, page, count);
 

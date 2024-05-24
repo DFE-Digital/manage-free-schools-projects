@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 {
     public interface IGetDashboardService
     {
-        Task<(List<GetDashboardResponse>, int,IQueryable<string>)> Execute(GetDashboardParameters parameters);
+        Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters);
         Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters);
     }
 
@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         }
 
         
-        public async Task<(List<GetDashboardResponse>, int, IQueryable<string>)> Execute(GetDashboardParameters parameters)
+        public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
         {
             var query = _context.Kpi.AsQueryable();
 
@@ -69,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 Status = "1"
             }).ToList();
 
-            return (result, count, totalListOfIds);
+            return (result, count);
         }
 
         private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
