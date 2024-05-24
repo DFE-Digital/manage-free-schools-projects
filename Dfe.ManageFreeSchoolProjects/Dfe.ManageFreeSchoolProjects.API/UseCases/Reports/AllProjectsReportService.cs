@@ -55,14 +55,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             return await CreateMemoryStream(projectReport);
         }
         
-        public async Task<MemoryStream> ExecuteWithFilter(string listOfProjects)
+        public async Task<MemoryStream> ExecuteWithFilter(string projectIds)
         {
-            ProjectReport projectReport = await BuildFilteredProjectReport(listOfProjects);
+            ProjectReport projectReport = await BuildFilteredProjectReport(projectIds);
 
             return await CreateMemoryStream(projectReport);
         }
 
-        private async Task<MemoryStream> CreateMemoryStream(ProjectReport projectReport)
+        private static async Task<MemoryStream> CreateMemoryStream(ProjectReport projectReport)
         {
             MemoryStream memoryStream = new MemoryStream();
             using SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
@@ -98,7 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
            return result;
         }
         
-        private async Task<ProjectReport> BuildFilteredProjectReport(String projectIds)
+        private  async Task<ProjectReport> BuildFilteredProjectReport(String projectIds)
         {
             var data = await CreateReportList();
             

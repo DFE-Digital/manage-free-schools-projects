@@ -42,14 +42,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var count = query.Count();
             
-            var projectRecordTotal = await 
-                query
-                    .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
-                    .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
-                    .ToListAsync();
-
-            var totalListOfIds = query.Select(x => x.ProjectStatusCurrentFreeSchoolName).Distinct();
-
             var projectRecords = await 
                 query
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
@@ -116,9 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             query = ApplyFilters(query, parameters);
 
-            var count = query.Count();
-            
-            var projectRecordTotal = await 
+            await
                 query
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
                     .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
