@@ -91,9 +91,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             List<string> projectIds = new List<string>(); 
             if (
                 !string.IsNullOrWhiteSpace(ProjectSearchTerm)
-                || RegionSearchTerm.Count() > 0
-                || LocalAuthoritySearchTerm.Count() > 0
-                || ProjectManagedBySearchTerm.Count() > 0)
+                || RegionSearchTerm.Any()
+                || LocalAuthoritySearchTerm.Any()
+                || ProjectManagedBySearchTerm.Any())
             {
 
                 projectIds = await _getDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
