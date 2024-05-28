@@ -1,6 +1,12 @@
 ﻿@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @using NetEscapades.AspNetCore.SecurityHeaders;
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard
+@using Microsoft.AspNetCore.Http
+@using System.Text
+@using System.Web
+@using DocumentFormat.OpenXml.EMMA
+@using DocumentFormat.OpenXml.Office2019.Excel.RichData
 @model Dfe.ManageFreeSchoolProjects.Pages.Dashboard.DashboardModel;
 
 @{
@@ -11,6 +17,7 @@
 
     const string createProjectLink = RouteConstants.CreateProjectMethod;
 
+    
     var isFilterActive =
         !string.IsNullOrWhiteSpace(Model.ProjectSearchTerm)
         || Model.RegionSearchTerm.Any()
@@ -21,6 +28,7 @@
 
     var noResults = (Model.Projects == null || Model.Projects.Count == 0);
     var noFilteredResults = (isFilterActive && Model.Projects.Count == 0);
+    var projectIds= String.Join(",", Model.TotalProjectIds);
 }
 
 @if (Model.UserCanCreateProject)
@@ -174,7 +182,12 @@
     </div>
 </details>
 
-@if (!Model.IsMyProjectsPage)
+@if (!Model.IsMyProjectsPage && isFilterActive && Model.Projects.Count > 0)
+{  
+    <a asp-page-handler="DownloadFilteredFile" class="govuk-button govuk-button--secondary govuk-!-margin-top-6" role="button" data-testid="download-data-export" asp-route-projectids="@projectIds" download>Export</a>
+}
+
+else if (!Model.IsMyProjectsPage)
 {
     <a asp-page-handler="DownloadFile" class="govuk-button govuk-button--secondary govuk-!-margin-top-6" role="button" data-testid="download-data-export" download>Export</a>
 }
@@ -368,5 +381,5 @@ else
             @value
         }
     }
-
 }
+

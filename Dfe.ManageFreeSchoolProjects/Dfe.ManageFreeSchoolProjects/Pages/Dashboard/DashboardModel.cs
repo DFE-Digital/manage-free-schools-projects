@@ -18,5 +18,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public PaginationModel Pagination { get; set; } = new();
         public List<string> ProjectManagers { get; set; } = new();
         public bool IsMyProjectsPage { get; init; }
+        
+        public List<string> TotalProjectIds { get; set; } = new();
+        
     }
 }

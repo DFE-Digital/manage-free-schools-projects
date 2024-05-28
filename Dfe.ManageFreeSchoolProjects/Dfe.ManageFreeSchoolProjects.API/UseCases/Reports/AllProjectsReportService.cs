@@ -35,6 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
     public interface IAllProjectsReportService
     {
         public Task<MemoryStream> Execute();
+        
+        public Task<MemoryStream> ExecuteWithFilter(string projectIds);
     }
 
     public class AllProjectsReportService : IAllProjectsReportService
@@ -50,6 +52,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         {
             ProjectReport projectReport = await BuildProjectReport();
 
+            return CreateMemoryStream(projectReport);
+        }
+        
+        public async Task<MemoryStream> ExecuteWithFilter(string projectIds)
+        {
+            ProjectReport projectReport = await BuildFilteredProjectReport(projectIds);
+
+            return CreateMemoryStream(projectReport);
+        }
+
+        private static MemoryStream CreateMemoryStream(ProjectReport projectReport)
+        {
             MemoryStream memoryStream = new MemoryStream();
             using SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
 
@@ -78,7 +92,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 
         private async Task<ProjectReport> BuildProjectReport()
         {
-            var data = await (from kpi in _context.Kpi
+            
+           var result = ProjectReportBuilder.Build(await CreateReportList());
+
+           return result;
+        }
+        
+        private  async Task<ProjectReport> BuildFilteredProjectReport(String projectIds)
+        {
+            var data = await CreateReportList();
+            
+            IEnumerable<string> listOfIds = projectIds.Split(new char[] { ',' }).ToList();
+            
+            var filteredreport = data.Where(x => listOfIds.Contains(x.ProjectReferenceData.ProjectId)).ToList();
+
+            var result = ProjectReportBuilder.Build(filteredreport);
+
+            return result;
+        }
+        
+        private async Task<List<ProjectReportSourceData>> CreateReportList()
+        {
+             var data = await (from kpi in _context.Kpi
                               join riskAppraisalMeetingTask in _context.RiskAppraisalMeetingTask on kpi.Rid equals riskAppraisalMeetingTask.RID into riskAppraisalMeetingTaskJoin
                               from riskAppraisalMeetingTask in riskAppraisalMeetingTaskJoin.DefaultIfEmpty()
                               join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
@@ -122,13 +157,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       Urn = kpi.ProjectStatusUrnWhenGivenOne,
                                       ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
                                   }
-                              }).ToListAsync();
-
-            var result = ProjectReportBuilder.Build(data);
-
-            return result;
+                               }).ToListAsync();
+             return data;
         }
-
         private static WorkbookPart BuildWorkbook(SpreadsheetDocument spreadsheetDocument)
         {
             WorkbookPart workbookPart = spreadsheetDocument.AddWorkbookPart();
