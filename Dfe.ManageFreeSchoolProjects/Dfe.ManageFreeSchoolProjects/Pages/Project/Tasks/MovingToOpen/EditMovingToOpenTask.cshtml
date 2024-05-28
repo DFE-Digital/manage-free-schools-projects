@@ -41,7 +41,7 @@
                                   id="project-brief-to-new-delivery-officer"
                                   add-margin="false"/>
             <govuk-checkbox-input heading-label="Sent emails to" label="Relevant contacts to confirm school is moving to open (if applicable)"
-                                  hint="You only need to send an email to relevant contacts if your project is low or medium risk."
+                                  hint="You only need to send an email to relevant contacts if your project is low or medium risk"
                                   asp-for="@Model.SentEmailsToRelevantContacts"
                                   name="sent-emails-to-relevant-contacts"
                                   id="sent-emails-to-relevant-contacts"
@@ -67,7 +67,7 @@
                                   name="saved-to-workplaces-folder-annexe"
                                   id="saved-to-workplaces-folder-annexe"
                                   add-margin="false"/>
-            <govuk-date-input id="actual-opening-date" name="actual-opening-date" asp-for="@Model.ActualOpeningDate" label="Date agreed" hint="For example, 27 3 2021"/>
+            <govuk-date-input id="actual-opening-date" name="actual-opening-date" asp-for="@Model.ActualOpeningDate" label="Actual opening date" hint="For example, 27 3 2021"/>
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
