@@ -116,7 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var totalListOfIds = query.Select(x => x.ProjectStatusProjectId).Distinct();
 
-            return totalListOfIds.ToList();
+            return await totalListOfIds.ToListAsync();
         }
     }
 }

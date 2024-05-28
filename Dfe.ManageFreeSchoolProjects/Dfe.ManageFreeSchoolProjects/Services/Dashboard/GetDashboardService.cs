@@ -62,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             return result;
         }
 
-        private QueryString AddSearchParameters(GetDashboardServiceParameters parameters)
+        private static QueryString AddSearchParameters(GetDashboardServiceParameters parameters)
         {
             QueryString query = new QueryString("");
             
