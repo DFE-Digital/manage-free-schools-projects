@@ -52,17 +52,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         {
             ProjectReport projectReport = await BuildProjectReport();
 
-            return await CreateMemoryStream(projectReport);
+            return CreateMemoryStream(projectReport);
         }
         
         public async Task<MemoryStream> ExecuteWithFilter(string projectIds)
         {
             ProjectReport projectReport = await BuildFilteredProjectReport(projectIds);
 
-            return await CreateMemoryStream(projectReport);
+            return CreateMemoryStream(projectReport);
         }
 
-        private static async Task<MemoryStream> CreateMemoryStream(ProjectReport projectReport)
+        private static MemoryStream CreateMemoryStream(ProjectReport projectReport)
         {
             MemoryStream memoryStream = new MemoryStream();
             using SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
