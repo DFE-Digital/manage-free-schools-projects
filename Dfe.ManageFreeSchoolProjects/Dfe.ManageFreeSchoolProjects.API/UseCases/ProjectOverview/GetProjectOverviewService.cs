@@ -110,17 +110,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 PupilNumbers = pupilNumbers
             };
         }
-
-        private static string FormatDate(DateTime? date)
-        {
-            if (!date.HasValue)
-            {
-                return null;
-            }
-
-            return date.Value.Date.ToString();
-        }
-
+        
         private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
         {
             var rag = await _context.Rag
