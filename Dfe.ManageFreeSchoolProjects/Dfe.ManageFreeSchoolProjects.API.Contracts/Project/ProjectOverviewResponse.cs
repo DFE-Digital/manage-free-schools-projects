@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string RealisticYearOfOpening { get; set; }
         public DateTime? DateOfEntryIntoPreopening { get; set; }
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
-        public string ActualOpeningDate { get; set; }
+        public DateTime? ActualOpeningDate { get; set; }
         public string OpeningAcademicYear { get; set; }
         public DateTime? DateSchoolClosed { get; set; }
     }
