@@ -525,8 +525,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Faith status").HasValue("None").HasChangeLink()
                 .summaryShows("Faith type").IsEmpty().HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
-                .summaryShows("Project lead name").HasValue("test person").HasChangeLink()
-                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
+                .summaryShows("Project assigned to").HasValue("test person").HasChangeLink()
+                .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             Logger.log("Update Temporary Project ID")
             summaryPage.clickChangeFor("Temporary Project ID");
