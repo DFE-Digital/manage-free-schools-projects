@@ -1,7 +1,7 @@
 ﻿@page "/project/create/projectlead"
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual.ProjectLead
 @{
-    ViewData["Title"] = "Who is the project lead?";
+    ViewData["Title"] = "Who do you want to assign this project to?";
 }
 
 @section BeforeMain {
@@ -14,10 +14,10 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="form" method="post">
-            <govuk-create-title label="Who is the project lead?" />
+            <govuk-create-title label="Who do you want to assign this project to?" />
             <div class="govuk-form-group">
                 <p class="govuk-hint">We will tell them the project record has been created</p>
-                <govuk-text-input name="name" asp-for="@Model.Name" label="Full name" data-testid="name" />
+                <govuk-text-input name="name" asp-for="@Model.Name" label="Name" data-testid="name" />
                 <govuk-text-input name="email" asp-for="@Model.Email" label="Email address" data-testid="email"/>
             </div>
 

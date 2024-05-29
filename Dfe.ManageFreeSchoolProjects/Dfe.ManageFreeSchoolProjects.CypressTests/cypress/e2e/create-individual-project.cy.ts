@@ -352,7 +352,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Check project lead validation");
             createProjectPage
-                .titleIs("Who is the project lead?")
+                .titleIs("Who do you want to assign this project to?")
                 .continue()
                 .errorMessage("Please enter the name")
                 .errorMessage("Please enter an email")
@@ -397,8 +397,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
-                .summaryShows("Project lead name").HasValue("joe bloggs").HasChangeLink()
-                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
+                .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
+                .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             cy.executeAccessibilityTests();
 
