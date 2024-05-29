@@ -697,14 +697,14 @@ describe("Testing the project creation journey", () => {
             summaryPage
                 .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
 
-            Logger.log("Change project lead")
-            summaryPage.clickChangeFor("Project lead name")
+            Logger.log("Change Project assigned to")
+            summaryPage.clickChangeFor("Project assigned to")
             createProjectPage.enterProjectLeadName("Anne Jones")
             createProjectPage.enterProjectLeadEmail("anne.jones@education.gov.uk")
                 .continue();
             summaryPage
-                .SummaryHasValue("Project lead name", "Anne Jones")
-                .SummaryHasValue("Project lead email", "anne.jones@education.gov.uk");
+                .SummaryHasValue("Project assigned to", "Anne Jones")
+                .SummaryHasValue("Email", "anne.jones@education.gov.uk");
 
             createProjectPage.clickCreateProject();
 
