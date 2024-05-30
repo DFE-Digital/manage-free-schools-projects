@@ -1,0 +1,89 @@
+name: Run Cypress tests
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      USERNAME:
+        required: true
+      AZURE_WEB_ENDPOINT:
+        required: true
+      AZURE_API_ENDPOINT:
+        required: true
+      AZURE_API_KEY:
+        required: true
+      CYPRESS_TEST_SECRET:
+        required: true
+      SLACK_WEBHOOK_URL:
+        required: true
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        type: environment
+
+concurrency:
+  group: ${{ github.workflow }}
+
+env:
+  NODE_VERSION: 18.x
+
+jobs:
+  cypress-tests:
+    name: Run Cypress Tests
+    if: inputs.environment == 'test' || inputs.environment == 'development'
+    runs-on: ubuntu-22.04
+    environment: ${{ inputs.environment }}
+    defaults:
+      run:
+        working-directory: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Npm install
+        run: npm install
+
+      - name: Run cypress (dev)
+        if: inputs.environment == 'development'
+        run: npm run cy:run -- --env grepTags='-smoke',username=${{ secrets.USERNAME }},url=${{ secrets.AZURE_WEB_ENDPOINT }},api=${{ secrets.AZURE_API_ENDPOINT }},apiKey=${{ secrets.AZURE_API_KEY }},authKey=${{secrets.CYPRESS_TEST_SECRET}}
+
+      - name: Run cypress (test)
+        if: inputs.environment == 'test'
+        run: npm run cy:smoke -- --env username=${{ secrets.USERNAME }},url=${{ secrets.AZURE_WEB_ENDPOINT }},api=${{ secrets.AZURE_API_ENDPOINT }},apiKey=${{ secrets.AZURE_API_KEY }},authKey=${{secrets.CYPRESS_TEST_SECRET}}
+
+      - name: Upload screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ inputs.environment }}
+          path: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/cypress/screenshots
+
+      - name: Generate report
+        if: always()
+        run: |
+          mkdir mochareports
+          npm run generate:html:report
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports-${{ inputs.environment }}
+          path: Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.CypressTests/mochareports
+
+      - name: Report results
+        if: always()
+        run: npm run cy:notify -- --custom-text="Environment ${{ inputs.environment }}, See more information https://github.com/DFE-Digital/manage-free-schools-projects/actions/runs/${{github.run_id}}"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
