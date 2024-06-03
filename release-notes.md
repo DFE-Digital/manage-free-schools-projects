@@ -1,17 +1,3 @@
-## 0.6.0
-
-* 166279 - Build: iterate SFA endpoint
-* 166040 - Live: Visual: Project Lead Email Fails to Return On the Contacts page or in 'Edit project managed by' on Project Creation
-* 165293 - Build: unique labels needed on radio button selections
-* (165322 - Build: verify and refine history migration)
-* 165886 - Build: amend field names in the 'school' task list
-* 165298 - Build: unique labels needed on change links
-* 167059 - Build: export filtered data
-* 165723 - Build: Open the school
-* 166717 - Build: change project lead wording in Create journey
-* 166823 - Build: update accessibility statement based on audit
-
-
 ## 0.5.0
 * 158697 - Build: make all 'Contacts' editable (MINUS 166131 - BUG: Validation doesn't appear to be present for 'education.gov.uk' domain)
 * 165706 - Build: fix broken feedback link in footer
