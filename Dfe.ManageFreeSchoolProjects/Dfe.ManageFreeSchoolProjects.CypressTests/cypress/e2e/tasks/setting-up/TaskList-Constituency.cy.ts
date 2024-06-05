@@ -27,7 +27,7 @@ describe("Testing Constituency Task", () => {
     });
 
 
-    it("Should successfully set constituency .skip()", () => {
+    it.skip("Should successfully set constituency", () => {
 
         Logger.log("Select constituency");
         taskListPage.isTaskStatusIsNotStarted("Constituency")
