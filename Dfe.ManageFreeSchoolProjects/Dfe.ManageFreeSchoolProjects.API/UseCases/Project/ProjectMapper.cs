@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 
@@ -76,6 +77,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "Standalone" => TrustType.SingleAcademyTrust,
                 "MAT" => TrustType.MultiAcademyTrust,
                 _ => EnumParsers.ParseTrustType(trustTypeDescription)
+            };
+        }
+        
+        public static ProjectStatus ToProjectStatusType(string projectStatus)
+        {
+            return projectStatus switch
+            {
+                "Pre-opening" => ProjectStatus.Preopening,
+                "Open" => ProjectStatus.Open,
+                "Closed" => ProjectStatus.Closed,
+                _ => ProjectStatus.Preopening
             };
         }
     }

@@ -1,0 +1,24 @@
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@using Microsoft.IdentityModel.Tokens
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
+@{
+    var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
+}
+    <p>
+   
+    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Preopening)
+    {
+        <strong class="govuk-tag govuk-tag--yellow">Pre-opening</strong>
+    }
+    @if (Model.Project.ProjectStatus.ProjectStatus== ProjectStatus.Open)
+    {
+        <strong class="govuk-tag govuk-tag--turquoise">Open</strong>
+    }
+    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed)
+    {
+        <strong class="govuk-tag govuk-tag--blue">Closed</strong>
+    }
+
+    <a class="govuk-link govuk-!-padding-left-5" href="@editlink">Change project status</a>
+</p>

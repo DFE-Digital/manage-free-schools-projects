@@ -1,0 +1,47 @@
+﻿@page "/projects/{projectId}/project-status/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus.EditProjectStatusModel
+
+@{
+    var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    ViewData["Title"] = $"Edit Project Status - ${Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+
+    var ProjectStatuses = Enum.GetValues<ProjectStatus>();
+    var ProjectStatusLabels = ProjectStatuses.Select(x => x.ToDescription()).ToArray();
+    var ProjectStatusValues = ProjectStatuses.Select(x => x.ToString()).ToArray();
+    var ProjectStatusTestIds = ProjectStatuses.Select(x => $"project-status-{x}").ToArray();
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
+            Edit Project Status
+        </h1>
+        <form>
+         <div class="govuk-form-group" id="faith-type-group">
+                                <label class="govuk-label govuk-heading-m" for="project-status">Edit Project Status</label>
+                                <govuk-radios-input name="faith-type"
+                                                    asp-for="@Model.ProjectStatus"
+                                                    data-testid="faith-type"
+                                                    labels="@ProjectStatusLabels"
+                                                    values="@ProjectStatusValues"
+                                                    test-ids="@ProjectStatusTestIds"/>
+                            </div>
+        <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+            Save and continue
+        </button>
+        </form>
+    </div>
+</div>
