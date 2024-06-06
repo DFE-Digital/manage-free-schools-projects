@@ -3,7 +3,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 @{
-    var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
+    var editlink1 = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
 }
     <p>
    
@@ -20,5 +20,5 @@
         <strong class="govuk-tag govuk-tag--blue">Closed</strong>
     }
 
-    <a class="govuk-link govuk-!-padding-left-5" href="@editlink">Change project status</a>
+    <a class="govuk-link govuk-!-padding-left-5" href="@editlink1">Change project status</a>
 </p>

@@ -22,9 +22,10 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
     
     public async Task Execute(string projectId, UpdateProjectStatusRequest request)
     {
-        var endpoint = $"/api/v1/client/updateprojectstatus={projectId}";
+        
+        var endpoint = $"/api/v1/client/updateprojectstatus?projectId={projectId}";
 
-        await _apiClient.Patch<UpdateProjectStatusRequest,object>(endpoint, request);
+        await _apiClient.Post<UpdateProjectStatusRequest,object>(endpoint, request);
         
     }
 }

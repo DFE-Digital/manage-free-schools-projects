@@ -25,14 +25,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         private readonly ErrorService _errorService;
         public ProjectOverviewResponse Project { get; set; }
         
+        [BindProperty(Name = "projectId")]
         public string ProjectId { get; set; }
         
         public string GetNextPage()
         {
             return string.Format(RouteConstants.ProjectOverview, ProjectId);
         }
-
-
+        
+        [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
@@ -54,32 +55,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 var projectId = RouteData.Values["projectId"] as string;
 
                 Project = await _getProjectOverviewService.Execute(projectId);
+                ProjectStatus = Project.ProjectStatus.ProjectStatus;
             }
             catch (Exception ex)
             {
                 _logger.LogErrorMsg(ex);
             }
-            
-            return Redirect(GetNextPage());
+
+            ProjectId = Project.ProjectStatus.ProjectId;
+
+            return Page();
         }
     
 
     public async Task<IActionResult> OnPost()
         {
-            if (!ModelState.IsValid)
-            {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
+          //  if (!ModelState.IsValid)
+            //{
+              //  _errorService.AddErrors(ModelState.Keys, ModelState);
+                //return Page();
+            //}
 
             UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
             {
                 ProjectStatus = ProjectStatus
             };
             
-            await _updateProjectStatusService.Execute(ProjectId,request);
+            var projectId = RouteData.Values["projectId"] as string;
             
-            return null;
+            await _updateProjectStatusService.Execute(projectId,request);
+            
+            return Redirect(GetNextPage());
         }
     }
 }

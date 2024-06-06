@@ -29,11 +29,11 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
             Edit Project Status
         </h1>
-        <form>
-         <div class="govuk-form-group" id="faith-type-group">
+        <form method="post">
+         <div class="govuk-form-group" id="project-status">
                                 <govuk-radios-input name="project-status"
                                                     asp-for="@Model.ProjectStatus"
-                                                    data-testid="faith-type"
+                                                    data-testid="project-status"
                                                     labels="@ProjectStatusLabels"
                                                     values="@ProjectStatusValues"
                                                     test-ids="@ProjectStatusTestIds"/>

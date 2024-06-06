@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers;
 
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/updateprojectstatus")]
+[Route("api/v{version:apiVersion}/client/updateprojectstatus")]
 [ApiController]
 
 public class ProjectStatusController : ControllerBase
@@ -16,13 +16,13 @@ public class ProjectStatusController : ControllerBase
     private readonly IUpdateProjectStatusService _updateProjectStatusService;
     private readonly ILogger<ProjectStatusController> _logger;
     
-    public ProjectStatusController(ILogger<ProjectStatusController> logger, UpdateProjectStatusService updateProjectStatusService)
+    public ProjectStatusController(ILogger<ProjectStatusController> logger, IUpdateProjectStatusService updateProjectStatusService)
     {
         _logger = logger;
         _updateProjectStatusService = updateProjectStatusService;
     }
     
-    [HttpPatch]
+    [HttpPost]
     public async Task<ActionResult<ApiSingleResponseV2<UpdateProjectStatusResponse>>> UpdateProjectStatus(string projectId, UpdateProjectStatusRequest request)
     {
         _logger.LogMethodEntered();
