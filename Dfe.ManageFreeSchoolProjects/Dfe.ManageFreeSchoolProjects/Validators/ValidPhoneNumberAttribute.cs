@@ -18,7 +18,7 @@ public class ValidPhoneNumberAttribute : ValidationAttribute
 
         var valueAsString = (string)value;
 
-        var valueAsDigits = Regex.Replace(valueAsString, "[^0-9]", "");
+        var valueAsDigits = Regex.Replace(valueAsString, "[^0-9]", "", RegexOptions.None, TimeSpan.FromSeconds(30));
 
         if (valueAsDigits.Length < _minLength || valueAsDigits.Length > _maxLength)
             return new ValidationResult(string.Format("Phone number must be between {0} numbers and {1} numbers", _minLength, _maxLength));
