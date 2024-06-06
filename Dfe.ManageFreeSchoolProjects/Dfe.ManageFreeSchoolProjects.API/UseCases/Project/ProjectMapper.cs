@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
+using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -80,14 +81,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             };
         }
         
-        public static ProjectStatus ToProjectStatusType(string projectStatus)
+        public static ProjectStatusType ToProjectStatusType(string projectStatus)
         {
             return projectStatus switch
             {
-                "Pre-opening" => ProjectStatus.Preopening,
-                "Open" => ProjectStatus.Open,
-                "Closed" => ProjectStatus.Closed,
-                _ => ProjectStatus.Preopening
+                "Pre-opening" => ProjectStatusType.Preopening,
+                "Open" => ProjectStatusType.Open,
+                "Closed" => ProjectStatusType.Closed,
+                _ => ProjectStatusType.Preopening
             };
         }
     }

@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/project-status/edit"
+﻿@page "/projects/{projectId}/projectstatus/edit-project-status"
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus.EditProjectStatusModel
@@ -31,8 +31,7 @@
         </h1>
         <form>
          <div class="govuk-form-group" id="faith-type-group">
-                                <label class="govuk-label govuk-heading-m" for="project-status">Edit Project Status</label>
-                                <govuk-radios-input name="faith-type"
+                                <govuk-radios-input name="project-status"
                                                     asp-for="@Model.ProjectStatus"
                                                     data-testid="faith-type"
                                                     labels="@ProjectStatusLabels"

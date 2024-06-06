@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.Extensions.Logging;
+using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 {
@@ -19,19 +20,28 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
     {
 
         private readonly IGetProjectOverviewService _getProjectOverviewService;
+        private readonly IUpdateProjectStatusService _updateProjectStatusService;
         private readonly ILogger<ProjectOverviewModel> _logger;
         private readonly ErrorService _errorService;
         public ProjectOverviewResponse Project { get; set; }
         
         public string ProjectId { get; set; }
+        
+        public string GetNextPage()
+        {
+            return string.Format(RouteConstants.ProjectOverview, ProjectId);
+        }
 
-        public API.Contracts.Project.ProjectStatus ProjectStatus { get; set; }
+
+        public ProjectStatusType ProjectStatus { get; set; }
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
+            IUpdateProjectStatusService updateProjectStatusService,
             ILogger<ProjectOverviewModel> logger,
             ErrorService errorService)
         {
             _getProjectOverviewService = getProjectOverviewService;
+            _updateProjectStatusService = updateProjectStatusService;
             _logger = logger;
             _errorService = errorService;
         }
@@ -50,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 _logger.LogErrorMsg(ex);
             }
             
-            return Page();
+            return Redirect(GetNextPage());
         }
     
 
@@ -60,9 +70,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
-                
-                
             }
+
+            UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
+            {
+                ProjectStatus = ProjectStatus
+            };
+            
+            await _updateProjectStatusService.Execute(ProjectId,request);
             
             return null;
         }
