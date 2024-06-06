@@ -697,7 +697,7 @@ describe("Testing the project creation journey", () => {
             summaryPage
                 .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
 
-            Logger.log("Change project assigned to")
+            Logger.log("Change Project assigned to")
             summaryPage.clickChangeFor("Project assigned to")
             createProjectPage.enterProjectAssignedToName("Anne Jones")
             createProjectPage.enterProjectAssignedToEmail("anne.jones@education.gov.uk")

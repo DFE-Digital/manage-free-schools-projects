@@ -9,6 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
     public interface IGetDashboardService
     {
         Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters);
+        Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters);
     }
 
     public record GetDashboardParameters
@@ -20,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public List<string> ProjectManagedBy { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
+        
     }
 
     public class GetDashboardService : IGetDashboardService
@@ -31,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             _context = context;
         }
 
+        
         public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
         {
             var query = _context.Kpi.AsQueryable();
@@ -38,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             query = ApplyFilters(query, parameters);
 
             var count = query.Count();
-
+            
             var projectRecords = await 
                 query
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
@@ -96,6 +99,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             );
 
             return query;
+        }
+        
+        
+        public async Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters)
+        {
+            var query = _context.Kpi.AsQueryable();
+
+            query = ApplyFilters(query, parameters);
+
+            await
+                query
+                    .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
+                    .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
+                    .ToListAsync();
+
+            var totalListOfIds = query.Select(x => x.ProjectStatusProjectId).Distinct();
+
+            return await totalListOfIds.ToListAsync();
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.ImpactAssessment, TaskName = "Impact assessment", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.OfstedInspection, TaskName = "Ofsted pre-registration", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.ApplicationsEvidence, TaskName = "Applications evidence", Section = "Getting ready to open" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.MovingToOpen, TaskName = "Moving to open", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" }

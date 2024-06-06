@@ -133,6 +133,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.MovingToOpen
             SentEmailsToSchoolsPrinciple = project.MovingToOpen.SentEmailsToSchoolsPrinciple;
             SavedToWorkplacesFolderAnnexE = project.MovingToOpen.SavedToWorkplacesFolderAnnexE;
             SavedToWorkplacesFolderAnnexB = project.MovingToOpen.SavedToWorkplacesFolderAnnexB;
+            SavedToWorkplacesFolderProjectBrief = project.MovingToOpen.SavedToWorkplacesFolderProjectBrief;
             ActualOpeningDate = project.MovingToOpen.ActualOpeningDate;
             
             

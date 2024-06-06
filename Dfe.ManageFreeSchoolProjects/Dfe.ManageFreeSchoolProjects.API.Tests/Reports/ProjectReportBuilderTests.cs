@@ -79,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(ApplicationsEvidenceTask.ConfirmedPupilNumbers), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PupilNumbersChecksTask.SchoolReceivedEnoughApplications), "Yes" , project, columnHeaders);
             AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
+            AssertEntry(nameof(MovingToOpenTask.SentEmailsToRelevantContacts), "Yes" , project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -189,6 +190,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         CommissionedExternalExpert = new CommissionedExternalExpertTask()
                         {
                         CommissionedExternalExpertVisit = true,
+                        },
+                        MovingToOpen = new MovingToOpenTask()
+                        {
+                            SentEmailsToRelevantContacts = true
                         }
 
                     }
