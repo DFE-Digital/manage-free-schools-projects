@@ -35,7 +35,7 @@ describe("Testing that we can add contacts", () => {
     describe("Editing Contacts", () => {
         it("Should be able to edit Project assigned to", () => {
 
-            //cy.executeAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             contactsPage
                 .hasProjectAssignedToName(project.projectAssignedToName)
@@ -43,7 +43,7 @@ describe("Testing that we can add contacts", () => {
             Logger.log("Edit Project assigned to")
             contactsPage.goToEditProjectAssignedTo();
 
-            // cy.executeAccessibilityTests();
+            cy.executeAccessibilityTests();
 
             Logger.log("Check edit contact validation");
             editProjectAssignedToPage
@@ -85,7 +85,7 @@ describe("Testing that we can add contacts", () => {
 
         it("Should be able to edit Team lead", () => {
 
-                //cy.executeAccessibilityTests();
+                cy.executeAccessibilityTests();
     
                 contactsPage
                     .isEmpty("team-lead-name")
@@ -93,7 +93,7 @@ describe("Testing that we can add contacts", () => {
                 Logger.log("Edit Team lead")
                 contactsPage.goToEditTeamLead();
     
-                // cy.executeAccessibilityTests();
+                cy.executeAccessibilityTests();
     
                 Logger.log("Check edit contact validation");
                 editTeamLeadPage
@@ -129,7 +129,7 @@ describe("Testing that we can add contacts", () => {
 
                 it("Should be able to edit Grade 6", () => {
 
-                    //cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     contactsPage
                         .isEmpty("grade-6-name")
@@ -137,7 +137,7 @@ describe("Testing that we can add contacts", () => {
                     Logger.log("Edit Grade 6")
                     contactsPage.goToEditGrade6();
         
-                    // cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     Logger.log("Check edit contact validation");
                     editGrade6Page
@@ -173,7 +173,7 @@ describe("Testing that we can add contacts", () => {
 
                 it("Should be able to edit Project manager", () => {
 
-                    //cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     contactsPage
                         .isEmpty("project-manager-name")
@@ -181,7 +181,7 @@ describe("Testing that we can add contacts", () => {
                     Logger.log("Edit Project manager")
                     contactsPage.goToEditProjectManager();
         
-                    // cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     Logger.log("Check edit contact validation");
                     editProjectManagerPage
@@ -217,7 +217,7 @@ describe("Testing that we can add contacts", () => {
 
                 it("Should be able to edit Project director", () => {
 
-                    //cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     contactsPage
                         .isEmpty("project-director-name")
@@ -225,7 +225,7 @@ describe("Testing that we can add contacts", () => {
                     Logger.log("Edit Project director")
                     contactsPage.goToEditProjectDirector();
         
-                    // cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     Logger.log("Check edit contact validation");
                     editProjectDirectorPage
@@ -261,7 +261,7 @@ describe("Testing that we can add contacts", () => {
 
                 it("Should be able to edit Ofsted contact", () => {
 
-                    //cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     contactsPage
                         .isEmpty("ofsted-contact-name")
@@ -269,7 +269,7 @@ describe("Testing that we can add contacts", () => {
                     Logger.log("Edit Ofsted contact")
                     contactsPage.goToEditOfstedContact();
         
-                    // cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     Logger.log("Check edit contact validation");
                     editOfstedContactPage
@@ -327,7 +327,7 @@ describe("Testing that we can add contacts", () => {
 
                 it("Should be able to edit Trust contact", () => {
 
-                    //cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     contactsPage
                         .isEmpty("trust-contact-name")
@@ -335,7 +335,7 @@ describe("Testing that we can add contacts", () => {
                     Logger.log("Edit Trust contact")
                     contactsPage.goToEditTrustContact();
         
-                    // cy.executeAccessibilityTests();
+                    cy.executeAccessibilityTests();
         
                     Logger.log("Check edit contact validation");
                     editTrustContactPage
