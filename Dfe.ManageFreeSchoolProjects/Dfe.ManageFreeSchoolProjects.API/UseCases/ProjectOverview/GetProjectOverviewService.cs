@@ -56,7 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             {
                 ProjectStatus = new ProjectStatusResponse()
                 {
-                    ProjectStatus = project.ProjectStatusProjectStatus,
+                    ProjectStatus = ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus),
                     CurrentFreeSchoolName = project.ProjectStatusCurrentFreeSchoolName,
                     FreeSchoolsApplicationNumber = project.ProjectStatusFreeSchoolsApplicationNumber,
                     ProjectId = project.ProjectStatusProjectId,

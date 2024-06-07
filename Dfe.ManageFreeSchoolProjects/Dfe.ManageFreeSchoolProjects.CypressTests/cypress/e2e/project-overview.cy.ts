@@ -108,8 +108,8 @@ describe("Testing project overview", () => {
             .continue();
 
         createProjectPage
-            .enterProjectLeadName("Test Person")
-            .enterProjectLeadEmail("test.person@education.gov.uk")
+            .enterProjectAssignedToName("Test Person")
+            .enterProjectAssignedToEmail("test.person@education.gov.uk")
             .continue();
 
         createProjectPage.clickCreateProject();

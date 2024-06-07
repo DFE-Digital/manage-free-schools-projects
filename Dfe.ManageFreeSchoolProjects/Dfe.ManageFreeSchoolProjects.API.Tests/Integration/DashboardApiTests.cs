@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using DocumentFormat.OpenXml.Vml.Office;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
@@ -52,7 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             dashboard.LocalAuthority.Should().Be(project.LocalAuthority);
             dashboard.RealisticOpeningDate.Should().NotBeNull();
             dashboard.Region.Should().Be(project.SchoolDetailsGeographicalRegion);
-            dashboard.Status.Should().Be("1");
+            dashboard.ProjectStatus.Should().Be(ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus));
         }
 
         [Fact]

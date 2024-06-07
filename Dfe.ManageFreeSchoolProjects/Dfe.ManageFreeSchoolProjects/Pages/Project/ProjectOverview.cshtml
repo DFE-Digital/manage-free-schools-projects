@@ -7,7 +7,7 @@
     ViewData["WidePage"] = true;
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var contactsSummaryLink = string.Format(RouteConstants.ViewContacts, Model.ProjectId);
+    var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
     var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
 
@@ -29,6 +29,7 @@
                 <div class="govuk-grid-column-three-quarters">
                     <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.Project.ProjectStatus.ProjectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.Project.ProjectStatus.CurrentFreeSchoolName</h1>
+                    <partial name="_ProjectStatus" model="Model" />
                     <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
                         About the project
                     </p>
@@ -56,7 +57,7 @@
                     <a class="app-sub-navigation__link" href="@taskListLink">Task list</a>
                 </li>
                 <li class="app-sub-navigation__item">
-                    <a class="app-sub-navigation__link" href="#">Project notes</a>
+                    <a class="app-sub-navigation__link" href="@contactsLink">Contacts</a>
                 </li>
             </ul>
 
@@ -97,9 +98,6 @@
                 <ul class="govuk-list  govuk-!-margin-bottom-2">
                     <li class="govuk-body govuk-!-margin-bottom-2">
                         <a class="govuk-link" href="#risk-rating" data-link-scroll>Risk rating and summary</a>
-                    </li>
-                    <li class="govuk-body govuk-!-margin-bottom-2">
-                        <a class="govuk-link" href="#contacts" data-link-scroll>Contacts</a>
                     </li>
                     <li class="govuk-body govuk-!-margin-bottom-2">
                         <a class="govuk-link" href="#site-information" data-link-scroll>Site information</a>
@@ -399,75 +397,6 @@
                                    date="@Model.Project.Risk.Date"
                                    risk-rating="@Model.Project.Risk.RiskRating"
                                    summary="@Model.Project.Risk.Summary" />
-
-        <div class="govuk-summary-card" id="contacts">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Contacts</h2>
-                <div class="govuk-summary-card__actions">
-                    <a class="govuk-link" href="@contactsSummaryLink" data-testid="change-contacts">
-                        View details<span class="govuk-visually-hidden">Change contacts</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Project managed by
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-managed-by">
-                            <govuk-display-value value="@Model.Project.KeyContacts.ProjectManager" />
-                        </dd>
-                    </div>
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Team lead
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="team-lead">
-                            <govuk-display-value value="@Model.Project.KeyContacts.TeamLeader" />
-                        </dd>
-                    </div>
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Grade 6
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="grade-six">
-                            <govuk-display-value value="@Model.Project.KeyContacts.Grade6" />
-                        </dd>
-                    </div>
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Project director
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="project-director">
-                            <govuk-display-value value="@Model.Project.KeyContacts.ProjectDirector" />
-                        </dd>
-                    </div>
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            School chair of governors
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="school-chair-of-governors">
-                            <govuk-display-value value="@Model.Project.KeyContacts.SchoolChairOfGovernors" />
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Trust chair
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="trust-chair">
-                            <govuk-display-value value="@Model.Project.KeyContacts.ChairOfGovernors" />
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
 
         <div class="govuk-summary-card" id="site-information">
             <div class="govuk-summary-card__title-wrapper">

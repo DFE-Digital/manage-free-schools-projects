@@ -4,12 +4,15 @@
     {
         public const string ProjectOverview = "/projects/{0}/overview";
         public const string TaskList = "/projects/{0}/tasks";
+        public const string Contacts = "/projects/{0}/contacts";
         public const string CreateProject = "/project/create";
 
         public const string ViewSiteInformation = "/projects/{0}/site-information";
         public const string EditPermanentSiteInformation = "/projects/{0}/site-information/permanent/edit";
         public const string EditTemporarySiteInformation = "/projects/{0}/site-information/temporary/edit";
 
+        public const string EditProjectStatus = "/projects/{0}/projectstatus/edit-project-status"; 
+        
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
 
@@ -102,7 +105,7 @@
         public const string CreateProjectAgeRange = CreateProject + "/age-range";
         public const string CreateProjectConfirmTrust = CreateProject + "/trust/confirm/{0}";
         public const string CreateProjectCapacity = CreateProject + "/capacity";
-        public const string CreateProjectLead = CreateProject + "/projectlead";
+        public const string CreateProjectAssignedTo = CreateProject + "/project-assigned-to";
         public const string CreateClassType = CreateProject + "/class-type";
         public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
         public const string CreateProjectProvisionalOpeningDate = CreateProject + "/provisional-opening-date";
@@ -113,9 +116,13 @@
         public const string CreateFaithStatus = CreateProject + "/faith-status";
         public const string CreateFaithType = CreateProject + "/faith-type";
         
-        public const string ViewContacts = "/projects/{0}/contacts/other-info-contacts-landing-page";
-        public const string EditProjectManagedByContact = "/projects/{0}/contacts/other-info-contacts-multi-academy-project-managed-by-edit";
-        public const string EditContact = "/projects/{0}/contacts/other-info-contacts-edit/{1}";
+        public const string EditProjectAssignedTo = "/projects/{0}/contacts/project-assigned-to-edit";
+        public const string EditTeamLead = "/projects/{0}/contacts/team-lead-edit";
+        public const string EditGrade6 = "/projects/{0}/contacts/grade-6-edit";
+        public const string EditProjectManager = "/projects/{0}/contacts/project-manager-edit";
+        public const string EditProjectDirector = "/projects/{0}/contacts/project-director-edit";
+        public const string EditTrustContact = "/projects/{0}/contacts/trust-contact-edit";
+        public const string EditOfstedContact = "/projects/{0}/contacts/ofsted-contact-edit";
 
         public const string ViewPDG = TaskList + "/pdg";
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";

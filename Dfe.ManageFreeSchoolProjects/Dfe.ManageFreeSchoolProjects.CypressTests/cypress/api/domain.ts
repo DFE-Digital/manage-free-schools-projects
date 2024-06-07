@@ -34,7 +34,9 @@ export type ProjectDetailsRequest = {
     region?: string;
     localAuthority?: string;
     createdBy: string;
-    TRN: string;
+    TRN: string; 
+    projectAssignedToName: string,
+    projectAssignedToEmail: string
 };
 
 export type CreateProjectResponse = {

@@ -143,8 +143,8 @@ import summaryPage from "cypress/pages/task-summary-base";
 
             Logger.log("Set email");
             createProjectPage
-                .enterProjectLeadName("joe bloggs")
-                .enterProjectLeadEmail("test.person@education.gov.uk")
+                .enterProjectAssignedToName("joe bloggs")
+                .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue();
 
             Logger.log("Check answers");
@@ -168,8 +168,8 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
                 .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
-                .summaryShows("Project lead name").HasValue("joe bloggs").HasChangeLink()
-                .summaryShows("Project lead email").HasValue("test.person@education.gov.uk").HasChangeLink();
+                .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
+                .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             cy.executeAccessibilityTests();
             

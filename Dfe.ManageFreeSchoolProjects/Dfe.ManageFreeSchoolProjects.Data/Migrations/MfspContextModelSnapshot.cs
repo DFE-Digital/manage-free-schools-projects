@@ -3900,6 +3900,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Key Contacts.Chair of governors MAT phone");
 
+                    b.Property<string>("KeyContactsChairOfGovernorsMatRole")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.Chair of governors MAT role");
+
                     b.Property<string>("KeyContactsChairOfGovernorsName")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -3965,6 +3971,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Key Contacts.ESFA Capital project manager");
+
+                    b.Property<string>("KeyContactsEsfaCapitalProjectManagerEmail")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.ESFA Capital project manager email");
 
                     b.Property<string>("KeyContactsEsfaCapitalProjectManagerFirm")
                         .HasMaxLength(100)
@@ -4115,6 +4127,30 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Key Contacts.Named contact once school is open");
+
+                    b.Property<string>("KeyContactsOfstedContact")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.Ofsted contact");
+
+                    b.Property<string>("KeyContactsOfstedContactEmail")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.Ofsted contact email");
+
+                    b.Property<string>("KeyContactsOfstedContactPhone")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.Ofsted contact phone");
+
+                    b.Property<string>("KeyContactsOfstedContactRole")
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Key Contacts.Ofsted contact role");
 
                     b.Property<string>("KeyContactsPlanningAdviser")
                         .HasMaxLength(100)

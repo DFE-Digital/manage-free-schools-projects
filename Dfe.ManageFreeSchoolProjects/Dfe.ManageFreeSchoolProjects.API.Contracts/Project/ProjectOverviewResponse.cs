@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
     public record ProjectStatusResponse
     {
         public string CurrentFreeSchoolName { get; set; }
-        public string ProjectStatus { get; set; }
+        public ProjectStatus ProjectStatus { get; set; }
         public string FreeSchoolsApplicationNumber { get; set; }
         public string ProjectId { get; set; }
         public string Urn { get; set; }

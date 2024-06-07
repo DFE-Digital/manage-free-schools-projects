@@ -13,12 +13,10 @@ using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Dfe.ManageFreeSchoolProjects.Extensions;
-using System.Reflection;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditContactModel : PageModel
+public class EditGrade6ContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -26,26 +24,25 @@ public class EditContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditContactModel> _logger;
+    private readonly ILogger<EditGrade6ContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
+    
 
-    [BindProperty(Name = "contactType")]
-    public string ContactType { get; set; }
-
-    [BindProperty(Name = "contact-name")]
+    [BindProperty(Name = "grade-6-name")]
     [ValidText(100)]
-    [DisplayName("Contact name")]
+    [DisplayName("Grade 6 name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string ContactName { get; set; }
+    public string Grade6Name { get; set; }
 
-    [BindProperty(Name = "contact-email")]
-    [DisplayName("Contact email")]
+    [BindProperty(Name = "grade-6-email")]
+    [DisplayName("Grade 6 email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string ContactEmail { get; set; }
+    
+    public string Grade6Email { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -54,15 +51,15 @@ public class EditContactModel : PageModel
     
     public string GetNextPage()
     {
-        return string.Format(RouteConstants.ViewContacts, ProjectId);
+        return string.Format(RouteConstants.Contacts, ProjectId);
     }
 
-    public EditContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditContactModel> logger )
+    public EditGrade6ContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditGrade6ContactModel> logger )
     {
         _getContactsService = getContactsService;
+        _getProjectOverviewService = projectOverviewService;
         _errorService = errorService;
         _addContactsService = addContactsService;
-        _getProjectOverviewService = projectOverviewService;
         _logger = logger;
     }
     
@@ -72,11 +69,9 @@ public class EditContactModel : PageModel
 
         try
         {
-            var contactType = RouteData.Values["contactType"] as string;
-            ContactType = contactType;
             var projectId = RouteData.Values["projectId"] as string;
-            ProjectId = projectId;
             PageContacts = await _getContactsService.Execute(projectId);
+            ProjectId = projectId;
             var project = await _getProjectOverviewService.Execute(projectId);
             SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
         }
@@ -90,67 +85,81 @@ public class EditContactModel : PageModel
     
     public async Task<IActionResult> OnPost()
     {
-
-        var contactPropertyName = StringExtensions.KebabToPascalCase(ContactType);
-        PropertyInfo contactPropertyInfo = typeof(ContactsTask).GetProperty(contactPropertyName);
-
-        ContactsTask Contacts = new ContactsTask();
-        Contact contact = new Contact()
+        PageContacts = new GetContactsResponse()
         {
-            Name = ContactName,
-            Email = ContactEmail
+            Contacts = new ContactsTask()
+            {
+                Grade6 = new Contact()
+                {
+                    Name = Grade6Name,
+                    Email = Grade6Email
+                }
+            }
         };
-
-        contactPropertyInfo.SetValue(Contacts, contact);
-        PageContacts.Contacts = Contacts;
 
         var projectId = RouteData.Values["projectId"] as string;
         var project = await _getProjectOverviewService.Execute(projectId);
         ProjectId = projectId;
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
-        
-        if (ContactEmail?.Length > 100)
-        {
-            ModelState.AddModelError("contact-email", "The contact email must be 100 characters or less");
-        }
 
-        string[] internalContactTypes = { "team-lead", "grade-6" };
-
-        if (!IsInternalEmailValid(ContactEmail) && internalContactTypes.Contains(ContactType))
-        {
-            ModelState.AddModelError("contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
-        }
-
-        if (!IsEmailValid(ContactEmail) && !internalContactTypes.Contains(ContactType))
-        {
-            ModelState.AddModelError("contact-email", "Enter an email address in the correct format.");
-        }
-        
-        if (ContactName != null && ContactName.Any(char.IsDigit))
-        {
-            ModelState.AddModelError("contact-name", "The contact name cannot contain numbers");
-        }
-        
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
-        UpdateContactsRequest updateContactsRequest = new UpdateContactsRequest();
-        updateContactsRequest.Contacts = Contacts;
+        if (!IsNamePopulated(Grade6Name))
+        {
+            ModelState.AddModelError("grade-6-name", "Enter the full name, for example John Smith");
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
+        if (Grade6Name.Any(char.IsDigit))
+        {
+            ModelState.AddModelError("grade-6-name", "The grade 6 name cannot contain numbers");
+        }
+
+        if (Grade6Email?.Length > 100)
+        {
+            ModelState.AddModelError("grade-6-email", "The grade 6 email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(Grade6Email))
+        {
+            ModelState.AddModelError("grade-6-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
+        var updateContactsRequest = new UpdateContactsRequest()
+        {
+            Contacts = new ContactsTask()
+            {
+                Grade6 = new Contact()
+                {
+                    Name = Grade6Name,
+                    Email = Grade6Email
+                }
+            }
+            
+        };
 
         await _addContactsService.Execute(ProjectId, updateContactsRequest);
 
         return Redirect(GetNextPage());
     }
-    
-    private static bool IsEmailValid(string email)
+
+    private static bool IsNamePopulated(string name)
     {
-        return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
+        return name != null && name.Contains(' ');
     }
 
-    private static bool IsInternalEmailValid(string email)
+    private static bool IsEducationEmailValid(string email)
     {
         return string.IsNullOrEmpty(email) || (email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email));
     }

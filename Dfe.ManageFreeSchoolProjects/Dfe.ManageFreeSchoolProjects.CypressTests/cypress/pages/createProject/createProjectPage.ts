@@ -230,22 +230,22 @@ class CreateProjectPage {
         return this;
     }
 
-    public enterProjectLeadName(value: string) {
+    public enterProjectAssignedToName(value: string) {
         cy.getByTestId("name").clear().type(value)
         return this;
     }
 
-    public enterProjectLeadEmail(value: string) {
+    public enterProjectAssignedToEmail(value: string) {
         cy.getByTestId("email").clear().type(value)
         return this;
     }
 
-    public hasProjectLeadName(value: string) {
+    public hasProjectAssignedToName(value: string) {
         cy.getByTestId("email").should("have.value", value);
         return this;
     }
 
-    public hasProjectLeadEmail(value: string) {
+    public hasProjectAssignedEmail(value: string) {
         cy.getByTestId("email").should("have.value", value);
         return this;
     }

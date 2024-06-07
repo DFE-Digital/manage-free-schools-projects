@@ -38,6 +38,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ProjectStatus;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
@@ -78,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IGetProjectManagersService, GetProjectManagersService>();
             services.AddScoped<IGetProjectContactsService, GetProjectContactsService>();
             services.AddScoped<IUpdateProjectContactsService, UpdateProjectContactsService>();
+            services.AddScoped<IUpdateProjectStatusService, UpdateProjectStatusService>();
 			services.AddScoped<IUpdateTaskService, UpdateSchoolTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDatesTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateRegionAndLocalAuthorityTaskService>();

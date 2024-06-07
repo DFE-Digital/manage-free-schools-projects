@@ -133,7 +133,7 @@
 
                                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
 
-                                        Project managed by
+                                        Project assigned to
 
                                     </legend>
 
@@ -226,7 +226,7 @@ else
                     if (!Model.IsMyProjectsPage)
                     {
                         <th class="govuk-table__header govuk-table__cell__cases" scope="col">
-                            Project managed by
+                            Project assigned to
                         </th>
                     }
                 }
@@ -282,7 +282,26 @@ else
                         }
                     </td>
                     <td class="govuk-table__cell" data-testid="status">
-                        <strong class="govuk-tag govuk-tag--grey">Not started</strong>
+                           @if (@project.ProjectStatus == ProjectStatus.Preopening)
+                            {
+                                <strong class="govuk-tag govuk-tag--yellow">@ProjectStatus.Preopening.ToDescription()</strong>
+                            }
+                            @if (@project.ProjectStatus == ProjectStatus.Open)
+                            {
+                                <strong class="govuk-tag govuk-tag--turquoise">@ProjectStatus.Open.ToDescription()</strong>
+                            }
+                            @if (@project.ProjectStatus == ProjectStatus.Closed)
+                                 {
+                                     <strong class="govuk-tag govuk-tag--blue">@ProjectStatus.Closed.ToDescription()</strong>
+                                 }
+                             @if (@project.ProjectStatus == ProjectStatus.Cancelled)
+                                {
+                                    <strong class="govuk-tag govuk-tag--orange">@ProjectStatus.Cancelled.ToDescription()</strong>
+                                }
+                            @if (@project.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
+                                {
+                                    <strong class="govuk-tag govuk-tag--orange">@ProjectStatus.WithdrawnDuringPreOpening.ToDescription()</strong>
+                                }
                     </td>
                     <td class="govuk-table__cell">
                         <a class="govuk-link" href="/projects/@project.ProjectId/overview" data-testid="action">View<span class="govuk-visually-hidden"> @project.ProjectTitle</span></a>

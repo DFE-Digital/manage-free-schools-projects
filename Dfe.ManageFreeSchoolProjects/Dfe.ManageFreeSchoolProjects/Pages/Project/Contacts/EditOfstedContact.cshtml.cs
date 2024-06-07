@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditProjectManagedByContactModel : PageModel
+public class EditOfstedContactContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,24 +24,37 @@ public class EditProjectManagedByContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditProjectManagedByContactModel> _logger;
+    private readonly ILogger<EditOfstedContactContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
     
-    [BindProperty(Name = "project-managed-by-name")]
-    [ValidText(100)]
-    [DisplayName("Project managed by name")]
-    [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string ProjectManagedByName { get; set; }
 
-    [BindProperty(Name = "project-managed-by-email")]
-    [DisplayName("Project managed by email")]
+    [BindProperty(Name = "ofsted-contact-name")]
+    [ValidText(100)]
+    [DisplayName("Ofsted contact name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    
-    public string ProjectManagedByEmail { get; set; }
+    public string OfstedContactName { get; set; }
+
+    [BindProperty(Name = "ofsted-contact-email")]
+    [DisplayName("Ofsted contact email")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
+    public string OfstedContactEmail { get; set; }
+
+    [BindProperty(Name = "ofsted-contact-phone-number")]
+    [ValidPhoneNumber]
+    [DisplayName("Ofsted contact phone number")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
+    public string OfstedContactPhoneNumber { get; set; }
+
+    [BindProperty(Name = "ofsted-contact-role")]
+    [ValidText(100)]
+    [DisplayName("Ofsted contact role")]
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
+
+    public string OfstedContactRole { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -50,10 +63,10 @@ public class EditProjectManagedByContactModel : PageModel
     
     public string GetNextPage()
     {
-        return string.Format(RouteConstants.ViewContacts, ProjectId);
+        return string.Format(RouteConstants.Contacts, ProjectId);
     }
 
-    public EditProjectManagedByContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditProjectManagedByContactModel> logger )
+    public EditOfstedContactContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditOfstedContactContactModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
@@ -88,10 +101,12 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedBy = new Contact()
+                OfstedContact = new Contact()
                 {
-                    Name = ProjectManagedByName,
-                    Email = ProjectManagedByEmail
+                    Name = OfstedContactName,
+                    Email = OfstedContactEmail,
+                    PhoneNumber = OfstedContactPhoneNumber,
+                    Role = OfstedContactRole
                 }
             }
         };
@@ -100,23 +115,35 @@ public class EditProjectManagedByContactModel : PageModel
         var project = await _getProjectOverviewService.Execute(projectId);
         ProjectId = projectId;
         SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
-        
-        
-        if (ProjectManagedByEmail?.Length > 100)
+
+        if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("project-managed-by-email", "The project managed by email must be 100 characters or less");
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
         }
-        
-        if (!IsEmailValid(ProjectManagedByEmail))
+
+        if (!IsNamePopulated(OfstedContactName))
         {
-            ModelState.AddModelError("project-managed-by-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("ofsted-contact-name", "Enter the full name, for example John Smith");
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
         }
-        
-        if (ProjectManagedByName != null && ProjectManagedByName.Any(char.IsDigit))
+
+        if (OfstedContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("project-managed-by-name", "The project managed by name cannot contain numbers");
+            ModelState.AddModelError("ofsted-contact-name", "The ofsted contact name cannot contain numbers");
         }
-        
+
+        if (OfstedContactEmail?.Length > 100)
+        {
+            ModelState.AddModelError("ofsted-contact-email", "The ofsted contact email must be 100 characters or less");
+        }
+
+        if (!IsEducationEmailValid(OfstedContactEmail))
+        {
+            ModelState.AddModelError("ofsted-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+        }
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -127,10 +154,12 @@ public class EditProjectManagedByContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedBy = new Contact()
+                OfstedContact = new Contact()
                 {
-                    Name = ProjectManagedByName,
-                    Email = ProjectManagedByEmail
+                    Name = OfstedContactName,
+                    Email = OfstedContactEmail,
+                    PhoneNumber = OfstedContactPhoneNumber,
+                    Role = OfstedContactRole
                 }
             }
             
@@ -141,8 +170,13 @@ public class EditProjectManagedByContactModel : PageModel
         return Redirect(GetNextPage());
     }
 
-    private static bool IsEmailValid(string email)
+    private static bool IsNamePopulated(string name)
     {
-        return string.IsNullOrEmpty(email) || (email.Contains("@education.gov.uk") && new EmailAddressAttribute().IsValid(email));
+        return name != null && name.Contains(' ');
+    }
+
+    private static bool IsEducationEmailValid(string email)
+    {
+        return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
     }
 }

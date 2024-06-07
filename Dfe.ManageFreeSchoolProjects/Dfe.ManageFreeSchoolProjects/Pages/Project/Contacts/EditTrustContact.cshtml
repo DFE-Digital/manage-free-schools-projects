@@ -1,0 +1,76 @@
+@page "/projects/{projectId}/contacts/trust-contact-edit"
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model EditTrustContactContactModel
+
+
+@{
+    ViewData["Title"] = $"Edit Trust contact";
+    var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
+    
+}
+
+<partial name="_ErrorSummary" />
+
+@section BeforeMain {
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to contacts summary</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full" data-testid="edit-trust-contact-title">
+        <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+        <h1 class="govuk-heading-xl">
+            @ViewData["Title"]
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" method="post">
+
+            <label class="govuk-label govuk-heading-m" for="trust-contact-name">
+            Name
+            </label>
+
+            <govuk-text-input 
+                id="trust-contact-name"
+                name="trust-contact-name"
+                asp-for="@Model.PageContacts.Contacts.TrustContact.Name"
+                test-id="edit-trust-contact-name" />
+            
+             <label class="govuk-label govuk-heading-m" for="trust-contact-email">
+            Email
+            </label>
+            <govuk-text-input id="trust-contact-email"
+                name="trust-contact-email"
+                asp-for="@Model.PageContacts.Contacts.TrustContact.Email"
+                test-id="edit-trust-contact-email" />
+
+            <label class="govuk-label govuk-heading-m" for="trust-contact-phone-number">
+                Phone number
+            </label>
+
+            <govuk-text-input id="trust-contact-phone-number"
+                              name="trust-contact-phone-number"
+                              asp-for="@Model.PageContacts.Contacts.TrustContact.PhoneNumber"
+                              test-id="edit-trust-contact-phone-number" />
+
+            <label class="govuk-label govuk-heading-m" for="trust-contact-role">
+                Role
+            </label>
+            <govuk-text-input id="trust-contact-role"
+                              name="trust-contact-role"
+                              asp-for="@Model.PageContacts.Contacts.TrustContact.Role"
+                              test-id="edit-trust-contact-role" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+
+        </form>
+    </div>
+</div>

@@ -11,7 +11,9 @@ export class RequestBuilder {
             applicationWave: "FS - Presumption",
             createdBy: Cypress.env(EnvUsername),
             schoolName: dataGenerator.generateSchoolName(),
-            TRN: 'TR00111'
+            TRN: 'TR00111',
+            projectAssignedToName: "Test Person",
+            projectAssignedToEmail: "test.person.education.gov.uk"
         };
 
         return result;

@@ -95,6 +95,7 @@ public class Startup
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
         services.AddScoped<IGetContactsService, GetContactsService>();
         services.AddScoped<IAddContactsService, AddContactsService>();
+        services.AddScoped<IUpdateProjectStatusService, UpdateProjectStatusService>();
         services.AddScoped<ISearchConstituency, SearchConstituency>();
         services.AddScoped<IAgeRangeCleanerService, AgeRangeCleanerService>();
         services.AddScoped<INotifyUserService, NotifyUserService>();
