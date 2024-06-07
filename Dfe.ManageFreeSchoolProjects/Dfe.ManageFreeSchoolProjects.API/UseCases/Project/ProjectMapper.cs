@@ -88,6 +88,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 "Pre-opening" => ProjectStatusType.Preopening,
                 "Open" => ProjectStatusType.Open,
                 "Closed" => ProjectStatusType.Closed,
+                "Cancelled during pre-opening" => ProjectStatusType.Cancelled,
+                "Cancelled" => ProjectStatusType.Cancelled,
+                "Withdrawn during pre-opening" => ProjectStatusType.WithdrawnDuringPreOpening,
                 _ => ProjectStatusType.Preopening
             };
         }

@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard
 {
     public class GetDashboardResponse
     {
@@ -14,7 +16,8 @@
 
         public DateTime? RealisticOpeningDate { get; set; }
 
-        public string Status { get; set; }
+        
+        public ProjectStatus ProjectStatus { get; set; }
 
         public string ProjectManagedBy { get; set; }
     }

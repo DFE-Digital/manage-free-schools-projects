@@ -11,5 +11,11 @@ public enum ProjectStatus
     Open,
     
     [Description("Closed")]
-    Closed
+    Closed,
+    
+    [Description("Cancelled")]
+    Cancelled,
+    
+    [Description("Withdrawn during pre-opening")]
+    WithdrawnDuringPreOpening
 }

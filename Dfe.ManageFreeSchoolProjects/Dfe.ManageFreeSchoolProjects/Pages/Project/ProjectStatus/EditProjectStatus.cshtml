@@ -5,7 +5,7 @@
 
 @{
     var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    ViewData["Title"] = $"Edit Project Status - ${Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+    ViewData["Title"] = "Edit project Status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
     var ProjectStatuses = Enum.GetValues<ProjectStatus>();
     var ProjectStatusLabels = ProjectStatuses.Select(x => x.ToDescription()).ToArray();
@@ -27,7 +27,7 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
-            Edit Project Status
+            Edit project Status
         </h1>
         <form method="post">
          <div class="govuk-form-group" id="project-status">
