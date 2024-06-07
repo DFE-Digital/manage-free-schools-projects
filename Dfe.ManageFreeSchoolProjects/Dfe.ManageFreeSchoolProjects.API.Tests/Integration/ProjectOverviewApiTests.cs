@@ -61,7 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Project status
             var projectStatus = result.Data.ProjectStatus;
             projectStatus.CurrentFreeSchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
-            projectStatus.ProjectStatus.Should().Be(project.ProjectStatusProjectStatus);
+            projectStatus.ProjectStatus.Should().Be(ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus));
             projectStatus.FreeSchoolsApplicationNumber.Should().Be(project.ProjectStatusFreeSchoolsApplicationNumber);
             projectStatus.ProjectId.Should().Be(project.ProjectStatusProjectId);
             projectStatus.Urn.Should().Be(project.ProjectStatusUrnWhenGivenOne);
@@ -138,7 +138,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Project status
             var projectStatus = result.Data.ProjectStatus;
             projectStatus.CurrentFreeSchoolName.Should().BeNull();
-            projectStatus.ProjectStatus.Should().BeNull();
+            projectStatus.ProjectStatus.Should().Be(ProjectStatus.Preopening);
             projectStatus.DateOfEntryIntoPreopening.Should().BeNull();
             projectStatus.ProvisionalOpeningDateAgreedWithTrust.Should().BeNull();
             projectStatus.ActualOpeningDate.Should().BeNull();

@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 RealisticOpeningDate = record.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                 Region = record.SchoolDetailsGeographicalRegion,
                 ProjectManagedBy = record.KeyContactsFsgLeadContact, 
-                Status = "1"
+                ProjectStatus = ProjectMapper.ToProjectStatusType(record.ProjectStatusProjectStatus)
             }).ToList();
 
             return (result, count);

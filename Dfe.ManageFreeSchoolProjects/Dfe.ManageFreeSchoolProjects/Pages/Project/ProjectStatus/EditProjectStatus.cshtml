@@ -1,0 +1,46 @@
+﻿@page "/projects/{projectId}/projectstatus/edit-project-status"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus.EditProjectStatusModel
+
+@{
+    var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    ViewData["Title"] = "Edit project Status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+
+    var ProjectStatuses = Enum.GetValues<ProjectStatus>();
+    var ProjectStatusLabels = ProjectStatuses.Select(x => x.ToDescription()).ToArray();
+    var ProjectStatusValues = ProjectStatuses.Select(x => x.ToString()).ToArray();
+    var ProjectStatusTestIds = ProjectStatuses.Select(x => $"project-status-{x}").ToArray();
+}
+
+@section BeforeMain {
+    <nav class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </nav>
+}
+
+<partial name="_ErrorSummary" />
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
+            Edit project Status
+        </h1>
+        <form method="post">
+         <div class="govuk-form-group" id="project-status">
+                                <govuk-radios-input name="project-status"
+                                                    asp-for="@Model.ProjectStatus"
+                                                    data-testid="project-status"
+                                                    labels="@ProjectStatusLabels"
+                                                    values="@ProjectStatusValues"
+                                                    test-ids="@ProjectStatusTestIds"/>
+                            </div>
+        <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+            Save and continue
+        </button>
+        </form>
+    </div>
+</div>

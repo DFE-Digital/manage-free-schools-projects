@@ -11,6 +11,8 @@
         public const string EditPermanentSiteInformation = "/projects/{0}/site-information/permanent/edit";
         public const string EditTemporarySiteInformation = "/projects/{0}/site-information/temporary/edit";
 
+        public const string EditProjectStatus = "/projects/{0}/projectstatus/edit-project-status"; 
+        
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";
 
