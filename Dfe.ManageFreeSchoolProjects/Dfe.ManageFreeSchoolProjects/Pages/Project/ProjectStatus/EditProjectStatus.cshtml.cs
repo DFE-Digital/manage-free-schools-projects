@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly IUpdateProjectStatusService _updateProjectStatusService;
-        private readonly ILogger<ProjectOverviewModel> _logger;
+        private readonly ILogger<EditProjectStatusModel> _logger;
         private readonly ErrorService _errorService;
         public ProjectOverviewResponse Project { get; set; }
         
@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectStatusService updateProjectStatusService,
-            ILogger<ProjectOverviewModel> logger,
+            ILogger<EditProjectStatusModel> logger,
             ErrorService errorService)
         {
             _getProjectOverviewService = getProjectOverviewService;
@@ -70,11 +70,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
     public async Task<IActionResult> OnPost()
         {
-          //  if (!ModelState.IsValid)
-            //{
-              //  _errorService.AddErrors(ModelState.Keys, ModelState);
-                //return Page();
-            //}
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
 
             UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
             {
