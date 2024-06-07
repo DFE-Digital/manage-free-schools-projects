@@ -33,12 +33,13 @@ public class ContactsApiTests : ApiTestsBase
         
         var expectedContacts = new ContactsTask()
         {
-            ProjectManagedBy = new Contact() { Name = _project.KeyContactsFsgLeadContact, Email = _project.KeyContactsFsgLeadContactEmail },
+            ProjectAssignedTo = new Contact() { Name = _project.KeyContactsFsgLeadContact, Email = _project.KeyContactsFsgLeadContactEmail },
             TeamLead = new Contact() { Name = _project.KeyContactsFsgTeamLeader, Email = _project.KeyContactsFsgTeamLeaderEmail },
             Grade6 = new Contact() { Name = _project.KeyContactsFsgGrade6, Email = _project.KeyContactsFsgGrade6Email },
+            ProjectManager = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectManager, Email = _project.KeyContactsEsfaCapitalProjectManagerEmail },
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
-            TrustChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsName, Email = _project.KeyContactsChairOfGovernorsEmail },
-            SchoolChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail },
+            TrustContact = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = _project.KeyContactsChairOfGovernorsMatPhone, Role = _project.KeyContactsChairOfGovernorsMatRole },
+            OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);
@@ -60,9 +61,9 @@ public class ContactsApiTests : ApiTestsBase
         {
             Contacts = new ContactsTask()
             {
-                ProjectManagedBy = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
+                ProjectAssignedTo = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
                 TeamLead = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
-                Grade6 = new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>() },
+                TrustContact= new Contact() { Name = Fixture.Create<string>(), Email = Fixture.Create<string>(), PhoneNumber = Fixture.Create<string>() },
             }
         };
 
@@ -79,12 +80,14 @@ public class ContactsApiTests : ApiTestsBase
         var expectedContacts = new ContactsTask()
         {
 
-            ProjectManagedBy = new Contact() { Name = contactToUpdate.Contacts.ProjectManagedBy.Name, Email = contactToUpdate.Contacts.ProjectManagedBy.Email },
+            ProjectAssignedTo = new Contact() { Name = contactToUpdate.Contacts.ProjectAssignedTo.Name, Email = contactToUpdate.Contacts.ProjectAssignedTo.Email },
             TeamLead = new Contact() { Name = contactToUpdate.Contacts.TeamLead.Name, Email = contactToUpdate.Contacts.TeamLead.Email },
-            Grade6 = new Contact() { Name = contactToUpdate.Contacts.Grade6.Name, Email = contactToUpdate.Contacts.Grade6.Email },
+            TrustContact = new Contact() { Name = contactToUpdate.Contacts.TrustContact.Name, Email = contactToUpdate.Contacts.TrustContact.Email, PhoneNumber = contactToUpdate.Contacts.TrustContact.PhoneNumber },
+            Grade6 = new Contact() { Name = _project.KeyContactsFsgGrade6, Email = _project.KeyContactsFsgGrade6Email },
+            ProjectManager = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectManager, Email = _project.KeyContactsEsfaCapitalProjectManagerEmail },
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
-            TrustChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsName, Email = _project.KeyContactsChairOfGovernorsEmail },
-            SchoolChair = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail },
+            OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
+
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);

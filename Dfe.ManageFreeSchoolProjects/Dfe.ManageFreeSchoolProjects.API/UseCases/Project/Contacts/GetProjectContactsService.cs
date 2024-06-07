@@ -33,12 +33,13 @@ public class GetProjectContactsService : IGetProjectContactsService
         {
            Contacts = new ContactsTask()
            {
-                ProjectManagedBy = new Contact() { Name = dbProject.KeyContactsFsgLeadContact, Email = dbProject.KeyContactsFsgLeadContactEmail },
+                ProjectAssignedTo = new Contact() { Name = dbProject.KeyContactsFsgLeadContact, Email = dbProject.KeyContactsFsgLeadContactEmail },
                 TeamLead = new Contact() { Name = dbProject.KeyContactsFsgTeamLeader, Email = dbProject.KeyContactsFsgTeamLeaderEmail },
                 Grade6 = new Contact() { Name = dbProject.KeyContactsFsgGrade6, Email = dbProject.KeyContactsFsgGrade6Email },
+                ProjectManager = new Contact() { Name = dbProject.KeyContactsEsfaCapitalProjectManager, Email = dbProject.KeyContactsEsfaCapitalProjectManagerEmail },
                 ProjectDirector = new Contact() { Name = dbProject.KeyContactsEsfaCapitalProjectDirector, Email = dbProject.KeyContactsEsfaCapitalProjectDirectorEmail },
-                TrustChair = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsName, Email = dbProject.KeyContactsChairOfGovernorsEmail },
-                SchoolChair = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsMat, Email = dbProject.KeyContactsChairOfGovernorsMatEmail },
+                TrustContact = new Contact() { Name = dbProject.KeyContactsChairOfGovernorsMat, Email = dbProject.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = dbProject.KeyContactsChairOfGovernorsMatPhone, Role = dbProject.KeyContactsChairOfGovernorsMatRole },
+                OfstedContact = new Contact() { Name = dbProject.KeyContactsOfstedContact, Email = dbProject.KeyContactsOfstedContactEmail, PhoneNumber = dbProject.KeyContactsOfstedContactPhone, Role = dbProject.KeyContactsOfstedContactRole },
            }
         };
 

@@ -76,8 +76,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 FaithType = project.FaithType,
                 OtherFaithType = project.OtherFaithType,
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
-                ProjectLeadName = project.ProjectLeadName,
-                ProjectLeadEmail = project.ProjectLeadEmail,
+                ProjectAssignedToName = project.ProjectAssignedToName,
+                ProjectAssignedToEmail = project.ProjectAssignedToEmail,
                 ApplicationWave = "FS - Presumption"
             };
 
@@ -114,7 +114,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 $"{HttpContext.Request.Host}" +
                 $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
 
-            await _notifyUserService.Execute(_createProjectCache.Get().ProjectLeadEmail, projectUrl);
+            await _notifyUserService.Execute(_createProjectCache.Get().ProjectAssignedToEmail, projectUrl);
         }
     }
 }

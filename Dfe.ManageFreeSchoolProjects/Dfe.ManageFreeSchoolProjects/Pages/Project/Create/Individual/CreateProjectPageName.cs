@@ -18,7 +18,7 @@
         FaithType,
         FormsOfEntry,
         ProvisionalOpeningDate,
-        ProjectLead,
+        ProjectAssignedTo,
         CheckYourAnswers,
     }
 }

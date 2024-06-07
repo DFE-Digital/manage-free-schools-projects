@@ -19,5 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string KeyContactsFsgTeamLeaderEmail { get; set; }
         public string KeyContactsFsgGrade6Email { get; set; }
         public string KeyContactsEsfaCapitalProjectDirectorEmail { get; set; }
+        public string KeyContactsEsfaCapitalProjectManagerEmail { get; set; }
+        public string KeyContactsChairOfGovernorsMatRole { get; set; }
+        public string KeyContactsOfstedContact { get; set; }
+        public string KeyContactsOfstedContactEmail { get; set; }
+        public string KeyContactsOfstedContactPhone { get; set; }
+        public string KeyContactsOfstedContactRole { get; set; }
     }
 }

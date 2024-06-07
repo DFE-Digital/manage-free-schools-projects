@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         public void OnGet()
         {
             ProjectID = _createProjectCache.Get().ProjectId;
-            EmailToNotify = _createProjectCache.Get().ProjectLeadEmail;
+            EmailToNotify = _createProjectCache.Get().ProjectAssignedToEmail;
         }
     }
 }
