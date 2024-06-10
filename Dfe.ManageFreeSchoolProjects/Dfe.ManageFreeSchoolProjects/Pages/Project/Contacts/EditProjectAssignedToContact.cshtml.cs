@@ -31,13 +31,13 @@ public class EditProjectAssignedToContactModel : PageModel
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [Required(ErrorMessage = "Please enter the name.")]
+    [Required(ErrorMessage = "Please enter the name")]
     [BindProperty(Name = "project-assigned-to-name")]
     [ValidText(100)]
     [DisplayName("Project assigned to name")]
     public string ProjectAssignedToName { get; set; }
 
-    [Required(ErrorMessage = "Please enter an email.")]
+    [Required(ErrorMessage = "Please enter an email")]
     [BindProperty(Name = "project-assigned-to-email")]
     [DisplayName("Project assigned to email")]
     
