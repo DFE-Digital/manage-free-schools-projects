@@ -8,9 +8,11 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 
@@ -35,6 +37,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         
         [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
+        
+        [BindProperty(Name = "closed-year")]
+        [DisplayName("Closed year")]
+        public String? ClosedYear { get; set; }
+        
+        [BindProperty(Name = "cancelled-year")]
+        [DisplayName("Cancelled year")]
+        public String? CancelledYear { get; set; }
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectStatusService updateProjectStatusService,
@@ -66,13 +76,59 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
             return Page();
         }
-    
-
+        
     public async Task<IActionResult> OnPost()
-        {
+    {
+
+            bool isClosedNumber = int.TryParse(ClosedYear, out int intClosedYear);
+            bool isCancelledNumber = int.TryParse(CancelledYear, out int intCancelledYear);
+        
+            if (ProjectStatus == ProjectStatusType.Closed && ClosedYear == null)
+            {
+                ModelState.AddModelError("closed-year-error", "Enter a year in the correct format");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Closed && !isClosedNumber)
+            {
+                ModelState.AddModelError("closed-year-error", "Enter a year in the correct format");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Closed && intClosedYear < 2000)
+            {
+                ModelState.AddModelError("closed-year-count-error", "Year must be between 2000 and 2050");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Closed && intClosedYear > 2050)
+            {
+                ModelState.AddModelError("closed-year-count-error", "Year must be between 2000 and 2050");
+            }
+            
+            if (ProjectStatus == ProjectStatusType.Cancelled && CancelledYear == null)
+            {
+                ModelState.AddModelError("cancelled-year-error", "Enter a year in the correct format");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Cancelled && !isCancelledNumber)
+            {
+                ModelState.AddModelError("cancelled-year-error", "Enter a year in the correct format");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Cancelled && intClosedYear < 2000)
+            {
+                ModelState.AddModelError("cancelled-year-count-error", "Year must be between 2000 and 2050");
+            }
+            
+            else if (ProjectStatus == ProjectStatusType.Cancelled && intCancelledYear > 2050)
+            {
+                ModelState.AddModelError("cancelled-year-count-error", "Year must be between 2000 and 2050");
+            }
+            
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
+                
+                Project = await _getProjectOverviewService.Execute(ProjectId);
+                ProjectStatus = ProjectStatus;
                 return Page();
             }
 

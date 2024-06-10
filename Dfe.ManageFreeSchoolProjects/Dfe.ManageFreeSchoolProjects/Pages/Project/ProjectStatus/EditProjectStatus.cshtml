@@ -1,6 +1,7 @@
 ﻿@page "/projects/{projectId}/projectstatus/edit-project-status"
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@using AngleSharp.Common
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus.EditProjectStatusModel
 
 @{
@@ -8,6 +9,7 @@
     ViewData["Title"] = "Edit project Status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
     var ProjectStatuses = Enum.GetValues<ProjectStatus>();
+    var showError = @Model.ModelState;
     var ProjectStatusLabels = ProjectStatuses.Select(x => x.ToDescription()).ToArray();
     var ProjectStatusValues = ProjectStatuses.Select(x => x.ToString()).ToArray();
     var ProjectStatusTestIds = ProjectStatuses.Select(x => $"project-status-{x}").ToArray();
@@ -29,18 +31,152 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
             Edit project Status
         </h1>
+        @*<form method="post">
+            <div class="govuk-form-group" id="project-status">
+                <govuk-radios-input name="project-status"
+                                    asp-for="@Model.ProjectStatus"
+                                    data-testid="project-status"
+                                    labels="@ProjectStatusLabels"
+                                    values="@ProjectStatusValues"
+                                    test-ids="@ProjectStatusTestIds"/>
+            </div>
+            <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+                Save and continue
+            </button>
+        </form>*@
         <form method="post">
-         <div class="govuk-form-group" id="project-status">
-                                <govuk-radios-input name="project-status"
-                                                    asp-for="@Model.ProjectStatus"
-                                                    data-testid="project-status"
-                                                    labels="@ProjectStatusLabels"
-                                                    values="@ProjectStatusValues"
-                                                    test-ids="@ProjectStatusTestIds"/>
+            <div class="govuk-form-group" id="project-status">
+                <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="project-status-1" name="project-status" type="radio" value="@ProjectStatus.Preopening" asp-for="@Model.ProjectStatus">
+                            <label class="govuk-label govuk-radios__label" for="project-status-1">
+                                @ProjectStatus.Preopening.ToDescription()
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="project-status-2" name="project-status" type="radio" value="@ProjectStatus.Open" asp-for="@Model.ProjectStatus">
+                            <label class="govuk-label govuk-radios__label" for="project-status-2">
+                                @ProjectStatus.Open.ToDescription()
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="project-status-3" name="project-status" type="radio" value="@ProjectStatus.Closed" asp-for="@Model.ProjectStatus" data-aria-controls="closed-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-3">
+                                @ProjectStatus.Closed.ToDescription()
+                            </label>
+                        </div>
+                        @if(showError.ContainsKey("closed-year-error") || showError.ContainsKey("closed-year-count-error"))
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="closed-year-date-conditional">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was closed
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    @if (showError.ContainsKey("closed-year-error"))
+                                    {
+                                        <span id="closed-year-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span> Enter a year in the correct format
+                                        </span>
+                                    }
+                                    @if (showError.ContainsKey("closed-year-count-error"))
+                                    {
+                                        <span id="closed-year-count-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span> Enter a year between 2000 and 2050
+                                        </span>
+                                    }
+                                        <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year" asp-for="@Model.ClosedYear">
+                                    </div>
+                                </div>
+                        }
+                        else
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="closed-year-date-conditional">
+                                <div class="govuk-form-group">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was closed
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year" asp-for="@Model.ClosedYear">
+                                </div>
                             </div>
-        <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
-            Save and continue
-        </button>
+                        }
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="project-status-4" name="project-status" type="radio" value="@ProjectStatus.Cancelled" asp-for="@Model.ProjectStatus" data-aria-controls="cancelled-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-4">
+                                @ProjectStatus.Cancelled.ToDescription()
+                            </label>
+                        </div>
+
+                        @if (showError.ContainsKey("cancelled-year-error") || showError.ContainsKey("cancelled-year-count-error"))
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="cancelled-year-date-conditional">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was cancelled
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    @if (showError.ContainsKey("cancelled-year-error"))
+                                    {
+                                        <span id="cancelled-year-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span> Enter a year in the correct format
+                                        </span>
+                                    }
+                                    @if (showError.ContainsKey("cancelled-year-count-error"))
+                                    {
+                                        <span id="cancelled-year-count-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span> Enter a year between 2000 and 2050
+                                        </span>
+                                    }
+                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="cancelled-year" asp-for="@Model.CancelledYear">
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="cancelled-year-date-conditional">
+                                <div class="govuk-form-group">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was cancelled
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="Withdrawn" type="year" autocomplete="tel">
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="project-status-5" name="project-status" type="radio" value="@ProjectStatus.WithdrawnDuringPreOpening" asp-for="@Model.ProjectStatus" data-aria-controls="withdrawn-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-5">
+                                @ProjectStatus.WithdrawnDuringPreOpening.ToDescription()
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="withdrawn-year-date-conditional">
+                            <div class="govuk-form-group">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                    Year the project was withdrawn
+                                </legend>
+                                <div class="govuk-hint">
+                                    For example, 2024
+                                </div>
+                                <input class="govuk-input govuk-!-width-one-third" id="withdrawn-year" name="Withdrawn" type="year" autocomplete="tel">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+                Save and continue
+            </button>
         </form>
     </div>
 </div>
