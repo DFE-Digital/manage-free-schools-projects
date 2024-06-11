@@ -11,11 +11,11 @@ public class ProjectAssignedTo : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
 
-    [Required(ErrorMessage = "Please enter the name.")]
+    [Required(ErrorMessage = "Please enter the name")]
     [BindProperty(Name = "name")]
     public string Name { get; set; }
 
-    [Required(ErrorMessage = "Please enter an email.")]
+    [Required(ErrorMessage = "Please enter an email")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
