@@ -7,12 +7,9 @@
 @{
     var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     ViewData["Title"] = "Edit project Status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
-
-    var ProjectStatuses = Enum.GetValues<ProjectStatus>();
     var showError = @Model.ModelState;
-    var ProjectStatusLabels = ProjectStatuses.Select(x => x.ToDescription()).ToArray();
-    var ProjectStatusValues = ProjectStatuses.Select(x => x.ToString()).ToArray();
-    var ProjectStatusTestIds = ProjectStatuses.Select(x => $"project-status-{x}").ToArray();
+    var yearFormatErrorMessage = "Enter a year in the correct format";
+    var yearCountErrorMessage = "Enter a year between 2000 and 2050";
 }
 
 @section BeforeMain {
@@ -31,19 +28,6 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
             Edit project Status
         </h1>
-        @*<form method="post">
-            <div class="govuk-form-group" id="project-status">
-                <govuk-radios-input name="project-status"
-                                    asp-for="@Model.ProjectStatus"
-                                    data-testid="project-status"
-                                    labels="@ProjectStatusLabels"
-                                    values="@ProjectStatusValues"
-                                    test-ids="@ProjectStatusTestIds"/>
-            </div>
-            <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
-                Save and continue
-            </button>
-        </form>*@
         <form method="post">
             <div class="govuk-form-group" id="project-status">
                 <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
@@ -79,16 +63,16 @@
                                     @if (showError.ContainsKey("closed-year-error"))
                                     {
                                         <span id="closed-year-error" class="govuk-error-message">
-                                            <span class="govuk-visually-hidden">Error:</span> Enter a year in the correct format
+                                            <span class="govuk-visually-hidden">Error:</span> @yearFormatErrorMessage
                                         </span>
                                     }
                                     @if (showError.ContainsKey("closed-year-count-error"))
                                     {
                                         <span id="closed-year-count-error" class="govuk-error-message">
-                                            <span class="govuk-visually-hidden">Error:</span> Enter a year between 2000 and 2050
+                                            <span class="govuk-visually-hidden">Error:</span> @yearCountErrorMessage
                                         </span>
                                     }
-                                        <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year" asp-for="@Model.ClosedYear">
+                                        <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year" asp-for="@Model.ClosedYear" value="@Model.ClosedYear">
                                     </div>
                                 </div>
                         }
@@ -102,7 +86,7 @@
                                     <div class="govuk-hint">
                                         For example, 2024
                                     </div>
-                                    <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year" asp-for="@Model.ClosedYear">
+                                    <input class="govuk-input govuk-!-width-one-third" id="closed-year" name="closed-year"  asp-for="@Model.ClosedYear" value="@Model.ClosedYear">
                                 </div>
                             </div>
                         }
@@ -126,16 +110,16 @@
                                     @if (showError.ContainsKey("cancelled-year-error"))
                                     {
                                         <span id="cancelled-year-error" class="govuk-error-message">
-                                            <span class="govuk-visually-hidden">Error:</span> Enter a year in the correct format
+                                            <span class="govuk-visually-hidden">Error:</span> @yearFormatErrorMessage
                                         </span>
                                     }
                                     @if (showError.ContainsKey("cancelled-year-count-error"))
                                     {
                                         <span id="cancelled-year-count-error" class="govuk-error-message">
-                                            <span class="govuk-visually-hidden">Error:</span> Enter a year between 2000 and 2050
+                                            <span class="govuk-visually-hidden">Error:</span> @yearCountErrorMessage
                                         </span>
                                     }
-                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="cancelled-year" asp-for="@Model.CancelledYear">
+                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="cancelled-year" asp-for="@Model.CancelledYear" value="@Model.CancelledYear">
                                 </div>
                             </div>
                         }
@@ -149,7 +133,7 @@
                                     <div class="govuk-hint">
                                         For example, 2024
                                     </div>
-                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="Withdrawn" type="year" autocomplete="tel">
+                                    <input class="govuk-input govuk-!-width-one-third" id="cancelled-year" name="cancelled-year"  asp-for="@Model.CancelledYear" value="@Model.CancelledYear">
                                 </div>
                             </div>
                         }
@@ -160,17 +144,46 @@
                                 @ProjectStatus.WithdrawnDuringPreOpening.ToDescription()
                             </label>
                         </div>
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="withdrawn-year-date-conditional">
-                            <div class="govuk-form-group">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                                    Year the project was withdrawn
-                                </legend>
-                                <div class="govuk-hint">
-                                    For example, 2024
+                        @if (showError.ContainsKey("withdrawn-year-error") || showError.ContainsKey("withdrawn-year-count-error"))
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="withdrawn-year-date-conditional">
+                                <div class="govuk-form-group govuk-form-group--error">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was withdrawn
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    @if (showError.ContainsKey("withdrawn-year-error"))
+                                    {
+                                        <span id="withdrawn-year-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span>@yearFormatErrorMessage
+                                        </span>
+                                    }
+                                    @if (showError.ContainsKey("withdrawn-year-count-error"))
+                                    {
+                                        <span id="withdrawn-year-count-error" class="govuk-error-message">
+                                            <span class="govuk-visually-hidden">Error:</span>@yearCountErrorMessage
+                                        </span>
+                                    }
+                                    <input class="govuk-input govuk-!-width-one-third" id="withdrawn-year" name="withdrawn-year"  asp-for="@Model.WithdrawnYear" value="@Model.WithdrawnYear">
                                 </div>
-                                <input class="govuk-input govuk-!-width-one-third" id="withdrawn-year" name="Withdrawn" type="year" autocomplete="tel">
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="withdrawn-year-date-conditional">
+                                <div class="govuk-form-group">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        Year the project was withdrawn
+                                    </legend>
+                                    <div class="govuk-hint">
+                                        For example, 2024
+                                    </div>
+                                    <input class="govuk-input govuk-!-width-one-third" id="withdrawn-year" name="withdrawn-year"  asp-for="@Model.WithdrawnYear" value="@Model.WithdrawnYear">
+                                </div>
+                            </div>
+                        }
                     </div>
                 </fieldset>
             </div>
