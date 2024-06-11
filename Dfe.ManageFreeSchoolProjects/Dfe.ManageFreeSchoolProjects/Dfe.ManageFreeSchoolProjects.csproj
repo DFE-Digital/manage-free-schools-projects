@@ -19,12 +19,6 @@
 	  <EmbeddedResource Remove="ViewComponents\**" />
 	  <None Remove="ViewComponents\**" />
 	  <None Remove="Pages\Project\Tasks\RiskAppraisalMeeting\" />
-	  <Content Remove="Services\Pages\Project\Create\Individual\ClassType.cshtml" />
-	  <Compile Remove="Services\Pages\Project\Risk\AddGovernanceAndSuitabilityRisk.cshtml.cs" />
-	  <Compile Remove="Services\Pages\Project\Tasks\Gias\ViewGiasTask.cshtml.cs" />
-	  <Compile Remove="Services\Pages\Project\Tasks\FinancePlan\EditFinancePlanTask.cshtml.cs" />
-	  <Content Remove="Services\Pages\Project\Tasks\CommissionedExternalExpert\ViewCommissionedExternalExpertTask.cshtml" />
-	  <Compile Remove="Services\Pages\Project\Tasks\ArticlesOfAssociation\ViewArticlesOfAssociationTask.cshtml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,7 +28,6 @@
 
 	<ItemGroup>
 	  <AdditionalFiles Include="..\.sonarlint\dfe-digital_a2b-internal\CSharp\SonarLint.xml" Link="SonarLint.xml" />
-	  <AdditionalFiles Include="Pages\Project\ProjectStatus\EditProjectStatus.cshtml" />
 	</ItemGroup>
 
 	<PropertyGroup Label="custom">
