@@ -12,6 +12,11 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			return dateYear;
 		}
 		
+		public static string ToYearString(this DateTime dateTime)
+		{
+			return dateTime.ToString("yyyy");
+		}
+		
 		public static string ToDateString(this DateTime? dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
 		{
 			if (!dateTime.HasValue)

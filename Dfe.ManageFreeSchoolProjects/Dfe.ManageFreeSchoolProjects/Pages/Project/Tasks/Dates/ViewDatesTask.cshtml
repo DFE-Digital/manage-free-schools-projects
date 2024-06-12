@@ -23,15 +23,15 @@
         <govuk-summary-list>
             @if (datesTask.ProjectClosedDate.HasValue)
             {
-                <govuk-summary-item label="Year the project was closed" asp-for="@datesTask.ProjectClosedDate)" href="@editLink"/>
+                <govuk-summary-item label="Year the project was closed" asp-for="@datesTask.ProjectClosedDate" href="@editLink" year-date="true"/>
             }
             @if (datesTask.ProjectCancelledDate.HasValue)
             {
-                <govuk-summary-item label="Year the project was cancelled" asp-for="@datesTask.ProjectCancelledDate" href="@editLink"/>
+                <govuk-summary-item label="Year the project was cancelled" asp-for="@datesTask.ProjectCancelledDate" href="@editLink" year-date="true"/>
             }
             @if (datesTask.ProjectWithdrawnDate.HasValue)
             {
-                <govuk-summary-item label="Year the project was withdrawn" asp-for="@datesTask.ProjectWithdrawnDate" href="@editLink"/>
+                <govuk-summary-item label="Year the project was withdrawn" asp-for="@datesTask.ProjectWithdrawnDate" href="@editLink" year-date="true"/>
             }
             <govuk-summary-item label="Entry into pre-opening" asp-for="@datesTask.DateOfEntryIntoPreopening" href="@editLink"/>
             <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@datesTask.ProvisionalOpeningDateAgreedWithTrust" href="@editLink"/>
