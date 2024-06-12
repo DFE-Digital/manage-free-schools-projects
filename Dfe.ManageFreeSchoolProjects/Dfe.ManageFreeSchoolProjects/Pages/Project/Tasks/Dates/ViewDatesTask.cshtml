@@ -5,7 +5,6 @@
     ViewData["Title"] = $"Dates - {Model.Project.SchoolName}";
     var editLink = string.Format(RouteConstants.EditDatesTask, Model.ProjectId);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-
     var datesTask = Model.Project.Dates;
 }
 @section BeforeMain {
@@ -22,8 +21,20 @@
         </h1>
 
         <govuk-summary-list>
-            <govuk-summary-item label="Entry into pre-opening" asp-for="@datesTask.DateOfEntryIntoPreopening" href="@editLink" />
-            <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@datesTask.ProvisionalOpeningDateAgreedWithTrust" href="@editLink" />
+            @if (datesTask.ProjectClosedDate.HasValue)
+            {
+                <govuk-summary-item label="Year the project was closed" asp-for="@datesTask.ProjectClosedDate)" href="@editLink"/>
+            }
+            @if (datesTask.ProjectCancelledDate.HasValue)
+            {
+                <govuk-summary-item label="Year the project was cancelled" asp-for="@datesTask.ProjectCancelledDate" href="@editLink"/>
+            }
+            @if (datesTask.ProjectWithdrawnDate.HasValue)
+            {
+                <govuk-summary-item label="Year the project was withdrawn" asp-for="@datesTask.ProjectWithdrawnDate" href="@editLink"/>
+            }
+            <govuk-summary-item label="Entry into pre-opening" asp-for="@datesTask.DateOfEntryIntoPreopening" href="@editLink"/>
+            <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@datesTask.ProvisionalOpeningDateAgreedWithTrust" href="@editLink"/>
         </govuk-summary-list>
 
         <form method="post">

@@ -6,6 +6,11 @@
 
 @{
     ViewData["Title"] = $"Contacts";
+    var projectStatusViewModel = new ProjectStatusViewModel()
+    {
+        ProjectId = @Model.ProjectId,
+        ProjectStatus = @Model.ProjectStatus
+    };
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
@@ -34,6 +39,7 @@
                 <div class="govuk-grid-column-three-quarters">
                     <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.ProjectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.SchoolName</h1>
+                      <partial name="_ProjectStatus" model="@projectStatusViewModel" />
                     <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
                         Contacts
                     </p>

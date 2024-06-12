@@ -1,5 +1,6 @@
 ﻿@page "/projects/{projectId}/overview"
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
 
 @{
@@ -13,6 +14,11 @@
 
     var temporarySite = Model.Project.SiteInformation.TemporarySite;
     var permanentSite = Model.Project.SiteInformation.PermanentSite;
+    var projectStatusViewModel = new ProjectStatusViewModel()
+    {
+        ProjectId = @Model.ProjectId,
+        ProjectStatus = @Model.Project.ProjectStatus.ProjectStatus
+    };
 }
 
 @section BeforeMain
@@ -29,7 +35,7 @@
                 <div class="govuk-grid-column-three-quarters">
                     <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.Project.ProjectStatus.ProjectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.Project.ProjectStatus.CurrentFreeSchoolName</h1>
-                    <partial name="_ProjectStatus" model="Model" />
+                    <partial name="_ProjectStatus" model="@projectStatusViewModel" />
                     <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
                         About the project
                     </p>
@@ -118,72 +124,85 @@
 
         <h3 class="govuk-heading-m govuk-!-font-size-27" id="dates">Dates</h3>
 
-        <dl class="govuk-summary-list govuk-summary-list--no-border">
-
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        @if (@Model.Project.ProjectStatus.ProjectStatus is ProjectStatus.Cancelled or ProjectStatus.Closed or ProjectStatus.WithdrawnDuringPreOpening)
+        {
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Entry into pre-opening
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
-                    @{
-                        RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening.ToDateString());
-                    }
-                </dd>
-
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Provisional opening date agreed with trust
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="provisional-opening-date-agreed-with-trust">
-                    @{
-                        RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust.ToDateString());
-                    }
-                </dd>
-
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Realistic year of opening
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="realistic-year-of-opening">
-                    @{
-                        RenderValue(Model.Project.ProjectStatus.RealisticYearOfOpening);
-                    }
-                </dd>
-
-            </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    Actual opening date
-                </dt>
-                <dd class="govuk-summary-list__value" data-testid="actual-opening-date">
-                    @{
-                        RenderValue(Model.Project.ProjectStatus.ActualOpeningDate.ToDateString());
-                    }
-                </dd>
-
-            </div>
-            @{
-                if (Model.Project.ProjectStatus.DateSchoolClosed.HasValue)
+                @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
                 {
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Date school closed
-                        </dt>
-                        <dd class="govuk-summary-list__value" data-testid="date-school-closed">
-                            @{
-                                RenderValue(Model.Project.ProjectStatus.DateSchoolClosed.ToDateString());
-                            }
-                        </dd>
-
-                    </div>
+                    <dt class="govuk-summary-list__key">
+                        Year the project was withdrawn
+                    </dt>
                 }
-            }
-        </dl>
+                else
+                {
+                    <dt class="govuk-summary-list__key">
+                        Year the project was @Model.Project.ProjectStatus.ProjectStatus.ToDescription().ToLower()
+                    </dt>
+                }
+                <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
+                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed && Model.Project.ProjectStatus.ProjectClosedDate.HasValue)
+                    {
+                        RenderValue(Model.Project.ProjectStatus.ProjectClosedDate.ToYearString());
+                    }
+                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled && Model.Project.ProjectStatus.ProjectCancelledDate.HasValue)
+                    {
+                        RenderValue(Model.Project.ProjectStatus.ProjectCancelledDate.ToYearString());
+                    }
+                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening && Model.Project.ProjectStatus.ProjectWithdrawnDate.HasValue)
+                    {
+                        RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDate.ToYearString());
+                    }
+                </dd>
+            </div>
+        }
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Entry into pre-opening
+            </dt>
+            <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
+                @{
+                    RenderValue(Model.Project.ProjectStatus.DateOfEntryIntoPreopening.ToDateString());
+                }
+            </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Provisional opening date agreed with trust
+            </dt>
+            <dd class="govuk-summary-list__value" data-testid="provisional-opening-date-agreed-with-trust">
+                @{
+                    RenderValue(Model.Project.ProjectStatus.ProvisionalOpeningDateAgreedWithTrust.ToDateString());
+                }
+            </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Realistic year of opening
+            </dt>
+            <dd class="govuk-summary-list__value" data-testid="realistic-year-of-opening">
+                @{
+                    RenderValue(Model.Project.ProjectStatus.RealisticYearOfOpening);
+                }
+            </dd>
+
+        </div>
+
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Actual opening date
+            </dt>
+            <dd class="govuk-summary-list__value" data-testid="actual-opening-date">
+                @{
+                    RenderValue(Model.Project.ProjectStatus.ActualOpeningDate.ToDateString());
+                }
+            </dd>
+        </div>
+    </dl>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
