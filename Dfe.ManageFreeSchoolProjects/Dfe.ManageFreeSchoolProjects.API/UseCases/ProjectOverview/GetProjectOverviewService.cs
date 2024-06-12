@@ -151,7 +151,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                         Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
                         Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
                         MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
-                        ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
+                        ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
+                        AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
                     })
                 .FirstOrDefaultAsync();
 

@@ -366,17 +366,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ReceptionToYear6 = new RecruitmentAndViabilityEntry()
                     {
                         MinimumViableNumber = 10,
-                        ApplicationsReceived = 5
+                        ApplicationsReceived = 5,
+                        AcceptedOffers = 7
                     },
                     Year7ToYear11 = new RecruitmentAndViabilityEntry()
                     {
                         MinimumViableNumber = 3,
-                        ApplicationsReceived = 10
+                        ApplicationsReceived = 10,
+                        AcceptedOffers = 11
                     },
                     Year12ToYear14 = new RecruitmentAndViabilityEntry()
                     {
                         MinimumViableNumber = 15,
-                        ApplicationsReceived = 19
+                        ApplicationsReceived = 19,
+                        AcceptedOffers = 21
                     }
                 }
             };
@@ -386,19 +389,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var actualPupilNumbers = content.Data;
 
             actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.ReceptionToYear6);
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToMinimumViable.Should().Be(50);
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.ReceivedPercentageComparedToMinimumViable.Should().Be(50);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.AcceptedPercentageComparedToMinimumViable.Should().Be(70);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
 
             actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year7ToYear11);
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToMinimumViable.Should().Be(333.33m);
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.ReceivedPercentageComparedToMinimumViable.Should().Be(333.33m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.AcceptedPercentageComparedToMinimumViable.Should().Be(366.67m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+
 
             actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.Should().BeEquivalentTo(updateRecruitmentAndViabilityRequest.RecruitmentAndViability.Year12ToYear14);
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToMinimumViable.Should().Be(126.67m);
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.ReceivedPercentageComparedToMinimumViable.Should().Be(126.67m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.AcceptedPercentageComparedToMinimumViable.Should().Be(140.00m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(0);
+
 
             actualPupilNumbers.RecruitmentAndViability.Total.MinimumViableNumber.Should().Be(28);
             actualPupilNumbers.RecruitmentAndViability.Total.ApplicationsReceived.Should().Be(34);
+            actualPupilNumbers.RecruitmentAndViability.Total.AcceptedOffers.Should().Be(39);
 
             var updatePanRequest = new UpdatePupilNumbersRequest()
             {
@@ -420,9 +432,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             actualPupilNumbers = content.Data;
 
-            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.PercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
-            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.PercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
-            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.PercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(31.25m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(11.11m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.ReceivedPercentageComparedToPublishedAdmissionNumber.Should().Be(63.33m);
+
+            actualPupilNumbers.RecruitmentAndViability.ReceptionToYear6.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(43.75m);
+            actualPupilNumbers.RecruitmentAndViability.Year7ToYear11.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(12.22m);
+            actualPupilNumbers.RecruitmentAndViability.Year12ToYear14.AcceptedPercentageComparedToPublishedAdmissionNumber.Should().Be(70.00m);
         }
 
         [Fact]
