@@ -118,6 +118,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(67);
             pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(121);
             pupilNumbers.ApplicationsReceived.Should().Be(600);
+            pupilNumbers.AcceptedOffers.Should().Be(581);
         }
 
         [Fact]
@@ -167,6 +168,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(0);
             pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(0);
             pupilNumbers.ApplicationsReceived.Should().Be(0);
+            pupilNumbers.AcceptedOffers.Should().Be(0);
         }
 
         [Fact]
@@ -197,8 +199,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 },
                 RecruitmentAndViability = new()
                 {
-                    ReceptionToYear6 = new() { MinimumViableNumber = 76, ApplicationsReceived = 100 },
-                    Year7ToYear11 = new() { MinimumViableNumber = 45, ApplicationsReceived = 500 },
+                    ReceptionToYear6 = new() { MinimumViableNumber = 76, ApplicationsReceived = 100, AcceptedOffers = 95 },
+                    Year7ToYear11 = new() { MinimumViableNumber = 45, ApplicationsReceived = 500, AcceptedOffers = 486 },
                 }
             };
 

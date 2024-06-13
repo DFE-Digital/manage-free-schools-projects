@@ -1,15 +1,11 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
-using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
@@ -127,7 +123,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             return new EditRecruitmentAndViabilityRowModel()
             {
                 MinimumViableNumber = entry.MinimumViableNumber.ToString(),
-                ApplicationsReceived = entry.ApplicationsReceived.ToString()
+                ApplicationsReceived = entry.ApplicationsReceived.ToString(),
+                AcceptedOffers = entry.AcceptedOffers.ToString(),                
             };
         }
 
@@ -136,7 +133,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
             return new RecruitmentAndViabilityEntry()
             {
                 MinimumViableNumber = rowModel.MinimumViableNumber.ToInt(),
-                ApplicationsReceived = rowModel.ApplicationsReceived.ToInt()
+                ApplicationsReceived = rowModel.ApplicationsReceived.ToInt(),
+                AcceptedOffers = rowModel.AcceptedOffers.ToInt(),
             };
         }
     }
@@ -150,5 +148,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [ValidNumberForPupilNumbers]
         [Display(Name = "applications received")]
         public string ApplicationsReceived { get; set; }
+
+        [ValidNumberForPupilNumbers]
+        [Display(Name = "accepted offers")]
+        public string AcceptedOffers { get; set; }
     }
 }

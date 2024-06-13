@@ -217,50 +217,54 @@ describe("Testing the setting of pupil numbers", () => {
 
         Logger.log("Check all values are 0 initially");
         viewRecruitmentAndViabilityPage
-            .hasReceptionToYear6("0", "0", "0.00%", "0.00%")
-            .hasYear7ToYear11("0", "0", "0.00%", "0.00%")
-            .hasYear12ToYear14("0", "0", "0.00%", "0.00%")
-            .hasTotal("0", "0");
+            .hasReceptionToYear6("0", "0", "0.00%", "0.00%", "0", "0.00%", "0.00%")
+            .hasYear7ToYear11("0", "0", "0.00%", "0.00%", "0", "0.00%", "0.00%")
+            .hasYear12ToYear14("0", "0", "0.00%", "0.00%", "0", "0.00%", "0.00%")
+            .hasTotal("0", "0", "0");
 
         Logger.log("Validate fields");
         viewPupilNumbersPage.editRecruitmentAndViability();
 
         editRecruitmentAndViabilityPage
-            .withReceptionToYear6("asd", "asd")
+            .withReceptionToYear6("asd", "asd", "asd")
             .saveAndContinue();
 
         validationComponent
             .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 minimum viable number"))
-            .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 applications received"));
+            .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 applications received"))
+            .hasValidationError(isNumberValidationMessage.replace("{0}", "Reception to year 6 accepted offers"));
 
         editRecruitmentAndViabilityPage
-            .withReceptionToYear6("-1", "-1")
-            .withYear7ToYear11("-1", "-1")
-            .withYear12ToYear14("-1", "-1")
+            .withReceptionToYear6("-1", "-1", "-1")
+            .withYear7ToYear11("-1", "-1", "-1")
+            .withYear12ToYear14("-1", "-1", "-1")
             .saveAndContinue();
 
         validationComponent
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Reception to year 6 minimum viable number"))
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Reception to year 6 applications received"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Reception to year 6 accepted offers"))
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 7 to year 11 minimum viable number"))
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 7 to year 11 applications received"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 7 to year 11 accepted offers"))
             .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 minimum viable number"))
-            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 applications received"));
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 applications received"))
+            .hasValidationError(numberOutsideRangeValidationMessage.replace("{0}", "Year 12 to year 14 accepted offers"));
 
         cy.executeAccessibilityTests();
 
         Logger.log("Set valid values");
         editRecruitmentAndViabilityPage
-            .withReceptionToYear6("10", "20")
-            .withYear7ToYear11("62", "17")
-            .withYear12ToYear14("96", "11")
+            .withReceptionToYear6("10", "20", "30")
+            .withYear7ToYear11("62", "17", "56")
+            .withYear12ToYear14("96", "11", "42")
             .saveAndContinue();
 
         viewRecruitmentAndViabilityPage
-            .hasReceptionToYear6("10", "20", "200.00%", "0.00%")
-            .hasYear7ToYear11("62", "17", "27.42%", "0.00%")
-            .hasYear12ToYear14("96", "11", "11.46%", "0.00%")
-            .hasTotal("168", "48");
+            .hasReceptionToYear6("10", "20", "200.00%", "0.00%", "30", "300.00%", "0.00%")
+            .hasYear7ToYear11("62", "17", "27.42%", "0.00%", "56", "90.32%", "0.00%")
+            .hasYear12ToYear14("96", "11", "11.46%", "0.00%", "42", "43.75%", "0.00%")
+            .hasTotal("168", "48", "128");
 
         Logger.log("Add PAN values to check percentages are calculated correctly");
         viewPupilNumbersPage.editPre16PublishedAdmissionNumber();
@@ -282,10 +286,10 @@ describe("Testing the setting of pupil numbers", () => {
         viewPupilNumbersPage.hasSaveBanner();
 
         viewRecruitmentAndViabilityPage
-            .hasReceptionToYear6("10", "20", "200.00%", "33.33%")
-            .hasYear7ToYear11("62", "17", "27.42%", "18.89%")
-            .hasYear12ToYear14("96", "11", "11.46%", "31.43%")
-            .hasTotal("168", "48");
+            .hasReceptionToYear6("10", "20", "200.00%", "33.33%", "30", "300.00%", "50.00%")
+            .hasYear7ToYear11("62", "17", "27.42%", "18.89%", "56", "90.32%", "62.22%")
+            .hasYear12ToYear14("96", "11", "11.46%", "31.43%", "42", "43.75%", "120.00%")
+            .hasTotal("168", "48", "128");
     });
 
     it("Should be able to edit pre-16 capacity buildup", () => {
@@ -580,9 +584,9 @@ describe("Testing the setting of pupil numbers", () => {
         Logger.log("Configuring recruitment and viability");
         viewPupilNumbersPage.editRecruitmentAndViability();
         editRecruitmentAndViabilityPage
-            .withReceptionToYear6("10", "20")
-            .withYear7ToYear11("62", "17")
-            .withYear12ToYear14("96", "11")
+            .withReceptionToYear6("10", "20", "30")
+            .withYear7ToYear11("62", "17", "56")
+            .withYear12ToYear14("96", "11", "42")
             .saveAndContinue();
 
         viewPupilNumbersPage.backToProjectOverview();
@@ -592,7 +596,8 @@ describe("Testing the setting of pupil numbers", () => {
             .hasPre16PublishedAdmissionNumber("110")
             .hasPost16PublishedAdmissionNumber("35")
             .hasMinimumViableNumber("168")
-            .hasApplicationsReceived("48");
+            .hasApplicationsReceived("48")
+            .hasAcceptedOffers("128");
     });
 
     function validateCapacityBuildupRow(schoolYear: string) {

@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
     {
         public void Execute(Po po)
         {
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6 = CalculatePublishedAdmissionNumberRatio(
+            po.PupilNumbersAndCapacityReceivedApplicationsVsPanYrY6 = CalculatePublishedAdmissionNumberRatio(
                 po.PupilNumbersAndCapacityYrPan.ToDecimal(),
                 po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToDecimal());
 
@@ -20,16 +20,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                                                     po.PupilNumbersAndCapacityY10Pan.ToDecimal() +
                                                     po.PupilNumbersAndCapacityYOtherPanPre16.ToDecimal();
 
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11 = CalculatePublishedAdmissionNumberRatio(
+            po.PupilNumbersAndCapacityReceivedApplicationsVsPanY7Y11 = CalculatePublishedAdmissionNumberRatio(
                 year7ToYear11PublishedAdmissionNumber,
                 po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToDecimal());
 
             var year12ToYear14PublishedAdmissionNumber = po.PupilNumbersAndCapacityY12Pan.ToDecimal() +
                                                     po.PupilNumbersAndCapacityYOtherPanPost16.ToDecimal();
 
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14 = CalculatePublishedAdmissionNumberRatio(
+            po.PupilNumbersAndCapacityReceivedApplicationsVsPanY12Y14 = CalculatePublishedAdmissionNumberRatio(
                 year12ToYear14PublishedAdmissionNumber,
                 po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToDecimal());
+
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6 = CalculatePublishedAdmissionNumberRatio(
+                po.PupilNumbersAndCapacityYrPan.ToDecimal(),
+                po.PupilNumbersAndCapacityNoApplicationsAcceptedYrY6.ToDecimal());
+
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11 = CalculatePublishedAdmissionNumberRatio(
+                year7ToYear11PublishedAdmissionNumber,
+                po.PupilNumbersAndCapacityNoApplicationsAcceptedY7Y11.ToDecimal());
+
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14 = CalculatePublishedAdmissionNumberRatio(
+                year12ToYear14PublishedAdmissionNumber,
+                po.PupilNumbersAndCapacityNoApplicationsAcceptedY12Y14.ToDecimal());
         }
 
         private static string CalculatePublishedAdmissionNumberRatio(

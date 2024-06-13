@@ -45,12 +45,15 @@
     {
         public int MinimumViableNumber { get; set; }
         public int ApplicationsReceived { get; set; }
+        public int AcceptedOffers { get; set; }
     }
 
     public record RecruitmentAndViabilityEntryWithPercentage : RecruitmentAndViabilityEntry
     {
-        public decimal PercentageComparedToMinimumViable { get; set; }
-        public decimal PercentageComparedToPublishedAdmissionNumber { get; set; }
+        public decimal ReceivedPercentageComparedToMinimumViable { get; set; }
+        public decimal ReceivedPercentageComparedToPublishedAdmissionNumber { get; set; }
+        public decimal AcceptedPercentageComparedToMinimumViable { get; set; }
+        public decimal AcceptedPercentageComparedToPublishedAdmissionNumber { get; set; }
     }
 
     public record Pre16PublishedAdmissionNumberResponse : Pre16PublishedAdmissionNumber
