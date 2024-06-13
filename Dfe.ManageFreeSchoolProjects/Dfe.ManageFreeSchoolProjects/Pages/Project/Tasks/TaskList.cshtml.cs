@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
+using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 {
@@ -21,6 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
         
+        public ProjectStatusType ProjectStatus { get; set; }
         public SchoolType? SchoolType{ get; set; }
 
         [BindProperty(Name = "schoolName")]
@@ -49,6 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             var project = await _getProjectOverviewService.Execute(ProjectId);
 
             SchoolType = project.SchoolDetails.SchoolType;
+
+            ProjectStatus = project.ProjectStatus.ProjectStatus;
 
             if (ProjectTaskListSummary is not null)
             {

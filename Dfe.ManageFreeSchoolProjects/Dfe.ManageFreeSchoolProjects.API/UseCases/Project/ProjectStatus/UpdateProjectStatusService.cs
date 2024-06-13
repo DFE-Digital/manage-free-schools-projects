@@ -33,10 +33,16 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
 
         var updateRequest = new UpdateProjectStatusRequest()
         {
-            ProjectStatus = request.ProjectStatus
+            ProjectStatus = request.ProjectStatus,
+            WithdrawnDate = request.WithdrawnDate,
+            ClosedDate = request.ClosedDate,
+            CancelledDate = request.CancelledDate
         };
 
         dbProject.ProjectStatusProjectStatus = updateRequest.ProjectStatus.ToDescription();
+        dbProject.ProjectStatusDateClosed = updateRequest.ClosedDate;
+        dbProject.ProjectStatusDateCancelled = updateRequest.CancelledDate;
+        dbProject.ProjectStatusDateWithdrawn = updateRequest.WithdrawnDate;
         
         
         await _context.SaveChangesAsync();

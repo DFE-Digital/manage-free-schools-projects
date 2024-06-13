@@ -8,6 +8,8 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
+
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
@@ -22,6 +24,7 @@ public class ContactsSummaryModel : PageModel
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
     
+    public ProjectStatusType ProjectStatus { get; set; }
     public string SchoolName { get; set; }
 
     public GetContactsResponse Contacts { get; set; }
@@ -44,6 +47,7 @@ public class ContactsSummaryModel : PageModel
            Contacts = await _getContactsService.Execute(projectId);
            var project = await _getProjectOverviewService.Execute(projectId);
            SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
+           ProjectStatus = project.ProjectStatus.ProjectStatus;
        }
        catch (Exception ex)
        {

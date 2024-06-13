@@ -6,6 +6,17 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 	{
 		public static string ToUkDateString(this DateTime dateTime) => dateTime.ToString("dd/MM/yyyy");
 
+		public static string ToYearString(this DateTime? dateTime)
+		{
+			string dateYear = dateTime.HasValue ? dateTime.Value.ToString("yyyy") : null;
+			return dateYear;
+		}
+		
+		public static string ToYearString(this DateTime dateTime)
+		{
+			return dateTime.ToString("yyyy");
+		}
+		
 		public static string ToDateString(this DateTime? dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
 		{
 			if (!dateTime.HasValue)
