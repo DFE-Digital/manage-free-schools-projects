@@ -40,7 +40,7 @@ describe("Testing the home page", () => {
                 .then((row) => {
                     row.hasProjectId(firstProject.projectId);
                     row.hasProjectTitle(firstProject.schoolName);
-                    row.hasStatus("Not started");
+                    row.hasStatus("Pre-opening");
                 });
 
             projectTable
@@ -48,7 +48,7 @@ describe("Testing the home page", () => {
                 .then((row) => {
                     row.hasProjectId(secondProject.projectId);
                     row.hasProjectTitle(secondProject.schoolName);
-                    row.hasStatus("Not started");
+                    row.hasStatus("Pre-opening");
                 });
 
             // Filter is displayed and has the searched value
