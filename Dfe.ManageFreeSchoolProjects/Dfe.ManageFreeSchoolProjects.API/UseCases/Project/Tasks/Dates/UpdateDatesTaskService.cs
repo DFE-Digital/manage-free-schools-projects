@@ -14,6 +14,9 @@
 
             dbKpi.ProjectStatusDateOfEntryIntoPreOpening = task.DateOfEntryIntoPreopening;
             dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDateAgreedWithTrust;
+            dbKpi.ProjectStatusDateClosed = task.ProjectClosedDate;
+            dbKpi.ProjectStatusDateCancelled = task.ProjectCancelledDate;
+            dbKpi.ProjectStatusDateWithdrawn = task.ProjectWithdrawnDate;
         }
     }
 }
