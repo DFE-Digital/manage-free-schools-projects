@@ -30,6 +30,12 @@ class PupilNumbersSummaryComponent {
         return this;
     }
 
+    public hasAcceptedOffers(value: string): this {
+        cy.getByTestId("accepted-offers").should("contain.text", value);
+
+        return this;
+    }
+
     public viewDetails(): this {
         cy.getByTestId("change-pupil-numbers").click();
 
