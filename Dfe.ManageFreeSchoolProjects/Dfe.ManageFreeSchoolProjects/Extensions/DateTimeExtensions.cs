@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace Dfe.ManageFreeSchoolProjects.Extensions
 {
@@ -15,6 +16,20 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 		public static string ToYearString(this DateTime dateTime)
 		{
 			return dateTime.ToString("yyyy");
+		}
+		
+		public static DateTime? ToYearDate(this string year)
+		{
+
+			if (year == null)
+			{
+				return null;
+			}
+
+			DateTime DateTimeYear = DateTime.ParseExact(year, 
+				"yyyy",
+				CultureInfo.InvariantCulture);
+			return DateTimeYear;
 		}
 		
 		public static string ToDateString(this DateTime? dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
