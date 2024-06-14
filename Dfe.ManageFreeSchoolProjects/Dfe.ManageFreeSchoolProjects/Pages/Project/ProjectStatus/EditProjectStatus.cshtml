@@ -5,7 +5,7 @@
 
 @{
     var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    ViewData["Title"] = "Edit Project Status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+    ViewData["Title"] = "Edit Project status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
     var showError = @Model.ModelState;
     var yearFormatErrorMessage = "Enter a year in the correct format";
     var yearCountErrorMessage = "Enter a year between 2000 and 2050";
@@ -25,7 +25,7 @@
 
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
-            Edit Project Status
+            Edit Project status
         </h1>
         <form method="post">
             <div class="govuk-form-group" id="project-status">
