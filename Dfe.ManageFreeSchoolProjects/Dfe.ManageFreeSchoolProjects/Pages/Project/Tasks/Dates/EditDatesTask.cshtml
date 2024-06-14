@@ -1,5 +1,7 @@
 ﻿@page "/projects/{projectId}/tasks/dates/edit"
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Microsoft.IdentityModel.Tokens
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates.EditDatesTaskModel
 @{
     ViewData["Title"] = $"Edit Dates - {Model.CurrentFreeSchoolName}";
@@ -23,15 +25,28 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
         <form method="post">
-            <govuk-date-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" hint="For example, 27 3 2021" />
-            <govuk-date-input id="provisional-opening-date-agreed-with-trust" name="provisional-opening-date-agreed-with-trust" asp-for="@Model.ProvisionalOpeningDateAgreedWithTrust" data-testid="provisional-opening-date-agreed-with-trust" label="Provisional opening date agreed with trust" hint="For example, 27 3 2021" />
+            @if (Model.ProjectClosedDateHasValue)
+            {
+                <govuk-year-input id="project-closed-date" name="project-closed-date" asp-for="@Model.ProjectClosedDate" label="Year the project was closed" hint="For example, 2024" width="5" bold-label="true"/>
+            }
+
+            @if (Model.ProjectCancelledDateHasValue)
+            {
+             <govuk-year-input id="project-cancelled-date" name="project-cancelled-date" asp-for="@Model.ProjectCancelledDate" label="Year the project was cancelled" hint="For example, 2024" width="5" bold-label="true"/>
+            }
+
+            @if (Model.ProjectWithdrawnDateHasValue)
+            {
+                <govuk-year-input id="project-withdrawn-date" name="project-withdrawn-date" asp-for="@Model.ProjectWithdrawnDate" label="Year the project was withdrawn" hint="For example, 2024" width="5" bold-label="true"/>
+            }
+            
+            <govuk-date-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" hint="For example, 27 3 2021"/>
+            <govuk-date-input id="provisional-opening-date-agreed-with-trust" name="provisional-opening-date-agreed-with-trust" asp-for="@Model.ProvisionalOpeningDateAgreedWithTrust" data-testid="provisional-opening-date-agreed-with-trust" label="Provisional opening date agreed with trust" hint="For example, 27 3 2021"/>
 
             <button class="govuk-button" data-module="govuk-button">
                 Save and continue
             </button>
         </form>
-
     </div>
 </div>
