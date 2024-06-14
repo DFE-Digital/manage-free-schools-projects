@@ -1,29 +1,29 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @using Microsoft.IdentityModel.Tokens
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
+@model Dfe.ManageFreeSchoolProjects.ViewModels.ProjectStatusViewModel
 @{
     var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
 }
     <p>
    
-    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Preopening)
+    @if (Model.ProjectStatus == ProjectStatus.Preopening)
     {
         <strong class="govuk-tag govuk-tag--yellow">@ProjectStatus.Preopening.ToDescription()</strong>
     }
-    @if (Model.Project.ProjectStatus.ProjectStatus== ProjectStatus.Open)
+    @if (Model.ProjectStatus== ProjectStatus.Open)
     {
         <strong class="govuk-tag govuk-tag--turquoise">@ProjectStatus.Open.ToDescription()</strong>
     }
-    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed)
+    @if (Model.ProjectStatus == ProjectStatus.Closed)
          {
              <strong class="govuk-tag govuk-tag--blue">@ProjectStatus.Closed.ToDescription()</strong>
          }
-     @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled)
+     @if (Model.ProjectStatus == ProjectStatus.Cancelled)
         {
             <strong class="govuk-tag govuk-tag--orange">@ProjectStatus.Cancelled.ToDescription()</strong>
         }
-    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
+    @if (Model.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
         {
             <strong class="govuk-tag govuk-tag--orange">@ProjectStatus.WithdrawnDuringPreOpening.ToDescription()</strong>
         }

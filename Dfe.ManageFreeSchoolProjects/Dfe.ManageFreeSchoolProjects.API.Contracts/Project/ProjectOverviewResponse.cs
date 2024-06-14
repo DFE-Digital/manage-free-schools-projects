@@ -91,5 +91,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public int Post16PublishedAdmissionNumber { get; set; }
         public int MinimumViableNumberForFirstYear { get; set; }
         public int ApplicationsReceived { get; set; }
+        public int AcceptedOffers { get; set; }
     }
 }

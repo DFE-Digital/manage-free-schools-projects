@@ -11,6 +11,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
             {
                 DateOfEntryIntoPreopening = kpi.ProjectStatusDateOfEntryIntoPreOpening,
                 ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
+                ProjectClosedDate = kpi.ProjectStatusDateClosed,
+                ProjectCancelledDate = kpi.ProjectStatusDateCancelled,
+                ProjectWithdrawnDate = kpi.ProjectStatusDateWithdrawn
             };
         }
     }

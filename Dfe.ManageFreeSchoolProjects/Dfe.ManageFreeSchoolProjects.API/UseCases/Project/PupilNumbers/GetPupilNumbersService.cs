@@ -76,27 +76,37 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
                 {
                     MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityYrY6.ToInt(),
                     ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedYrY6.ToInt(),
-                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.ToDecimal(),
-                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6.ToDecimal()
+                    AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedYrY6.ToInt(),
+                    ReceivedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityYrY6.ToDecimal(),
+                    ReceivedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityReceivedApplicationsVsPanYrY6.ToDecimal(),
+                    AcceptedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.ToDecimal(),
+                    AcceptedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanYrY6.ToDecimal(),
                 },
                 Year7ToYear11 = new RecruitmentAndViabilityEntryWithPercentage()
                 {
                     MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY7Y11.ToInt(),
                     ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY7Y11.ToInt(),
-                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.ToDecimal(),
-                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.ToDecimal()
+                    AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedY7Y11.ToInt(),
+                    ReceivedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityY7Y11.ToDecimal(),
+                    ReceivedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityReceivedApplicationsVsPanY7Y11.ToDecimal(),
+                    AcceptedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.ToDecimal(),
+                    AcceptedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY7Y11.ToDecimal(),
                 },
                 Year12ToYear14 = new RecruitmentAndViabilityEntryWithPercentage()
                 {
                     MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityY12Y14.ToInt(),
                     ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedY12Y14.ToInt(),
-                    PercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.ToDecimal(),
-                    PercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.ToDecimal()
+                    AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedY12Y14.ToInt(),
+                    ReceivedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityY12Y14.ToDecimal(),
+                    ReceivedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityReceivedApplicationsVsPanY12Y14.ToDecimal(),
+                    AcceptedPercentageComparedToMinimumViable = po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.ToDecimal(),
+                    AcceptedPercentageComparedToPublishedAdmissionNumber = po.PupilNumbersAndCapacityAcceptedApplicationsVsPanY12Y14.ToDecimal(),
                 },
                 Total = new RecruitmentAndViabilityEntry()
                 {
                     MinimumViableNumber = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
-                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt()
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
+                    AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
                 }
             };
         }

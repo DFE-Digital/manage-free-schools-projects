@@ -26,6 +26,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         [HtmlAttributeName("render-link")]
         public bool RenderLink { get; set; }
+        
+        [HtmlAttributeName("year-date")]
+        public bool YearDate { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -89,6 +92,12 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 {
                     return empty;
                 }
+
+                if (YearDate)
+                {
+                    return ((DateTime)For.Model).ToYearString();
+                }
+
                 return ((DateTime)For.Model).ToDateString();
             }
 

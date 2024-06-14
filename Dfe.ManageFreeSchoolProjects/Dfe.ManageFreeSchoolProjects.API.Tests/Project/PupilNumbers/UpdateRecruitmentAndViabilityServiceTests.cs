@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
     {
         [Theory]
         [MemberData(nameof(MinimumViabilityRatioData))]
-        public void MinimumViableRatioReceptionToYear6(int minimumViableNumber, int applicationsReceived, string expected)
+        public void MinimumViableRatioReceptionToYear6(int minimumViableNumber, int applicationsReceived, string expected, int acceptedOffers, string acceptedExpected)
         {
             // Arrange
             var po = new Po();
@@ -20,7 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
                     ReceptionToYear6 = new()
                     {
                         MinimumViableNumber = minimumViableNumber,
-                        ApplicationsReceived = applicationsReceived
+                        ApplicationsReceived = applicationsReceived,
+                        AcceptedOffers = acceptedOffers
                     }
                 }
             };
@@ -31,12 +32,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
             service.Execute(po, request);
 
             // Assert
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.Should().Be(expected);
+            po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityYrY6.Should().Be(expected);
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityYrY6.Should().Be(acceptedExpected);
         }
 
         [Theory]
         [MemberData(nameof(MinimumViabilityRatioData))]
-        public void MinimumViableRatioYear7ToYear11(int minimumViableNumber, int applicationsReceived, string expected)
+        public void MinimumViableRatioYear7ToYear11(int minimumViableNumber, int applicationsReceived, string expected, int acceptedOffers, string acceptedExpected)
         {
             // Arrange
             var po = new Po();
@@ -47,7 +49,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
                     Year7ToYear11 = new()
                     {
                         MinimumViableNumber = minimumViableNumber,
-                        ApplicationsReceived = applicationsReceived
+                        ApplicationsReceived = applicationsReceived,
+                        AcceptedOffers = acceptedOffers,
                     }
                 }
             };
@@ -58,12 +61,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
             service.Execute(po, request);
 
             // Assert
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.Should().Be(expected);
+            po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityY7Y11.Should().Be(expected);
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY7Y11.Should().Be(acceptedExpected);
         }
 
         [Theory]
         [MemberData(nameof(MinimumViabilityRatioData))]
-        public void MinimumViableRatioYear12ToYear14(int minimumViableNumber, int applicationsReceived, string expected)
+        public void MinimumViableRatioYear12ToYear14(int minimumViableNumber, int applicationsReceived, string expected, int acceptedOffers, string acceptedExpected)
         {
             // Arrange
             var po = new Po();
@@ -74,7 +78,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
                     Year12ToYear14 = new()
                     {
                         MinimumViableNumber = minimumViableNumber,
-                        ApplicationsReceived = applicationsReceived
+                        ApplicationsReceived = applicationsReceived,
+                        AcceptedOffers = acceptedOffers,
                     }
                 }
             };
@@ -85,17 +90,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.PupilNumbers
             service.Execute(po, request);
 
             // Assert
-            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.Should().Be(expected);
+            po.PupilNumbersAndCapacityReceivedApplicationsVsViabilityY12Y14.Should().Be(expected);
+            po.PupilNumbersAndCapacityAcceptedApplicationsVsViabilityY12Y14.Should().Be(acceptedExpected);
         }
 
         public static IEnumerable<object[]> MinimumViabilityRatioData()
         {
-            yield return new object[] { 5, 10, "200.00" };
-            yield return new object[] { 15, 19, "126.67" };
-            yield return new object[] { 0, 5, "0.00" };
-            yield return new object[] { 5, 0, "0.00" };
-            yield return new object[] { -1, 5, "0.00" };
-            yield return new object[] { 5, -1, "0.00" };
+            yield return new object[] { 5, 10, "200.00", 11, "220.00" };
+            yield return new object[] { 15, 19, "126.67", 17, "113.33" };
+            yield return new object[] { 0, 5, "0.00", 5, "0.00" };
+            yield return new object[] { 5, 0, "0.00", 0, "0.00" };
+            yield return new object[] { -1, 5, "0.00", 5, "0.00" };
+            yield return new object[] { 5, -1, "0.00", -1, "0.00" };
         }
     }
 }
