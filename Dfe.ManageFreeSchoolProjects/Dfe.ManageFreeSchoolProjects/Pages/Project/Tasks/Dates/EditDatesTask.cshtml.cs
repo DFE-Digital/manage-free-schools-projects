@@ -27,9 +27,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
-       // public bool Submitted { get; set; }
-
         public string CurrentFreeSchoolName { get; set; }
 
         [BindProperty(Name = "entry-into-pre-opening", BinderType = typeof(DateInputModelBinder))]
@@ -42,8 +39,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
         
-        
-        //[ValidYear]
         [BindProperty(Name = "project-closed-date", BinderType = typeof(YearInputModelBinder))]
         [Display(Name = "project status closed")]
         public string ProjectClosedDate { get; set; }
@@ -56,7 +51,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         public bool ProjectCancelledDateHasValue { get; set; }
         
         [BindProperty(Name = "project-withdrawn-date")]
-        [ValidYear]
         [Display(Name = "project withdrawn date")]
         public string ProjectWithdrawnDate { get; set; }
         
