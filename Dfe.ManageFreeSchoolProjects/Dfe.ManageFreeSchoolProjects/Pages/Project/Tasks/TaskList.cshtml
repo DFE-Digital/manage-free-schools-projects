@@ -7,7 +7,8 @@
     var projectStatusViewModel = new ProjectStatusViewModel()
     {
         ProjectId = @Model.ProjectId,
-        ProjectStatus = @Model.ProjectStatus
+        ProjectStatus = @Model.ProjectStatus,
+        Referrer = Referrer.TaskList
     };
     var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
@@ -54,9 +55,10 @@
             </div>
             <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
                 <div class="govuk-grid-column-three-quarters">
+                    <partial name="_ProjectStatusSuccessBanner"/>
                     <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.ProjectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.SchoolName</h1>
-                    <partial name="_ProjectStatus" model="@projectStatusViewModel" />
+                    <partial name="_ProjectStatus" model="@projectStatusViewModel"/>
                     <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
                         Task list
                     </p>

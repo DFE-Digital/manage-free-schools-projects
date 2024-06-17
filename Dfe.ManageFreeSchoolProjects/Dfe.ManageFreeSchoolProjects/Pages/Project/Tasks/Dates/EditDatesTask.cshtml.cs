@@ -102,19 +102,30 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 
                 ProjectWithdrawnDateHasValue = project.Dates.ProjectWithdrawnDate.HasValue;
                 
-                if (project.Dates.ProjectClosedDate.HasValue)
+                
+                
+                if (project.Dates.ProjectClosedDate.HasValue 
+                    && !project.Dates.ProjectCancelledDate.HasValue
+                    && !project.Dates.ProjectWithdrawnDate.HasValue
+                    )
                 {
                     ModelState.Remove("project-cancelled-date");
                     ModelState.Remove("project-withdrawn-date");
                 }
                 
-                if (project.Dates.ProjectCancelledDate.HasValue)
+                if (project.Dates.ProjectCancelledDate.HasValue
+                    && !project.Dates.ProjectClosedDate.HasValue
+                    && !project.Dates.ProjectWithdrawnDate.HasValue
+                    )
                 {
                     ModelState.Remove("project-closed-date");
                     ModelState.Remove("project-withdrawn-date");
                 }
                 
-                if (project.Dates.ProjectWithdrawnDate.HasValue)
+                if (project.Dates.ProjectWithdrawnDate.HasValue
+                    && !project.Dates.ProjectClosedDate.HasValue
+                    && !project.Dates.ProjectCancelledDate.HasValue
+                    )
                 {
                     ModelState.Remove("project-closed-date");
                     ModelState.Remove("project-cancelled-date");
