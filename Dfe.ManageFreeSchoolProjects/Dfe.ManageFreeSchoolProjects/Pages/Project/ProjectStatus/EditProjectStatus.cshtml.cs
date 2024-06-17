@@ -172,7 +172,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             var projectId = RouteData.Values["projectId"] as string;
 
             await _updateProjectStatusService.Execute(projectId, request);
-            var asd = _httpContextAccessor.HttpContext.Request.Query;
             TempData["projectStatusUpdated"] = true;
             return Redirect(GetNextPage());
         }
@@ -196,7 +195,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         {
             var referrerQuery = _httpContextAccessor.HttpContext.Request.Query["referrer"];
 
-            Enum.TryParse(referrerQuery, out Referrer referrer);
+            var isReferred = Enum.TryParse(referrerQuery, out Referrer referrer);
 
             if (referrer == Referrer.ProjectOverview)
             {
@@ -214,6 +213,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             {
                 return string.Format(RouteConstants.Contacts, ProjectId);
             }
+
+            if (!isReferred)
+            {
+                return string.Format(RouteConstants.ProjectOverview, ProjectId);
+            }
+
             return string.Format(RouteConstants.ProjectOverview, ProjectId);
         }
     }
