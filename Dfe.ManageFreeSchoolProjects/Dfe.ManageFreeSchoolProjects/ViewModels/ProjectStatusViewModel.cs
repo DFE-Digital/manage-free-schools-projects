@@ -8,4 +8,13 @@ public class ProjectStatusViewModel
     
     public ProjectStatus ProjectStatus { get; set; }
     
+    public Referrer Referrer { get; set; }
+    
+}
+
+public enum Referrer
+{
+    ProjectOverview = 0,
+    TaskList = 1,
+    ContactsOverview
 }

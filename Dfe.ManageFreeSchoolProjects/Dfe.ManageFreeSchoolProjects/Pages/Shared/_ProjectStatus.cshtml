@@ -1,9 +1,10 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @using Microsoft.IdentityModel.Tokens
 @using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.ViewModels.ProjectStatusViewModel
 @{
-    var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId) + $"?back={BackBehaviour.Previous}" + $"&referrer={Model.Referrer}";
 }
     <p>
    

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.TagHelpers;
+using Dfe.ManageFreeSchoolProjects.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 
@@ -26,15 +29,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         private readonly IUpdateProjectStatusService _updateProjectStatusService;
         private readonly ILogger<EditProjectStatusModel> _logger;
         private readonly ErrorService _errorService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public ProjectOverviewResponse Project { get; set; }
 
         [BindProperty(Name = "projectId")] public string ProjectId { get; set; }
-
-        public string GetNextPage()
-        {
-            return string.Format(RouteConstants.ProjectOverview, ProjectId);
-        }
-
+        
         [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
 
@@ -52,13 +51,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectStatusService updateProjectStatusService,
-            ILogger<EditProjectStatusModel> logger,
+            ILogger<EditProjectStatusModel> logger,IHttpContextAccessor httpContextAccessor,
             ErrorService errorService)
         {
             _getProjectOverviewService = getProjectOverviewService;
             _updateProjectStatusService = updateProjectStatusService;
             _logger = logger;
             _errorService = errorService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> OnGet()
@@ -80,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             }
 
             ProjectId = Project.ProjectStatus.ProjectId;
-
+            TempData["projectStatusUpdated"] = false;
             return Page();
         }
 
@@ -172,7 +172,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             var projectId = RouteData.Values["projectId"] as string;
 
             await _updateProjectStatusService.Execute(projectId, request);
-
+            var asd = _httpContextAccessor.HttpContext.Request.Query;
+            TempData["projectStatusUpdated"] = true;
             return Redirect(GetNextPage());
         }
 
@@ -189,6 +190,31 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             string s = year.HasValue ? year.Value.ToString("yyyy") : null;
             return s;
             
+        }
+        
+        public string GetNextPage()
+        {
+            var referrerQuery = _httpContextAccessor.HttpContext.Request.Query["referrer"];
+
+            Enum.TryParse(referrerQuery, out Referrer referrer);
+
+            if (referrer == Referrer.ProjectOverview)
+            {
+
+                return string.Format(RouteConstants.ProjectOverview, ProjectId);
+
+            }
+            
+            else if (referrer == Referrer.TaskList)
+            {
+                return string.Format(RouteConstants.TaskList, ProjectId);
+            }
+            
+            else if (referrer == Referrer.ContactsOverview)
+            {
+                return string.Format(RouteConstants.Contacts, ProjectId);
+            }
+            return string.Format(RouteConstants.ProjectOverview, ProjectId);
         }
     }
 }
