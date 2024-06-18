@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         public string ProjectCancelledDate { get; set; }
         public bool ProjectCancelledDateHasValue { get; set; }
         
-        [BindProperty(Name = "project-withdrawn-date")]
+        [BindProperty(Name = "project-withdrawn-date",BinderType = typeof(YearInputModelBinder))]
         [Display(Name = "project withdrawn date")]
         public string ProjectWithdrawnDate { get; set; }
         
