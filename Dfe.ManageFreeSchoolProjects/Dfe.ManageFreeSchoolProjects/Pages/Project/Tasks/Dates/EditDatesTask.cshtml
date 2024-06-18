@@ -28,7 +28,7 @@
         <form method="post">
             @if (Model.ProjectClosedDateHasValue)
             {
-                <govuk-text-input id="project-closed-date" name="project-closed-date" asp-for="@Model.ProjectClosedDate" label="Year the project was closed" hint="For example, 2024" width="4" bold-label="true"/>
+                <govuk-text-input id="project-closed-date" name="project-closed-date" asp-for="@Model.ProjectClosedDate" label="Year the school was closed" hint="For example, 2024" width="4" bold-label="true"/>
             }
 
             @if (Model.ProjectCancelledDateHasValue)

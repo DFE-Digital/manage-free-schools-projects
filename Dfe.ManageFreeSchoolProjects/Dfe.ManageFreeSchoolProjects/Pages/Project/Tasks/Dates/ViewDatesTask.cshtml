@@ -23,7 +23,7 @@
         <govuk-summary-list>
             @if (datesTask.ProjectClosedDate.HasValue)
             {
-                <govuk-summary-item label="Year the project was closed" asp-for="@datesTask.ProjectClosedDate" href="@editLink" year-date="true"/>
+                <govuk-summary-item label="Year the school was closed" asp-for="@datesTask.ProjectClosedDate" href="@editLink" year-date="true"/>
             }
             @if (datesTask.ProjectCancelledDate.HasValue)
             {
