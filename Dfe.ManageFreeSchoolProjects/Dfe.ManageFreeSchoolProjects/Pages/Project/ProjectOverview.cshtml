@@ -137,10 +137,16 @@
                         Year the project was withdrawn
                     </dt>
                 }
-                else
+                else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed)
                 {
                     <dt class="govuk-summary-list__key">
-                        Year the project was @Model.Project.ProjectStatus.ProjectStatus.ToDescription().ToLower()
+                        Year the school was closed
+                    </dt>
+                }
+                else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled)
+                {
+                    <dt class="govuk-summary-list__key">
+                        Year the project was cancelled
                     </dt>
                 }
                 <dd class="govuk-summary-list__value" data-testid="date-of-entry-into-preopening">
