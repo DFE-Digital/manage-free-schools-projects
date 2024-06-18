@@ -1025,15 +1025,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications accepted Total");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsAcceptedY12Y14)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications accepted Y12-Y14");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsAcceptedY7Y11)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications accepted Y7-Y11");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsAcceptedYrY6)
-                .HasMaxLength(3)
+                .HasMaxLength(4)
                 .IsUnicode(false)
                 .HasColumnName("Pupil numbers and capacity.No. applications accepted YR-Y6");
             builder.Property(e => e.PupilNumbersAndCapacityNoApplicationsReceivedTotal)
