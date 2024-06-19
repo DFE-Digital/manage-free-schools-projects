@@ -1,10 +1,29 @@
 class TaskListPage {
 
+    public onTasklistTab(): this {
+        cy.getById(`header-task-list`).should("be.visible")
+        return this;
+    }
     public selectAboutTheProjectTab(): this {
         cy.contains("About the project").click()
         return this;
     }
+    public selectContactTab(): this {
+        cy.contains("Contacts").click()
+        return this;
+    }
 
+    public hasProjectStatus(value: string): this {
+        cy.getById(`status-tag`).should(`contain.text`, value);
+
+        return this;
+    }
+
+    public clickChangeProjectStatus(): this {
+        cy.getById("change-project-status").click();
+        return this;
+    }
+    
     public selectDatesFromTaskList(): this {
         cy.getByTestId("dates-task").click()
         return this;

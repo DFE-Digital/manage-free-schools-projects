@@ -6,6 +6,12 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public selectContactsTab(): this {
+        cy.contains("Contacts").click()
+
+        return this;
+    }
+
     public hasProjectTitleHeader(value: string): this {
         cy.getByTestId("project-title-header").should("contain.text", value);
 
@@ -19,8 +25,13 @@ class ProjectOverviewPage {
     }
 
     public hasProjectStatus(value: string): this {
-        cy.getByTestId(`project-status`).should(`contain.text`, value);
+        cy.getById(`status-tag`).should(`contain.text`, value);
 
+        return this;
+    }
+
+    public clickChangeProjectStatus(): this {
+        cy.getById("change-project-status").click();
         return this;
     }
 
@@ -36,6 +47,23 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public hasWithdrawnDate(value: string): this {
+        cy.getById(`overview-withdrawn-date`).should(`be.visible`);
+        cy.getByTestId("date-of-termination").contains(value)
+        return this;
+    }
+
+    public hasCancelledDate(value: string): this {
+        cy.getById(`overview-cancelled-date`).should(`be.visible`);
+        cy.getByTestId("date-of-termination").contains(value)
+        return this;
+    }
+
+    public hasClosedDate(value: string): this {
+        cy.getById(`overview-closed-date`).should(`be.visible`);
+        cy.getByTestId("date-of-termination").contains(value)
+        return this;
+    }
     public hasUrn(value: string): this {
         cy.getByTestId(`urn`).should(`contain.text`, value);
 
