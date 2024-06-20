@@ -180,7 +180,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
-        public static Milestones BuildModelFundingAgreementTask(string rid)
+        public static Milestones BuildFundingAgreementTask(string rid)
         {
             var result = new Milestones();
 

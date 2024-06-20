@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public RegionAndLocalAuthorityTask RegionAndLocalAuthority { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
         public KickOffMeetingTask KickOffMeeting { get; set; }
-        public ModelFundingAgreementTask ModelFundingAgreement{ get; set; }
+        public FundingAgreementTask FundingAgreement{ get; set; }
         public StatutoryConsultationTask StatutoryConsultation { get; set; }
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
         public GiasTask Gias { get; set; }

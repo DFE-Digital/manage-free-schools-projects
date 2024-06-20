@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Constituency");
             taskHeaders.Should().Contain("Risk appraisal meeting");
             taskHeaders.Should().Contain("Kick-off meeting");
-            taskHeaders.Should().Contain("Model funding agreement");
+            taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Draft governance plan");
@@ -67,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
             AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
             AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
-			AssertEntry(nameof(ModelFundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
+			AssertEntry(nameof(FundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
@@ -135,7 +135,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
 							PlanFedBackToTrust = false,
 						},
-                        ModelFundingAgreement = new ModelFundingAgreementTask()
+                        FundingAgreement = new FundingAgreementTask()
                         {
 							SharedFAWithTheTrust = true
 						},

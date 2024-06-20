@@ -3,13 +3,13 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreement;
 
-    internal class GetModelFundingAgreementTaskService : IGetTaskService
+    internal class GetFundingAgreementTaskService : IGetTaskService
     {
         private readonly MfspContext _context;
 
-        public GetModelFundingAgreementTaskService(MfspContext context)
+        public GetFundingAgreementTaskService(MfspContext context)
         {
             _context = context;
 
@@ -21,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAg
                 from milestones in joinedMilestones.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
-                    ModelFundingAgreement = ModelFundingAgreementTaskBuilder.Build(milestones)
+                    FundingAgreement = FundingAgreementTaskBuilder.Build(milestones)
                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { ModelFundingAgreement = new () };
+            return result ?? new GetProjectByTaskResponse() { FundingAgreement = new () };
         }
     }

@@ -1,0 +1,60 @@
+@page "/projects/{projectId}/tasks/fundingagreement/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement.EditFundingAgreementTaskModel
+@{
+    ViewData["Title"] = $"Edit Funding agreement - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewFundingAgreement, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Funding agreement
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-checkbox-input id="tailored-the-funding-agreement" name="tailored-the-funding-agreement" asp-for="@Model.TailoredTheFundingAgreement" label="Tailored the funding agreement (FA)" />
+            <govuk-checkbox-input id="shared-fa-with-the-trust" name="shared-fa-with-the-trust" asp-for="@Model.SharedFAWithTheTrust" label="Shared FA with the trust" />
+            <govuk-conditional-radio id="trust-has-signed-the-fa" label="Trust has signed the FA" asp-for="@Model.TrustHasSignedTheFA">
+                <govuk-date-input id="date-the-trust-signed-fa" name="date-the-trust-signed-fa" asp-for="@Model.DateTheTrustSignedFA" hint="For example, 27 3 2021" label="Date the trust signed FA" />
+            </govuk-conditional-radio>
+            <govuk-date-input id="expected-date-fa-is-signed-on-secretary-of-states-behalf" name="expected-date-fa-is-signed-on-secretary-of-states-behalf" asp-for="@Model.ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf" hint="For example, 27 3 2021" label="Expected date FA is signed on Secretary of State's behalf" />
+            <div class="govuk-form-group ">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input"
+                               id="funding-agreement-signed"
+                               name="funding-agreement-signed"
+                               type="checkbox"
+                               value="true"
+                               checked="@(Model.FundingAgreementSigned == true ? "checked" : null)"
+                               data-aria-controls="conditional-date-signed"
+                               data-testid="funding-agreement-signed">
+                        <label class="govuk-label govuk-checkboxes__label" for="funding-agreement-signed">
+                            FA signed on Secretary of State's behalf
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__conditional" id="conditional-date-signed">
+                        <govuk-date-input id="date-fa-was-signed" name="date-fa-was-signed" asp-for="@Model.DateFAWasSigned" label="Actual date FA was signed" test-id="date-fa-was-signed" hint="For example, 27 3 2021" />
+                    </div>
+                </div>
+            </div>
+            <govuk-checkbox-input id="saved-fa-documents-in-workplaces-folder" name="saved-fa-documents-in-workplaces-folder" asp-for="@Model.SavedFADocumentsInWorkplacesFolder" label="Saved FA documents in Workplaces folder" />
+            
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

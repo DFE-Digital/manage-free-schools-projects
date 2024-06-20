@@ -58,7 +58,7 @@ public class GetAllTasksStatusService : IGetTasksService
             RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),
             RiskAppraisalMeeting = SafeRetrieveTaskSummary(projectTasks, "RiskAppraisalMeeting"),
             Constituency = SafeRetrieveTaskSummary(projectTasks, "Constituency"),
-            ModelFundingAgreement = SafeRetrieveTaskSummary(projectTasks, "ModelFundingAgreement"),
+            FundingAgreement = SafeRetrieveTaskSummary(projectTasks, "FundingAgreement"),
             StatutoryConsultation = SafeRetrieveTaskSummary(projectTasks, "StatutoryConsultation"),
             ArticlesOfAssociation = SafeRetrieveTaskSummary(projectTasks, "ArticlesOfAssociation"),
             FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),

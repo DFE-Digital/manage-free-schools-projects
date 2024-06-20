@@ -11,7 +11,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
@@ -131,7 +131,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       Constituency = ConstituencyTaskBuilder.Build(kpi),
                                       RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
                                       KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
-                                      ModelFundingAgreement = ModelFundingAgreementTaskBuilder.Build(milestones),
+                                      FundingAgreement = FundingAgreementTaskBuilder.Build(milestones),
                                       FundingAgreementHealthCheck = FundingAgreementHealthCheckTaskBuilder.Build(milestones),
                                       ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
                                       FinancePlan = FinancePlanTaskBuilder.Build(milestones, po),
