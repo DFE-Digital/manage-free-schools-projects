@@ -12,7 +12,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
@@ -83,8 +83,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.KickOffMeeting:
                     result = await new GetKickOffMeetingTaskService(_context).Get(parameters);
                     break;
-                case TaskName.ModelFundingAgreement:
-                    result = await new GetModelFundingAgreementTaskService(_context).Get(parameters);
+                case TaskName.FundingAgreement:
+                    result = await new GetFundingAgreementTaskService(_context).Get(parameters);
                     break;
                 case TaskName.StatutoryConsultation:
                     result = await new GetStatutoryConsultationTaskService(_context).Get(parameters);

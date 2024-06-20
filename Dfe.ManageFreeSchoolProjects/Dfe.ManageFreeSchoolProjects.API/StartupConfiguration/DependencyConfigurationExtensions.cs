@@ -23,7 +23,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHe
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ModelFundingAgreement;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreement;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RegionAndLocalAuthority;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.RiskAppraisalMeeting;
@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateKickOffMeetingTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateGiasTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateStatutoryConsultationTaskService>();
-            services.AddScoped<IUpdateTaskService, UpdateModelFundingAgreementTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateFundingAgreementTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEqualitiesAssessmentTaskService>();

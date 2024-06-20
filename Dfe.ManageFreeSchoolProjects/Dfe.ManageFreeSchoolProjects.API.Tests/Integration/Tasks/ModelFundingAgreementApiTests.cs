@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class ModelFundingAgreementApiTests : ApiTestsBase
+    public class FundingAgreementApiTests : ApiTestsBase
     {
-        public ModelFundingAgreementApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
+        public FundingAgreementApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
         }
 
         [Fact]
-        public async Task Patch_ModelFundingAgreement_Returns_201()
+        public async Task Patch_FundingAgreement_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -25,39 +25,44 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             await context.SaveChangesAsync();
 
             var dateNineDaysInFuture = new DateTime().AddDays(9);
+            var dateTenDaysInFuture = new DateTime().AddDays(10);
+            var dateElevenDaysInFuture = new DateTime().AddDays(11);
 
             var request = new UpdateProjectByTaskRequest()
             {
-                ModelFundingAgreement = new ModelFundingAgreementTask()
+                FundingAgreement = new FundingAgreementTask()
                 {
-                    TailoredAModelFundingAgreement = true,
+                    TailoredTheFundingAgreement = true,
                     SharedFAWithTheTrust = true,
-                    TrustAgreesWithModelFA = YesNo.Yes,
-                    DateTrustAgreesWithModelFA = dateNineDaysInFuture,
-                    Comments = "new comments",
+                    TrustHasSignedTheFA = YesNo.Yes,
+                    DateTheTrustSignedFA = dateNineDaysInFuture,
+                    ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf = dateTenDaysInFuture,
+                    DateFAWasSigned = dateElevenDaysInFuture,
                     SavedFADocumentsInWorkplacesFolder = true
                 }
             };
 
             var projectResponse =
-                await _client.UpdateProjectTask(projectId, request, TaskName.ModelFundingAgreement.ToString());
+                await _client.UpdateProjectTask(projectId, request, TaskName.FundingAgreement.ToString());
 
-            projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
-                .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
-                .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.TailoredAModelFundingAgreement.Should()
-                .Be(request.ModelFundingAgreement.TailoredAModelFundingAgreement);
-            projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
-                .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
-            projectResponse.ModelFundingAgreement.Comments.Should()
-                .Be(request.ModelFundingAgreement.Comments);
-            projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
-                .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
+            projectResponse.FundingAgreement.TrustHasSignedTheFA.Should()
+                .Be(request.FundingAgreement.TrustHasSignedTheFA);
+            projectResponse.FundingAgreement.DateTheTrustSignedFA.Should()
+                .Be(request.FundingAgreement.DateTheTrustSignedFA);
+            projectResponse.FundingAgreement.TailoredTheFundingAgreement.Should()
+                .Be(request.FundingAgreement.TailoredTheFundingAgreement);
+            projectResponse.FundingAgreement.SharedFAWithTheTrust.Should()
+                .Be(request.FundingAgreement.SharedFAWithTheTrust);
+            projectResponse.FundingAgreement.ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf.Should()
+                .Be(request.FundingAgreement.ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf);
+            projectResponse.FundingAgreement.DateFAWasSigned.Should()
+                .Be(request.FundingAgreement.DateFAWasSigned);
+            projectResponse.FundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+                .Be(request.FundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
 
         [Fact]
-        public async Task Patch_ExistingModelFundingArrangement_Returns_201()
+        public async Task Patch_ExistingFundingArrangement_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -65,41 +70,45 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
 
-            var modelFundingAgreementTask = DatabaseModelBuilder.BuildModelFundingAgreementTask(project.Rid);
-            context.Milestones.Add(modelFundingAgreementTask);
+            var fundingAgreementTask = DatabaseModelBuilder.BuildFundingAgreementTask(project.Rid);
+            context.Milestones.Add(fundingAgreementTask);
 
             await context.SaveChangesAsync();
 
             var dateNineDaysInFuture = new DateTime().AddDays(9);
+            var dateTenDaysInFuture = new DateTime().AddDays(10);
 
             var request = new UpdateProjectByTaskRequest()
             {
-                ModelFundingAgreement = new ModelFundingAgreementTask()
+                FundingAgreement = new FundingAgreementTask()
                 {
-                    TailoredAModelFundingAgreement = true,
+                    TailoredTheFundingAgreement = true,
                     SharedFAWithTheTrust = false,
-                    TrustAgreesWithModelFA = YesNo.Yes,
-                    DateTrustAgreesWithModelFA = dateNineDaysInFuture,
-                    Comments = "new comments dave",
+                    TrustHasSignedTheFA = YesNo.Yes,
+                    DateTheTrustSignedFA = dateNineDaysInFuture,
+                    ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf = dateTenDaysInFuture,
+                    DateFAWasSigned = dateTenDaysInFuture,
                     SavedFADocumentsInWorkplacesFolder = false
                 }
             };
 
             var projectResponse =
-                await _client.UpdateProjectTask(projectId, request, TaskName.ModelFundingAgreement.ToString());
+                await _client.UpdateProjectTask(projectId, request, TaskName.FundingAgreement.ToString());
 
-            projectResponse.ModelFundingAgreement.TrustAgreesWithModelFA.Should()
-                .Be(request.ModelFundingAgreement.TrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.DateTrustAgreesWithModelFA.Should()
-                .Be(request.ModelFundingAgreement.DateTrustAgreesWithModelFA);
-            projectResponse.ModelFundingAgreement.TailoredAModelFundingAgreement.Should()
-                .Be(request.ModelFundingAgreement.TailoredAModelFundingAgreement);
-            projectResponse.ModelFundingAgreement.SharedFAWithTheTrust.Should()
-                .Be(request.ModelFundingAgreement.SharedFAWithTheTrust);
-            projectResponse.ModelFundingAgreement.Comments.Should()
-                .Be(request.ModelFundingAgreement.Comments);
-            projectResponse.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
-                .Be(request.ModelFundingAgreement.SavedFADocumentsInWorkplacesFolder);
+            projectResponse.FundingAgreement.TrustHasSignedTheFA.Should()
+                .Be(request.FundingAgreement.TrustHasSignedTheFA);
+            projectResponse.FundingAgreement.DateTheTrustSignedFA.Should()
+                .Be(request.FundingAgreement.DateTheTrustSignedFA);
+            projectResponse.FundingAgreement.TailoredTheFundingAgreement.Should()
+                .Be(request.FundingAgreement.TailoredTheFundingAgreement);
+            projectResponse.FundingAgreement.SharedFAWithTheTrust.Should()
+                .Be(request.FundingAgreement.SharedFAWithTheTrust);
+            projectResponse.FundingAgreement.ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf.Should()
+                .Be(request.FundingAgreement.ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf);
+            projectResponse.FundingAgreement.DateFAWasSigned.Should()
+                .Be(request.FundingAgreement.DateFAWasSigned);
+            projectResponse.FundingAgreement.SavedFADocumentsInWorkplacesFolder.Should()
+                .Be(request.FundingAgreement.SavedFADocumentsInWorkplacesFolder);
         }
     }
 }

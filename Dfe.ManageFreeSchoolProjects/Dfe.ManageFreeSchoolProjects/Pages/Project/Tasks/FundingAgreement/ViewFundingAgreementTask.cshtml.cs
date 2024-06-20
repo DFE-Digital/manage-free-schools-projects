@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ModelFundingAgreement;
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement;
 
-public class ViewModelFundingAgreementTask : PageModel
+public class ViewFundingAgreementTask : PageModel
 {
 
-    private readonly ILogger<ViewModelFundingAgreementTask> _logger;
+    private readonly ILogger<ViewFundingAgreementTask> _logger;
     private readonly IGetProjectByTaskService _getProjectService;
     private readonly IGetTaskStatusService _getTaskStatusService;
     private readonly IUpdateTaskStatusService _updateTaskStatusService;
@@ -30,9 +30,11 @@ public class ViewModelFundingAgreementTask : PageModel
 
     public GetProjectByTaskResponse Project { get; set; }
 
-    public ViewModelFundingAgreementTask (
+    public bool? FundingAgreementSigned { get; set; }
+
+    public ViewFundingAgreementTask (
         IGetProjectByTaskService getProjectService,
-        ILogger<ViewModelFundingAgreementTask> logger,
+        ILogger<ViewFundingAgreementTask> logger,
         IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
         ErrorService errorService)
     {
@@ -47,9 +49,11 @@ public class ViewModelFundingAgreementTask : PageModel
     {
         _logger.LogMethodEntered();
         
-        Project = await _getProjectService.Execute(ProjectId, TaskName.ModelFundingAgreement );
+        Project = await _getProjectService.Execute(ProjectId, TaskName.FundingAgreement );
 
-        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName.ModelFundingAgreement.ToString());
+        FundingAgreementSigned = Project.FundingAgreement.DateFAWasSigned.HasValue ? true : null;
+
+        var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, TaskName.FundingAgreement.ToString());
 
         ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
         MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
@@ -69,7 +73,7 @@ public class ViewModelFundingAgreementTask : PageModel
 
         await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
         {
-            TaskName = TaskName.ModelFundingAgreement.ToString(),
+            TaskName = TaskName.FundingAgreement.ToString(),
             ProjectTaskStatus = ProjectTaskStatus
         });
         

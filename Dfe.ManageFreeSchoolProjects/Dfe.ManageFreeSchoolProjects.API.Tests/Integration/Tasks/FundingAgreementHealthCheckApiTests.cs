@@ -47,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
         }
 
         [Fact]
-        public async Task Patch_ExistingModelFundingArrangement_Returns_201()
+        public async Task Patch_ExistingFundingArrangement_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
