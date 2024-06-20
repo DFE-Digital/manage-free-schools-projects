@@ -153,6 +153,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
                                       ProjectId = kpi.ProjectStatusProjectId,
+                                      ProjectStatus = kpi.ProjectStatusProjectStatus,
                                       ApplicationNumber = kpi.ProjectStatusFreeSchoolsApplicationNumber,
                                       Urn = kpi.ProjectStatusUrnWhenGivenOne,
                                       ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
@@ -244,6 +245,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
     {
         public string ProjectId { get; set; }
         public string Urn { get; set; }
+        
+        public string ProjectStatus  { get; set; }
         public string ApplicationNumber { get; set; }
         public string ApplicationWave { get; set; }
 
