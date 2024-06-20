@@ -10,6 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency
             return new ConstituencyTask
             {
                 Name = kpi.SchoolDetailsConstituency,
+                ID = kpi.SchoolDetailsConstituencyID,
                 MPName = kpi.SchoolDetailsConstituencyMp,
                 Party = kpi.SchoolDetailsPoliticalParty,
             };

@@ -13,6 +13,7 @@
             }
 
             dbKpi.SchoolDetailsConstituency = task.Name;
+            dbKpi.SchoolDetailsConstituencyID = task.ID;
             dbKpi.SchoolDetailsConstituencyMp = task.MPName;
             dbKpi.SchoolDetailsPoliticalParty = task.Party;
         }

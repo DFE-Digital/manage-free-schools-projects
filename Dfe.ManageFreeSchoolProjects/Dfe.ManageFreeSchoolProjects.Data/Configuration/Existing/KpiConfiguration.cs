@@ -687,6 +687,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("School Details.Constituency");
+            builder.Property(e => e.SchoolDetailsConstituencyID)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("School Details.Constituency ID");
             builder.Property(e => e.SchoolDetailsConstituencyMp)
                 .HasMaxLength(100)
                 .IsUnicode(false)
