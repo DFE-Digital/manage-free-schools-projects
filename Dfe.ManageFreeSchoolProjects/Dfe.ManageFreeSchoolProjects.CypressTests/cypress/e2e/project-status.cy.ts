@@ -34,7 +34,7 @@ describe("Testing that we can change the project status", () => {
             projectOverviewPage
               .hasProjectStatus("Pre-opening")
               .clickChangeProjectStatus()
-          
+            
             projectStatusPage
               .preOpeningIsChecked()
               .clickBackLink()

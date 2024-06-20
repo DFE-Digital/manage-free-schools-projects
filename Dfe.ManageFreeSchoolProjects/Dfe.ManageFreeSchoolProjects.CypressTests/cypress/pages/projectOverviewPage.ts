@@ -64,6 +64,7 @@ class ProjectOverviewPage {
         cy.getByTestId("date-of-termination").contains(value)
         return this;
     }
+    
     public hasUrn(value: string): this {
         cy.getByTestId(`urn`).should(`contain.text`, value);
 

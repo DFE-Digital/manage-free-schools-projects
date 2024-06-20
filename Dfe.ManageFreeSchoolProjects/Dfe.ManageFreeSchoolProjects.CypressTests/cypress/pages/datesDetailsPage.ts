@@ -15,6 +15,11 @@ class DatesDetailsPage {
         return this;
     }
 
+    public addCancelledDate(value: string) {
+        cy.getByTestId("project-cancelled-date").clear().type(value);
+        return this;
+    }
+    
     public withEntryIntoPreOpening(day: string, month: string, year: string): this {
         cy.enterDate("entry-into-pre-opening", day, month, year);
         return this;
