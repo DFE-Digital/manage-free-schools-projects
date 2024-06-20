@@ -32,6 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     DateOfEntryIntoPreopening = DateTenDaysInFuture,
                     ProvisionalOpeningDateAgreedWithTrust = DateNineDaysInFuture,
+                    ProjectClosedDate = DateTenDaysInFuture
                 }
             };
 
@@ -39,6 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             projectResponse.Dates.DateOfEntryIntoPreopening.Should().Be(DateTenDaysInFuture);
             projectResponse.Dates.ProvisionalOpeningDateAgreedWithTrust.Should().Be(DateNineDaysInFuture);
+            projectResponse.Dates.ProjectClosedDate.Should().Be(DateTenDaysInFuture);
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
         }
     }

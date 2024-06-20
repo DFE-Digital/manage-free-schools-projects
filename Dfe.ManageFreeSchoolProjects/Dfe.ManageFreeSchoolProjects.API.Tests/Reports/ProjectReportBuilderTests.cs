@@ -3,6 +3,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 {
@@ -54,6 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             var project = result.Projects.First();
 
             AssertEntry(nameof(ProjectReferenceData.ProjectId), "123", project, columnHeaders);
+            AssertEntry(nameof(ProjectReferenceData.ProjectStatus), "Pre-opening", project, columnHeaders);
             AssertEntry(nameof(DatesTask.DateOfEntryIntoPreopening), "01/01/2021", project, columnHeaders);
             AssertEntry(nameof(DatesTask.ProvisionalOpeningDateAgreedWithTrust), "EMPTY", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.Gender), "Boys only", project, columnHeaders);
@@ -91,6 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                     ProjectReferenceData = new ProjectReferenceData()
                     {
                         ProjectId = "123",
+                        ProjectStatus = "Pre-opening"
                     },
                     TaskInformation = new GetProjectByTaskResponse()
                     {

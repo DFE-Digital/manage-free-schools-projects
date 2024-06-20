@@ -30,8 +30,8 @@
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="project-status-4" name="project-status" type="radio" value="@ProjectStatus.Cancelled" asp-for="@Model.ProjectStatus" data-aria-controls="cancelled-year-date-conditional">
-                            <label class="govuk-label govuk-radios__label" for="project-status-4">
+                            <input class="govuk-radios__input" id="project-status-cancelled" name="project-status" type="radio" value="@ProjectStatus.Cancelled" asp-for="@Model.ProjectStatus" data-aria-controls="cancelled-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-cancelled">
                                 @ProjectStatus.Cancelled.ToDescription()
                             </label>
                             <div id="cancelled-hint" class="govuk-hint govuk-radios__hint">
@@ -80,8 +80,8 @@
                             </div>
                         }
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="project-status-3" name="project-status" type="radio" value="@ProjectStatus.Closed" asp-for="@Model.ProjectStatus" data-aria-controls="closed-year-date-conditional">
-                            <label class="govuk-label govuk-radios__label" for="project-status-3">
+                            <input class="govuk-radios__input" id="project-status-closed" name="project-status" type="radio" value="@ProjectStatus.Closed" asp-for="@Model.ProjectStatus" data-aria-controls="closed-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-closed">
                                 @ProjectStatus.Closed.ToDescription()
                             </label>
                             <div id="closed-hint" class="govuk-hint govuk-radios__hint">
@@ -129,8 +129,8 @@
                             </div>
                         }
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="project-status-2" name="project-status" type="radio" value="@ProjectStatus.Open" asp-for="@Model.ProjectStatus">
-                            <label class="govuk-label govuk-radios__label" for="project-status-2">
+                            <input class="govuk-radios__input" id="project-status-open" name="project-status" type="radio" value="@ProjectStatus.Open" asp-for="@Model.ProjectStatus">
+                            <label class="govuk-label govuk-radios__label" for="project-status-open">
                                 @ProjectStatus.Open.ToDescription()
                             </label>
                             <div id="opened-hint" class="govuk-hint govuk-radios__hint">
@@ -139,8 +139,8 @@
                         </div>
 
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="project-status-1" name="project-status" type="radio" value="@ProjectStatus.Preopening" asp-for="@Model.ProjectStatus">
-                            <label class="govuk-label govuk-radios__label" for="project-status-1">
+                            <input class="govuk-radios__input" id="project-status-pre-opening" name="project-status" type="radio" value="@ProjectStatus.Preopening" asp-for="@Model.ProjectStatus">
+                            <label class="govuk-label govuk-radios__label" for="project-status-pre-opening">
                                 @ProjectStatus.Preopening.ToDescription()
                             </label>
                             <div id="pre-opened-hint" class="govuk-hint govuk-radios__hint">
@@ -148,8 +148,8 @@
                             </div>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="project-status-5" name="project-status" type="radio" value="@ProjectStatus.WithdrawnDuringPreOpening" asp-for="@Model.ProjectStatus" data-aria-controls="withdrawn-year-date-conditional">
-                            <label class="govuk-label govuk-radios__label" for="project-status-5">
+                            <input class="govuk-radios__input" id="project-status-withdrawn" name="project-status" type="radio" value="@ProjectStatus.WithdrawnDuringPreOpening" asp-for="@Model.ProjectStatus" data-aria-controls="withdrawn-year-date-conditional">
+                            <label class="govuk-label govuk-radios__label" for="project-status-withdrawn">
                                 @ProjectStatus.WithdrawnDuringPreOpening.ToDescription()
                             </label>
                             <div id="opened-hint" class="govuk-hint govuk-radios__hint">

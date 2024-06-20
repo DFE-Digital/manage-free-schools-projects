@@ -41,5 +41,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
             var result = ProjectMapper.ToTrustType(input);
             Assert.Equal(expectedResult, result);
         }
+        
+        [Theory]
+        [InlineData("Open",ProjectStatus.Open)]
+        [InlineData( "Pre-opening",ProjectStatus.Preopening)]
+        [InlineData( null,ProjectStatus.Preopening)]
+        [InlineData( "AnyNotRecognised",ProjectStatus.Preopening)]
+        [InlineData( "",ProjectStatus.Preopening)]
+        [InlineData("Cancelled",ProjectStatus.Cancelled)]
+        [InlineData("Cancelled during pre-opening",ProjectStatus.Cancelled)]
+        [InlineData("Closed",ProjectStatus.Closed)]
+        [InlineData("Withdrawn during pre-opening",ProjectStatus.WithdrawnDuringPreOpening)]
+        [InlineData("Withdrawn in pre-opening",ProjectStatus.WithdrawnDuringPreOpening)]
+        
+        public void ToProjectStatusType_ReturnsExpectedEnum(string input, ProjectStatus expectedResult)
+        {
+            var result = ProjectMapper.ToProjectStatusType(input);
+            Assert.Equal(expectedResult, result);
+        }
     }
 }

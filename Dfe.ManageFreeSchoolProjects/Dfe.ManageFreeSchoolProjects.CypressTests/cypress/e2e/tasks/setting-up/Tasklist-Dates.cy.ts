@@ -7,6 +7,7 @@ import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import validationComponent from "cypress/pages/validationComponent";
+import projectStatusPage from "../../../pages/project-status/projectStatusPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -31,13 +32,22 @@ describe("Testing project overview", () => {
         Logger.log("Selecting Dates link from Tasklist");
 
         taskListPage.isTaskStatusIsNotStarted("Dates")
-            .selectDatesFromTaskList();
+            .clickChangeProjectStatus()
 
-        Logger.log("Confirm empty dates");
+        projectStatusPage
+            .selectCancelled()
+            .addCancelledYear("2000")
+            .clickSaveAndContine()
+
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+            .selectDatesFromTaskList()
+
+        Logger.log("Confirm dates");
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Dates")
             .inOrder()
+            .summaryShows("Year the project was cancelled").HasValue("2000").HasChangeLink()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -56,11 +66,13 @@ describe("Testing project overview", () => {
 
         Logger.log("Checking validation");
         datesDetailsPage
+            .addCancelledDate("error")
             .withEntryIntoPreOpening("33", "", "")
             .withProvisionalOpeningDateAgreedWithTrust("44", "", "")
             .clickContinue();
 
         validationComponent
+            .hasValidationError("Enter a year in the correct format")
             .hasValidationError("Entry into pre-opening must include a month and year")
             .hasValidationError("Provisional opening date agreed with trust must include a month and year");
 
@@ -69,12 +81,14 @@ describe("Testing project overview", () => {
         Logger.log("Add new values");
         datesDetailsPage
             .schoolNameIs(project.schoolName)
+            .addCancelledDate("2050")
             .withEntryIntoPreOpening("10", "08", "2025")
             .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
             .clickContinue();
 
         summaryPage
             .inOrder()
+            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
@@ -87,6 +101,7 @@ describe("Testing project overview", () => {
 
         summaryPage
             .inOrder()
+            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
 
