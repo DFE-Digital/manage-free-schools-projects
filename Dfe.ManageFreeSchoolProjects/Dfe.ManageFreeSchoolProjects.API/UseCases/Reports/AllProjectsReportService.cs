@@ -29,6 +29,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHe
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -130,6 +131,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi),
                                       Constituency = ConstituencyTaskBuilder.Build(kpi),
                                       RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
+                                      PDGDashboard = PDGDashboardBuilder.Build(po),
                                       KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
                                       FundingAgreement = FundingAgreementTaskBuilder.Build(milestones),
                                       FundingAgreementHealthCheck = FundingAgreementHealthCheckTaskBuilder.Build(milestones),
@@ -148,7 +150,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       FinalFinancePlan = FinalFinancePlanTaskBuilder.Build(milestones),
                                       PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones),
                                       CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones),
-                                      MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones)
+                                      MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones),
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {
