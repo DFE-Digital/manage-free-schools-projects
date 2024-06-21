@@ -28,13 +28,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             await context.SaveChangesAsync();
 
             const string Battersea = "Battersea";
+            const string Id = "2468";
             const string TeddyBones = "RT Hon Theodore Bones";
             const string MRL = "Monster Raving Loony";
+
             var request = new UpdateProjectByTaskRequest()
             {
                 Constituency = new ConstituencyTask()
                 {
                     Name = Battersea,
+                    ID = Id,
                     MPName = TeddyBones,
                     Party = MRL,
                 }
@@ -43,6 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.Constituency.ToString());
 
             projectResponse.Constituency.Name.Should().Be(Battersea);
+            projectResponse.Constituency.ID.Should().Be(Id);
             projectResponse.Constituency.MPName.Should().Be(TeddyBones);
             projectResponse.Constituency.Party.Should().Be(MRL);
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);

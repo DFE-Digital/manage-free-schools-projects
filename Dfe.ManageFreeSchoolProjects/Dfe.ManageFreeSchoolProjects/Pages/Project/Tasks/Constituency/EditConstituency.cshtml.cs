@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
 			Values = constituencyResponses.Select(x => x.Name).Append(None).ToArray();
 			Hints = constituencyResponses.Select(x => $"MP - {x.MPName}{Environment.NewLine}Political Party - {x.Party}").Append("").ToArray();
 
-            ConstituencyResults = constituencyResponses.Select(x => $"{x.Name}~{x.MPName}~{x.Party}").Aggregate((acc, next) => acc + "|" + next);
+            ConstituencyResults = constituencyResponses.Select(x => $"{x.Name}~{x.Id}~{x.MPName}~{x.Party}").Aggregate((acc, next) => acc + "|" + next);
 		}
 
 		public async Task<ActionResult> OnPost()
@@ -99,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
             CurrentFreeSchoolName = project.SchoolName;
 
             List<SearchConstituencyResponse> constituencyResponses = ConstituencyResults.Split("|")
-                .Select(x => new SearchConstituencyResponse() { Name = x.Split("~")[0], MPName = x.Split("~")[1], Party = x.Split("~")[2]}).ToList();
+                .Select(x => new SearchConstituencyResponse() { Name = x.Split("~")[0], Id = x.Split("~")[1], MPName = x.Split("~")[2], Party = x.Split("~")[3]}).ToList();
 
             if (!ModelState.IsValid)
 			{
@@ -120,6 +120,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Constituency
                 Constituency = new ConstituencyTask()
                 {
                     Name = selected.Name,
+                    ID = selected.Id,
                     MPName = selected.MPName,
                     Party = selected.Party,
                 }

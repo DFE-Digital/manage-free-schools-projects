@@ -13,8 +13,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public User? User { get; set; }
 
         public string SchoolDetailsAlternativeProvision { get; set; }
-
         public string SchoolDetailsSpecialEducationNeeds { get; set; }
+        public string SchoolDetailsConstituencyID { get; set; }
+
         public string KeyContactsFsgLeadContactEmail { get; set; }
         public string KeyContactsFsgTeamLeaderEmail { get; set; }
         public string KeyContactsFsgGrade6Email { get; set; }
