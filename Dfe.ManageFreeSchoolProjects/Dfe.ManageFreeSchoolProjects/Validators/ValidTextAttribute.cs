@@ -8,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Validators;
     AllowMultiple = false)]
 public class ValidTextAttribute : ValidationAttribute
 {
-    private const string AllowSpecialCharactersPattern = @"[^a-zA-Z0-9'(),\s]";
+    private const string AllowSpecialCharactersPattern = @"[^a-zA-Z0-9'(),.\s]";
     private readonly int _maxLength;
 
     public ValidTextAttribute(int maxLength)
