@@ -1,10 +1,9 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 {
@@ -30,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Region and local authority");
             taskHeaders.Should().Contain("Constituency");
             taskHeaders.Should().Contain("Risk appraisal meeting");
+            taskHeaders.Should().Contain("Project development grant (PDG)");
             taskHeaders.Should().Contain("Kick-off meeting");
             taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
@@ -65,6 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(RegionAndLocalAuthorityTask.LocalAuthorityCode), "123", project, columnHeaders);
             AssertEntry(nameof(ConstituencyTask.Name), "Sheffield", project, columnHeaders);
             AssertEntry(nameof(RiskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted), "No", project, columnHeaders);
+            AssertEntry(nameof(PDGDashboard.PaymentActualDate), "01/02/2024", project, columnHeaders);
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
@@ -122,6 +123,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         RiskAppraisalMeeting = new RiskAppraisalMeetingTask()
                         {
                             InitialRiskAppraisalMeetingCompleted = false,
+                        },
+                        PDGDashboard = new PDGDashboard()
+                        {
+                            PaymentActualDate = new DateTime(2024, 2, 1)
                         },
                         KickOffMeeting = new KickOffMeetingTask()
                         {
