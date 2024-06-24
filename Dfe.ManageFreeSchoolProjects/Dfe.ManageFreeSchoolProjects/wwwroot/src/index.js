@@ -3,5 +3,5 @@
 
 // Write your JavaScript code.
 
-import GOVUKFrontend from "govuk-frontend";
-GOVUKFrontend.initAll();
+import { initAll } from "govuk-frontend";
+initAll()
