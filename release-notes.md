@@ -1,6 +1,5 @@
 ## 0.7.0
 
-* 157321 - Build: Open the school
 * 168805 - Build: hide the 'Your projects' tab
 * 168804 - Build: hide the 'Project notes' tab
 * 167574 - Build: change 'Give feedback' link in phase banner
@@ -11,7 +10,7 @@
 * 147101 - Build: first iteration model funding agreement page
 * 166649 - Build: iterate the Contacts section
 * 168985 - Build: update the footer
-* 170190 - Build: update 'Give feedback' link in phase banner
+* 170190 - Build: update 'Give feedback' link in phase banner (duplicate of 168985)
 * 157317 - Build: Project statuses
 * 168893 - Build: iterate the Pupil numbers page
 
