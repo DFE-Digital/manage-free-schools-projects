@@ -101,12 +101,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement
                 {
                     FundingAgreement = new FundingAgreementTask()
                     {
-                        TailoredTheFundingAgreement = TailoredTheFundingAgreement ?? false,
-                        SharedFAWithTheTrust = SharedFAWithTheTrust ?? false,
+                        TailoredTheFundingAgreement = TailoredTheFundingAgreement,
+                        SharedFAWithTheTrust = SharedFAWithTheTrust,
                         TrustHasSignedTheFA = ConvertYesNo(TrustHasSignedTheFA),
                         ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf = ExpectedDateFAIsSignedOnSecretaryOfStatesBehalf,
                         DateFAWasSigned = FundingAgreementSigned == true ? DateFAWasSigned : null,
-                        SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder ?? false,
+                        SavedFADocumentsInWorkplacesFolder = SavedFADocumentsInWorkplacesFolder,
                            
                     }
                 };
