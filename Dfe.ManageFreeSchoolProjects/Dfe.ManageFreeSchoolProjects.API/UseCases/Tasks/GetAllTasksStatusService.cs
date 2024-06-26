@@ -17,6 +17,9 @@ public class GetAllTasksStatusService : IGetTasksService
 {
     private readonly MfspContext _context;
 
+    private static int _hiddenTasks;
+    private static int _tasksCount;
+    
     public GetAllTasksStatusService(MfspContext context)
     {
         _context = context;
@@ -49,6 +52,8 @@ public class GetAllTasksStatusService : IGetTasksService
 
     private static ProjectByTaskSummaryResponse BuildProjectByTaskSummaryResponse(Kpi dbKpi, IEnumerable<TaskSummaryResponse> projectTasks)
     {
+        _tasksCount = 0;
+        _hiddenTasks = 0;
         var result = new ProjectByTaskSummaryResponse
         {
             SchoolName = dbKpi.ProjectStatusCurrentFreeSchoolName,
@@ -80,13 +85,19 @@ public class GetAllTasksStatusService : IGetTasksService
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
+        
         result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
-
+        
+        result.TaskCount = _tasksCount;
+        
+        result.CompletedTasks = projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenTasks;
+        
         return result;
     }
 
     private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks, string taskName)
     {
+        _tasksCount++;
         return projectTasks.FirstOrDefault(x => x.Name == taskName, new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
     }
 
@@ -97,8 +108,11 @@ public class GetAllTasksStatusService : IGetTasksService
             SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
             TaskSummary = taskSummaryResponse
         };
-
+        
         var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
+        
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+        _hiddenTasks = taskSummaryResponse.IsHidden ? + 1 : 0;
 
         return result;
     }

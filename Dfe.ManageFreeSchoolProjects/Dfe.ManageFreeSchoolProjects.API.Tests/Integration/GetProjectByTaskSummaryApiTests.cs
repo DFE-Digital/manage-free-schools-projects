@@ -6,6 +6,9 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Utils;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Kpi = Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Kpi;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
@@ -31,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
             taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
+            
             var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
 
             var result = content.Data;
@@ -98,12 +101,84 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.ApplicationsEvidence.Status.Should().Be(ProjectTaskStatus.NotStarted);
             result.ApplicationsEvidence.IsHidden.Should().BeTrue();
         }
+        
+        [Fact]
+        public async Task GetProjectTaskList_HiddenApplicationsEvidence_ReturnsLowerTaskCount()
+        {
+            var project = setUpProject(false).Result;
+
+            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
+            taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
+
+            var result = content.Data;
+            
+            var taskCount = result.TaskCount;
+            
+            var projectWithAp = setUpProject(true).Result;
+
+            var taskListResponseWithAp = await _client.GetAsync($"/api/v1/client/projects/{projectWithAp.ProjectStatusProjectId}/tasks/summary");
+            taskListResponseWithAp.StatusCode.Should().Be(HttpStatusCode.OK);
+            
+            var contentWithAp = await taskListResponseWithAp.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
+            
+            var resultWithAp = contentWithAp.Data;
+
+            resultWithAp.TaskCount.Should().Be(taskCount - 1);
+        }
+
+        [InlineData("School", ProjectTaskStatus.Completed)]
+        [Theory]
+        public async Task GetProjectTaskList_CompletedTaskCountIsCorrect(string expectedTaskName, ProjectTaskStatus expectedProjectTaskStatus)
+        {
+            var project = setUpProject(false).Result;
+            
+            var updateTaskStatusRequest = new UpdateTaskStatusRequest
+            {
+                ProjectTaskStatus = expectedProjectTaskStatus, TaskName = expectedTaskName
+            };
+        
+            var taskUpdateResponse =
+                await _client.PatchAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status", updateTaskStatusRequest.ConvertToJson());
+            taskUpdateResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var taskStatusResponse =
+                await _client.GetAsync($"/api/v1/{project.ProjectStatusProjectId}/task/status?taskName={expectedTaskName}");
+            taskStatusResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            
+            var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
+            
+            var content = await taskListResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>();
+            
+            var result = content.Data;
+            result.CompletedTasks.Should().Be(1);
+        }
+
 
         [Fact]
         public async Task Get_ProjectTaskList_ProjectDoesNotExist_Returns_404()
         {
             var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/NotExist/tasks/summary");
             taskListResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        public async Task<Kpi> setUpProject(bool schoolIsAp)
+        {
+            using var context = _testFixture.GetContext();
+            
+            var project = DatabaseModelBuilder.BuildProject();
+            
+            if (schoolIsAp)
+            {
+                project.SchoolDetailsSchoolTypeMainstreamApEtc = "FS - AP";
+            }
+            
+            context.Kpi.Add(project);
+            
+            await context.SaveChangesAsync();
+
+            return project;
         }
     }
 }
