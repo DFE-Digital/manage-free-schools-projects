@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 			bool yearParsed = int.TryParse(yearInput, out int year);
 			bool monthParsed = int.TryParse(monthInput, out int month);
 			bool dayParsed = int.TryParse(dayInput, out int day);
+			
 			var validatedDateParts = ValidateDateParts(dayParsed, monthParsed, yearParsed, month, year, day);
 			if (validatedDateParts.Item1 is false) return validatedDateParts;
 
@@ -47,7 +48,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
 		private (bool, string) ValidateDateParts(bool dayParsed, bool monthParsed, bool yearParsed, int month, int year, int day)
 		{
-			if (!dayParsed || !monthParsed || !yearParsed)
+            if (!dayParsed)
+				return (false, _messages.DayNotNumeric);
+
+            if (!monthParsed || !yearParsed)
 				return (false, _messages.DefaultMessage);
 
 			if (month < 1 || month > 12)
@@ -55,6 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
 			if (year < 2000 || year > 2050)
 				return (false, _messages.YearOutOfRange);
+
 
 			if (day < 1 || day > DateTime.DaysInMonth(year, month))
 				return (false, _messages.DayOutOfRange(DateTime.DaysInMonth(year, month)));
@@ -75,11 +80,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
 			public string DefaultMessage => "Enter a date in the correct format";
 			public string MonthOutOfRange => "Month must be between 1 and 12";
+            public string DayNotNumeric => "Day must be a number, like 12";
 
-			public string DayOutOfRange(int daysInMonth)
+            public string DayOutOfRange(int daysInMonth)
 			{
 				return $"Day must be between 1 and {daysInMonth}";
 			}
+
 		}
 	}
 }

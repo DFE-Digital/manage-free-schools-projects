@@ -57,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
-        [Required]
+        [Required(ErrorMessage = "Select the gender")]
         public Gender Gender { get; set; }
 
         [BindProperty(Name = "nursery")]
@@ -213,7 +213,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (FaithType == FaithType.NotSet)
                 {
-                    ModelState.AddModelError("faith-type", "Faith type is required.");
+                    ModelState.AddModelError("faith-type", "Enter the faith type");
                 }
                 if (FaithType == FaithType.None)
                 {
@@ -226,7 +226,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (FaithType != FaithType.None && FaithType != FaithType.NotSet)
                 {
-                    ModelState.AddModelError("faith-type", "Select none if faith status is none.");
+                    ModelState.AddModelError("faith-type", "Select none if faith status is none");
                 }
 
             }
@@ -235,7 +235,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (string.IsNullOrEmpty(OtherFaithType))
                 {
-                    ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+                    ModelState.AddModelError("other-faith-type", "Enter the other faith type");
                 }
                 else if (OtherFaithType.Length > 100)
                 {

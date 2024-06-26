@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "region")]
         [Display(Name = "region")]
-        [Required(ErrorMessage = "Select the region of the free school")]
+        [Required(ErrorMessage = "Select the region")]
         public string Region { get; set; }
         
         private readonly ErrorService _errorService;

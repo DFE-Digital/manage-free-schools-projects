@@ -81,7 +81,7 @@ public class FaithTypeModel : CreateProjectBaseModel
     {
         if (FaithType == FaithType.NotSet)
         {
-            ModelState.AddModelError("faith-type", "Select the faith type of the free school");
+            ModelState.AddModelError("faith-type", "Select the faith type");
         }
 
         if (FaithType == FaithType.Other)

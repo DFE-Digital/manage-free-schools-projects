@@ -117,12 +117,12 @@ public class EditGrade6ContactModel : PageModel
 
         if (Grade6Name.Any(char.IsDigit))
         {
-            ModelState.AddModelError("grade-6-name", "The grade 6 name cannot contain numbers");
+            ModelState.AddModelError("grade-6-name", "Grade 6 name must not include numbers");
         }
 
         if (Grade6Email?.Length > 100)
         {
-            ModelState.AddModelError("grade-6-email", "The grade 6 email must be 100 characters or less");
+            ModelState.AddModelError("grade-6-email", "Grade 6 email must be 100 characters or less");
         }
 
         if (!IsEducationEmailValid(Grade6Email))

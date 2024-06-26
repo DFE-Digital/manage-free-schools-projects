@@ -117,12 +117,12 @@ public class EditTeamLeadContactModel : PageModel
 
         if (TeamLeadName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("team-lead-name", "The team lead name cannot contain numbers");
+            ModelState.AddModelError("team-lead-name", "Team lead name must not include numbers");
         }
 
         if (TeamLeadEmail?.Length > 100)
         {
-            ModelState.AddModelError("team-lead-email", "The team lead email must be 100 characters or less");
+            ModelState.AddModelError("team-lead-email", "Team lead email must be 100 characters or less");
         }
 
         if (!IsEducationEmailValid(TeamLeadEmail))

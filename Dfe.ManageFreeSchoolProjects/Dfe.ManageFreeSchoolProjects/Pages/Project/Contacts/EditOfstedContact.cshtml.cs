@@ -131,12 +131,12 @@ public class EditOfstedContactContactModel : PageModel
 
         if (OfstedContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("ofsted-contact-name", "The ofsted contact name cannot contain numbers");
+            ModelState.AddModelError("ofsted-contact-name", "Ofsted contact name must not include numbers");
         }
 
         if (OfstedContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("ofsted-contact-email", "The ofsted contact email must be 100 characters or less");
+            ModelState.AddModelError("ofsted-contact-email", "Ofsted contact email must be 100 characters or less");
         }
 
         if (!IsEducationEmailValid(OfstedContactEmail))
