@@ -19,7 +19,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEv
             if (schoolType is SchoolType.AlternativeProvision or SchoolType.Special)
             {
                 taskSummary.IsHidden = true;
-                taskSummary.Status = ProjectTaskStatus.NotStarted;
             }
 
             return taskSummary;

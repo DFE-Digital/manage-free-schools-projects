@@ -118,7 +118,7 @@ public class GetAllTasksStatusService : IGetTasksService
         return result;
     }
 
-    public static void RemoveHiddenCompletedTaskStatus(TaskSummaryResponse taskSummaryResponse)
+    private static void RemoveHiddenCompletedTaskStatus(TaskSummaryResponse taskSummaryResponse)
     {
         if (taskSummaryResponse.IsHidden && taskSummaryResponse.Status == ProjectTaskStatus.Completed)
         {
