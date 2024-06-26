@@ -105,7 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task GetProjectTaskList_HiddenApplicationsEvidence_ReturnsLowerTaskCount()
         {
-            var project = setUpProject(false).Result;
+            var project = await setUpProject(false);
 
             var taskListResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/tasks/summary");
             taskListResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -116,7 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             
             var taskCount = result.TaskCount;
             
-            var projectWithAp = setUpProject(true).Result;
+            var projectWithAp = await setUpProject(true);
 
             var taskListResponseWithAp = await _client.GetAsync($"/api/v1/client/projects/{projectWithAp.ProjectStatusProjectId}/tasks/summary");
             taskListResponseWithAp.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -132,7 +132,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Theory]
         public async Task GetProjectTaskList_CompletedTaskCountIsCorrect(string expectedTaskName, ProjectTaskStatus expectedProjectTaskStatus)
         {
-            var project = setUpProject(false).Result;
+            var project =  await setUpProject(false);
             
             var updateTaskStatusRequest = new UpdateTaskStatusRequest
             {
