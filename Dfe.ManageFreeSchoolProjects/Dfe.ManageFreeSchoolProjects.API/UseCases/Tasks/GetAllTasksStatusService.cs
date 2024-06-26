@@ -17,7 +17,7 @@ public class GetAllTasksStatusService : IGetTasksService
 {
     private readonly MfspContext _context;
 
-    private static int _hiddenTasks;
+    private static int _hiddenCompletedTasks;
     private static int _tasksCount;
     
     public GetAllTasksStatusService(MfspContext context)
@@ -53,7 +53,7 @@ public class GetAllTasksStatusService : IGetTasksService
     private static ProjectByTaskSummaryResponse BuildProjectByTaskSummaryResponse(Kpi dbKpi, IEnumerable<TaskSummaryResponse> projectTasks)
     {
         _tasksCount = 0;
-        _hiddenTasks = 0;
+        _hiddenCompletedTasks = 0;
         var result = new ProjectByTaskSummaryResponse
         {
             SchoolName = dbKpi.ProjectStatusCurrentFreeSchoolName,
@@ -90,7 +90,9 @@ public class GetAllTasksStatusService : IGetTasksService
         
         result.TaskCount = _tasksCount;
         
-        result.CompletedTasks = projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenTasks;
+        RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
+        
+        result.CompletedTasks = projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenCompletedTasks;
         
         return result;
     }
@@ -112,9 +114,16 @@ public class GetAllTasksStatusService : IGetTasksService
         var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
         
         _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
-        _hiddenTasks = taskSummaryResponse.IsHidden ? + 1 : 0;
-
+        
         return result;
+    }
+
+    public static void RemoveHiddenCompletedTaskStatus(TaskSummaryResponse taskSummaryResponse)
+    {
+        if (taskSummaryResponse.IsHidden && taskSummaryResponse.Status == ProjectTaskStatus.Completed)
+        {
+            _hiddenCompletedTasks++;
+        }
     }
 }
 
