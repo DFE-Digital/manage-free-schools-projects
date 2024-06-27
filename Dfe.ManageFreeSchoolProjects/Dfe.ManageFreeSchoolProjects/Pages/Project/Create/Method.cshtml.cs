@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
-        [Required]
+        [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
 
         private readonly ErrorService _errorService;

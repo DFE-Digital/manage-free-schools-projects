@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
             if (!int.TryParse(fromResult, out from) || !int.TryParse(toResult, out to))
             {
-                string ErrorMessage = $"The {displayName.ToLower()} must be numbers, like 2 and 5";
+                string ErrorMessage = $"{displayName} must be numbers, like 2 and 5";
                 AddError(bindingContext, fromModelName, toModelName, fromProviderResult, toProviderResult, ErrorMessage);
                 return false;
             }

@@ -54,7 +54,7 @@ describe("Testing project overview", () => {
             .hasSchoolName(project.schoolName)
             .selectContinue();
 
-        validationComponent.hasValidationError("Select the region of the free school");
+        validationComponent.hasValidationError("Select the region");
 
         cy.executeAccessibilityTests();
 
@@ -67,7 +67,7 @@ describe("Testing project overview", () => {
             .hasSchoolName(project.schoolName)
             .selectContinue();
 
-        validationComponent.hasValidationError("Select the local authority of the free school");
+        validationComponent.hasValidationError("Select the local authority");
 
         cy.executeAccessibilityTests();
 

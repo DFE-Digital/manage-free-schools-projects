@@ -131,17 +131,17 @@ public class EditTrustContactContactModel : PageModel
 
         if (TrustContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-contact-name", "The trust contact name cannot contain numbers");
+            ModelState.AddModelError("trust-contact-name", "Trust contact name must not include numbers");
         }
 
         if (TrustContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-contact-email", "The trust contact email must be 100 characters or less");
+            ModelState.AddModelError("trust-contact-email", "Trust contact email must be 100 characters or less");
         }
 
-        if (!IsEducationEmailValid(TrustContactEmail))
+        if (!IsEmailValid(TrustContactEmail))
         {
-            ModelState.AddModelError("trust-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("trust-contact-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
         }
 
         if (!ModelState.IsValid)
@@ -175,7 +175,7 @@ public class EditTrustContactContactModel : PageModel
         return name != null && name.Contains(' ');
     }
 
-    private static bool IsEducationEmailValid(string email)
+    private static bool IsEmailValid(string email)
     {
         return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
     }

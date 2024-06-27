@@ -65,7 +65,7 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             validationComponent
-                .hasValidationError("The summary must be 1000 characters or less");
+                .hasValidationError("Summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
 
@@ -84,7 +84,7 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             validationComponent
-                .hasValidationError("The summary must be 1000 characters or less");
+                .hasValidationError("Summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
 
@@ -103,7 +103,7 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             validationComponent
-                .hasValidationError("The summary must be 1000 characters or less");
+                .hasValidationError("Summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
 
@@ -121,13 +121,13 @@ describe("Testing that we can add a project risk", () => {
                 .withRiskAppraisalFormSharePointLink("aaaa")
                 .continue();
 
-            validationComponent.hasValidationError("The SharePoint link must be a valid url");
+            validationComponent.hasValidationError("SharePoint link must be a valid url");
 
             editProjectRiskPage
                 .withRiskAppraisalFormSharePointLinkExceeding()
                 .continue();
 
-            validationComponent.hasValidationError("The SharePoint link must be 500 characters or less");
+            validationComponent.hasValidationError("SharePoint link must be 500 characters or less");
 
             cy.executeAccessibilityTests();
 
@@ -145,7 +145,7 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             validationComponent
-                .hasValidationError("The summary must be 1000 characters or less");
+                .hasValidationError("Summary must be 1000 characters or less");
 
             cy.executeAccessibilityTests();
 

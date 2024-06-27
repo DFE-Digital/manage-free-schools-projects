@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
-        [Required(ErrorMessage = "Select school type")]
+        [Required(ErrorMessage = "Select the school type")]
         public string SchoolType { get; set; }
         
         public SchoolTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)

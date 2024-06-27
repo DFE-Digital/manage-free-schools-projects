@@ -85,7 +85,7 @@ describe("Testing draft governance plan task", () => {
 
         validationComponent
             .hasValidationError("Date received must include a month and year")
-            .hasValidationError("The comments must be 999 characters or less");
+            .hasValidationError("Comments must be 999 characters or less");
 
         // The conditional checkboxes break "aria-allowed-attr"
         // This is a gov component so we can't fix it, for now just disable the check

@@ -64,10 +64,10 @@ describe("Testing the setting up of project sites", () => {
             .saveAndContinue();
 
         validationComponent
-            .hasValidationError("The Postcode must be 10 characters or less")
-            .hasValidationError("The Address line 1 must be 100 characters or less")
-            .hasValidationError("The Town or city must be 100 characters or less")
-            .hasValidationError("The Address line 2 must be 300 characters or less")
+            .hasValidationError("Postcode must be 10 characters or less")
+            .hasValidationError("Address line 1 must be 100 characters or less")
+            .hasValidationError("Town or city must be 100 characters or less")
+            .hasValidationError("Address line 2 must be 300 characters or less")
             .hasValidationError("Date planning permission obtained must include a month and year")
             .hasValidationError("Start date of site occupation must include a month and year");
 

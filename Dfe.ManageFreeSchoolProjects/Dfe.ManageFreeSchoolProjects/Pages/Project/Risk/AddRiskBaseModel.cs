@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
         public string RiskRating { get; set; }
 
         [BindProperty(Name = "summary")]
-        [Display(Name = "summary")]
+        [Display(Name = "Summary")]
         [StringLength(1000, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string Summary { get; set; }
 
