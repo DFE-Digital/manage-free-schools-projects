@@ -121,7 +121,7 @@ describe("Testing that we can add a project risk", () => {
                 .withRiskAppraisalFormSharePointLink("aaaa")
                 .continue();
 
-            validationComponent.hasValidationError("The SharePoint link must be a valid url");
+            validationComponent.hasValidationError("SharePoint link must be a valid url");
 
             editProjectRiskPage
                 .withRiskAppraisalFormSharePointLinkExceeding()

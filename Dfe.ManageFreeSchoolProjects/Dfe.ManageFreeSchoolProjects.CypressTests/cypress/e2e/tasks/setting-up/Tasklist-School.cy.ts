@@ -62,13 +62,13 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Enter the gender field")
-            .hasValidationError("Enter the nursery field")
-            .hasValidationError("Enter a 'from' and 'to' age range")
-            .hasValidationError("Enter the sixth form field")
-            .hasValidationError("Enter the school type field")
-            .hasValidationError("Enter the faith status field")
-            .hasValidationError("Enter the school phase field");
+            .hasValidationError("Select the gender")
+            .hasValidationError("Enter the nursery")
+            .hasValidationError("Enter the age range")
+            .hasValidationError("Enter the sixth form")
+            .hasValidationError("Enter the school type")
+            .hasValidationError("Enter the faith status")
+            .hasValidationError("Enter the school phase");
 
         cy.executeAccessibilityTests();
 
@@ -155,7 +155,7 @@ describe("Testing project overview", () => {
             .withFaithType("faith-type-Other")
             .clickContinue();
 
-        validationComponent.hasValidationError("Other faith type is required");
+        validationComponent.hasValidationError("Enter the other faith type");
 
         schoolDetailsPage
             .withFaithTypeOtherDescriptionExceedingMaxLength()
@@ -233,7 +233,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Faith type is required");
+            .hasValidationError("Enter the faith type");
 
         Logger.log("Change faith status to none and back to designation to check validation against faith type none");
 
@@ -268,4 +268,5 @@ describe("Testing project overview", () => {
             .hasValidationError("Select yes if it will have alternative provision")
             .hasValidationError("Select yes if it will have special educational needs provision");
     });
+    
 });

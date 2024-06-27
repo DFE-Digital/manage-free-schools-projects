@@ -79,7 +79,7 @@ describe("Testing finance plan task", () => {
             .hasValidationError("Date agreed must include a month and year")
             .hasValidationError("RPA start date must include a month and year")
             .hasValidationError("Comments must be 999 characters or less")
-            .hasLinkedValidationError("Type of rpa cover must be 100 characters or less");
+            .hasLinkedValidationError("Type of RPA cover must be 100 characters or less");
 
         // The conditional radio buttons break "aria-allowed-attr"
         // This is a gov component so we can't fix it, for now just disable the check

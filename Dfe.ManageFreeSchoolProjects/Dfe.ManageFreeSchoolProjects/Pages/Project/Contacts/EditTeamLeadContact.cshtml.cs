@@ -127,7 +127,7 @@ public class EditTeamLeadContactModel : PageModel
 
         if (!IsEducationEmailValid(TeamLeadEmail))
         {
-            ModelState.AddModelError("team-lead-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("team-lead-email", "Email address must be in the format firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

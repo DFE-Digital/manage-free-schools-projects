@@ -127,7 +127,7 @@ public class EditGrade6ContactModel : PageModel
 
         if (!IsEducationEmailValid(Grade6Email))
         {
-            ModelState.AddModelError("grade-6-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("grade-6-email", "Email address must be in the format firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

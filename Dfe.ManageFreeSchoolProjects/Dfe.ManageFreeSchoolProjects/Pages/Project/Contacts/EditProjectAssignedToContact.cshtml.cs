@@ -31,13 +31,13 @@ public class EditProjectAssignedToContactModel : PageModel
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [Required(ErrorMessage = "Name is required")]
+    [Required(ErrorMessage = "Enter the name")]
     [BindProperty(Name = "project-assigned-to-name")]
     [ValidText(100)]
     [DisplayName("Project assigned to name")]
     public string ProjectAssignedToName { get; set; }
 
-    [Required(ErrorMessage = "Email is required")]
+    [Required(ErrorMessage = "Enter the email")]
     [BindProperty(Name = "project-assigned-to-email")]
     [DisplayName("Project assigned to email")]
     
@@ -126,7 +126,7 @@ public class EditProjectAssignedToContactModel : PageModel
 
         if (!IsEducationEmailValid(ProjectAssignedToEmail))
         {
-            ModelState.AddModelError("project-assigned-to-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("project-assigned-to-email", "Email address must be in the format firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

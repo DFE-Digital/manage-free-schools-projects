@@ -139,9 +139,9 @@ public class EditOfstedContactContactModel : PageModel
             ModelState.AddModelError("ofsted-contact-email", "Ofsted contact email must be 100 characters or less");
         }
 
-        if (!IsEducationEmailValid(OfstedContactEmail))
+        if (!IsEmailValid(OfstedContactEmail))
         {
-            ModelState.AddModelError("ofsted-contact-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("ofsted-contact-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
         }
 
         if (!ModelState.IsValid)
@@ -175,7 +175,7 @@ public class EditOfstedContactContactModel : PageModel
         return name != null && name.Contains(' ');
     }
 
-    private static bool IsEducationEmailValid(string email)
+    private static bool IsEmailValid(string email)
     {
         return string.IsNullOrEmpty(email) || new EmailAddressAttribute().IsValid(email);
     }

@@ -63,7 +63,7 @@ describe("Testing that we can add contacts", () => {
                 .errorForProjectAssignedToName("Project assigned to name must be 100 characters or less")
                 .withNullProjectAssignedToName()
                 .clickContinue()
-                .errorForProjectAssignedToName("Name is required")
+                .errorForProjectAssignedToName("Enter the name")
                 .withProjectAssignedToName("Test Person")
                 .withProjectAssignedToEmail("firstname.surname@educaion.gov.uk")
                 .clickContinue()
@@ -73,7 +73,7 @@ describe("Testing that we can add contacts", () => {
                 .errorForProjectAssignedToEmail("Project assigned to email must be 100 characters or less")
                 .withNullProjectAssignedToEmail()
                 .clickContinue()
-                .errorForProjectAssignedToEmail("Email is required")
+                .errorForProjectAssignedToEmail("Enter the email")
                 .withProjectAssignedToEmail("test.person@education.gov.uk")
                 .clickContinue();
 
@@ -390,110 +390,6 @@ describe("Testing that we can add contacts", () => {
                         .hasTrustContactRole("Tester");
         
                 });
-               
-            
-            // cy.executeAccessibilityTests();
-
-            // Logger.log("Check user is back to contact summary page");
-            // contactsPage
-            //     .hasTitle("Contacts")
-            //     .hasSchoolName(project.schoolName)
-            //     .hasProjectManagedByName("")
-            //     .hasProjectManagedByEmail("")
-            //     .hasSchoolChairName("Contact")
-            //     .hasSchoolChairEmail("school@chair.com");
-
-            // Logger.log("Edit project managed by");
-            // contactsPage.goToEditProjectManagedBy();
-
-            // cy.executeAccessibilityTests();
-
-            // Logger.log("Check edit project managed by validation");
-            // editProjectManagedByPage
-            //     .hasTitle("Edit Project managed by")
-            //     .hasSchoolName(project.schoolName)
-            //     .withProjectManagedByName("$da")
-            //     .clickContinue()
-            //     .errorForProjectManagedByName("Project managed by name must not include special characters other than , ( )")
-            //     .withProjectManagedByName("4da")
-            //     .clickContinue()
-            //     .errorForProjectManagedByName("Project managed by name must not include numbers")
-            //     .withProjectManagedByName(dataGenerator.generateAlphaNumeric(101))
-            //     .clickContinue()
-            //     .errorForProjectManagedByName("Project managed by name must be 100 characters or less")
-            //     .withProjectManagedByEmail("da")
-            //     .clickContinue()
-            //     .errorForProjectManagedByEmail("Email address must be in the format firstname.surname@education.gov.uk")
-            //     .withProjectManagedByEmail(dataGenerator.generateAlphaNumeric(101))
-            //     .clickContinue()
-            //     .errorForProjectManagedByEmail("Project managed by email must be 100 characters or less")
-            //     .withProjectManagedByName("Project Managed By")
-            //     .withProjectManagedByEmail("project.manager@education.gov.uk")
-            //     .clickContinue();
-            
-            // cy.executeAccessibilityTests();
-
-            // Logger.log("Check user is back to contact summary page");
-            // contactsPage
-            //     .hasTitle("Contacts")
-            //     .hasSchoolName(project.schoolName)
-            //     .hasProjectManagedByName("Project Managed By")
-            //     .hasProjectManagedByEmail("project.manager@education.gov.uk")
-            //     .hasSchoolChairName("Contact")
-            //     .hasSchoolChairEmail("school@chair.com")
-            //     .goToProjectsOverviewPage();
-            
-            // cy.executeAccessibilityTests();
-
-            // Logger.log("Check user is back to projects overview page");
-            // projectOverviewPage
-            //     .hasSchoolChairOfGovernors("Contact")
-            //     .hasProjectManagedBy("Project Managed By");
-
-            // Logger.log("Check existing contacts can be resaved as null strings/empty on ProjectManagedBy Page");
-            // projectOverviewPage.changeContacts();
-
-            // cy.executeAccessibilityTests();
-
-            // contactsPage.goToEditSchoolChair();
-            // editContactPage
-            //     .hasTitle("Edit School chair")
-            //     .hasSchoolName(project.schoolName)
-            //     .withNullContactName()
-            //     .withNullContactEmail()
-            //     .clickContinue();
-            
-            // cy.executeAccessibilityTests();
-            
-            // contactsPage
-            //     .hasTitle("Contacts")
-            //     .hasSchoolName(project.schoolName)
-            //     .hasProjectManagedByName("Project Managed By")
-            //     .hasProjectManagedByEmail("project.manager@education.gov.uk")
-            //     .hasSchoolChairName("")
-            //     .hasSchoolChairEmail("");
-            
-            // contactsPage.goToEditProjectManagedBy();
-
-            // cy.executeAccessibilityTests();
-
-            // editProjectManagedByPage
-            //     .hasTitle("Edit Project managed by")
-            //     .hasSchoolName(project.schoolName)
-            //     .withNullProjectManagedByName()
-            //     .withNullProjectManagedByEmail()
-            //     .clickContinue();
-            
-            // cy.executeAccessibilityTests();
-            
-            // contactsPage
-            //     .hasTitle("Contacts")
-            //     .hasSchoolName(project.schoolName)
-            //     .hasProjectManagedByName("")
-            //     .hasProjectManagedByEmail("")
-            //     .hasSchoolChairName("")
-            //     .hasSchoolChairEmail("");
-
 
     })
 })

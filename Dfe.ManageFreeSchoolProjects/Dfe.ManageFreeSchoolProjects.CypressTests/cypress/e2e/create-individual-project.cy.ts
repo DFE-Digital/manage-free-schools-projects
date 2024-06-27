@@ -73,7 +73,7 @@ describe("Testing the project creation journey", () => {
 
             createProjectPage
                 .continue()
-                .errorMessage("Enter the method field.");
+                .errorMessage("Select what you want to do");
 
             cy.executeAccessibilityTests();
 
@@ -85,7 +85,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the temporary project ID?")
                 .continue()
-                .errorMessage("Enter the temporary project ID field")
+                .errorMessage("Enter the temporary project ID")
                 .enterProjectId("T-00008")
                 .continue()
                 .errorMessage("Temporary project ID must only include numbers and letters")
@@ -174,7 +174,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("Confirm the trust")
                 .continue()
-                .errorMessage("Select yes if the trust is correct);
+                .errorMessage("Select yes if the trust is correct");
 
             cy.executeAccessibilityTests();
 
@@ -266,9 +266,9 @@ describe("Testing the project creation journey", () => {
                 .titleIs("What is the capacity?")
                 .continue()
                 .errorMessage("Enter the nursery capacity")
-                .errorMessage("Enter the reception - year 6 capacity")
-                .errorMessage("Enter the year 7 - year 11 capacity")
-                .errorMessage("Enter the year 12 - year 14 capacity")
+                .errorMessage("Enter the reception to year 6 capacity")
+                .errorMessage("Enter the year 7 to year 11 capacity")
+                .errorMessage("Enter the year 12 to year 14 capacity")
                 .enterNurseryCapacity("A")
                 .enterReceptionToYear6("A")
                 .enterYear7ToYear11("A")
@@ -354,8 +354,8 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("Who do you want to assign this project to?")
                 .continue()
-                .errorMessage("Name is required")
-                .errorMessage("Email is required")
+                .errorMessage("Enter the name")
+                .errorMessage("Enter the email")
                 .enterProjectAssignedToName("j")
                 .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue()

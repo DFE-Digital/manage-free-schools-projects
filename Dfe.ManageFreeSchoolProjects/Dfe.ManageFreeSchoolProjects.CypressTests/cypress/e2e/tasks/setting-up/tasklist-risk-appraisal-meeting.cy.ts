@@ -103,11 +103,11 @@ describe("Testing Risk appraisal meeting Task", () => {
             .withReason("A Reason")
             .withForecastDate("PO", "5", "2025")
             .clickContinue()
-            .errorForForecastDate().showsError("Enter a date in the correct format")
+            .errorForForecastDate().showsError("Day must be a number, like 12")
             .withForecastDate("20", "5", "2025")
             .withActualDate("PO", "5", "2025")
             .clickContinue()
-            .errorForActualDate().showsError("Enter a date in the correct format")
+            .errorForActualDate().showsError("Day must be a number, like 12")
             .withActualDate("21", "6", "2024");
         
         cy.executeAccessibilityTests();
