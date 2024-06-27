@@ -62,13 +62,13 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("The Gender field is required")
-            .hasValidationError("The Nursery field is required")
+            .hasValidationError("Enter the gender field")
+            .hasValidationError("Enter the nursery field")
             .hasValidationError("Enter a 'from' and 'to' age range")
-            .hasValidationError("The Sixth form field is required")
-            .hasValidationError("The School type field is required")
-            .hasValidationError("The Faith status field is required")
-            .hasValidationError("The School phase field is required");
+            .hasValidationError("Enter the sixth form field")
+            .hasValidationError("Enter the school type field")
+            .hasValidationError("Enter the faith status field")
+            .hasValidationError("Enter the school phase field");
 
         cy.executeAccessibilityTests();
 
@@ -78,8 +78,8 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("The current free school name must be 100 characters or less")
-            .hasValidationError("The forms of entry must be 100 characters or less")
+            .hasValidationError("Current free school name must be 100 characters or less")
+            .hasValidationError("Forms of entry must be 100 characters or less")
 
         const updatedSchoolName = dataGenerator.generateSchoolName();
 

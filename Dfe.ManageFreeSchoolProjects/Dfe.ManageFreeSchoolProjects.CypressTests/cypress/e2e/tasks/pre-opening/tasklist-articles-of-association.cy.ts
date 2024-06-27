@@ -104,7 +104,7 @@ describe("Testing articles of association Task", () => {
         // articlesOfAssociationEditPage
         //     .withComments(dataGenerator.generateAlphaNumeric(1000))
         //     .clickContinue()
-        //     .errorForComments().showsError("The comments on decision to approve (if applicable) must be 999 characters or less")
+        //     .errorForComments().showsError("Comments on decision to approve (if applicable) must be 999 characters or less")
 
         articlesOfAssociationEditPage
             .withComments("#TaTers")

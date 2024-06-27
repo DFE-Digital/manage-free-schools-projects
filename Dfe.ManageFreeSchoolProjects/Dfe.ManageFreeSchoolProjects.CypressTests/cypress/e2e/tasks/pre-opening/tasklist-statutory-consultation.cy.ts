@@ -80,7 +80,7 @@ describe("Testing statutory consultation", () => {
         validationComponent
             .hasValidationError("Date received must include a month and year")
             .hasValidationError("Expected date for receiving findings from trust must include a month and year")
-            .hasValidationError("The comments must be 999 characters or less");
+            .hasValidationError("Comments must be 999 characters or less");
 
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
 

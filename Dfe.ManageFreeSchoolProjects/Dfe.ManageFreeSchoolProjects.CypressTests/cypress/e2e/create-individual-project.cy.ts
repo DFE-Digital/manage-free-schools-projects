@@ -73,7 +73,7 @@ describe("Testing the project creation journey", () => {
 
             createProjectPage
                 .continue()
-                .errorMessage("The method field is required.");
+                .errorMessage("Enter the method field.");
 
             cy.executeAccessibilityTests();
 
@@ -85,7 +85,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the temporary project ID?")
                 .continue()
-                .errorMessage("The temporary project ID field is required")
+                .errorMessage("Enter the temporary project ID field")
                 .enterProjectId("T-00008")
                 .continue()
                 .errorMessage("Temporary project ID must only include numbers and letters")
@@ -94,7 +94,7 @@ describe("Testing the project creation journey", () => {
                 .errorMessage("Temporary project ID must not include spaces")
                 .enterProjectId(dataGenerator.generateAlphaNumeric(26))
                 .continue()
-                .errorMessage("The temporary project ID must be 25 characters or less");
+                .errorMessage("Temporary project ID must be 25 characters or less");
 
             cy.executeAccessibilityTests();
 
@@ -114,7 +114,7 @@ describe("Testing the project creation journey", () => {
                 .continue()
                 .enterSchoolName(dataGenerator.generateAlphaNumeric(101))
                 .continue()
-                .errorMessage("The school name must be 100 characters or less")
+                .errorMessage("School name must be 100 characters or less")
 
             cy.executeAccessibilityTests();
             Logger.log("Enter school name");
@@ -126,7 +126,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the region of the school?")
                 .continue()
-                .errorMessage("Select the region of the free school")
+                .errorMessage("Select the region")
 
             cy.executeAccessibilityTests();
 
@@ -139,7 +139,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the local authority?")
                 .continue()
-                .errorMessage("Select the local authority of the free school");
+                .errorMessage("Select the local authority");
 
             cy.executeAccessibilityTests();
 
@@ -155,13 +155,13 @@ describe("Testing the project creation journey", () => {
                 .errorMessage("Enter the TRN")
                 .enterTRN("POTATO")
                 .continue()
-                .errorMessage("The TRN must be in the format TRXXXXX")
+                .errorMessage("The TRN must start with the letters TR, followed by at least 5 numbers")
                 .enterTRN("TR00000000")
                 .continue()
-                .errorMessage("The TRN (trust reference number) must be 7 characters or less")
+                .errorMessage("TRN (trust reference number) must be 7 characters or less")
                 .enterTRN("TR99999")
                 .continue()
-                .errorMessage("Trust ID not found")
+                .errorMessage("Trust ID not found. Enter a different ID")
 
             cy.executeAccessibilityTests();
 
@@ -174,7 +174,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("Confirm the trust")
                 .continue()
-                .errorMessage("Confirm that the trust displayed is correct");
+                .errorMessage("Select yes if the trust is correct);
 
             cy.executeAccessibilityTests();
 
@@ -204,7 +204,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the school type?")
                 .continue()
-                .errorMessage("Select school type");
+                .errorMessage("Select the school type");
 
             cy.executeAccessibilityTests();
 
@@ -265,10 +265,10 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the capacity?")
                 .continue()
-                .errorMessage("Enter the Nursery Capacity")
-                .errorMessage("Enter the Reception - Year 6 Capacity")
-                .errorMessage("Enter the Year 7 - Year 11 Capacity")
-                .errorMessage("Enter the Year 12 - Year 14 Capacity")
+                .errorMessage("Enter the nursery capacity")
+                .errorMessage("Enter the reception - year 6 capacity")
+                .errorMessage("Enter the year 7 - year 11 capacity")
+                .errorMessage("Enter the year 12 - year 14 capacity")
                 .enterNurseryCapacity("A")
                 .enterReceptionToYear6("A")
                 .enterYear7ToYear11("A")
@@ -303,7 +303,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the faith status?")
                 .continue()
-                .errorMessage("Select the faith status of the free school");
+                .errorMessage("Select the faith status");
 
             cy.executeAccessibilityTests();
 
@@ -316,7 +316,7 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("What is the faith type?")
                 .continue()
-                .errorMessage("Select the faith type of the free school")
+                .errorMessage("Select the faith type")
                 .selectOption("Other")
                 .continue()
                 .errorMessage("Enter the other faith type")
@@ -354,8 +354,8 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .titleIs("Who do you want to assign this project to?")
                 .continue()
-                .errorMessage("Please enter the name")
-                .errorMessage("Please enter an email")
+                .errorMessage("Name is required")
+                .errorMessage("Email is required")
                 .enterProjectAssignedToName("j")
                 .enterProjectAssignedToEmail("test.person@education.gov.uk")
                 .continue()
@@ -363,10 +363,10 @@ describe("Testing the project creation journey", () => {
                 .enterProjectAssignedToName("joe bloggs")
                 .enterProjectAssignedToEmail("test.person@edunation.gov.uk")
                 .continue()
-                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
+                .errorMessage("Email address must be in the format firstname.surname@education.gov.uk")
                 .enterProjectAssignedToEmail("@education.gov.uk")
                 .continue()
-                .errorMessage("Enter an email address in the correct format. For example, firstname.surname@education.gov.uk")
+                .errorMessage("Email address must be in the format firstname.surname@education.gov.uk")
 
             cy.executeAccessibilityTests();
 
