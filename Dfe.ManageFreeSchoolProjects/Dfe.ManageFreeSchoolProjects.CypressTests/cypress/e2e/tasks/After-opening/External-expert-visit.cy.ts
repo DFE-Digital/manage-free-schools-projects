@@ -76,7 +76,7 @@ describe("Testing the External expert visit task", () => {
         externalExpertVisitEditPage
             .withVisitDate("aq","12","2010")
             .clickContinue()
-            .errorForVisitDate().showsError("Enter a date in the correct format")
+            .errorForVisitDate().showsError("Day must be a number, like 12")
             .withVisitDate("21","12","1999")
             .clickContinue()
             .errorForVisitDate().showsError("Year must be between 2000 and 2050")
