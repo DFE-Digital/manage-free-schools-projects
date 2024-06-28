@@ -81,7 +81,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             if (!Regex.Match(TRN, "TR\\d\\d\\d\\d\\d", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(5)).Success)
             {
-                ModelState.AddModelError("trn", "The TRN must be in the format TRXXXXX");
+                ModelState.AddModelError("trn", "The TRN must start with the letters TR, followed by at least 5 numbers");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
@@ -96,7 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-                    ModelState.AddModelError("trn", "Trust ID not found");
+                    ModelState.AddModelError("trn", "Trust ID not found. Enter a different ID");
                     _errorService.AddErrors(ModelState.Keys, ModelState);
                     return Page();
                 }

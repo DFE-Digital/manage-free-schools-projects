@@ -13,8 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
     public class ProjectIdModel : CreateProjectBaseModel
     {
         [BindProperty(Name = "projectid")]
-        [Display(Name = "temporary project ID")]
-        [Required(ErrorMessage = "The temporary project ID field is required")]
+        [Display(Name = "Temporary project ID")]
+        [Required(ErrorMessage = "Enter the temporary project ID")]
         [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
         
@@ -73,7 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 //Attempt to get project, will throw an exception when 404 is returned
                 await _getProjectOverviewService.Execute(ProjectId);
-                ModelState.AddModelError("projectid", "Project Id already exists");
+                ModelState.AddModelError("projectid", "This temporary project ID already exists. Enter a different ID");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }

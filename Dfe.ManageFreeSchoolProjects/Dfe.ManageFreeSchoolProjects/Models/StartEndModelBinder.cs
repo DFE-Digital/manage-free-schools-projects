@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Services;
+using DocumentFormat.OpenXml.Bibliography;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
@@ -51,32 +52,67 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			string startYear = startValueProviderResult.FirstValue;
 			string endYear = endValueProviderResult.FirstValue;
 
-			if (!ValidateYearFormat(startYear))
+            bool startParsed = int.TryParse(startYear, out int start);
+            bool EndParsed = int.TryParse(endYear, out int end);
+
+			if (!startParsed)
 			{
-				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Start date should be in the format: 20XX");
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Start date must be numbers, like 2024");
+                bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
+                bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
+                bindingContext.Result = ModelBindingResult.Failed();
+                return Task.CompletedTask;
+            }
+
+            if (!ValidateYearFormat(startYear))
+            {
+				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Start date must begin with 20");
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
 				bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
 				bindingContext.Result = ModelBindingResult.Failed();
 				return Task.CompletedTask;
 			}
 
-			if (!ValidateYearFormat(endYear))
+			if (startYear.Length != 4) {
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Start date must be 4 numbers");
+                bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
+                bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
+                bindingContext.Result = ModelBindingResult.Failed();
+                return Task.CompletedTask;
+            }
+
+            if (!EndParsed)
+            {
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date must be numbers, like 2026");
+                bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
+                bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
+                bindingContext.Result = ModelBindingResult.Failed();
+                return Task.CompletedTask;
+            }
+
+            if (!ValidateYearFormat(endYear))
 			{
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
 				bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
-				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date should be in the format: 20XX");
+				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date must begin with 20");
 				bindingContext.Result = ModelBindingResult.Failed();
 				return Task.CompletedTask;
 			}
 
-			int start = int.Parse(startYear);
-			int end = int.Parse(endYear);
+            if (endYear.Length != 4)
+            {
+                bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date must be 4 numbers");
+                bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
+                bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
+                bindingContext.Result = ModelBindingResult.Failed();
+                return Task.CompletedTask;
+            }
 
-			if (start >= end)
+            if (start >= end)
 			{
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
 				bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
-				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date should be after the Start Date");
+				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End date must be after the start date");
 				bindingContext.Result = ModelBindingResult.Failed();
 				return Task.CompletedTask;
 			}
@@ -88,10 +124,10 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
 		private static bool ValidateYearFormat(string year)
 		{
-			return year.Length == 4 && Regex.Match(year, "20\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success;
+			return Regex.Match(year, "^20\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success;
 		}
 
-		private static Type ValidateBindingContext(ModelBindingContext bindingContext)
+        private static Type ValidateBindingContext(ModelBindingContext bindingContext)
 		{
 			if (bindingContext == null)
 			{

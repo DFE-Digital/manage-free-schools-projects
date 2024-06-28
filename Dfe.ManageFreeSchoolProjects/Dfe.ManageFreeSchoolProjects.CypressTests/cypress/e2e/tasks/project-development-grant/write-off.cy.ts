@@ -72,7 +72,7 @@ describe("Write off Task", () => {
             .schoolNameIs(project.schoolName)
             .withWriteOffDate("a", "12", "2025")
             .clickContinue()
-            .errorForWriteOffDate().showsError("Enter a date in the correct format")
+            .errorForWriteOffDate().showsError("Day must be a number, like 12")
             
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
 
@@ -81,7 +81,7 @@ describe("Write off Task", () => {
             .schoolNameIs(project.schoolName)
             .withApprovalDate("a", "12", "2025")
             .clickContinue()
-            .errorForApprovalDate().showsError("Enter a date in the correct format")
+            .errorForApprovalDate().showsError("Day must be a number, like 12")
 
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
 

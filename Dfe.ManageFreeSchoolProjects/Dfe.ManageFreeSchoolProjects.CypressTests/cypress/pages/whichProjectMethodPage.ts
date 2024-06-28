@@ -40,8 +40,8 @@ class WhichProjectMethodPage {
     }
 
     public verifyValidationMessage(): this {
-        cy.getById("method-error-link").contains("The method field is required");
-        cy.getById("method-error").contains("The method field is required");
+        cy.getById("method-error-link").contains("Enter the method field");
+        cy.getById("method-error").contains("Enter the method field");
 
         return this;
     }

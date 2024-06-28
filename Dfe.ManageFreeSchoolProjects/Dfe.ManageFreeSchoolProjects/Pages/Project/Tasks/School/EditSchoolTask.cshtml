@@ -216,6 +216,10 @@
         }
         else
         {
+            $("input[type='radio'][name='alternative-provision'][value='Yes']").prop("checked", false);
+            $("input[type='radio'][name='alternative-provision'][value='No']").prop("checked", false);
+            $("input[type='radio'][name='special-education-needs'][value='Yes']").prop("checked", false)
+            $("input[type='radio'][name='special-education-needs'][value='No']").prop("checked", false);
             $('#alternative-provision-container').hide();
             $('#special-education-needs-container').hide();
         }

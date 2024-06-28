@@ -31,13 +31,13 @@ public class EditProjectAssignedToContactModel : PageModel
     [BindProperty(Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [Required(ErrorMessage = "Please enter the name")]
+    [Required(ErrorMessage = "Enter the name")]
     [BindProperty(Name = "project-assigned-to-name")]
     [ValidText(100)]
     [DisplayName("Project assigned to name")]
     public string ProjectAssignedToName { get; set; }
 
-    [Required(ErrorMessage = "Please enter an email")]
+    [Required(ErrorMessage = "Enter the email")]
     [BindProperty(Name = "project-assigned-to-email")]
     [DisplayName("Project assigned to email")]
     
@@ -116,17 +116,17 @@ public class EditProjectAssignedToContactModel : PageModel
 
         if (ProjectAssignedToName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("project-assigned-to-name", "The project assigned to name cannot contain numbers");
+            ModelState.AddModelError("project-assigned-to-name", "Project assigned to name must not include numbers");
         }
 
         if (ProjectAssignedToEmail?.Length > 100)
         {
-            ModelState.AddModelError("project-assigned-to-email", "The project assigned to email must be 100 characters or less");
+            ModelState.AddModelError("project-assigned-to-email", "Project assigned to email must be 100 characters or less");
         }
 
         if (!IsEducationEmailValid(ProjectAssignedToEmail))
         {
-            ModelState.AddModelError("project-assigned-to-email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("project-assigned-to-email", "Email address must be in the format firstname.surname@education.gov.uk");
         }
 
         if (!ModelState.IsValid)

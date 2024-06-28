@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "local-authority")]
         [Display(Name = "Local Authority")]
-        [Required(ErrorMessage = "Select the local authority of the free school")]
+        [Required(ErrorMessage = "Select the local authority")]
         public string LocalAuthority { get; set; }
 
         [BindProperty(Name = "local-authorities")]

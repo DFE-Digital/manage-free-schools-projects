@@ -62,7 +62,7 @@ describe("Trust Letter Sent Task", () => {
         trustLetter
             .withTrustLetterDate("a", "12", "2025")
             .clickContinue()
-            .errorForPaymentDueDate().showsError("Enter a date in the correct format")
+            .errorForPaymentDueDate().showsError("Day must be a number, like 12")
 
         cy.executeAccessibilityTests();
 

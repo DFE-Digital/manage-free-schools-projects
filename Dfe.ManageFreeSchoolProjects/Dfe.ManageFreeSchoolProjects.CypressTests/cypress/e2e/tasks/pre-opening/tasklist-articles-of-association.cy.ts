@@ -104,7 +104,7 @@ describe("Testing articles of association Task", () => {
         // articlesOfAssociationEditPage
         //     .withComments(dataGenerator.generateAlphaNumeric(1000))
         //     .clickContinue()
-        //     .errorForComments().showsError("The comments on decision to approve (if applicable) must be 999 characters or less")
+        //     .errorForComments().showsError("Comments on decision to approve (if applicable) must be 999 characters or less")
 
         articlesOfAssociationEditPage
             .withComments("#TaTers")
@@ -121,7 +121,7 @@ describe("Testing articles of association Task", () => {
         articlesOfAssociationEditPage
             .withActualDate("Z", "3", "2020")
             .clickContinue()
-            .errorForActualDate().showsError("Enter a date in the correct format")
+            .errorForActualDate().showsError("Day must be a number, like 12")
             .withActualDate("1", "3", "2051")
             .clickContinue()
             .errorForActualDate().showsError("Year must be between 2000 and 2050")

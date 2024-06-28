@@ -77,19 +77,19 @@ class TrustDetailsPage {
 
 
     public verifyValidationMessagesWhenInvalidTRNFormatEntered(): this {
-        cy.getById("trn-error").should("be.visible").contains("The TRN must be in the format TRXXXXX");
+        cy.getById("trn-error").should("be.visible").contains("The TRN must start with the letters TR, followed by at least 5 numbers");
 
         return this;
     }
 
     public verifyValidationMessagesWhenTRNTooLongEntered(): this {
-        cy.getById("trn-error").should("be.visible").contains("The TRN (trust reference number) must be 7 characters or less");
+        cy.getById("trn-error").should("be.visible").contains("TRN (trust reference number) must be 7 characters or less");
 
         return this;
     }
 
     public verifyValidationMessagesWhenNonExistentTRNEntered(): this {
-        cy.getById("trn-error").should("be.visible").contains("Trust ID not found");
+        cy.getById("trn-error").should("be.visible").contains("Trust ID not found. Enter a different ID");
 
         return this;
     }
