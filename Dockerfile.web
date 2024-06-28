@@ -1,5 +1,5 @@
 ﻿# Stage 1
-ARG ASPNET_IMAGE_TAG=8.0.0-bookworm-slim
+ARG ASPNET_IMAGE_TAG=8.0-bookworm-slim
 ARG DOTNET_SDK_IMAGE_TAG=8.0
 ARG NODEJS_IMAGE_TAG=18-bullseye
 
