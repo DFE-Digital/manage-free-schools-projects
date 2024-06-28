@@ -61,7 +61,7 @@ describe("Trust Letter Sent Task", () => {
         refunds
             .withLatestRefundDate("a", "12", "2025")
             .clickContinue()
-            .errorForLatestRefundDate().showsError("Enter a date in the correct format")
+            .errorForLatestRefundDate().showsError("Day must be a number, like 12")
             
         cy.executeAccessibilityTests();
        

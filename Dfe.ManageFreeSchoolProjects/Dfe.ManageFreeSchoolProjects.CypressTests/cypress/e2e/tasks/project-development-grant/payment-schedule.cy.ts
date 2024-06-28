@@ -86,7 +86,7 @@ describe("Payment Schedule Task", () => {
             .schoolNameIs(project.schoolName)
             .withPaymentDueDate("a", "12", "2025")
             .clickContinue()
-            .errorForPaymentDueDate().showsError("Enter a date in the correct format")
+            .errorForPaymentDueDate().showsError("Day must be a number, like 12")
 
         cy.executeAccessibilityTests();
 
@@ -95,7 +95,7 @@ describe("Payment Schedule Task", () => {
             .schoolNameIs(project.schoolName)
             .withPaymentActualDate("a", "12", "2025")
             .clickContinue()
-            .errorForPaymentActualDate().showsError("Enter a date in the correct format")
+            .errorForPaymentActualDate().showsError("Day must be a number, like 12")
 
         cy.executeAccessibilityTests();
 
