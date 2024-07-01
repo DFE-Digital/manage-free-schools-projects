@@ -72,7 +72,7 @@ describe("Stop Payments Task", () => {
             .paymentStoppedDateIsVisible()
             .withPaymentStoppedDate("a", "12", "2025")
             .clickContinue()
-            .errorForPaymentStoppedDate().showsError("Enter a date in the correct format")
+            .errorForPaymentStoppedDate().showsError("Day must be a number, like 12")
             
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
        
