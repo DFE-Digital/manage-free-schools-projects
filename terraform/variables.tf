@@ -454,3 +454,9 @@ variable "enable_cdn_frontdoor_health_probe" {
   type        = bool
   default     = false
 }
+
+variable "mssql_sku_name" {
+  description = "Specifies the name of the SKU used by the database"
+  type        = string
+  default     = "Basic"
+}

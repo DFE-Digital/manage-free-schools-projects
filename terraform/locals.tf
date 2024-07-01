@@ -24,6 +24,7 @@ locals {
   mssql_database_name                             = var.mssql_database_name
   mssql_firewall_ipv4_allow_list                  = var.mssql_firewall_ipv4_allow_list
   mssql_server_public_access_enabled              = var.mssql_server_public_access_enabled
+  mssql_sku_name                                  = var.mssql_sku_name
   mssql_managed_identity_assign_role              = var.mssql_managed_identity_assign_role
   enable_dns_zone                                 = var.enable_dns_zone
   dns_zone_domain_name                            = var.dns_zone_domain_name
