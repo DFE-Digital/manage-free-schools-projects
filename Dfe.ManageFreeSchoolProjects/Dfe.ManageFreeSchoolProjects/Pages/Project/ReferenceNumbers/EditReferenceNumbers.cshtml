@@ -1,0 +1,23 @@
+﻿@page "/projects/{projectId}/reference-numbers/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers.EditReferenceNumbersModel
+@{
+    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var editLink = string.Format(RouteConstants.EditReferenceNumbers, Model.ProjectId);
+    ViewData["Title"] = $"Edit Reference numbers - {Model.ReferenceNumbers.SchoolName}";
+}
+@section BeforeMain {s
+    <div class="govuk-width-container">
+        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
+    </div>
+}
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.ReferenceNumbers.SchoolName</span>
+    Reference numbers
+</h1>
+
+ <govuk-summary-list>
+    <govuk-summary-item label="Current free school name" asp-for="@Model.ReferenceNumbers.ProjectId" href="@editLink" />
+    <govuk-summary-item label="URN" asp-for="@Model.ReferenceNumbers.Urn" href="@editLink" />
+</govuk-summary-list>
