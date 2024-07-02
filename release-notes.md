@@ -1,3 +1,7 @@
+## 0.7.1
+
+* 168435 - Updated access denied page to use support email
+
 ## 0.7.0
 
 * 168805 - Build: hide the 'Your projects' tab
