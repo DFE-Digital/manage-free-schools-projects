@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
@@ -16,8 +17,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
 
         [BindProperty(SupportsGet = true, Name = "projectID")]
         public string ProjectId { get ; set; }
-        
-        public GetProjectReferenceNumbersResponse ReferenceNumbers { get; set; }
+
+        public string Urn { get; set; }
+
+        public string SchoolName { get; set; }
 
         public ViewReferenceNumbersModel(
             IGetProjectReferenceNumbersService getProjectReferenceNumbersService,
@@ -29,8 +32,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
         public async Task<IActionResult> OnGet()
         {
             _logger.LogMethodEntered();
+            try
+            {
 
-            ReferenceNumbers = await _getProjectReferenceNumbersService.Execute(ProjectId);
+                var referenceNumbers = await _getProjectReferenceNumbersService.Execute(ProjectId);
+
+                ProjectId = referenceNumbers.ProjectId;
+                Urn = referenceNumbers.Urn;
+                SchoolName = referenceNumbers.SchoolName;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogErrorMsg(ex);
+            }
 
             return Page();
         }

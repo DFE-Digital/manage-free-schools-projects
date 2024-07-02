@@ -2,9 +2,8 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers.EditReferenceNumbersModel
 @{
-    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var editLink = string.Format(RouteConstants.EditReferenceNumbers, Model.ProjectId);
-    ViewData["Title"] = $"Edit Reference numbers - {Model.ReferenceNumbers.SchoolName}";
+    ViewData["Title"] = $"Edit Reference numbers - {Model.SchoolName}";
+    var backLink = string.Format(RouteConstants.ViewReferenceNumbers, Model.ProjectId);
 }
 @section BeforeMain {s
     <div class="govuk-width-container">
@@ -12,12 +11,23 @@
     </div>
 }
 
+<partial name="_ErrorSummary" />
+
 <h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.ReferenceNumbers.SchoolName</span>
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
     Reference numbers
 </h1>
 
- <govuk-summary-list>
-    <govuk-summary-item label="Current free school name" asp-for="@Model.ReferenceNumbers.ProjectId" href="@editLink" />
-    <govuk-summary-item label="URN" asp-for="@Model.ReferenceNumbers.Urn" href="@editLink" />
-</govuk-summary-list>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+
+            <govuk-text-input id="project-id" name="project-id" asp-for="@Model.ProjectId" data-testid="project-id" label="Project ID" />
+            <govuk-text-input id="urn" name="urn" asp-for="@Model.Urn" data-testid="urn" label="URN" />
+
+            <button class="govuk-button" data-module="govuk-button">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>

@@ -42,11 +42,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectReferenceNumbers(UpdateProjectReferenceNumbersRequest request)
+        public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectReferenceNumbers(string projectId, UpdateProjectReferenceNumbersRequest request)
         {
             _logger.LogMethodEntered();
 
-            await _updateProjectReferenceNumbersService.Execute(request);
+            await _updateProjectReferenceNumbersService.Execute(projectId, request);
 
             return new ObjectResult(new ApiSingleResponseV2<object>(new object()))
             { StatusCode = StatusCodes.Status200OK };

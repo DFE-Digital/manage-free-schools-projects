@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ReferenceNumbers
 {
     public interface IUpdateProjectReferenceNumbersService
     {
-        public Task Execute(UpdateProjectReferenceNumbersRequest request);
+        public Task Execute(string projectId, UpdateProjectReferenceNumbersRequest request);
     }
 
     public class UpdateProjectReferenceNumbersService : IUpdateProjectReferenceNumbersService
@@ -21,13 +21,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ReferenceNumbers
             _context = context;
         }
 
-        public async Task Execute(UpdateProjectReferenceNumbersRequest request)
+        public async Task Execute(string projectId, UpdateProjectReferenceNumbersRequest request)
         {
-            var project = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == request.ProjectId);
+            var project = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
             if (project == null)
             {
-                throw new NotFoundException($"Project with id {request.ProjectId} not found");
+                throw new NotFoundException($"Project with id {projectId} not found");
             }
 
             project.ProjectStatusProjectId = request.ProjectId;
