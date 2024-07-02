@@ -187,6 +187,11 @@ class TaskListPage {
         return cy.getByTestId("ApplicationsEvidence-task");
 
     }
+
+    public taskCompletedCountMessage(countMessage: string): this {
+        cy.getById("completed-count").contains(countMessage);
+        return this;
+    }
 }
 
 const taskListPage = new TaskListPage();
