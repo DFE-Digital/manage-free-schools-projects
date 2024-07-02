@@ -30,7 +30,7 @@
     "devDependencies": {
         "@cypress/grep": "^4.0.1",
         "@types/node": "^20.4.7",
-        "@types/uuid": "^9.0.2",
+        "@types/uuid": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^6.2.1",
         "axe-core": "^4.6.3",
         "csv-stringify": "^6.4.0",
@@ -47,7 +47,7 @@
         "mochawesome-report-generator": "^6.0.1",
         "prettier": "^3.0.1",
         "typescript": "^5.0.0",
-        "uuid": "^9.0.0",
+        "uuid": "^10.0.0",
         "xlsx": "^0.18.5",
         "zaproxy": "^2.0.0-rc.2"
     }
