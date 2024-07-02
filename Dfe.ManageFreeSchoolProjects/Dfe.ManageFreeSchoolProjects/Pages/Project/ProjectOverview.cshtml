@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/overview"
+﻿@page "/projects/{rid}/overview"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectOverviewModel
@@ -6,18 +6,19 @@
 @{
     ViewData["Title"] = $"{Model.Project.ProjectStatus.CurrentFreeSchoolName} - About the project";
     ViewData["WidePage"] = true;
-    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
-    var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
-    var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
-    var referenceNumbersLink = string.Format(RouteConstants.ViewReferenceNumbers, Model.ProjectId);
+    var projectId = Model.Project.ProjectStatus.ProjectId;
+    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, projectId);
+    var taskListLink = string.Format(RouteConstants.TaskList, projectId);
+    var contactsLink = string.Format(RouteConstants.Contacts, projectId);
+    var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, projectId);
+    var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, projectId);
+    var referenceNumbersLink = string.Format(RouteConstants.EditReferenceNumbers, projectId);
 
     var temporarySite = Model.Project.SiteInformation.TemporarySite;
     var permanentSite = Model.Project.SiteInformation.PermanentSite;
     var projectStatusViewModel = new ProjectStatusViewModel()
     {
-        ProjectId = @Model.ProjectId,
+        ProjectId = projectId,
         ProjectStatus = @Model.Project.ProjectStatus.ProjectStatus,
         Referrer = Referrer.ProjectOverview
             
@@ -37,7 +38,7 @@
             <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
                 <div class="govuk-grid-column-three-quarters">
                      <partial name="_ProjectStatusSuccessBanner"/>
-                    <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.Project.ProjectStatus.ProjectId</span>
+                    <span class="govuk-body-s" data-testid="project-id-header">Project ID: @projectId</span>
                     <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.Project.ProjectStatus.CurrentFreeSchoolName</h1>
                     <partial name="_ProjectStatus" model="@projectStatusViewModel"/>
                     <p class="govuk-!-font-size-27 govuk-!-font-weight-bold">
@@ -260,9 +261,7 @@
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
         <div cslass="govuk-grid-column-full">
             <h3 class="govuk-heading-m govuk-!-font-size-27 govuk-!-display-inline" id="reference-numbers">Reference numbers</h3>
-            <a class="govuk-!-display-inline govuk-summary-list__actions govuk-!-width-one-third govuk-!-text-align-right" href=@referenceNumbersLink Id="reference-numbers-changeLink">
-                Change reference numbers<span class="govuk-visually-hidden">Change reference numbers</span>
-            </a>
+            
         </div>
         <dl class="govuk-summary-list govuk-summary-list--no-border">
             <div class="govuk-summary-list__row">
@@ -274,7 +273,11 @@
                         RenderValue(Model.Project.ProjectStatus.ProjectId);
                     }
                 </dd>
-
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@referenceNumbersLink Id="reference-numbers-changeLink">
+                        Change<span class="govuk-visually-hidden">Change reference numbers</span>
+                    </a>
+                </dd>
             </div>
 
             <div class="govuk-summary-list__row">
@@ -285,6 +288,11 @@
                     @{
                         RenderValue(Model.Project.ProjectStatus.Urn);
                     }
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href=@referenceNumbersLink Id="reference-numbers-changeLink">
+                        Change<span class="govuk-visually-hidden">Change reference numbers</span>
+                    </a>
                 </dd>
 
             </div>
@@ -424,7 +432,7 @@
 
         <h2 class="govuk-heading-l govuk-!-margin-top-9">Other information</h2>
 
-        <govuk-risk-rating-summary project-id="@Model.ProjectId"
+        <govuk-risk-rating-summary project-id="@projectId"
                                    change-link-text="View details"
                                    date="@Model.Project.Risk.Date"
                                    risk-rating="@Model.Project.Risk.RiskRating"

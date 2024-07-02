@@ -15,8 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
         private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly ILogger<ProjectOverviewModel> _logger;
 
-        [BindProperty(SupportsGet = true, Name = "projectId")]
-        public string ProjectId { get; set; }
+        [BindProperty(SupportsGet = true, Name = "rid")]
+        public string Rid { get; set; }
 
         public ProjectOverviewResponse Project { get; set; }
 
@@ -34,9 +34,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
 
             try
             {
-                var projectId = RouteData.Values["projectId"] as string;
+                var rid = RouteData.Values["rid"] as string;
 
-                Project = await _getProjectOverviewService.Execute(projectId);
+                Project = await _getProjectOverviewService.Execute(rid);
             }
             catch (Exception ex)
             {

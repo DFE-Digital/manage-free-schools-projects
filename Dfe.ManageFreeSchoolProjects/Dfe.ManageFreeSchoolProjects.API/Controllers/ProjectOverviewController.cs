@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/client/projects/{projectId}/overview")]
+    [Route("api/v{version:apiVersion}/client/projects/{rid}/overview")]
     [ApiController]
     public class ProjectOverviewController : ControllerBase
     {
@@ -23,13 +23,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiSingleResponseV2<ProjectOverviewResponse>>> GetProjectOverview(string projectId)
+        public async Task<ActionResult<ApiSingleResponseV2<ProjectOverviewResponse>>> GetProjectOverview(string rid)
         {
             _logger.LogMethodEntered();
 
-            var overview = await _getProjectOverviewService.Execute(projectId);
+            var overview = await _getProjectOverviewService.Execute(rid);
 
-            _logger.LogInformation("Returning overview for project {projectId}", projectId);
+            _logger.LogInformation("Returning overview for rid {rid}", rid);
 
             var result = new ApiSingleResponseV2<ProjectOverviewResponse>(overview);
 

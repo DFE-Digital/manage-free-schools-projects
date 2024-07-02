@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 {
     public interface IGetProjectOverviewService
     {
-        public Task<ProjectOverviewResponse> Execute(string projectId);
+        public Task<ProjectOverviewResponse> Execute(string rid);
     }
 
     public class GetProjectOverviewService : IGetProjectOverviewService
@@ -30,13 +30,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             _getProjectSitesService = getProjectSitesService;
         }
 
-        public async Task<ProjectOverviewResponse> Execute(string projectId)
+        public async Task<ProjectOverviewResponse> Execute(string rid)
         {
-            var project = await _context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
+            var project = await _context.Kpi.FirstOrDefaultAsync(k => k.Rid == rid);
 
             if (project == null)
             {
-                throw new NotFoundException($"Project {projectId} not found");
+                throw new NotFoundException($"Rid {rid} not found");
             }
 
             var risk = await GetRisk(project.Rid);

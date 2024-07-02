@@ -4,6 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard
 {
     public class GetDashboardResponse
     {
+        public string Rid { get; set; }
         public string ProjectTitle { get; set; }
 
         public string ProjectId { get; set; }

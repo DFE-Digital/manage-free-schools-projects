@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
     public interface IGetProjectOverviewService
     {
-        public Task<ProjectOverviewResponse> Execute(string projectId);
+        public Task<ProjectOverviewResponse> Execute(string rid);
     }
 
     public class GetProjectOverviewService : IGetProjectOverviewService
@@ -18,9 +18,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
             _apiClient = apiClient;
         }
 
-        public async Task<ProjectOverviewResponse> Execute(string projectId)
+        public async Task<ProjectOverviewResponse> Execute(string rid)
         {
-            var endpoint = $"/api/v1/client/projects/{projectId}/overview";
+            var endpoint = $"/api/v1/client/projects/{rid}/overview";
 
             var result = await _apiClient.Get<ApiSingleResponseV2<ProjectOverviewResponse>>(endpoint);
 

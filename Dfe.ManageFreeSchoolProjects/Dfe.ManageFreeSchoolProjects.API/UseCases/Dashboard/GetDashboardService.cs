@@ -52,6 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             var result = projectRecords.Select(record => new GetDashboardResponse
             {
+                Rid = record.Rid,
                 ProjectId = record.ProjectStatusProjectId,
                 ProjectTitle = record.ProjectStatusCurrentFreeSchoolName,
                 TrustName = record.TrustName,
