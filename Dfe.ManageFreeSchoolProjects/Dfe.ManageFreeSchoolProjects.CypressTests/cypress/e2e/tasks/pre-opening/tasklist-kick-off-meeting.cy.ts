@@ -121,11 +121,11 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withRealisticYearOfOpeningStartDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("Start date should be in the format: 20XX")
+            .errorForRealisticStartDate("Start date must begin with 20")
             .withRealisticYearOfOpeningStartDate("2050")
             .withRealisticYearOfOpeningEndDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("End date should be in the format: 20XX")
+            .errorForRealisticStartDate("End date must begin with 20")
             .withRealisticYearOfOpeningStartDate("2049")
             .withRealisticYearOfOpeningEndDate("2050")
             .clickContinue()
