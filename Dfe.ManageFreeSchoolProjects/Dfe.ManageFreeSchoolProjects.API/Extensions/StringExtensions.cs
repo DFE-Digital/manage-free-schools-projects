@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.Extensions
+﻿using System.ComponentModel;
+
+namespace Dfe.ManageFreeSchoolProjects.API.Extensions
 {
     public static class StringExtensions
     {
@@ -14,6 +16,26 @@
             var succeeded = decimal.TryParse(value, out var result);
 
             return succeeded ? result : 0;
+        }
+
+        public static T ToEnumFromDescription<T>(this string description) where T : Enum
+        {
+            foreach (var field in typeof(T).GetFields())
+            {
+                if (Attribute.GetCustomAttribute(field,
+                typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
+                {
+                    if (attribute.Description == description)
+                        return (T)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == description)
+                        return (T)field.GetValue(null);
+                }
+            }
+
+            throw new ArgumentException("Unable to parse enum from description: ", nameof(description));
         }
     }
 }

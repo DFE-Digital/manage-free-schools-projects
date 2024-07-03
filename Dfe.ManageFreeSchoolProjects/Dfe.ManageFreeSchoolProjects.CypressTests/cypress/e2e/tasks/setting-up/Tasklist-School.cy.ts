@@ -88,7 +88,7 @@ describe("Testing project overview", () => {
             .titleIs("Edit School")
             .withSchoolName(updatedSchoolName)
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
@@ -105,7 +105,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Current free school name").HasValue(updatedSchoolName)
             .summaryShows("School type").HasValue("Mainstream")
-            .summaryShows("School phase").HasValue("Secondary")
+            .summaryShows("School phase").HasValue("All-through")
             .summaryShows("Age range").HasValue("11-16")
             .summaryShows("Forms of entry").HasValue("3")
             .summaryShows("Gender").HasValue("Mixed")
@@ -128,7 +128,7 @@ describe("Testing project overview", () => {
             .withNursery("No")
             .withSixthForm("Yes")
             .withFaithStatus("Ethos")
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .hasNoAlternativeProvision()
             .hasNoSpecialEducationNeeds()
             .clickContinue();
@@ -145,7 +145,7 @@ describe("Testing project overview", () => {
             .summaryShows("Nursery").HasValue("No")
             .summaryShows("Sixth form").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Ethos")
-            .summaryShows("Faith type").HasValue("Christian")
+            .summaryShows("Faith type").HasValue("Church of England")
             .summaryDoesNotShow("Alternative provision (specialist resource provision)")
             .summaryDoesNotShow("Special educational needs (specialist resource provision)")
             .clickChange();
@@ -182,13 +182,13 @@ describe("Testing project overview", () => {
         summaryPage.clickChange();
 
         schoolDetailsPage
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .faithTypeOtherDescriptionIsNotVisible()
             .clickContinue();
 
         summaryPage
             .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Christian");
+            .summaryShows("Faith type").HasValue("Church of England");
 
         summaryPage.clickChange();
 
@@ -221,7 +221,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
@@ -254,14 +254,14 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
             .withFaithStatus("Designation")
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .clickContinue();
 
         validationComponent
