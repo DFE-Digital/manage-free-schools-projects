@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
 {
@@ -14,9 +15,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
                 return;
             }
 
-            var faithStatus = task.FaithStatus == FaithStatus.NotSet ? string.Empty : task.FaithStatus.ToString();
-            var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToString();
-            var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToString();
+            var faithStatus = task.FaithStatus == FaithStatus.NotSet ? string.Empty : task.FaithStatus.ToDescription();
+            var faithType = task.FaithType == FaithType.NotSet ? string.Empty : task.FaithType.ToDescription();
+            var gender = task.Gender == Gender.NotSet ? string.Empty : task.Gender.ToDescription();
 
             if (dbKpi.ProjectStatusCurrentFreeSchoolName != task.CurrentFreeSchoolName)
             {
