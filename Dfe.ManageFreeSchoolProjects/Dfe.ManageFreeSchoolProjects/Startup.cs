@@ -116,6 +116,12 @@ public class Startup
         });
         services.AddHttpContextAccessor();
 
+        services.AddHsts(options => {
+            options.Preload = true;
+            options.IncludeSubDomains = true;
+            options.MaxAge = TimeSpan.FromDays(365);
+        });
+
         services.AddAuthorization(options => { options.DefaultPolicy = SetupAuthorizationPolicyBuilder().Build(); });
 
         services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
