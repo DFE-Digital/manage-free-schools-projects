@@ -7,6 +7,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public string SchoolName { get; set; }
         public TaskSummaryResponse School { get; set; }
 
+        public TaskSummaryResponse ReferenceNumbers { get; set; }
+
         public TaskSummaryResponse Dates { get; set; }
 
         public TaskSummaryResponse Trust { get; set; }

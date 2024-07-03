@@ -31,6 +31,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -64,6 +65,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             {
                 case TaskName.School:
                     result = await new GetSchoolTaskService().Get(parameters);
+                    break;
+                case TaskName.ReferenceNumbers:
+                    result = await new GetReferenceNumbersTaskService().Get(parameters);
                     break;
                 case TaskName.Dates:
                     result = await new GetDatesTaskService().Get(parameters);

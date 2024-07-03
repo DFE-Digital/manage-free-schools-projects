@@ -16,6 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.ProjectReferenceData, TaskName = "Reference data", Section = "About the project" },
                     new ProjectTaskInformation { Task = project.TaskInformation.Dates, TaskName = "Dates", Section = "Setting-up" },
                     new ProjectTaskInformation { Task = project.TaskInformation.School, TaskName = "School", Section = "Setting-up" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.ReferenceNumbers, TaskName = "Reference numbers", Section = "Setting-up" },
                     new ProjectTaskInformation { Task = project.TaskInformation.Trust, TaskName = "Trust", Section = "Setting-up" },
                     new ProjectTaskInformation { Task = project.TaskInformation.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Setting-up" },
                     new ProjectTaskInformation { Task = project.TaskInformation.Constituency, TaskName = "Constituency", Section = "Setting-up" },

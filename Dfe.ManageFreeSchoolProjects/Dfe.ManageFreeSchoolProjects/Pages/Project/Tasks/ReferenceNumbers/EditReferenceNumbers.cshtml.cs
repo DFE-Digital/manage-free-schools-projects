@@ -1,4 +1,3 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -11,14 +10,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
 {
-    public class EditReferenceNumbersModel : PageModel
+    public class EditReferenceNumbersTaskModel : PageModel
     {
 
-        private readonly IGetProjectReferenceNumbersService _getProjectReferenceNumbersService;
-        private readonly IUpdateProjectReferenceNumbersService _updateProjectReferenceNumbersService;
-        private readonly ILogger<EditReferenceNumbersModel> _logger;
+        private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+        private readonly ILogger<EditReferenceNumbersTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectID")]
@@ -33,16 +32,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
 
         public string SchoolName { get; set; }
 
-        public GetProjectReferenceNumbersResponse ReferenceNumbers { get; set; }
-
-        public EditReferenceNumbersModel(
-            IGetProjectReferenceNumbersService getProjectReferenceNumbersService,
-            IUpdateProjectReferenceNumbersService updateProjectReferenceNumbersService,
-            ILogger<EditReferenceNumbersModel> logger,
+        public EditReferenceNumbersTaskModel(
+            IGetProjectByTaskService getProjectService,
+            IUpdateProjectByTaskService updateProjectTaskService,
+            ILogger<EditReferenceNumbersTaskModel> logger,
             ErrorService errorService)
         {
-            _getProjectReferenceNumbersService = getProjectReferenceNumbersService;
-            _updateProjectReferenceNumbersService = updateProjectReferenceNumbersService;
+            _getProjectService = getProjectService;
+            _updateProjectTaskService = updateProjectTaskService;
             _logger = logger;
             _errorService = errorService;
         }
@@ -53,11 +50,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
             try
             {
 
-                var referenceNumbers = await _getProjectReferenceNumbersService.Execute(ProjectIdToUpdate);
+                var project = await _getProjectService.Execute(ProjectIdToUpdate, TaskName.ReferenceNumbers);
 
-                ProjectId = referenceNumbers.ProjectId;
-                Urn = referenceNumbers.Urn;
-                SchoolName = referenceNumbers.SchoolName;
+                ProjectId = project.ReferenceNumbers.ProjectId;
+                Urn = project.ReferenceNumbers.Urn;
+                SchoolName = project.SchoolName;
             }
             catch (Exception ex)
             {
@@ -69,27 +66,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
 
         public async Task<ActionResult> OnPost()
         {
-            var referenceNumbers = await _getProjectReferenceNumbersService.Execute(ProjectIdToUpdate);
-
-            _errorService.AddErrors(ModelState.Keys, ModelState);
-
-            SchoolName = referenceNumbers.SchoolName;
 
             if (!ModelState.IsValid)
             {
-
+                _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
             try
             {
-                var request = new UpdateProjectReferenceNumbersRequest()
+                var request = new UpdateProjectByTaskRequest()
                 {
-                    ProjectId = ProjectId,
-                    Urn = Urn
+                    ReferenceNumbers = CreateUpdatedReferenceNumbersTask()
                 };
 
-                await _updateProjectReferenceNumbersService.Execute(ProjectIdToUpdate, request);
+                await _updateProjectTaskService.Execute(ProjectIdToUpdate, request);
 
                 return Redirect(string.Format(RouteConstants.ViewReferenceNumbers, ProjectId));
             }
@@ -98,6 +89,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ReferenceNumbers
                 _logger.LogErrorMsg(ex);
                 throw;
             }
+        }
+        private ReferenceNumbersTask CreateUpdatedReferenceNumbersTask()
+        {
+            return new ReferenceNumbersTask
+            {
+                ProjectId = ProjectId,
+                Urn = Urn,
+
+            };
         }
     }
 }

@@ -53,6 +53,7 @@ public class GetAllTasksStatusService : IGetTasksService
         {
             SchoolName = dbKpi.ProjectStatusCurrentFreeSchoolName,
             School = SafeRetrieveTaskSummary(projectTasks, "School"),
+            ReferenceNumbers = SafeRetrieveTaskSummary(projectTasks, "ReferenceNumbers"),
             Dates = SafeRetrieveTaskSummary(projectTasks, "Dates"),
             Trust = SafeRetrieveTaskSummary(projectTasks, "Trust"),
             RegionAndLocalAuthority = SafeRetrieveTaskSummary(projectTasks, "RegionAndLocalAuthority"),

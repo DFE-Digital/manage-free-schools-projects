@@ -11,7 +11,6 @@
     var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
     var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
-    var referenceNumbersLink = string.Format(RouteConstants.ViewReferenceNumbers, Model.ProjectId);
 
     var temporarySite = Model.Project.SiteInformation.TemporarySite;
     var permanentSite = Model.Project.SiteInformation.PermanentSite;
@@ -259,10 +258,7 @@
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
         <div cslass="govuk-grid-column-full">
-            <h3 class="govuk-heading-m govuk-!-font-size-27 govuk-!-display-inline" id="reference-numbers">Reference numbers</h3>
-            <a class="govuk-!-display-inline govuk-summary-list__actions govuk-!-width-one-third govuk-!-text-align-right" href=@referenceNumbersLink Id="reference-numbers-changeLink">
-                Change reference numbers<span class="govuk-visually-hidden">Change reference numbers</span>
-            </a>
+            <h3 class="govuk-heading-m govuk-!-font-size-27" id="reference-numbers">Reference numbers</h3>
         </div>
         <dl class="govuk-summary-list govuk-summary-list--no-border">
             <div class="govuk-summary-list__row">

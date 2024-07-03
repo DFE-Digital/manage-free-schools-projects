@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 			taskHeaders.Should().Contain("Reference data");
 			taskHeaders.Should().Contain("Dates");
             taskHeaders.Should().Contain("School");
+            taskHeaders.Should().Contain("Reference numbers");
             taskHeaders.Should().Contain("Trust");
             taskHeaders.Should().Contain("Region and local authority");
             taskHeaders.Should().Contain("Constituency");
@@ -61,6 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(DatesTask.ProvisionalOpeningDateAgreedWithTrust), "EMPTY", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.Gender), "Boys only", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.FaithType), "EMPTY", project, columnHeaders);
+            AssertEntry(nameof(ReferenceNumbersTask.ProjectId), "lkjhgfdsa", project, columnHeaders);
             AssertEntry(nameof(TrustTask.TrustName), "Test school", project, columnHeaders);
             AssertEntry(nameof(RegionAndLocalAuthorityTask.LocalAuthorityCode), "123", project, columnHeaders);
             AssertEntry(nameof(ConstituencyTask.Name), "Sheffield", project, columnHeaders);
@@ -107,6 +109,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             Gender = Gender.BoysOnly,
                             FaithType = FaithType.NotSet
+                        },
+                        ReferenceNumbers = new ReferenceNumbersTask()
+                        {
+                            ProjectId = "lkjhgfdsa"
                         },
                         Trust = new TrustTask()
                         {
