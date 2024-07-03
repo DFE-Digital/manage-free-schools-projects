@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 
         [BindProperty(Name = "entry-into-pre-opening", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Entry into pre-opening")]
-        [DateValidation(DateRangeValidationService.DateRange.Future)]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? EntryIntoPreOpening { get; set; }
 
         [BindProperty(Name = "provisional-opening-date-agreed-with-trust", BinderType = typeof(DateInputModelBinder))]
