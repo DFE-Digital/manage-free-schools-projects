@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             var updateTaskResponse = await client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            if (request.ReferenceNumbers.ProjectId is not null)
-            {
-                projectId = request.ReferenceNumbers.ProjectId;
+            if (taskName == TaskName.ReferenceNumbers.ToString()) {
+                projectId = request.ReferenceNumbers.ProjectId ?? projectId;
             }
 
             var getProjectByTaskResponse = await client.GetAsync($"/api/v1/client/projects/{projectId}/tasks/{taskName}");
