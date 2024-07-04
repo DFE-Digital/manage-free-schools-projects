@@ -20,6 +20,12 @@ namespace Dfe.ManageFreeSchoolProjects.API
             services.AddApplicationInsightsTelemetry();
 
             services.AddMfspApiProject(Configuration);
+
+            services.AddHsts(options => {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
@@ -29,6 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            } else {
+                app.UseHsts();
             }
 
             app.UseMiddleware<ExceptionHandlerMiddleware>();
