@@ -62,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(DatesTask.ProvisionalOpeningDateAgreedWithTrust), "EMPTY", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.Gender), "Boys only", project, columnHeaders);
             AssertEntry(nameof(SchoolTask.FaithType), "EMPTY", project, columnHeaders);
-            AssertEntry(nameof(ReferenceNumbersTask.ProjectId), "lkjhgfdsa", project, columnHeaders);
+            AssertEntry(nameof(ReferenceNumbersTask.ProjectId), "123", project, columnHeaders);
             AssertEntry(nameof(TrustTask.TrustName), "Test school", project, columnHeaders);
             AssertEntry(nameof(RegionAndLocalAuthorityTask.LocalAuthorityCode), "123", project, columnHeaders);
             AssertEntry(nameof(ConstituencyTask.Name), "Sheffield", project, columnHeaders);

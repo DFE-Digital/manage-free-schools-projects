@@ -20,6 +20,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             var updateTaskResponse = await client.PatchAsync($"/api/v1/client/projects/{projectId}/tasks", request.ConvertToJson());
             updateTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
+            if (request.ReferenceNumbers.ProjectId is not null)
+            {
+                projectId = request.ReferenceNumbers.ProjectId;
+            }
+
             var getProjectByTaskResponse = await client.GetAsync($"/api/v1/client/projects/{projectId}/tasks/{taskName}");
             getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
