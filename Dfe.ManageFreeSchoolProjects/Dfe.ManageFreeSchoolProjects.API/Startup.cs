@@ -26,6 +26,35 @@ namespace Dfe.ManageFreeSchoolProjects.API
         {
 	        app.UseManageFreeSchoolProjectsSwagger(provider);
 
+            app.UseSecurityHeaders(options =>
+            {
+                options.AddFrameOptionsDeny()
+                    .AddXssProtectionDisabled()
+                    .AddContentTypeOptionsNoSniff()
+                    .RemoveServerHeader()
+                    .AddContentSecurityPolicy(builder =>
+                    {
+                        builder.AddDefaultSrc().None();
+                    })
+                    .AddPermissionsPolicy(builder =>
+                    {
+                        builder.AddAccelerometer().None();
+                        builder.AddAutoplay().None();
+                        builder.AddCamera().None();
+                        builder.AddEncryptedMedia().None();
+                        builder.AddFullscreen().None();
+                        builder.AddGeolocation().None();
+                        builder.AddGyroscope().None();
+                        builder.AddMagnetometer().None();
+                        builder.AddMicrophone().None();
+                        builder.AddMidi().None();
+                        builder.AddPayment().None();
+                        builder.AddPictureInPicture().None();
+                        builder.AddSyncXHR().None();
+                        builder.AddUsb().None();
+                    });
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
