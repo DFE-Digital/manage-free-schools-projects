@@ -24,19 +24,10 @@
             Constituency
         </h1>
         
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">Warning</span>
-            Unable to update constituency information until after the 2024 general election.
-          </strong>
-        </div>
-
         <govuk-summary-list>
-            <!--href="@searchLink" />-->
-            <govuk-summary-item label="Name" asp-for="@constituencyTask.Name" render-link="false" /> <!-- swap render link to href="@searchLink" />-->
-            <govuk-summary-item label="MP" asp-for="@constituencyTask.MPName" render-link="false" />
-            <govuk-summary-item label="Political party" asp-for="@constituencyTask.Party" render-link="false" />
+            <govuk-summary-item label="Name" asp-for="@constituencyTask.Name" href="@searchLink"  /> 
+            <govuk-summary-item label="MP" asp-for="@constituencyTask.MPName" href="@searchLink"  />
+            <govuk-summary-item label="Political party" asp-for="@constituencyTask.Party" href="@searchLink"  />
         </govuk-summary-list>
 
         <form method="post">
