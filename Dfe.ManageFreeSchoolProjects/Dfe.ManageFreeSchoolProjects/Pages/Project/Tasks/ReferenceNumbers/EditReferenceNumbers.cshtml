@@ -6,7 +6,7 @@
     var backLink = string.Format(RouteConstants.ViewReferenceNumbers, Model.ProjectId);
 
 }
-@section BeforeMain {ss
+@section BeforeMain {
     <div class="govuk-width-container">
         <a href="@backLink" class="govuk-back-link">Back to about the project</a>
     </div>
@@ -16,7 +16,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Reference numbers
+    Edit Reference numbers
 </h1>
 
 <div class="govuk-grid-row">

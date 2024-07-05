@@ -34,6 +34,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectReferenceNumbersFromTaskList(): this {
+        cy.getByTestId("reference-numbers-task").click()
+        return this;
+    }
+
     public selectRegionAndLAFromTaskList(): this {
         cy.getByTestId("region-la-task").click()
         return this;

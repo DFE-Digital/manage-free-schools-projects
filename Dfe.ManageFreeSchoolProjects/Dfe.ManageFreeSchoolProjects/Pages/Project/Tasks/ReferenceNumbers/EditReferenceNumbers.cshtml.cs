@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
@@ -16,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
     {
 
         private readonly IGetProjectByTaskService _getProjectService;
+        private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly ILogger<EditReferenceNumbersTaskModel> _logger;
         private readonly ErrorService _errorService;
@@ -24,7 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
         public string ProjectIdToUpdate { get; set; }
 
         [BindProperty(Name = "project-id")]
+        [Display(Name = "project ID")]
         [Required(ErrorMessage = "Enter the project ID")]
+        [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "urn")]
@@ -34,11 +39,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
 
         public EditReferenceNumbersTaskModel(
             IGetProjectByTaskService getProjectService,
+            IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditReferenceNumbersTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
+            _getProjectOverviewService = getProjectOverviewService;
             _updateProjectTaskService = updateProjectTaskService;
             _logger = logger;
             _errorService = errorService;
@@ -66,11 +73,47 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
 
         public async Task<ActionResult> OnPost()
         {
+            var project = await _getProjectService.Execute(ProjectIdToUpdate, TaskName.ReferenceNumbers);
+            SchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
+            }
+
+            if (ProjectId != ProjectIdToUpdate)
+            {
+
+                if (ProjectId.Contains(' '))
+                {
+                    ModelState.AddModelError("projectid", "Project ID must not include spaces");
+                    _errorService.AddErrors(ModelState.Keys, ModelState);
+                    return Page();
+                }
+
+                if (Regex.Match(ProjectId, "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+                {
+                    ModelState.AddModelError("projectid", "Project ID must only include numbers and letters");
+                    _errorService.AddErrors(ModelState.Keys, ModelState);
+                    return Page();
+                }
+
+                try
+                {
+                    //Attempt to get project, will throw an exception when 404 is returned
+                    await _getProjectOverviewService.Execute(ProjectId);
+                    ModelState.AddModelError("projectid", "Project ID already exists");
+                    _errorService.AddErrors(ModelState.Keys, ModelState);
+                    return Page();
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (ex.StatusCode != System.Net.HttpStatusCode.NotFound)
+                    {
+                        throw;
+                    }
+                }
             }
 
             try
