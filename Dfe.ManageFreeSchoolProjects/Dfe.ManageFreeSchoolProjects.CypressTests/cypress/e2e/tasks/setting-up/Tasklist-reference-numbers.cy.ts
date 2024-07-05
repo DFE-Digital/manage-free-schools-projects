@@ -11,7 +11,7 @@ describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
     let existingProject: ProjectDetailsRequest;
 
-    let newProjectId: string = dataGenerator.generateTemporaryId()
+    let newProjectId: string = dataGenerator.generateAlphaNumeric(20)
 
     beforeEach(() => {
         cy.login();

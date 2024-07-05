@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
         public string ProjectIdToUpdate { get; set; }
 
         [BindProperty(Name = "project-id")]
-        [Display(Name = "project ID")]
+        [Display(Name = "Project ID")]
         [Required(ErrorMessage = "Enter the project ID")]
         [StringLength(25, ErrorMessage = ValidationConstants.TextValidationMessage)]
         public string ProjectId { get; set; }
@@ -87,14 +87,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
 
                 if (ProjectId.Contains(' '))
                 {
-                    ModelState.AddModelError("projectid", "Project ID must not include spaces");
+                    ModelState.AddModelError("project-id", "Project ID must not include spaces");
                     _errorService.AddErrors(ModelState.Keys, ModelState);
                     return Page();
                 }
 
                 if (Regex.Match(ProjectId, "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
                 {
-                    ModelState.AddModelError("projectid", "Project ID must only include numbers and letters");
+                    ModelState.AddModelError("project-id", "Project ID must only include numbers and letters");
                     _errorService.AddErrors(ModelState.Keys, ModelState);
                     return Page();
                 }
@@ -103,7 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
                 {
                     //Attempt to get project, will throw an exception when 404 is returned
                     await _getProjectOverviewService.Execute(ProjectId);
-                    ModelState.AddModelError("projectid", "Project ID already exists");
+                    ModelState.AddModelError("project-id", "Project ID already exists");
                     _errorService.AddErrors(ModelState.Keys, ModelState);
                     return Page();
                 }
