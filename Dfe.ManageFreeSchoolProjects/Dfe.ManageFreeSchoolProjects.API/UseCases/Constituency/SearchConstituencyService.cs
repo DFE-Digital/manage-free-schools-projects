@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency
                  { 
                      Name = x.value.name, 
                      Id = x.value.id.ToString(), 
-                     MPName = x.value.currentRepresentation.member.value.nameDisplayAs,
+                     MPName = x.value.currentRepresentation.member.value.nameFullTitle,
                      Party = x.value.currentRepresentation.member.value.latestParty.name
                  }).ToList()
             };
