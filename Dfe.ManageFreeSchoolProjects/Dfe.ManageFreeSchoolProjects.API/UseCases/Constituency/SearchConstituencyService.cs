@@ -29,14 +29,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency
 
             return new GetSearchConstituencyResponse
             {
-                Constituencies =
-                result.items.Select(x => new SearchConstituencyResponse() 
-                { 
-                    Name = x.value.name, 
-                    Id = x.value.id.ToString(), 
-                    MPName = x.value.currentRepresentation.member.value.nameFullTitle,
-                    Party = x.value.currentRepresentation.member.value.latestParty.name
-                }).ToList()
+                 Constituencies =
+                 result.items.Select(x => new SearchConstituencyResponse() 
+                 { 
+                     Name = x.value.name, 
+                     Id = x.value.id.ToString(), 
+                     MPName = x.value.currentRepresentation.member.value.nameDisplayAs,
+                     Party = x.value.currentRepresentation.member.value.latestParty.name
+                 }).ToList()
             };
         }
     }
@@ -138,7 +138,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency
         public string nameAddressAs { get; set; }
         public LatestParty latestParty { get; set; }
         public string gender { get; set; }
-        public LatestHouseMembership latestHouseMembership { get; set; }
+        public LatestHouseMembership latestHouseMembership { get; set; } 
         public string thumbnailUrl { get; set; }
     }
 
