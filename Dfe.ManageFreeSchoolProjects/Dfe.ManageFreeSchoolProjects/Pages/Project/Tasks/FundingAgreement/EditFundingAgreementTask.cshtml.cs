@@ -95,6 +95,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement
                 return Page();
             }
 
+            if (FundingAgreementSigned == true && DateFAWasSigned.HasValue == false)
+            {
+                ModelState.AddModelError("date-fa-was-signed", "Enter the actual date FA was signed");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
             try
             {
                 var request = new UpdateProjectByTaskRequest()

@@ -1,3 +1,24 @@
+## 0.7.1
+
+* 168435 - Updated access denied page to use support email
+
+## 0.7.0
+
+* 168805 - Build: hide the 'Your projects' tab
+* 168804 - Build: hide the 'Project notes' tab
+* 167574 - Build: change 'Give feedback' link in phase banner
+* 167876 - Build: project managed by in project filters
+* 168809 - LIVE/Test/Dev: Members of Parliament API Endpoint Failing To Integrate (Workaround achieved)
+* 167469 - Build: specialist resource provision
+* 167797 - History Migration Data Issues
+* 147101 - Build: first iteration model funding agreement page
+* 166649 - Build: iterate the Contacts section
+* 168985 - Build: update the footer
+* 170190 - Build: update 'Give feedback' link in phase banner (duplicate of 168985)
+* 157317 - Build: Project statuses
+* 168893 - Build: iterate the Pupil numbers page
+
+
 ## 0.6.0
 
 * 166279 - Build: iterate SFA endpoint

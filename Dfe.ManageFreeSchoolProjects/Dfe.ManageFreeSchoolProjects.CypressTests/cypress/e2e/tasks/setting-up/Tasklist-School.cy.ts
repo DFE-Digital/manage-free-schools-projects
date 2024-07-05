@@ -62,13 +62,13 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("The Gender field is required")
-            .hasValidationError("The Nursery field is required")
-            .hasValidationError("Enter a 'from' and 'to' age range")
-            .hasValidationError("The Sixth form field is required")
-            .hasValidationError("The School type field is required")
-            .hasValidationError("The Faith status field is required")
-            .hasValidationError("The School phase field is required");
+            .hasValidationError("Select the gender")
+            .hasValidationError("Enter the nursery")
+            .hasValidationError("Enter the age range")
+            .hasValidationError("Enter the sixth form")
+            .hasValidationError("Enter the school type")
+            .hasValidationError("Enter the faith status")
+            .hasValidationError("Enter the school phase");
 
         cy.executeAccessibilityTests();
 
@@ -78,8 +78,8 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("The current free school name must be 100 characters or less")
-            .hasValidationError("The forms of entry must be 100 characters or less")
+            .hasValidationError("Current free school name must be 100 characters or less")
+            .hasValidationError("Forms of entry must be 100 characters or less")
 
         const updatedSchoolName = dataGenerator.generateSchoolName();
 
@@ -88,7 +88,7 @@ describe("Testing project overview", () => {
             .titleIs("Edit School")
             .withSchoolName(updatedSchoolName)
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
@@ -105,7 +105,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Current free school name").HasValue(updatedSchoolName)
             .summaryShows("School type").HasValue("Mainstream")
-            .summaryShows("School phase").HasValue("Secondary")
+            .summaryShows("School phase").HasValue("All-through")
             .summaryShows("Age range").HasValue("11-16")
             .summaryShows("Forms of entry").HasValue("3")
             .summaryShows("Gender").HasValue("Mixed")
@@ -128,7 +128,7 @@ describe("Testing project overview", () => {
             .withNursery("No")
             .withSixthForm("Yes")
             .withFaithStatus("Ethos")
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .hasNoAlternativeProvision()
             .hasNoSpecialEducationNeeds()
             .clickContinue();
@@ -145,7 +145,7 @@ describe("Testing project overview", () => {
             .summaryShows("Nursery").HasValue("No")
             .summaryShows("Sixth form").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Ethos")
-            .summaryShows("Faith type").HasValue("Christian")
+            .summaryShows("Faith type").HasValue("Church of England")
             .summaryDoesNotShow("Alternative provision (specialist resource provision)")
             .summaryDoesNotShow("Special educational needs (specialist resource provision)")
             .clickChange();
@@ -155,7 +155,7 @@ describe("Testing project overview", () => {
             .withFaithType("faith-type-Other")
             .clickContinue();
 
-        validationComponent.hasValidationError("Other faith type is required");
+        validationComponent.hasValidationError("Enter the other faith type");
 
         schoolDetailsPage
             .withFaithTypeOtherDescriptionExceedingMaxLength()
@@ -182,13 +182,13 @@ describe("Testing project overview", () => {
         summaryPage.clickChange();
 
         schoolDetailsPage
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .faithTypeOtherDescriptionIsNotVisible()
             .clickContinue();
 
         summaryPage
             .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Christian");
+            .summaryShows("Faith type").HasValue("Church of England");
 
         summaryPage.clickChange();
 
@@ -221,7 +221,7 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
@@ -233,7 +233,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Faith type is required");
+            .hasValidationError("Enter the faith type");
 
         Logger.log("Change faith status to none and back to designation to check validation against faith type none");
 
@@ -254,18 +254,19 @@ describe("Testing project overview", () => {
 
         schoolDetailsPage
             .withSchoolType("Mainstream")
-            .withSchoolPhase("Secondary")
+            .withSchoolPhase("AllThrough")
             .withAgeRange("11", "16")
             .withFormsOfEntry("3")
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
             .withFaithStatus("Designation")
-            .withFaithType("faith-type-Christian")
+            .withFaithType("faith-type-ChurchOfEngland")
             .clickContinue();
 
         validationComponent
             .hasValidationError("Select yes if it will have alternative provision")
             .hasValidationError("Select yes if it will have special educational needs provision");
     });
+    
 });

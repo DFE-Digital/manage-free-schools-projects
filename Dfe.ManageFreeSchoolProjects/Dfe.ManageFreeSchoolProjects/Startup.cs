@@ -116,6 +116,12 @@ public class Startup
         });
         services.AddHttpContextAccessor();
 
+        services.AddHsts(options => {
+            options.Preload = true;
+            options.IncludeSubDomains = true;
+            options.MaxAge = TimeSpan.FromDays(365);
+        });
+
         services.AddAuthorization(options => { options.DefaultPolicy = SetupAuthorizationPolicyBuilder().Build(); });
 
         services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
@@ -181,7 +187,6 @@ public class Startup
         else
         {
             app.UseExceptionHandler("/Errors");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
 

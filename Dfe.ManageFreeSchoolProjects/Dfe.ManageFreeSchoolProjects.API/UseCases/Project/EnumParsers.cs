@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
@@ -18,7 +19,14 @@ public static class EnumParsers
 
     public static Gender ParseGender(string input)
     {
-        return Enum.TryParse<Gender>(input, out var gender) ? gender : Gender.NotSet;
+        try
+        {
+            return input.ToEnumFromDescription<Gender>();
+        }
+        catch
+        {
+            return Gender.NotSet;
+        }
     }
 
     public static ClassType.SixthForm ParseSixthForm(string input)

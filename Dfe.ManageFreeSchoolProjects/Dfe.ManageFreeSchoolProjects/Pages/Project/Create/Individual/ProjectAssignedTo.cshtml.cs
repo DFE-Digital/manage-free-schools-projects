@@ -11,11 +11,11 @@ public class ProjectAssignedTo : CreateProjectBaseModel
 {
     private readonly ErrorService _errorService;
 
-    [Required(ErrorMessage = "Please enter the name")]
+    [Required(ErrorMessage = "Enter the name")]
     [BindProperty(Name = "name")]
     public string Name { get; set; }
 
-    [Required(ErrorMessage = "Please enter an email")]
+    [Required(ErrorMessage = "Enter the email address")]
     [BindProperty(Name = "email")]
     public string Email { get; set; }
     
@@ -64,19 +64,19 @@ public class ProjectAssignedTo : CreateProjectBaseModel
 
         if (Name.Any(char.IsDigit))
         {
-            ModelState.AddModelError("name", "The name cannot contain numbers");
+            ModelState.AddModelError("name", "Name must not include numbers");
         }
 
         if (!IsEducationEmailValid(Email))
         {
-            ModelState.AddModelError("email", "Enter an email address in the correct format. For example, firstname.surname@education.gov.uk");
+            ModelState.AddModelError("email", "Email address must be in the format firstname.surname@education.gov.uk");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
         if (Email?.Length > 100)
         {
-            ModelState.AddModelError("email", "The email must be 100 characters or less");
+            ModelState.AddModelError("email", "Email address must be 100 characters or less");
         }
 
         if (!ModelState.IsValid)

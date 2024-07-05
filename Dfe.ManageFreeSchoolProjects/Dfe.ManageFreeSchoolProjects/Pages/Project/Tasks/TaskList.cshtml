@@ -98,7 +98,7 @@
 
         <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Project progress</h2>
 
-        <p class="govuk-body govuk-!-margin-bottom-7">You have completed 0 of 22 sections.</p>
+        <p class="govuk-body govuk-!-margin-bottom-7" id="completed-count">You have completed @Model.ProjectTaskListSummary.CompletedTasks of @Model.ProjectTaskListSummary.TaskCount sections.</p>
         <ol class="app-task-list">
             <li>
                 <h2 class="app-task-list__section">
@@ -413,11 +413,11 @@
 
         if (task.Status == ProjectTaskStatus.Completed)
         {
-            <strong class="govuk-tag app-task-list__tag" data-testid="@testId">Completed</strong>
+            <strong class="govuk-tag govuk-tag--blue app-task-list__tag" data-testid="@testId">Completed</strong>
         }
         else if (task.Status == ProjectTaskStatus.InProgress)
         {
-            <strong class="govuk-tag govuk-tag--blue app-task-list__tag" data-testid="@testId">In progress</strong>
+            <strong class="govuk-tag govuk-tag--light-blue app-task-list__tag" data-testid="@testId">In progress</strong>
         }
         else
         {

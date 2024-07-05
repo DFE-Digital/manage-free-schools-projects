@@ -37,17 +37,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "school-type")]
         [Display(Name = "School type")]
-        [Required]
+        [Required (ErrorMessage = "Enter the school type")]
         public SchoolType SchoolType { get; set; }
 
         [BindProperty(Name = "school-phase")]
         [Display(Name = "School phase")]
-        [Required]
+        [Required (ErrorMessage = "Enter the school phase")]
         public SchoolPhase SchoolPhase { get; set; }
 
         [BindProperty(Name = "age-range", BinderType = typeof(NumberRangeModelBinder))]
         [Display(Name = "Age range")]
-		[Required(ErrorMessage = "Enter a 'from' and 'to' age range")]
+		[Required(ErrorMessage = "Enter the age range")]
 		public string AgeRange { get; set; }
 
         [BindProperty(Name = "forms-of-entry")]
@@ -57,17 +57,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "gender")]
         [Display(Name = "Gender")]
-        [Required]
+        [Required(ErrorMessage = "Select the gender")]
         public Gender Gender { get; set; }
 
         [BindProperty(Name = "nursery")]
         [Display(Name = "Nursery")]
-        [Required]
+        [Required (ErrorMessage = "Enter the nursery")]
         public ClassType.Nursery Nursery { get; set; }
 
         [BindProperty(Name = "sixth-form")]
         [Display(Name = "Sixth form")]
-        [Required]
+        [Required (ErrorMessage = "Enter the sixth form")]
         public ClassType.SixthForm SixthForm { get; set; }
 
         [BindProperty(Name = "alternative-provision")]
@@ -80,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
 
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
-        [Required]
+        [Required (ErrorMessage = "Enter the faith status")]
         public FaithStatus FaithStatus { get; set; }
 
         [BindProperty(Name = "faith-type")]
@@ -213,7 +213,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (FaithType == FaithType.NotSet)
                 {
-                    ModelState.AddModelError("faith-type", "Faith type is required.");
+                    ModelState.AddModelError("faith-type", "Enter the faith type");
                 }
                 if (FaithType == FaithType.None)
                 {
@@ -226,7 +226,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (FaithType != FaithType.None && FaithType != FaithType.NotSet)
                 {
-                    ModelState.AddModelError("faith-type", "Select none if faith status is none.");
+                    ModelState.AddModelError("faith-type", "Select none if faith status is none");
                 }
 
             }
@@ -235,7 +235,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             {
                 if (string.IsNullOrEmpty(OtherFaithType))
                 {
-                    ModelState.AddModelError("other-faith-type", "Other faith type is required.");
+                    ModelState.AddModelError("other-faith-type", "Enter the other faith type");
                 }
                 else if (OtherFaithType.Length > 100)
                 {

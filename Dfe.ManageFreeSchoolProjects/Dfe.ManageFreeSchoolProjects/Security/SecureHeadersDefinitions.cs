@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 
 namespace Dfe.ManageFreeSchoolProjects.Security
-{	
+{
 	public static class SecurityHeadersDefinitions
 	{
 		static string GoogleTagManagerUri => "https://www.googletagmanager.com";
 		static string GoogleAnalyticsUri => "https://www.google-analytics.com/";
 
 		public static HeaderPolicyCollection GetHeaderPolicyCollection(bool isDev)
-		{			
+		{
 
 			var policy = new HeaderPolicyCollection()
 				.AddFrameOptionsDeny()
@@ -61,14 +61,7 @@ namespace Dfe.ManageFreeSchoolProjects.Security
 					builder.AddUsb().None();
 				});
 
-			if (!isDev)
-			{
-				// max age = one year in seconds
-				policy.AddStrictTransportSecurityMaxAgeIncludeSubDomains(maxAgeInSeconds: 60 * 60 * 24 * 365);
-			}
-
 			return policy;
 		}
 	}
 }
-

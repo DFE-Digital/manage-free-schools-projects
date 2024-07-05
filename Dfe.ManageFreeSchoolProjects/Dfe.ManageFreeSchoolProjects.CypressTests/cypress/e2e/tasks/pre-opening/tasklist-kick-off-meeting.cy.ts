@@ -106,7 +106,7 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withComments(dataGenerator.generateAlphaNumeric(101))
             .clickContinue()
-            .errorForComments().showsError("comments must be 100 characters or less")
+            .errorForComments().showsError("Comments must be 100 characters or less")
 
         kickOffMeetingEditPage
             .withComments("#TaTers")
@@ -121,11 +121,11 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withRealisticYearOfOpeningStartDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("Start date should be in the format: 20XX")
+            .errorForRealisticStartDate("Start date must begin with 20")
             .withRealisticYearOfOpeningStartDate("2050")
             .withRealisticYearOfOpeningEndDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("End date should be in the format: 20XX")
+            .errorForRealisticStartDate("End date must begin with 20")
             .withRealisticYearOfOpeningStartDate("2049")
             .withRealisticYearOfOpeningEndDate("2050")
             .clickContinue()
@@ -138,7 +138,7 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withProvisionalOpeningDate("Z", "3", "2020")
             .clickContinue()
-            .errorForProvisionalOpeningDate().showsError("Enter a date in the correct format")
+            .errorForProvisionalOpeningDate().showsError("Day must be a number, like 12")
             .withProvisionalOpeningDate("1", "3", "2051")
             .clickContinue()
             .errorForProvisionalOpeningDate().showsError("Year must be between 2000 and 2050")

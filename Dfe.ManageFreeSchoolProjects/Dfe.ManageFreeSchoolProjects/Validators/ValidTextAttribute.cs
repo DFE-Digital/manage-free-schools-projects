@@ -24,7 +24,7 @@ public class ValidTextAttribute : ValidationAttribute
         var valueAsString = (string) value;
 
         if(valueAsString.Length > _maxLength)
-            return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, validationContext.DisplayName.ToLower(), _maxLength));
+            return new ValidationResult(string.Format(ValidationConstants.TextValidationMessage, validationContext.DisplayName, _maxLength));
 
         var specialCharactersRegex = new Regex(AllowSpecialCharactersPattern, RegexOptions.None, TimeSpan.FromSeconds(30));
         var match = specialCharactersRegex.Match(valueAsString);

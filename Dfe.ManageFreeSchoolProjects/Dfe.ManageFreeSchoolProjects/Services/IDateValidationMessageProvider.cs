@@ -7,8 +7,9 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 		public string DefaultMessage => "Enter a date in the correct format";
 		public string MonthOutOfRange => "Month must be between 1 and 12";
 		public string YearOutOfRange => "Year must be between 2000 and 2050";
+        public string DayNotNumeric => "Day must be a number, like 12";
 
-		public string AllMissing(string displayName);
+        public string AllMissing(string displayName);
 
 		public string SomeMissing(string displayName, IEnumerable<string> missingParts) =>
 			$"{displayName} must include a {string.Join(" and ", missingParts)}";

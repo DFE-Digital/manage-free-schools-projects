@@ -95,8 +95,8 @@ describe("Testing Constituency Task", () => {
         constituencySearchPage
             .enterSearch(dataGenerator.generateAlphaNumeric(51))
             .clickContinue()
-            .errorMessage("The name or postcode must be 50 characters or less")
-            .errorHint("The name or postcode must be 50 characters or less");
+            .errorMessage("Name or postcode must be 50 characters or less")
+            .errorHint("Name or postcode must be 50 characters or less");
 
         cy.executeAccessibilityTests();
         Logger.log("Perform valid search and use None option to navigate back to search");

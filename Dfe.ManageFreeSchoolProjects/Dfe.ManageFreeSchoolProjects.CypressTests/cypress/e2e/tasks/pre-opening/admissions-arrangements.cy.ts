@@ -82,7 +82,7 @@ describe("Testing the admissions arragements task", () => {
         admissionsArrangementsEditPage
             .withExpectedDate("zx","12","2010")
             .clickContinue()
-            .errorForExpectedDate().showsError("Enter a date in the correct format")
+            .errorForExpectedDate().showsError("Day must be a number, like 12")
             .withExpectedDate("15","12","1999")
             .clickContinue()
             .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
@@ -92,7 +92,7 @@ describe("Testing the admissions arragements task", () => {
             .withExpectedDate("15","4","2050")
             .withConfirmedDate("aq","12","2010")
             .clickContinue()
-            .errorForConfirmedDate().showsError("Enter a date in the correct format")
+            .errorForConfirmedDate().showsError("Day must be a number, like 12")
             .withConfirmedDate("21","12","1999")
             .clickContinue()
             .errorForConfirmedDate().showsError("Year must be between 2000 and 2050")

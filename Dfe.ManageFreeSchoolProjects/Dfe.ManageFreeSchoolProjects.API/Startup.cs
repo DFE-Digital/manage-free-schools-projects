@@ -20,15 +20,52 @@ namespace Dfe.ManageFreeSchoolProjects.API
             services.AddApplicationInsightsTelemetry();
 
             services.AddMfspApiProject(Configuration);
+
+            services.AddHsts(options => {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
 	        app.UseManageFreeSchoolProjectsSwagger(provider);
 
+            app.UseSecurityHeaders(options =>
+            {
+                options.AddFrameOptionsDeny()
+                    .AddXssProtectionDisabled()
+                    .AddContentTypeOptionsNoSniff()
+                    .RemoveServerHeader()
+                    .AddContentSecurityPolicy(builder =>
+                    {
+                        builder.AddDefaultSrc().None();
+                    })
+                    .AddPermissionsPolicy(builder =>
+                    {
+                        builder.AddAccelerometer().None();
+                        builder.AddAutoplay().None();
+                        builder.AddCamera().None();
+                        builder.AddEncryptedMedia().None();
+                        builder.AddFullscreen().None();
+                        builder.AddGeolocation().None();
+                        builder.AddGyroscope().None();
+                        builder.AddMagnetometer().None();
+                        builder.AddMicrophone().None();
+                        builder.AddMidi().None();
+                        builder.AddPayment().None();
+                        builder.AddPictureInPicture().None();
+                        builder.AddSyncXHR().None();
+                        builder.AddUsb().None();
+                    });
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            } else {
+                app.UseHsts();
             }
 
             app.UseMiddleware<ExceptionHandlerMiddleware>();

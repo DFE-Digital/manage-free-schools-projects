@@ -78,37 +78,41 @@ describe("Testing Funding agreement Task", () => {
             .withDateTrustSignedFA("2","2","1999")
             .clickContinue()
             .errorForTrustSignedFADate().showsError("Year must be between 2000 and 2050")
-
+            .withDateTrustSignedFA("","","")
+            
         cy.log("Trust signed FA date validation")
 
         cy.log("Expected date FA is signed on Secretary of State's behalf validation")
 
         fundingAgreementEditPage
-        .withExpectedDate("2","ds","2050")
-        .clickContinue()
-        .errorForExpectedDate().showsError("Enter a date in the correct format")
-        .withExpectedDate("2","2","2090")
-        .clickContinue()
-        .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
-        .withExpectedDate("2","2","1999")
-        .clickContinue()
-        .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
+            .withExpectedDate("2","ds","2050")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Enter a date in the correct format")
+            .withExpectedDate("2","2","2090")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
+            .withExpectedDate("2","2","1999")
+            .clickContinue()
+            .errorForExpectedDate().showsError("Year must be between 2000 and 2050")
+            .withExpectedDate("","","")
 
         cy.log("Expected date FA is signed on Secretary of State's behalf validation")
 
         cy.log("Actual date FA was signed validation")
 
         fundingAgreementEditPage
-        .uncheckFundingAgreementSigned()
-        .withDateFAWasSigned("2","ds","2050")
-        .clickContinue()
-        .errorForDateFAWasSigned().showsError("Enter a date in the correct format")
-        .withDateFAWasSigned("2","2","2090")
-        .clickContinue()
-        .errorForDateFAWasSigned().showsError("Year must be between 2000 and 2050")
-        .withDateFAWasSigned("2","2","1999")
-        .clickContinue()
-        .errorForDateFAWasSigned().showsError("Year must be between 2000 and 2050")
+            .checkFundingAgreementSigned()
+            .clickContinue()
+            .errorForDateFAWasSigned().showsError("Enter the actual date FA was signed")
+            .withDateFAWasSigned("2","ds","2050")
+            .clickContinue()
+            .errorForDateFAWasSigned().showsError("Enter a date in the correct format")
+            .withDateFAWasSigned("2","2","2090")
+            .clickContinue()
+            .errorForDateFAWasSigned().showsError("Year must be between 2000 and 2050")
+            .withDateFAWasSigned("2","2","1999")
+            .clickContinue()
+            .errorForDateFAWasSigned().showsError("Year must be between 2000 and 2050")
 
         cy.log("Actual date FA was signed validation")
 
