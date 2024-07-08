@@ -82,40 +82,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
                 return Page();
             }
 
-            if (ProjectId != ProjectIdToUpdate)
+            string errorMessage = ProjectIdValidator().Result.ToString();
+
+            if (errorMessage != "")
             {
-
-                if (ProjectId.Contains(' '))
-                {
-                    ModelState.AddModelError("project-id", "Project ID must not include spaces");
-                    _errorService.AddErrors(ModelState.Keys, ModelState);
-                    return Page();
-                }
-
-                if (Regex.Match(ProjectId, "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
-                {
-                    ModelState.AddModelError("project-id", "Project ID must only include numbers and letters");
-                    _errorService.AddErrors(ModelState.Keys, ModelState);
-                    return Page();
-                }
-
-                try
-                {
-                    //Attempt to get project, will throw an exception when 404 is returned
-                    await _getProjectOverviewService.Execute(ProjectId);
-                    ModelState.AddModelError("project-id", "Project ID already exists");
-                    _errorService.AddErrors(ModelState.Keys, ModelState);
-                    return Page();
-                }
-                catch (HttpRequestException ex)
-                {
-                    if (ex.StatusCode != System.Net.HttpStatusCode.NotFound)
-                    {
-                        throw;
-                    }
-                }
+                ModelState.AddModelError("project-id", errorMessage);
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
             }
-
+            
             try
             {
                 var request = new UpdateProjectByTaskRequest()
@@ -141,6 +116,41 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
                 Urn = Urn,
 
             };
+        }
+
+        private async Task<string> ProjectIdValidator()
+        {
+
+            if (ProjectId != ProjectIdToUpdate)
+            {
+
+                if (ProjectId.Contains(' '))
+                {
+                    return "Project ID must not include spaces";
+                }
+
+                if (Regex.Match(ProjectId, "[^a-zA-Z\\d\\s:]", RegexOptions.None, TimeSpan.FromSeconds(5)).Success)
+                {
+                    return "Project ID must only include numbers and letters";
+                }
+
+                try
+                {
+                    //Attempt to get project, will throw an exception when 404 is returned
+                    await _getProjectOverviewService.Execute(ProjectId);
+                    return "Project ID already exists";
+                }
+                catch (HttpRequestException ex)
+                {
+                    if (ex.StatusCode != System.Net.HttpStatusCode.NotFound)
+                    {
+                        throw;
+                    }
+                }
+
+            }
+
+            return "";
         }
     }
 }

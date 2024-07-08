@@ -11,7 +11,7 @@ describe("Testing project overview", () => {
     });
 
     it("Should create a project and display the project configuration in the overview", () => {
-        const temporaryProjectId = dataGenerator.generateTemporaryId();
+        const temporaryProjectId = dataGenerator.generateTemporaryId(25);
         const schoolName = dataGenerator.generateSchoolName();
 
         createProject(temporaryProjectId, schoolName);
