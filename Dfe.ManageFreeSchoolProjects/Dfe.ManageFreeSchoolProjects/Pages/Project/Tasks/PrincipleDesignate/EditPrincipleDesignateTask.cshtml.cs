@@ -86,7 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
             
             if (trustAppointedPrincipleDesignate == YesNo.Yes && !TrustAppointedPrincipleDesignateDate.HasValue)
             {
-                ModelState.AddModelError("trust-appointed-principle-designate-date", "Enter the actual date principle designate was appointed");
+                ModelState.AddModelError("trust-appointed-principle-designate-date", "Enter the actual date a principle designate was appointed");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
