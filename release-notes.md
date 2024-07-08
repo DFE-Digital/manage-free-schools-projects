@@ -1,3 +1,25 @@
+## 0.8.1
+
+* 171999 - Build: Restore constituencies page immediately after the election
+
+## 0.8.0
+
+* 170613 - Build: Add constituency id to database after saving constituency
+* 171694 - Edit school type error
+* 169600 - Add PDG data to export
+* 170381 - BUG: Data Migration issues
+* 152780 - upgrade to GOV.UK Frontend (V5 and V2)
+* 165106 - Build: accept full stops in pre-opening tasks
+* 165107 - Build: accept full stops in getting ready to open tasks
+* 165105 - Build: accept full stops in risk appraisal task
+* 151380 - Build: error message updates
+* 170388 - Build: Page not found
+* 168019 - BUG: 'You have completed 0 projects of 22' does not update
+* 172236 - Remove future validation from entry into pre-opening
+* 172204 - All-Through value does not match FSS in the database
+* 168435 - Build: user journey for users with no access
+
+
 ## 0.7.1
 
 * 168435 - Updated access denied page to use support email
