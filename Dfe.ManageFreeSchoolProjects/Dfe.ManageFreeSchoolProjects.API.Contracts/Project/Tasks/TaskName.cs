@@ -35,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         FinalFinancePlan,
         PupilNumbersChecks,
         CommissionedExternalExpert,
-        MovingToOpen
+        MovingToOpen,
+        PrincipleDesignate
     }
 }

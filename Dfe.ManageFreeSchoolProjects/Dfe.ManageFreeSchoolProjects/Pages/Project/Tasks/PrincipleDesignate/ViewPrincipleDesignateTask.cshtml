@@ -1,0 +1,48 @@
+﻿@page "/projects/{projectId}/tasks/principle-designate"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate.ViewPrincipleDesignateTaskModel
+@{
+    ViewData["Title"] = $"Principle designate - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditPrincipleDesignateTask, Model.ProjectId);
+    var principleDesignate = Model.Project.PrincipleDesignate;
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Principle designate
+        </h1>
+        <govuk-summary-list>
+           
+             <govuk-summary-item label="Trust has appointed a principle designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignate" href="@editlink" />
+            
+            @if (@principleDesignate.TrustAppointedPrincipleDesignateDate.HasValue)
+            {
+                <govuk-summary-item label="Date that the trust appointed principal designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignateDate" href="@editlink" />
+            }
+            
+            <govuk-summary-item label="Commissioned an external expert" asp-for="@principleDesignate.CommissionedExternalExpertVisitToSchool" href="@editlink" />
+
+        </govuk-summary-list>
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>

@@ -55,6 +55,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public CommissionedExternalExpertTask CommissionedExternalExpert { get; set; }
 
         public MovingToOpenTask MovingToOpen { get; set; }
+        
+        public PrincipleDesignateTask PrincipleDesignate { get; set; }
         public string TaskToUpdate
         {
             get
@@ -119,6 +121,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.CommissionedExternalExpert.ToString();
                 if (MovingToOpen != null)
                     return TaskName.MovingToOpen.ToString();
+                if (PrincipleDesignate != null)
+                    return TaskName.PrincipleDesignate.ToString();
                 return null;
             }
         }
