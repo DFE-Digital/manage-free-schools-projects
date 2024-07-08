@@ -6,7 +6,6 @@
     ViewData["Title"] = $"Principle designate - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewPrincipleDesignateTask, Model.ProjectId);
-    var yesNoNotApplicableValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString(), YesNoNotApplicable.NotApplicable.ToString() };
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">

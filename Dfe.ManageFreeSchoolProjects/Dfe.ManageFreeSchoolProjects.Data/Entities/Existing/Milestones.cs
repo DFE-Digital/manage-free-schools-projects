@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
