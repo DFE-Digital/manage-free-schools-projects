@@ -30,6 +30,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -127,6 +128,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                   {
                                       Dates = DatesTaskBuilder.Build(kpi),
                                       School = SchoolTaskBuilder.Build(kpi),
+                                      ReferenceNumbers = ReferenceNumbersTaskBuilder.Build(kpi),
                                       Trust = TrustTaskBuilder.Build(kpi),
                                       RegionAndLocalAuthority = RegionAndLocalAuthorityTaskBuilder.Build(kpi),
                                       Constituency = ConstituencyTaskBuilder.Build(kpi),

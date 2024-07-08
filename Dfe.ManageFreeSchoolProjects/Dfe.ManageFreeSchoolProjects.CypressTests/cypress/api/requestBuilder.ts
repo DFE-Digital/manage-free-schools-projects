@@ -6,7 +6,7 @@ import dataGenerator from "cypress/fixtures/dataGenerator";
 export class RequestBuilder {
     public static createProjectDetails(): ProjectDetailsRequest {
         const result: ProjectDetailsRequest = {
-            projectId: dataGenerator.generateTemporaryId(),
+            projectId: dataGenerator.generateTemporaryId(25),
             applicationNumber: v4().substring(0, 9),
             applicationWave: "FS - Presumption",
             createdBy: Cypress.env(EnvUsername),

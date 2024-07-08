@@ -60,7 +60,7 @@ describe("Testing the project creation journey", () => {
         });
 
         it("Should create a project", () => {
-            const temporaryProjectId = dataGenerator.generateTemporaryId();
+            const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
 
@@ -412,9 +412,9 @@ describe("Testing the project creation journey", () => {
         });
 
         it("Should navigate back to change project fields", () => {
-            const temporaryProjectId = dataGenerator.generateTemporaryId();
+            const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
-            const updatedTemporaryProjectId = dataGenerator.generateTemporaryId();
+            const updatedTemporaryProjectId = dataGenerator.generateTemporaryId(25);
             const updatedSchoolName = dataGenerator.generateSchoolName();
 
             const TestTrn = "TR00111";

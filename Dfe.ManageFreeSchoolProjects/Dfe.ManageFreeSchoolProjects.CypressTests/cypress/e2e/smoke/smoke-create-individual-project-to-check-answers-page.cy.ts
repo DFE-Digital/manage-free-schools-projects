@@ -12,7 +12,7 @@ import summaryPage from "cypress/pages/task-summary-base";
         });
 
         it("Should Smoke Test go through create a project wizard happy path up until Check your answers page", { tags: ['smoke'] }, () => {
-            const temporaryProjectId = dataGenerator.generateTemporaryId();
+            const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
 

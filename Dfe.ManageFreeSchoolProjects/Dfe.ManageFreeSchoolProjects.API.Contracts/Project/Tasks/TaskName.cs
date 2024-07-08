@@ -6,6 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         Unknown,
         School,
+        ReferenceNumbers,
         Dates,
         RiskAppraisalMeeting,
         Trust,
