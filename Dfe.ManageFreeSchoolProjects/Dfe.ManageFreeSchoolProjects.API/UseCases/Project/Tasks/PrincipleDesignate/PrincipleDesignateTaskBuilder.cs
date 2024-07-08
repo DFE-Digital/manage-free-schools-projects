@@ -3,8 +3,6 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate
 {
-	
-	
 	public static class PrincipleDesignateTaskBuilder
 	{
 		public static PrincipleDesignateTask Build(Milestones milestones)
@@ -14,25 +12,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesig
 				return new PrincipleDesignateTask();
 			}
 
-			if (milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion.HasValue)
+			return new PrincipleDesignateTask()
 			{
-				return new PrincipleDesignateTask()
-				{
-					TrustAppointedPrincipleDesignate = true,
-					TrustAppointedPrincipleDesignateDate =
-						milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion,
-					CommissionedExternalExpertVisitToSchool =
-						milestones.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool,
-				};
-			}
-				return new PrincipleDesignateTask()
-				{
-					TrustAppointedPrincipleDesignate = false,
-					TrustAppointedPrincipleDesignateDate =
-						milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion,
-					CommissionedExternalExpertVisitToSchool =
-						milestones.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool,
-				};
+				TrustAppointedPrincipleDesignate =
+					milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion.HasValue,
+				TrustAppointedPrincipleDesignateDate =
+					milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion,
+				CommissionedExternalExpertVisitToSchool =
+					milestones.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool,
+			};
 		}
 	}
 }
