@@ -1,5 +1,4 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
