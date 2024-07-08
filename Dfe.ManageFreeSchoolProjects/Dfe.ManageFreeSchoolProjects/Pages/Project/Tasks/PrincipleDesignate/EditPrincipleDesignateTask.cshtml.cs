@@ -32,10 +32,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
 
         [BindProperty(Name = "trust-appointed-principle-designate")]
         
-        public string? TrustAppointedPrincipleDesignate { get; set; }
+        public string TrustAppointedPrincipleDesignate { get; set; }
 
         [BindProperty(Name = "trust-appointed-principle-designate-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "trust appointed principle designate date")]
+        [Display(Name = "Trust appointed principle designate date")]
         public DateTime? TrustAppointedPrincipleDesignateDate { get; set; }
         
         [BindProperty(Name = "commissioned-external-expert-visit")]
@@ -84,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
                 return Page();
             }
             
-            if (trustAppointedPrincipleDesignate == YesNo.Yes && TrustAppointedPrincipleDesignateDate.HasValue == false)
+            if (trustAppointedPrincipleDesignate == YesNo.Yes && !TrustAppointedPrincipleDesignateDate.HasValue)
             {
                 ModelState.AddModelError("trust-appointed-principle-designate-date", "Enter the actual date principle designate was appointed");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
@@ -113,7 +113,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
             TrustAppointedPrincipleDesignateDate = project.PrincipleDesignate.TrustAppointedPrincipleDesignateDate;
             CommissionedExternalExpertVisit = project.PrincipleDesignate.CommissionedExternalExpertVisitToSchool;
 
-            if (project.PrincipleDesignate.TrustAppointedPrincipleDesignateDate.HasValue == true)
+            if (project.PrincipleDesignate.TrustAppointedPrincipleDesignateDate.HasValue)
             {
                 TrustAppointedPrincipleDesignate = YesNo.Yes.ToString();
             }
@@ -123,12 +123,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
                 TrustAppointedPrincipleDesignate = YesNo.No.ToString();
             }
         }
-
-        private static YesNoNotApplicable? ConvertYesNoNotApplicable(string value)
-        {
-            return Enum.TryParse<YesNoNotApplicable>(value, true, out var result) ? result : null;
-        }
-
+        
         public static YesNo? ConvertYesNo(string value)
         {
             return Enum.TryParse<YesNo>(value, true, out var result) ? result : null;
