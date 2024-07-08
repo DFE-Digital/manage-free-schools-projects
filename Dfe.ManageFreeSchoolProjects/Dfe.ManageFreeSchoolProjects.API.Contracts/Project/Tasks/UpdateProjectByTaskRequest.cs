@@ -6,6 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     {
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
+        public ReferenceNumbersTask ReferenceNumbers { get; set; }
         public TrustTask Trust { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
@@ -61,6 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
             {
                 if (School != null)
                     return "School";
+                if (ReferenceNumbers != null)
+                    return TaskName.ReferenceNumbers.ToString();
                 if (Dates != null)
                     return "Dates";
                 if (Trust != null)
