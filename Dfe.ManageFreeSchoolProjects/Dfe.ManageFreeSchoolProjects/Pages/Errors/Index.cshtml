@@ -6,19 +6,6 @@
 }
 <div class="govuk-width-container">
 	<main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-two-thirds">
-				<h1 class="govuk-heading-l" id="error-heading">@Model.ErrorMessage</h1>
-				<p class="govuk-body">
-                    If you typed the web address, check it is correct.
-				</p>
-				<p class="govuk-body">
-					If you pasted the web address, check you copied the entire address.
-					</p>
-				<p class="govuk-body">
-               If the web address is correct or you selected a link or button, <a href="mailto:@_configuration["SupportEmail"]?subject=Manage%20free%20schools:%20support%20query" class="govuk-link">email Service Support for help with using this system.</a>
-				</p>
-			</div>
-		</div>
+		<partial name=@Model.PartialViewName />
 	</main>
 </div>
