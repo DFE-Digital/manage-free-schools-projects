@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -86,14 +87,19 @@ public class GetAllTasksStatusService : IGetTasksService
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
+        var principleDesignateTask = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipleDesignate.ToString());
         
         result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
+        
+        result.PrincipleDesignate = BuildPrincipleDesignateTask(principleDesignateTask, dbKpi);
         
         result.TaskCount = _tasksCount;
         
         RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
+        RemoveHiddenCompletedTaskStatus(result.PrincipleDesignate);
         
         result.CompletedTasks = projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenCompletedTasks;
+        
         
         return result;
     }
@@ -113,6 +119,21 @@ public class GetAllTasksStatusService : IGetTasksService
         };
         
         var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
+        
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+        
+        return result;
+    }
+    
+    private static TaskSummaryResponse BuildPrincipleDesignateTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
+    {
+        var parameters = new PrincipleDesignateTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+        
+        var result = new PrincipleDesignateTaskSummaryBuilder().Build(parameters);
         
         _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
         

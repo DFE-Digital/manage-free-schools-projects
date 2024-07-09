@@ -30,6 +30,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.Refunds;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
@@ -158,6 +159,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.MovingToOpen:
                     result = await new GetMovingToOpenTaskService(_context).Get(parameters);
+                    break;
+                case TaskName.PrincipleDesignate:
+                    result = await new GetPrincipleDesignateTaskService(_context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");

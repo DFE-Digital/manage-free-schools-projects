@@ -41,5 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public CommissionedExternalExpertTask CommissionedExternalExpert { get; set; }
         
         public MovingToOpenTask MovingToOpen  { get; set; }
+
+        public PrincipleDesignateTask PrincipleDesignate { get; set; }
     }
 }

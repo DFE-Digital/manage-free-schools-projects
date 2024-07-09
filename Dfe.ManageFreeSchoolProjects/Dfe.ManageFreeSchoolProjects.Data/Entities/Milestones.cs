@@ -123,6 +123,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         
         public bool? FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration  { get; set; }
 
+        public bool? FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool { get; set; }
         public bool? FsgPreOpeningMilestonesCommissionedExternalExpertVisit { get; set; }
             
         public DateTime? FsgPreOpeningMilestonesExternalExpertVisitDate { get; set; }

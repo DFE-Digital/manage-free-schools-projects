@@ -1,0 +1,42 @@
+﻿@page "/projects/{projectId}/tasks/principle-designate/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate.EditPrincipleDesignateTaskModel
+@{
+    ViewData["Title"] = $"Principle designate - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewPrincipleDesignateTask, Model.ProjectId);
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit Principle designate
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-conditional-radio id="trust-appointed-principle-designate" label="Trust has appointed a principle designate" asp-for="@Model.TrustAppointedPrincipleDesignate">
+                <govuk-date-input id="trust-appointed-principle-designate-date" name="trust-appointed-principle-designate-date" asp-for="@Model.TrustAppointedPrincipleDesignateDate" hint="For example, 27 3 2021" label="Date the trust appointed principle designate" />
+            </govuk-conditional-radio>
+              <govuk-yesno-input label="Commissioned an external expert"
+                                              asp-for="@Model.CommissionedExternalExpertVisit"
+                                              name="commissioned-external-expert-visit"
+                                              id="commissioned-external-expert-visit"
+                                              add-margin=false />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>
