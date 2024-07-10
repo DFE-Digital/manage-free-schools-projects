@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240710093711_KickoffMeetingDocumentsSaved")]
+    partial class KickoffMeetingDocumentsSaved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5196,10 +5199,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesCommissionedExternalExpertVisit")
                         .HasColumnType("bit")
                         .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool")
-                        .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit to school");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesDbscActualDateOfCompletion")
                         .HasColumnType("date")

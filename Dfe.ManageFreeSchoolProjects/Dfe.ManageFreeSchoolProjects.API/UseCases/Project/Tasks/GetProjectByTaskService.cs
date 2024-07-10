@@ -170,7 +170,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
             if (result != null)
             {
                 var schoolName = await query.Select(kpi => kpi.ProjectStatusCurrentFreeSchoolName).FirstOrDefaultAsync();
+                var applicationWave = await query.Select(kpi => kpi.ProjectStatusFreeSchoolApplicationWave).FirstOrDefaultAsync();
+                var isPresumptionRoute = (applicationWave == "FS - Presumption");
+
                 result.SchoolName = schoolName;
+                result.IsPresumptionRoute = isPresumptionRoute;
             }
 
             return result;

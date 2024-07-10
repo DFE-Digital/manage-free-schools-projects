@@ -9,6 +9,7 @@
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditKickOffMeeting, Model.ProjectId);
     var kickoffmeeting = Model.Project.KickOffMeeting;
+    var isPresumptionRoute = Model.Project.IsPresumptionRoute;
 }
 
 @section BeforeMain {
@@ -26,11 +27,14 @@
             Kick-off meeting
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Funding arrangement details agreed between local authority and trust" asp-for="@kickoffmeeting.FundingArrangementAgreed" href="@editlink"/>
+            @if (isPresumptionRoute)
+            {
+                <govuk-summary-item label="Funding arrangement details agreed between local authority and trust" asp-for="@kickoffmeeting.FundingArrangementAgreed" href="@editlink"/>
+            }
             <govuk-summary-item label="Comments" asp-for="@kickoffmeeting.FundingArrangementDetailsAgreed" href="@editlink"/>
             <govuk-summary-item label="Realistic year of opening" asp-for="@kickoffmeeting.RealisticYearOfOpening" href="@editlink"/>
             <govuk-summary-item label="Provisional opening date agreed with trust" asp-for="@kickoffmeeting.ProvisionalOpeningDate" href="@editlink"/>
-            <govuk-summary-item label="SharePoint link" asp-for="@kickoffmeeting.SharepointLink" href="@editlink" render-link="true" />
+            <govuk-summary-item label="Saved documents in Workplaces folder" asp-for="@kickoffmeeting.SavedDocumentsInWorkplacesFolder" href="@editlink" render-link="true" />
         </govuk-summary-list>
 
         <form method="post">

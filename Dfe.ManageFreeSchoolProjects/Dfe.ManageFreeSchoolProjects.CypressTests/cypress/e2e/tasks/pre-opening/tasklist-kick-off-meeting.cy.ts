@@ -40,7 +40,7 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
-            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.executeAccessibilityTests();
@@ -79,26 +79,8 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
-            .summaryShows("SharePoint link").IsEmpty().HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
-            .clickChange();
-
-        cy.log("Sharepoint link validation")
-
-        kickOffMeetingEditPage
-            .withSharepointLink(dataGenerator.generateAlphaNumeric(101))
-            .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
-            .withSharepointLink("NotAUrl")
-            .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be a valid url")
-            .withSharepointLinkExceedingMaxLength()
-            .clickContinue()
-            .errorForSharepointLink().showsError("Sharepoint link must be 500 characters or less")
-            .withSharepointLink("https://www.gov.uk/government/organisations/department-for-education")
-            .clickContinue();
-
-        summaryPage.SummaryHasValue("SharePoint link", "https://www.gov.uk/government/organisations/department-for-education")
             .clickChange();
 
         cy.log("Comment")
@@ -159,6 +141,7 @@ describe("Testing kick off meeting Task", () => {
 
         kickOffMeetingEditPage
             .checkFundingArrangementsAgreed()
+            .checkSavedDocumentsInWorkplacesFolder()
             .clickContinue()
 
         summaryPage
@@ -169,7 +152,7 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Comments").HasValue("comment that's ok").HasChangeLink()
             .summaryShows("Realistic year of opening").HasValue("2049/50").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("1 March 2050").HasChangeLink()
-            .summaryShows("SharePoint link").HasValue("https://www.gov.uk/government/organisations/department-for-education").HasChangeLink()
+            .summaryShows("Saved documents in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
             .clickConfirmAndContinue();

@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
                 FundingArrangementDetailsAgreed = milestones?.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor,
                 ProvisionalOpeningDate = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                 RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
-                SharepointLink = milestones?.FsgPreOpeningMilestonesMi141LinkToSavedDocument
+                SavedDocumentsInWorkplacesFolder = milestones?.FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder
             };
         }
     }
