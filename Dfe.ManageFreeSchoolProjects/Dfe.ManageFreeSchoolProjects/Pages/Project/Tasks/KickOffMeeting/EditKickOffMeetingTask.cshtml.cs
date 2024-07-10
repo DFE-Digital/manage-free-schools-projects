@@ -40,13 +40,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         
         public DateTime? ProvisionalOpeningDate { get; set; }
         
-        [BindProperty(Name = "sharepoint-link")]
-        [Display(Name = "Sharepoint link")]
-        [StringLength(ValidationConstants.LinkMaxLength, ErrorMessage = ValidationConstants.TextValidationMessage)]
-        [Url(ErrorMessage = ValidationConstants.LinkValidationMessage)]
-        public string SharepointLink { get; set; }
+        [BindProperty(Name = "saved-documents-in-workplaces-folder")]
+        public bool? SavedDocumentsInWorkplacesFolder { get; set; }
 
         public string SchoolName { get; set; }
+        public bool IsPresumptionRoute { get; set; }
+
 
         public EditKickOffMeetingTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -71,6 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
 
             if (!ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
                         FundingArrangementDetailsAgreed = FundingArrangementDetailsAgreed,
                         RealisticYearOfOpening = RealisticYearOfOpening,
                         ProvisionalOpeningDate = ProvisionalOpeningDate,
-                        SharepointLink = SharepointLink
+                        SavedDocumentsInWorkplacesFolder = SavedDocumentsInWorkplacesFolder
                         
                     }
                 };
@@ -112,9 +112,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
             FundingArrangementDetailsAgreed = project.KickOffMeeting.FundingArrangementDetailsAgreed;
             RealisticYearOfOpening = project.KickOffMeeting.RealisticYearOfOpening;
             ProvisionalOpeningDate = project.KickOffMeeting.ProvisionalOpeningDate;
-            SharepointLink = project.KickOffMeeting.SharepointLink;
+            SavedDocumentsInWorkplacesFolder = project.KickOffMeeting.SavedDocumentsInWorkplacesFolder;
             
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
     public class GetProjectByTaskResponse
     {
         public string SchoolName { get; set; }
+        public bool IsPresumptionRoute { get; set; }
         public DatesTask Dates { get; set; }
         public SchoolTask School { get; set; }
         public ReferenceNumbersTask ReferenceNumbers { get; set; }

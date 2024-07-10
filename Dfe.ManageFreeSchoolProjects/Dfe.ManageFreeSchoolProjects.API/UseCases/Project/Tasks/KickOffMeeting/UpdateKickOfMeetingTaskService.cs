@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
             db.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor = task.FundingArrangementAgreed ?? false;
             db.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor =
                 task.FundingArrangementDetailsAgreed;
-            db.FsgPreOpeningMilestonesMi141LinkToSavedDocument = task.SharepointLink;
+            db.FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder = task.SavedDocumentsInWorkplacesFolder;
         }
     }
 }

@@ -9,5 +9,5 @@ public class KickOffMeetingTask
     
     public DateTime? ProvisionalOpeningDate { get; set; }
     
-    public string SharepointLink { get; set; }
+    public bool? SavedDocumentsInWorkplacesFolder { get; set; }
 }

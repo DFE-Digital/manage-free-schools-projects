@@ -46,14 +46,9 @@ class KickOffMeetingEditPage {
 
 
 
-    withSharepointLink(value: string): this {
-        cy.getByTestId("sharepoint-link").typeFast(value)
-        return this;
-    }
-
-    withSharepointLinkExceedingMaxLength(): this {
-        cy.getByTestId("sharepoint-link").invoke("val", `https://${"a".repeat(501)}`);
-        return this;
+    checkSavedDocumentsInWorkplacesFolder(): this {
+        cy.getById("saved-documents-in-workplaces-folder").check()
+        return this
     }
 
     errorForComments(): this {
@@ -77,12 +72,7 @@ class KickOffMeetingEditPage {
         cy.getById('realistic-year-of-opening-error').contains(error)
         return this
     }
-
-    errorForSharepointLink(): this {
-        this.errorTracking = "sharepoint-link";
-        return this;
-    }
-
+    
     errorForProvisionalOpeningDate(): this {
         this.errorTracking = "provisional-opening-date";
         return this;
