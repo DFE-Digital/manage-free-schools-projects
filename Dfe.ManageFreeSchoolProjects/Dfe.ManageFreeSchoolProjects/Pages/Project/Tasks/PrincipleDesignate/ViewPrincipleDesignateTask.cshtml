@@ -8,6 +8,10 @@
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditPrincipleDesignateTask, Model.ProjectId);
     var principleDesignate = Model.Project.PrincipleDesignate;
+    if (principleDesignate.TrustAppointedPrincipleDesignate == null)
+    {
+        principleDesignate.TrustAppointedPrincipleDesignate = false;
+    }
 }
 @section BeforeMain {
     

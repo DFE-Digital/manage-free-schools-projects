@@ -275,6 +275,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
         
+        public static Milestones BuildPrincipleDesignateTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesFaActualDateOfCompletion = new DateTime().AddDays(9);
+            result.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = false;
+            return result;
+        }
+
+        
         public static Milestones EvidenceOfAcceptedOffersTask(string rid)
         {
             var result = new Milestones();

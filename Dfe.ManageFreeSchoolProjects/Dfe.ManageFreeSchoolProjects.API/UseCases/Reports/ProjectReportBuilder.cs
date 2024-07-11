@@ -31,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.EqualitiesAssessment, TaskName = "Equalities assessment", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.StatutoryConsultation, TaskName = "Statutory consultation", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.PrincipleDesignate, TaskName = "Principle Designate", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.Gias, TaskName = "Gias", Section = "Sign-off preparation" },
                     new ProjectTaskInformation { Task = project.TaskInformation.EducationBrief, TaskName = "Education brief", Section = "Sign-off preparation" },
                     new ProjectTaskInformation { Task = project.TaskInformation.EvidenceOfAcceptedOffers, TaskName = "Accepted offers evidence", Section = "Getting ready to open" },
@@ -40,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.MovingToOpen, TaskName = "Moving to open", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
                     new ProjectTaskInformation { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
-                    new ProjectTaskInformation { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" }
+                    new ProjectTaskInformation { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" },
                 };
 
                 if (result.Headers.Count == 0)

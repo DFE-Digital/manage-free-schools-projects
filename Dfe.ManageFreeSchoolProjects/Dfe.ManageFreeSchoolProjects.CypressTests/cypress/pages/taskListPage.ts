@@ -149,6 +149,11 @@ class TaskListPage {
         return this;
     }
 
+    public selectPrincipleDesignateFromTaskList(): this {
+        cy.getByTestId("PrincipleDesignate-task").click()
+        return this;
+    }
+
     public selectMovingToOpenFromTaskList(): this {
         cy.getByTestId("movingToOpen-task").click()
         return this;
