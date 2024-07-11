@@ -69,3 +69,8 @@ export type ProjectRiskEntryRequest = {
     summary?: string;
 }
 
+export type ProjectTaskSummaryResponse = {
+    taskCount?: number;
+    CompletedTasks?: number;
+}
+

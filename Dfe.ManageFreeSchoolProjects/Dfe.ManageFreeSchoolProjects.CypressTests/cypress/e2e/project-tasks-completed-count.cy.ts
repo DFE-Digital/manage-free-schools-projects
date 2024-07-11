@@ -1,5 +1,6 @@
-import { ProjectDetailsRequest } from "cypress/api/domain";
+import {ProjectDetailsRequest, ProjectTaskSummaryResponse, ResponseWrapper} from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
+import projectTaskSummary from "cypress/api/projectTaskSummary";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import summaryPage from "cypress/pages/task-summary-base";
@@ -7,13 +8,12 @@ import taskListPage from "cypress/pages/taskListPage";
 import externalExpertVisitEditPage from "../pages/tasks/After-opening/edit-external-expert-visit.cy";
 import schoolDetailsPage from "../pages/schoolDetailsPage";
 
-describe("Testing the External expert visit task", () => {
+describe("Testing the tasks completed count", () => {
 
     let project: ProjectDetailsRequest;
     let projectNonPresumption: ProjectDetailsRequest;
-    let taskCountWithSchoolTypeNotSet = 27
-    let taskCountWithSchoolTypeNotSetNonPresumption = 28
-    let taskCountWithSchoolTypeAlternativeProvision = 26
+    let taskCount;
+    let nonPresumptionTaskCount
 
     beforeEach(() => {
         cy.login();
@@ -25,20 +25,33 @@ describe("Testing the External expert visit task", () => {
             .post({
                 projects: [projectNonPresumption],
             })
-        
-        
+
         projectApi
             .post({
                 projects: [project],
             })
-            .then(() => {
-                cy.visit(`/projects/${project.projectId}/tasks`);
-            });
+
+        projectTaskSummary
+            .get( { projectId : project.projectId })
+            .then((response : ResponseWrapper<ProjectTaskSummaryResponse>) => {
+                expect(response).to.not.equal(null)
+                taskCount = response.data.taskCount
+            })
+        
+        projectTaskSummary
+            .get( { projectId : projectNonPresumption.projectId })
+            .then((response : ResponseWrapper<ProjectTaskSummaryResponse>) => {
+                expect(response).to.not.equal(null)
+                nonPresumptionTaskCount = response.data.taskCount
+            })
+        
+        cy.visit(`/projects/${project.projectId}/tasks`);
+        
     });
 
     it("Should be able to set external expert visit", () => {
-        Logger.log("Select External expert visit");
-        taskListPage.taskCompletedCountMessage(`You have completed 0 of ${taskCountWithSchoolTypeNotSet} sections.`)
+        Logger.log("Select External expert visit ");
+        taskListPage.taskCompletedCountMessage(`You have completed 0 of ${taskCount} sections.`)
         taskListPage.isTaskStatusIsNotStarted("CommissionedExternalExpert")
             .selectExternalExpertVisitFromTaskList();
 
@@ -52,7 +65,7 @@ describe("Testing the External expert visit task", () => {
 
         Logger.log("Go back to task list");
 
-        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${taskCountWithSchoolTypeNotSet} sections.`)
+        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${taskCount} sections.`)
             .isTaskStatusIsCompleted("CommissionedExternalExpert")
             .selectApplicationsEvidenceFromTaskList();
 
@@ -66,7 +79,7 @@ describe("Testing the External expert visit task", () => {
 
         Logger.log("Go back to task list");
 
-        taskListPage.taskCompletedCountMessage(`You have completed 2 of ${taskCountWithSchoolTypeNotSet} sections.`)
+        taskListPage.taskCompletedCountMessage(`You have completed 2 of ${taskCount} sections.`)
             .isTaskStatusIsCompleted("CommissionedExternalExpert")
             .isTaskStatusIsCompleted("ApplicationsEvidence")
             .selectSchoolFromTaskList()
@@ -98,14 +111,26 @@ describe("Testing the External expert visit task", () => {
 
         Logger.log("completed count and sections count is adjusted correctly");
 
-        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${taskCountWithSchoolTypeAlternativeProvision} sections.`)
+        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${taskCount -1} sections.`)
             .isTaskStatusIsCompleted("CommissionedExternalExpert")
 
 
-        Logger.log("Visit non presumtion project");
+        Logger.log("Visit non presumption project");
         
         cy.visit(`/projects/${projectNonPresumption.projectId}/tasks`);
 
-        taskListPage.taskCompletedCountMessage(`You have completed 0 of ${taskCountWithSchoolTypeNotSetNonPresumption} sections.`)
+        taskListPage.taskCompletedCountMessage(`You have completed 0 of ${nonPresumptionTaskCount} sections.`)
+        taskListPage.isTaskStatusIsNotStarted("CommissionedExternalExpert")
+            .selectExternalExpertVisitFromTaskList();
+
+        Logger.log("non presumption projects has the correct count");
+
+        summaryPage
+            .titleIs("External expert visit")
+            .isNotMarkedAsComplete()
+            .MarkAsComplete()
+            .clickConfirmAndContinue();
+        
+        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${nonPresumptionTaskCount} sections.`)
     });
 });
