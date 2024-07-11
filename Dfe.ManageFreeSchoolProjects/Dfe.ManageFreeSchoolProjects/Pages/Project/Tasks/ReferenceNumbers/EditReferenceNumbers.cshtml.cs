@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -33,6 +34,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
         public string ProjectId { get; set; }
 
         [BindProperty(Name = "urn")]
+        [Display(Name = "URN")]
+        [ValidUrn]
         public string Urn { get; set; }
 
         public string SchoolName { get; set; }
@@ -53,6 +56,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReferenceNumbers
         public async Task<IActionResult> OnGet()
         {
             _logger.LogMethodEntered();
+
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
 
             try
             {

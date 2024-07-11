@@ -32,6 +32,11 @@ class ReferenceNumbersDetailsPage {
         return this;
     }
 
+    errorForUrn(): this {
+        this.errorTracking = "urn";
+        return this;
+    }
+
     showsError(error: string)
     {
         cy.get(`#${this.errorTracking}-error-link`)

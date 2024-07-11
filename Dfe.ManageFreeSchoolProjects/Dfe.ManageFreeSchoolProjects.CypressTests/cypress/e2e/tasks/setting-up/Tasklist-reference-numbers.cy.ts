@@ -100,9 +100,15 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        Logger.log("Fill in urn");
+        Logger.log("Check urn validation");
         referenceNumbersDetailsPage
             .withUrn("zyxwvu654321")
+            .clickContinue()
+            .errorForUrn().showsError("URN must be 6 numbers, like 123456")
+            .withUrn("65753")
+            .clickContinue()
+            .errorForUrn().showsError("URN must be 6 numbers, like 123456")
+            .withUrn("456789")
             .clickContinue()
 
         summaryPage
@@ -110,7 +116,7 @@ describe("Testing project overview", () => {
             .titleIs("Reference numbers")
             .inOrder()
             .summaryShows("Project ID").HasValue(newProjectId).HasChangeLink()
-            .summaryShows("URN").HasValue("zyxwvu654321").HasChangeLink()
+            .summaryShows("URN").HasValue("456789").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
             .clickConfirmAndContinue();
