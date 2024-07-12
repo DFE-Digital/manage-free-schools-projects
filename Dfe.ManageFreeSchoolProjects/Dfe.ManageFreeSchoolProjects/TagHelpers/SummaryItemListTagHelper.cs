@@ -1,9 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.Extensions;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
@@ -25,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         
         [HtmlAttributeName("href")]
         public string Href { get; set; }
-        
+
         [ViewContext]
         public ViewContext ViewContext { get; set; }
         
@@ -46,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 Href = Href,
                 Id = Id,
                 Label = Label,
-                List = List
+                List = List,
             };
             
             var content = await _htmlHelper.PartialAsync("_SummaryList", model);
