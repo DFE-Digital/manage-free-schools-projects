@@ -277,7 +277,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createProjectRiskRequest.GovernanceAndSuitability.Summary = new string('a', 1001);
 
             createProjectRiskRequest.Overall.RiskRating = (ProjectRiskRating)12;
-            createProjectRiskRequest.Overall.Summary = new string('a', 1001);
+            createProjectRiskRequest.Overall.Summary = new string('a', 5001);
 
             createProjectRiskRequest.RiskAppraisalFormSharepointLink = new string('a', 1001);
 
@@ -295,7 +295,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             error.Should().Contain("'Finance Summary' must be 1000 characters");
 
             error.Should().Contain("'Overall Risk Rating' has a range of values which does not include '12'");
-            error.Should().Contain("'Overall Summary' must be 1000 characters");
+            error.Should().Contain("'Overall Summary' must be 5000 characters");
 
             error.Should().Contain("'Risk Appraisal Form Sharepoint Link' must be 1000 characters");
         }
