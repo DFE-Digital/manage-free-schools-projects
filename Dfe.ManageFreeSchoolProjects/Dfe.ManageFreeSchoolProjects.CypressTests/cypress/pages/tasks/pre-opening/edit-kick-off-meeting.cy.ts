@@ -18,10 +18,6 @@ class KickOffMeetingEditPage {
         cy.get('#' + `${key}-year`).typeFast(year);
     }
 
-    checkFundingArrangementsAgreed(): this {
-        cy.getById("funding-arrangements-agreed-yes").check()
-        return this
-    }
     withComments(comment: string): this {
         cy.getById("funding-arrangements-details-agreed").typeFast(comment)
         return this;
@@ -56,16 +52,9 @@ class KickOffMeetingEditPage {
         return this;
     }
 
-    withFundingArrangementsAgreed(setting: "Yes" | "No"): this {
-        const control = "Funding arrangement details agreed between local authority and trust";
-        cy.contains(control)
-            .parent()
-            .contains(setting)
-            .invoke('attr', 'for')
-            .then((id) => {
-                cy.get('#' + id).click();
-            });
-        return this;
+    checkFundingArrangementsAgreed(): this {
+        cy.getById("funding-arrangements-agreed").check()
+        return this
     }
 
     errorForRealisticStartDate(error: string): this {

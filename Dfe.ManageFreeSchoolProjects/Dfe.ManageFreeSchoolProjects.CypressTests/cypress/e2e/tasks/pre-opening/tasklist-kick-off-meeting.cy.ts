@@ -131,7 +131,7 @@ describe("Testing kick off meeting Task", () => {
             .clickChange();
 
         kickOffMeetingEditPage
-            .withFundingArrangementsAgreed("Yes")
+            .checkFundingArrangementsAgreed()
             .clickContinue()
 
         summaryPage.SummaryHasValue("Funding arrangement details agreed between local authority and trust", "Yes")
@@ -140,7 +140,6 @@ describe("Testing kick off meeting Task", () => {
         cy.log('Confirm all set')
 
         kickOffMeetingEditPage
-            .checkFundingArrangementsAgreed()
             .checkSavedDocumentsInWorkplacesFolder()
             .clickContinue()
 
