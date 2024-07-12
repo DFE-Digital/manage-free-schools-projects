@@ -147,7 +147,7 @@ class EditProjectRiskPage {
     }
 
     public withOverallRiskSummaryExceeding(): this {
-        cy.getByTestId(`risk-summary`).clear().invoke('text', 'a'.repeat(1001));
+        cy.getByTestId(`risk-summary`).clear().invoke('text', 'a'.repeat(5001));
 
         return this;
     }
