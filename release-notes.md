@@ -1,3 +1,8 @@
+## 0.8.2
+
+* Overall risk summary increased to 5000 characters
+
+
 ## 0.8.1
 
 * 171999 - Build: Restore constituencies page immediately after the election

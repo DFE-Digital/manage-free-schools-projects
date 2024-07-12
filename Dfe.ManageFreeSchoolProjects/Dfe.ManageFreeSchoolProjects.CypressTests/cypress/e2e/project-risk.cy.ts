@@ -145,7 +145,7 @@ describe("Testing that we can add a project risk", () => {
                 .continue();
 
             validationComponent
-                .hasValidationError("Summary must be 1000 characters or less");
+                .hasValidationError("Summary must be 5000 characters or less");
 
             cy.executeAccessibilityTests();
 

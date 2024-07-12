@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk
             RuleFor(x => x.Finance.Summary).MaximumLength(1000);
 
             RuleFor(x => x.Overall.RiskRating).IsInEnum().NotNull();
-            RuleFor(x => x.Overall.Summary).MaximumLength(1000);
+            RuleFor(x => x.Overall.Summary).MaximumLength(5000);
 
             RuleFor(x => x.RiskAppraisalFormSharepointLink).MaximumLength(1000);
         }
