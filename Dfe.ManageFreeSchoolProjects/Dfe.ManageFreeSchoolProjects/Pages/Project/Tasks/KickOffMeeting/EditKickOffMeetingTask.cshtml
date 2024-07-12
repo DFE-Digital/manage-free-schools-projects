@@ -26,7 +26,7 @@
         <form method="post">
             @if (Model.IsPresumptionRoute)
             {
-                <govuk-yesno-input id="funding-arrangements-agreed" name="funding-arrangements-agreed" label="Funding arrangement details agreed between local authority and trust" asp-for="@Model.FundingArrangementsAgreed" add-margin="true" data-testid="funding-arrangements-agreed"/>
+                <govuk-checkbox-input id="funding-arrangements-agreed" name="funding-arrangements-agreed" label="Funding arrangement details agreed between local authority and trust" asp-for="@Model.FundingArrangementsAgreed" add-margin="true" data-testid="funding-arrangements-agreed"/>
             }
             <govuk-textarea-input id="funding-arrangements-details-agreed" label="Comments" rows="5" bold-label="true" name="funding-arrangements-details-agreed" asp-for="@Model.FundingArrangementDetailsAgreed" add-margin="true" data-testid="funding-arrangements-details-agreed"/>
             <govuk-year-start-end id="realistic-year-of-opening"  name="realistic-year-of-opening" bold-label="true" label="Realistic year of opening" asp-for="@Model.RealisticYearOfOpening" add-margin="true" data-testid="realistic-year-of-opening" hint="For example, 2021 2022"/>
