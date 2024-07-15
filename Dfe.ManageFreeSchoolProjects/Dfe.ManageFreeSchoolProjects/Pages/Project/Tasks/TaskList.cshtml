@@ -37,6 +37,7 @@
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
+    var fundingAgreementSubmissionLink = string.Format(RouteConstants.ViewFundingAgreementSubmissionTask, Model.ProjectId);
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
     var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
@@ -229,6 +230,16 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.FundingAgreementHealthCheck);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@fundingAgreementSubmissionLink" class="govuk-link" data-testid="funding-agreement-submission-task">
+                                Funding agreement submission
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreementSubmission);
                         }
                     </li>
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipleDesignate" href="@principleDesignateLink" label="Principle designate" />

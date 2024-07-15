@@ -80,6 +80,7 @@ public class GetAllTasksStatusService : IGetTasksService
             EvidenceOfAcceptedOffers = SafeRetrieveTaskSummary(projectTasks, "EvidenceOfAcceptedOffers"),
             OfstedInspection = SafeRetrieveTaskSummary(projectTasks, "OfstedInspection"),
             FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
+            FundingAgreementSubmission = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission"),
             PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
             FinalFinancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.FinalFinancePlan.ToString()),
             CommissionedExternalExpert = SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),

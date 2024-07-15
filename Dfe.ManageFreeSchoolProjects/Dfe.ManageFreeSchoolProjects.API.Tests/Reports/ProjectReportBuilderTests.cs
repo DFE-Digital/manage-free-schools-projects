@@ -34,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Kick-off meeting");
             taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
+            taskHeaders.Should().Contain("Funding agreement submission");
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Draft governance plan");
             taskHeaders.Should().Contain("Finance plan");
@@ -75,6 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(FundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
+            AssertEntry(nameof(FundingAgreementSubmissionTask.DraftedFundingAgreementSubmission), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
             AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
@@ -158,6 +160,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         FundingAgreementHealthCheck = new FundingAgreementHealthCheckTask()
                         {
                             DraftedFundingAgreementHealthCheck = true
+                        },
+                        FundingAgreementSubmission = new FundingAgreementSubmissionTask()
+                        {
+                            DraftedFundingAgreementSubmission = true
                         },
                         Gias = new GiasTask()
                         {

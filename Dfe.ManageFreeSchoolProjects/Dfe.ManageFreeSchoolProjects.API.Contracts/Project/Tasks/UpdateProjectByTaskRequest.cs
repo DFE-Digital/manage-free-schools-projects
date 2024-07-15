@@ -40,6 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
 
         public FundingAgreementHealthCheckTask FundingAgreementHealthCheck { get; set; }
+        public FundingAgreementSubmissionTask FundingAgreementSubmission { get; set; }
         public PaymentScheduleTask PaymentSchedule { get; set; }
 
         public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
@@ -106,6 +107,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.ApplicationsEvidence.ToString();
                 if (FundingAgreementHealthCheck != null)
                     return TaskName.FundingAgreementHealthCheck.ToString();
+                if (FundingAgreementSubmission != null)
+                    return TaskName.FundingAgreementSubmission.ToString();
                 if (PaymentSchedule != null)
                     return TaskName.PaymentSchedule.ToString();
                 if (TrustPDGLetterSent != null)

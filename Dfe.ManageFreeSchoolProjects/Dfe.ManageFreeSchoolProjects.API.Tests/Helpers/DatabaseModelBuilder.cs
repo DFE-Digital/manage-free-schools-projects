@@ -205,6 +205,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
+        public static Milestones BuildFundingAgreementSubmissionTask(string rid)
+        {
+            var result = new Milestones();
+
+            result.Rid = rid;
+
+            result.FsgPreOpeningMilestonesMfadDraftedFaSubmission = true;
+            result.FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission = false;
+            result.FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission = false;
+            result.FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder = false;
+
+            return result;
+        }
+
         public static Milestones BuildFinalFinancePlanTask(string rid)
         {
             var result = new Milestones();
