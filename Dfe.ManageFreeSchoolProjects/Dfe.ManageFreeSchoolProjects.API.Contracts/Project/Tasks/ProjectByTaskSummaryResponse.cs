@@ -56,7 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public TaskSummaryResponse MovingToOpen { get; set; }
         
-        public TaskSummaryResponse PrincipleDesignate { get; set; }
+        public TaskSummaryResponse PrincipalDesignate { get; set; }
         
         public int TaskCount { get; set; }
         
