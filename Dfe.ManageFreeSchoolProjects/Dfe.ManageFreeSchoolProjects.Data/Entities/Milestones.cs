@@ -9,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
     public partial class Milestones
     {
-        public bool FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
+        public bool? FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor { get; set; }
 
         public bool? FsgPreOpeningMilestonesAdmissionsArrangementsRecommendedTemplate { get; set; }
 

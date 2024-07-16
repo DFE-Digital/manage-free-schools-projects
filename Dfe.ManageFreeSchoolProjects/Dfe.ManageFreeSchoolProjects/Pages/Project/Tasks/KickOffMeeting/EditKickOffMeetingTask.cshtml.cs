@@ -25,10 +25,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
         
-        [BindProperty(Name = "funding-arrangements-agreed")]
-        public bool? FundingArrangementsAgreed { get; set; }
+        [BindProperty(Name = "funding-arrangement-agreed")]
+        public bool? FundingArrangementAgreed { get; set; }
         
-        [BindProperty(Name = "funding-arrangements-details-agreed")]
+        [BindProperty(Name = "funding-arrangement-details-agreed")]
         [Display(Name = "Comments")]
         [ValidText(100)]
         public string FundingArrangementDetailsAgreed { get; set; }
@@ -84,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
                 {
                     KickOffMeeting = new KickOffMeetingTask()
                     {
-                        FundingArrangementAgreed = FundingArrangementsAgreed,
+                        FundingArrangementAgreed = FundingArrangementAgreed,
                         FundingArrangementDetailsAgreed = FundingArrangementDetailsAgreed,
                         RealisticYearOfOpening = RealisticYearOfOpening,
                         ProvisionalOpeningDate = ProvisionalOpeningDate,
@@ -108,7 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
 
-            FundingArrangementsAgreed = project.KickOffMeeting.FundingArrangementAgreed;
+            FundingArrangementAgreed = project.KickOffMeeting.FundingArrangementAgreed;
             FundingArrangementDetailsAgreed = project.KickOffMeeting.FundingArrangementDetailsAgreed;
             RealisticYearOfOpening = project.KickOffMeeting.RealisticYearOfOpening;
             ProvisionalOpeningDate = project.KickOffMeeting.ProvisionalOpeningDate;
