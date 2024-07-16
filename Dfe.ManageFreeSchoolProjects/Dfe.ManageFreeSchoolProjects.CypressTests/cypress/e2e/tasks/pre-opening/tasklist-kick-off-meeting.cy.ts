@@ -75,7 +75,7 @@ describe("Testing kick off meeting Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Kick-off meeting")
             .inOrder()
-            .summaryShows("Funding arrangement details agreed between local authority and trust").HasValue("No").HasChangeLink()
+            .summaryShows("Funding arrangement details agreed between local authority and trust").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
@@ -131,7 +131,7 @@ describe("Testing kick off meeting Task", () => {
             .clickChange();
 
         kickOffMeetingEditPage
-            .checkFundingArrangementsAgreed()
+            .checkFundingArrangementAgreed()
             .clickContinue()
 
         summaryPage.SummaryHasValue("Funding arrangement details agreed between local authority and trust", "Yes")
