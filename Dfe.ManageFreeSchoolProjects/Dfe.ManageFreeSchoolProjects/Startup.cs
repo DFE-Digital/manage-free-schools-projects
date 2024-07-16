@@ -191,6 +191,7 @@ public class Startup
         forwardOptions.KnownNetworks.Clear();
         forwardOptions.KnownProxies.Clear();
         app.UseForwardedHeaders(forwardOptions);
+
         logger.LogInformation("Feature Flag - Use Academisation API: {usingAcademisationApi}", IsFeatureEnabled("hi"));
 
         if (env.IsDevelopment())
@@ -200,10 +201,10 @@ public class Startup
         else
         {
             app.UseExceptionHandler("/Errors");
-            app.UseHsts();
         }
 
         app.UseSecurityHeaders(SecurityHeadersDefinitions.GetHeaderPolicyCollection(env.IsDevelopment()));
+        app.UseHsts();
 
         app.UseStatusCodePagesWithReExecute("/Errors", "?statusCode={0}");
 
