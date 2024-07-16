@@ -12,7 +12,7 @@ namespace Dfe.ManageFreeSchoolProjects.Security
 
 			var policy = new HeaderPolicyCollection()
 				.AddFrameOptionsDeny()
-				.AddXssProtectionBlock()
+				.AddXssProtectionDisabled()
 				.AddContentTypeOptionsNoSniff()
 				.AddReferrerPolicyStrictOriginWhenCrossOrigin()
 				.RemoveServerHeader()
