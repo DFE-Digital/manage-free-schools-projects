@@ -4,7 +4,7 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting.ViewKickOffMeetingTask
 @{
-    ViewData["Title"] = $"Kick-off Meeting - {Model.Project.SchoolName}";
+    ViewData["Title"] = $"Kick-off meeting - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditKickOffMeeting, Model.ProjectId);
