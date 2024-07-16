@@ -1,17 +1,13 @@
-﻿@page "/projects/{projectId}/tasks/principle-designate"
+﻿@page "/projects/{projectId}/tasks/principal-designate"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate.ViewPrincipleDesignateTaskModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate.ViewPrincipalDesignateTaskModel
 @{
-    ViewData["Title"] = $"Principle designate - {Model.Project.SchoolName}";
+    ViewData["Title"] = $"Principal designate - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editlink = string.Format(RouteConstants.EditPrincipleDesignateTask, Model.ProjectId);
-    var principleDesignate = Model.Project.PrincipleDesignate;
-    if (principleDesignate.TrustAppointedPrincipleDesignate == null)
-    {
-        principleDesignate.TrustAppointedPrincipleDesignate = false;
-    }
+    var editlink = string.Format(RouteConstants.EditPrincipalDesignateTask, Model.ProjectId);
+    var principleDesignate = Model.Project.PrincipalDesignate;
 }
 @section BeforeMain {
     
@@ -26,11 +22,11 @@
             <span class="govuk-caption-l" data-testid="school-name">
                 @Model.Project.SchoolName
             </span>
-            Principle designate
+            Principal designate
         </h1>
         <govuk-summary-list>
            
-            <govuk-summary-item label="Trust has appointed a principle designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignate" href="@editlink"/>
+            <govuk-summary-item label="Trust has appointed a principal designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignate" href="@editlink"/>
             
             @if (@principleDesignate.TrustAppointedPrincipleDesignateDate.HasValue)
             {

@@ -14,28 +14,29 @@ using Dfe.ManageFreeSchoolProjects.Validators;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using System.ComponentModel;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
 {
-    public class EditPrincipleDesignateTaskModel : PageModel
+    public class EditPrincipalDesignateTaskModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditPrincipleDesignateTaskModel> _logger;
+        private readonly ILogger<EditPrincipalDesignateTaskModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
 
-        [BindProperty(Name = "trust-appointed-principle-designate")]
+        [BindProperty(Name = "trust-appointed-principal-designate")]
         
         public string TrustAppointedPrincipleDesignate { get; set; }
 
-        [BindProperty(Name = "trust-appointed-principle-designate-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Trust appointed principle designate date")]
+        [BindProperty(Name = "trust-appointed-principal-designate-date", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Trust appointed principal designate date")]
         public DateTime? TrustAppointedPrincipleDesignateDate { get; set; }
         
         [BindProperty(Name = "commissioned-external-expert-visit")]
@@ -45,10 +46,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
         [BindProperty]
         public string SchoolName { get; set; }
 
-        public EditPrincipleDesignateTaskModel(
+        public EditPrincipalDesignateTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditPrincipleDesignateTaskModel> logger,
+            ILogger<EditPrincipalDesignateTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -86,15 +87,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
             
             if (trustAppointedPrincipleDesignate == YesNo.Yes && !TrustAppointedPrincipleDesignateDate.HasValue)
             {
-                ModelState.AddModelError("trust-appointed-principle-designate-date", "Enter the actual date a principle designate was appointed");
+                ModelState.AddModelError("trust-appointed-principal-designate-date", "Enter the actual date a principal designate was appointed");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
+          
+
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
-                PrincipleDesignate = new PrincipleDesignateTask()
+                PrincipalDesignate = new PrincipalDesignateTask()
                 {
+                    TrustAppointedPrincipleDesignate = TrustAppointedPrincipleDesignateDate.HasValue,
                     TrustAppointedPrincipleDesignateDate = TrustAppointedPrincipleDesignateDate,
                     CommissionedExternalExpertVisitToSchool = CommissionedExternalExpertVisit
                 }
@@ -102,26 +106,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
             
             await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
 
-            return Redirect(string.Format(RouteConstants.ViewPrincipleDesignateTask, ProjectId));
+            return Redirect(string.Format(RouteConstants.ViewPrincipalDesignateTask, ProjectId));
         }
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.PrincipleDesignate);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PrincipalDesignate);
             
             SchoolName = project.SchoolName;
-            TrustAppointedPrincipleDesignateDate = project.PrincipleDesignate.TrustAppointedPrincipleDesignateDate;
-            CommissionedExternalExpertVisit = project.PrincipleDesignate.CommissionedExternalExpertVisitToSchool;
-
-            if (project.PrincipleDesignate.TrustAppointedPrincipleDesignateDate.HasValue)
-            {
-                TrustAppointedPrincipleDesignate = YesNo.Yes.ToString();
-            }
-
-            else
-            {
-                TrustAppointedPrincipleDesignate = YesNo.No.ToString();
-            }
+            TrustAppointedPrincipleDesignateDate = project.PrincipalDesignate.TrustAppointedPrincipleDesignateDate;
+            CommissionedExternalExpertVisit = project.PrincipalDesignate.CommissionedExternalExpertVisitToSchool;
+            TrustAppointedPrincipleDesignate = project.PrincipalDesignate.TrustAppointedPrincipleDesignate.ToYesNoString();
         }
         
         public static YesNo? ConvertYesNo(string value)

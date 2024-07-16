@@ -1,17 +1,17 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 {
-    public record PrincipleDesignateTaskSummaryBuilderParameters
+    public record PrincipalDesignateTaskSummaryBuilderParameters
     {
         public string ApplicationWave { get; set; }
         public TaskSummaryResponse TaskSummary { get; set; }
     }
 
-    public class PrincipleDesignateTaskSummaryBuilder
+    public class PrincipalDesignateTaskSummaryBuilder
     {
-        public TaskSummaryResponse Build(PrincipleDesignateTaskSummaryBuilderParameters parameters)
+        public TaskSummaryResponse Build(PrincipalDesignateTaskSummaryBuilderParameters parameters)
         {
             var taskSummary = parameters.TaskSummary;
             var applicationWave = parameters.ApplicationWave;

@@ -3,13 +3,13 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 
-    internal class GetPrincipleDesignateTaskService : IGetTaskService
+    internal class GetPrincipalDesignateTaskService : IGetTaskService
     {
         private readonly MfspContext _context;
 
-        public GetPrincipleDesignateTaskService(MfspContext context)
+        public GetPrincipalDesignateTaskService(MfspContext context)
         {
             _context = context;
 
@@ -21,9 +21,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesig
                 from milestones in joinedMilestones.DefaultIfEmpty()
                 select new GetProjectByTaskResponse()
                 {
-                    PrincipleDesignate = PrincipleDesignateTaskBuilder.Build(milestones)
+                    PrincipalDesignate = PrincipalDesignateTaskBuilder.Build(milestones)
                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { PrincipleDesignate = new PrincipleDesignateTask() };
+            return result ?? new GetProjectByTaskResponse() { PrincipalDesignate = new PrincipalDesignateTask() };
         }
     }

@@ -43,6 +43,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public MovingToOpenTask MovingToOpen  { get; set; }
 
-        public PrincipleDesignateTask PrincipleDesignate { get; set; }
+        public PrincipalDesignateTask PrincipalDesignate { get; set; }
     }
 }
