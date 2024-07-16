@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
 {
-    public class ViewPrincipleDesignateTaskModel : ViewTaskBaseModel
+    public class ViewPrincipalDesignateTaskModel : ViewTaskBaseModel
     {
-        private readonly ILogger<ViewPrincipleDesignateTaskModel> _logger;
+        private readonly ILogger<ViewPrincipalDesignateTaskModel> _logger;
 
-        public ViewPrincipleDesignateTaskModel(
+        public ViewPrincipalDesignateTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewPrincipleDesignateTaskModel> logger,
+            ILogger<ViewPrincipalDesignateTaskModel> logger,
             IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
         {
             _logger.LogMethodEntered();
 
-            await GetTask(TaskName.PrincipleDesignate);
+            await GetTask(TaskName.PrincipalDesignate);
 
             return Page();
         }
@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipleDesignate
         {
             _logger.LogMethodEntered();
 
-            await PostTask(TaskName.PrincipleDesignate);
+            await PostTask(TaskName.PrincipalDesignate);
 
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }

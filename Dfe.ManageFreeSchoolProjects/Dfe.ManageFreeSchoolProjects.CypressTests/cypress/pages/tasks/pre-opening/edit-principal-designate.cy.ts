@@ -1,15 +1,15 @@
-class PrincipleDesignateEditPage
+class PrincipalDesignateEditPage
 {
     private errorTracking = "";
 
 
     checkYesForPrincipleDesignate(): this {
-        cy.getById("trust-appointed-principle-designate-Yes").check()
+        cy.getById("trust-appointed-principal-designate-Yes").check()
         return this
     }
 
     checkNoForPrincipleDesignate(): this {
-        cy.getById("trust-appointed-principle-designate-No").check()
+        cy.getById("trust-appointed-principal-designate-No").check()
         return this
     }
 
@@ -28,12 +28,12 @@ class PrincipleDesignateEditPage
     }
 
     errorForPrincipleDesignateAppointedDate(): this {
-        this.errorTracking = "trust-appointed-principle-designate-date";
+        this.errorTracking = "trust-appointed-principal-designate-date";
         return this;
     }
 
     withPrincipleDesignateAppointedDate(day: string, month: string, year: string): this {
-        const key = "trust-appointed-principle-designate-date";
+        const key = "trust-appointed-principal-designate-date";
         this.setDate(key, day, month, year);
         return this
     }
@@ -60,5 +60,5 @@ class PrincipleDesignateEditPage
     }
 }
 
-const principleDesignateEditPage = new PrincipleDesignateEditPage();
-export default principleDesignateEditPage;
+const principalDesignateEditPage = new PrincipalDesignateEditPage();
+export default principalDesignateEditPage;

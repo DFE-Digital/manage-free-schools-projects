@@ -31,7 +31,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
@@ -156,7 +156,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       PupilNumbersChecks = PupilNumbersChecksTaskBuilder.Build(milestones),
                                       CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones),
                                       MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones),
-                                      PrincipleDesignate = PrincipleDesignateTaskBuilder.Build(milestones),
+                                      PrincipalDesignate = PrincipalDesignateTaskBuilder.Build(milestones),
                                       
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()

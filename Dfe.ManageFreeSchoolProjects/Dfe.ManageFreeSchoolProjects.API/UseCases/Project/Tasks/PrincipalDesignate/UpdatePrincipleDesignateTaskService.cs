@@ -1,7 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 {
     public class UpdatePrincipleDesignateTaskService : IUpdateTaskService
     {
@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesig
 
         public async Task Update(UpdateTaskServiceParameters parameters)
         {
-            var task = parameters.Request.PrincipleDesignate;
+            var task = parameters.Request.PrincipalDesignate;
             var dbKpi = parameters.Kpi;
             
             if (task is null)
@@ -31,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesig
                 _context.Add(db);
             }
 
+            db.FsgPreOpeningMilestonesAppointedPrincipalDesignate = task.TrustAppointedPrincipleDesignate;
             db.FsgPreOpeningMilestonesPdappActualDateOfCompletion = task.TrustAppointedPrincipleDesignateDate;
             db.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool = task.CommissionedExternalExpertVisitToSchool;
         }

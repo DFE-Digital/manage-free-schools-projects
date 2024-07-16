@@ -155,7 +155,7 @@ class TaskListPage {
     }
 
     public selectPrincipleDesignateFromTaskList(): this {
-        cy.getByTestId("PrincipleDesignate-task").click()
+        cy.getByTestId("PrincipalDesignate-task").click()
         return this;
     }
 

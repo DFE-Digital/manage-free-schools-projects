@@ -2,7 +2,7 @@ using System.Runtime.InteropServices.JavaScript;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
-public class PrincipleDesignateTask
+public class PrincipalDesignateTask
 {
     
     public bool?  TrustAppointedPrincipleDesignate { get; set; }

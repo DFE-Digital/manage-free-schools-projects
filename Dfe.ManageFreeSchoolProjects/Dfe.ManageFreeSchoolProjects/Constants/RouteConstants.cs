@@ -49,8 +49,8 @@
         public const string ViewFinancePlanTask = TaskList + "/finance-plan";
         public const string EditFinancePlanTask = ViewFinancePlanTask + "/edit";
         
-        public const string ViewPrincipleDesignateTask = TaskList + "/principle-designate";
-        public const string EditPrincipleDesignateTask = ViewPrincipleDesignateTask + "/edit";
+        public const string ViewPrincipalDesignateTask = TaskList + "/principal-designate";
+        public const string EditPrincipalDesignateTask = ViewPrincipalDesignateTask + "/edit";
 
         public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
         public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";

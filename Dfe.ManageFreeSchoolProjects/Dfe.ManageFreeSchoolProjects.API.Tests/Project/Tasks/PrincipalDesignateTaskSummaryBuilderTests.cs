@@ -1,10 +1,10 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.Tasks;
 
-public class PrincipleDesignateTaskSummaryBuilderTests
+public class PrincipalDesignateTaskSummaryBuilderTests
 {
     [Theory]
     [InlineData("FS - Presumption", true)]
@@ -12,13 +12,13 @@ public class PrincipleDesignateTaskSummaryBuilderTests
     public void Build(string waveType, bool isHidden)
     {
         // Arrange
-        var builder = new PrincipleDesignateTaskSummaryBuilder();
-        var parameters = new PrincipleDesignateTaskSummaryBuilderParameters
+        var builder = new PrincipalDesignateTaskSummaryBuilder();
+        var parameters = new PrincipalDesignateTaskSummaryBuilderParameters
         {
             ApplicationWave = waveType,
             TaskSummary = new TaskSummaryResponse
             {
-                Name = TaskName.PrincipleDesignate.ToString(),
+                Name = TaskName.PrincipalDesignate.ToString(),
                 Status = ProjectTaskStatus.NotStarted,
             }
         };

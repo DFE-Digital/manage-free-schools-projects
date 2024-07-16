@@ -2,7 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipleDesignate;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -88,16 +88,16 @@ public class GetAllTasksStatusService : IGetTasksService
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
-        var principleDesignateTask = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipleDesignate.ToString());
+        var principalDesignateTask = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString());
         
         result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
         
-        result.PrincipleDesignate = BuildPrincipleDesignateTask(principleDesignateTask, dbKpi);
+        result.PrincipalDesignate = BuildPrincipleDesignateTask(principalDesignateTask, dbKpi);
         
         result.TaskCount = _tasksCount;
         
         RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
-        RemoveHiddenCompletedTaskStatus(result.PrincipleDesignate);
+        RemoveHiddenCompletedTaskStatus(result.PrincipalDesignate);
         
         result.CompletedTasks = projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenCompletedTasks;
         
@@ -128,13 +128,13 @@ public class GetAllTasksStatusService : IGetTasksService
     
     private static TaskSummaryResponse BuildPrincipleDesignateTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
     {
-        var parameters = new PrincipleDesignateTaskSummaryBuilderParameters()
+        var parameters = new PrincipalDesignateTaskSummaryBuilderParameters()
         {
             ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
             TaskSummary = taskSummaryResponse
         };
         
-        var result = new PrincipleDesignateTaskSummaryBuilder().Build(parameters);
+        var result = new PrincipalDesignateTaskSummaryBuilder().Build(parameters);
         
         _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
         
