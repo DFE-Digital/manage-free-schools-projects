@@ -153,6 +153,11 @@ public class Startup
         services.AddSingleton<IAuthorizationHandler, HeaderRequirementHandler>();
         services.AddSingleton<IAuthorizationHandler, ClaimsRequirementHandler>();
 
+        services.AddAntiforgery(options =>
+        {
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        });
+
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
     }
