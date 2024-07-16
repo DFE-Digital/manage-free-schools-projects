@@ -27,7 +27,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 PrincipalDesignate = new PrincipalDesignateTask()
                 {
-                    TrustAppointedPrincipleDesignate = true,
                     TrustAppointedPrincipleDesignateDate = new DateTime().AddDays(9),
                     CommissionedExternalExpertVisitToSchool = true
                 }
