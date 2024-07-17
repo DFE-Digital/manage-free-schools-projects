@@ -72,36 +72,48 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
 
             if (trustAppointedPrincipleDesignate != YesNo.Yes)
             {
-                
-              var errorKeys = ModelState.Keys.Where(k => k.StartsWith("trust-appointed-principle-designate-date") || k == "trust-appointed-principle-designate").ToList();
-              errorKeys.ForEach(k => ModelState.Remove(k));
-              TrustAppointedPrincipleDesignateDate = null;
+
+                var errorKeys = ModelState.Keys.Where(k =>
+                    k.StartsWith("trust-appointed-principle-designate-date") ||
+                    k == "trust-appointed-principle-designate").ToList();
+                errorKeys.ForEach(k => ModelState.Remove(k));
+                TrustAppointedPrincipleDesignateDate = null;
             }
-         
+
 
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-            
+
             if (trustAppointedPrincipleDesignate == YesNo.Yes && !TrustAppointedPrincipleDesignateDate.HasValue)
             {
-                ModelState.AddModelError("trust-appointed-principal-designate-date", "Enter the actual date a principal designate was appointed");
+                ModelState.AddModelError("trust-appointed-principal-designate-date",
+                    "Enter the actual date a principal designate was appointed");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-          
+            var principleDesignateTask = new PrincipalDesignateTask();
+
+            if (trustAppointedPrincipleDesignate == null)
+            {
+                principleDesignateTask.TrustAppointedPrincipleDesignate = null;
+            }
+
+            else
+            {
+                principleDesignateTask.TrustAppointedPrincipleDesignate = TrustAppointedPrincipleDesignateDate.HasValue;
+            }
+
+            principleDesignateTask.TrustAppointedPrincipleDesignateDate = TrustAppointedPrincipleDesignateDate;
+            principleDesignateTask.CommissionedExternalExpertVisitToSchool = CommissionedExternalExpertVisit;
+
 
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
-                PrincipalDesignate = new PrincipalDesignateTask()
-                {
-                    TrustAppointedPrincipleDesignate = TrustAppointedPrincipleDesignateDate.HasValue,
-                    TrustAppointedPrincipleDesignateDate = TrustAppointedPrincipleDesignateDate,
-                    CommissionedExternalExpertVisitToSchool = CommissionedExternalExpertVisit
-                }
+                PrincipalDesignate = principleDesignateTask
             };
             
             await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
