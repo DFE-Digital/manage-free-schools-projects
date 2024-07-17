@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-                EXEC('CREATE PROCEDURE [dbo].[sp_DataHistory]
+                EXEC('CREATE VIEW [dbo].[vw_DataHistory]
                 AS
                 --Historic data code
                 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                 --this UD gets the required fields and casts as varchar. Nulls are set to string NULLS as there was an issue with the unpivot or
                 --or grouping (cant remember where), and setting to string resolved this. The nulls are changed back to normal nulls later.
-                ;WITH KPI_UD AS
+                WITH KPI_UD AS
                     (
                     SELECT 
                         ISNULL(cast([RID] as varchar(255)),''NULL'') AS [RID]
@@ -486,7 +486,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     left join
                     (select [Id], [Email] from [mfsp].[User])Users
                     on Final_Historic_Data.UpdatedByUserId = Users.Id
-                ');
+                ')
             ");
         }
 
@@ -494,7 +494,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-                DROP PROCEDURE [dbo].[sp_DataHistory] 
+                EXEC('
+                    DROP VIEW [dbo].[vw_DataHistory]
+                ')
             ");
         }
     }

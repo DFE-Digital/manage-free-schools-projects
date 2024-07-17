@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    [Migration("20240716091006_DataHistory")]
+    [Migration("20240717110454_DataHistory")]
     partial class DataHistory
     {
         /// <inheritdoc />
