@@ -54,6 +54,20 @@ describe("Testing Principal designate task", () => {
         
         summaryPage.clickChange();
 
+        cy.log("Check empty values accepted");
+
+        editPrincipalDesignatePage
+            .clickContinue()
+
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Principal designate")
+            .inOrder()
+            .summaryShows("Trust has appointed a principal designate").IsEmpty().HasChangeLink()
+            .summaryShows("Commissioned an external expert").IsEmpty().HasChangeLink()
+            .isNotMarkedAsComplete()
+            .clickChange()
+        
         cy.log("Check validation for principal designate");
         
         editPrincipalDesignatePage
