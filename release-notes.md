@@ -1,3 +1,7 @@
+## 0.10.0
+
+* 173748 - Build: Update footer to match RSD internal facing product design
+
 ## 0.8.2
 
 * Overall risk summary increased to 5000 characters
