@@ -39,6 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
         [BindProperty]
         public string SchoolName { get; set; }
 
+        public bool IsPresumptionRoute {  get; set; }
+
         public EditFundingAgreementSubmissionTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
@@ -56,6 +58,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
             _logger.LogMethodEntered();
 
             await LoadProject();
+
+            if (IsPresumptionRoute)
+            {
+                return NotFound();
+            }
+
             return Page();
         }
 
@@ -94,6 +102,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
             SavedFaSubmissionInWorkplacesFolder = project.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder;
 
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
         }
 
     }

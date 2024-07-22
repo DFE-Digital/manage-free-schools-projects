@@ -27,6 +27,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
 
             await GetTask(TaskName.FundingAgreementHealthCheck);
 
+            if (!Project.IsPresumptionRoute)
+            {
+                return NotFound();
+            }
+
             return Page();
         }
 

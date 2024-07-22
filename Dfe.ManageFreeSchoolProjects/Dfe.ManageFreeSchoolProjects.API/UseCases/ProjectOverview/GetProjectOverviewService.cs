@@ -9,6 +9,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using DocumentFormat.OpenXml.Packaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 {
@@ -52,6 +53,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             GetProjectSitesResponse sites, 
             PupilNumbersOverviewResponse pupilNumbers)
         {
+
+            var isPresumptionRoute = (project.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption");
+
             return new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
@@ -65,6 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ProjectId = project.ProjectStatusProjectId,
                     Urn = project.ProjectStatusUrnWhenGivenOne,
                     ApplicationWave = project.ProjectStatusFreeSchoolApplicationWave,
+                    IsPresumptionRoute = isPresumptionRoute,
                     RealisticYearOfOpening = project.ProjectStatusRealisticYearOfOpening,
                     DateOfEntryIntoPreopening = project.ProjectStatusDateOfEntryIntoPreOpening,
                     ProvisionalOpeningDateAgreedWithTrust = project.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
