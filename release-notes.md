@@ -1,3 +1,17 @@
+## 0.10.0
+
+* 173748 - Build: Update footer to match RSD internal facing product design
+
+## 0.9.0
+
+* 170810 - Build: Sorry there is a problem
+* 173347 - LIVE: Feedback links Have Come Undone
+* 173259 - BUG: "is not " substring causes crashes in some textfields/textareas
+* 172372 - Data: Trust and Lead sponsor data not updating in 15 min update
+* 166410 - Build: Kick-off meeting (Central route)
+* 171087 - Build: make reference numbers editable
+
+
 ## 0.8.2
 
 * Overall risk summary increased to 5000 characters

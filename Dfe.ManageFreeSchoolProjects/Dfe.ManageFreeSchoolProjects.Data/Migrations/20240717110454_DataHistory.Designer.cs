@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240717110454_DataHistory")]
+    partial class DataHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5374,7 +5377,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.FSRD Forecast date");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor")
+                    b.Property<bool>("FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesGiasActualDateOfCompletion")
@@ -5479,9 +5482,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadDraftedFaHealthCheck")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadDraftedFaSubmission")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("FsgPreOpeningMilestonesMfadForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.MFAD Forecast date");
@@ -5489,22 +5489,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")

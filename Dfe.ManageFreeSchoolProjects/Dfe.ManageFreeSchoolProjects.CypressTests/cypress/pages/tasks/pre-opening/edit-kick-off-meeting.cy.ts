@@ -19,7 +19,7 @@ class KickOffMeetingEditPage {
     }
 
     withComments(comment: string): this {
-        cy.getById("funding-arrangements-details-agreed").typeFast(comment)
+        cy.getById("funding-arrangement-details-agreed").typeFast(comment)
         return this;
     }
 
@@ -48,12 +48,12 @@ class KickOffMeetingEditPage {
     }
 
     errorForComments(): this {
-        this.errorTracking = "funding-arrangements-details-agreed";
+        this.errorTracking = "funding-arrangement-details-agreed";
         return this;
     }
 
-    checkFundingArrangementsAgreed(): this {
-        cy.getById("funding-arrangements-agreed").check()
+    checkFundingArrangementAgreed(): this {
+        cy.getById("funding-arrangement-agreed").check()
         return this
     }
 
