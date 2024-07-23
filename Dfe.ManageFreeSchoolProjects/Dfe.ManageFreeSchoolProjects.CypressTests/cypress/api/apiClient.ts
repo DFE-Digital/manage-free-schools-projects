@@ -33,6 +33,7 @@ export class ApiClient {
 
     protected getHeaders(): object {
         const result = {
+            "User-Agent": "ManageFreeSchoolProjects/1.0 Cypress",
             "Content-type": "application/json",
             ApiKey: Cypress.env(EnvApiKey)
         };
