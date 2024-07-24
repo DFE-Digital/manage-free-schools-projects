@@ -54,8 +54,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             PupilNumbersOverviewResponse pupilNumbers)
         {
 
-            var isPresumptionRoute = (project.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption");
-
             return new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
@@ -69,7 +67,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ProjectId = project.ProjectStatusProjectId,
                     Urn = project.ProjectStatusUrnWhenGivenOne,
                     ApplicationWave = project.ProjectStatusFreeSchoolApplicationWave,
-                    IsPresumptionRoute = isPresumptionRoute,
                     RealisticYearOfOpening = project.ProjectStatusRealisticYearOfOpening,
                     DateOfEntryIntoPreopening = project.ProjectStatusDateOfEntryIntoPreOpening,
                     ProvisionalOpeningDateAgreedWithTrust = project.ProjectStatusProvisionalOpeningDateAgreedWithTrust,

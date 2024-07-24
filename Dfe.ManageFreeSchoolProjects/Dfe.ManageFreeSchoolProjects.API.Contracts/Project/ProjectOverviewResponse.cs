@@ -29,7 +29,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string ProjectId { get; set; }
         public string Urn { get; set; }
         public string ApplicationWave { get; set; }
-        public bool IsPresumptionRoute { get; set; }
         public string RealisticYearOfOpening { get; set; }
         public DateTime? DateOfEntryIntoPreopening { get; set; }
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }

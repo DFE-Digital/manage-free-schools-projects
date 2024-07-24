@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 {
@@ -55,8 +56,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             SchoolType = project.SchoolDetails.SchoolType;
 
             ProjectStatus = project.ProjectStatus.ProjectStatus;
-
-            IsPresumptionRoute = project.ProjectStatus.IsPresumptionRoute;
 
             if (ProjectTaskListSummary is not null)
             {

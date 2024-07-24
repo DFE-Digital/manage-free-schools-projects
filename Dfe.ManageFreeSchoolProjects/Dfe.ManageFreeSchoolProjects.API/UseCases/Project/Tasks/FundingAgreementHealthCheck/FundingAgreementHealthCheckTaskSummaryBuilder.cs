@@ -1,25 +1,25 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck
 {
-    public record PrincipalDesignateTaskSummaryBuilderParameters
+    public record FundingAgreementHealthCheckTaskSummaryBuilderParameters
     {
         public string ApplicationWave { get; set; }
         public TaskSummaryResponse TaskSummary { get; set; }
     }
 
-    public class PrincipalDesignateTaskSummaryBuilder
+    public class FundingAgreementHealthCheckTaskSummaryBuilder
     {
-        public TaskSummaryResponse Build(PrincipalDesignateTaskSummaryBuilderParameters parameters)
+        public TaskSummaryResponse Build(FundingAgreementHealthCheckTaskSummaryBuilderParameters parameters)
         {
             var taskSummary = parameters.TaskSummary;
             var applicationWave = parameters.ApplicationWave;
 
-            if (applicationWave is "FS - Presumption")
+            if (applicationWave is not "FS - Presumption")
             {
                 taskSummary.IsHidden = true;
             }
-
+             
             return taskSummary;
         }
     }

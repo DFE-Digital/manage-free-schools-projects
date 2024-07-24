@@ -2,6 +2,8 @@
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementSubmission;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
@@ -79,8 +81,6 @@ public class GetAllTasksStatusService : IGetTasksService
             ImpactAssessment = SafeRetrieveTaskSummary(projectTasks, "ImpactAssessment"),
             EvidenceOfAcceptedOffers = SafeRetrieveTaskSummary(projectTasks, "EvidenceOfAcceptedOffers"),
             OfstedInspection = SafeRetrieveTaskSummary(projectTasks, "OfstedInspection"),
-            FundingAgreementHealthCheck = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck"),
-            FundingAgreementSubmission = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission"),
             PDG = SafeRetrieveTaskSummary(projectTasks, "PDG"),
             FinalFinancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.FinalFinancePlan.ToString()),
             CommissionedExternalExpert = SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
@@ -89,11 +89,14 @@ public class GetAllTasksStatusService : IGetTasksService
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
         var principalDesignateTask = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString());
+        var fundingAgreementHealthCheckTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck");
+        var fundingAgreementSubmissionTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission");
         
         result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
-        
         result.PrincipalDesignate = BuildPrincipleDesignateTask(principalDesignateTask, dbKpi);
-        
+        result.FundingAgreementHealthCheck = BuildFundingAgreementHealthCheckTask(fundingAgreementHealthCheckTask, dbKpi);
+        result.FundingAgreementSubmission = BuildFundingAgreementSubmissionTask(fundingAgreementSubmissionTask, dbKpi);
+
         result.TaskCount = _tasksCount;
         
         RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
@@ -138,6 +141,36 @@ public class GetAllTasksStatusService : IGetTasksService
         
         _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
         
+        return result;
+    }
+
+    private static TaskSummaryResponse BuildFundingAgreementHealthCheckTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
+    {
+        var parameters = new FundingAgreementHealthCheckTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new FundingAgreementHealthCheckTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
+        return result;
+    }
+
+    private static TaskSummaryResponse BuildFundingAgreementSubmissionTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
+    {
+        var parameters = new FundingAgreementSubmissionTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new FundingAgreementSubmissionTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
         return result;
     }
 

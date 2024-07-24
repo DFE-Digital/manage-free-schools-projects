@@ -222,34 +222,8 @@
                             RenderStatus(Model.ProjectTaskListSummary.FundingAgreement);
                         }
                     </li>
-                    @{
-                        if (Model.IsPresumptionRoute)
-                        {
-                            <li class="app-task-list__item">
-                                <span class="app-task-list__task-name">
-                                    <a href="@fundingAgreementHealthCheckLink" class="govuk-link" data-testid="funding-agreement-health-check-task">
-                                        Funding agreement health check
-                                    </a>
-                                </span>
-                                @{
-                                    RenderStatus(Model.ProjectTaskListSummary.FundingAgreementHealthCheck);
-                                }
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="app-task-list__item">
-                                <span class="app-task-list__task-name">
-                                    <a href="@fundingAgreementSubmissionLink" class="govuk-link" data-testid="funding-agreement-submission-task">
-                                        Funding agreement submission
-                                    </a>
-                                </span>
-                                @{
-                                    RenderStatus(Model.ProjectTaskListSummary.FundingAgreementSubmission);
-                                }
-                            </li>
-                        }
-                    }
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
