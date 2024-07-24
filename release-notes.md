@@ -1,3 +1,7 @@
+## 0.11.0
+
+* 167340 - Build: Funding agreement submission
+
 ## 0.10.0
 
 * 173748 - Build: Update footer to match RSD internal facing product design
