@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
@@ -28,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 PrincipalDesignate = new PrincipalDesignateTask()
                 {
                     TrustAppointedPrincipleDesignateDate = new DateTime().AddDays(9),
-                    CommissionedExternalExpertVisitToSchool = true
+                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
                 }
             };
 
@@ -61,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     TrustAppointedPrincipleDesignate = false,
                     TrustAppointedPrincipleDesignateDate = null,
-                    CommissionedExternalExpertVisitToSchool = false
+                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.No
                 }
             };
 

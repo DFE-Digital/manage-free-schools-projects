@@ -14,14 +14,20 @@ class PrincipalDesignateEditPage
     }
 
     checkYesForExternalExpert(): this {
-        cy.getById("commissioned-external-expert-visit-yes").check()
+        cy.getByTestId("commissioned-external-expert-visit-Yes").check()
         return this
     }
 
     checkNoForExternalExpert(): this {
-        cy.getById("commissioned-external-expert-visit-no").check()
+        cy.getByTestId("commissioned-external-expert-visit-No").check()
         return this
     }
+
+    checkNotApplicableForExternalExpert(): this {
+        cy.getByTestId("commissioned-external-expert-visit-NotApplicable").check()
+        return this
+    }
+
     clickContinue(): this {
         cy.getByTestId("continue").click();
         return this;

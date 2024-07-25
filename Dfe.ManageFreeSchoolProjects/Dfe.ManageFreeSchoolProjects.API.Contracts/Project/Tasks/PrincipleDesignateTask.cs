@@ -1,3 +1,4 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using System.Runtime.InteropServices.JavaScript;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
@@ -9,5 +10,5 @@ public class PrincipalDesignateTask
     
     public DateTime?  TrustAppointedPrincipleDesignateDate { get; set; }
     
-    public bool? CommissionedExternalExpertVisitToSchool { get; set; }
+    public YesNoNotApplicable? CommissionedExternalExpertVisitToSchool { get; set; }
 }

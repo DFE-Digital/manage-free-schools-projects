@@ -666,7 +666,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasColumnType("bit")
                 .HasColumnName("Fsg Pre Opening Milestones. appointed principal designate");
             builder.Property(e => e.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool)
-                .HasColumnType("bit")
+                .HasColumnType("int")
                 .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit to school");
             builder.Property(e => e.FsgPreOpeningMilestonesCommissionedExternalExpertVisit)
                 .HasColumnType("bit")
