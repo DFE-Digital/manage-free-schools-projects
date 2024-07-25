@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240715104559_FASubmission")]
+    partial class FASubmission
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5146,10 +5149,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("Fsg Pre Opening Milestones. applications evidence underwriting agreement saved to workplaces");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesAppointedPrincipalDesignate")
-                        .HasColumnType("bit")
-                        .HasColumnName("Fsg Pre Opening Milestones. appointed principal designate");
-
                     b.Property<DateTime?>("FsgPreOpeningMilestonesBefpActualDateOfCompletion")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.BEFP Actual date of completion");
@@ -5374,7 +5373,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.FSRD Forecast date");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor")
+                    b.Property<bool>("FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesGiasActualDateOfCompletion")

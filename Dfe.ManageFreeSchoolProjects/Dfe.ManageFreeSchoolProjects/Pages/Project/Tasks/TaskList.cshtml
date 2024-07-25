@@ -37,6 +37,7 @@
     var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
+    var fundingAgreementSubmissionLink = string.Format(RouteConstants.ViewFundingAgreementSubmissionTask, Model.ProjectId);
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
     var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
@@ -221,16 +222,8 @@
                             RenderStatus(Model.ProjectTaskListSummary.FundingAgreement);
                         }
                     </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@fundingAgreementHealthCheckLink" class="govuk-link" data-testid="funding-agreement-health-check-task">
-                                Funding agreement health check
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreementHealthCheck);
-                        }
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">

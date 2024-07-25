@@ -25,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new ProjectTaskInformation { Task = project.TaskInformation.KickOffMeeting, TaskName = "Kick-off meeting", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.FundingAgreement, TaskName = "Funding agreement", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.FundingAgreementHealthCheck, TaskName = "Funding agreement health check", Section = "Pre-opening" },
+                    new ProjectTaskInformation { Task = project.TaskInformation.FundingAgreementSubmission, TaskName = "Funding agreement submission", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.AdmissionsArrangements, TaskName = "Admissions Arrangements", Section = "Pre-opening" },
                     new ProjectTaskInformation { Task = project.TaskInformation.DraftGovernancePlan, TaskName = "Draft governance plan", Section = "Pre-opening" },

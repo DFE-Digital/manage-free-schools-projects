@@ -23,6 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool? FsgPreOpeningMilestonesMfadDraftedFaHealthCheck { get; set; }
 
+        public bool? FsgPreOpeningMilestonesMfadDraftedFaSubmission { get; set; }
+
         public bool? FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder { get; set; }
 
         public YesNo? FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa { get; set; }
@@ -111,6 +113,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder { get; set; }
+
+        public bool? FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission { get; set; }
+        public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission { get; set; }
+        public bool? FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder { get; set; }
 
         public bool? FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan { get; set; }
         public DateTime? FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate { get; set; }

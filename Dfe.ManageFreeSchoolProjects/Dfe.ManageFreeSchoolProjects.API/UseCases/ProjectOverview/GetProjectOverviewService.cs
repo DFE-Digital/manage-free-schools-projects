@@ -9,6 +9,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using DocumentFormat.OpenXml.Packaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 {
@@ -52,6 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             GetProjectSitesResponse sites, 
             PupilNumbersOverviewResponse pupilNumbers)
         {
+
             return new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()

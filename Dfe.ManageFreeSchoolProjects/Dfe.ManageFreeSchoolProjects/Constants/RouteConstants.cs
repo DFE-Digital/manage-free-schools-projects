@@ -86,6 +86,9 @@
         public const string ViewFundingAgreementHealthCheckTask = TaskList + "/funding-agreement-health-check";
         public const string EditFundingAgreementHealthCheckTask = ViewFundingAgreementHealthCheckTask + "/edit";
 
+        public const string ViewFundingAgreementSubmissionTask = TaskList + "/funding-agreement-submission";
+        public const string EditFundingAgreementSubmissionTask = ViewFundingAgreementSubmissionTask + "/edit";
+
         public const string ViewFinalFinancePlanTask = TaskList + "/final-finance-plan";
         public const string EditFinalFinancePlanTask = ViewFinalFinancePlanTask + "/edit";
 

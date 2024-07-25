@@ -1,4 +1,3 @@
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -38,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
 
         [BindProperty]
         public string SchoolName { get; set; }
+        public bool IsPresumptionRoute { get; set; }
 
         public EditFundingAgreementHealthCheckTaskModel(
             IGetProjectByTaskService getProjectService,
@@ -56,6 +56,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
             _logger.LogMethodEntered();
 
             await LoadProject();
+
+            if (!IsPresumptionRoute)
+            {
+                return NotFound();
+            }
+
             return Page();
         }
 
@@ -94,6 +100,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
             SavedFaHealthCheckInWorkplacesFolder = project.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder;
 
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
         }
 
     }

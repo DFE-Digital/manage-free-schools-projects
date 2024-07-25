@@ -1,0 +1,42 @@
+﻿@page "/projects/{projectId}/tasks/funding-agreement-submission"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmission.ViewFundingAgreementSubmissionTaskModel;
+@{
+    ViewData["Title"] = $"Funding agreement submission - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editlink = string.Format(RouteConstants.EditFundingAgreementSubmissionTask, Model.ProjectId);
+    var fasubmission = Model.Project.FundingAgreementSubmission;
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Funding agreement submission
+        </h1>
+        <govuk-summary-list>
+            <govuk-summary-item label="Drafted a funding agreement (FA) submission" asp-for="@fasubmission.DraftedFundingAgreementSubmission" href="@editlink" />
+            <govuk-summary-item label="Regional Director has signed-off the FA submission (if applicable)" asp-for="@fasubmission.RegionalDirectorSignedOffFundingAgreementSubmission" href="@editlink" />
+            <govuk-summary-item label="Minister has signed-off the FA submission (if applicable)" asp-for="@fasubmission.MinisterSignedOffFundingAgreementSubmission" href="@editlink" />
+            <govuk-summary-item label="Saved the submission in Workplaces folder" asp-for="@fasubmission.SavedFundingAgreementSubmissionInWorkplacesFolder" href="@editlink" />
+        </govuk-summary-list>
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>

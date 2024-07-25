@@ -11,8 +11,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public KeyContactsResponse KeyContacts { get; set; }
         public SiteInformationResponse SiteInformation { get; set; }
         public ProjectRiskOverviewResponse Risk { get; set; }
-
         public PupilNumbersOverviewResponse PupilNumbers { get; set; }
+
     }
 
     public record ProjectStatusResponse

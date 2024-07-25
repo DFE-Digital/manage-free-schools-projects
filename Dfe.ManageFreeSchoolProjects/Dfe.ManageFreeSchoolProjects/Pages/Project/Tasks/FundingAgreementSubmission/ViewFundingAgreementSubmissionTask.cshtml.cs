@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealthCheck
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmission
 {
-    public class ViewFundingAgreementHealthCheckTaskModel : ViewTaskBaseModel
+    public class ViewFundingAgreementSubmissionTaskModel : ViewTaskBaseModel
     {
-        private readonly ILogger<ViewFundingAgreementHealthCheckTaskModel> _logger;
+        private readonly ILogger<ViewFundingAgreementSubmissionTaskModel> _logger;
 
-        public ViewFundingAgreementHealthCheckTaskModel(
+        public ViewFundingAgreementSubmissionTaskModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewFundingAgreementHealthCheckTaskModel> logger,
+            ILogger<ViewFundingAgreementSubmissionTaskModel> logger,
             IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
@@ -25,9 +25,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
         {
             _logger.LogMethodEntered();
 
-            await GetTask(TaskName.FundingAgreementHealthCheck);
+            await GetTask(TaskName.FundingAgreementSubmission);
 
-            if (!Project.IsPresumptionRoute)
+            if (Project.IsPresumptionRoute)
             {
                 return NotFound();
             }
@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
         {
             _logger.LogMethodEntered();
 
-            await PostTask(TaskName.FundingAgreementHealthCheck);
+            await PostTask(TaskName.FundingAgreementSubmission);
 
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }

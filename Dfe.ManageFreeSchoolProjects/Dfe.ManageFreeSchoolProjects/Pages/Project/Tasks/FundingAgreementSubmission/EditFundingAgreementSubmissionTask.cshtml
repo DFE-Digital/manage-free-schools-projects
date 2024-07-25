@@ -1,0 +1,41 @@
+﻿@page "/projects/{projectId}/tasks/funding-agreement-submission/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmission.EditFundingAgreementSubmissionTaskModel
+@{
+    ViewData["Title"] = $"Edit Funding agreement submission - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewFundingAgreementSubmissionTask, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
+    Edit Funding agreement submission
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form method="post">
+            <govuk-checkbox-input id="drafted-fa-submission" name="drafted-fa-submission" asp-for="@Model.DraftedFASubmission" label="Drafted a funding agreement (FA) submission" />
+            <govuk-checkbox-input id="regional-director-signed-off-fa-submission" name="regional-director-signed-off-fa-submission" asp-for="@Model.RegionalDirectorSignedOffFaSubmission" label="Regional Director has signed-off the FA submission (if applicable)" />
+            <govuk-checkbox-input id="minister-signed-off-fa-submission" name="minister-signed-off-fa-submission" asp-for="@Model.MinisterSignedOffFaSubmission" label="Minister has signed-off the FA submission (if applicable)" />
+            <govuk-checkbox-input id="saved-fa-submission-in-workplaces-folder" name="saved-fa-submission-in-workplaces-folder" asp-for="@Model.SavedFaSubmissionInWorkplacesFolder" label="Saved the submission in Workplaces folder" />
+            
+            @Html.HiddenFor(m => m.SchoolName)
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>

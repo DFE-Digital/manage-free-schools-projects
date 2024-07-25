@@ -20,6 +20,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessme
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementSubmission;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting;
@@ -106,6 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateOfstedInspectionTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateApplicationsEvidenceTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementHealthCheckTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateFundingAgreementSubmissionTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
             services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
