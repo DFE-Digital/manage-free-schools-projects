@@ -1,6 +1,7 @@
 ## 0.11.0
 
 * 167340 - Build: Funding agreement submission
+* 168953 - Build: Principal Designate
 
 ## 0.10.0
 
