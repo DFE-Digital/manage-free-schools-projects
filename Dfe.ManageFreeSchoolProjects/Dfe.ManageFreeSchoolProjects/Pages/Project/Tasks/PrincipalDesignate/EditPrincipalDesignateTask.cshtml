@@ -6,6 +6,10 @@
     ViewData["Title"] = $"Edit Principal designate - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewPrincipalDesignateTask, Model.ProjectId);
+
+    var yesNoNotApplicableLabels = new[] { "Yes", "No", "Not applicable" };
+    var yesNoNotApplicableValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString(), YesNoNotApplicable.NotApplicable.ToString() };
+    var commissionedExternalExpertTestIds = yesNoNotApplicableValues.Select(v => $"commissioned-external-expert-visit-{v}").ToArray();
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container msfp-wider-page">
@@ -27,11 +31,14 @@
             <govuk-conditional-radio id="trust-appointed-principal-designate" label="Trust has appointed a principal designate" asp-for="@Model.TrustAppointedPrincipleDesignate">
                 <govuk-date-input id="trust-appointed-principal-designate-date" name="trust-appointed-principal-designate-date" asp-for="@Model.TrustAppointedPrincipleDesignateDate" hint="For example, 27 3 2021" label="Date the trust appointed principal designate" />
             </govuk-conditional-radio>
-              <govuk-yesno-input label="Commissioned an external expert"
-                                              asp-for="@Model.CommissionedExternalExpertVisit"
-                                              name="commissioned-external-expert-visit"
-                                              id="commissioned-external-expert-visit"
-                                              add-margin=false />
+            <govuk-radios-input id="commissioned-external-expert-visit"
+                                medium-heading-label="true"
+                                name="commissioned-external-expert-visit"
+                                asp-for="@Model.CommissionedExternalExpertVisit"
+                                label="Commissioned an external expert"
+                                values="@yesNoNotApplicableValues"
+                                labels="@yesNoNotApplicableLabels"
+                                test-ids="@commissionedExternalExpertTestIds" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
