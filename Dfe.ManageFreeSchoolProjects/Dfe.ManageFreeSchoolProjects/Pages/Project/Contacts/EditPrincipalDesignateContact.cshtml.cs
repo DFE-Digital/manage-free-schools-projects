@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditTrustContactModel : PageModel
+public class EditPrincipalDesignateContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,7 +24,7 @@ public class EditTrustContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditTrustContactModel> _logger;
+    private readonly ILogger<EditPrincipalDesignateContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
@@ -32,29 +32,16 @@ public class EditTrustContactModel : PageModel
     public string ProjectId { get; set; }
     
 
-    [BindProperty(Name = "trust-contact-name")]
+    [BindProperty(Name = "principal-designate-contact-name")]
     [ValidText(100)]
-    [DisplayName("Trust contact name")]
+    [DisplayName("Principal designate contact name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string TrustContactName { get; set; }
+    public string PrincipalDesignateContactName { get; set; }
 
-    [BindProperty(Name = "trust-contact-email")]
-    [DisplayName("Trust contact email")]
+    [BindProperty(Name = "principal-designate-contact-email")]
+    [DisplayName("Principal designate contact email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string TrustContactEmail { get; set; }
-
-    [BindProperty(Name = "trust-contact-phone-number")]
-    [ValidPhoneNumber]
-    [DisplayName("Trust contact phone number")]
-    [DisplayFormat(ConvertEmptyStringToNull = false)]
-    public string TrustContactPhoneNumber { get; set; }
-
-    [BindProperty(Name = "trust-contact-role")]
-    [ValidText(100)]
-    [DisplayName("Trust contact role")]
-    [DisplayFormat(ConvertEmptyStringToNull = false)]
-
-    public string TrustContactRole { get; set; }
+    public string PrincipalDesignateContactEmail { get; set; }
     
     [BindProperty]
     public GetContactsResponse PageContacts { get; set; }
@@ -66,7 +53,7 @@ public class EditTrustContactModel : PageModel
         return string.Format(RouteConstants.Contacts, ProjectId);
     }
 
-    public EditTrustContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditTrustContactModel> logger )
+    public EditPrincipalDesignateContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditPrincipalDesignateContactModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;
@@ -101,12 +88,10 @@ public class EditTrustContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                TrustContact = new Contact()
+                PrincipalDesignate = new Contact()
                 {
-                    Name = TrustContactName,
-                    Email = TrustContactEmail,
-                    PhoneNumber = TrustContactPhoneNumber,
-                    Role = TrustContactRole
+                    Name = PrincipalDesignateContactName,
+                    Email = PrincipalDesignateContactEmail,
                 }
             }
         };
@@ -122,26 +107,26 @@ public class EditTrustContactModel : PageModel
             return Page();
         }
 
-        if (!IsNamePopulated(TrustContactName))
+        if (!IsNamePopulated(PrincipalDesignateContactName))
         {
-            ModelState.AddModelError("trust-contact-name", "Enter the full name, for example John Smith");
+            ModelState.AddModelError("principal-designate-contact-name", "Enter the full name, for example John Smith");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
-        if (TrustContactName.Any(char.IsDigit))
+        if (PrincipalDesignateContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("trust-contact-name", "Trust contact name must not include numbers");
+            ModelState.AddModelError("principal-designate-contact-name", "Principal designate contact name must not include numbers");
         }
 
-        if (TrustContactEmail?.Length > 100)
+        if (PrincipalDesignateContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("trust-contact-email", "Trust contact email must be 100 characters or less");
+            ModelState.AddModelError("principal-designate-contact-email", "Principal designate contact email must be 100 characters or less");
         }
 
-        if (!IsEmailValid(TrustContactEmail))
+        if (!IsEmailValid(PrincipalDesignateContactEmail))
         {
-            ModelState.AddModelError("trust-contact-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
+            ModelState.AddModelError("principal-designate-contact-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
         }
 
         if (!ModelState.IsValid)
@@ -154,12 +139,10 @@ public class EditTrustContactModel : PageModel
         {
             Contacts = new ContactsTask()
             {
-                TrustContact = new Contact()
+                PrincipalDesignate = new Contact()
                 {
-                    Name = TrustContactName,
-                    Email = TrustContactEmail,
-                    PhoneNumber = TrustContactPhoneNumber,
-                    Role = TrustContactRole
+                    Name = PrincipalDesignateContactName,
+                    Email = PrincipalDesignateContactEmail,
                 }
             }
             
