@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using System;
@@ -213,7 +214,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         },
                         PrincipalDesignate = new PrincipalDesignateTask()
                         {
-                            CommissionedExternalExpertVisitToSchool = true
+                            CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
                         }
                     }
                 }

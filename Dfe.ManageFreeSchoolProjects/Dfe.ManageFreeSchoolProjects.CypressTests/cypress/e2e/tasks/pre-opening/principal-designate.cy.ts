@@ -93,6 +93,22 @@ describe("Testing Principal designate task", () => {
             .summaryShows("Commissioned an external expert").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete();
 
+        summaryPage.clickChange();
+
+
+        editPrincipalDesignatePage
+            .checkNoForPrincipleDesignate()
+            .checkNotApplicableForExternalExpert()
+            .clickContinue()
+
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Principal designate")
+            .inOrder()
+            .summaryShows("Trust has appointed a principal designate").HasValue("No").HasChangeLink()
+            .summaryShows("Commissioned an external expert").HasValue("Not applicable").HasChangeLink()
+            .isNotMarkedAsComplete()
+
         cy.log("can edit principal designate");
 
         summaryPage.clickChange();
