@@ -13,6 +13,7 @@ describe("Testing Funding agreement submission Task", () => {
         cy.login();
 
         project = RequestBuilder.createProjectDetails();
+        project.applicationWave = "Wave 2";
 
         projectApi
             .post({
