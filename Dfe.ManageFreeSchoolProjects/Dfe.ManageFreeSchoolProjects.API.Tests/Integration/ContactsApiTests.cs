@@ -40,6 +40,7 @@ public class ContactsApiTests : ApiTestsBase
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
             TrustContact = new Contact() { Name = _project.KeyContactsChairOfGovernorsMat, Email = _project.KeyContactsChairOfGovernorsMatEmail, PhoneNumber = _project.KeyContactsChairOfGovernorsMatPhone, Role = _project.KeyContactsChairOfGovernorsMatRole },
             OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
+            PrincipalDesignate = new Contact() { Name = _project.KeyContactsPrincipalDesignateName, Email = _project.KeyContactsPrincipalDesignateEmail },
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);
@@ -87,7 +88,7 @@ public class ContactsApiTests : ApiTestsBase
             ProjectManager = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectManager, Email = _project.KeyContactsEsfaCapitalProjectManagerEmail },
             ProjectDirector = new Contact() { Name = _project.KeyContactsEsfaCapitalProjectDirector, Email = _project.KeyContactsEsfaCapitalProjectDirectorEmail },
             OfstedContact = new Contact() { Name = _project.KeyContactsOfstedContact, Email = _project.KeyContactsOfstedContactEmail, PhoneNumber = _project.KeyContactsOfstedContactPhone, Role = _project.KeyContactsOfstedContactRole },
-
+            PrincipalDesignate = new Contact() { Name = _project.KeyContactsPrincipalDesignateName, Email = _project.KeyContactsPrincipalDesignateEmail},
         };
 
         responseContent.Data.Contacts.Should().BeEquivalentTo(expectedContacts);

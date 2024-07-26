@@ -32,14 +32,14 @@ public class EditPrincipalDesignateContactModel : PageModel
     public string ProjectId { get; set; }
     
 
-    [BindProperty(Name = "principal-designate-contact-name")]
+    [BindProperty(Name = "principal-designate-name")]
     [ValidText(100)]
-    [DisplayName("Principal designate contact name")]
+    [DisplayName("Principal designate name")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string PrincipalDesignateContactName { get; set; }
 
-    [BindProperty(Name = "principal-designate-contact-email")]
-    [DisplayName("Principal designate contact email")]
+    [BindProperty(Name = "principal-designate-email")]
+    [DisplayName("Principal designate email")]
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     public string PrincipalDesignateContactEmail { get; set; }
     
@@ -109,24 +109,24 @@ public class EditPrincipalDesignateContactModel : PageModel
 
         if (!IsNamePopulated(PrincipalDesignateContactName))
         {
-            ModelState.AddModelError("principal-designate-contact-name", "Enter the full name, for example John Smith");
+            ModelState.AddModelError("principal-designate-name", "Enter the full name, for example John Smith");
             _errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();
         }
 
         if (PrincipalDesignateContactName.Any(char.IsDigit))
         {
-            ModelState.AddModelError("principal-designate-contact-name", "Principal designate contact name must not include numbers");
+            ModelState.AddModelError("principal-designate-name", "Principal designate name must not include numbers");
         }
 
         if (PrincipalDesignateContactEmail?.Length > 100)
         {
-            ModelState.AddModelError("principal-designate-contact-email", "Principal designate contact email must be 100 characters or less");
+            ModelState.AddModelError("principal-designate-email", "Principal designate email must be 100 characters or less");
         }
 
         if (!IsEmailValid(PrincipalDesignateContactEmail))
         {
-            ModelState.AddModelError("principal-designate-contact-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
+            ModelState.AddModelError("principal-designate-email", "Enter an email address in the correct format, like firstname.surname@outlook.com");
         }
 
         if (!ModelState.IsValid)

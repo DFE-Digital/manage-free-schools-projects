@@ -5,7 +5,7 @@
 
 
 @{
-    ViewData["Title"] = $"Edit Principal designate contact";
+    ViewData["Title"] = $"Edit Principal designate";
     var backLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     
 }
@@ -19,7 +19,7 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full" data-testid="edit-principal-designate-contact-title">
+    <div class="govuk-grid-column-full" data-testid="edit-principal-designate-title">
         <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
         <h1 class="govuk-heading-xl">
             @ViewData["Title"]
@@ -32,23 +32,23 @@
 
         <form class="form" method="post">
 
-            <label class="govuk-label govuk-heading-m" for="principal-designate-contact-name">
+            <label class="govuk-label govuk-heading-m" for="principal-designate-name">
             Name
             </label>
 
             <govuk-text-input 
-                id="principal-designate-contact-name"
-                name="principal-designate-contact-name"
+                id="principal-designate-name"
+                name="principal-designate-name"
                 asp-for="@Model.PageContacts.Contacts.PrincipalDesignate.Name"
-                test-id="edit-principal-designate-contact-name" />
+                test-id="edit-principal-designate-name" />
             
-             <label class="govuk-label govuk-heading-m" for="principal-designate-contact-email">
+             <label class="govuk-label govuk-heading-m" for="principal-designate-email">
             Email
             </label>
-            <govuk-text-input id="principal-designate-contact-email"
-                name="principal-designate-contact-email"
+            <govuk-text-input id="principal-designate-email"
+                name="principal-designate-email"
                 asp-for="@Model.PageContacts.Contacts.PrincipalDesignate.Email"
-                test-id="edit-principal-designate-contact-email" />
+                test-id="edit-principal-designate-email" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
