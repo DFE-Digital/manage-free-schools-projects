@@ -392,7 +392,7 @@ describe("Testing that we can add contacts", () => {
         
                 });
 
-                it.only("Should be able to edit Principal designate", () => {
+                it("Should be able to edit Principal designate", () => {
 
                     cy.executeAccessibilityTests();
         
