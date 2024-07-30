@@ -22,6 +22,7 @@
     var projectDirectorLink = string.Format(RouteConstants.EditProjectDirector, Model.ProjectId);
     var trustContactLink = string.Format(RouteConstants.EditTrustContact, Model.ProjectId);
     var ofstedContactLink = string.Format(RouteConstants.EditOfstedContact, Model.ProjectId);
+    var principalDesignateContactLink = string.Format(RouteConstants.EditPrincipalDesignateContact, Model.ProjectId);
 }
 
 <partial name="_ErrorSummary"/>
@@ -264,6 +265,42 @@
 </div>
 
 <h2 class="govuk-heading-m govuk-!-font-size-27" id="external">External</h2>
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h3 class="govuk-summary-card__title">Principal designate</h3>
+        <div class="govuk-summary-card__actions">
+            <a class="govuk-link" href="@principalDesignateContactLink" data-testid="edit-principal-designate">
+                Change
+                <span class="govuk-visually-hidden">Change Principal designate (External)</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Name
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="principal-designate-name">
+                    @Model.Contacts.Contacts.PrincipalDesignate.Name
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Email address
+                </dt>
+                <dd class="govuk-summary-list__value" data-testid="principal-designate-email">
+                    @Model.Contacts.Contacts.PrincipalDesignate.Email
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
 
 <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">

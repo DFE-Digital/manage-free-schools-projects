@@ -11,6 +11,7 @@ import editProjectManagerPage from "cypress/pages/contacts/editProjectManagerPag
 import editProjectDirectorPage from "cypress/pages/contacts/editProjectDirectorPage";
 import editOfstedContactPage from "cypress/pages/contacts/editOfstedContactPage";
 import editTrustContactPage from "cypress/pages/contacts/editTrustContactPage";
+import editPrincipalDesignatePage from "cypress/pages/contacts/editPrincipalDesignatePage";
 
 describe("Testing that we can add contacts", () => {
     let project: ProjectDetailsRequest;
@@ -388,6 +389,50 @@ describe("Testing that we can add contacts", () => {
                         .hasTrustContactEmail("test.person@gmail.com")
                         .hasTrustContactPhoneNumber("(0) 7123456-89")
                         .hasTrustContactRole("Tester");
+        
+                });
+
+                it("Should be able to edit Principal designate", () => {
+
+                    cy.executeAccessibilityTests();
+        
+                    contactsPage
+                        .isEmpty("principal-designate-name")
+                        .isEmpty("principal-designate-email")
+                    Logger.log("Edit Principal designate")
+                    contactsPage.goToEditPrincipalDesignate();
+        
+                    cy.executeAccessibilityTests();
+        
+                    Logger.log("Check edit contact validation");
+                    editPrincipalDesignatePage
+                        .hasPrincipalDesignateTitle("Edit Principal designate")
+                        .clickContinue()
+                        .withPrincipalDesignateName("$da")
+                        .clickContinue()
+                        .errorForPrincipalDesignateName("Principal designate name must not include special characters other than , ( )")
+                        .withPrincipalDesignateName("da")
+                        .clickContinue()
+                        .errorForPrincipalDesignateName("Enter the full name, for example John Smith")
+                        .withPrincipalDesignateName("da 1")
+                        .clickContinue()
+                        .errorForPrincipalDesignateName("Principal designate name must not include numbers")
+                        .withPrincipalDesignateName(dataGenerator.generateAlphaNumeric(101))
+                        .clickContinue()
+                        .errorForPrincipalDesignateName("Principal designate name must be 100 characters or less")
+                        .withPrincipalDesignateName("Test Person")
+                        .withPrincipalDesignateEmail("firstname.surname")
+                        .clickContinue()
+                        .errorForPrincipalDesignateEmail("Enter an email address in the correct format, like firstname.surname@outlook.com")
+                        .withPrincipalDesignateEmail(dataGenerator.generateAlphaNumeric(101))
+                        .clickContinue()
+                        .errorForPrincipalDesignateEmail("Principal designate email must be 100 characters or less")
+                        .withPrincipalDesignateEmail("test.person@gmail.com")
+                        .clickContinue();
+
+                    contactsPage
+                        .hasPrincipalDesignateName("Test Person")
+                        .hasPrincipalDesignateEmail("test.person@gmail.com")
         
                 });
 
