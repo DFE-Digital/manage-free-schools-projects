@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                 {
                     new Payment
                     {
+                        PaymentIndex = 1,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf1stPayment),
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 2,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf2ndPayment),
@@ -32,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 3,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf3rdPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf3rdPayment),
@@ -39,6 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 4,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf4thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf4thPayment),
@@ -46,6 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 5,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf5thPayment),
@@ -53,6 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 6,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf6thPayment),
@@ -60,6 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 7,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf7thPayment),
@@ -67,6 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 8,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf8thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf8thPayment),
@@ -74,6 +82,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 9,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf9thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf9thPayment),
@@ -81,6 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 10,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf10thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf10thPayment),
@@ -88,6 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 11,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf11thPayment),
@@ -95,6 +106,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInf
                     },
                     new Payment
                     {
+                        PaymentIndex = 12,
                         PaymentScheduleAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue),
                         PaymentScheduleDate = po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue,
                         PaymentActualAmount = ParseDecimal(po.ProjectDevelopmentGrantFundingAmountOf12thPayment),
