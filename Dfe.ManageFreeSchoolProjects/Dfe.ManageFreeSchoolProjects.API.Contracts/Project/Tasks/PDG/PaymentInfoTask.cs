@@ -7,6 +7,7 @@
     }
     public class Payment
     {
+        public int PaymentIndex { get; set; }
         public decimal? PaymentScheduleAmount { get; set; }
         public DateTime? PaymentScheduleDate { get; set; }
         public decimal? PaymentActualAmount { get; set; }
