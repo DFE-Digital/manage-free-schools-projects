@@ -1,11 +1,11 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
 {
-    public class PaymentInfoForProject
+    public class PaymentInfoTask
     {
         public string ProjectId { get; set; }
-        public List<PaymentInfo> Payments { get; set; } = new();
+        public IEnumerable<Payment> Payments { get; set; }
     }
-    public class PaymentInfo
+    public class Payment
     {
         public decimal? PaymentScheduleAmount { get; set; }
         public DateTime? PaymentScheduleDate { get; set; }
