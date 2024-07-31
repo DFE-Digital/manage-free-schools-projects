@@ -49,6 +49,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
+            sectionHeaders.Should().Contain("Reference numbers");
+            sectionHeaders.Should().Contain("Project development grant (PDG)");
             sectionHeaders.Should().Contain("Pre-opening");
             sectionHeaders.Should().Contain("Sign-off preparation");
             sectionHeaders.Should().Contain("Getting ready to open");
