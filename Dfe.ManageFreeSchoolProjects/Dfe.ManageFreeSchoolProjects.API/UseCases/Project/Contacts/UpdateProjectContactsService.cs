@@ -60,6 +60,9 @@ public class UpdateProjectContactsService : IUpdateProjectContactsService
         dbProject.KeyContactsOfstedContactPhone = updateRequest.Contacts.OfstedContact.PhoneNumber ?? dbProject.KeyContactsOfstedContactPhone;
         dbProject.KeyContactsOfstedContactRole = updateRequest.Contacts.OfstedContact.Role ?? dbProject.KeyContactsOfstedContactRole;
 
+        dbProject.KeyContactsPrincipalDesignateName = updateRequest.Contacts.PrincipalDesignate.Name ?? dbProject.KeyContactsPrincipalDesignateName;
+        dbProject.KeyContactsPrincipalDesignateEmail = updateRequest.Contacts.PrincipalDesignate.Email ?? dbProject.KeyContactsPrincipalDesignateEmail;
+
         await _context.SaveChangesAsync();
     }
     

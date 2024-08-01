@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 
-public class EditOfstedContactContactModel : PageModel
+public class EditOfstedContactModel : PageModel
 {
     private readonly IGetContactsService _getContactsService;
     
@@ -24,7 +24,7 @@ public class EditOfstedContactContactModel : PageModel
     
     private readonly IGetProjectOverviewService _getProjectOverviewService;
     
-    private readonly ILogger<EditOfstedContactContactModel> _logger;
+    private readonly ILogger<EditOfstedContactModel> _logger;
     
     private readonly ErrorService _errorService;
     
@@ -66,7 +66,7 @@ public class EditOfstedContactContactModel : PageModel
         return string.Format(RouteConstants.Contacts, ProjectId);
     }
 
-    public EditOfstedContactContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditOfstedContactContactModel> logger )
+    public EditOfstedContactModel(IGetContactsService getContactsService,IGetProjectOverviewService projectOverviewService,IAddContactsService addContactsService,ErrorService errorService, ILogger<EditOfstedContactModel> logger )
     {
         _getContactsService = getContactsService;
         _getProjectOverviewService = projectOverviewService;

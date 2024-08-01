@@ -80,8 +80,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement
 
             if (trustHasSignedTheFA != YesNo.Yes)
             {
-                // Ignore any errors for the RPA fields if the trust is not opting into RPA
-                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-trust-signed-fa")).ToList();
+                // Ignore any errors for the Date the trust signed FA field if the Trust has signed the FA field is No
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-the-trust-signed-fa")).ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+            }
+
+            if(FundingAgreementSigned != true)
+            {
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-fa-was-signed")).ToList();
 
                 errorKeys.ForEach(k => ModelState.Remove(k));
             }

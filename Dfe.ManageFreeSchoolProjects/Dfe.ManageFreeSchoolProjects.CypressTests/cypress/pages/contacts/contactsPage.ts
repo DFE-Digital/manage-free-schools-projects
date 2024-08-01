@@ -156,6 +156,22 @@ class ContactsPage {
         return this;
     }
 
+    public hasPrincipalDesignateName(value: string): this {
+        cy.getByTestId(`principal-designate-name`).should(`contain.text`, value);
+        return this;
+    }
+
+    public hasPrincipalDesignateEmail(value: string): this {
+        cy.getByTestId(`principal-designate-email`).should(`contain.text`, value);
+        return this;
+    }
+
+    public goToEditPrincipalDesignate(): this {
+        cy.getByTestId(`edit-principal-designate`).click();
+
+        return this;
+    }
+
     public goToProjectsOverviewPage(): this {
         cy.getByTestId(`back-button`).click();
 
