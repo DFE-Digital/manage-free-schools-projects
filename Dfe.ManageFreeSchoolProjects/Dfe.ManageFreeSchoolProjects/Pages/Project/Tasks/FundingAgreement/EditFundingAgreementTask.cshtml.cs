@@ -85,6 +85,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement
 
                 errorKeys.ForEach(k => ModelState.Remove(k));
             }
+
+            if(FundingAgreementSigned != true)
+            {
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-fa-was-signed")).ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+            }
             
             var project = await _getProjectService.Execute(ProjectId, TaskName.FundingAgreement);
             SchoolName = project.SchoolName;
