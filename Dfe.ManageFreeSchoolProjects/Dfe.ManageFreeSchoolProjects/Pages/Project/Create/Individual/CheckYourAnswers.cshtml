@@ -131,23 +131,40 @@
         </dd>
     </div>
 
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+        Sixth form
+    </dt>
+    <dd class="govuk-summary-list__value" data-testid="sixth-form">
+        @{
+            RenderValue(Model.Project.SixthForm.ToString());
+        }
+    </dd>
+    <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href=@RouteConstants.CreateClassType>
+            Change<span class="govuk-visually-hidden">Sixth form</span>
+        </a>
+    </dd>
+</div>
+
     <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-            Sixth form
+            Residential or boarding
         </dt>
-        <dd class="govuk-summary-list__value" data-testid="sixth-form">
+        <dd class="govuk-summary-list__value" data-testid="residenital-or-boarding">
             @{
-                RenderValue(Model.Project.SixthForm.ToString());
+            RenderValue(Model.Project.ResidentialOrBoarding.ToString());
             }
         </dd>
         <dd class="govuk-summary-list__actions">
             <a class="govuk-link" href=@RouteConstants.CreateClassType>
-                Change<span class="govuk-visually-hidden">Sixth form</span>
+                Change<span class="govuk-visually-hidden">Residential or boarding</span>
             </a>
         </dd>
     </div>
 
-    @{
+
+@{
         if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(Model.Project.SchoolType))
         {
             <div class="govuk-summary-list__row">

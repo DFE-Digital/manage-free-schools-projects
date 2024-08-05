@@ -32,12 +32,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         [Display(Name = "Special educational needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
 
-        public SchoolType SchoolType{ get; set; }
-
-
-
-        public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache)
-            :base(createProjectCache)
+        [BindProperty(Name = "residential-or-boarding")]
+        [Display(Name = "Residential or boarding")]
+        [Required(ErrorMessage ="Select yes if it is residential or boarding")]
+        public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
+        
+        public SchoolType SchoolType { get; set; }
+        
+        public ClassTypeModel(ErrorService errorService, ICreateProjectCache createProjectCache) : base(createProjectCache)
         {
             _errorService = errorService;
         }
@@ -54,6 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             SixthForm = project.SixthForm;
             AlternativeProvision = project.AlternativeProvision;
             SpecialEducationNeeds = project.SpecialEducationNeeds;
+            ResidentialOrBoarding = project.ResidentialOrBoarding;
 
             if (project.ReachedCheckYourAnswers && !(project.PreviousSchoolType.Equals(SchoolType.NotSet)))
             {
@@ -61,7 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             SchoolType = project.SchoolType;
-
+            
             BackLink = GetPreviousPage(CreateProjectPageName.ClassType);
             
             return Page();
@@ -90,7 +93,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 {
                     ModelState.AddModelError("special-education-needs", "Select yes if it will have special educational needs provision");
                 }
-
             }
 
             if (!ModelState.IsValid)
@@ -103,6 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             project.SixthForm = SixthForm;
             project.AlternativeProvision = AlternativeProvision;
             project.SpecialEducationNeeds = SpecialEducationNeeds;
+            project.ResidentialOrBoarding = ResidentialOrBoarding;
 
             _createProjectCache.Update(project);
 

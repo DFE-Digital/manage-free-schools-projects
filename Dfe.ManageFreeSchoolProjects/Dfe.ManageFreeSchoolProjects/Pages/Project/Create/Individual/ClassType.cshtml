@@ -10,11 +10,13 @@
     var sixthFormOptions = new[] { ClassType.SixthForm.Yes.ToString(), ClassType.SixthForm.No.ToString() };
     var alternativeProvisionOptions = new[] { ClassType.AlternativeProvision.Yes.ToString(), ClassType.AlternativeProvision.No.ToString() };
     var specialEducationNeedsOptions = new[] { ClassType.SpecialEducationNeeds.Yes.ToString(), ClassType.SpecialEducationNeeds.No.ToString() };
+    var residentialOrBoardingOptions = new [] { ClassType.ResidentialOrBoarding.Yes.ToString(), ClassType.ResidentialOrBoarding.No.ToString() };
 
     var nurseryTestIds = new[] { "nursery-Yes", "nursery-No" };
     var sixthFormTestIds = new[] { "sixth-form-Yes", "sixth-form-No" };
     var alternativeProvisionTestIds = new[] { "alternative-provision-Yes", "alternative-provision-No" };
-    var specialEducationNeedsTestIds = new[] { "special-education-needs-Yes", "special-education-needs-No" }; 
+    var specialEducationNeedsTestIds = new[] { "special-education-needs-Yes", "special-education-needs-No" };
+    var residentialOrBoardingTestIds = new[] { "residential-or-boarding-Yes", "residential-or-boarding-No" }; 
 }
 
 @section BeforeMain {
@@ -73,6 +75,15 @@
                 </div>
             }
         }
+        <div class="govuk-form-group">
+            <govuk-radios-input asp-for="@Model.ResidentialOrBoarding"
+                                name="residential-or-boarding"
+                                label="Residential or boarding"
+                                medium-heading-label=true
+                                labels="@residentialOrBoardingOptions"
+                                values="@residentialOrBoardingOptions"
+                                test-ids="@residentialOrBoardingTestIds" />
+        </div>
 
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
