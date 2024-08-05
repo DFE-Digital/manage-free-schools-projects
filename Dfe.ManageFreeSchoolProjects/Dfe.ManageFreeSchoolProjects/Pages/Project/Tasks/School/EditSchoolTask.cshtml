@@ -119,6 +119,17 @@
                                             test-ids="@sixthFormTestIds" />
                     </div>
 
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-heading-m" for="school-type">Residential or boarding</label>
+                        <govuk-radios-input name="residential-or-boarding"
+                                            asp-for="@Model.SpecialEducationNeeds"
+                                            data-testid="special-education-needs"
+                                            labels="@specialEducationNeedsOptions"
+                                            values="@specialEducationNeedsOptions"
+                                            test-ids="@specialEducationNeedsTestIds" />
+                    </div>
+
+
                     <div class="govuk-form-group" id="alternative-provision-container">
                         <label class="govuk-label govuk-heading-m" for="alternative-provision">Alternative provision (specialist resource provision)</label>
                         <govuk-radios-input name="alternative-provision"
@@ -132,13 +143,13 @@
                     <div class="govuk-form-group" id="special-education-needs-container">
                         <label class="govuk-label govuk-heading-m" for="school-type">Special educational needs (specialist resource provision)</label>
                         <govuk-radios-input name="special-education-needs"
-                        asp-for="@Model.SpecialEducationNeeds"
-                        data-testid="special-education-needs"
-                        labels="@specialEducationNeedsOptions"
-                        values="@specialEducationNeedsOptions"
-                        test-ids="@specialEducationNeedsTestIds" />
+                                            asp-for="@Model.SpecialEducationNeeds"
+                                            data-testid="special-education-needs"
+                                            labels="@specialEducationNeedsOptions"
+                                            values="@specialEducationNeedsOptions"
+                                            test-ids="@specialEducationNeedsTestIds" />
                     </div>
-
+                    
                     <div class="govuk-form-group">
                         <label class="govuk-label govuk-heading-m" for="faith-status">Faith status</label>
                         <govuk-radios-input name="faith-status"

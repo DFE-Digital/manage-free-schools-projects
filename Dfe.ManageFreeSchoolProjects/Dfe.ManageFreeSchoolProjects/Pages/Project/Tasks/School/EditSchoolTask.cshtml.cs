@@ -77,7 +77,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
         [BindProperty(Name = "special-education-needs")]
         [Display(Name = "Special educational needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
-
+        
+        [BindProperty(Name = "residential-or-boarding")]
+        [Display(Name = "Residential or boarding")]
+        public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
+        
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
         [Required (ErrorMessage = "Enter the faith status")]
@@ -116,6 +120,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
+                ResidentialOrBoarding = project.School.ResidentialOrBoarding; 
                 AlternativeProvision = project.School.AlternativeProvision;
                 SpecialEducationNeeds = project.School.SpecialEducationNeeds;
                 Gender = project.School.Gender;

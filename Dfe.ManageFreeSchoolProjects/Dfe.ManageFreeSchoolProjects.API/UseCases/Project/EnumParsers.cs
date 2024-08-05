@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType;
 
@@ -29,28 +28,35 @@ public static class EnumParsers
         }
     }
 
-    public static ClassType.SixthForm ParseSixthForm(string input)
+    public static SixthForm ParseSixthForm(string input)
     {
-        return Enum.TryParse<ClassType.SixthForm>(input, out var parsedSixthForm)
+        return Enum.TryParse<SixthForm>(input, out var parsedSixthForm)
             ? parsedSixthForm
-            : ClassType.SixthForm.NotSet;
+            : SixthForm.NotSet;
     }
 
-    public static ClassType.Nursery ParseNursery(string input)
+    public static Nursery ParseNursery(string input)
     {
-        return Enum.TryParse<ClassType.Nursery>(input, out var paredNursery) ? paredNursery : ClassType.Nursery.NotSet;
+        return Enum.TryParse<Nursery>(input, out var paredNursery) ? paredNursery : Nursery.NotSet;
     }
 
-    public static ClassType.AlternativeProvision ParseAlternativeProvision(string input)
+    public static AlternativeProvision ParseAlternativeProvision(string input)
     {
-        return Enum.TryParse<ClassType.AlternativeProvision>(input, out var parsedAlternativeProvision)
+        return Enum.TryParse<AlternativeProvision>(input, out var parsedAlternativeProvision)
             ? parsedAlternativeProvision
-            : ClassType.AlternativeProvision.NotSet;
+            : AlternativeProvision.NotSet;
     }
 
-    public static ClassType.SpecialEducationNeeds ParseSpecialEducationNeeds(string input)
+    public static SpecialEducationNeeds ParseSpecialEducationNeeds(string input)
     {
-        return Enum.TryParse<ClassType.SpecialEducationNeeds>(input, out var parsedSpecialEducationNeeds) ? parsedSpecialEducationNeeds : ClassType.SpecialEducationNeeds.NotSet;
+        return Enum.TryParse<SpecialEducationNeeds>(input, out var parsedSpecialEducationNeeds) ? parsedSpecialEducationNeeds : SpecialEducationNeeds.NotSet;
+    }
+
+    public static ResidentialOrBoarding ParseResidentialOrBoarding(string input)
+    {
+        return Enum.TryParse<ResidentialOrBoarding>(input, out var parsedResidentialOrBoarding)
+            ? parsedResidentialOrBoarding
+            : ResidentialOrBoarding.NotSet;
     }
 
     public static TrustType ParseTrustType(string input)
