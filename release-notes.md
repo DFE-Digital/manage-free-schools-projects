@@ -1,3 +1,7 @@
+## 0.10.1
+
+* 175295 - Live: Total capacity calculation do not match FSS
+
 ## 0.10.0
 
 * 173748 - Build: Update footer to match RSD internal facing product design
