@@ -48,7 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             actualPupilNumbers.CapacityWhenFull.AlternativeProvision.Should().Be(updatePupilNumbersRequest.CapacityWhenFull.AlternativeProvision);
             actualPupilNumbers.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
 
-            actualPupilNumbers.CapacityWhenFull.Total.Should().Be(210);
+            actualPupilNumbers.CapacityWhenFull.Total.Should().Be(90);
         }
 
         [Fact]
