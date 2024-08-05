@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using System.ComponentModel;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
@@ -32,7 +33,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public FundingAgreementSubmissionTask FundingAgreementSubmission { get; set; }
         public PDGDashboard PDGDashboard { get; set; }
         public PaymentScheduleTask PaymentSchedule { get; set; }
-        public PaymentInfoTask PaymentInfo { get; set; }
         public TrustPDGLetterSentTask TrustPDGLetterSent { get; set; }
         public StopPaymentTask StopPayment { get; set; }
         public RefundsTask Refunds { get; set; }

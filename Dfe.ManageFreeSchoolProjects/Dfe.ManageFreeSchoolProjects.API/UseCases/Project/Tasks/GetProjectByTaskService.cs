@@ -34,7 +34,6 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentInfo;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -143,9 +142,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     break;
                 case TaskName.PaymentSchedule:
                     result = await new GetPaymentScheduleService(_context).Get(parameters);
-                    break;
-                case TaskName.PaymentInfo:
-                    result = await new GetPaymentInfoService(_context).Get(parameters);
                     break;
                 case TaskName.TrustPDGLetterSent:
                     result = await new GetTrustPDGLetterSentService(_context).Get(parameters);
