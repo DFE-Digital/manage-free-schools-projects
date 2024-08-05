@@ -96,7 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdPo.PupilNumbersAndCapacityY7Y11Capacity.Should().Be(projectDetails.Y7Y11Capacity.ToString());
             createdPo.PupilNumbersAndCapacityYrY11Pre16Capacity.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity).ToString());
             createdPo.PupilNumbersAndCapacityY12Y14Post16Capacity.Should().Be(projectDetails.Y12Y14Capacity.ToString());
-            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be((projectDetails.NurseryCapacity + projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity).ToString());
+            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity).ToString());
         }
 
         [Fact]

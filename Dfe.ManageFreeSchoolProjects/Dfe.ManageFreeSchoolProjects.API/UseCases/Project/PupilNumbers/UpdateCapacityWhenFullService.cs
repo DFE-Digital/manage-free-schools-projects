@@ -27,12 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers
             po.PupilNumbersAndCapacitySpecialistResourceProvisionAp = capacityWhenFull.AlternativeProvision.ToString();
 
             var total =
-                capacityWhenFull.Nursery +
                 capacityWhenFull.ReceptionToYear6 +
                 capacityWhenFull.Year7ToYear11 +
-                capacityWhenFull.Year12ToYear14 +
-                capacityWhenFull.SpecialEducationNeeds +
-                capacityWhenFull.AlternativeProvision;
+                capacityWhenFull.Year12ToYear14;
 
             po.PupilNumbersAndCapacityTotalOfCapacityTotals = total.ToString();
         }

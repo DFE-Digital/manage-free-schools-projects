@@ -33,6 +33,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         public async Task<IActionResult> OnGet()
         {
             PupilNumbers = await _getPupilNumbersService.Execute(ProjectId);
+
+            PupilNumbers.CapacityWhenFull.Total = PupilNumbers.CapacityWhenFull.ReceptionToYear6 + 
+                PupilNumbers.CapacityWhenFull.Year7ToYear11 + 
+                PupilNumbers.CapacityWhenFull.Year12ToYear14 +
+                PupilNumbers.CapacityWhenFull.Nursery +
+                PupilNumbers.CapacityWhenFull.SpecialEducationNeeds +
+                PupilNumbers.CapacityWhenFull.AlternativeProvision;
+
+                
             ProjectTaskListSummary = await _getProjectByTaskSummaryService.Execute(ProjectId);
 
             return Page();
