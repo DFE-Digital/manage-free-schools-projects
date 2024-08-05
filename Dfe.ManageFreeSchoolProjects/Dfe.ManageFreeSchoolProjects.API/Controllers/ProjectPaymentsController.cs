@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new ObjectResult(result);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public async Task<ActionResult> UpdateProjectPayments([FromRoute] string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [Route("delete/{paymentIndex}")]
-        [HttpPost]
+        [HttpPatch]
         public async Task<ActionResult> DeleteProjectPayments([FromRoute] string projectId, int paymentIndex)
         {
             _logger.LogMethodEntered();
