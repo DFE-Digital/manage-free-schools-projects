@@ -28,11 +28,7 @@ public class DeleteProjectPaymentsService : IDeleteProjectPaymentsService
 
         var po = await _context.Po.FirstOrDefaultAsync(p => p.Rid == dbProject.Rid);
 
-        var blankPayment = new Payment();
-
-        blankPayment.PaymentIndex = paymentIndex;
-
-        po = ProjectPaymentsUpdater.Update(po, blankPayment);
+        ProjectPaymentsDeleter.Delete(po, paymentIndex);
 
         await _context.SaveChangesAsync();
     }
