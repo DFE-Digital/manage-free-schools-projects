@@ -168,12 +168,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             }
 
             else
-            {
+            { 
                 if (AlternativeProvision == ClassType.AlternativeProvision.Yes)
                 {
                     ModelState.AddModelError("alternative-provision", $"Select no if school type is {SchoolType.ToDescription()}");
                 }
-
                 else
                 {
                     AlternativeProvision = ClassType.AlternativeProvision.NotSet;
@@ -183,7 +182,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 {
                     ModelState.AddModelError("special-education-needs", $"Select no if school type is {SchoolType.ToDescription()}");
                 }
-                else {
+                else 
+                {
                     SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
                 }
             }
@@ -268,6 +268,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SixthForm = SixthForm,
                 AlternativeProvision = AlternativeProvision,
                 SpecialEducationNeeds = SpecialEducationNeeds,
+                ResidentialOrBoarding = ResidentialOrBoarding,
                 Gender = Gender,
                 FaithStatus = FaithStatus,
                 FaithType = FaithType,

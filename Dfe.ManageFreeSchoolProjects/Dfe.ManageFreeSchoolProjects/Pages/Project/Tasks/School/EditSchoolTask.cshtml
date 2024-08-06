@@ -24,6 +24,9 @@
     var alternativeProvisionTestIds = alternativeProvisionOptions.Select(x => $"alternative-provision-{x}").ToArray();
     var specialEducationNeedsOptions = new[] { "No", "Yes" };
     var specialEducationNeedsTestIds = specialEducationNeedsOptions.Select(x => $"special-education-needs-{x}").ToArray();
+    var residentialOrBoardingOptions = new[] { "No", "Yes" };
+    var residentialOrBoardingTestIds = residentialOrBoardingOptions.Select(x => $"residential-or-boarding-{x}").ToArray();
+
 
     var genders = Enum.GetValues<Gender>().Except(new[] { Gender.NotSet });
     var genderLabels = genders.Select(x => x.ToDescription()).ToArray();
@@ -122,11 +125,11 @@
                     <div class="govuk-form-group">
                         <label class="govuk-label govuk-heading-m" for="school-type">Residential or boarding</label>
                         <govuk-radios-input name="residential-or-boarding"
-                                            asp-for="@Model.SpecialEducationNeeds"
-                                            data-testid="special-education-needs"
-                                            labels="@specialEducationNeedsOptions"
-                                            values="@specialEducationNeedsOptions"
-                                            test-ids="@specialEducationNeedsTestIds" />
+                                            asp-for="@Model.ResidentialOrBoarding"
+                                            data-testid="residential-or-boarding"
+                                            labels="@residentialOrBoardingOptions"
+                                            values="@residentialOrBoardingOptions"
+                                            test-ids="@residentialOrBoardingTestIds" />
                     </div>
 
 
