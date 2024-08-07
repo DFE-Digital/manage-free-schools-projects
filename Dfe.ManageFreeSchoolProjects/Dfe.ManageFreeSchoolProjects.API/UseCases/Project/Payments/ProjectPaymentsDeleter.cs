@@ -43,18 +43,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 
             if (paymentIndex <= 5)
             {
-                po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue;
-                po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue;
-                po.ProjectDevelopmentGrantFundingAmountOf5thPayment = po.ProjectDevelopmentGrantFundingAmountOf11thPayment;
-                po.ProjectDevelopmentGrantFundingDateOf5thActualPayment = po.ProjectDevelopmentGrantFundingDateOf11thActualPayment;
+                po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue;
+                po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue;
+                po.ProjectDevelopmentGrantFundingAmountOf5thPayment = po.ProjectDevelopmentGrantFundingAmountOf6thPayment;
+                po.ProjectDevelopmentGrantFundingDateOf5thActualPayment = po.ProjectDevelopmentGrantFundingDateOf6thActualPayment;
             };
 
-            if (paymentIndex <= 11)
+            if (paymentIndex <= 6)
             {
-                po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue;
-                po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue;
-                po.ProjectDevelopmentGrantFundingAmountOf11thPayment = po.ProjectDevelopmentGrantFundingAmountOf7thPayment;
-                po.ProjectDevelopmentGrantFundingDateOf11thActualPayment = po.ProjectDevelopmentGrantFundingDateOf7thActualPayment;
+                po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue;
+                po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue;
+                po.ProjectDevelopmentGrantFundingAmountOf6thPayment = po.ProjectDevelopmentGrantFundingAmountOf7thPayment;
+                po.ProjectDevelopmentGrantFundingDateOf6thActualPayment = po.ProjectDevelopmentGrantFundingDateOf7thActualPayment;
             };
 
             if (paymentIndex <= 7)

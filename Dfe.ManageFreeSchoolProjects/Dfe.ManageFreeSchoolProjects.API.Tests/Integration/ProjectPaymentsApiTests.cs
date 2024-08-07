@@ -17,7 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task Get_ProjectPayments_Returns_200()
         {
-            // Ensures that if the child tables for the tasks are not populated, the api still works
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
 
@@ -32,5 +31,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var getProjectPaymentsResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
             getProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+
+        //Get project payments project not found
+
+        //Update project payment
+        //Update project payment index out of range
+
+        //Add project payment
+        //Add project payment index out of range
+
+        //Delete project payment index not found
     }
 }
