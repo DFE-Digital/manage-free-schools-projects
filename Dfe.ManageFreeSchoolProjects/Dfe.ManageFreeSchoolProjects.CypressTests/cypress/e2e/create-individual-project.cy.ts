@@ -222,6 +222,7 @@ describe("Testing the project creation journey", () => {
                 .errorMessage("Select yes if it will have a sixth form")
                 .errorMessage("Select yes if it will have alternative provision")
                 .errorMessage("Select yes if it will have special educational needs provision")
+                .errorMessage("Select yes if it will have residential or boarding")
 
             cy.executeAccessibilityTests();
 
@@ -231,6 +232,7 @@ describe("Testing the project creation journey", () => {
                 .setSixthFormTo("Yes")
                 .setAlternativeProvisionTo("Yes")
                 .setSpecialEducationNeedsTo("No")
+                .setResidentialOrBoarding("Yes")
                 .continue();
 
             Logger.log("Check school phase validation");
@@ -515,6 +517,7 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+                .summaryShows("Residenital or bording").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
@@ -590,6 +593,14 @@ describe("Testing the project creation journey", () => {
             summaryPage
                 .SummaryHasValue("Sixth form", "No")
                 .SummaryHasValue("Nursery", "Yes");
+
+            Logger.log("Change residenital or boarding")
+            summaryPage.clickChangeFor("Resdidenital or boarding")
+            createProjectPage
+                .setResidentialOrBoarding("No")
+                .continue();
+            summaryPage.SummaryHasValue("Residential or boarding", "No")
+
 
             Logger.log("Change Nursery")
             summaryPage.clickChangeFor("Nursery");

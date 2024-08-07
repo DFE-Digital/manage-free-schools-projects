@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         [BindProperty(Name = "residential-or-boarding")]
         [Display(Name = "Residential or boarding")]
-        [Required(ErrorMessage ="Select yes if it is residential or boarding")]
+        [Required(ErrorMessage ="Select yes if it will have residential or boarding")]
         public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
         
         public SchoolType SchoolType { get; set; }
