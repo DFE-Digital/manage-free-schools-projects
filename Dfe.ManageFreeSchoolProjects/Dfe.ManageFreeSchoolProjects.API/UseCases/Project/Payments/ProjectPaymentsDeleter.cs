@@ -6,6 +6,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 {
     public static class ProjectPaymentsDeleter
     {
+        static bool paymentDeleted = false;
+
         public static Po Delete(Po po, int paymentIndex)
         {
 
@@ -139,9 +141,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 
         public static void CheckPaymentExists(string paymentScheduleAmount, DateTime? paymentScheduleDate, string paymentActualAmount, DateTime? paymentActualDate)
         {
-            if (paymentScheduleAmount is null && paymentScheduleDate is null && paymentActualAmount is null && paymentActualDate is null)
+            if (paymentScheduleAmount is null && paymentScheduleDate is null && paymentActualAmount is null && paymentActualDate is null && paymentDeleted == false)
             {
                 throw new NotFoundException("Payment not found");
+            }
+
+            else if (paymentDeleted == false)
+            {
+                paymentDeleted = true;
             }
         }
 
