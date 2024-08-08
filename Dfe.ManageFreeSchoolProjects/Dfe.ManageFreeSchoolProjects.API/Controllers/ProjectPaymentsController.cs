@@ -14,13 +14,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         private readonly IGetProjectPaymentsService _getProjectPaymentsService;
         private readonly IUpdateProjectPaymentsService _updateProjectPaymentsService;
         private readonly IDeleteProjectPaymentsService _deleteProjectPaymentsService;
-        private readonly ILogger<ProjectTaskController> _logger;
+        private readonly ILogger<ProjectPaymentsController> _logger;
 
         public ProjectPaymentsController(
             IGetProjectPaymentsService getProjectPaymentsService,
             IUpdateProjectPaymentsService updateProjectPaymentsService,
             IDeleteProjectPaymentsService deleteProjectPaymentsService,
-            ILogger<ProjectTaskController> logger)
+            ILogger<ProjectPaymentsController> logger)
         {
             _getProjectPaymentsService = getProjectPaymentsService;
             _updateProjectPaymentsService = updateProjectPaymentsService;
