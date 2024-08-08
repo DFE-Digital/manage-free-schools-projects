@@ -152,7 +152,7 @@ public class UpdateProjectPaymentsService : IUpdateProjectPaymentsService
 
         else
         {
-            throw new Exception("Cannot add more that 12 payments");
+            throw new NotFoundException("Cannot add more that 12 payments");
         }
 
         if (payment.PaymentIndex is null)
@@ -162,7 +162,7 @@ public class UpdateProjectPaymentsService : IUpdateProjectPaymentsService
 
         else if (payment.PaymentIndex >= firstNullPaymentIndex)
         {
-            throw new Exception("Payment not found");
+            throw new NotFoundException($"Index {payment.PaymentIndex} cannot be found");
         }
 
         po = ProjectPaymentsUpdater.Update(po, payment);
