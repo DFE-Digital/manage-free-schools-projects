@@ -181,9 +181,7 @@ describe("Testing project overview", () => {
             .withFaithTypeOtherDescription("This is my faith")
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Other - This is my faith");
+        summaryPage.SummaryHasValue("Faith type", "Other - This is my faith");
 
         summaryPage.clickChange();
 
@@ -192,9 +190,7 @@ describe("Testing project overview", () => {
             .faithTypeOtherDescriptionIsNotVisible()
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Church of England");
+        summaryPage.SummaryHasValue("Faith type", "Church of England")
 
         summaryPage.clickChange();
 
@@ -203,9 +199,7 @@ describe("Testing project overview", () => {
             .faithTypeSectionIsNotVisible()
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("None");
+        summaryPage.SummaryHasValue("Faith type", "None");
 
         Logger.log("Should update the task status");
         summaryPage.clickConfirmAndContinue();
