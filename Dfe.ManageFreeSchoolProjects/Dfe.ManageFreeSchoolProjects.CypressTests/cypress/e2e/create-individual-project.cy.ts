@@ -230,9 +230,9 @@ describe("Testing the project creation journey", () => {
             createProjectPage
                 .setNurseryTo("Yes")
                 .setSixthFormTo("Yes")
+                .setResidentialOrBoarding("Yes")
                 .setAlternativeProvisionTo("Yes")
                 .setSpecialEducationNeedsTo("No")
-                .setResidentialOrBoarding("Yes")
                 .continue();
 
             Logger.log("Check school phase validation");
@@ -470,6 +470,7 @@ describe("Testing the project creation journey", () => {
                 .setNurseryTo("No")
                 .setAlternativeProvisionTo("No")
                 .setSpecialEducationNeedsTo("Yes")
+                .setResidentialOrBoarding("No")
                 .continue();
 
             Logger.log("Selecting Secondary school phase");
@@ -517,7 +518,7 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-                .summaryShows("Residenital or bording").HasChangeLink()
+                .summaryShows("Residenital or bording").HasValue("No").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()

@@ -88,7 +88,7 @@ class CreateProjectPage {
     }
     
     setResidentialOrBoarding(option: "Yes" | "No"): this {
-        cy.getByTestId(`residential-or-boarding-${option}`)
+        cy.getByTestId(`residential-or-boarding-${option}`).check(); 
         return this; 
     }
 
