@@ -80,6 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
         
         [BindProperty(Name = "residential-or-boarding")]
         [Display(Name = "Residential or boarding")]
+        [Required (ErrorMessage = "Enter whether it is residential or boarding")]
         public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
         
         [BindProperty(Name = "faith-status")]
