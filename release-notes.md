@@ -2,6 +2,7 @@
 
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate
+* 172911 - Build: Residential or boarding provision
 
 ## 0.10.0
 
@@ -155,4 +156,3 @@
 * 153681 - Build: make 'provisional opening date' an optional page (Unable to check this in Live as not a projectrecordcreator in Live)
  
 ___
-
