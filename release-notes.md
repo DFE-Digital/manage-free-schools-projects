@@ -1,10 +1,8 @@
-## 0.12.0 
-* 172911 - Build: Residential or boarding provision
-
 ## 0.11.0
 
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate
+* 172911 - Build: Residential or boarding provision
 
 ## 0.10.0
 
