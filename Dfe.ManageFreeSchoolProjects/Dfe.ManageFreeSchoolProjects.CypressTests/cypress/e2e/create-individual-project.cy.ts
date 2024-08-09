@@ -222,7 +222,7 @@ describe("Testing the project creation journey", () => {
                 .errorMessage("Select yes if it will have a sixth form")
                 .errorMessage("Select yes if it will have alternative provision")
                 .errorMessage("Select yes if it will have special educational needs provision")
-                .errorMessage("Select yes if it will have residential or boarding")
+                .errorMessage("Select yes if it will have residential or boarding provision")
 
             cy.executeAccessibilityTests();
 
