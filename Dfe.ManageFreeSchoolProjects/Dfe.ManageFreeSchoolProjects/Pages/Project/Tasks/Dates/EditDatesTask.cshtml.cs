@@ -12,9 +12,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
-using Dfe.ManageFreeSchoolProjects.Validators;
-using DocumentFormat.OpenXml.EMMA;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
 {
