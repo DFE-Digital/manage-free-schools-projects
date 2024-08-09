@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
     public static class ProjectPaymentsDeleter
     {
         static bool paymentDeleted = false;
-
+       
         public static Po Delete(Po po, int paymentIndex)
         {
 
@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue = po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf1stPayment = po.ProjectDevelopmentGrantFundingAmountOf2ndPayment;
                 po.ProjectDevelopmentGrantFundingDateOf1stActualPayment = po.ProjectDevelopmentGrantFundingDateOf2ndActualPayment;
-            };
+            }
 
             if (paymentIndex <= 2)
             {
@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue = po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf2ndPayment = po.ProjectDevelopmentGrantFundingAmountOf3rdPayment;
                 po.ProjectDevelopmentGrantFundingDateOf2ndActualPayment = po.ProjectDevelopmentGrantFundingDateOf3rdActualPayment;
-            };
+            }
 
             if (paymentIndex <= 3)
             {
@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue = po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf3rdPayment = po.ProjectDevelopmentGrantFundingAmountOf4thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf3rdActualPayment = po.ProjectDevelopmentGrantFundingDateOf4thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 4)
             {
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf4thPayment = po.ProjectDevelopmentGrantFundingAmountOf5thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf4thActualPayment = po.ProjectDevelopmentGrantFundingDateOf5thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 5)
             {
@@ -59,7 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf5thPayment = po.ProjectDevelopmentGrantFundingAmountOf6thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf5thActualPayment = po.ProjectDevelopmentGrantFundingDateOf6thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 6)
             {
@@ -69,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf6thPayment = po.ProjectDevelopmentGrantFundingAmountOf7thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf6thActualPayment = po.ProjectDevelopmentGrantFundingDateOf7thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 7)
             {
@@ -79,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf7thPayment = po.ProjectDevelopmentGrantFundingAmountOf8thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf7thActualPayment = po.ProjectDevelopmentGrantFundingDateOf8thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 8)
             {
@@ -89,7 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf8thPayment = po.ProjectDevelopmentGrantFundingAmountOf9thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf8thActualPayment = po.ProjectDevelopmentGrantFundingDateOf9thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 9)
             {
@@ -99,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf9thPayment = po.ProjectDevelopmentGrantFundingAmountOf10thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf9thActualPayment = po.ProjectDevelopmentGrantFundingDateOf10thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 10)
             {
@@ -109,7 +109,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf10thPayment = po.ProjectDevelopmentGrantFundingAmountOf11thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf10thActualPayment = po.ProjectDevelopmentGrantFundingDateOf11thActualPayment;
-            };
+            }
 
             if (paymentIndex <= 11)
             {
@@ -119,7 +119,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue;
                 po.ProjectDevelopmentGrantFundingAmountOf11thPayment = po.ProjectDevelopmentGrantFundingAmountOf12thPayment;
                 po.ProjectDevelopmentGrantFundingDateOf11thActualPayment = po.ProjectDevelopmentGrantFundingDateOf12thActualPayment;
-            };
+            }
 
             if (paymentIndex == 12)
             {
@@ -129,12 +129,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue = null;
                 po.ProjectDevelopmentGrantFundingAmountOf12thPayment = null;
                 po.ProjectDevelopmentGrantFundingDateOf12thActualPayment = null;
-            };
+            }
 
             if (paymentIndex > 12)
             {
                 throw new NotFoundException("Index out of range");
             }
+
+            paymentDeleted = false;
 
             return po;
         }

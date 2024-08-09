@@ -165,7 +165,7 @@ public class UpdateProjectPaymentsService : IUpdateProjectPaymentsService
             throw new NotFoundException($"Index {payment.PaymentIndex} cannot be found");
         }
 
-        po = ProjectPaymentsUpdater.Update(po, payment);
+        ProjectPaymentsUpdater.Update(po, payment);
 
         await _context.SaveChangesAsync();
 
