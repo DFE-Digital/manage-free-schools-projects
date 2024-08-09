@@ -71,6 +71,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 SixthForm = project.SixthForm,
                 AlternativeProvision = project.AlternativeProvision,
                 SpecialEducationNeeds = project.SpecialEducationNeeds,
+                ResidentialOrBoarding = project.ResidentialOrBoarding,
                 FormsOfEntry = project.FormsOfEntry,
                 FaithStatus = project.FaithStatus,
                 FaithType = project.FaithType,
@@ -78,7 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
                 ProjectAssignedToName = project.ProjectAssignedToName,
                 ProjectAssignedToEmail = project.ProjectAssignedToEmail,
-                ApplicationWave = "FS - Presumption"
+                ApplicationWave = "FS - Presumption", 
             };
 
             createProjectRequest.Projects.Add(projReq);

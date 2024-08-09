@@ -112,6 +112,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsNursery = proj.Nursery.ToString(),
                 SchoolDetailsAlternativeProvision = proj.AlternativeProvision.ToString(),
                 SchoolDetailsSpecialEducationNeeds = proj.SpecialEducationNeeds.ToString(),
+                SchoolDetailsResidentialOrBoardingProvision = proj.ResidentialOrBoarding.ToString(),
                 SchoolDetailsAgeRange = proj.AgeRange,
                 SchoolDetailsNumberOfFormsOfEntry = proj.FormsOfEntry,
                 SchoolDetailsFaithStatus = proj.FaithStatus.ToString(),
