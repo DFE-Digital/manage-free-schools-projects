@@ -26,4 +26,11 @@ public abstract class ClassType
         Yes,
         No
     }
+    
+    public enum ResidentialOrBoarding
+    {
+        NotSet,
+        Yes,
+        No
+    }
 }

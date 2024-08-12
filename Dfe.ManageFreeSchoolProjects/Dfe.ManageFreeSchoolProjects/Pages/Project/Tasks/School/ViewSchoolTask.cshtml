@@ -1,6 +1,5 @@
 ﻿@page "/projects/{projectId}/tasks/school"
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Pages.Project
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School.ViewSchoolTask
@@ -34,6 +33,8 @@
             <govuk-summary-item label="Gender" asp-for="@schoolTask.Gender" href="@editLink" />
             <govuk-summary-item label="Nursery" asp-for="@schoolTask.Nursery" href="@editLink" />
             <govuk-summary-item label="Sixth form" asp-for="@schoolTask.SixthForm" href="@editLink" />
+            <govuk-summary-item label="Residential or boarding" asp-for="@schoolTask.ResidentialOrBoarding" href="@editLink" />
+
             @{
                 if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(schoolTask.SchoolType))
                 {

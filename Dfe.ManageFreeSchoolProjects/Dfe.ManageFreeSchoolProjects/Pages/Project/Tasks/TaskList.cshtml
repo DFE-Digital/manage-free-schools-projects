@@ -129,16 +129,6 @@
                     </li>
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
-                            <a href="@referenceNumbersTaskLink" class="govuk-link" data-testid="reference-numbers-task">
-                                Reference numbers
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.ReferenceNumbers);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
                             <a href="@trustTaskLink" class="govuk-link" data-testid="trust-task">
                                 @Model.ProjectTaskListSummary.Trust.Name
                             </a>
@@ -176,6 +166,23 @@
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.RiskAppraisalMeeting);
                         }
+                    </li>
+                </ul>
+
+                <h2 class="app-task-list__section">
+                    Reference numbers
+                </h2>
+                <p>(This part is editable by the School Places Analysis team only)</p>
+                <ul class="app-task-list__items">
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@referenceNumbersTaskLink" class="govuk-link" data-testid="reference-numbers-task">
+                               Reference numbers
+                            </a>
+                        </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.ReferenceNumbers);
+                            }
                     </li>
                 </ul>
 
