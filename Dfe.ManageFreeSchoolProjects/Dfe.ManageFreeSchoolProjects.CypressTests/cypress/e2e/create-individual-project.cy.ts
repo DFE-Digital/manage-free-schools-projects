@@ -233,6 +233,7 @@ describe("Testing the project creation journey", () => {
                 .setResidentialOrBoarding("Yes")
                 .setAlternativeProvisionTo("Yes")
                 .setSpecialEducationNeedsTo("No")
+                .setResidentialOrBoarding("Yes")
                 .continue();
 
             Logger.log("Check school phase validation");
@@ -388,6 +389,7 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+                .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
@@ -518,7 +520,7 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-                .summaryShows("Residenital or boarding").HasValue("No").HasChangeLink()
+                .summaryShows("Residential or boarding").HasValue("No").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
@@ -595,8 +597,8 @@ describe("Testing the project creation journey", () => {
                 .SummaryHasValue("Sixth form", "No")
                 .SummaryHasValue("Nursery", "Yes");
 
-            Logger.log("Change residenital or boarding")
-            summaryPage.clickChangeFor("Resdidenital or boarding")
+            Logger.log("Change residential or boarding")
+            summaryPage.clickChangeFor("Residential or boarding")
             createProjectPage
                 .setResidentialOrBoarding("No")
                 .continue();

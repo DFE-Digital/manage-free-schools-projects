@@ -92,6 +92,7 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .setSixthFormTo("Yes")
                 .setAlternativeProvisionTo("Yes")
                 .setSpecialEducationNeedsTo("No")
+                .setResidentialOrBoarding("Yes")
                 .continue();
 
             cy.executeAccessibilityTests();
