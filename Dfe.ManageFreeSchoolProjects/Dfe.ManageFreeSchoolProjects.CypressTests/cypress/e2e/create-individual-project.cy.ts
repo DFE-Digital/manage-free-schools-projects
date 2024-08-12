@@ -518,7 +518,7 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
-                .summaryShows("Residenital or bording").HasValue("No").HasChangeLink()
+                .summaryShows("Residenital or boarding").HasValue("No").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
