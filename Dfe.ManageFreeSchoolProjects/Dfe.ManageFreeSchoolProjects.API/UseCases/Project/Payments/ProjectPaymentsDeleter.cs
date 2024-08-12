@@ -143,12 +143,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 
         public static void CheckPaymentExists(string paymentScheduleAmount, DateTime? paymentScheduleDate, string paymentActualAmount, DateTime? paymentActualDate)
         {
-            if (paymentScheduleAmount is null && paymentScheduleDate is null && paymentActualAmount is null && paymentActualDate is null && paymentDeleted == false)
+            if (paymentScheduleAmount is null && paymentScheduleDate is null && paymentActualAmount is null && paymentActualDate is null && !paymentDeleted)
             {
                 throw new NotFoundException("Payment not found");
             }
 
-            else if (paymentDeleted == false)
+            else if (!paymentDeleted)
             {
                 paymentDeleted = true;
             }
