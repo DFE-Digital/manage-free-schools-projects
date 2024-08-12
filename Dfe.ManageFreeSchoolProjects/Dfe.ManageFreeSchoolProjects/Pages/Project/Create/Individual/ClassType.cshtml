@@ -51,17 +51,6 @@
                                 test-ids="@sixthFormTestIds"/>
         </div>
         
-        <div class="govuk-form-group">
-            <govuk-radios-input asp-for="@Model.ResidentialOrBoarding"
-                                name="residential-or-boarding"
-                                label="Residential or boarding"
-                                medium-heading-label=true
-                                labels="@residentialOrBoardingOptions"
-                                values="@residentialOrBoardingOptions"
-                                test-ids="@residentialOrBoardingTestIds" />
-        </div>
-        
-        
         @{
             if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(Model.SchoolType))
             {
@@ -86,7 +75,17 @@
                 </div>  
             }
         }
-     
+
+        <div class="govuk-form-group">
+            <govuk-radios-input asp-for="@Model.ResidentialOrBoarding"
+                                name="residential-or-boarding"
+                                label="Residential or boarding"
+                                medium-heading-label=true
+                                labels="@residentialOrBoardingOptions"
+                                values="@residentialOrBoardingOptions"
+                                test-ids="@residentialOrBoardingTestIds" />
+        </div>
+        
         <br/>
         <button class="govuk-button" data-module="govuk-button" data-testid="continue">
             Continue
