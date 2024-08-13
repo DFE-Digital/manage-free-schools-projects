@@ -114,9 +114,9 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Mixed")
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
+            .summaryShows("Residential or boarding").HasValue("Yes")
             .summaryShows("Alternative provision (specialist resource provision)").HasValue("No")
             .summaryShows("Special educational needs (specialist resource provision)").HasValue("No")
-            .summaryShows("Residential or boarding").HasValue("Yes")
             .summaryShows("Faith status").HasValue("Designation")
             .summaryShows("Faith type").HasValue("Jewish")
             .clickChange();
@@ -227,6 +227,7 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("Yes")
             .withAlternativeProvision("No")
             .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
