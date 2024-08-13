@@ -136,6 +136,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdatePublishedAdmissionNumberPercentageService, UpdatePublishedAdmissionNumberPercentageService>();
 			services.AddScoped<IGetProjectPaymentsService, GetProjectPaymentsService>();
             services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
+			services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
             services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
 
 

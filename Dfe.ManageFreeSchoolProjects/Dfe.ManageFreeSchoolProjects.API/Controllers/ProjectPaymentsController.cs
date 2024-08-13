@@ -13,17 +13,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     {
         private readonly IGetProjectPaymentsService _getProjectPaymentsService;
         private readonly IUpdateProjectPaymentsService _updateProjectPaymentsService;
+        private readonly IAddProjectPaymentsService _addProjectPaymentsService;
         private readonly IDeleteProjectPaymentsService _deleteProjectPaymentsService;
         private readonly ILogger<ProjectPaymentsController> _logger;
 
         public ProjectPaymentsController(
             IGetProjectPaymentsService getProjectPaymentsService,
             IUpdateProjectPaymentsService updateProjectPaymentsService,
+            IAddProjectPaymentsService addProjectPaymentsService,
             IDeleteProjectPaymentsService deleteProjectPaymentsService,
             ILogger<ProjectPaymentsController> logger)
         {
             _getProjectPaymentsService = getProjectPaymentsService;
             _updateProjectPaymentsService = updateProjectPaymentsService;
+            _addProjectPaymentsService = addProjectPaymentsService;
             _deleteProjectPaymentsService = deleteProjectPaymentsService;
             _logger = logger;
         }
@@ -39,7 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new ObjectResult(result);
         }
 
-        [HttpPatch]
+        [Route("update")]
+        [HttpPut]
         public async Task<ActionResult> UpdateProjectPayments([FromRoute] string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
@@ -49,8 +53,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new OkResult();
         }
 
+        [Route("add")]
+        [HttpPost]
+        public async Task<ActionResult> AddProjectPayments([FromRoute] string projectId, Payment payment)
+        {
+            _logger.LogMethodEntered();
+
+            await _addProjectPaymentsService.Execute(projectId, payment);
+
+            return new OkResult();
+        }
+
         [Route("delete/{paymentIndex}")]
-        [HttpPatch]
+        [HttpDelete]
         public async Task<ActionResult> DeleteProjectPayments([FromRoute] string projectId, int paymentIndex)
         {
             _logger.LogMethodEntered();

@@ -4,16 +4,142 @@ using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 {
-    public static class ProjectPaymentsUpdater
+    public static class ProjectPaymentsAdder
     {
 
-        public static void Update(Po po, Payment payment)
+        public static void Add(Po po, Payment payment)
         {
 
-            switch (payment.PaymentIndex)
+            int firstNullPaymentIndex;
+
+            if (
+                po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf1stPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf1stActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 1;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf2ndPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf2ndActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 2;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf3rdPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf3rdPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf3rdActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 3;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf4thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf4thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf4thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 4;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf5thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf5thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 5;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf6thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf6thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 6;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf7thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf7thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 7;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf8thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf8thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf8thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 8;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf9thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf9thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf9thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 9;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf10thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf10thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf10thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 10;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf11thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf11thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 11;
+            }
+
+            else if (
+                po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue is null &&
+                po.ProjectDevelopmentGrantFundingAmountOf12thPayment is null &&
+                po.ProjectDevelopmentGrantFundingDateOf12thActualPayment is null
+                )
+            {
+                firstNullPaymentIndex = 12;
+            }
+
+            else
+            {
+                throw new NotFoundException("Cannot add more that 12 payments");
+            }
+
+            switch (firstNullPaymentIndex)
             {
                 case 1:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue, po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf1stPayment, po.ProjectDevelopmentGrantFundingDateOf1stActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue = payment.PaymentScheduleDate;
@@ -22,7 +148,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 2:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue, po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf2ndPayment, po.ProjectDevelopmentGrantFundingDateOf2ndActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue = payment.PaymentScheduleDate;
@@ -31,7 +156,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 3:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf3rdPaymentDue, po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf3rdPayment, po.ProjectDevelopmentGrantFundingDateOf3rdActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf3rdPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue = payment.PaymentScheduleDate;
@@ -40,7 +164,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 4:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf4thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf4thPayment, po.ProjectDevelopmentGrantFundingDateOf4thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf4thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue = payment.PaymentScheduleDate;
@@ -49,7 +172,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 5:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf5thPayment, po.ProjectDevelopmentGrantFundingDateOf5thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue = payment.PaymentScheduleDate;
@@ -58,7 +180,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 6:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf6thPayment, po.ProjectDevelopmentGrantFundingDateOf6thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue = payment.PaymentScheduleDate;
@@ -67,7 +188,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 7:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf7thPayment, po.ProjectDevelopmentGrantFundingDateOf7thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue = payment.PaymentScheduleDate;
@@ -76,7 +196,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 8:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf8thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf8thPayment, po.ProjectDevelopmentGrantFundingDateOf8thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf8thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue = payment.PaymentScheduleDate;
@@ -85,7 +204,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 9:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf9thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf9thPayment, po.ProjectDevelopmentGrantFundingDateOf9thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf9thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue = payment.PaymentScheduleDate;
@@ -94,7 +212,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 10:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf10thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf10thPayment, po.ProjectDevelopmentGrantFundingDateOf10thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf10thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue = payment.PaymentScheduleDate;
@@ -103,7 +220,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 11:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf11thPayment, po.ProjectDevelopmentGrantFundingDateOf11thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue = payment.PaymentScheduleDate;
@@ -112,7 +228,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     break;
 
                 case 12:
-                    CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf12thPayment, po.ProjectDevelopmentGrantFundingDateOf12thActualPayment);
 
                     po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue = payment.PaymentScheduleAmount.ToString();
                     po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue = payment.PaymentScheduleDate;
@@ -120,18 +235,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     po.ProjectDevelopmentGrantFundingDateOf12thActualPayment = payment.PaymentActualDate;
                     break;
 
-                default:
-                    throw new NotFoundException($"Index {payment.PaymentIndex} cannot be found");
             }
+
         }
 
-        public static void CheckPaymentExists(string paymentScheduleAmount, DateTime? paymentScheduleDate, string paymentActualAmount, DateTime? paymentActualDate)
-        {
-            if (paymentScheduleAmount is null && paymentScheduleDate is null && paymentActualAmount is null && paymentActualDate is null)
-            {
-                throw new NotFoundException($"Payment not found");
-            }
-        }
     }
 }
-
