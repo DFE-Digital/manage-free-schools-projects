@@ -100,6 +100,7 @@ describe("Testing the tasks completed count", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("No")
             .withFaithStatus("Designation")
             .withFaithType("faith-type-Jewish")
             .clickContinue();
