@@ -1,3 +1,7 @@
+## 0.12.0
+* 174750 - Build: Modify API to work with new PDG designs
+
+---
 ## 0.11.0
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate
