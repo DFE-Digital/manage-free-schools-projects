@@ -17,7 +17,23 @@ public enum ProjectStatus
     Cancelled,
     
     [Description("Withdrawn in pre-opening")]
-    WithdrawnDuringPreOpening
+    WithdrawnDuringPreOpening,
 
+    [Description("Application competition stage")]
+    ApplicationCompetitionStage,
 
+    [Description("Application stage")]
+    ApplicationStage,
+
+    [Description("Open - not included in figures")]
+    OpenNotIncludedInFigures,
+
+    [Description("Pre-opening - not included in figures")]
+    PreopeningNotIncludedInFigures,
+
+    [Description("Rejected")]
+    Rejected,
+
+    [Description("Withdrawn in application stage")]
+    WithdrawnDuringApplication,
 }

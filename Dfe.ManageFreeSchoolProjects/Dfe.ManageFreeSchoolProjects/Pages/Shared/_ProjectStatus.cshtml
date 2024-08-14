@@ -5,29 +5,27 @@
 @model Dfe.ManageFreeSchoolProjects.ViewModels.ProjectStatusViewModel
 @{
     var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId) + $"?back={BackBehaviour.Previous}" + $"&referrer={Model.Referrer}";
-}
-    <p>
-   
-    @if (Model.ProjectStatus == ProjectStatus.Preopening)
-    {
-        <strong class="govuk-tag govuk-tag--yellow" id="status-tag">@ProjectStatus.Preopening.ToDescription()</strong>
-    }
-    @if (Model.ProjectStatus== ProjectStatus.Open)
-    {
-        <strong class="govuk-tag govuk-tag--turquoise" id="status-tag">@ProjectStatus.Open.ToDescription()</strong>
-    }
-    @if (Model.ProjectStatus == ProjectStatus.Closed)
-         {
-             <strong class="govuk-tag govuk-tag--blue" id="status-tag">@ProjectStatus.Closed.ToDescription()</strong>
-         }
-     @if (Model.ProjectStatus == ProjectStatus.Cancelled)
-        {
-            <strong class="govuk-tag govuk-tag--orange" id="status-tag">@ProjectStatus.Cancelled.ToDescription()</strong>
-        }
-    @if (Model.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
-        {
-            <strong class="govuk-tag govuk-tag--orange" id="status-tag">@ProjectStatus.WithdrawnDuringPreOpening.ToDescription()</strong>
-        }
 
+    var tagColour = Model.ProjectStatus switch
+    {
+        ProjectStatus.ApplicationStage => "purple",
+        ProjectStatus.ApplicationCompetitionStage => "purple",
+        ProjectStatus.Cancelled => "orange",
+        ProjectStatus.Closed => "blue",
+        ProjectStatus.Open => "turquoise",
+        ProjectStatus.OpenNotIncludedInFigures => "turquoise",
+        ProjectStatus.Preopening => "yellow",
+        ProjectStatus.PreopeningNotIncludedInFigures => "yellow",
+        ProjectStatus.Rejected => "orange",
+        ProjectStatus.WithdrawnDuringApplication => "orange",
+        ProjectStatus.WithdrawnDuringPreOpening => "orange",
+        _ => "grey"
+    };
+
+    var tagClass = $"govuk-tag govuk-tag--{tagColour}";
+}
+
+<p>
+    <strong class="@tagClass" id="status-tag">@Model.ProjectStatus.ToDescription()</strong>
     <a class="govuk-link govuk-!-padding-left-5" href="@editlink" id="change-project-status">Change project status</a>
 </p>
