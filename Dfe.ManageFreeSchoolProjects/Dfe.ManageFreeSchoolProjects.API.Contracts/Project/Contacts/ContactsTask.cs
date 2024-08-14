@@ -16,5 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 
         public Contact OfstedContact { get; set; } = new();
 
+        public Contact PrincipalDesignate { get; set; } = new();
+
 }
 

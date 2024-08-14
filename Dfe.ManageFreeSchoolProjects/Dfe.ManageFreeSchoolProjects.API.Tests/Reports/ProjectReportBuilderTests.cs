@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
 using System;
@@ -34,6 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Kick-off meeting");
             taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
+            taskHeaders.Should().Contain("Funding agreement submission");
             taskHeaders.Should().Contain("Articles of association");
             taskHeaders.Should().Contain("Draft governance plan");
             taskHeaders.Should().Contain("Finance plan");
@@ -47,6 +49,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
 
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
+            sectionHeaders.Should().Contain("Reference numbers");
+            sectionHeaders.Should().Contain("Project development grant (PDG)");
             sectionHeaders.Should().Contain("Pre-opening");
             sectionHeaders.Should().Contain("Sign-off preparation");
             sectionHeaders.Should().Contain("Getting ready to open");
@@ -75,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(FundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
+            AssertEntry(nameof(FundingAgreementSubmissionTask.DraftedFundingAgreementSubmission), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
             AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
             AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
@@ -159,6 +164,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             DraftedFundingAgreementHealthCheck = true
                         },
+                        FundingAgreementSubmission = new FundingAgreementSubmissionTask()
+                        {
+                            DraftedFundingAgreementSubmission = true
+                        },
                         Gias = new GiasTask()
                         {
                             CheckedTrustInformation = true
@@ -213,7 +222,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         },
                         PrincipalDesignate = new PrincipalDesignateTask()
                         {
-                            CommissionedExternalExpertVisitToSchool = true
+                            CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
                         }
                     }
                 }

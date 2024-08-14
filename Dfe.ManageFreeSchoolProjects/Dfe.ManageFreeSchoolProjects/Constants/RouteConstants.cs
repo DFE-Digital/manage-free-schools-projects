@@ -86,6 +86,9 @@
         public const string ViewFundingAgreementHealthCheckTask = TaskList + "/funding-agreement-health-check";
         public const string EditFundingAgreementHealthCheckTask = ViewFundingAgreementHealthCheckTask + "/edit";
 
+        public const string ViewFundingAgreementSubmissionTask = TaskList + "/funding-agreement-submission";
+        public const string EditFundingAgreementSubmissionTask = ViewFundingAgreementSubmissionTask + "/edit";
+
         public const string ViewFinalFinancePlanTask = TaskList + "/final-finance-plan";
         public const string EditFinalFinancePlanTask = ViewFinalFinancePlanTask + "/edit";
 
@@ -126,6 +129,7 @@
         public const string EditProjectDirector = "/projects/{0}/contacts/project-director-edit";
         public const string EditTrustContact = "/projects/{0}/contacts/trust-contact-edit";
         public const string EditOfstedContact = "/projects/{0}/contacts/ofsted-contact-edit";
+        public const string EditPrincipalDesignateContact = "/projects/{0}/contacts/principal-designate-contact-edit";
 
         public const string ViewPDG = TaskList + "/pdg";
         public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";

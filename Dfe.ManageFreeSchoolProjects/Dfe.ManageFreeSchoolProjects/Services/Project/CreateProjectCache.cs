@@ -47,6 +47,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public ClassType.Nursery Nursery { get; set; }
         public ClassType.AlternativeProvision AlternativeProvision { get; set; }
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
+        public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
+
         public string AgeRange { get; set; }
         public int? NurseryCapacity { get; set; }
         public int? YRY6Capacity { get; set; }

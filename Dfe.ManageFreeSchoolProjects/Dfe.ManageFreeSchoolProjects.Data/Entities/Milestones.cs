@@ -23,6 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool? FsgPreOpeningMilestonesMfadDraftedFaHealthCheck { get; set; }
 
+        public bool? FsgPreOpeningMilestonesMfadDraftedFaSubmission { get; set; }
+
         public bool? FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder { get; set; }
 
         public YesNo? FsgPreOpeningMilestonesMfadTrustAgreesWithModelFa { get; set; }
@@ -112,6 +114,10 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder { get; set; }
 
+        public bool? FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission { get; set; }
+        public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission { get; set; }
+        public bool? FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder { get; set; }
+
         public bool? FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan { get; set; }
         public DateTime? FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate { get; set; }
         public bool? FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox { get; set; }
@@ -124,7 +130,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration  { get; set; }
 
         public bool? FsgPreOpeningMilestonesAppointedPrincipalDesignate { get; set; }
-        public bool? FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool { get; set; }
+        public YesNoNotApplicable? FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool { get; set; }
         public bool? FsgPreOpeningMilestonesCommissionedExternalExpertVisit { get; set; }
             
         public DateTime? FsgPreOpeningMilestonesExternalExpertVisitDate { get; set; }

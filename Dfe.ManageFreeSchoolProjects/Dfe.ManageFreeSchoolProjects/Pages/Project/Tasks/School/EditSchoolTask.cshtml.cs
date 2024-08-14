@@ -77,7 +77,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
         [BindProperty(Name = "special-education-needs")]
         [Display(Name = "Special educational needs")]
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
-
+        
+        [BindProperty(Name = "residential-or-boarding")]
+        [Display(Name = "Residential or boarding")]
+        [Required (ErrorMessage = "Enter whether it is residential or boarding")]
+        public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
+        
         [BindProperty(Name = "faith-status")]
         [Display(Name = "Faith status")]
         [Required (ErrorMessage = "Enter the faith status")]
@@ -116,6 +121,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SchoolPhase = project.School.SchoolPhase;
                 Nursery = project.School.Nursery;
                 SixthForm = project.School.SixthForm;
+                ResidentialOrBoarding = project.School.ResidentialOrBoarding; 
                 AlternativeProvision = project.School.AlternativeProvision;
                 SpecialEducationNeeds = project.School.SpecialEducationNeeds;
                 Gender = project.School.Gender;
@@ -163,12 +169,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
             }
 
             else
-            {
+            { 
                 if (AlternativeProvision == ClassType.AlternativeProvision.Yes)
                 {
                     ModelState.AddModelError("alternative-provision", $"Select no if school type is {SchoolType.ToDescription()}");
                 }
-
                 else
                 {
                     AlternativeProvision = ClassType.AlternativeProvision.NotSet;
@@ -178,7 +183,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 {
                     ModelState.AddModelError("special-education-needs", $"Select no if school type is {SchoolType.ToDescription()}");
                 }
-                else {
+                else 
+                {
                     SpecialEducationNeeds = ClassType.SpecialEducationNeeds.NotSet;
                 }
             }
@@ -263,6 +269,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.School
                 SixthForm = SixthForm,
                 AlternativeProvision = AlternativeProvision,
                 SpecialEducationNeeds = SpecialEducationNeeds,
+                ResidentialOrBoarding = ResidentialOrBoarding,
                 Gender = Gender,
                 FaithStatus = FaithStatus,
                 FaithType = FaithType,

@@ -12,6 +12,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ClassType.SixthForm SixthForm { get; set; }
         public ClassType.AlternativeProvision AlternativeProvision { get; set; }
         public ClassType.SpecialEducationNeeds SpecialEducationNeeds { get; set; }
+        
+        public ClassType.ResidentialOrBoarding ResidentialOrBoarding { get; set; }
         public Gender Gender { get; set; }
         public string FormsOfEntry { get; set; }
         public FaithStatus FaithStatus { get; set; }

@@ -49,6 +49,7 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").IsEmpty().HasChangeLink()
             .summaryShows("Nursery").IsEmpty().HasChangeLink()
             .summaryShows("Sixth form").IsEmpty().HasChangeLink()
+            .summaryShows("Residential or boarding").IsEmpty().HasChangeLink()
             .summaryShows("Faith status").IsEmpty().HasChangeLink()
             .summaryShows("Faith type").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -68,7 +69,8 @@ describe("Testing project overview", () => {
             .hasValidationError("Enter the sixth form")
             .hasValidationError("Enter the school type")
             .hasValidationError("Enter the faith status")
-            .hasValidationError("Enter the school phase");
+            .hasValidationError("Enter the school phase")
+            .hasValidationError("Enter whether it is residential or boarding");
 
         cy.executeAccessibilityTests();
 
@@ -94,6 +96,7 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("Yes")
             .withAlternativeProvision("No")
             .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")
@@ -111,6 +114,7 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Mixed")
             .summaryShows("Nursery").HasValue("Yes")
             .summaryShows("Sixth form").HasValue("No")
+            .summaryShows("Residential or boarding").HasValue("Yes")
             .summaryShows("Alternative provision (specialist resource provision)").HasValue("No")
             .summaryShows("Special educational needs (specialist resource provision)").HasValue("No")
             .summaryShows("Faith status").HasValue("Designation")
@@ -127,6 +131,7 @@ describe("Testing project overview", () => {
             .withGender("BoysOnly")
             .withNursery("No")
             .withSixthForm("Yes")
+            .withResidentialOrBoarding("No")
             .withFaithStatus("Ethos")
             .withFaithType("faith-type-ChurchOfEngland")
             .hasNoAlternativeProvision()
@@ -144,6 +149,7 @@ describe("Testing project overview", () => {
             .summaryShows("Gender").HasValue("Boys only")
             .summaryShows("Nursery").HasValue("No")
             .summaryShows("Sixth form").HasValue("Yes")
+            .summaryShows("Residential or boarding").HasValue("No")
             .summaryShows("Faith status").HasValue("Ethos")
             .summaryShows("Faith type").HasValue("Church of England")
             .summaryDoesNotShow("Alternative provision (specialist resource provision)")
@@ -175,9 +181,7 @@ describe("Testing project overview", () => {
             .withFaithTypeOtherDescription("This is my faith")
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Other - This is my faith");
+        summaryPage.SummaryHasValue("Faith type", "Other - This is my faith");
 
         summaryPage.clickChange();
 
@@ -186,9 +190,7 @@ describe("Testing project overview", () => {
             .faithTypeOtherDescriptionIsNotVisible()
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("Church of England");
+        summaryPage.SummaryHasValue("Faith type", "Church of England")
 
         summaryPage.clickChange();
 
@@ -197,9 +199,7 @@ describe("Testing project overview", () => {
             .faithTypeSectionIsNotVisible()
             .clickContinue();
 
-        summaryPage
-            .startFromRow(9)
-            .summaryShows("Faith type").HasValue("None");
+        summaryPage.SummaryHasValue("Faith type", "None");
 
         Logger.log("Should update the task status");
         summaryPage.clickConfirmAndContinue();
@@ -227,6 +227,7 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("Yes")
             .withAlternativeProvision("No")
             .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")

@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 {

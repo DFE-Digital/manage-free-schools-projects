@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
     {
         public static SchoolTask Build(Kpi kpi)
         {
-            return new SchoolTask()
+            return new SchoolTask
             {
                 CurrentFreeSchoolName = kpi.ProjectStatusCurrentFreeSchoolName,
                 SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School
                 SixthForm = EnumParsers.ParseSixthForm(kpi.SchoolDetailsSixthForm),
                 AlternativeProvision = EnumParsers.ParseAlternativeProvision(kpi.SchoolDetailsAlternativeProvision),
                 SpecialEducationNeeds = EnumParsers.ParseSpecialEducationNeeds(kpi.SchoolDetailsSpecialEducationNeeds),
+                ResidentialOrBoarding = EnumParsers.ParseResidentialOrBoarding(kpi.SchoolDetailsResidentialOrBoardingProvision),
                 FaithStatus = EnumParsers.ParseFaithStatus(kpi.SchoolDetailsFaithStatus),
                 FaithType = ProjectMapper.ToFaithType(kpi.SchoolDetailsFaithType),
                 OtherFaithType = kpi.SchoolDetailsPleaseSpecifyOtherFaithType,

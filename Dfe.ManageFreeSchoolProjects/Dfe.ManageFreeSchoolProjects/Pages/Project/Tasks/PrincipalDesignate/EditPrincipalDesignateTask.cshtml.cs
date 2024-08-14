@@ -40,8 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
         public DateTime? TrustAppointedPrincipleDesignateDate { get; set; }
         
         [BindProperty(Name = "commissioned-external-expert-visit")]
-        
-        public bool? CommissionedExternalExpertVisit { get; set; }
+        public string CommissionedExternalExpertVisit { get; set; }
         
         [BindProperty]
         public string SchoolName { get; set; }
@@ -108,7 +107,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
             }
 
             principleDesignateTask.TrustAppointedPrincipleDesignateDate = TrustAppointedPrincipleDesignateDate;
-            principleDesignateTask.CommissionedExternalExpertVisitToSchool = CommissionedExternalExpertVisit;
+            principleDesignateTask.CommissionedExternalExpertVisitToSchool = ConvertYesNoNotApplicable(CommissionedExternalExpertVisit);
 
 
             var updateTaskRequest = new UpdateProjectByTaskRequest()
@@ -127,10 +126,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
             
             SchoolName = project.SchoolName;
             TrustAppointedPrincipleDesignateDate = project.PrincipalDesignate.TrustAppointedPrincipleDesignateDate;
-            CommissionedExternalExpertVisit = project.PrincipalDesignate.CommissionedExternalExpertVisitToSchool;
+            CommissionedExternalExpertVisit = project.PrincipalDesignate.CommissionedExternalExpertVisitToSchool?.ToString();
             TrustAppointedPrincipleDesignate = project.PrincipalDesignate.TrustAppointedPrincipleDesignate.ToYesNoString();
         }
-        
+        private static YesNoNotApplicable? ConvertYesNoNotApplicable(string value)
+        {
+            return Enum.TryParse<YesNoNotApplicable>(value, true, out var result) ? result : null;
+        }
+
         public static YesNo? ConvertYesNo(string value)
         {
             return Enum.TryParse<YesNo>(value, true, out var result) ? result : null;

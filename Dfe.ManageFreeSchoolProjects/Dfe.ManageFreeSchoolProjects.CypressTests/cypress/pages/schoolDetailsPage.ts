@@ -61,6 +61,11 @@ class SchoolDetailsPage {
         return this;
     }
 
+    public withResidentialOrBoarding(option: "Yes" | "No"): this {
+        cy.getByTestId(`residential-or-boarding-${option}`).check();
+        return this;
+    }
+
     public withAlternativeProvision(value: string): this {
         cy.getByTestId(`alternative-provision-${value}`).check();
         return this;

@@ -85,7 +85,12 @@ class TaskListPage {
     }
 
     public selectFundingAgreementHealthCheckFromTaskList(): this {
-        cy.getByTestId("funding-agreement-health-check-task").click()
+        cy.getByTestId("FundingAgreementHealthCheck-task").click()
+        return this;
+    }
+
+    public selectFundingAgreementSubmissionFromTaskList(): this {
+        cy.getByTestId("FundingAgreementSubmission-task").click()
         return this;
     }
 

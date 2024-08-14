@@ -107,6 +107,11 @@ class CreateProjectPage {
         return this;
     }
 
+    public setResidentialOrBoarding(option: "Yes" | "No"): this {
+        cy.getByTestId(`residential-or-boarding-${option}`).check();
+        return this;
+    }
+
     public hasSpecialEducationNeeds(value: string): this {
         cy.getByTestId(`special-education-needs-${value}`).should("be.checked");
         return this;

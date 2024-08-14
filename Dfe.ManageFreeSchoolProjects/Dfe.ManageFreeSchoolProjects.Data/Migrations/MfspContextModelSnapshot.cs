@@ -810,14 +810,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Capital Project RAG Rating Commentary");
 
-                    b.Property<string>("DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired")
+                    b.Property<DateOnly?>("DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Date of HoT secured on temporary accommodation site, if required");
 
-                    b.Property<string>("HoTAgreedForSiteForMainSchoolBuildingActual")
+                    b.Property<DateOnly?>("HoTAgreedForSiteForMainSchoolBuildingActual")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("HoT Agreed for site for Main School Building (Actual)");
 
                     b.Property<string>("IsThisTheMainPlanningRecord")
@@ -825,14 +825,17 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Is this the main planning record?");
 
-                    b.Property<string>("MainSchoolBuildingFirstReadyForOccupationActual")
+                    b.Property<DateOnly?>("LastRefreshDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly?>("MainSchoolBuildingFirstReadyForOccupationActual")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Main School Building first ready for occupation (Actual)");
 
-                    b.Property<string>("MainSchoolBuildingFirstReadyForOccupationForecast")
+                    b.Property<DateOnly?>("MainSchoolBuildingFirstReadyForOccupationForecast")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Main School Building first ready for occupation (Forecast)");
 
                     b.Property<string>("PlanningDecision")
@@ -855,9 +858,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Postcode of site");
 
-                    b.Property<string>("PracticalCompletionCertificateIssuedDateA")
+                    b.Property<DateOnly?>("PracticalCompletionCertificateIssuedDateA")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Practical Completion Certificate issued date (A)");
 
                     b.Property<string>("ProjectDirector")
@@ -886,9 +889,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Site ID");
 
-                    b.Property<string>("SiteIdentifiedForMainSchoolBuildingActual")
+                    b.Property<DateOnly?>("SiteIdentifiedForMainSchoolBuildingActual")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Site identified for main school building (Actual)");
 
                     b.Property<string>("SiteStatus")
@@ -896,14 +899,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Site status");
 
-                    b.Property<string>("TemporaryAccommodationFirstReadyForOccupationActual")
+                    b.Property<DateOnly?>("TemporaryAccommodationFirstReadyForOccupationActual")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Temporary accommodation first ready for occupation (Actual)");
 
-                    b.Property<string>("TemporaryAccommodationFirstReadyForOccupationForecast")
+                    b.Property<DateOnly?>("TemporaryAccommodationFirstReadyForOccupationForecast")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("date")
                         .HasColumnName("Temporary accommodation first ready for occupation (Forecast)");
 
                     b.Property<string>("TemporaryRagRating")
@@ -5201,8 +5204,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit");
 
-                    b.Property<bool?>("FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool")
-                        .HasColumnType("bit")
+                    b.Property<int?>("FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool")
+                        .HasColumnType("int")
                         .HasColumnName("Fsg Pre Opening Milestones. commissioned external expert visit to school");
 
                     b.Property<DateTime?>("FsgPreOpeningMilestonesDbscActualDateOfCompletion")
@@ -5479,6 +5482,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadDraftedFaHealthCheck")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadDraftedFaSubmission")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("FsgPreOpeningMilestonesMfadForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.MFAD Forecast date");
@@ -5486,13 +5492,22 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaDocumentsInWorkspacesFolder")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadSharedFaWithTheTrust")

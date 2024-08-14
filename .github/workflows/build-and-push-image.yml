@@ -66,7 +66,7 @@ jobs:
         docker-build-file-name: './Dockerfile.${{ matrix.image }}'
         docker-tag-prefix: ${{ matrix.tag_prefix }}
         environment: ${{ needs.set-env.outputs.environment }}
-        annotate-release: ${{ needs.set-env.outputs.environment == 'development' && matrix.image == 'web' }}
+        annotate-release: ${{ matrix.image == 'web' }}
       secrets:
         azure-acr-credentials: ${{ secrets.ACR_CREDENTIALS }}
         azure-acr-name: ${{ secrets.ACR_NAME }}
