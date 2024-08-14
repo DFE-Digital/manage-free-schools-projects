@@ -86,11 +86,6 @@ class CreateProjectPage {
         cy.getByTestId(`sixth-form-${option}`).check();
         return this;
     }
-    
-    setResidentialOrBoarding(option: "Yes" | "No"): this {
-        cy.getByTestId(`residential-or-boarding-${option}`).check(); 
-        return this; 
-    }
 
     public hasSixthForm(value: string): this {
         cy.getByTestId(`sixth-form-${value}`).should("be.checked");
@@ -109,6 +104,11 @@ class CreateProjectPage {
 
     public setSpecialEducationNeedsTo(option: "Yes" | "No"): this {
         cy.getByTestId(`special-education-needs-${option}`).check();
+        return this;
+    }
+
+    public setResidentialOrBoarding(option: "Yes" | "No"): this {
+        cy.getByTestId(`residential-or-boarding-${option}`).check();
         return this;
     }
 
