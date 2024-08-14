@@ -1,3 +1,7 @@
+## 0.12.0
+* 175400 - Build: Update 'You do not have access to the service' page with access form link
+
+---
 ## 0.11.0
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate
