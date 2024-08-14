@@ -227,6 +227,7 @@ describe("Testing project overview", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("Yes")
             .withAlternativeProvision("No")
             .withSpecialEducationNeeds("No")
             .withFaithStatus("Designation")

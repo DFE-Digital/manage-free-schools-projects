@@ -134,6 +134,7 @@ describe("Testing the applications evidence task", () => {
             .withGender("Mixed")
             .withNursery("Yes")
             .withSixthForm("No")
+            .withResidentialOrBoarding("No")
             .withFaithStatus("Designation")
             .withFaithType("faith-type-Jewish")
             .clickContinue();
