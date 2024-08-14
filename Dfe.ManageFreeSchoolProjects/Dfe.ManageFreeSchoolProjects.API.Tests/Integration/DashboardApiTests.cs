@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             dashboard.RealisticOpeningDate.Should().NotBeNull();
             dashboard.Region.Should().Be(project.SchoolDetailsGeographicalRegion);
             dashboard.ProjectStatus.Should().Be(ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus));
-            dashboard.ApplicationWave.Should().Be(project.ProjectStatusFreeSchoolApplicationWave);
+            dashboard.ProjectType.Should().Be(project.ProjectStatusFreeSchoolApplicationWave);
         }
 
         [Fact]
