@@ -29,7 +29,7 @@
                             <govuk-text-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="Year the project was cancelled" hint="For example, 2024" small-label="true" width="4" />
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-conditional-item id="project-status-closed" value="@ProjectStatus.Closed" description="@ProjectStatus.Closed.ToDescription()" hint="The school has closed." asp-for="@Model.ProjectStatus">
-                            <govuk-text-input id="year-closed" name="year-closed" asp-for="@Model.CancelledYear" label="Year the school was closed" hint="For example, 2024" small-label="true" width="4" />
+                            <govuk-text-input id="year-closed" name="year-closed" asp-for="@Model.ClosedYear" label="Year the school was closed" hint="For example, 2024" small-label="true" width="4" />
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-item id="project-status-open" value="@ProjectStatus.Open" description="@ProjectStatus.Open.ToDescription()" hint="The school has opened." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-item id="project-status-open-not-included" value="@ProjectStatus.OpenNotIncludedInFigures" description="@ProjectStatus.OpenNotIncludedInFigures.ToDescription()" hint="For example, this project is not a free school but is using free schools budget." asp-for="@Model.ProjectStatus" />

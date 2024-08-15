@@ -5,27 +5,9 @@
 @model Dfe.ManageFreeSchoolProjects.ViewModels.ProjectStatusViewModel
 @{
     var editlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId) + $"?back={BackBehaviour.Previous}" + $"&referrer={Model.Referrer}";
-
-    var tagColour = Model.ProjectStatus switch
-    {
-        ProjectStatus.ApplicationStage => "purple",
-        ProjectStatus.ApplicationCompetitionStage => "purple",
-        ProjectStatus.Cancelled => "orange",
-        ProjectStatus.Closed => "blue",
-        ProjectStatus.Open => "turquoise",
-        ProjectStatus.OpenNotIncludedInFigures => "turquoise",
-        ProjectStatus.Preopening => "yellow",
-        ProjectStatus.PreopeningNotIncludedInFigures => "yellow",
-        ProjectStatus.Rejected => "orange",
-        ProjectStatus.WithdrawnDuringApplication => "orange",
-        ProjectStatus.WithdrawnDuringPreOpening => "orange",
-        _ => "grey"
-    };
-
-    var tagClass = $"govuk-tag govuk-tag--{tagColour}";
 }
 
 <p>
-    <strong class="@tagClass" id="status-tag">@Model.ProjectStatus.ToDescription()</strong>
+    <govuk-status-tag status=@Model.ProjectStatus id="status-tag" />
     <a class="govuk-link govuk-!-padding-left-5" href="@editlink" id="change-project-status">Change project status</a>
 </p>

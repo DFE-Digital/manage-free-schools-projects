@@ -105,10 +105,10 @@ describe("Testing that we can change the project status", () => {
                 .errorForCancelledDate("Enter a year in the correct format")
                 .addCancelledYear("1999")
                 .clickSaveAndContine()
-                .errorForCancelledDateCount("Enter a year between 2000 and 2050")
+                .errorForCancelledDate("Enter a year between 2000 and 2050")
                 .clickSaveAndContine()
                 .addCancelledYear("2051")
-                .errorForCancelledDateCount("Enter a year between 2000 and 2050")
+                .errorForCancelledDate("Enter a year between 2000 and 2050")
                 .addCancelledYear("2050")
                 .clickSaveAndContine()
 
@@ -143,10 +143,10 @@ describe("Testing that we can change the project status", () => {
                 .errorForClosedDate("Enter a year in the correct format")
                 .addClosedYear("1999")
                 .clickSaveAndContine()
-                .errorForClosedDateCount("Enter a year between 2000 and 2050")
+                .errorForClosedDate("Enter a year between 2000 and 2050")
                 .clickSaveAndContine()
                 .addClosedYear("2051")
-                .errorForClosedDateCount("Enter a year between 2000 and 2050")
+                .errorForClosedDate("Enter a year between 2000 and 2050")
                 .addClosedYear("2050")
                 .clickSaveAndContine()
 
@@ -178,11 +178,39 @@ describe("Testing that we can change the project status", () => {
                 .errorForWithdrawnDate("Enter a year in the correct format")
                 .addWithdrawnYear("1999")
                 .clickSaveAndContine()
-                .errorForWithdrawnDateCount("Enter a year between 2000 and 2050")
+                .errorForWithdrawnDate("Enter a year between 2000 and 2050")
                 .clickSaveAndContine()
                 .addWithdrawnYear("2051")
-                .errorForWithdrawnDateCount("Enter a year between 2000 and 2050")
+                .errorForWithdrawnDate("Enter a year between 2000 and 2050")
                 .addWithdrawnYear("2050")
+                .clickSaveAndContine()
+
+            Logger.log("user is sent back to projects overview page");
+
+            projectOverviewPage
+                .hasWithdrawnDate("2050")
+
+            Logger.log("change status to withdrawn in application");
+
+            projectOverviewPage
+                .clickChangeProjectStatus()
+
+            projectStatusPage
+                .withdrawnIsChecked()
+                .withdrawnYearHasValue("2050")
+                .selectWithdrawnInApplication()
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a year in the correct format")
+                .addWithdrawnInApplicationYear("error")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a year in the correct format")
+                .addWithdrawnInApplicationYear("1999")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a year between 2000 and 2050")
+                .clickSaveAndContine()
+                .addWithdrawnInApplicationYear("2051")
+                .errorForWithdrawnInApplicationDate("Enter a year between 2000 and 2050")
+                .addWithdrawnInApplicationYear("2050")
                 .clickSaveAndContine()
 
             Logger.log("user is sent back to projects overview page");

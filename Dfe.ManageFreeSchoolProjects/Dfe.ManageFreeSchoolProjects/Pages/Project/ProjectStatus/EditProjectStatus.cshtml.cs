@@ -99,43 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-
-
-            if (ProjectStatus == ProjectStatusType.Open || ProjectStatus == ProjectStatusType.Preopening)
-            {
-                CancelledYear = null;
-                ClosedYear = null;
-                WithdrawnYear = null;
-                WithdrawnApplicationYear = null;
-            }
-
-            if (ProjectStatus == ProjectStatusType.Closed)
-            {
-                CancelledYear = null;
-                WithdrawnYear = null;
-                WithdrawnApplicationYear = null;
-            }
-
-            if (ProjectStatus == ProjectStatusType.Cancelled)
-            {
-                ClosedYear = null;
-                WithdrawnYear = null;
-                WithdrawnApplicationYear = null;
-            }
-
-            if (ProjectStatus == ProjectStatusType.WithdrawnDuringPreOpening)
-            {
-                ClosedYear = null;
-                CancelledYear = null;
-                WithdrawnApplicationYear = null;
-            }
-
-            if (ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
-            {
-                ClosedYear = null;
-                CancelledYear = null;
-                WithdrawnYear = null;
-            }
+            ClearNotApplicableValues();
 
             CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
             CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
@@ -163,6 +127,46 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             await _updateProjectStatusService.Execute(projectId, request);
             TempData["projectStatusUpdated"] = true;
             return Redirect(GetNextPage());
+        }
+
+        private void ClearNotApplicableValues()
+        {
+            if (ProjectStatus == ProjectStatusType.Closed)
+            {
+                CancelledYear = null;
+                WithdrawnYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.Cancelled)
+            {
+                ClosedYear = null;
+                WithdrawnYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.WithdrawnDuringPreOpening)
+            {
+                ClosedYear = null;
+                CancelledYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
+            {
+                ClosedYear = null;
+                CancelledYear = null;
+                WithdrawnYear = null;
+                return;
+            }
+
+            CancelledYear = null;
+            ClosedYear = null;
+            WithdrawnYear = null;
+            WithdrawnApplicationYear = null;
         }
 
         private void CheckErrors(string id, ProjectStatusType status, string year)
