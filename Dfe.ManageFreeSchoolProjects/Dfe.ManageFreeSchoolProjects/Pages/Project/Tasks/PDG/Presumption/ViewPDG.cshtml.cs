@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
     public class ViewPDGModel : ViewTaskBaseModel
     {
@@ -15,8 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         public ViewPDGModel(
             ILogger<ViewPDGModel> logger,
-            IGetProjectByTaskService getProjectService, 
-            IGetTaskStatusService getTaskStatusService, 
+            IGetProjectByTaskService getProjectService,
+            IGetTaskStatusService getTaskStatusService,
             IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;

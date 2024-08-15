@@ -10,15 +10,15 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Validators;
 
-
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
-    public class EditStopPaymentModel : PageModel
+    public class EditRefundsModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditStopPaymentModel> _logger;
+        private readonly ILogger<EditRefundsModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -26,16 +26,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         public string CurrentFreeSchoolName { get; set; }
 
-        [BindProperty(Name = "payment-stopped-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date you want to stop the payments from")]
+        [BindProperty(Name = "latest-refund-date", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Latest refund date")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? PaymentStoppedDate { get; set; }
+        public DateTime? LatestRefundDate { get; set; }
 
-        [BindProperty(Name = "payment-stopped")]
-        [Display(Name = "Are you sure you want to stop payments?")]
-        public string PaymentStopped { get; set; }
+        [BindProperty(Name = "total-amount", BinderType = typeof(DecimalInputModelBinder))]
+        [Display(Name = "Total amount")]
+        [ValidMoney(0, 25000)]
+        public decimal? TotalAmount { get; set; }
 
-        public EditStopPaymentModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditStopPaymentModel> logger,
+        public EditRefundsModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditRefundsModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -54,16 +55,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Refunds);
 
-            PaymentStoppedDate = project.StopPayment.PaymentStoppedDate;
-            PaymentStopped = project.StopPayment.PaymentStopped;
+            LatestRefundDate = project.Refunds.LatestRefundDate;
+            TotalAmount = project.Refunds.TotalAmount;
             CurrentFreeSchoolName = project.SchoolName;
         }
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.Refunds);
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -76,10 +77,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    StopPayment = new()
+                    Refunds = new()
                     {
-                        PaymentStoppedDate = PaymentStopped == "Yes" ? PaymentStoppedDate : null,
-                        PaymentStopped = PaymentStopped,
+                        LatestRefundDate = LatestRefundDate,
+                        TotalAmount = TotalAmount,
                     }
                 };
 

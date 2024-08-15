@@ -1,15 +1,15 @@
-﻿@page "/projects/{projectId}/tasks/pdg";
+﻿@page "/projects/{projectId}/tasks/pdg/central";
 @using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.ViewPDGModel;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.ViewPDGModel;
 @{
     ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentSchedule, Model.ProjectId);
-    var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetter, Model.ProjectId);
-    var editStopPaymentLink = string.Format(RouteConstants.EditStopPayment, Model.ProjectId);
-    var editRefundsLink = string.Format(RouteConstants.EditRefunds, Model.ProjectId);
-    var editWriteOffLink = string.Format(RouteConstants.EditWriteOff, Model.ProjectId);
+    var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
+    var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetterCentral, Model.ProjectId);
+    var editStopPaymentLink = string.Format(RouteConstants.EditStopPaymentCentral, Model.ProjectId);
+    var editRefundsLink = string.Format(RouteConstants.EditRefundsCentral, Model.ProjectId);
+    var editWriteOffLink = string.Format(RouteConstants.EditWriteOffCentral, Model.ProjectId);
     var pdgTask = Model.Project.PDGDashboard;
 }
 
@@ -27,10 +27,9 @@
             </span>
             Project development grant (PDG)
         </h1>
-        <h2 class="govuk-heading-m">Initial payment</h2>
+        <h2 class="govuk-heading-m">Summary</h2>
         <govuk-summary-list no-border="true">
-            <govuk-summary-item label="Amount" asp-for="@pdgTask.PaymentActualAmount" />
-            <govuk-summary-item label="Actual payment date" asp-for="@pdgTask.PaymentActualDate" />
+            <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount" />
         </govuk-summary-list>
         <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
             <govuk-summary-list>

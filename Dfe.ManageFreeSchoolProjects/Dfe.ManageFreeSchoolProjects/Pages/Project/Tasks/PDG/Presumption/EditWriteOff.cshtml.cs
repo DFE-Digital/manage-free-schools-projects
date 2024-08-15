@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Validators;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
     public class EditWriteOffModel : PageModel
     {
@@ -96,7 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
                 return Page();
             }
 
-            if(IsWriteOffSetup != true)
+            if (IsWriteOffSetup != true)
             {
                 WriteOffReason = null;
                 WriteOffAmount = null;

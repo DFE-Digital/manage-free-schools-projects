@@ -13,7 +13,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Validators;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
     public class EditPDGPaymentScheduleModel : PageModel
     {

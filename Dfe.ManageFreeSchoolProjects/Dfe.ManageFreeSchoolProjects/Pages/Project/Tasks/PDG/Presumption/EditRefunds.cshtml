@@ -1,6 +1,7 @@
-﻿@page "/projects/{projectId}/tasks/pdg/edit-refunds"
-@using Dfe.ManageFreeSchoolProjects.Constants;
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.EditRefundsModel
+﻿@page "/projects/{projectId}/tasks/pdg/presumption/edit-refunds"
+@    using Dfe.ManageFreeSchoolProjects.Constants;
+    using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption;
+@model EditRefundsModel
 @{
     ViewData["Title"] = $"Edit Refunds  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
