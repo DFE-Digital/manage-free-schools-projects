@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
 {
@@ -16,17 +14,17 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
     {
         public string ProjectId { get; set; }
 
-        public string HoTAgreedForSiteForMainSchoolBuildingActual { get; set; }
+        public DateOnly? HoTAgreedForSiteForMainSchoolBuildingActual { get; set; }
 
-        public string TemporaryAccommodationFirstReadyForOccupationForecast { get; set; }
+        public DateOnly? TemporaryAccommodationFirstReadyForOccupationForecast { get; set; }
 
-        public string TemporaryAccommodationFirstReadyForOccupationActual { get; set; }
+        public DateOnly? TemporaryAccommodationFirstReadyForOccupationActual { get; set; }
 
-        public string MainSchoolBuildingFirstReadyForOccupationForecast { get; set; }
+        public DateOnly? MainSchoolBuildingFirstReadyForOccupationForecast { get; set; }
 
-        public string MainSchoolBuildingFirstReadyForOccupationActual { get; set; }
+        public DateOnly? MainSchoolBuildingFirstReadyForOccupationActual { get; set; }
 
-        public string SiteIdentifiedForMainSchoolBuildingActual { get; set; }
+        public DateOnly? SiteIdentifiedForMainSchoolBuildingActual { get; set; }
 
         public string CapitalProjectRag { get; set; }
 
@@ -46,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string PostcodeOfSite { get; set; }
 
-        public string PracticalCompletionCertificateIssuedDateA { get; set; }
+        public DateOnly? PracticalCompletionCertificateIssuedDateA { get; set; }
 
         public string RegionalHead { get; set; }
 
@@ -60,6 +58,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public string TemporaryRagRatingCommentary { get; set; }
 
-        public string DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired { get; set; }
+        public DateOnly? DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired { get; set; }
+
+        public DateOnly? LastRefreshDate { get; set; }
     }
 }

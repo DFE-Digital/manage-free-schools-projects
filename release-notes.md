@@ -2,17 +2,21 @@
 * 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
 
 ## 0.11.0
-
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate
 * 172911 - Build: Residential or boarding provision
+* 176379 - Build: Change constructdata table to accommodate automatic update
 
+---
+## 0.10.1
+* 175295 - Live: Total capacity calculation do not match FSS
+
+---
 ## 0.10.0
-
 * 173748 - Build: Update footer to match RSD internal facing product design
 
+---
 ## 0.9.0
-
 * 170810 - Build: Sorry there is a problem
 * 173347 - LIVE: Feedback links Have Come Undone
 * 173259 - BUG: "is not " substring causes crashes in some textfields/textareas
@@ -20,18 +24,16 @@
 * 166410 - Build: Kick-off meeting (Central route)
 * 171087 - Build: make reference numbers editable
 
-
+---
 ## 0.8.2
-
 * Overall risk summary increased to 5000 characters
 
-
+---
 ## 0.8.1
-
 * 171999 - Build: Restore constituencies page immediately after the election
 
+---
 ## 0.8.0
-
 * 170613 - Build: Add constituency id to database after saving constituency
 * 171694 - Edit school type error
 * 169600 - Add PDG data to export
@@ -47,13 +49,12 @@
 * 172204 - All-Through value does not match FSS in the database
 * 168435 - Build: user journey for users with no access
 
-
+---
 ## 0.7.1
-
 * 168435 - Updated access denied page to use support email
 
+---
 ## 0.7.0
-
 * 168805 - Build: hide the 'Your projects' tab
 * 168804 - Build: hide the 'Project notes' tab
 * 167574 - Build: change 'Give feedback' link in phase banner
@@ -68,9 +69,8 @@
 * 157317 - Build: Project statuses
 * 168893 - Build: iterate the Pupil numbers page
 
-
+---
 ## 0.6.0
-
 * 166279 - Build: iterate SFA endpoint
 * 166040 - Live: Visual: Project Lead Email Fails to Return On the Contacts page or in 'Edit project managed by' on Project Creation
 * 165293 - Build: unique labels needed on radio button selections
@@ -82,6 +82,7 @@
 * 166717 - Build: change project lead wording in Create journey
 * 166823 - Build: update accessibility statement based on audit
 
+---
 ## 0.5.0
 * 158697 - Build: make all 'Contacts' editable (MINUS 166131 - BUG: Validation doesn't appear to be present for 'education.gov.uk' domain)
 * 165706 - Build: fix broken feedback link in footer
@@ -99,18 +100,19 @@
 * 162857 - Live: BUG: Create Project: Nursery figures Fail to be accepted Post-Project Create
 * 161875 - Edgecase: Validation: User with JavaScript disabled not prompted with validation that "Special educational needs"/"Alternative provision" class type options cannot be selected for "Special needs"/"Alternative provision" schools
 
+---
 ## 0.4.0
 * Changes to deployment process
 * 159351 - Build Commission external expert fixes
 * 161752 - Build: Financial Plan fields have possible existing fields
 
+---
 ## 0.3.0
 * 147102 - Build: Applications evidence
 * 161214 - Build: Update additional fields when school name is changed
 * 161213 - Build: Limit system to work with presumption projects only
 * 159375 - Build: Specialist resource provision
 * 159368 - Build: test the Gov Notify template - (New Project created email template content changes)
-
 * 147109 - Build: Final finance plan
 * 157582 - Build: Funding agreement health check page
 * 160721 - Build: Change the 'Subject' field in 'Get help' emails
@@ -118,12 +120,14 @@
 * 157318 - Build: Pupil numbers and capacity
 * 142461 - Build: Project development grant (PDG) page (Presumption route)
 
+---
 ## 0.2.0
 * 158662 - Build: add 'Date school closed' to the 'About the project page'
 * 147103 Build: Accepted offers evidence
 * 157319 Build: Site information
 * 147105 Build: Ofsted task
 
+---
 ## 0.1.0
 * 158209 - add 'Nursery' to 'What is the capacity?' page
 * 147097 - Education brief
@@ -131,6 +135,7 @@
 * 159394 - Filter Null projects from construct api
 * 157316 - Equalities assessment
  
+---
 ## Sprint 14 Release C/Sprint 15 Release A - 05/03/2024
 * 147088 - Build: Draft governance plan (Presumption route)
 * 147098 - Build: GIAS (Get Information About Schools)
@@ -144,18 +149,13 @@
 * 157217 - Buglet: Unhandled Exception Generated On Some Projects
 
 ---
- 
 ## Sprint 14 Release B - 22/02/2024
 * 153160 - Build: colour contrast
 * 155390 - Build: iterate model funding agreement
-
- 
- 
+*  
 ---
 ## Sprint 14 Release A - 20/02/2024
 * 151877 - Build: No project(s) found
 * 153969 - Build: remove opening academic year
 * 154839 - Build: move Forms of entry page to Task List
 * 153681 - Build: make 'provisional opening date' an optional page (Unable to check this in Live as not a projectrecordcreator in Live)
- 
-___

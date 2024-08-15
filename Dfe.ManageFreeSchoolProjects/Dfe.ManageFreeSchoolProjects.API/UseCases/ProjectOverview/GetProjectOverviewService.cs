@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
@@ -153,15 +154,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             var result = await _context.Po
                 .Where(p => p.Rid == rid)
                 .Select(po =>
-                    new PupilNumbersOverviewResponse()
-                    {
-                        Capacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt(),
-                        Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
-                        Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
-                        MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
-                        ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
-                        AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
-                    })
+                new PupilNumbersOverviewResponse()
+                {
+                    Capacity = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt() +
+                                    po.PupilNumbersAndCapacityYrY6Capacity.ToInt() +
+                                    po.PupilNumbersAndCapacityY7Y11Capacity.ToInt() +
+                                    po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt() +
+                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt() +
+                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
+                    Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
+                    Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
+                    MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                    ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
+                    AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
+                })
                 .FirstOrDefaultAsync();
 
             if (result == null)
