@@ -36,11 +36,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
-            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
-            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? new List<string>();
+            var regionsToSearch = regions?.Split(',').ToList() ?? [];
+            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? [];
+            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? [];
 
-            var parameters = new GetDashboardParameters()
+            var parameters = new GetDashboardParameters
             {
                 UserId = userId,
                 Regions = regionsToSearch,
@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var (projects, recordCount) = await _getDashboard.Execute(parameters);
 
-            PagingResponse pagingResponse = BuildPaginationResponse(recordCount, page, count);
+            var pagingResponse = BuildPaginationResponse(recordCount, page, count);
 
             var response = new ApiResponseV2<GetDashboardResponse>(projects, pagingResponse);
 
@@ -63,7 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return Ok(response);
         }
 
-        private PagingResponse BuildPaginationResponse(int recordCount, int? page = null, int? count = null)
+        private PagingResponse  BuildPaginationResponse(int recordCount, int? page = null, int? count = null)
         {
             PagingResponse result = null;
 
@@ -81,11 +81,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         string project,
         string projectManagedBy){
             
-            var regionsToSearch = regions?.Split(',').ToList() ?? new List<string>();
-            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? new List<string>();
-            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? new List<string>();
+            var regionsToSearch = regions?.Split(',').ToList() ?? [];
+            var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? [];
+            var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? [];
 
-            var parameters = new GetDashboardParameters()
+            var parameters = new GetDashboardParameters
             {
                 UserId = userId,
                 Regions = regionsToSearch,
@@ -100,7 +100,5 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             return Ok(listOfIds);
         }
-
-
     }
 }

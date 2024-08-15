@@ -1,3 +1,5 @@
+import { Logger } from "cypress/common/logger";
+
 class ProjectOverviewPage {
 
     public selectTaskListTab(): this {
@@ -291,12 +293,22 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public hasProjectType() { 
+        cy.getByTestId("application-wave").invoke('text').then((applicationWave) => { 
+            let projectType = applicationWave.includes("FS - Presumption") ? "Presumption" : "Central Route"; 
+            cy.getByTestId("project-type").should('contain.text', projectType);
+        }); 
+
+        return this;
+    }
+
     public changeSiteInformation(): this {
         cy.getByTestId("change-site-information").click();
 
         return this;
 
     }
+
 
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);

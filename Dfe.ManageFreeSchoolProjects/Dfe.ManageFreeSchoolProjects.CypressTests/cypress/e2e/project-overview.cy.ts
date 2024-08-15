@@ -19,18 +19,19 @@ describe("Testing project overview", () => {
         cy.visit(`/projects/${temporaryProjectId}/overview`);
 
         projectOverviewPage
-            .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
-            .hasTrustId("TR00111")
-            .hasTrustName("Aurora Academies Trust")
-            .hasTrustType("MAT (multi-academy trust)")
-            .hasProjectId(temporaryProjectId)
-            .hasCurrentFreeSchoolName(schoolName)
-            .hasSchoolType("Mainstream")
-            .hasSchoolPhase("Secondary")
-            .hasFaithStatus("Designation")
-            .hasFaithType("Greek Orthodox")
-            .hasLocalAuthority("Luton")
-            .hasRegion("East of England");
+          .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
+          .hasTrustId("TR00111")
+          .hasTrustName("Aurora Academies Trust")
+          .hasTrustType("MAT (multi-academy trust)")
+          .hasProjectId(temporaryProjectId)
+          .hasCurrentFreeSchoolName(schoolName)
+          .hasSchoolType("Mainstream")
+          .hasSchoolPhase("Secondary")
+          .hasFaithStatus("Designation")
+          .hasFaithType("Greek Orthodox")
+          .hasLocalAuthority("Luton")
+          .hasRegion("East of England")
+          .hasProjectType()
     });
 
     function createProject(temporaryProjectId: string, schoolName: string) {
