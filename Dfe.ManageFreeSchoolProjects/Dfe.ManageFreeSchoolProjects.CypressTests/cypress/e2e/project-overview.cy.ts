@@ -19,6 +19,7 @@ describe("Testing project overview", () => {
         cy.visit(`/projects/${temporaryProjectId}/overview`);
 
         projectOverviewPage
+            .hasProjectType()
             .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
             .hasTrustId("TR00111")
             .hasTrustName("Aurora Academies Trust")
@@ -30,7 +31,7 @@ describe("Testing project overview", () => {
             .hasFaithStatus("Designation")
             .hasFaithType("Greek Orthodox")
             .hasLocalAuthority("Luton")
-            .hasRegion("East of England");
+            .hasRegion("East of England")
     });
 
     function createProject(temporaryProjectId: string, schoolName: string) {
