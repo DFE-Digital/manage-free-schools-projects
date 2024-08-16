@@ -27,11 +27,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         
         [BindProperty(Name = "saved-to-workplaces")]
         
+        public DateTime? DateSent { get; set; }
+        public bool? Section9LetterSentToLocalAuthority { get; set; }
+        
         public bool? SavedToWorkplaces { get; set; }
         
         public string SchoolName { get; set; }
-        public DateTime? DateSent { get; set; }
-
         public EditImpactAssessmentTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
             ILogger<EditImpactAssessmentTaskModel> logger,
