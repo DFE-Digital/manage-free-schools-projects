@@ -2,7 +2,6 @@ import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
-import dataGenerator from "cypress/fixtures/dataGenerator";
 import projectOverviewPage from "../pages/projectOverviewPage";
 import projectStatusPage from "../pages/project-status/projectStatusPage";
 import taskListPage from "../pages/taskListPage";
@@ -99,17 +98,17 @@ describe("Testing that we can change the project status", () => {
                 .openIsChecked()
                 .selectCancelled()
                 .clickSaveAndContine()
-                .errorForCancelledDate("Enter a year in the correct format")
-                .addCancelledYear("error")
+                .errorForCancelledDate("Enter a date in the correct format")
+                .addCancelledYear("1", "1", "error")
                 .clickSaveAndContine()
-                .errorForCancelledDate("Enter a year in the correct format")
-                .addCancelledYear("1999")
+                .errorForCancelledDate("Enter a date in the correct format")
+                .addCancelledYear("1", "1", "1999")
                 .clickSaveAndContine()
-                .errorForCancelledDateCount("Enter a year between 2000 and 2050")
+                .errorForCancelledDate("Year must be between 2000 and 2050")
                 .clickSaveAndContine()
-                .addCancelledYear("2051")
-                .errorForCancelledDateCount("Enter a year between 2000 and 2050")
-                .addCancelledYear("2050")
+                .addCancelledYear("1", "1", "2051")
+                .errorForCancelledDate("Year must be between 2000 and 2050")
+                .addCancelledYear("1", "1", "2050")
                 .clickSaveAndContine()
 
             Logger.log("user is sent back to tasklist");
@@ -123,7 +122,7 @@ describe("Testing that we can change the project status", () => {
             Logger.log("cancelled date is shown on project overview");
             
             projectOverviewPage
-                .hasCancelledDate("2050")
+                .hasCancelledDate("1 January 2050")
                 .selectContactsTab()
 
             Logger.log("change status to closed");
@@ -134,20 +133,20 @@ describe("Testing that we can change the project status", () => {
 
             projectStatusPage
                 .cancelledIsChecked()
-                .cancelledYearHasValue("2050")
+                .cancelledYearHasValue("1", "1", "2050")
                 .selectClosed()
                 .clickSaveAndContine()
-                .errorForClosedDate("Enter a year in the correct format")
-                .addClosedYear("error")
+                .errorForClosedDate("Enter a date in the correct format")
+                .addClosedYear("1", "1", "error")
                 .clickSaveAndContine()
-                .errorForClosedDate("Enter a year in the correct format")
-                .addClosedYear("1999")
+                .errorForClosedDate("Enter a date in the correct format")
+                .addClosedYear("1", "1", "1999")
                 .clickSaveAndContine()
-                .errorForClosedDateCount("Enter a year between 2000 and 2050")
+                .errorForClosedDate("Year must be between 2000 and 2050")
                 .clickSaveAndContine()
-                .addClosedYear("2051")
-                .errorForClosedDateCount("Enter a year between 2000 and 2050")
-                .addClosedYear("2050")
+                .addClosedYear("1", "1", "2051")
+                .errorForClosedDate("Year must be between 2000 and 2050")
+                .addClosedYear("1", "1", "2048")
                 .clickSaveAndContine()
 
             Logger.log("user is sent back to contacts page");
@@ -160,7 +159,7 @@ describe("Testing that we can change the project status", () => {
             Logger.log("closed date is shown on project overview");
 
             projectOverviewPage
-                .hasClosedDate("2050")
+                .hasClosedDate("1 January 2048")
 
             Logger.log("change status to withdrawn");
 
@@ -169,26 +168,54 @@ describe("Testing that we can change the project status", () => {
 
             projectStatusPage
                 .closedIsChecked()
-                .closedYearHasValue("2050")
+                .closedYearHasValue("1", "1", "2048")
                 .selectWithdrawn()
                 .clickSaveAndContine()
-                .errorForWithdrawnDate("Enter a year in the correct format")
-                .addWithdrawnYear("error")
+                .errorForWithdrawnDate("Enter a date in the correct format")
+                .addWithdrawnYear("1", "1", "error")
                 .clickSaveAndContine()
-                .errorForWithdrawnDate("Enter a year in the correct format")
-                .addWithdrawnYear("1999")
+                .errorForWithdrawnDate("Enter a date in the correct format")
+                .addWithdrawnYear("1", "1", "1999")
                 .clickSaveAndContine()
-                .errorForWithdrawnDateCount("Enter a year between 2000 and 2050")
+                .errorForWithdrawnDate("Year must be between 2000 and 2050")
                 .clickSaveAndContine()
-                .addWithdrawnYear("2051")
-                .errorForWithdrawnDateCount("Enter a year between 2000 and 2050")
-                .addWithdrawnYear("2050")
+                .addWithdrawnYear("1", "1", "2051")
+                .errorForWithdrawnDate("Year must be between 2000 and 2050")
+                .addWithdrawnYear("1", "1", "2047")
                 .clickSaveAndContine()
 
             Logger.log("user is sent back to projects overview page");
 
             projectOverviewPage
-                .hasWithdrawnDate("2050")
+                .hasWithdrawnDate("1 January 2047")
+
+            Logger.log("change status to withdrawn in application");
+
+            projectOverviewPage
+                .clickChangeProjectStatus()
+
+            projectStatusPage
+                .withdrawnIsChecked()
+                .withdrawnYearHasValue("1", "1", "2047")
+                .selectWithdrawnInApplication()
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+                .addWithdrawnInApplicationYear("1", "1", "error")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+                .addWithdrawnInApplicationYear("1", "1", "1999")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+                .clickSaveAndContine()
+                .addWithdrawnInApplicationYear("1", "1", "2051")
+                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+                .addWithdrawnInApplicationYear("1", "1", "2045")
+                .clickSaveAndContine()
+
+            Logger.log("user is sent back to projects overview page");
+
+            projectOverviewPage
+                .hasWithdrawnDate("1 January 2045")
         })
     })
 })

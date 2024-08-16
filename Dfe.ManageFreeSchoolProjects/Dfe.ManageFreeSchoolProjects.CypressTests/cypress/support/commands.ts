@@ -101,6 +101,12 @@ Cypress.Commands.add("enterDate", (idPrefix: string, day: string, month: string,
     }
 });
 
+Cypress.Commands.add("checkDate", (idPrefix: string, day: string, month: string, year: string) => {
+    cy.getById(`${idPrefix}-day`).should("have.value", day);
+    cy.getById(`${idPrefix}-month`).should("have.value", month);
+    cy.getById(`${idPrefix}-year`).should("have.value", year);
+});
+
 Cypress.Commands.add("hasAddress", (id: string, line1: string, line2: string, line3: string) => {
     if (line1 === "Empty") {
         cy.getByTestId(id).should("contain.text", "Empty");

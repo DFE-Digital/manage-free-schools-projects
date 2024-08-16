@@ -42,10 +42,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 				InputStyles = InputStyles
             };
 			
-			
-			
-			
-
 			if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)
 			{
 				model.ErrorMessage = entry.Errors[0].ErrorMessage;

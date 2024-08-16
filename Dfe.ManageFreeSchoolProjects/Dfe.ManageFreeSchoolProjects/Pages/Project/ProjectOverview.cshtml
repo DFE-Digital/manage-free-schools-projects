@@ -128,41 +128,47 @@
         <h3 class="govuk-heading-m govuk-!-font-size-27" id="dates">Dates</h3>
 
     <dl class="govuk-summary-list govuk-summary-list--no-border">
-        @if (@Model.Project.ProjectStatus.ProjectStatus is ProjectStatus.Cancelled or ProjectStatus.Closed or ProjectStatus.WithdrawnDuringPreOpening)
-        {
+            @if (@Model.Project.ProjectStatus.ProjectStatus is 
+                    ProjectStatus.Cancelled or 
+                    ProjectStatus.Closed or 
+                    ProjectStatus.WithdrawnDuringPreOpening or 
+                    ProjectStatus.WithdrawnDuringApplication)
+            {   
             <div class="govuk-summary-list__row">
-                @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening)
+                @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening ||
+                   Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringApplication)
                 {
                     <dt class="govuk-summary-list__key" id="overview-withdrawn-date">
                         Year the project was withdrawn
                     </dt>
+                    <dd class="govuk-summary-list__value" data-testid="date-of-termination">
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDate.ToDateString());
+                            }
+                    </dd>
                 }
                 else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed)
                 {
                     <dt class="govuk-summary-list__key" id="overview-closed-date">
                         Year the school was closed
                     </dt>
+                    <dd class="govuk-summary-list__value" data-testid="date-of-termination">
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectClosedDate.ToDateString());
+                            }
+                    </dd>
                 }
                 else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled)
                 {
                     <dt class="govuk-summary-list__key" id="overview-cancelled-date">
                         Year the project was cancelled
                     </dt>
+                    <dd class="govuk-summary-list__value" data-testid="date-of-termination">
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectCancelledDate.ToDateString());
+                            }
+                    </dd>
                 }
-                <dd class="govuk-summary-list__value" data-testid="date-of-termination">
-                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed && Model.Project.ProjectStatus.ProjectClosedDate.HasValue)
-                    {
-                        RenderValue(Model.Project.ProjectStatus.ProjectClosedDate.ToYearString());
-                    }
-                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled && Model.Project.ProjectStatus.ProjectCancelledDate.HasValue)
-                    {
-                        RenderValue(Model.Project.ProjectStatus.ProjectCancelledDate.ToYearString());
-                    }
-                    @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening && Model.Project.ProjectStatus.ProjectWithdrawnDate.HasValue)
-                    {
-                        RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDate.ToYearString());
-                    }
-                </dd>
             </div>
         }
         <div class="govuk-summary-list__row">

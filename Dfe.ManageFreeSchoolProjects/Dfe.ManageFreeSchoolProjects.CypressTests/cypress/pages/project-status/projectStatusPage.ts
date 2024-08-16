@@ -30,13 +30,13 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addCancelledYear(value: string): this {
-        cy.getById("cancelled-year").clear().type(value);
+    public addCancelledYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-cancelled", day, month, year);
         return this;
     }
 
-    public cancelledYearHasValue(value: string): this {
-        cy.getById("cancelled-year").should("have.value",value);
+    public cancelledYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-cancelled", day, month, year);
         return this;
     }
 
@@ -50,13 +50,13 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addClosedYear(value: string): this {
-        cy.getById("closed-year").clear().type(value);
+    public addClosedYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-closed", day, month, year);
         return this;
     }
 
-    public closedYearHasValue(value: string): this {
-        cy.getById("closed-year").should("have.value", value);
+    public closedYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-closed", day, month, year);
         return this;
     }
 
@@ -65,13 +65,33 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addWithdrawnYear(value: string): this {
-        cy.getById("withdrawn-year").clear().type(value);
+    public addWithdrawnYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-withdrawn", day, month, year);
         return this;
     }
 
-    public withdrawnYearHasValue(value: string): this {
-        cy.getById("withdrawn-year").should("have.value", value);
+    public withdrawnYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-withdrawn", day, month, year);
+        return this;
+    }
+
+    public withdrawnIsChecked(): this {
+        cy.getById("project-status-withdrawn").should("be.checked");
+        return this;
+    }
+
+    public selectWithdrawnInApplication(): this {
+        cy.getById("project-status-withdrawn-application").click();
+        return this;
+    }
+
+    public addWithdrawnInApplicationYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-withdrawn-application", day, month, year);
+        return this;
+    }
+
+    public withdrawnInApplicationYearHasValue(value: string): this {
+        cy.getById("year-withdrawn-application").should("have.value", value);
         return this;
     }
     
@@ -86,32 +106,23 @@ class ProjectStatusPage {
     }
 
     errorForCancelledDate(error: string): this {
-        cy.getById('cancelled-year-error-error-link').contains(error)
-        return this
-    }
-
-    errorForCancelledDateCount(error: string): this {
-        cy.getById('cancelled-year-count-error-error-link').contains(error)
+        cy.getById('year-cancelled-error-link').contains(error)
         return this
     }
 
     errorForClosedDate(error: string): this {
-        cy.getById('closed-year-error-error-link').contains(error)
-        return this
-    }
-
-    errorForClosedDateCount(error: string): this {
-        cy.getById('closed-year-count-error-error-link').contains(error)
+        cy.getById('year-closed-error-link').contains(error)
         return this
     }
 
     errorForWithdrawnDate(error: string): this {
-        cy.getById('withdrawn-year-error-error-link').contains(error)
+        cy.getById('year-withdrawn-error-link').contains(error)
         return this
     }
 
-    errorForWithdrawnDateCount(error: string): this {
-        cy.getById('withdrawn-year-count-error-error-link').contains(error)
+    
+    errorForWithdrawnInApplicationDate(error: string): this {
+        cy.getById('year-withdrawn-application-error-link').contains(error)
         return this
     }
 }
