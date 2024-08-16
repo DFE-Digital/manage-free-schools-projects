@@ -30,13 +30,13 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addCancelledYear(value: string): this {
-        cy.getById("year-cancelled").clear().type(value);
+    public addCancelledYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-cancelled", day, month, year);
         return this;
     }
 
-    public cancelledYearHasValue(value: string): this {
-        cy.getById("year-cancelled").should("have.value",value);
+    public cancelledYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-cancelled", day, month, year);
         return this;
     }
 
@@ -50,13 +50,13 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addClosedYear(value: string): this {
-        cy.getById("year-closed").clear().type(value);
+    public addClosedYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-closed", day, month, year);
         return this;
     }
 
-    public closedYearHasValue(value: string): this {
-        cy.getById("year-closed").should("have.value", value);
+    public closedYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-closed", day, month, year);
         return this;
     }
 
@@ -65,13 +65,13 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addWithdrawnYear(value: string): this {
-        cy.getById("year-withdrawn").clear().type(value);
+    public addWithdrawnYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-withdrawn", day, month, year);
         return this;
     }
 
-    public withdrawnYearHasValue(value: string): this {
-        cy.getById("year-withdrawn").should("have.value", value);
+    public withdrawnYearHasValue(day: string, month: string, year: string): this {
+        cy.checkDate("year-withdrawn", day, month, year);
         return this;
     }
 
@@ -85,8 +85,8 @@ class ProjectStatusPage {
         return this;
     }
 
-    public addWithdrawnInApplicationYear(value: string): this {
-        cy.getById("year-withdrawn-application").clear().type(value);
+    public addWithdrawnInApplicationYear(day: string, month: string, year: string): this {
+        cy.enterDate("year-withdrawn-application", day, month, year);
         return this;
     }
 

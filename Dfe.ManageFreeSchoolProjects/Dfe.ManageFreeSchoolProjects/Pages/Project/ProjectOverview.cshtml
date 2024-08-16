@@ -142,7 +142,9 @@
                         Year the project was withdrawn
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="date-of-termination">
-                        @{RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDate.ToYearString());}
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDate.ToDateString());
+                            }
                     </dd>
                 }
                 else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Closed)
@@ -151,7 +153,9 @@
                         Year the school was closed
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="date-of-termination">
-                        @{RenderValue(Model.Project.ProjectStatus.ProjectClosedDate.ToYearString());}
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectClosedDate.ToDateString());
+                            }
                     </dd>
                 }
                 else if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.Cancelled)
@@ -160,7 +164,9 @@
                         Year the project was cancelled
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="date-of-termination">
-                        @{RenderValue(Model.Project.ProjectStatus.ProjectCancelledDate.ToYearString());}
+                            @{
+                                RenderValue(Model.Project.ProjectStatus.ProjectCancelledDate.ToDateString());
+                            }
                     </dd>
                 }
             </div>

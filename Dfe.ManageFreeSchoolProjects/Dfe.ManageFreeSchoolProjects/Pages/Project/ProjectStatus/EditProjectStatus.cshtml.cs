@@ -13,6 +13,8 @@ using Dfe.ManageFreeSchoolProjects.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
+using Dfe.ManageFreeSchoolProjects.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 {
@@ -38,21 +40,25 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
 
-        [BindProperty(Name = CancelledYearId)]
-        [DisplayName("Year the project was cancelled")]
-        public string CancelledYear { get; set; }
+        [BindProperty(Name = CancelledYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Year the project was cancelled")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? CancelledYear { get; set; }
 
-        [BindProperty(Name = ClosedYearId)]
-        [DisplayName("Year the school was closed")]
-        public string ClosedYear { get; set; }
+        [BindProperty(Name = ClosedYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Year the school was closed")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? ClosedYear { get; set; }
 
-        [BindProperty(Name = WithdrawnYearId)]
-        [DisplayName("Year the project was withdrawn")]
-        public string WithdrawnYear { get; set; }
+        [BindProperty(Name = WithdrawnYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Year the project was withdrawn")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? WithdrawnYear { get; set; }
 
-        [BindProperty(Name = WithdrawnApplicationYearId)]
-        [DisplayName("Year the project was withdrawn")]
-        public string WithdrawnApplicationYear { get; set; }
+        [BindProperty(Name = WithdrawnApplicationYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Year the project was withdrawn")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? WithdrawnApplicationYear { get; set; }
 
         public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectStatusService updateProjectStatusService,
@@ -76,16 +82,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 ProjectStatus = Project.ProjectStatus.ProjectStatus;
                 
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
-                    ClosedYear = ConvertToYearString(Project.ProjectStatus.ProjectClosedDate);
+                    ClosedYear = Project.ProjectStatus.ProjectClosedDate;
     
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Cancelled)
-                    CancelledYear = ConvertToYearString(Project.ProjectStatus.ProjectCancelledDate);
+                    CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
                 
                 if(Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringPreOpening)
-                    WithdrawnYear = ConvertToYearString(Project.ProjectStatus.ProjectWithdrawnDate);
+                    WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
                 
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
-                    WithdrawnApplicationYear = ConvertToYearString(Project.ProjectStatus.ProjectWithdrawnDate);
+                    WithdrawnApplicationYear = Project.ProjectStatus.ProjectWithdrawnDate;
             }
             catch (Exception ex)
             {
@@ -117,8 +123,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
             {
                 ProjectStatus = ProjectStatus,
-                ClosedDate = ClosedYear == null ? null : ConvertToDateTime(ClosedYear),
-                CancelledDate = CancelledYear == null ? null : ConvertToDateTime(CancelledYear),
+                ClosedDate = ClosedYear,
+                CancelledDate = CancelledYear,
                 WithdrawnDate = GetWithdrawnYear(),
             };
 
@@ -169,49 +175,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             WithdrawnApplicationYear = null;
         }
 
-        private void CheckErrors(string id, ProjectStatusType status, string year)
-        {
-            bool isNumber = int.TryParse(year, out int intyear);
-
-            var yearFormatErrorMessage = "Enter a year in the correct format";
-            var yearCountErrorMessage = "Enter a year between 2000 and 2050";
-
-            if (ProjectStatus == status && (year == null || !isNumber))
-            {
-                ModelState.AddModelError(id, yearFormatErrorMessage);
-            }
-            else if (ProjectStatus == status &&
-                     (intyear is < 2000 or > 2050))
-            {
-                ModelState.AddModelError(id, yearCountErrorMessage);
-            }
-        }
-
-        private static DateTime ConvertToDateTime(string year)
-        {
-            DateTime DateTimeYear = DateTime.ParseExact(year, 
-                "yyyy",
-                CultureInfo.InvariantCulture);
-            return DateTimeYear;
-        }
-        
-        private static string ConvertToYearString(DateTime? year)
-        {
-            string s = year.HasValue ? year.Value.ToString("yyyy") : null;
-            return s;
-            
-        }
-
         private DateTime? GetWithdrawnYear()
         {
             if(WithdrawnYear != null)
             {
-                return ConvertToDateTime(WithdrawnYear);
+                return WithdrawnYear;
             }
 
             if (WithdrawnApplicationYear != null)
             {
-                return ConvertToDateTime(WithdrawnApplicationYear);
+                return WithdrawnApplicationYear;
             }
 
             return null;
@@ -246,5 +219,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             return string.Format(RouteConstants.ProjectOverview, ProjectId);
         }
 
+        private void CheckErrors(string id, ProjectStatusType status, DateTime? year)
+        {
+            var yearFormatErrorMessage = "Enter a date in the correct format";
+
+            if (ModelState.IsValid && ProjectStatus == status && (year == null))
+            {
+                ModelState.AddModelError(id, yearFormatErrorMessage);
+            }
+        }
     }
 }

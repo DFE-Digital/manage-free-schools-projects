@@ -26,10 +26,10 @@
                         <govuk-radios-list-item id="project-status-application-competition-stage" value="@ProjectStatus.ApplicationCompetitionStage" description="@ProjectStatus.ApplicationCompetitionStage.ToDescription()" hint="The special or alternative provision application is being considered." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-item id="project-status-application-stage" value="@ProjectStatus.ApplicationStage" description="@ProjectStatus.ApplicationStage.ToDescription()" hint="The school's application is being considered." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-conditional-item id="project-status-cancelled" value="@ProjectStatus.Cancelled" description="@ProjectStatus.Cancelled.ToDescription()" hint="The project was cancelled in pre-opening." asp-for="@Model.ProjectStatus">
-                            <govuk-text-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="Year the project was cancelled" hint="For example, 2024" small-label="true" width="4" />
+                            <govuk-date-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="Year the project was cancelled" hint="For example, 27 3 2021" />
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-conditional-item id="project-status-closed" value="@ProjectStatus.Closed" description="@ProjectStatus.Closed.ToDescription()" hint="The school has closed." asp-for="@Model.ProjectStatus">
-                            <govuk-text-input id="year-closed" name="year-closed" asp-for="@Model.ClosedYear" label="Year the school was closed" hint="For example, 2024" small-label="true" width="4" />
+                            <govuk-date-input id="year-closed" name="year-closed" asp-for="@Model.ClosedYear" label="Year the school was closed" hint="For example, 2024"/>
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-item id="project-status-open" value="@ProjectStatus.Open" description="@ProjectStatus.Open.ToDescription()" hint="The school has opened." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-item id="project-status-open-not-included" value="@ProjectStatus.OpenNotIncludedInFigures" description="@ProjectStatus.OpenNotIncludedInFigures.ToDescription()" hint="For example, this project is not a free school but is using free schools budget." asp-for="@Model.ProjectStatus" />
@@ -37,10 +37,10 @@
                         <govuk-radios-list-item id="project-status-pre-opening-not-included" value="@ProjectStatus.PreopeningNotIncludedInFigures" description="@ProjectStatus.PreopeningNotIncludedInFigures.ToDescription()" hint="For example, this project is not a free school but is using free schools budget." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-item id="project-status-rejected" value="@ProjectStatus.Rejected" description="@ProjectStatus.Rejected.ToDescription()" hint="A Regional Director did not approve the project to move into pre-opening." asp-for="@Model.ProjectStatus" />
                         <govuk-radios-list-conditional-item id="project-status-withdrawn-application" value="@ProjectStatus.WithdrawnDuringApplication" description="@ProjectStatus.WithdrawnDuringApplication.ToDescription()" hint="For example, the trust withdrew their application." asp-for="@Model.ProjectStatus">
-                            <govuk-text-input id="year-withdrawn-application" name="year-withdrawn-application" asp-for="@Model.WithdrawnApplicationYear" label="Year the project was withdrawn" hint="For example, 2024" small-label="true" width="4" />
+                            <govuk-date-input id="year-withdrawn-application" name="year-withdrawn-application" asp-for="@Model.WithdrawnApplicationYear" label="Year the project was withdrawn" hint="For example, 2024" />
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-conditional-item id="project-status-withdrawn" value="@ProjectStatus.WithdrawnDuringPreOpening" description="@ProjectStatus.WithdrawnDuringPreOpening.ToDescription()" hint="For example, the trust withdrew in the pre-opening stage." asp-for="@Model.ProjectStatus" conditional-id="withdrawn-year-date-conditional">
-                            <govuk-text-input id="year-withdrawn" name="year-withdrawn" asp-for="@Model.WithdrawnYear" label="Year the project was withdrawn" hint="For example, 2024" small-label="true" width="4" />
+                            <govuk-date-input id="year-withdrawn" name="year-withdrawn" asp-for="@Model.WithdrawnYear" label="Year the project was withdrawn" hint="For example, 2024" />
                         </govuk-radios-list-conditional-item>
                     </govuk-radios-list>
                 </div>
