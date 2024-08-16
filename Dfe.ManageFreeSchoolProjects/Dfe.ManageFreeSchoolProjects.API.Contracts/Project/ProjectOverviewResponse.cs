@@ -13,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public ProjectRiskOverviewResponse Risk { get; set; }
         public PupilNumbersOverviewResponse PupilNumbers { get; set; }
 
+        public string ProjectType { get; set; }
     }
 
     public record ProjectStatusResponse

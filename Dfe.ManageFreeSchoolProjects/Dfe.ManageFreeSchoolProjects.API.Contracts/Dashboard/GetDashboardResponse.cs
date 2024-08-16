@@ -20,5 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard
         public ProjectStatus ProjectStatus { get; set; }
 
         public string ProjectManagedBy { get; set; }
+
+        public string ProjectType { get; set; }
     }
 }
