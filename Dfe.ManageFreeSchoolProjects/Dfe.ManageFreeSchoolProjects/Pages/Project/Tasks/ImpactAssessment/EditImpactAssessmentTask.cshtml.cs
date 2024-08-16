@@ -30,6 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         public bool? SavedToWorkplaces { get; set; }
         
         public string SchoolName { get; set; }
+        public DateTime? DateSent { get; set; }
 
         public EditImpactAssessmentTaskModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
