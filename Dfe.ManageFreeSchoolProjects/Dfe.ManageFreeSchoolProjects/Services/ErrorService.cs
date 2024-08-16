@@ -33,11 +33,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 			}
 		}
 
-        public void RemoveErrorForKey(string key)
-        {
-			_errors.RemoveAll(e => e.Key == key);
-        }
-
         public Error GetError(string key)
 		{
 			return _errors.FirstOrDefault(e => e.Key == key);
