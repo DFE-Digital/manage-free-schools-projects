@@ -33,7 +33,7 @@
                                name="sent-section9-letter-to-local-authority"
                                type="checkbox"
                                value="true"
-                               checked="@(Model.Section9LetterSentToLocalAuthority == null ? null : "checked")"
+                               checked="@(Model.SentSection9LetterToLocalAuthority == true ?  "checked" : null)"
                                data-aria-controls="conditional-date-sent"
                                data-testid="sent-section9-letter-to-local-authority">
                         <label class="govuk-label govuk-checkboxes__label" for="sent-section9-letter-to-local-authority">
@@ -41,7 +41,7 @@
                         </label>
                     </div>
                     <div class="govuk-checkboxes__conditional" id="conditional-date-sent">
-                        <govuk-date-input id="date-sent" name="date-sent" label="Date sent" asp-for="@Model.DateSent" test-id="date-sent" hint="For example, 27 3 2021"/>
+                        <govuk-date-input id="date-sent" name="date-sent" label="Date sent" asp-for="@Model.Section9LetterDateSent" test-id="date-sent" hint="For example, 27 3 2021"/>
                     </div>
                 </div>
             </div>
@@ -50,17 +50,18 @@
                                   asp-for="@Model.ImpactAssessmentDone"
                                   name="impact-assessment-done"
                                   id="impact-assessment-done"
-                                  add-margin=false/>
+                                  add-margin=false />
 
             <govuk-checkbox-input label="Saved the signed-off impact assessment in Workplaces folder"
                                   asp-for="@Model.SavedToWorkplaces"
                                   name="saved-to-workplaces"
                                   id="saved-to-workplaces"
-                                  add-margin=false/>
+                                  add-margin=false />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
         </form>
+        
     </div>
 </div>
