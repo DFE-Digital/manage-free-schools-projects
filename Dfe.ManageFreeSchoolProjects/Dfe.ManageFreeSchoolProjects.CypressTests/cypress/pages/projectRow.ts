@@ -13,6 +13,12 @@ export class ProjectRow {
         return this;
     }
 
+    public hasProjectType(value: string): this {
+        this.containsText("project-type", value);
+
+        return this;
+    }
+    
     public hasTrustName(value: string): this {
         this.containsText("trust-name", value);
 
