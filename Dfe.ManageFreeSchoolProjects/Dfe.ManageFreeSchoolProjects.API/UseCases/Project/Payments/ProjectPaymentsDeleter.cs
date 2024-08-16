@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
-using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+﻿using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments

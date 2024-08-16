@@ -1,12 +1,7 @@
-
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
 using Dfe.ManageFreeSchoolProjects.Data;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 public interface IGetProjectPaymentsService

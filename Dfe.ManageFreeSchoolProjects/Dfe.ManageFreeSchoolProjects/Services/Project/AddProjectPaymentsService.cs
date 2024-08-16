@@ -4,25 +4,25 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface IDeleteProjectPaymentsService
+    public interface IAddProjectPaymentsService
     {
-        public Task Execute(string projectId, int paymentIndex);
+        public Task Execute(string projectId, Payment payment);
     }
 
-    public class DeleteProjectPaymentsService : IDeleteProjectPaymentsService
+    public class AddProjectPaymentsService : IAddProjectPaymentsService
     {
         private readonly MfspApiClient _apiClient;
 
-        public DeleteProjectPaymentsService(MfspApiClient apiClient)
+        public AddProjectPaymentsService(MfspApiClient apiClient)
         {
             _apiClient = apiClient;
         }
 
-        public async Task Execute(string projectId, int paymentIndex)
+        public async Task Execute(string projectId, Payment payment)
         {
             var endpoint = $"/api/v1/client/projects/{projectId}/payments";
 
-            await _apiClient.Delete<int, ApiSingleResponseV2<object>>(endpoint, paymentIndex);
+            await _apiClient.Post<Payment, ApiSingleResponseV2<object>>(endpoint, payment);
         }
     }
 }

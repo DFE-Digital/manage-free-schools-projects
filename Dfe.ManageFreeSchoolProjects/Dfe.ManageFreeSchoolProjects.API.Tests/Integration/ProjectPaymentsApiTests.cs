@@ -76,16 +76,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             await context.SaveChangesAsync();
 
+            var paymentIndex = 2;
+            var paymentIndexZeroIndexed = paymentIndex - 1;
+
             var request = new Payment()
             {
-                PaymentIndex = 2,
+                PaymentIndex = paymentIndex,
                 PaymentScheduleAmount = 444,
                 PaymentScheduleDate = payments.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue,
                 PaymentActualAmount = ParseDecimal(payments.ProjectDevelopmentGrantFundingAmountOf2ndPayment),
                 PaymentActualDate = payments.ProjectDevelopmentGrantFundingDateOf2ndActualPayment,
             };
 
-            var patchProjectPaymentsResponse = await _client.PutAsync($"/api/v1/client/projects/{projectId}/payments/update", request.ConvertToJson());
+            var patchProjectPaymentsResponse = await _client.PutAsync($"/api/v1/client/projects/{projectId}/payments", request.ConvertToJson());
             patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var getProjectPaymentsResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
@@ -119,18 +122,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             context.Po.Add(payments);
 
             await context.SaveChangesAsync();
-           
+
+            var paymentIndex = 3;
+
             var request = new Payment()
             {
 
-                PaymentIndex = 3,
+                PaymentIndex = paymentIndex,
                 PaymentScheduleAmount = ParseDecimal(payments.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue),
                 PaymentScheduleDate = payments.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue,
                 PaymentActualAmount = ParseDecimal(payments.ProjectDevelopmentGrantFundingAmountOf2ndPayment),
                 PaymentActualDate = payments.ProjectDevelopmentGrantFundingDateOf2ndActualPayment,
         };
 
-            var patchProjectPaymentsResponse = await _client.PutAsync($"/api/v1/client/projects/{projectId}/payments/update", request.ConvertToJson());
+            var patchProjectPaymentsResponse = await _client.PutAsync($"/api/v1/client/projects/{projectId}/payments", request.ConvertToJson());
             patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         }
@@ -160,7 +165,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 PaymentActualDate = new DateTime().AddDays(40)
             };
 
-            var patchProjectPaymentsResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/payments/add", request.ConvertToJson());
+            var patchProjectPaymentsResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/payments", request.ConvertToJson());
             patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var getProjectPaymentsResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
@@ -209,7 +214,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 PaymentActualDate = new DateTime().AddDays(40),
             };
 
-            var patchProjectPaymentsResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/payments/add", request.ConvertToJson());
+            var patchProjectPaymentsResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/payments", request.ConvertToJson());
             patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         }
@@ -226,7 +231,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
 
-            var payments = DatabaseModelBuilder.BuildProjectPayments(project.Rid);
+            var payments = DatabaseModelBuilder.BuildAllProjectPayments(project.Rid);
             context.Po.Add(payments);
 
             await context.SaveChangesAsync();
@@ -238,12 +243,41 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var countOfPaymentsBeforeDelete = GetCountOfPaymentsForProject(projectId);
 
-            var patchProjectPaymentsResponse = await _client.DeleteAsync($"/api/v1/client/projects/{projectId}/payments/delete/{paymentIndexToDelete}");
-            patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-            
+            var projectPaymentsBeforeDelete = await getProjectPaymentsBeforeDeleteResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectPayments>>();
+            var paymentAtIndexBeforeDelete = projectPaymentsBeforeDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete);
+            var paymentAtNextIndexBeforeDelete = projectPaymentsBeforeDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete + 1);
+
+            var deleteProjectPaymentsResponse = await _client.DeleteAsync($"/api/v1/client/projects/{projectId}/payments/{paymentIndexToDelete}");
+            deleteProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getProjectPaymentsAfterDeleteResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
+            getProjectPaymentsAfterDeleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
             var countOfPaymentsAfterDelete = GetCountOfPaymentsForProject(projectId);
 
+            var projectPaymentsAfterDelete = await getProjectPaymentsAfterDeleteResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectPayments>>();
+            var paymentAtIndexAfterDelete = projectPaymentsAfterDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete);
+
             countOfPaymentsBeforeDelete.Should().NotBe(countOfPaymentsAfterDelete);
+
+            paymentAtIndexBeforeDelete.PaymentActualDate.Should()
+                   .NotBe(paymentAtIndexAfterDelete.PaymentActualDate);
+            paymentAtIndexBeforeDelete.PaymentActualAmount.Should()
+                   .NotBe(paymentAtIndexAfterDelete.PaymentActualAmount);
+            paymentAtIndexBeforeDelete.PaymentScheduleAmount.Should()
+                   .NotBe(paymentAtIndexAfterDelete.PaymentScheduleAmount);
+            paymentAtIndexBeforeDelete.PaymentScheduleDate.Should()
+                   .NotBe(paymentAtIndexAfterDelete.PaymentScheduleDate);
+
+            paymentAtNextIndexBeforeDelete.PaymentActualDate.Should()
+                   .Be(paymentAtIndexAfterDelete.PaymentActualDate);
+            paymentAtNextIndexBeforeDelete.PaymentActualAmount.Should()
+                   .Be(paymentAtIndexAfterDelete.PaymentActualAmount);
+            paymentAtNextIndexBeforeDelete.PaymentScheduleAmount.Should()
+                   .Be(paymentAtIndexAfterDelete.PaymentScheduleAmount);
+            paymentAtNextIndexBeforeDelete.PaymentScheduleDate.Should()
+                   .Be(paymentAtIndexAfterDelete.PaymentScheduleDate);
+
         }
         [Fact]
         public async Task Delete_ProjectPayments_PaymentNotFound_Returns_404()
@@ -262,8 +296,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var paymentIndexToDelete = 6;
 
-            var patchProjectPaymentsResponse = await _client.DeleteAsync($"/api/v1/client/projects/{projectId}/payments/delete/{paymentIndexToDelete}");
-            patchProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var deleteProjectPaymentsResponse = await _client.DeleteAsync($"/api/v1/client/projects/{projectId}/payments/{paymentIndexToDelete}");
+            deleteProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         }
 

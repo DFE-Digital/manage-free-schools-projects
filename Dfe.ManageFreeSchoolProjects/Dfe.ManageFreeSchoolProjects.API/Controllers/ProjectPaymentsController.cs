@@ -32,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetProjectPayments([FromRoute] string projectId)
+        public async Task<ActionResult> GetProjectPayments(string projectId)
         {
             _logger.LogMethodEntered();
 
@@ -42,9 +42,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new ObjectResult(result);
         }
 
-        [Route("update")]
         [HttpPut]
-        public async Task<ActionResult> UpdateProjectPayments([FromRoute] string projectId, Payment payment)
+        public async Task<ActionResult> UpdateProjectPayments(string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
 
@@ -53,9 +52,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new OkResult();
         }
 
-        [Route("add")]
         [HttpPost]
-        public async Task<ActionResult> AddProjectPayments([FromRoute] string projectId, Payment payment)
+        public async Task<ActionResult> AddProjectPayments(string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
 
@@ -64,9 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             return new OkResult();
         }
 
-        [Route("delete/{paymentIndex}")]
-        [HttpDelete]
-        public async Task<ActionResult> DeleteProjectPayments([FromRoute] string projectId, int paymentIndex)
+        [HttpDelete("{paymentIndex}")]
+        public async Task<ActionResult> DeleteProjectPayments(string projectId, int paymentIndex)
         {
             _logger.LogMethodEntered();
 

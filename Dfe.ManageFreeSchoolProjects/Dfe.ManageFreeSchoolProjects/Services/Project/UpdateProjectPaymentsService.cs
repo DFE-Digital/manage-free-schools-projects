@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         {
             var endpoint = $"/api/v1/client/projects/{projectId}/payments";
 
-            await _apiClient.Patch<Payment, ApiSingleResponseV2<object>>(endpoint, payment);
+            await _apiClient.Put<Payment, ApiSingleResponseV2<object>>(endpoint, payment);
         }
     }
 }
