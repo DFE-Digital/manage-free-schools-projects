@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 
         [BindProperty(Name = "date-sent", BinderType = typeof(DateInputModelBinder))]
         [DisplayName("Date sent")]
-        [Required]
+        [Required(ErrorMessage = "Enter a date sent")]
         public DateTime? Section9LetterDateSent { get; set; }
 
 
