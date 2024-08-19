@@ -18,12 +18,12 @@ internal class GetImpactAssessmentTaskService : IGetTaskService
         var result = await (from kpi in parameters.BaseQuery
             join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
             from milestones in joinedMilestones.DefaultIfEmpty()
-            select new GetProjectByTaskResponse()
+            select new GetProjectByTaskResponse
             {
                 ImpactAssessment = ImpactAssessmentTaskBuilder.Build(milestones)
             }).FirstOrDefaultAsync();
-
-        return result ?? new GetProjectByTaskResponse() { ImpactAssessment = new() };
+        
+        return result ?? new GetProjectByTaskResponse { ImpactAssessment = new ImpactAssessmentTask() };
     }
 
 }
