@@ -55,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             PupilNumbersOverviewResponse pupilNumbers)
         {
 
-            return new ProjectOverviewResponse()
+            var projectOverviewResponse = new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
                 {
@@ -99,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     TrustType = ProjectMapper.ToTrustType(project.SchoolDetailsTrustType)
                 },
                 Risk = risk,
-                KeyContacts = new()
+                KeyContacts = new KeyContactsResponse
                 {
                     TeamLeader = project.KeyContactsFsgTeamLeader,
                     Grade6 = project.KeyContactsFsgGrade6,
@@ -108,13 +108,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ChairOfGovernors = project.KeyContactsChairOfGovernorsName,
                     SchoolChairOfGovernors = project.KeyContactsChairOfGovernorsMat
                 },
-                SiteInformation = new()
+                SiteInformation = new SiteInformationResponse
                 {
                     PermanentSite = sites.PermanentSite,
                     TemporarySite = sites.TemporarySite
                 },
                 PupilNumbers = pupilNumbers
             };
+
+            projectOverviewResponse.ProjectType = projectOverviewResponse.ProjectStatus.ApplicationWave == "FS - Presumption"
+                    ? "Presumption"
+                    : "Central Route";
+
+            return projectOverviewResponse; 
         }
         
         private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
