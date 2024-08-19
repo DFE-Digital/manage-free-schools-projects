@@ -6010,9 +6010,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
-                    b.Property<bool?>("FsgPreOpeningSection9LetterSentToLocalAuthority")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("LAAgreedPupilNumbers")
                         .HasColumnType("int");
 
