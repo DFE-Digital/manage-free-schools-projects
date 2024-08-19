@@ -85,7 +85,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
 
-                return Redirect(string.Format(RouteConstants.ViewPDG, ProjectId));
+                return Redirect(string.Format(RouteConstants.ViewPDGPresumption, ProjectId));
             }
             catch (Exception ex)
             {

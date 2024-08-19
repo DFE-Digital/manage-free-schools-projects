@@ -41,7 +41,9 @@
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
     var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
-    var pdgLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
+    var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
+    var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    var pdgLink = @Model.IsPresumptionRoute ? pdgPresumptionLink : pdgCentralLink;
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }

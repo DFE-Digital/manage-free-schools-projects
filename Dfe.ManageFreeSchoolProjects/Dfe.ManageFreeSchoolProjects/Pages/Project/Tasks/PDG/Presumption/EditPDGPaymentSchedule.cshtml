@@ -1,10 +1,10 @@
 ﻿@page "/projects/{projectId}/tasks/pdg/presumption/edit-payment-schedule"
-@    using Dfe.ManageFreeSchoolProjects.Constants;
-    using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption;
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption;
 @model EditPDGPaymentScheduleModel
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
-    var backLink = string.Format(RouteConstants.ViewPDG, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
 }
 
 @section BeforeMain {

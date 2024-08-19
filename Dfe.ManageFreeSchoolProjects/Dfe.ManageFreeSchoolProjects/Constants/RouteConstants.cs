@@ -140,6 +140,7 @@
 
         public const string ViewPDGCentral = TaskList + "/pdg/central";
         public const string EditPDGPaymentScheduleCentral = ViewPDGCentral + "/edit-payment-schedule/";
+        public const string AddPDGPaymentCentral = ViewPDGCentral + "/add-payment";
         public const string EditPDGTrustLetterCentral = ViewPDGCentral + "/edit-trust-letter/";
         public const string EditStopPaymentCentral = ViewPDGCentral + "/edit-stop-payment/";
         public const string EditRefundsCentral = ViewPDGCentral + "/edit-refunds/";

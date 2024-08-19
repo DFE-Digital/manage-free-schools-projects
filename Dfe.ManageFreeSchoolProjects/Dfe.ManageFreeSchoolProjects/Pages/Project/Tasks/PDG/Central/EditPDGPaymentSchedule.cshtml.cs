@@ -26,25 +26,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         public string ProjectId { get; set; }
 
         public string CurrentFreeSchoolName { get; set; }
-        [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "When is the payment due?")]
-        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? PaymentScheduleDate { get; set; }
-
-        [BindProperty(Name = "payment-due-amount", BinderType = typeof(DecimalInputModelBinder))]
-        [Display(Name = "Amount of 1st payment due")]
-        [ValidMoney(0, 25000)]
-        public decimal? PaymentScheduleAmount { get; set; }
-
-        [BindProperty(Name = "actual-payment-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Actual payment date")]
-        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? PaymentActualDate { get; set; }
-
-        [BindProperty(Name = "payment-actual-amount", BinderType = typeof(DecimalInputModelBinder))]
-        [Display(Name = "What is the payment amount?")]
-        [ValidMoney(0, 25000)]
-        public decimal? PaymentActualAmount { get; set; }
 
         public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditPDGPaymentScheduleModel> logger,
             ErrorService errorService)
@@ -63,33 +44,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             return Page();
         }
 
-        public async Task<ActionResult> OnPost()
+        public ActionResult OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
-            CurrentFreeSchoolName = project.SchoolName;
-
-            if (!ModelState.IsValid)
-            {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
             try
             {
-                var request = new UpdateProjectByTaskRequest()
-                {
-                    PaymentSchedule = new PaymentScheduleTask()
-                    {
-                        PaymentScheduleDate = PaymentScheduleDate,
-                        PaymentScheduleAmount = PaymentScheduleAmount,
-                        PaymentActualDate = PaymentActualDate,
-                        PaymentActualAmount = PaymentActualAmount,
-                    }
-                };
-
-                await _updateProjectTaskService.Execute(ProjectId, request);
-
-                return Redirect(string.Format(RouteConstants.ViewPDG, ProjectId));
+                return Redirect(string.Format(RouteConstants.AddPDGPaymentCentral, ProjectId));
             }
             catch (Exception ex)
             {
@@ -102,10 +61,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
 
-            PaymentScheduleDate = project.PaymentSchedule.PaymentScheduleDate;
-            PaymentScheduleAmount = project.PaymentSchedule.PaymentScheduleAmount;
-            PaymentActualDate = project.PaymentSchedule.PaymentActualDate;
-            PaymentActualAmount = project.PaymentSchedule.PaymentActualAmount;
             CurrentFreeSchoolName = project.SchoolName;
         }
     }

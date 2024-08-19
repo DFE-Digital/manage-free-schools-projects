@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    var nextPaymentNumber = 1;
 }
 
 @section BeforeMain {
@@ -24,13 +25,10 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <form method="post">
-            <govuk-date-input id="payment-due-date" name="payment-due-date" asp-for="@Model.PaymentScheduleDate" data-testid="payment-due-date" label="Date the payment is due" hint="For example, 27 3 2021" add-margin="false" />
-            <govuk-decimal-input id="payment-due-amount" name="payment-due-amount" asp-for="@Model.PaymentScheduleAmount" data-testid="payment-due-amount" label="Due amount" isMonetary="true" />
-            <govuk-date-input id="actual-payment-date" name="actual-payment-date" asp-for="@Model.PaymentActualDate" data-testid="actual-payment-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
-            <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Actual amount" isMonetary="true" />
-            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
-                Save and continue
+        <form class="govuk-form-group" method="post">
+            <p>You can add up to 12 scheduled payments.</p>
+            <button class="govuk-button" >
+                Add payment @nextPaymentNumber
             </button>
         </form>
     </div>

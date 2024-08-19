@@ -1,4 +1,4 @@
-﻿@page "/projects/{projectId}/tasks/pdg/central";
+﻿ @page "/projects/{projectId}/tasks/pdg/central";
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.ViewPDGModel;
 @{
@@ -31,18 +31,31 @@
         <govuk-summary-list no-border="true">
             <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount" />
         </govuk-summary-list>
-        <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
+
+        <govuk-summary-card id="total-grant" label="Total grant" href="@editPaymentScheduleLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Payment due date" asp-for="@pdgTask.PaymentScheduleDate" />
-                <govuk-summary-item label="Payment due amount" asp-for="@pdgTask.PaymentScheduleAmount" />
-                <govuk-summary-item label="Actual payment date" asp-for="@pdgTask.PaymentActualDate" />
-                <govuk-summary-item label="Actual payment amount" asp-for="@pdgTask.PaymentActualAmount" />
+                <govuk-summary-item label="Total amount" />
+                <govuk-summary-item label="Initial grant allocation date / revised grant allocation date" />
             </govuk-summary-list>
         </govuk-summary-card>
-        <govuk-summary-card id="trust-letter" label="Trust letter" href="@editTrustLetterLink">
+
+        <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Date when DfE signed PDG letter sent to the trust" asp-for="@pdgTask.TrustSignedPDGLetterDate" />
-                <govuk-summary-item label="Saved the signed trust letter in Workplaces folder " asp-for="@pdgTask.PDGLetterSavedInWorkspaces" />
+                <govuk-summary-item label="Number of scheduled payments"/>
+                <govuk-summary-item label="Number of sent payments" />
+                <govuk-summary-item label="Next payment due date" />
+                <govuk-summary-item label="Next due amount" />
+                <govuk-summary-item label="Amount sent" />
+            </govuk-summary-list>
+        </govuk-summary-card>
+        <govuk-summary-card id="grant-letters" label="Grant letters" href="@editTrustLetterLink">
+            <govuk-summary-list>
+                <govuk-summary-item label="Date when DfE signed the initial grant letter" />
+                <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" />
+                <govuk-summary-item label="Date when DfE signed the full grant letter" />
+                <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" />
+                <govuk-summary-item label="Due date of variation letter 1" />
+                <govuk-summary-item label="Saved variation letter 1 in Workplaces folder" /> 
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="stop-payments" label="Stop payments" href="@editStopPaymentLink">
