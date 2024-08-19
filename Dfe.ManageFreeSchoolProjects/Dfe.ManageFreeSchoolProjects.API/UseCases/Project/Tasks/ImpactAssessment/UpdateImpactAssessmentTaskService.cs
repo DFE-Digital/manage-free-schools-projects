@@ -33,5 +33,7 @@ public class UpdateImpactAssessmentTaskService : IUpdateTaskService
 
         db.FsgPreOpeningMilestonesImpactAssessmentDone = task.ImpactAssessment;
         db.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = task.SavedToWorkplaces;
+        db.FsgPreOpeningSection9LetterSentToLocalAuthority = task.SentSection9LetterToLocalAuthority;
+        db.FsgPreOpeningMilestonesS9lActualDateOfCompletion = task.Section9LetterDateSent;
     }
 }

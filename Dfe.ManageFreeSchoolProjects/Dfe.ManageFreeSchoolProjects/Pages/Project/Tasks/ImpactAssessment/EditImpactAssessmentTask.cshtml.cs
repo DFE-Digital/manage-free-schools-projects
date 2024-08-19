@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Models;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 {
@@ -30,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         [BindProperty(Name = "sent-section9-letter-to-local-authority")]
         public bool? SentSection9LetterToLocalAuthority { get; set; }
 
+        [BindProperty(Name = "date-sent", BinderType = typeof(DateInputModelBinder))]
         public DateTime? Section9LetterDateSent { get; set; }
 
 
