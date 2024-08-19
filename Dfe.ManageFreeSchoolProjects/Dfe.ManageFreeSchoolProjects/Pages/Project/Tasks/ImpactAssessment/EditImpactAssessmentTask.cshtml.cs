@@ -32,12 +32,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 
         [BindProperty(Name = "sent-section9-letter-to-local-authority")]
         [DisplayName("Sent section 9 letter to local authority")]
-        [Required]
-        public bool? SentSection9LetterToLocalAuthority { get; set; }
+        public bool SentSection9LetterToLocalAuthority { get; set; }
 
         [BindProperty(Name = "date-sent", BinderType = typeof(DateInputModelBinder))]
         [DisplayName("Date sent")]
-        [Required(ErrorMessage = "Enter a date sent")]
         public DateTime? Section9LetterDateSent { get; set; }
 
 
@@ -66,6 +64,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
+
+            if (SentSection9LetterToLocalAuthority)
+            {
+                if (Section9LetterDateSent == null)
+                {
+                    ModelState.AddModelError("date-sent", "Enter a date sent");
+                }
+            }
+            else
+            {
+                Section9LetterDateSent = null;
+            }
             
             if (!ModelState.IsValid)
             {
@@ -82,7 +92,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
                         ImpactAssessment = ImpactAssessmentDone,
                         SavedToWorkplaces = SavedToWorkplaces,
                         Section9LetterDateSent = Section9LetterDateSent,
-                        SentSection9LetterToLocalAuthority = SentSection9LetterToLocalAuthority
                     }
                 };
 
@@ -102,10 +111,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 
             ImpactAssessmentDone = project.ImpactAssessment.ImpactAssessment;
             SavedToWorkplaces = project.ImpactAssessment.SavedToWorkplaces;
-            SentSection9LetterToLocalAuthority = project.ImpactAssessment.SentSection9LetterToLocalAuthority;
             Section9LetterDateSent = project.ImpactAssessment.Section9LetterDateSent;
-
             SchoolName = project.SchoolName;
+
+            SentSection9LetterToLocalAuthority = Section9LetterDateSent != null; 
         }
     }
 }

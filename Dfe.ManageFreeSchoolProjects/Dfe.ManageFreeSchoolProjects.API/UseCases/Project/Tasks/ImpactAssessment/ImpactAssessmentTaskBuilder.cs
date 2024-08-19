@@ -17,7 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessme
                 ImpactAssessment = milestones.FsgPreOpeningMilestonesImpactAssessmentDone,
                 SavedToWorkplaces = milestones.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces, 
                 Section9LetterDateSent = milestones.FsgPreOpeningMilestonesS9lActualDateOfCompletion, 
-                SentSection9LetterToLocalAuthority = milestones.FsgPreOpeningSection9LetterSentToLocalAuthority
             };
         }
     }

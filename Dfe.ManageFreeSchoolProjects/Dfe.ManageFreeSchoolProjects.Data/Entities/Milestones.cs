@@ -147,7 +147,5 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE { get; set; }
 
         public bool? FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder { get; set; }
-        
-        public bool? FsgPreOpeningSection9LetterSentToLocalAuthority { get; set; }
     }
 }
