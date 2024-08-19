@@ -53,10 +53,34 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         [InlineData("Closed",ProjectStatus.Closed)]
         [InlineData("Withdrawn during pre-opening",ProjectStatus.WithdrawnDuringPreOpening)]
         [InlineData("Withdrawn in pre-opening",ProjectStatus.WithdrawnDuringPreOpening)]
-        
+        [InlineData("Application Competition stage",ProjectStatus.ApplicationCompetitionStage)]
+        [InlineData("Application stage",ProjectStatus.ApplicationStage)]
+        [InlineData("Open free school - Not included in figures", ProjectStatus.OpenNotIncludedInFigures)]
+        [InlineData("Pre-opening - Not included in the figures", ProjectStatus.PreopeningNotIncludedInFigures)]
+        [InlineData("Rejected at application stage", ProjectStatus.Rejected)]       
         public void ToProjectStatusType_ReturnsExpectedEnum(string input, ProjectStatus expectedResult)
         {
             var result = ProjectMapper.ToProjectStatusType(input);
+            Assert.Equal(expectedResult, result);
+        }
+
+        //FromProjectStatusType
+
+        [Theory]
+        [InlineData(ProjectStatus.Open, "Open")]
+        [InlineData(ProjectStatus.Preopening, "Pre-opening")]
+        //[InlineData("AnyNotRecognised", ProjectStatus.Preopening)]
+        [InlineData(ProjectStatus.Cancelled, "Cancelled")]
+        [InlineData(ProjectStatus.Closed, "Closed")]
+        [InlineData(ProjectStatus.WithdrawnDuringPreOpening, "Withdrawn during pre-opening")]
+        [InlineData(ProjectStatus.ApplicationCompetitionStage, "Application Competition stage")]
+        [InlineData(ProjectStatus.ApplicationStage, "Application stage")]
+        [InlineData(ProjectStatus.OpenNotIncludedInFigures, "Open free school - Not included in figures")]
+        [InlineData(ProjectStatus.PreopeningNotIncludedInFigures, "Pre-opening - Not included in the figures")]
+        [InlineData(ProjectStatus.Rejected, "Rejected at application stage")]
+        public void FromProjectStatusType_ReturnsExpectedEnum(ProjectStatus input, string expectedResult)
+        {
+            var result = ProjectMapper.FromProjectStatusType(input);
             Assert.Equal(expectedResult, result);
         }
     }

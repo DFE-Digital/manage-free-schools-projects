@@ -58,6 +58,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var result = await overviewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
 
+            result.Data.ProjectType.Should().Be("Central Route");
+            
             // Project status
             var projectStatus = result.Data.ProjectStatus;
             projectStatus.CurrentFreeSchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);

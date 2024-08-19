@@ -60,9 +60,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 RealisticOpeningDate = record.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                 Region = record.SchoolDetailsGeographicalRegion,
                 ProjectManagedBy = record.KeyContactsFsgLeadContact, 
+                ProjectType = record.ProjectStatusFreeSchoolApplicationWave == "FS - Presumption" ? "Presumption" : "Central Route",
                 ProjectStatus = ProjectMapper.ToProjectStatusType(record.ProjectStatusProjectStatus)
             }).ToList();
-
+            
             return (result, count);
         }
 

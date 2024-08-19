@@ -162,6 +162,34 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             }
         }
 
+        public async Task<TResult> Delete<T, TResult>(string endpoint, T dto)
+        {
+            try
+            {
+                var request = new StringContent(
+                    JsonConvert.SerializeObject(dto),
+                    Encoding.UTF8,
+                    MediaTypeNames.Application.Json);
+
+                var client = CreateHttpClient();
+
+                var response = await client.DeleteAsync($"{endpoint}/{dto}");
+
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject<TResult>(content);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         private HttpClient CreateHttpClient()
         {
             var client = _clientFactory.CreateClient(_httpClientName);

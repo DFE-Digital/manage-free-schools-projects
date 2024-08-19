@@ -32,7 +32,7 @@ describe("Testing the home page", () => {
             });
         });
 
-        it("Should be able to filter projects by project ID", () => {
+        it.only("Should be able to filter projects by project ID", () => {
             homePage.openFilter().withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
@@ -40,6 +40,7 @@ describe("Testing the home page", () => {
                 .then((row) => {
                     row.hasProjectId(firstProject.projectId);
                     row.hasProjectTitle(firstProject.schoolName);
+                    row.hasProjectType(firstProject.projectType);
                     row.hasStatus("Pre-opening");
                 });
 
@@ -48,6 +49,7 @@ describe("Testing the home page", () => {
                 .then((row) => {
                     row.hasProjectId(secondProject.projectId);
                     row.hasProjectTitle(secondProject.schoolName);
+                    row.hasProjectType(firstProject.projectType);
                     row.hasStatus("Pre-opening");
                 });
 

@@ -1,3 +1,8 @@
+## 0.12.0
+* 174750 - Build: Modify API to work with new PDG designs
+* 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
+
+---
 ## 0.11.0
 * 167340 - Build: Funding agreement submission
 * 168953 - Build: Principal Designate

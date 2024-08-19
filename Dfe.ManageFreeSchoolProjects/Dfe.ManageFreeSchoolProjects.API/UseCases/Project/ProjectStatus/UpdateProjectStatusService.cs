@@ -1,8 +1,6 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Contacts;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +37,7 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
             CancelledDate = request.CancelledDate
         };
 
-        dbProject.ProjectStatusProjectStatus = updateRequest.ProjectStatus.ToDescription();
+        dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(updateRequest.ProjectStatus);
         dbProject.ProjectStatusDateClosed = updateRequest.ClosedDate;
         dbProject.ProjectStatusDateCancelled = updateRequest.CancelledDate;
         dbProject.ProjectStatusDateWithdrawn = updateRequest.WithdrawnDate;
