@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
 
@@ -29,9 +31,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         public bool? SavedToWorkplaces { get; set; }
 
         [BindProperty(Name = "sent-section9-letter-to-local-authority")]
+        [DisplayName("Sent section 9 letter to local authority")]
+        [Required]
         public bool? SentSection9LetterToLocalAuthority { get; set; }
 
         [BindProperty(Name = "date-sent", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date sent")]
+        [Required]
         public DateTime? Section9LetterDateSent { get; set; }
 
 
@@ -60,7 +66,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
-
+            
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
             try
             {
                 var request = new UpdateProjectByTaskRequest
