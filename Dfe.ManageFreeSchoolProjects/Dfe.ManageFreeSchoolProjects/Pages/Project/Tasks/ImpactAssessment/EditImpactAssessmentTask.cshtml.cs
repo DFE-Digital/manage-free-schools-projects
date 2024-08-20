@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
 
@@ -66,17 +67,28 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
 
-            if (SentSection9LetterToLocalAuthority)
+            if (!SentSection9LetterToLocalAuthority)
             {
-                if (Section9LetterDateSent == null)
-                {
-                    ModelState.AddModelError("date-sent", "Enter a date sent");
-                }
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-sent")).ToList();
+                errorKeys.ForEach(k => ModelState.Remove(k));
+                Section9LetterDateSent = null;
             }
             else
             {
-                Section9LetterDateSent = null;
+                ModelState.AddModelError("date-sent", "Enter a date sent");
             }
+            
+            // if (SentSection9LetterToLocalAuthority)
+            // {
+            //     if (Section9LetterDateSent == null)
+            //     {
+            //         ModelState.AddModelError("date-sent", "Enter a date sent");
+            //     }
+            // }
+            // else
+            // {
+            //     Section9LetterDateSent = null;
+            // }
 
             // if (!SentSection9LetterToLocalAuthority)
             //     Section9LetterDateSent = null;
