@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.Constants
+﻿using System;
+
+namespace Dfe.ManageFreeSchoolProjects.Constants
 {
     public static class RouteConstants
     {
@@ -146,6 +148,7 @@
         public const string EditStopPaymentCentral = ViewPDGCentral + "/edit-stop-payment/";
         public const string EditRefundsCentral = ViewPDGCentral + "/edit-refunds/";
         public const string EditWriteOffCentral = ViewPDGCentral + "/edit-write-off/";
+        public const string EditPDGTotalGrant = ViewPDGCentral + "/edit-total-grant";
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
