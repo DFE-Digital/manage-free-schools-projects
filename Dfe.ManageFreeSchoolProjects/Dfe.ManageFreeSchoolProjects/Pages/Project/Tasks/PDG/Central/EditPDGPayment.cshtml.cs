@@ -73,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         public async Task<ActionResult> OnPost()
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
+
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -95,6 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
                 await _updateProjectPaymentsService.Execute(ProjectId, request);
 
                 TempData["paymentUpdated"] = true;
+                TempData["paymentIndex"] = PaymentIndex;                  
 
                 return Redirect(string.Format(RouteConstants.EditPDGPaymentScheduleCentral, ProjectId));
             }

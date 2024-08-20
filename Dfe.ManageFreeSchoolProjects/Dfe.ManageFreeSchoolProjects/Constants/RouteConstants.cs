@@ -142,6 +142,7 @@
         public const string EditPDGPaymentScheduleCentral = ViewPDGCentral + "/edit-payment-schedule";
         public const string EditPDGPaymentCentral = EditPDGPaymentScheduleCentral + "/{1}";
         public const string AddPDGPaymentCentral = ViewPDGCentral + "/add-payment";
+        public const string DeletePDGPaymentCentral = ViewPDGCentral + "/delete-payment/{1}";
         public const string EditPDGTrustLetterCentral = ViewPDGCentral + "/edit-trust-letter/";
         public const string EditStopPaymentCentral = ViewPDGCentral + "/edit-stop-payment/";
         public const string EditRefundsCentral = ViewPDGCentral + "/edit-refunds/";

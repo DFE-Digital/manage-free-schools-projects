@@ -13,22 +13,26 @@ using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
-    public class EditPDGPaymentScheduleModel : PageModel
+    public class DeletePDGPaymentModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IGetProjectPaymentsService _getProjectPaymentsService;
-        private readonly ILogger<EditPDGPaymentScheduleModel> _logger;
+        private readonly IDeleteProjectPaymentsService _deleteProjectPaymentsService;
+        private readonly ILogger<DeletePDGPaymentModel> _logger;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        [BindProperty(SupportsGet = true, Name = "paymentIndex")]
+        public int PaymentIndex { get; set; }
         public string CurrentFreeSchoolName { get; set; }
-        public ProjectPayments ProjectPayments { get; set; }
+        public Payment Payment { get; set; }
 
-        public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, ILogger<EditPDGPaymentScheduleModel> logger)
+        public DeletePDGPaymentModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, IDeleteProjectPaymentsService deleteProjectPaymentsService, ILogger<DeletePDGPaymentModel> logger)
         {
             _getProjectService = getProjectService;
             _getProjectPaymentsService = getProjectPaymentsService;
+            _deleteProjectPaymentsService = deleteProjectPaymentsService;
             _logger = logger;
         }
 
@@ -40,11 +44,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             return Page();
         }
 
-        public ActionResult OnPost()
+        public async Task<ActionResult> OnPost()
         {
             try
             {
-                return Redirect(string.Format(RouteConstants.AddPDGPaymentCentral, ProjectId));
+                await _deleteProjectPaymentsService.Execute(ProjectId, PaymentIndex);
+
+                TempData["paymentDeleted"] = true;
+
+                return Redirect(string.Format(RouteConstants.EditPDGPaymentScheduleCentral, ProjectId));
             }
             catch (Exception ex)
             {
@@ -59,7 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
             CurrentFreeSchoolName = project.SchoolName;
 
-            ProjectPayments = await _getProjectPaymentsService.Execute(ProjectId);
+            var projectPayments = await _getProjectPaymentsService.Execute(ProjectId);
+
+            Payment = projectPayments.Payments.Where(p => p.PaymentIndex == PaymentIndex).FirstOrDefault();
         }
     }
 }

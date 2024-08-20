@@ -1,0 +1,47 @@
+﻿@page "/projects/{projectId}/tasks/pdg/central/delete-payment/{paymentIndex}"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+@model DeletePDGPaymentModel
+@{
+    ViewData["Title"] = $"Delete a Payment  - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGPaymentCentral, Model.ProjectId, Model.PaymentIndex);
+    var pdgPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+} 
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Delete a Payment
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    <p>Are you sure you want to delete payment @Model.PaymentIndex?</p>
+        <form method="post">
+            <govuk-summary-card id="payment-@Model.PaymentIndex" label="Payment @Model.PaymentIndex">
+            <govuk-summary-list>
+                    <govuk-summary-item label="Date the payment is due" asp-for="@Model.Payment.PaymentScheduleDate" />
+                    <govuk-summary-item label="Due amount" asp-for="@Model.Payment.PaymentScheduleAmount"/>
+                    <govuk-summary-item label="Date the payment was sent" asp-for="@Model.Payment.PaymentActualDate" />
+                    <govuk-summary-item label="Amount sent" asp-for="@Model.Payment.PaymentActualAmount" />
+                </govuk-summary-list>
+            </govuk-summary-card>
+                <button class="govuk-button" data-module="govuk-button" data-testid="delete">
+                    Yes, delete it
+                </button>
+        </form>
+        <div role="navigation" class="govuk-width-container">
+            <a href=@pdgPaymentScheduleLink class="govuk-back-link">No, back to the edit payment schedule page</a>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 return new List<Payment>();
             }
 
-            return new List<Payment>()
+            List<Payment> allPayments = new()
             {
                 new Payment
                 {
@@ -113,6 +113,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     PaymentActualDate = po.ProjectDevelopmentGrantFundingDateOf12thActualPayment
                 },
             };
+
+            List<Payment> payments = allPayments.Where(p => p.PaymentActualAmount != null || p.PaymentScheduleAmount != null || p.PaymentActualDate != null || p.PaymentScheduleDate != null).ToList();
+
+            return payments;
         }
 
         private static decimal? ParseDecimal(string value)
