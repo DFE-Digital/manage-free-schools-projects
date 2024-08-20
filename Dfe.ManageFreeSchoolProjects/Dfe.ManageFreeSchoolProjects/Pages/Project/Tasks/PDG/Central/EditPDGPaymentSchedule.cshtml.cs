@@ -1,8 +1,6 @@
-using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 using System;
 using Microsoft.Extensions.Logging;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -10,30 +8,28 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
-using Dfe.ManageFreeSchoolProjects.Validators;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
     public class EditPDGPaymentScheduleModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
-        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+        private readonly IGetProjectPaymentsService _getProjectPaymentsService;
         private readonly ILogger<EditPDGPaymentScheduleModel> _logger;
-        private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
         public string CurrentFreeSchoolName { get; set; }
+        public ProjectPayments ProjectPayments { get; set; }
 
-        public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditPDGPaymentScheduleModel> logger,
-            ErrorService errorService)
+        public EditPDGPaymentScheduleModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, ILogger<EditPDGPaymentScheduleModel> logger)
         {
             _getProjectService = getProjectService;
+            _getProjectPaymentsService = getProjectPaymentsService;
             _logger = logger;
-            _errorService = errorService;
-            _updateProjectTaskService = updateProjectTaskService;
         }
 
         public async Task<ActionResult> OnGet()
@@ -62,6 +58,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
 
             CurrentFreeSchoolName = project.SchoolName;
+
+            var projectPayments = await _getProjectPaymentsService.Execute(ProjectId);
+
+            projectPayments.Payments = projectPayments.Payments.AsQueryable().Where(p => p.PaymentActualAmount != null || p.PaymentScheduleAmount != null || p.PaymentActualDate != null || p.PaymentScheduleDate != null);
+            ProjectPayments = projectPayments;
+
+
         }
     }
 }

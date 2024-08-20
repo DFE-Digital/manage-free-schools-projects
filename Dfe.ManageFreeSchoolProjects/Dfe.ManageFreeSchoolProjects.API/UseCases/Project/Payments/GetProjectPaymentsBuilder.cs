@@ -1,5 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 {
@@ -7,6 +9,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
     {
         public static List<Payment> Build(Po po)
         {
+            if (po == null)
+            {
+                return new List<Payment>();
+            }
 
             return new List<Payment>()
             {

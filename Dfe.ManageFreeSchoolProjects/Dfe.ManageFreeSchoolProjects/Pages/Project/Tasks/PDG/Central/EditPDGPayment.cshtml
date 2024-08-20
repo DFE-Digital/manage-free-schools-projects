@@ -3,8 +3,8 @@
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 @model EditPDGPaymentModel
 @{
-    ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
-    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    ViewData["Title"] = $"Edit Payment {Model.PaymentIndex}  - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -19,7 +19,7 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Edit Payment schedule
+    Edit Payment @Model.PaymentIndex
 </h1>
 
 <div class="govuk-grid-row">
@@ -30,7 +30,7 @@
             <govuk-date-input id="actual-payment-date" name="actual-payment-date" asp-for="@Model.PaymentActualDate" data-testid="actual-payment-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
             <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Actual amount" isMonetary="true" />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
-                Save and continue
+                Update payment
             </button>
         </form>
     </div>

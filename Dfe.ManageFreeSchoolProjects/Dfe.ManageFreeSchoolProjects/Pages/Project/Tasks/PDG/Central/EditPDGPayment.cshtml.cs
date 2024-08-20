@@ -12,18 +12,24 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Validators;
+using System.Linq;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
     public class EditPDGPaymentModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
-        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+        private readonly IGetProjectPaymentsService _getProjectPaymentsService;
+        private readonly IUpdateProjectPaymentsService _updateProjectPaymentsService;
         private readonly ILogger<EditPDGPaymentModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
+
+        [BindProperty(SupportsGet = true, Name = "paymentIndex")]
+        public int PaymentIndex { get; set; }
 
         public string CurrentFreeSchoolName { get; set; }
         [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
@@ -46,13 +52,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         [ValidMoney(0, 25000)]
         public decimal? PaymentActualAmount { get; set; }
 
-        public EditPDGPaymentModel(IGetProjectByTaskService getProjectService, IUpdateProjectByTaskService updateProjectTaskService, ILogger<EditPDGPaymentModel> logger,
+        public EditPDGPaymentModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, IUpdateProjectPaymentsService updateProjectPaymentsService, ILogger<EditPDGPaymentModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
             _logger = logger;
             _errorService = errorService;
-            _updateProjectTaskService = updateProjectTaskService;
+            _getProjectPaymentsService = getProjectPaymentsService;
+            _updateProjectPaymentsService = updateProjectPaymentsService;
         }
 
         public async Task<ActionResult> OnGet()
@@ -76,20 +83,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
             try
             {
-                var request = new UpdateProjectByTaskRequest()
+                var request = new Payment()
                 {
-                    PaymentSchedule = new PaymentScheduleTask()
-                    {
-                        PaymentScheduleDate = PaymentScheduleDate,
-                        PaymentScheduleAmount = PaymentScheduleAmount,
-                        PaymentActualDate = PaymentActualDate,
-                        PaymentActualAmount = PaymentActualAmount,
-                    }
+                    PaymentIndex = PaymentIndex,
+                    PaymentScheduleDate = PaymentScheduleDate,
+                    PaymentScheduleAmount = PaymentScheduleAmount,
+                    PaymentActualDate = PaymentActualDate,
+                    PaymentActualAmount = PaymentActualAmount,
                 };
 
-                await _updateProjectTaskService.Execute(ProjectId, request);
+                await _updateProjectPaymentsService.Execute(ProjectId, request);
 
-                return Redirect(string.Format(RouteConstants.ViewPDGCentral, ProjectId));
+                TempData["paymentUpdated"] = true;
+
+                return Redirect(string.Format(RouteConstants.EditPDGPaymentScheduleCentral, ProjectId));
             }
             catch (Exception ex)
             {
@@ -102,11 +109,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
 
-            PaymentScheduleDate = project.PaymentSchedule.PaymentScheduleDate;
-            PaymentScheduleAmount = project.PaymentSchedule.PaymentScheduleAmount;
-            PaymentActualDate = project.PaymentSchedule.PaymentActualDate;
-            PaymentActualAmount = project.PaymentSchedule.PaymentActualAmount;
             CurrentFreeSchoolName = project.SchoolName;
+
+            var projectPayments = await _getProjectPaymentsService.Execute(ProjectId);
+
+            var payment = projectPayments.Payments.Where(p => p.PaymentIndex == PaymentIndex).FirstOrDefault();
+
+            PaymentScheduleDate = payment.PaymentScheduleDate;
+            PaymentScheduleAmount = payment.PaymentScheduleAmount;
+            PaymentActualDate = payment.PaymentActualDate;
+            PaymentActualAmount = payment.PaymentActualAmount;
         }
     }
 }

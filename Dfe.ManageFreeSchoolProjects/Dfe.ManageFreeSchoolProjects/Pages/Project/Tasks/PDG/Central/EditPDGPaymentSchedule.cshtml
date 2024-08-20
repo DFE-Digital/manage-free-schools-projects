@@ -1,11 +1,13 @@
 ﻿@page "/projects/{projectId}/tasks/pdg/central/edit-payment-schedule"
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
 @model EditPDGPaymentScheduleModel
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var nextPaymentNumber = 1;
+    var editPaymentLink = RouteConstants.EditPDGPaymentCentral;
 }
 
 @section BeforeMain {
@@ -23,8 +25,36 @@
     Edit Payment schedule
 </h1>
 
+@if ((bool)(TempData["paymentUpdated"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment updated.</p>
+        </div>
+    </div>
+    TempData["paymentUpdated"] = false;
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+        @foreach (Payment p in Model.ProjectPayments.Payments)
+        {
+            <govuk-summary-card id="payment-@p.PaymentIndex" label="Payment @p.PaymentIndex" href="@string.Format(editPaymentLink, Model.ProjectId, p.PaymentIndex)">
+                <govuk-summary-list>
+                    <govuk-summary-item label="Date the payment is due" asp-for="@p.PaymentScheduleDate" />
+                    <govuk-summary-item label="Due amount" asp-for="@p.PaymentScheduleAmount"/>
+                    <govuk-summary-item label="Date the payment was sent" asp-for="@p.PaymentActualDate" />
+                    <govuk-summary-item label="Amount sent" asp-for="@p.PaymentActualAmount"/>
+                </govuk-summary-list>
+            </govuk-summary-card>
+        }
+
         <form class="govuk-form-group" method="post">
             <p>You can add up to 12 scheduled payments.</p>
             <button class="govuk-button" >

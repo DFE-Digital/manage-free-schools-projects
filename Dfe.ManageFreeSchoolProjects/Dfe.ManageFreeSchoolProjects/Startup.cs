@@ -106,6 +106,10 @@ public class Startup
         services.AddScoped<IUpdateProjectSitesService, UpdateProjectSitesService>();
         services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
         services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
+        services.AddScoped<IGetProjectPaymentsService, GetProjectPaymentsService>();
+        services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
+        services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
+        services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
