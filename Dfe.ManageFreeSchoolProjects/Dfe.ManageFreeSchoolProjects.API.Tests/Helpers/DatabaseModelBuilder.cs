@@ -286,6 +286,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             result.FsgPreOpeningMilestonesImpactAssessmentDone = true;
             result.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = true;
+            result.FsgPreOpeningMilestonesS9lActualDateOfCompletion = DateTime.Today;
+            
             return result;
         }
         
