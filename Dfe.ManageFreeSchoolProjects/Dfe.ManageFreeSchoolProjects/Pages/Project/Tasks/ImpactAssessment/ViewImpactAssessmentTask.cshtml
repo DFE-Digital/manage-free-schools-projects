@@ -30,7 +30,7 @@
             <govuk-summary-item label="Sent the section 9 letter to local authority" asp-for="@Model.Section9LetterSentToLocalAuthority" href="@editlink" />
             <govuk-summary-item label="Date sent" asp-for="@impactAssessment.Section9LetterDateSent" href="@editlink" />
             <govuk-summary-item label="Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool" asp-for="@impactAssessment.ImpactAssessment" href="@editlink"/>
-            <govuk-summary-item label="Saved the signed-off impact assessment in Workplaces folder" asp-for="@impactAssessment.SavedToWorkplaces" href="@editlink"/>
+            <govuk-summary-item label="Saved the section 9 letter and signed-off impact assessment in Workplaces folder" asp-for="@impactAssessment.SavedToWorkplaces" href="@editlink"/>
         </govuk-summary-list>
         <form method="post">
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"

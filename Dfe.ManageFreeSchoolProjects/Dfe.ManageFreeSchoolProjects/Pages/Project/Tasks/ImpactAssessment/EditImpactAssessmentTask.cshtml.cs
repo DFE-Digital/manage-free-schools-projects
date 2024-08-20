@@ -38,7 +38,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         [DisplayName("Date sent")]
         public DateTime? Section9LetterDateSent { get; set; }
 
-
+        public bool IsPresumptionRoute { get; set; }
+        
         public string SchoolName { get; set; }
 
         public EditImpactAssessmentTaskModel(IGetProjectByTaskService getProjectService,
@@ -76,6 +77,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             {
                 Section9LetterDateSent = null;
             }
+
+            // if (!SentSection9LetterToLocalAuthority)
+            //     Section9LetterDateSent = null;
             
             if (!ModelState.IsValid)
             {
@@ -113,6 +117,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             SavedToWorkplaces = project.ImpactAssessment.SavedToWorkplaces;
             Section9LetterDateSent = project.ImpactAssessment.Section9LetterDateSent;
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
 
             SentSection9LetterToLocalAuthority = Section9LetterDateSent != null; 
         }
