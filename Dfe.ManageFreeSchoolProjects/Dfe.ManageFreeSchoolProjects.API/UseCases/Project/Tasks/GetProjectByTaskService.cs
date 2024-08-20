@@ -55,13 +55,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         {
             var query = _context.Kpi.Where(kpi => kpi.ProjectStatusProjectId == projectId);
 
-            var parameters = new GetTaskServiceParameters()
+            var parameters = new GetTaskServiceParameters
             {
                 ProjectId = projectId,
                 BaseQuery = query
             };
 
-            GetProjectByTaskResponse result = null;
+            GetProjectByTaskResponse result;
 
             switch (taskName)
             {
@@ -181,7 +181,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 result.IsPresumptionRoute = isPresumptionRoute;
             }
 
-            return result;
+                return result;
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
     {
         private readonly ILogger<ViewImpactAssessmentModel> _logger;
 
+        public bool? Section9LetterSentToLocalAuthority { get; set; }
+        
         public ViewImpactAssessmentModel(
             IGetProjectByTaskService getProjectService,
             ILogger<ViewImpactAssessmentModel> logger,

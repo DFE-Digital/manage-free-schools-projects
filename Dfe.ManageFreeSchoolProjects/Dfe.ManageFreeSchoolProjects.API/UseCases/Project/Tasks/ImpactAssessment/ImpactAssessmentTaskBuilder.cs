@@ -12,10 +12,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ImpactAssessme
                 return new ImpactAssessmentTask();
             }
 
-            return new ImpactAssessmentTask()
+            return new ImpactAssessmentTask
             {
                 ImpactAssessment = milestones.FsgPreOpeningMilestonesImpactAssessmentDone,
-                SavedToWorkplaces = milestones.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces
+                SavedToWorkplaces = milestones.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces, 
+                Section9LetterDateSent = milestones.FsgPreOpeningMilestonesS9lActualDateOfCompletion, 
             };
         }
     }
