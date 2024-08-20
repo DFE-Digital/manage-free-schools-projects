@@ -36,20 +36,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [DateValidation(DateRangeValidationService.DateRange.Future)]
         public DateTime? ProvisionalOpeningDateAgreedWithTrust { get; set; }
         
-        [BindProperty(Name = "project-closed-date", BinderType = typeof(YearInputModelBinder))]
+        [BindProperty(Name = "project-closed-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "project status closed")]
-        public string ProjectClosedDate { get; set; }
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? ProjectClosedDate { get; set; }
         
         public bool ProjectClosedDateHasValue { get; set; }
         
-        [BindProperty(Name = "project-cancelled-date",BinderType = typeof(YearInputModelBinder))]
+        [BindProperty(Name = "project-cancelled-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "project cancelled date")]
-        public string ProjectCancelledDate { get; set; }
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? ProjectCancelledDate { get; set; }
+
         public bool ProjectCancelledDateHasValue { get; set; }
         
-        [BindProperty(Name = "project-withdrawn-date",BinderType = typeof(YearInputModelBinder))]
+        [BindProperty(Name = "project-withdrawn-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "project withdrawn date")]
-        public string ProjectWithdrawnDate { get; set; }
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? ProjectWithdrawnDate { get; set; }
         
         public bool ProjectWithdrawnDateHasValue { get; set; }
         public EditDatesTaskModel(
@@ -76,9 +80,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 ProjectCancelledDateHasValue = project.Dates.ProjectCancelledDate.HasValue;
                 ProjectWithdrawnDateHasValue = project.Dates.ProjectWithdrawnDate.HasValue;
                 EntryIntoPreOpening = project.Dates.DateOfEntryIntoPreopening;
-                ProjectClosedDate = project.Dates.ProjectClosedDate.ToYearString();
-                ProjectCancelledDate = project.Dates.ProjectCancelledDate.ToYearString();
-                ProjectWithdrawnDate = project.Dates.ProjectWithdrawnDate.ToYearString();
+                ProjectClosedDate = project.Dates.ProjectClosedDate;
+                ProjectCancelledDate = project.Dates.ProjectCancelledDate;
+                ProjectWithdrawnDate = project.Dates.ProjectWithdrawnDate;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
             }
             catch (Exception ex)
@@ -155,9 +159,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                     {
                         DateOfEntryIntoPreopening = EntryIntoPreOpening,
                         ProvisionalOpeningDateAgreedWithTrust = ProvisionalOpeningDateAgreedWithTrust,
-                        ProjectClosedDate = ProjectClosedDate.ToYearDate(),
-                        ProjectCancelledDate = ProjectCancelledDate.ToYearDate(),
-                        ProjectWithdrawnDate = ProjectWithdrawnDate.ToYearDate(),
+                        ProjectClosedDate = ProjectClosedDate,
+                        ProjectCancelledDate = ProjectCancelledDate,
+                        ProjectWithdrawnDate = ProjectWithdrawnDate,
                     }
                 };
 

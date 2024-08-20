@@ -28,17 +28,17 @@
         <form method="post">
             @if (Model.ProjectClosedDateHasValue)
             {
-                <govuk-text-input id="project-closed-date" name="project-closed-date" asp-for="@Model.ProjectClosedDate" label="Year the school was closed" hint="For example, 2024" width="4" bold-label="true"/>
+                <govuk-date-input id="project-closed-date" name="project-closed-date" asp-for="@Model.ProjectClosedDate" label="Year the school was closed" hint="For example, 2024" width="4" bold-label="true" />
             }
 
             @if (Model.ProjectCancelledDateHasValue)
             {
-             <govuk-text-input id="project-cancelled-date" name="project-cancelled-date" asp-for="@Model.ProjectCancelledDate" label="Year the project was cancelled" hint="For example, 2024" width="4" bold-label="true"/>
+                <govuk-date-input id="project-cancelled-date" name="project-cancelled-date" asp-for="@Model.ProjectCancelledDate" label="Year the project was cancelled" hint="For example, 2024" width="4" bold-label="true" />
             }
 
             @if (Model.ProjectWithdrawnDateHasValue)
             {
-                <govuk-text-input id="project-withdrawn-date" name="project-withdrawn-date" asp-for="@Model.ProjectWithdrawnDate" label="Year the project was withdrawn" hint="For example, 2024" width="4" bold-label="true"/>
+                <govuk-date-input id="project-withdrawn-date" name="project-withdrawn-date" asp-for="@Model.ProjectWithdrawnDate" label="Year the project was withdrawn" hint="For example, 2024" width="4" bold-label="true"/>
             }
             
             <govuk-date-input id="entry-into-pre-opening" name="entry-into-pre-opening" asp-for="@Model.EntryIntoPreOpening" data-testid="entry-into-pre-opening" label="Entry into pre-opening" hint="For example, 27 3 2021"/>
