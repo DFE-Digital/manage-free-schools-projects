@@ -36,7 +36,7 @@ describe("Testing project overview", () => {
 
         projectStatusPage
             .selectCancelled()
-            .addCancelledYear("2000")
+            .addCancelledYear("1", "1", "2000")
             .clickSaveAndContine()
 
         taskListPage.isTaskStatusIsNotStarted("Dates")
@@ -66,7 +66,7 @@ describe("Testing project overview", () => {
 
         Logger.log("Checking validation");
         datesDetailsPage
-            .addCancelledDate("error")
+            .addCancelledDate("1", "1", "error")
             .withEntryIntoPreOpening("33", "", "")
             .withProvisionalOpeningDateAgreedWithTrust("44", "", "")
             .clickContinue();
@@ -81,14 +81,14 @@ describe("Testing project overview", () => {
         Logger.log("Add new values");
         datesDetailsPage
             .schoolNameIs(project.schoolName)
-            .addCancelledDate("2050")
+            .addCancelledDate("12", "2","2049")
             .withEntryIntoPreOpening("10", "08", "2025")
             .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
             .clickContinue();
 
         summaryPage
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
+            .summaryShows("Year the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
