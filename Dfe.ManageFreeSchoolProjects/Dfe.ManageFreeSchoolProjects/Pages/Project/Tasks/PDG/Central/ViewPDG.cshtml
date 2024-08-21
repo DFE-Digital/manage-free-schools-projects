@@ -35,8 +35,7 @@
 
         <govuk-summary-card id="total-grant" label="Total grant" href="@editTotalGrantLink">
             <govuk-summary-list>
-               @*  <govuk-summary-item label="Total amount" />
-                <govuk-summary-item label="Initial grant allocation date / revised grant allocation date" /> *@
+               <govuk-summary-item label="Total amount" asp-for="@pdgTask.TotalGrant"/>
             </govuk-summary-list>
         </govuk-summary-card>
 
