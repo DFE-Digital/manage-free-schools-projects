@@ -54,7 +54,6 @@ public class EditPDGTotalGrant : PageModel
             InitialGrant = initialGrant;
             RevisedGrant = revisedGrant;
             TotalGrantAmount = revisedGrant ?? initialGrant;
-
         }
         catch (Exception e)
         {
@@ -67,13 +66,21 @@ public class EditPDGTotalGrant : PageModel
 
     public async Task<IActionResult> OnPost()
     {
+        var pdgGrantTask = new PDGGrantTask();
+        
+        if (TotalGrantAmount == null)
+        {
+            pdgGrantTask.InitialGrant = InitialGrant;
+            pdgGrantTask.RevisedGrant = InitialGrant ?? RevisedGrant;
+        }
+        else
+        {
+            pdgGrantTask.RevisedGrant = TotalGrantAmount;
+        }
+        
         var request = new UpdateProjectByTaskRequest
         {
-            PDGGrantTask = new PDGGrantTask
-            {
-                InitialGrant = InitialGrant,
-                RevisedGrant = RevisedGrant
-            }
+            PDGGrantTask = pdgGrantTask
         };
 
         await _updateProjectTaskService.Execute(ProjectId, request);
