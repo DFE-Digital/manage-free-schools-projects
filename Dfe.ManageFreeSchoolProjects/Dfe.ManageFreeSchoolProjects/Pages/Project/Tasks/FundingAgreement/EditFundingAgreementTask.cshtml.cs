@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using System;
 using Dfe.ManageFreeSchoolProjects.Models;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
-using Dfe.ManageFreeSchoolProjects.Validators;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreement

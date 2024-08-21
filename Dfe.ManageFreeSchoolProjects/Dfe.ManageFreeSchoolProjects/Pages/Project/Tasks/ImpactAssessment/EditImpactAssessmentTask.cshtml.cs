@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Models;
 
@@ -38,7 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
         [DisplayName("Date sent")]
         public DateTime? Section9LetterDateSent { get; set; }
 
-
+        public bool IsPresumptionRoute { get; set; }
+        
         public string SchoolName { get; set; }
 
         public EditImpactAssessmentTaskModel(IGetProjectByTaskService getProjectService,
@@ -65,17 +67,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
 
-            if (SentSection9LetterToLocalAuthority)
+            if (SentSection9LetterToLocalAuthority == false)
             {
-                if (Section9LetterDateSent == null)
-                {
-                    ModelState.AddModelError("date-sent", "Enter a date sent");
-                }
+                ModelState.Keys.Where(errorKey => errorKey.StartsWith("date-sent")).ToList()
+                    .ForEach(errorKey => ModelState.Remove(errorKey));
+                Section9LetterDateSent = null; 
             }
-            else
+            
+            if (!ModelState.IsValid)
             {
-                Section9LetterDateSent = null;
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
             }
+            
+            if (SentSection9LetterToLocalAuthority && Section9LetterDateSent.HasValue == false)
+                ModelState.AddModelError("date-sent", "Enter a date sent");
             
             if (!ModelState.IsValid)
             {
@@ -113,6 +119,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             SavedToWorkplaces = project.ImpactAssessment.SavedToWorkplaces;
             Section9LetterDateSent = project.ImpactAssessment.Section9LetterDateSent;
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
 
             SentSection9LetterToLocalAuthority = Section9LetterDateSent != null; 
         }

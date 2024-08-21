@@ -3,10 +3,6 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
-using System.Text.RegularExpressions;
-using System;
-using DocumentFormat.OpenXml.EMMA;
-using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
