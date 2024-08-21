@@ -74,4 +74,4 @@ jobs:
           dotnet build Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln --no-restore
           dotnet test Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --environment "${{env.CONNECTION_STRING_KEY}}"="${{env.CONNECTION_STRING}}"
           reportgenerator -reports:"./**/coverage.cobertura.xml" -targetdir:./Dfe.ManageFreeSchoolProjects/CoverageReport -reporttypes:SonarQube
-          dotnet-sonarscanner end /d:sonar.scanner.skipJreProvisioning=true /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
