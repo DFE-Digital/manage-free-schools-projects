@@ -30,7 +30,7 @@ jobs:
         - 1433:1433
         env:
           ACCEPT_EULA: Y
-          SA_PASSWORD: P1swrd!$
+          MSSQL_SA_PASSWORD: P1swrd!$
 
     steps:
       - name: Checkout repository
