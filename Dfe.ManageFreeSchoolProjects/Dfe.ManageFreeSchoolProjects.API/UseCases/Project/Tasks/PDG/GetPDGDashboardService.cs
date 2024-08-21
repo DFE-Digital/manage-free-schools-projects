@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,12 +19,12 @@ internal class GetPDGDashboardService : IGetTaskService
         var result = await (from kpi in parameters.BaseQuery
                             join po in _context.Po on kpi.Rid equals po.Rid into joinedPO
                             from po in joinedPO.DefaultIfEmpty()
-                            select new GetProjectByTaskResponse()
+                            select new GetProjectByTaskResponse
                             {
                                 PDGDashboard = PDGDashboardBuilder.Build(po)
                             }).FirstOrDefaultAsync();
 
-        return result ?? new GetProjectByTaskResponse() { PDGDashboard = new() };
+        return result ?? new GetProjectByTaskResponse { PDGDashboard = new PDGDashboard() };
     }
 
 }

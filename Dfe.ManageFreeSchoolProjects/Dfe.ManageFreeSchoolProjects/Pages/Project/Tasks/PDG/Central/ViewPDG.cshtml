@@ -12,6 +12,8 @@
     var editRefundsLink = string.Format(RouteConstants.EditRefundsCentral, Model.ProjectId);
     var editWriteOffLink = string.Format(RouteConstants.EditWriteOffCentral, Model.ProjectId);
     var pdgTask = Model.Project.PDGDashboard;
+
+    var totalGrantAmount =  pdgTask.RevisedGrant ?? pdgTask.InitialGrant; 
 }
 
 @section BeforeMain {
@@ -35,7 +37,7 @@
 
         <govuk-summary-card id="total-grant" label="Total grant" href="@editTotalGrantLink">
             <govuk-summary-list>
-               <govuk-summary-item label="Total amount" asp-for="@pdgTask.TotalGrant"/>
+               <govuk-summary-item label="Total amount" asp-for="@totalGrantAmount"/>
             </govuk-summary-list>
         </govuk-summary-card>
 
