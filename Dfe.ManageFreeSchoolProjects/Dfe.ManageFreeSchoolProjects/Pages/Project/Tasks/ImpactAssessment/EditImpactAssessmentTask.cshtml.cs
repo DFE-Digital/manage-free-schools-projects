@@ -67,31 +67,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
 
-            if (!SentSection9LetterToLocalAuthority)
+            if (SentSection9LetterToLocalAuthority == false)
             {
-                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-sent")).ToList();
-                errorKeys.ForEach(k => ModelState.Remove(k));
-                Section9LetterDateSent = null;
-            }
-            else
-            {
-                ModelState.AddModelError("date-sent", "Enter a date sent");
+                ModelState.Keys.Where(errorKey => errorKey.StartsWith("date-sent")).ToList()
+                    .ForEach(errorKey => ModelState.Remove(errorKey));
+                Section9LetterDateSent = null; 
             }
             
-            // if (SentSection9LetterToLocalAuthority)
-            // {
-            //     if (Section9LetterDateSent == null)
-            //     {
-            //         ModelState.AddModelError("date-sent", "Enter a date sent");
-            //     }
-            // }
-            // else
-            // {
-            //     Section9LetterDateSent = null;
-            // }
-
-            // if (!SentSection9LetterToLocalAuthority)
-            //     Section9LetterDateSent = null;
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
+            if (SentSection9LetterToLocalAuthority && Section9LetterDateSent.HasValue == false)
+                ModelState.AddModelError("date-sent", "Enter a date sent");
             
             if (!ModelState.IsValid)
             {
