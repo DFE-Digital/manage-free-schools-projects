@@ -27,8 +27,13 @@
         </h1>
         <p class="govuk-body">Use <a class="govuk-link" target="_blank" href="https://apps.powerapps.com/play/e/default-fad277c9-c60a-4da1-b5f3-b3b8b34a82f9/a/f48134e3-e9d7-4c3a-9ea3-f25402537389?tenantId=fad277c9-c60a-4da1-b5f3-b3b8b34a82f9&hint=68285632-7229-46e9-888a-0a3ddcb314b4&sourcetime=1699873425524">Assess the Impact of Opening a New Free School (opens in a new tab)</a> to conduct the impact assessment.</p>
         <govuk-summary-list>
-            <govuk-summary-item label="Sent the section 9 letter to local authority" asp-for="@Model.Section9LetterSentToLocalAuthority" href="@editlink" />
-            <govuk-summary-item label="Date sent" asp-for="@impactAssessment.Section9LetterDateSent" href="@editlink" />
+         @{
+             if (Model.Project.IsPresumptionRoute == false)
+             {
+                 <govuk-summary-item label="Sent the section 9 letter to local authority" asp-for="@Model.Section9LetterSentToLocalAuthority" href="@editlink"/>
+                 <govuk-summary-item label="Date sent" asp-for="@impactAssessment.Section9LetterDateSent" href="@editlink"/>
+             }
+         }
             <govuk-summary-item label="Conducted the impact assessment" asp-for="@impactAssessment.ImpactAssessment" href="@editlink"/>
             <govuk-summary-item label="Saved the section 9 letter and signed-off impact assessment in Workplaces folder" asp-for="@impactAssessment.SavedToWorkplaces" href="@editlink"/>
         </govuk-summary-list>
