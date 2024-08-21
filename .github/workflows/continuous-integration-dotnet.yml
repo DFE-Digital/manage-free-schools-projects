@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Note: The database name may be overridden by the tests
-      CONNECTION_STRING: 'Server=localhost,1433;Database=integrationtests;User Id=sa;Password=P1swrd!$;TrustServerCertificate=True'
+      CONNECTION_STRING: 'Server=localhost,1433;Database=integrationtests;User Id=sa;Password=P1swrd!$;TrustServerCertificate=True;integrated security=false;'
       CONNECTION_STRING_KEY: 'ConnectionStrings:DefaultConnection'
 
     services:
