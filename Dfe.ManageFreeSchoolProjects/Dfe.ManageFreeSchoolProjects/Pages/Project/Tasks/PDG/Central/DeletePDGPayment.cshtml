@@ -36,12 +36,17 @@
                     <govuk-summary-item label="Amount sent" asp-for="@Model.Payment.PaymentActualAmount" />
                 </govuk-summary-list>
             </govuk-summary-card>
-                <button class="govuk-button" data-module="govuk-button" data-testid="delete">
-                    Yes, delete it
-                </button>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-quarter">
+                    <button class="govuk-button" data-module="govuk-button" data-testid="delete">
+                        Yes, delete it
+                    </button>
+                </div>
+                <div class="govuk-grid-column-three-quarters">
+                    <a href=@pdgPaymentScheduleLink class="govuk-back-link">No, back to the edit payment schedule page</a>
+                </div>
+            </div>
         </form>
-        <div role="navigation" class="govuk-width-container">
-            <a href=@pdgPaymentScheduleLink class="govuk-back-link">No, back to the edit payment schedule page</a>
-        </div>
+        
     </div>
 </div>
