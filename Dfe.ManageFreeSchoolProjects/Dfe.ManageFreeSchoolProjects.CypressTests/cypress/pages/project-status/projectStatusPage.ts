@@ -66,12 +66,12 @@ class ProjectStatusPage {
     }
 
     public addWithdrawnYear(day: string, month: string, year: string): this {
-        cy.enterDate("year-withdrawn", day, month, year);
+        cy.enterDate("year-withdrawn-preopening", day, month, year);
         return this;
     }
 
     public withdrawnYearHasValue(day: string, month: string, year: string): this {
-        cy.checkDate("year-withdrawn", day, month, year);
+        cy.checkDate("year-withdrawn-preopening", day, month, year);
         return this;
     }
 
@@ -116,7 +116,7 @@ class ProjectStatusPage {
     }
 
     errorForWithdrawnDate(error: string): this {
-        cy.getById('year-withdrawn-error-link').contains(error)
+        cy.getById('year-withdrawn-preopening-error-link').contains(error)
         return this
     }
 

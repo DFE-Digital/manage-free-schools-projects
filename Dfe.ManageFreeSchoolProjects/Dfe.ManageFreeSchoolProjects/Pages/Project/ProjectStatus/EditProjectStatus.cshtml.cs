@@ -15,15 +15,17 @@ using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 {
     public class EditProjectStatusModel : PageModel
     {
-        private const string CancelledYearId = "year-cancelled";
-        private const string ClosedYearId = "year-closed";
-        private const string WithdrawnYearId = "year-withdrawn";
-        private const string WithdrawnApplicationYearId = "year-withdrawn-application";
+        public const string CancelledYearId = "year-cancelled";
+        public const string ClosedYearId = "year-closed";
+        public const string WithdrawnPreopeningYearId = "year-withdrawn-preopening";
+        public const string WithdrawnApplicationYearId = "year-withdrawn-application";
 
         private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly IUpdateProjectStatusService _updateProjectStatusService;
@@ -50,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? ClosedYear { get; set; }
 
-        [BindProperty(Name = WithdrawnYearId, BinderType = typeof(DateInputModelBinder))]
+        [BindProperty(Name = WithdrawnPreopeningYearId, BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Year the project was withdrawn")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnYear { get; set; }
@@ -105,12 +107,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-            ClearNotApplicableValues();
-
+            
             CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
             CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
-            CheckErrors(WithdrawnYearId, ProjectStatusType.WithdrawnDuringPreOpening, WithdrawnYear);
+            CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnDuringPreOpening, WithdrawnYear);
             CheckErrors(WithdrawnApplicationYearId, ProjectStatusType.WithdrawnDuringApplication, WithdrawnApplicationYear);
+
+            ClearNotApplicableValues();
+
 
             if (!ModelState.IsValid)
             {
@@ -227,6 +231,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             {
                 ModelState.AddModelError(id, yearFormatErrorMessage);
             }
+
+            if (ProjectStatus != status)
+            {
+                ModelState.Keys.Where(errorKey => errorKey.StartsWith(id)).ToList()
+                    .ForEach(errorKey => ModelState.Remove(errorKey));
+            }
+
         }
     }
 }
