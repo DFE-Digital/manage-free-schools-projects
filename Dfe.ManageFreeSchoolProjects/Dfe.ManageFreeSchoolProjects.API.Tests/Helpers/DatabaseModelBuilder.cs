@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using System;
+using Po = Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Po;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
@@ -530,6 +531,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
+        public static Po BuildGrants(string rid)
+        {
+            var result = new Po
+            {
+                Rid = rid,
+                ProjectDevelopmentGrantFundingInitialGrantAllocation = "1000.00",
+                ProjectDevelopmentGrantFundingRevisedGrantAllocation = "2000.00"
+            };
+
+            return result;
+        }
+        
         internal static Po BuildWriteOffTask(string rid)
         {
             var result = new Po()
