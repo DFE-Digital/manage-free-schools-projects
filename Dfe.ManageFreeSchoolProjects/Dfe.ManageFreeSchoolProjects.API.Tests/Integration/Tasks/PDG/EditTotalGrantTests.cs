@@ -10,7 +10,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG;
 public class EditTotalGrantTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
 {
     [Fact]
-    public async Task Patch_NewTotalGrant_ReturnsReponseWithRevisedGrant()
+    public async Task Patch_NewTotalGrant_ReturnsResponseWithRevisedGrant()
     {
         var project = DatabaseModelBuilder.BuildProject();
         var projectId = project.ProjectStatusProjectId;
@@ -26,6 +26,7 @@ public class EditTotalGrantTests(ApiTestFixture apiTestFixture) : ApiTestsBase(a
 
         var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.PDG.ToString());
 
+        projectResponse.PDGDashboard.InitialGrant.Should().Be(0m);
         projectResponse.PDGDashboard.RevisedGrant.Should().Be(25000.00m);
     }
 }
