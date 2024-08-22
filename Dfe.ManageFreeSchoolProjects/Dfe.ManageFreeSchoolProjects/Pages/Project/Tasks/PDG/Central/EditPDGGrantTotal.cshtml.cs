@@ -1,12 +1,15 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.Office2021.DocumentTasks;
+using Dfe.ManageFreeSchoolProjects.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -20,23 +23,23 @@ public class EditGrantTotal : PageModel
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [BindProperty(Name = "total-grant-amount")]
+    [BindProperty(Name = "total-grant-amount", BinderType = typeof(DecimalInputModelBinder))]
+    [ValidMoney(0, int.MaxValue)]
+    [Display(Name = "Total amount")]
     public decimal? GrantTotalAmount { get; set; }
-
-    [TempData] private decimal? InitialGrant { get; set; }
-
-    [TempData] private decimal? RevisedGrant { get; set; }
-
+    
     private readonly IGetProjectByTaskService _getProjectService;
     private readonly ILogger<EditPDGPaymentScheduleModel> _logger;
     private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+    private readonly ErrorService _errorService;
 
     public EditGrantTotal(IGetProjectByTaskService getProjectService, ILogger<EditPDGPaymentScheduleModel> logger,
-        IUpdateProjectByTaskService updateProjectTaskService)
+        IUpdateProjectByTaskService updateProjectTaskService, ErrorService errorService)
     {
         _getProjectService = getProjectService;
         _logger = logger;
         _updateProjectTaskService = updateProjectTaskService;
+        _errorService = errorService;
     }
 
 
@@ -51,8 +54,9 @@ public class EditGrantTotal : PageModel
             var initialGrant = project.PDGDashboard.InitialGrant;
             var revisedGrant = project.PDGDashboard.RevisedGrant;
 
-            InitialGrant = initialGrant;
-            RevisedGrant = revisedGrant;
+            TempData["InitialGrant"] = initialGrant?.ToString(CultureInfo.InvariantCulture);
+            TempData["RevisedGrant"] = revisedGrant?.ToString(CultureInfo.InvariantCulture);
+
             GrantTotalAmount = revisedGrant ?? initialGrant;
         }
         catch (Exception e)
@@ -66,22 +70,34 @@ public class EditGrantTotal : PageModel
 
     public async Task<IActionResult> OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            _errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+        
         var pdgGrantTask = new PDGGrantTask();
-
-        if (GrantTotalAmount == null)
-        {
-            pdgGrantTask.InitialGrant = InitialGrant;
-            pdgGrantTask.RevisedGrant = InitialGrant ?? RevisedGrant;
-        }
-        else
-        {
-            pdgGrantTask.RevisedGrant = GrantTotalAmount;
-        }
+        
+        var initialGrant = SafeStringToNullableDecimal(TempData["InitialGrant"]?.ToString());
+        var revisedGrant = SafeStringToNullableDecimal(TempData["RevisedGrant"]?.ToString());
+        
+        pdgGrantTask.InitialGrant = initialGrant;
+        pdgGrantTask.RevisedGrant = initialGrant ?? revisedGrant;
+        pdgGrantTask.RevisedGrant = GrantTotalAmount;
 
         var request = new UpdateProjectByTaskRequest { PDGGrantTask = pdgGrantTask };
 
         await _updateProjectTaskService.Execute(ProjectId, request);
 
         return Redirect(string.Format(RouteConstants.ViewPDGCentral, ProjectId));
+    }
+    
+    private static decimal? SafeStringToNullableDecimal(string input)
+    {
+        if (decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
+        {
+            return result;
+        }
+        return null;
     }
 }
