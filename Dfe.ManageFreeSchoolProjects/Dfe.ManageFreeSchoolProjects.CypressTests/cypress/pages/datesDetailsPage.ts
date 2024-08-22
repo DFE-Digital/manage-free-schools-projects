@@ -16,7 +16,7 @@ class DatesDetailsPage {
     }
 
     public addCancelledDate(day: string, month: string, year: string): this {
-        cy.enterDate("year-cancelled", day, month, year);
+        cy.enterDate("project-cancelled-date", day, month, year);
         return this;
     }
     
