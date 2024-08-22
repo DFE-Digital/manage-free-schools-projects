@@ -33,8 +33,8 @@ describe("Testing the impact assessment task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Impact assessment")
             .inOrder()
-            .summaryShows("Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool").IsEmpty().HasChangeLink()
-            .summaryShows("Saved the signed-off impact assessment in Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Conducted the impact assessment").IsEmpty().HasChangeLink()
+            .summaryShows("Saved the section 9 letter and signed-off impact assessment in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         Logger.log("Go back to task list");
