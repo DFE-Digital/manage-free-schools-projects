@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
@@ -12,26 +13,25 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class EditPDGTotalGrant : PageModel
+public class EditGrantTotal : PageModel
 {
     public string CurrentFreeSchoolName { get; set; }
 
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
 
-    public decimal? TotalGrantAmount { get; set; }
+    [BindProperty(Name = "total-grant-amount")]
+    public decimal? GrantTotalAmount { get; set; }
 
-    [TempData] 
-    private decimal? InitialGrant { get; set; }
+    [TempData] private decimal? InitialGrant { get; set; }
 
-    [TempData] 
-    private decimal? RevisedGrant { get; set; }
+    [TempData] private decimal? RevisedGrant { get; set; }
 
     private readonly IGetProjectByTaskService _getProjectService;
     private readonly ILogger<EditPDGPaymentScheduleModel> _logger;
     private readonly IUpdateProjectByTaskService _updateProjectTaskService;
 
-    public EditPDGTotalGrant(IGetProjectByTaskService getProjectService, ILogger<EditPDGPaymentScheduleModel> logger,
+    public EditGrantTotal(IGetProjectByTaskService getProjectService, ILogger<EditPDGPaymentScheduleModel> logger,
         IUpdateProjectByTaskService updateProjectTaskService)
     {
         _getProjectService = getProjectService;
@@ -53,7 +53,7 @@ public class EditPDGTotalGrant : PageModel
 
             InitialGrant = initialGrant;
             RevisedGrant = revisedGrant;
-            TotalGrantAmount = revisedGrant ?? initialGrant;
+            GrantTotalAmount = revisedGrant ?? initialGrant;
         }
         catch (Exception e)
         {
@@ -67,25 +67,21 @@ public class EditPDGTotalGrant : PageModel
     public async Task<IActionResult> OnPost()
     {
         var pdgGrantTask = new PDGGrantTask();
-        
-        if (TotalGrantAmount == null)
+
+        if (GrantTotalAmount == null)
         {
             pdgGrantTask.InitialGrant = InitialGrant;
             pdgGrantTask.RevisedGrant = InitialGrant ?? RevisedGrant;
         }
         else
         {
-            pdgGrantTask.RevisedGrant = TotalGrantAmount;
+            pdgGrantTask.RevisedGrant = GrantTotalAmount;
         }
-        
-        var request = new UpdateProjectByTaskRequest
-        {
-            PDGGrantTask = pdgGrantTask
-        };
+
+        var request = new UpdateProjectByTaskRequest { PDGGrantTask = pdgGrantTask };
 
         await _updateProjectTaskService.Execute(ProjectId, request);
 
-        //needs to be redirect
-        return Page();
+        return Redirect(string.Format(RouteConstants.ViewPDGCentral, ProjectId));
     }
 }

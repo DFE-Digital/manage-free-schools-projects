@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGTotalGrant
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditGrantTotal
 
 @{
     ViewData["Title"] = $"Edit Total grant - {Model.CurrentFreeSchoolName}";
@@ -27,7 +27,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form class="govuk-form-group" method="post">
-            <govuk-decimal-input id="total-grant-amount" name="total-grant-amount" asp-for="@Model.TotalGrantAmount" data-testid="total-grant-amount" label="Total amount" hint="For example, £300,000" isMonetary="true" />
+            <govuk-decimal-input id="total-grant-amount" name="total-grant-amount" asp-for="@Model.GrantTotalAmount" data-testid="total-grant-amount" label="Total amount" hint="For example, £300,000" isMonetary="true" />
             <br/> 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

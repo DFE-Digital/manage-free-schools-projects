@@ -132,6 +132,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.MovingToOpen.ToString();
                 if (PrincipalDesignate != null)
                     return TaskName.PrincipalDesignate.ToString();
+                if (PDGGrantTask != null)
+                    return TaskName.PDG.ToString();
                 return null;
             }
         }
