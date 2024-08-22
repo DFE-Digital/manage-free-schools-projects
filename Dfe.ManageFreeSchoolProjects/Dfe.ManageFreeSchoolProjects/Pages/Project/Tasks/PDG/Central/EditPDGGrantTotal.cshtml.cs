@@ -93,7 +93,7 @@ public class EditGrantTotal : PageModel
     
     private static decimal? SafeStringToNullableDecimal(string input)
     {
-        if (decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
+        if (decimal.TryParse(input, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal result))
         {
             return result;
         }
