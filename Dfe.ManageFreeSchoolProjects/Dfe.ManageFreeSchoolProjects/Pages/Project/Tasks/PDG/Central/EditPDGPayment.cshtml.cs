@@ -35,11 +35,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "When is the payment due?")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        [Required]
         public DateTime? PaymentScheduleDate { get; set; }
 
         [BindProperty(Name = "payment-due-amount", BinderType = typeof(DecimalInputModelBinder))]
         [Display(Name = "Amount of 1st payment due")]
         [ValidMoney(0, 25000)]
+        [Required]
         public decimal? PaymentScheduleAmount { get; set; }
 
         [BindProperty(Name = "actual-payment-date", BinderType = typeof(DateInputModelBinder))]
@@ -73,6 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         public async Task<ActionResult> OnPost()
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
+
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
@@ -95,6 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
                 await _updateProjectPaymentsService.Execute(ProjectId, request);
 
                 TempData["paymentUpdated"] = true;
+                TempData["paymentIndex"] = PaymentIndex;                  
 
                 return Redirect(string.Format(RouteConstants.EditPDGPaymentScheduleCentral, ProjectId));
             }

@@ -6,7 +6,8 @@
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-    var nextPaymentNumber = 1;
+    var paymentCount = Model.ProjectPayments.Payments.Count();
+    var nextPaymentNumber = paymentCount + 1;
     var editPaymentLink = RouteConstants.EditPDGPaymentCentral;
 }
 
@@ -34,10 +35,40 @@
             </h2>
         </div>
         <div class="govuk-notification-banner__content">
-            <p class="govuk-notification-banner__heading">Payment updated.</p>
+            <p class="govuk-notification-banner__heading">Payment @TempData["paymentIndex"] updated.</p>
         </div>
     </div>
     TempData["paymentUpdated"] = false;
+}
+
+@if ((bool)(TempData["paymentAdded"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment @paymentCount added.</p>
+        </div>
+    </div>
+    TempData["paymentAdded"] = false;
+}
+
+@if ((bool)(TempData["paymentDeleted"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment deleted.</p>
+        </div>
+    </div>
+    TempData["paymentDeleted"] = false;
 }
 
 <div class="govuk-grid-row">
@@ -56,10 +87,17 @@
         }
 
         <form class="govuk-form-group" method="post">
-            <p>You can add up to 12 scheduled payments.</p>
-            <button class="govuk-button" >
-                Add payment @nextPaymentNumber
-            </button>
+            @if (paymentCount < 12)
+            {
+                <p>You can add up to 12 scheduled payments.</p>
+                <button class="govuk-button" >
+                    Add payment @nextPaymentNumber
+                </button>
+            }
+            else
+            {
+                <p>You have added 12 payments and can't add any more.</p>
+            }
         </form>
     </div>
 </div>

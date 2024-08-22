@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = $"Edit Payment {Model.PaymentIndex}  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
+    var deleteLink = string.Format(RouteConstants.DeletePDGPaymentCentral, Model.ProjectId, Model.PaymentIndex);
 }
 
 @section BeforeMain {
@@ -31,6 +32,11 @@
             <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Actual amount" isMonetary="true" />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Update payment
+            </button>
+        </form>
+        <form action="@deleteLink">
+            <button class="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+                Delete payment
             </button>
         </form>
     </div>

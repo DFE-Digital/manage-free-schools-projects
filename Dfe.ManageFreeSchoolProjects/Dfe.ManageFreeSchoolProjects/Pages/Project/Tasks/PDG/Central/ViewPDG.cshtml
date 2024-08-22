@@ -14,6 +14,12 @@
     var pdgTask = Model.Project.PDGDashboard;
 
     var totalGrantAmount =  pdgTask.RevisedGrant ?? pdgTask.InitialGrant; 
+
+    var numberOfScheduledPayments = Model.ProjectPayments.Payments.Count();
+    var numberOfSentPayments = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Count();
+    var nextPaymentDate = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleDate).FirstOrDefault();
+    var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
+    var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
 }
 
 @section BeforeMain {
@@ -43,11 +49,15 @@
 
         <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
             <govuk-summary-list>
-                @* <govuk-summary-item label="Number of scheduled payments"/>
-                <govuk-summary-item label="Number of sent payments" />
-                <govuk-summary-item label="Next payment due date" />
-                <govuk-summary-item label="Next due amount" />
-                <govuk-summary-item label="Amount sent" /> *@
+                <govuk-summary-item label="Number of scheduled payments" asp-for="@numberOfScheduledPayments" />
+
+                @if(numberOfScheduledPayments > 0)
+                {
+                    <govuk-summary-item label="Number of sent payments" asp-for="@numberOfSentPayments" />
+                    <govuk-summary-item label="Next payment due date" asp-for="@nextPaymentDate" />
+                    <govuk-summary-item label="Next due amount" asp-for="@nextPaymentAmount" />
+                    <govuk-summary-item label="Amount sent" asp-for="@amountSent"/>
+                }
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="grant-letters" label="Grant letters" href="@editTrustLetterLink">

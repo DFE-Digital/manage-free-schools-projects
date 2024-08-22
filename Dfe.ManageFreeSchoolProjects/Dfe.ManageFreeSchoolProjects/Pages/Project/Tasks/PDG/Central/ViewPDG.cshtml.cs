@@ -6,20 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using DocumentFormat.OpenXml.EMMA;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
     public class ViewPDGModel : ViewTaskBaseModel
     {
         private readonly ILogger<ViewPDGModel> _logger;
+        private readonly IGetProjectPaymentsService _getProjectPaymentsService;
+
+        public ProjectPayments ProjectPayments { get; set; }
 
         public ViewPDGModel(
             ILogger<ViewPDGModel> logger,
+            IGetProjectPaymentsService getProjectPaymentsService,
             IGetProjectByTaskService getProjectService,
             IGetTaskStatusService getTaskStatusService,
             IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
             _logger = logger;
+            _getProjectPaymentsService = getProjectPaymentsService;
         }
 
         public async Task<ActionResult> OnGet()
@@ -27,6 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             _logger.LogMethodEntered();
 
             await GetTask(TaskName.PDG);
+
+            ProjectPayments = await _getProjectPaymentsService.Execute(ProjectId);
 
             return Page();
         }

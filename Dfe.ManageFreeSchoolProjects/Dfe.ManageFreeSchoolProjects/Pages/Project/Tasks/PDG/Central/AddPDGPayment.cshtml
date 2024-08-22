@@ -4,7 +4,7 @@
 @model AddPDGPaymentModel
 @{
     ViewData["Title"] = $"Add a payment - {Model.CurrentFreeSchoolName}";
-    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -31,6 +31,11 @@
             <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Actual amount" isMonetary="true" />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
+            </button>
+        </form>
+        <form action="@backLink">
+            <button class ="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+                Discard
             </button>
         </form>
     </div>
