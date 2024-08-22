@@ -80,11 +80,18 @@ public class EditGrantTotal : PageModel
         
         var initialGrant = SafeStringToNullableDecimal(TempData["InitialGrant"]?.ToString());
         var revisedGrant = SafeStringToNullableDecimal(TempData["RevisedGrant"]?.ToString());
-        
-        pdgGrantTask.InitialGrant = initialGrant;
-        pdgGrantTask.RevisedGrant = initialGrant ?? revisedGrant;
-        pdgGrantTask.RevisedGrant = GrantTotalAmount;
 
+
+        if (GrantTotalAmount == null)
+        {
+            pdgGrantTask.InitialGrant = initialGrant;
+            pdgGrantTask.RevisedGrant = initialGrant ?? revisedGrant;
+        }
+        else
+        {
+            pdgGrantTask.RevisedGrant = GrantTotalAmount;
+        }
+        
         var request = new UpdateProjectByTaskRequest { PDGGrantTask = pdgGrantTask };
 
         await _updateProjectTaskService.Execute(ProjectId, request);
