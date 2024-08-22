@@ -7,7 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.Models;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 {
@@ -20,14 +24,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
+
         [BindProperty(Name = "impact-assessment-done")]
-        
-        public bool? ImpactAssessmentDone{ get; set; }
-        
+        public bool? ImpactAssessmentDone { get; set; }
+
         [BindProperty(Name = "saved-to-workplaces")]
-        
         public bool? SavedToWorkplaces { get; set; }
+
+        [BindProperty(Name = "sent-section9-letter-to-local-authority")]
+        [DisplayName("Sent section 9 letter to local authority")]
+        public bool SentSection9LetterToLocalAuthority { get; set; }
+
+        [BindProperty(Name = "date-sent", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date sent")]
+        public DateTime? Section9LetterDateSent { get; set; }
+
+        public bool IsPresumptionRoute { get; set; }
         
         public string SchoolName { get; set; }
 
@@ -55,15 +67,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
             var project = await _getProjectService.Execute(ProjectId, TaskName.ImpactAssessment);
             SchoolName = project.SchoolName;
 
+            if (SentSection9LetterToLocalAuthority == false)
+            {
+                ModelState.Keys.Where(errorKey => errorKey.StartsWith("date-sent")).ToList()
+                    .ForEach(errorKey => ModelState.Remove(errorKey));
+                Section9LetterDateSent = null; 
+            }
+            
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
+            if (SentSection9LetterToLocalAuthority && Section9LetterDateSent.HasValue == false)
+                ModelState.AddModelError("date-sent", "Enter a date sent");
+            
+            if (!ModelState.IsValid)
+            {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
             try
             {
-                var request = new UpdateProjectByTaskRequest()
+                var request = new UpdateProjectByTaskRequest
                 {
-                    ImpactAssessment = new ImpactAssessmentTask()
+                    ImpactAssessment = new ImpactAssessmentTask
                     {
                         ImpactAssessment = ImpactAssessmentDone,
-                        SavedToWorkplaces = SavedToWorkplaces
-                        
+                        SavedToWorkplaces = SavedToWorkplaces,
+                        Section9LetterDateSent = Section9LetterDateSent,
                     }
                 };
 
@@ -83,9 +117,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ImpactAssessment
 
             ImpactAssessmentDone = project.ImpactAssessment.ImpactAssessment;
             SavedToWorkplaces = project.ImpactAssessment.SavedToWorkplaces;
-          
-           
+            Section9LetterDateSent = project.ImpactAssessment.Section9LetterDateSent;
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
+
+            SentSection9LetterToLocalAuthority = Section9LetterDateSent != null; 
         }
     }
 }

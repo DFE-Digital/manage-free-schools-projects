@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Note: The database name may be overridden by the tests
-      CONNECTION_STRING: 'Server=localhost,1433;Database=integrationtests;User Id=sa;Password=P1swrd!$;TrustServerCertificate=True'
+      CONNECTION_STRING: 'Server=localhost,1433;Database=integrationtests;User Id=sa;Password=P1swrd!$;TrustServerCertificate=True;integrated security=false;'
       CONNECTION_STRING_KEY: 'ConnectionStrings:DefaultConnection'
 
     services:
@@ -30,7 +30,7 @@ jobs:
         - 1433:1433
         env:
           ACCEPT_EULA: Y
-          SA_PASSWORD: P1swrd!$
+          MSSQL_SA_PASSWORD: P1swrd!$
 
     steps:
       - name: Checkout repository
@@ -41,7 +41,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -70,8 +70,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          dotnet-sonarscanner begin /k:"DFE-Digital_manage-free-schools-projects" /o:"dfe-digital" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths=CoverageReport/SonarQube.xml
+          dotnet-sonarscanner begin /d:sonar.scanner.skipJreProvisioning=true /k:"DFE-Digital_manage-free-schools-projects" /o:"dfe-digital" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.coverageReportPaths=./Dfe.ManageFreeSchoolProjects/CoverageReport/SonarQube.xml
           dotnet build Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln --no-restore
-          dotnet test Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --environment "${{env.CONNECTION_STRING_KEY}}"="${{env.CONNECTION_STRING}}" --filter "FullyQualifiedName!~ConcernsCaseWork.Integration.Tests"
-          reportgenerator -reports:./**/coverage.cobertura.xml -targetdir:./Dfe.ManageFreeSchoolProjects/CoverageReport -reporttypes:SonarQube
+          dotnet test Dfe.ManageFreeSchoolProjects/Dfe.ManageFreeSchoolProjects.sln --no-build --verbosity normal --collect:"XPlat Code Coverage" --environment "${{env.CONNECTION_STRING_KEY}}"="${{env.CONNECTION_STRING}}"
+          reportgenerator -reports:"./**/coverage.cobertura.xml" -targetdir:./Dfe.ManageFreeSchoolProjects/CoverageReport -reporttypes:SonarQube
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

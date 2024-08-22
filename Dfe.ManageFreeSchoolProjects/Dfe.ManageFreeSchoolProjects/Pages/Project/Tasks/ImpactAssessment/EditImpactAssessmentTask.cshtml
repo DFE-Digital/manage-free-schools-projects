@@ -13,7 +13,7 @@
     </div>
 }
 
-<partial name="_ErrorSummary" />
+<partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
@@ -25,21 +25,50 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <govuk-checkbox-input label="Conducted the impact assessment using the Assess the Impact of Opening a New Free School tool"
+            
+            @{
+                //Only show for Central route projects
+                if (!Model.IsPresumptionRoute)
+                {
+                    <div class="govuk-form-group">
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input"
+                                       id="sent-section9-letter-to-local-authority"
+                                       name="sent-section9-letter-to-local-authority"
+                                       type="checkbox"
+                                       value="true"
+                                       checked="@(Model.SentSection9LetterToLocalAuthority ? "checked" : null)"
+                                       data-aria-controls="conditional-date-sent"
+                                       data-testid="sent-section9-letter-to-local-authority">
+                                <label class="govuk-label govuk-checkboxes__label" for="sent-section9-letter-to-local-authority">
+                                    Sent section 9 letter to local authority
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__conditional" id="conditional-date-sent">
+                                <govuk-date-input id="date-sent" name="date-sent" asp-for="@Model.Section9LetterDateSent" label="Date sent" test-id="date-sent" hint="For example, 27 3 2021"/>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+            <govuk-checkbox-input label="Conducted the impact assessment"
                                   asp-for="@Model.ImpactAssessmentDone"
                                   name="impact-assessment-done"
                                   id="impact-assessment-done"
                                   add-margin=false />
-            
-            <govuk-checkbox-input label="Saved the signed-off impact assessment in Workplaces folder"
+
+            <govuk-checkbox-input label="Saved section 9 letter and signed-off impact assessment in Workplaces folder"
                                   asp-for="@Model.SavedToWorkplaces"
                                   name="saved-to-workplaces"
                                   id="saved-to-workplaces"
                                   add-margin=false />
-            
+
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
         </form>
+        
     </div>
 </div>

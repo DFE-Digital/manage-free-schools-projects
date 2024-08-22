@@ -28,7 +28,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 ImpactAssessment = new ImpactAssessmentTask()
                 {
                     ImpactAssessment = true,
-                    SavedToWorkplaces = true
+                    SavedToWorkplaces = true, 
+                    Section9LetterDateSent = DateTime.Today.AddDays(3)
                 }
             };
 
@@ -38,6 +39,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ImpactAssessment.ImpactAssessment);
             projectResponse.ImpactAssessment.SavedToWorkplaces.Should()
                 .Be(request.ImpactAssessment.SavedToWorkplaces);
+            projectResponse.ImpactAssessment.Section9LetterDateSent.Should()
+                .Be(request.ImpactAssessment.Section9LetterDateSent);
         }
 
         [Fact]
@@ -58,7 +61,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 ImpactAssessment = new ImpactAssessmentTask()
                 {
                     ImpactAssessment = false,
-                    SavedToWorkplaces = false
+                    SavedToWorkplaces = false, 
+                    Section9LetterDateSent = null
                 }
             };
 
@@ -71,6 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.ImpactAssessment.ImpactAssessment);
             projectResponse.ImpactAssessment.SavedToWorkplaces.Should()
                 .Be(request.ImpactAssessment.SavedToWorkplaces);
+            projectResponse.ImpactAssessment.Section9LetterDateSent.Should().Be(null);
         }
 
     }

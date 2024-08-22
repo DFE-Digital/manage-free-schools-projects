@@ -32,8 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 				}
 			}
 		}
-		
-		public Error GetError(string key)
+
+        public Error GetError(string key)
 		{
 			return _errors.FirstOrDefault(e => e.Key == key);
 		}
