@@ -4,6 +4,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
 {
     public class PDGDashboard
     {
+        public decimal? InitialGrant { get; set; }
+        public decimal? RevisedGrant { get; set; }
         public decimal? PaymentScheduleAmount{ get; set; }
         public DateTime? PaymentScheduleDate { get; set; }
         public decimal? PaymentActualAmount { get; set; }

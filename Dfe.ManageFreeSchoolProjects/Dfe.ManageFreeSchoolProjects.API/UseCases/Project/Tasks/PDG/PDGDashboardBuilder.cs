@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 {
@@ -21,8 +22,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
             var refundsTask = RefundsBuilder.Build(po);
             var writeOffTask = WriteOffBuilder.Build(po);
 
-            return new PDGDashboard()
+            return new PDGDashboard
             {
+                InitialGrant = ParseDecimal(po.ProjectDevelopmentGrantFundingInitialGrantAllocation), 
+                RevisedGrant = ParseDecimal(po.ProjectDevelopmentGrantFundingRevisedGrantAllocation),
                 PaymentScheduleAmount = GetPaymentScheduleAmount(po),
                 PaymentScheduleDate = GetPaymentScheduleDate(po),
                 PaymentActualAmount = GetPaymentActualAmount(po),
@@ -41,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 ApprovalDate = writeOffTask.ApprovalDate,
             };
         }
-
+        
         private static bool? GetPDGLetterSavedInWorkspaces(Po po)
         {
             var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkspaces(po);
@@ -205,7 +208,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 
         private static DateTime? GetPaymentActualDate(Po po)
         {
-
             if (po.ProjectDevelopmentGrantFundingDateOf12thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf12thActualPayment;
@@ -278,7 +280,5 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 
             return decimal.Parse(value);
         }
-
-
     }
 }

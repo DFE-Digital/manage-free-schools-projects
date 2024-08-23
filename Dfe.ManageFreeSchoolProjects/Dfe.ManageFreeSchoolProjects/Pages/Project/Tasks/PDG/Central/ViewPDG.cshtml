@@ -5,12 +5,15 @@
     ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editTotalGrantLink = string.Format(RouteConstants.EditPDGTotalGrant, Model.ProjectId);
     var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
     var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetterCentral, Model.ProjectId);
     var editStopPaymentLink = string.Format(RouteConstants.EditStopPaymentCentral, Model.ProjectId);
     var editRefundsLink = string.Format(RouteConstants.EditRefundsCentral, Model.ProjectId);
     var editWriteOffLink = string.Format(RouteConstants.EditWriteOffCentral, Model.ProjectId);
     var pdgTask = Model.Project.PDGDashboard;
+
+    var totalGrantAmount =  pdgTask.RevisedGrant ?? pdgTask.InitialGrant; 
 
     var numberOfScheduledPayments = Model.ProjectPayments.Payments.Count();
     var numberOfSentPayments = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Count();
@@ -38,10 +41,9 @@
             <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount" />
         </govuk-summary-list>
 
-        <govuk-summary-card id="total-grant" label="Total grant" href="@editPaymentScheduleLink">
+        <govuk-summary-card id="total-grant" label="Total grant" href="@editTotalGrantLink">
             <govuk-summary-list>
-               @*  <govuk-summary-item label="Total amount" />
-                <govuk-summary-item label="Initial grant allocation date / revised grant allocation date" /> *@
+               <govuk-summary-item label="Total amount" asp-for="@totalGrantAmount"/>
             </govuk-summary-list>
         </govuk-summary-card>
 

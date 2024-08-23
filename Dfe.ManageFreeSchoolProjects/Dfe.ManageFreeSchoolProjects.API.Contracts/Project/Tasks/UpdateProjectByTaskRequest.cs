@@ -59,6 +59,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public MovingToOpenTask MovingToOpen { get; set; }
         
         public PrincipalDesignateTask PrincipalDesignate { get; set; }
+        
+        public PDGGrantTask PDGGrantTask { get; set; }
+        
         public string TaskToUpdate
         {
             get
@@ -129,6 +132,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.MovingToOpen.ToString();
                 if (PrincipalDesignate != null)
                     return TaskName.PrincipalDesignate.ToString();
+                if (PDGGrantTask != null)
+                    return TaskName.PDG.ToString();
                 return null;
             }
         }
