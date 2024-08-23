@@ -47,7 +47,7 @@ describe("Testing project overview", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Dates")
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2000").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("2000").HasChangeLink()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -72,7 +72,7 @@ describe("Testing project overview", () => {
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Enter a year in the correct format")
+            .hasValidationError("Enter a date in the correct format")
             .hasValidationError("Entry into pre-opening must include a month and year")
             .hasValidationError("Provisional opening date agreed with trust must include a month and year");
 
@@ -88,7 +88,7 @@ describe("Testing project overview", () => {
 
         summaryPage
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("12 February 2049").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
@@ -101,7 +101,7 @@ describe("Testing project overview", () => {
 
         summaryPage
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
 
