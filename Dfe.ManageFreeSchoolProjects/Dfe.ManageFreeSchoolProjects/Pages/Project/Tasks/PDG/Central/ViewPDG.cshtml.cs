@@ -9,6 +9,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
 using DocumentFormat.OpenXml.EMMA;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
@@ -18,6 +19,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         private readonly IGetProjectPaymentsService _getProjectPaymentsService;
 
         public ProjectPayments ProjectPayments { get; set; }
+
+        public GrantLetters GrantLetters { get; set; }
 
         public ViewPDGModel(
             ILogger<ViewPDGModel> logger,

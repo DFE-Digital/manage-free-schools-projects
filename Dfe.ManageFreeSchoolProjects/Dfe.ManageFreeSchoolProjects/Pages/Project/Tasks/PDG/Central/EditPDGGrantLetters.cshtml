@@ -1,0 +1,35 @@
+@page  "/projects/{projectId}/tasks/pdg/central/edit-grant-letters"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetters
+
+@{
+    ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
+}
+
+@section BeforeMain {
+<div role="navigation" class="govuk-width-container">
+    <a href=@backLink class="govuk-back-link">Back</a>
+</div>
+}
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Edit Grant Letters
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+
+        <form class="govuk-form-group" method="post">
+            <button class="govuk-button" >
+                Add grant letter
+            </button>
+        </form>
+    </div>
+</div>

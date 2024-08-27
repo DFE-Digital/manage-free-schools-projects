@@ -1,5 +1,9 @@
-﻿ @page "/projects/{projectId}/tasks/pdg/central";
+﻿@page "/projects/{projectId}/tasks/pdg/central"
+;
+@using System.Reflection
 @using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.ViewPDGModel;
 @{
     ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
@@ -11,15 +15,20 @@
     var editStopPaymentLink = string.Format(RouteConstants.EditStopPaymentCentral, Model.ProjectId);
     var editRefundsLink = string.Format(RouteConstants.EditRefundsCentral, Model.ProjectId);
     var editWriteOffLink = string.Format(RouteConstants.EditWriteOffCentral, Model.ProjectId);
+    var editGrantLetters = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+    
     var pdgTask = Model.Project.PDGDashboard;
 
-    var totalGrantAmount =  pdgTask.RevisedGrant ?? pdgTask.InitialGrant; 
+    var totalGrantAmount = pdgTask.RevisedGrant ?? pdgTask.InitialGrant;
 
     var numberOfScheduledPayments = Model.ProjectPayments.Payments.Count();
-    var numberOfSentPayments = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Count();
+    var numberOfSentPayments = Model.ProjectPayments.Payments.Count(p => p.PaymentActualDate < DateTime.Now);
     var nextPaymentDate = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleDate).FirstOrDefault();
     var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
     var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
+
+    var grantLetters = Model.GrantLetters;
+    var anyGrantLetterInfoAdded = HasAnyNonNullProperties(grantLetters);
 }
 
 @section BeforeMain {
@@ -38,63 +47,74 @@
         </h1>
         <h2 class="govuk-heading-m">Summary</h2>
         <govuk-summary-list no-border="true">
-            <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount" />
+            <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount"/>
         </govuk-summary-list>
 
         <govuk-summary-card id="total-grant" label="Total grant" href="@editTotalGrantLink">
             <govuk-summary-list>
-               <govuk-summary-item label="Total amount" asp-for="@totalGrantAmount"/>
+                <govuk-summary-item label="Total amount" asp-for="@totalGrantAmount"/>
             </govuk-summary-list>
         </govuk-summary-card>
 
         <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Number of scheduled payments" asp-for="@numberOfScheduledPayments" />
+                <govuk-summary-item label="Number of scheduled payments" asp-for="@numberOfScheduledPayments"/>
 
-                @if(numberOfScheduledPayments > 0)
+                @if (numberOfScheduledPayments > 0)
                 {
-                    <govuk-summary-item label="Number of sent payments" asp-for="@numberOfSentPayments" />
-                    <govuk-summary-item label="Next payment due date" asp-for="@nextPaymentDate" />
-                    <govuk-summary-item label="Next due amount" asp-for="@nextPaymentAmount" />
+                    <govuk-summary-item label="Number of sent payments" asp-for="@numberOfSentPayments"/>
+                    <govuk-summary-item label="Next payment due date" asp-for="@nextPaymentDate"/>
+                    <govuk-summary-item label="Next due amount" asp-for="@nextPaymentAmount"/>
                     <govuk-summary-item label="Amount sent" asp-for="@amountSent"/>
                 }
             </govuk-summary-list>
         </govuk-summary-card>
-        <govuk-summary-card id="grant-letters" label="Grant letters" href="@editTrustLetterLink">
+        <govuk-summary-card id="grant-letters" label="Grant letters" href="@editGrantLetters">
             <govuk-summary-list>
-@*                 <govuk-summary-item label="Date when DfE signed the initial grant letter" />
-                <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" />
-                <govuk-summary-item label="Date when DfE signed the full grant letter" />
-                <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" />
-                <govuk-summary-item label="Due date of variation letter 1" />
-                <govuk-summary-item label="Saved variation letter 1 in Workplaces folder" />  *@
+                @{
+                    if (anyGrantLetterInfoAdded)
+                    {
+                        @* TODO: verify fields are correct *@
+                        <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.GrantLetterDate"/>
+                        <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@grantLetters.GrantLetterSavedToWorkspace"/>
+                        <govuk-summary-item label="Date when DfE signed the full grant letter" asp-for="@grantLetters.GrantLetterDate"/>
+                        <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@grantLetters.GrantLetterSavedToWorkspace"/>
+                        <govuk-summary-item label="Due date of variation letter 1" asp-for="@grantLetters.FirstPdgGrantVariationDate"/>
+                        <govuk-summary-item label="Saved variation letter 1 in Workplaces folder"  asp-for="@grantLetters.GrantLetterSavedToWorkspace"/>
+                    }
+                    else
+                    {
+                        <dt class="govuk-summary-list__key">No information has been added.</dt>
+                    }
+                }
+                
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="stop-payments" label="Stop payments" href="@editStopPaymentLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Are you sure you want to stop payments?" asp-for="@pdgTask.PaymentStopped" />
+                <govuk-summary-item label="Are you sure you want to stop payments?" asp-for="@pdgTask.PaymentStopped"/>
                 @if (pdgTask.PaymentStopped == "Yes")
                 {
-                    <govuk-summary-item label="Date when payments should stop" asp-for="@pdgTask.PaymentStoppedDate" />
+                    <govuk-summary-item label="Date when payments should stop" asp-for="@pdgTask.PaymentStoppedDate"/>
                 }
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="refunds" label="Refunds" href="@editRefundsLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Latest refund date" asp-for="@pdgTask.LatestRefundDate" />
-                <govuk-summary-item label="Total amount" asp-for="@pdgTask.RefundsTotalAmount" />
+                <govuk-summary-item label="Latest refund date" asp-for="@pdgTask.LatestRefundDate"/>
+                <govuk-summary-item label="Total amount" asp-for="@pdgTask.RefundsTotalAmount"/>
             </govuk-summary-list>
         </govuk-summary-card>
         <govuk-summary-card id="write-off" label="Write-off" href="@editWriteOffLink">
             <govuk-summary-list>
-                <govuk-summary-item label="Is there any write-off?" asp-for="@pdgTask.IsWriteOffSetup" />
+                <govuk-summary-item label="Is there any write-off?" asp-for="@pdgTask.IsWriteOffSetup"/>
                 @if (pdgTask.IsWriteOffSetup == true)
                 {
-                    <govuk-summary-item label="Write-off reason" asp-for="@pdgTask.WriteOffReason" />
-                    <govuk-summary-item label="Write-off amount" asp-for="@pdgTask.WriteOffAmount" />
-                    <govuk-summary-item label="Write-off date" asp-for="@pdgTask.WriteOffDate" />
-                    <govuk-summary-item label="Finance business partner approval received from" asp-for="@pdgTask.FinanceBusinessPartnerApprovalReceivedFrom" />
-                    <govuk-summary-item label="Approval date" asp-for="@pdgTask.ApprovalDate" />
+                    <govuk-summary-item label="Write-off reason" asp-for="@pdgTask.WriteOffReason"/>
+                    <govuk-summary-item label="Write-off amount" asp-for="@pdgTask.WriteOffAmount"/>
+                    <govuk-summary-item label="Write-off date" asp-for="@pdgTask.WriteOffDate"/>
+                    <govuk-summary-item label="Finance business partner approval received from" asp-for="@pdgTask.FinanceBusinessPartnerApprovalReceivedFrom"/>
+                    <govuk-summary-item label="Approval date" asp-for="@pdgTask.ApprovalDate"/>
                 }
             </govuk-summary-list>
         </govuk-summary-card>
@@ -103,10 +123,21 @@
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
                                   asp-for="MarkAsCompleted"
                                   name="mark-as-completed"
-                                  id="mark-as-completed" />
+                                  id="mark-as-completed"/>
             <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
                 Confirm and continue
             </button>
         </form>
     </div>
 </div>
+
+@{
+    static bool HasAnyNonNullProperties(object obj)
+    {
+        if (obj == null) return false;
+
+        var properties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        return properties.Any(prop => prop.GetValue(obj) != null);
+    }
+}

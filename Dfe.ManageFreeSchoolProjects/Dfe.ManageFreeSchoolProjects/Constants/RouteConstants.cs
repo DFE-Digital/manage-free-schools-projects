@@ -150,6 +150,7 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
         public const string EditRefundsCentral = ViewPDGCentral + "/edit-refunds/";
         public const string EditWriteOffCentral = ViewPDGCentral + "/edit-write-off/";
         public const string EditPDGTotalGrant = ViewPDGCentral + "/edit-total-grant";
+        public const string EditPDGGrantLetters = ViewPDGCentral + "/edit-grant-letters"; 
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
