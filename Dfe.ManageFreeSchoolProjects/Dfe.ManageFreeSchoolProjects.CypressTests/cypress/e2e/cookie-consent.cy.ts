@@ -4,7 +4,7 @@ describe("Testing cookie preferences", () => {
         cy.visit("/");
     });
 
-    it.skip("Should have analytics cookies if accepted", () => {
+    it("Should have analytics cookies if accepted", () => {
         cy
         .getCookie("_ga").should("not.exist")
         .getCookie(".ManageFreeSchoolProjects.Consent").should("not.exist")
@@ -13,7 +13,7 @@ describe("Testing cookie preferences", () => {
         .getCookie(".ManageFreeSchoolProjects.Consent").should("exist")
     });
 
-    it.skip("Should remove analytics cookies if rejected", () => {
+    it("Should remove analytics cookies if rejected", () => {
         cy.getCookie("_ga").should("not.exist")
         .getCookie(".ManageFreeSchoolProjects.Consent").should("not.exist")
         .getByTestId("cookie-banner-reject").click()

@@ -158,6 +158,7 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
+                .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
                 .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
@@ -172,7 +173,9 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
-            cy.executeAccessibilityTests();
-            
+            Logger.log("Create Project");    
+            summaryPage    
+              .createProjectbutton('Create project')
+            cy.executeAccessibilityTests();    
         });
     });
