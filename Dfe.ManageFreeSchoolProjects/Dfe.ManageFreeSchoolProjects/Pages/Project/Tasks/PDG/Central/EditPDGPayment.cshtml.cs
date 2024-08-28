@@ -10,7 +10,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Validators;
 using System.Linq;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;

@@ -4,8 +4,7 @@
 
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
-    var backLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
-    
+    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -17,9 +16,7 @@
 <partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">
-        @Model.CurrentFreeSchoolName
-    </span>
+    <span class="govuk-caption-l" data-testid="school-name">@Model.CurrentFreeSchoolName</span>
     Edit Grant Letters
 </h1>
 
