@@ -4,8 +4,15 @@
 
 @{
     ViewData["Title"] = $"Add grant letter - {Model.CurrentFreeSchoolName}";
-    var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
 }
+
+@section BeforeMain {
+<div role="navigation" class="govuk-width-container">
+    <a href=@backLink class="govuk-back-link">Back</a>
+</div>
+}
+
 
 <partial name="_ErrorSummary"/>
 
