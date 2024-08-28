@@ -7,7 +7,7 @@
     var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
 }
 
-<partial name="_ErrorSummary" />
+<partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">
@@ -19,39 +19,40 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
-            <govuk-date-input id="payment-due-date" name="payment-due-date" asp-for="@Model.PaymentScheduleDate" data-testid="payment-due-date" label="Date the payment is due" hint="For example, 27 3 2021" add-margin="false" />
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="RiskReviewed" id="risk-reviewed"
-                               data-testid="risk-reviewed" name="risk-reviewed" type="checkbox">
-                        <label class="govuk-label govuk-checkboxes__label" for="risk-reviewed">
-                           Saved the signed initial grant letter to Workspaces folder
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-            
-            <govuk-date-input id="actual-payment-date" name="actual-payment-date" asp-for="@Model.PaymentActualDate" data-testid="actual-payment-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
+            <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.GrantLetters.GrantLetterDate" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+            @* *@
+            @* <fieldset class="govuk-fieldset"> *@
+            @*     <div class="govuk-checkboxes" data-module="govuk-checkboxes"> *@
+            @*         <div class="govuk-checkboxes__item"> *@
+            @*             <input class="govuk-checkboxes__input" asp-for="@Model.InitialGrantLetterSavedToWorkspacesFolder" id="initial-grant-letter-saved-to-workspaces-folder" *@
+            @*                    data-testid="initial-grant-letter-saved-to-workspaces-folder" name="initial-grant-letter-saved-to-workspaces-folder" type="checkbox"> *@
+            @*             <label class="govuk-label govuk-checkboxes__label" for="initial-grant-letter-saved-to-workspaces-folder"> *@
+            @*                 Saved the signed initial grant letter to Workspaces folder *@
+            @*             </label> *@
+            @*         </div> *@
+            @*     </div> *@
+            @* </fieldset> *@
 
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" asp-for="RiskReviewed" id="risk-reviewed"
-                               data-testid="risk-reviewed" name="risk-reviewed" type="checkbox">
-                        <label class="govuk-label govuk-checkboxes__label" for="risk-reviewed">
-                            Saved the signed full grant letter to Workspaces folder
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-            
+            <govuk-date-input id="full-grant-letter-signed-date" name="full-grant-letter-signed-date" asp-for="@Model.GrantLetters.GrantLetterDate" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the full grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+
+            @* <fieldset class="govuk-fieldset"> *@
+            @*     <div class="govuk-checkboxes" data-module="govuk-checkboxes"> *@
+            @*         <div class="govuk-checkboxes__item"> *@
+            @*             <input class="govuk-checkboxes__input" asp-for="@Model.FullGrantLetterSavedToWorkspacesFolder" id="full-grant-letter-saved-to-workspaces-folder" *@
+            @*                    data-testid="full-grant-letter-saved-to-workspaces-folder" name="full-grant-letter-saved-to-workspaces-folder" type="checkbox"> *@
+            @*             <label class="govuk-label govuk-checkboxes__label" for="full-grant-letter-saved-to-workspaces-folder"> *@
+            @*                 Saved the signed full grant letter to Workspaces folder *@
+            @*             </label> *@
+            @*         </div> *@
+            @*     </div> *@
+            @* </fieldset> *@
+
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
         </form>
         <form action="@backLink">
-            <button class ="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+            <button class="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
                 Discard
             </button>
         </form>
