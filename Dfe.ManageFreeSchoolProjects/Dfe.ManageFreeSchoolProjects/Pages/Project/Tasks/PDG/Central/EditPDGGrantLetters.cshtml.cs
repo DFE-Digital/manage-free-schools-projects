@@ -22,6 +22,9 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger) : PageMode
     public IActionResult OnGet()
     {
         logger.LogMethodEntered();
+
+        GrantLetters = new GrantLetters(); //todo: get data
+        
         return Page();
     }
 

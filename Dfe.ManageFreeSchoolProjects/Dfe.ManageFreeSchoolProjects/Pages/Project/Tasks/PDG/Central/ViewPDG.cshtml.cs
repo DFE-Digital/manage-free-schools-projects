@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             await GetTask(TaskName.PDG);
 
             ProjectPayments = await _getProjectPaymentsService.Execute(ProjectId);
-
+            GrantLetters = new GrantLetters(); //todo: get data
             return Page();
         }
 

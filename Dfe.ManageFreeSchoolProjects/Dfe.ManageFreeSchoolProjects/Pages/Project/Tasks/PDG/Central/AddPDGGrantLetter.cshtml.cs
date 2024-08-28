@@ -18,7 +18,7 @@ public class AddPDGGrantLetter : PageModel
 
     public void OnGet()
     {
-        
+        GrantLetters = new GrantLetters(); //todo: get data
     }
 
 }
