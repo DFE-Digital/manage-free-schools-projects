@@ -4,8 +4,8 @@ public class GrantLetters
 {
     public DateTime? GrantLetterDate { get; set; }
 
-    public bool? GrantLetterSavedToWorkspace { get; set; }
-
+    public string GrantLetterLink { get; set; }
+    
     public DateTime? FirstPdgGrantVariationDate { get; set; }
 
     public string FirstPdgGrantVariationLink { get; set; }

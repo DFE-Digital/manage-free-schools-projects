@@ -1,4 +1,5 @@
 using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger) : PageMode
     
     public string CurrentFreeSchoolName { get; set; }
     
+    
+    public GrantLetters GrantLetters { get; set; }
 
     public IActionResult OnGet()
     {

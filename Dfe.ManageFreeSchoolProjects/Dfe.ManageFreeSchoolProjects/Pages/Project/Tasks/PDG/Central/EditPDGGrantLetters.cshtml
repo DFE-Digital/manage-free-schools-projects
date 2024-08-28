@@ -5,15 +5,16 @@
 @{
     ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
+    
 }
 
 @section BeforeMain {
-<div role="navigation" class="govuk-width-container">
-    <a href=@backLink class="govuk-back-link">Back</a>
-</div>
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
 }
 
-<partial name="_ErrorSummary" />
+<partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">
@@ -22,12 +23,32 @@
     Edit Grant Letters
 </h1>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <form class="govuk-form-group" method="post">
-            <button class="govuk-button" >
-                Add grant letter
-            </button>
-        </form>
-    </div>
-</div>
+@{
+    if (Model.GrantLetters.GrantLetterDate != null || Model.GrantLetters.GrantLetterLink != null)
+    {
+        var initialGrantLetterSavedInWorkplacesFolder = !string.IsNullOrEmpty(Model.GrantLetters.GrantLetterLink);
+        var fullGrantLetterSavedInWorkplacesFolder = !string.IsNullOrEmpty(Model.GrantLetters.GrantLetterLink);
+
+        
+        <govuk-summary-card id="grant-letters" label="Grant letters">
+            <govuk-summary-list>
+                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@Model.GrantLetters.GrantLetterDate"/>
+                <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedInWorkplacesFolder"/>
+                <govuk-summary-item label="Date when DfE signed the full grant letter" asp-for="@grantLetters.GrantLetterDate"/>
+                <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@fullGrantLetterSavedInWorkplacesFolder"/>
+            </govuk-summary-list>
+        </govuk-summary-card>
+    }
+    else
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <form class="govuk-form-group" method="post">
+                    <button class="govuk-button">
+                        Add grant letter
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+}
