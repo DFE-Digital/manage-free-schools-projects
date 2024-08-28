@@ -1,19 +1,59 @@
-@page
+@page "/projects/{projectId}/tasks/pdg/central/add-grant-letter"
+@using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.AddPDGGrantLetter
 
 @{
-    Layout = null;
+    ViewData["Title"] = $"Add grant letter - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
 }
 
-<!DOCTYPE html>
+<partial name="_ErrorSummary" />
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Add a payment
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-date-input id="payment-due-date" name="payment-due-date" asp-for="@Model.PaymentScheduleDate" data-testid="payment-due-date" label="Date the payment is due" hint="For example, 27 3 2021" add-margin="false" />
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" asp-for="RiskReviewed" id="risk-reviewed"
+                               data-testid="risk-reviewed" name="risk-reviewed" type="checkbox">
+                        <label class="govuk-label govuk-checkboxes__label" for="risk-reviewed">
+                           Saved the signed initial grant letter to Workspaces folder
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <govuk-date-input id="actual-payment-date" name="actual-payment-date" asp-for="@Model.PaymentActualDate" data-testid="actual-payment-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
+
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" asp-for="RiskReviewed" id="risk-reviewed"
+                               data-testid="risk-reviewed" name="risk-reviewed" type="checkbox">
+                        <label class="govuk-label govuk-checkboxes__label" for="risk-reviewed">
+                            Saved the signed full grant letter to Workspaces folder
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+        <form action="@backLink">
+            <button class ="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+                Discard
+            </button>
+        </form>
+    </div>
 </div>
-</body>
-</html>

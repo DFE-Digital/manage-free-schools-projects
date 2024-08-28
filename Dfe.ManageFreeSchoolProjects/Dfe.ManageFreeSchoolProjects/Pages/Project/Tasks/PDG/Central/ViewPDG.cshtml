@@ -135,9 +135,7 @@
     static bool HasAnyNonNullProperties(object obj)
     {
         if (obj == null) return false;
-
         var properties = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
         return properties.Any(prop => prop.GetValue(obj) != null);
     }
 }
