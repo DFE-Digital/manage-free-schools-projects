@@ -4,16 +4,24 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project;
 
-public interface IUpdateProjectGrantLettersService
+public interface IGrantLettersService
 {
-    public Task Execute(string projectId, GrantLetters grantLetters);
+    Task Update(string projectId, PdgGrantLetters pdgGrantLetters);
+    Task<PdgGrantLetters> Get(string projectId);
 }
 
-public class UpdateProjectGrantLettersService(MfspApiClient apiClient) : IUpdateProjectGrantLettersService
+public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
 {
-    public async Task Execute(string projectId, GrantLetters grantLetters)
+    public async Task Update(string projectId, PdgGrantLetters pdgGrantLetters)
     {
-        var endpoint = $"/api/v1/client/projects/{projectId}/payments";
-        await apiClient.Put<GrantLetters, ApiSingleResponseV2<object>>(endpoint, grantLetters);
+        var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters";
+        await apiClient.Put<PdgGrantLetters, ApiSingleResponseV2<object>>(endpoint, pdgGrantLetters);
+    }
+
+    public async Task<PdgGrantLetters> Get(string projectId)
+    {
+        var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters";
+        var response = await apiClient.Get<ApiSingleResponseV2<PdgGrantLetters>>(endpoint);
+        return response.Data;
     }
 }

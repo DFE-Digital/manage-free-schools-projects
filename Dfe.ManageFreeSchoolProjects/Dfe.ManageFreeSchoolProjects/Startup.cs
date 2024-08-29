@@ -110,6 +110,7 @@ public class Startup
         services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
         services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
         services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
+        services.AddScoped<IGrantLettersService, GrantLettersService>(); 
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
@@ -223,11 +224,6 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            //endpoints.MapGet("/", context =>
-            //{
-            //   context.Response.Redirect("project-type", false);
-            //   return Task.CompletedTask;
-            //});
             endpoints.MapRazorPages();
             endpoints.MapControllerRoute("default", "{controller}/{action}/");
         });

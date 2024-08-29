@@ -27,13 +27,13 @@
     var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
     var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
 
-    var grantLetters = Model.GrantLetters;
-    var anyGrantLetterInfoAdded = grantLetters.GrantLetterDate != null 
-                                  || !string.IsNullOrEmpty(grantLetters.GrantLetterLink) 
+    var grantLetters = Model.PdgGrantLetters;
+    var anyGrantLetterInfoAdded = grantLetters.PdgGrantLetterDate != null 
+                                  || !string.IsNullOrEmpty(grantLetters.PdgGrantLetterLink) 
                                   || grantLetters.FirstPdgGrantVariationDate != null 
                                   || !string.IsNullOrEmpty(grantLetters.FirstPdgGrantVariationLink);
 
-    var grantLetterSavedToWorkspace = !string.IsNullOrEmpty(grantLetters.GrantLetterLink) ? "Yes" : "No";
+    var grantLetterSavedToWorkspace = !string.IsNullOrEmpty(grantLetters.PdgGrantLetterLink) ? "Yes" : "No";
     var grantLetterVariation1SavedToWorkSpace = !string.IsNullOrEmpty(grantLetters.FirstPdgGrantVariationLink) ? "Yes" : "No";
 }
 
@@ -81,9 +81,9 @@
                     if (anyGrantLetterInfoAdded)
                     {
                         @* TODO: verify fields are correct *@
-                        <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.GrantLetterDate"/>
+                        <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.PdgGrantLetterDate"/>
                         <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@grantLetterSavedToWorkspace"/>
-                        <govuk-summary-item label="Date when DfE signed the full grant letter" asp-for="@grantLetters.GrantLetterDate"/>
+                        <govuk-summary-item label="Date when DfE signed the full grant letter" asp-for="@grantLetters.PdgGrantLetterDate"/>
                         <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@grantLetterSavedToWorkspace"/>
                         <govuk-summary-item label="Due date of variation letter 1" asp-for="@grantLetters.FirstPdgGrantVariationDate"/>
                         <govuk-summary-item label="Saved variation letter 1 in Workplaces folder" asp-for="@grantLetterVariation1SavedToWorkSpace"/>

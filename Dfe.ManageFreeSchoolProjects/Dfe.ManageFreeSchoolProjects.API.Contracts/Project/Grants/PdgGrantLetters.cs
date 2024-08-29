@@ -1,10 +1,10 @@
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
-public class GrantLetters
+public class PdgGrantLetters
 {
-    public DateTime? GrantLetterDate { get; set; }
+    public DateTime? PdgGrantLetterDate { get; set; }
 
-    public string GrantLetterLink { get; set; }
+    public string PdgGrantLetterLink { get; set; }
     
     public DateTime? FirstPdgGrantVariationDate { get; set; }
 

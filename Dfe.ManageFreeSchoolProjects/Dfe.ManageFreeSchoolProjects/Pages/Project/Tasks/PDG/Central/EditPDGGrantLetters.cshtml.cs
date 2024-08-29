@@ -17,13 +17,13 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger) : PageMode
     public string CurrentFreeSchoolName { get; set; }
     
     
-    public GrantLetters GrantLetters { get; set; }
+    public PdgGrantLetters PdgGrantLetters { get; set; }
 
     public IActionResult OnGet()
     {
         logger.LogMethodEntered();
 
-        GrantLetters = new GrantLetters(); //todo: get data
+        PdgGrantLetters = new PdgGrantLetters(); //todo: get data
         
         return Page();
     }
