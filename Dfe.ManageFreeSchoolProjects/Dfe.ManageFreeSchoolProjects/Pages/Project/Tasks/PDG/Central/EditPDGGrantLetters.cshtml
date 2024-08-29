@@ -40,7 +40,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
-                    <button class="govuk-button">
+                    <button class="govuk-button" name="action" value="AddGrantLetter">
                         Add grant letter
                     </button>
                 </form>
@@ -64,7 +64,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
-                    <button class="govuk-button">
+                    <button class="govuk-button" name="action" value="AddVariationLetter1">
                         Add variation letter 1
                     </button>
                 </form>
@@ -88,7 +88,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
-                    <button class="govuk-button">
+                    <button class="govuk-button" name="action" value="AddVariationLetter2">
                         Add variation letter 2
                     </button>
                 </form>
@@ -112,7 +112,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
-                    <button class="govuk-button">
+                    <button class="govuk-button" name="action" value="AddVariationLetter3">
                         Add variation letter 3
                     </button>
                 </form>
@@ -124,7 +124,7 @@
     {
         var fourthVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.PdgGrantLetters.FourthPdgGrantVariationLink);
         
-        <govuk-summary-card id="grant-letters-third-variation" label="Grant letters">
+        <govuk-summary-card id="grant-letters-fourth-variation" label="Grant letters">
             <govuk-summary-list>
                 <govuk-summary-item label="Due date of variation letter" asp-for="@Model.PdgGrantLetters.FourthPdgGrantVariationDate"/>
                 <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@fourthVariationLetterSavedToWorkplaces"/>
@@ -136,7 +136,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
-                    <button class="govuk-button">
+                    <button class="govuk-button" name="action" value="AddVariationLetter4">
                         Add variation letter 4
                     </button>
                 </form>

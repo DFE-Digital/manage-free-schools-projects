@@ -30,7 +30,7 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLett
         return Page();
     }
 
-    public IActionResult OnPost()
+    public IActionResult OnPost(string action)
     {
         try
         {

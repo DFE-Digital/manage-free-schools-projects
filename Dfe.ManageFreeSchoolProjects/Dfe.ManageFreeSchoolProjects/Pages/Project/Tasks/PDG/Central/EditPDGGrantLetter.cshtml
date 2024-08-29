@@ -1,0 +1,17 @@
+@page "/projects/{projectId}/tasks/pdg/central/edit-grant-letter/{letterType}"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetter
+
+
+@{
+    ViewData["Title"] = $"Edit grant letter - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+
+    // var letterSavedToWorkspaceCheckedStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
