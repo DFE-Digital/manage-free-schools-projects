@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
@@ -18,8 +19,7 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLett
     
     public string CurrentFreeSchoolName { get; set; }
     
-    
-    public PdgGrantLetters PdgGrantLetters { get; set; }
+    public List<GrantLetter> PdgGrantLetters { get; set; }
 
     public async Task<IActionResult> OnGet()
     {

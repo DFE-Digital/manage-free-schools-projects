@@ -1,5 +1,24 @@
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
+public record GrantLetter
+{
+    public LetterType Type { get; set; }
+    public DateTime? LetterDate { get; set; }
+    public string LetterLink { get; set; }
+    public bool? SavedToWorkplacesFolder { get; set; }
+
+    public enum LetterType
+    {
+        NotSet,
+        Initial, 
+        Full,
+        FirstVariation,
+        SecondVariation,
+        ThirdVariation,
+        FourthVariation
+    }
+}
+
 public class PdgGrantLetters
 {
     public DateTime? PdgGrantLetterDate { get; set; }
@@ -21,4 +40,6 @@ public class PdgGrantLetters
     public DateTime? FourthPdgGrantVariationDate { get; set; }
 
     public string FourthPdgGrantVariationLink { get; set; }
+    
+    
 }

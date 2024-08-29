@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
@@ -21,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
     {
         public ProjectPayments ProjectPayments { get; set; }
 
-        public PdgGrantLetters PdgGrantLetters { get; set; }
+        public List<GrantLetter> PdgGrantLetters { get; set; }
 
         public async Task<ActionResult> OnGet()
         {

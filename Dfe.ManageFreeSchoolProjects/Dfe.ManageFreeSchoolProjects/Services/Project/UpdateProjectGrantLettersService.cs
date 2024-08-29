@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
@@ -7,7 +8,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project;
 public interface IGrantLettersService
 {
     Task Update(string projectId, PdgGrantLetters pdgGrantLetters);
-    Task<PdgGrantLetters> Get(string projectId);
+    Task<List<GrantLetter>> Get(string projectId);
 }
 
 public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
@@ -18,10 +19,9 @@ public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
         await apiClient.Put<PdgGrantLetters, ApiSingleResponseV2<object>>(endpoint, pdgGrantLetters);
     }
 
-    public async Task<PdgGrantLetters> Get(string projectId)
+    public async Task<List<GrantLetter>> Get(string projectId)
     {
         var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters";
-        var response = await apiClient.Get<ApiSingleResponseV2<PdgGrantLetters>>(endpoint);
-        return response.Data;
+        return await apiClient.Get<List<GrantLetter>>(endpoint);
     }
 }

@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
+﻿namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 {
     public partial class Po
     {
         public bool? PdgGrantLetterLinkSavedToWorkplaces { get; set; }
 
         public bool? PdgIsWriteOffSetup { get; set; }
+
+        public bool? PdgFirstVariationGrantLetterSavedToWorkplaces { get; set; }
+        
+        public bool? PdgSecondVariationGrantLetterSavedToWorkplaces { get; set; }
+        
+        public bool? PdgThirdVariationGrantLetterSavedToWorkplaces { get; set; }
+        
+        public bool? PdgFourthVariationGrantLetterSavedToWorkplaces { get; set; }
     }
 }
