@@ -1,14 +1,16 @@
 using System;
+using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger) : PageModel
+public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLettersService grantLettersService) : PageModel
 {
     
     [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -19,11 +21,11 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger) : PageMode
     
     public PdgGrantLetters PdgGrantLetters { get; set; }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGet()
     {
         logger.LogMethodEntered();
 
-        PdgGrantLetters = new PdgGrantLetters(); //todo: get data
+        PdgGrantLetters = await grantLettersService.Get(ProjectId);
         
         return Page();
     }
