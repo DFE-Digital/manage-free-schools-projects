@@ -6,16 +6,16 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project;
 
 public interface IGrantLettersService
 {
-    Task Update(string projectId, VariationGrantLetter updatedVariationGrantLetter);
+    Task Update(string projectId, GrantVariationLetter updatedGrantVariationLetter);
     Task<ProjectGrantLetters> Get(string projectId);
 }
 
 public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
 {
-    public async Task Update(string projectId, VariationGrantLetter updatedVariationGrantLetter)
+    public async Task Update(string projectId, GrantVariationLetter updatedGrantVariationLetter)
     {
         var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters";
-        await apiClient.Put<VariationGrantLetter, ApiSingleResponseV2<object>>(endpoint, updatedVariationGrantLetter);
+        await apiClient.Put<GrantVariationLetter, ApiSingleResponseV2<object>>(endpoint, updatedGrantVariationLetter);
     }
 
     public async Task<ProjectGrantLetters> Get(string projectId)

@@ -29,15 +29,15 @@
     var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
     var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
 
-    var grantLetters = Model.PdgGrantLetters.VariationLetters?.Where(letter => letter.LetterVariation is VariationGrantLetter.GrantLetterVariation.Initial
-        or VariationGrantLetter.GrantLetterVariation.Full
-        or VariationGrantLetter.GrantLetterVariation.FirstVariation).ToList();
+    var grantLetters = Model.PdgGrantLetters.VariationLetters?.Where(letter => letter.LetterVariation is GrantVariationLetter.GrantLetterVariation.Initial
+        or GrantVariationLetter.GrantLetterVariation.Full
+        or GrantVariationLetter.GrantLetterVariation.FirstVariation).ToList();
 
     var anyGrantLetterInfoAdded = (grantLetters ?? []).Any(x => x.LetterDate != null || x.InitialGrantLetterDate != null || x.FinalGrantLetterDate != null || x.LetterLink != null || x.SavedToWorkplacesFolder != null);
 
-    var initialGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == VariationGrantLetter.GrantLetterVariation.Initial);
-    var fullGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == VariationGrantLetter.GrantLetterVariation.Full);
-    var firstVariationGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == VariationGrantLetter.GrantLetterVariation.FirstVariation);
+    var initialGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == GrantVariationLetter.GrantLetterVariation.Initial);
+    var fullGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == GrantVariationLetter.GrantLetterVariation.Full);
+    var firstVariationGrantLetter = grantLetters?.SingleOrDefault(x => x.LetterVariation == GrantVariationLetter.GrantLetterVariation.FirstVariation);
 
     var initialGrantLetterSavedToWorkplaces = initialGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
     var fullGrantLetterSavedToWorkplaces = fullGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";

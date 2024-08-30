@@ -10,9 +10,9 @@
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId); 
 
-    var initialAndFullGrantLetters = Model.GrantLetters?.VariationLetters.Where(x => x.LetterVariation is VariationGrantLetter.GrantLetterVariation.Initial or VariationGrantLetter.GrantLetterVariation.Full).ToList();
-    var initialGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is VariationGrantLetter.GrantLetterVariation.Initial);
-    var fullGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is VariationGrantLetter.GrantLetterVariation.Full);
+    var initialAndFullGrantLetters = Model.GrantLetters?.VariationLetters.Where(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Initial or GrantVariationLetter.GrantLetterVariation.Full).ToList();
+    var initialGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Initial);
+    var fullGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Full);
 }
 
 @section BeforeMain {
@@ -60,7 +60,7 @@
 
         if (Model.GrantLetters != null)
         {
-            var filteredGrantLetters = Model.GrantLetters.VariationLetters.Where(x => x.LetterVariation != VariationGrantLetter.GrantLetterVariation.Initial && x.LetterVariation != VariationGrantLetter.GrantLetterVariation.Full).OrderBy(x => x.LetterVariation).ToList();
+            var filteredGrantLetters = Model.GrantLetters.VariationLetters.Where(x => x.LetterVariation != GrantVariationLetter.GrantLetterVariation.Initial && x.LetterVariation != GrantVariationLetter.GrantLetterVariation.Full).OrderBy(x => x.LetterVariation).ToList();
 
             foreach (var grantLetter in filteredGrantLetters)
             {
@@ -113,11 +113,11 @@
 
 @functions {
 
-    private static bool DoesInitialOrFullGrantLetterHaveData(VariationGrantLetter initialVariationGrantLetter, VariationGrantLetter fullVariationGrantLetter)
+    private static bool DoesInitialOrFullGrantLetterHaveData(GrantVariationLetter initialGrantVariationLetter, GrantVariationLetter fullGrantVariationLetter)
     {
-        return (initialVariationGrantLetter?.InitialGrantLetterDate.HasValue ?? false)
-               || (initialVariationGrantLetter?.SavedToWorkplacesFolder.HasValue ?? false)
-               || (fullVariationGrantLetter?.FinalGrantLetterDate.HasValue ?? false)
-               || (fullVariationGrantLetter?.SavedToWorkplacesFolder.HasValue ?? false);
+        return (initialGrantVariationLetter?.InitialGrantLetterDate.HasValue ?? false)
+               || (initialGrantVariationLetter?.SavedToWorkplacesFolder.HasValue ?? false)
+               || (fullGrantVariationLetter?.FinalGrantLetterDate.HasValue ?? false)
+               || (fullGrantVariationLetter?.SavedToWorkplacesFolder.HasValue ?? false);
     }
 }

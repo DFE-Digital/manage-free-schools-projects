@@ -41,9 +41,9 @@ public class EditPDGGrantLetter(IGrantLettersService grantLettersService) : Page
 
     public async Task<IActionResult> OnPost()
     {
-        var updatedGrantLetter = new VariationGrantLetter
+        var updatedGrantLetter = new GrantVariationLetter
         {
-            Variation = VariationGrantLetter.GrantLetterVariation.Initial,
+            Variation = GrantVariationLetter.GrantLetterVariation.Initial,
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FinalGrantLetterDateSigned,
             SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces

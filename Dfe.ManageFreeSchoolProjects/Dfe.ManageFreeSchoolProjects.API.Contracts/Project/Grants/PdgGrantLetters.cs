@@ -16,10 +16,10 @@ public record ProjectGrantLetters
     
     public bool? FinalGrantLetterSavedToWorkplaces { get; set; }
     
-    public IEnumerable<VariationGrantLetter> VariationLetters { get; set; }
+    public IEnumerable<GrantVariationLetter> VariationLetters { get; set; }
 }
 
-public record VariationGrantLetter
+public record GrantVariationLetter
 {
     public GrantLetterVariation Variation { get; set; }
     public DateTime? LetterDate { get; set; }
