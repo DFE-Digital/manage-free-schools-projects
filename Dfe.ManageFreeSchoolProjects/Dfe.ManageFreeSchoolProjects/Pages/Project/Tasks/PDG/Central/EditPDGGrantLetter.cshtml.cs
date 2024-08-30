@@ -28,28 +28,31 @@ public class EditPDGGrantLetter(IGrantLettersService grantLettersService) : Page
     public bool? InitialGrantLetterSavedToWorkplaces { get; set; }
 
     [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
-    public bool? FullGrantLetterSavedToWorkspaces { get; set; }
+    public bool? FinalGrantLetterSavedToWorkspaces { get; set; }
 
     public async Task<IActionResult> OnGet()
     {
         GrantLetters = await grantLettersService.Get(ProjectId);
-        
-        //todo: set fields from get
+
+        InitialGrantLetterDateSigned = GrantLetters.InitialGrantLetterDate;
+        FinalGrantLetterDateSigned = GrantLetters.FinalGrantLetterDate;
+        InitialGrantLetterSavedToWorkplaces = GrantLetters.InitialGrantLetterSavedToWorkplaces;
+        FinalGrantLetterSavedToWorkspaces = GrantLetters.FinalGrantLetterSavedToWorkplaces;
 
         return Page();
     }
 
     public async Task<IActionResult> OnPost()
     {
-        var updatedGrantLetter = new GrantVariationLetter
+        var updatedGrantLetter = new ProjectGrantLetters
         {
-            Variation = GrantVariationLetter.GrantLetterVariation.Initial,
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FinalGrantLetterDateSigned,
-            SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces
+            InitialGrantLetterSavedToWorkplaces = InitialGrantLetterSavedToWorkplaces,
+            FinalGrantLetterSavedToWorkplaces = FinalGrantLetterSavedToWorkspaces
         };
 
-        await grantLettersService.Update(ProjectId, updatedGrantLetter);
+        await grantLettersService.UpdateGrantLetters(ProjectId, updatedGrantLetter);
 
         return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
     }

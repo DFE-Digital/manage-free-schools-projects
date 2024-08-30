@@ -33,17 +33,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         return result;
     }
 
-    public Task UpdateGrantLetter(string projectId, ProjectGrantLetters updatedOrNewGrantLetter)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateVariationLetter(string projectId, GrantVariationLetter updatedOrNewVariationLetter)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task UpdateGrantLetter(string projectId, GrantVariationLetter updatedOrNewGrantVariationLetter)
+    public async Task UpdateGrantLetter(string projectId, ProjectGrantLetters updatedOrNewGrantLetter)
     {
         var dbProject = await context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
@@ -54,38 +44,65 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
 
         var po = await context.Po.FirstOrDefaultAsync(p => p.Rid == dbProject.Rid);
 
-        UpdateGrantLetters(po, updatedOrNewGrantVariationLetter);
+        UpdateGrantLetters(po, updatedOrNewGrantLetter);
 
         await context.SaveChangesAsync();
     }
 
-    private static void UpdateGrantLetters(Po po, GrantVariationLetter newOrUpdatedGrantVariationLetter)
+    public async Task UpdateVariationLetter(string projectId, GrantVariationLetter updatedOrNewVariationLetter)
     {
+        var dbProject = await context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
+
+        if (dbProject == null)
+        {
+            throw new NotFoundException($"Project with id {projectId} not found");
+        }
+
+        var po = await context.Po.FirstOrDefaultAsync(p => p.Rid == dbProject.Rid);
+
+        UpdateVariationLetter(po, updatedOrNewVariationLetter);
+
+        await context.SaveChangesAsync();
+    }
+
+    private static void UpdateVariationLetter(Po po, GrantVariationLetter variationLetter)
+    {
+        switch (variationLetter.Variation)
+        {
+            // Update variation fields based on the variation number
+            case GrantVariationLetter.GrantLetterVariation.FirstVariation:
+                po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = variationLetter.LetterDate;
+                po.PdgFirstVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
+                break;
+            case GrantVariationLetter.GrantLetterVariation.SecondVariation:
+                po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = variationLetter.LetterDate;
+                po.PdgSecondVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
+                break;
+            case  GrantVariationLetter.GrantLetterVariation.ThirdVariation:
+                po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = variationLetter.LetterDate;
+                po.PdgThirdVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
+                break;
+            case  GrantVariationLetter.GrantLetterVariation.FourthVariation:
+                po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = variationLetter.LetterDate;
+                po.PdgFourthVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
+                break;
+            case GrantVariationLetter.GrantLetterVariation.NotSet:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    
+    private static void UpdateGrantLetters(Po po, ProjectGrantLetters newOrUpdatedGrantVariationLetter)
+    {
+        //todo: separate fields in DB for Initial & Final dates?
         po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantVariationLetter.InitialGrantLetterDate ??
                                                               newOrUpdatedGrantVariationLetter.FinalGrantLetterDate;
-        po.ProjectDevelopmentGrantFundingPdgGrantLetterLink = newOrUpdatedGrantVariationLetter.LetterLink;
+        
+        po.PdgGrantLetterLinkSavedToWorkplaces = newOrUpdatedGrantVariationLetter.InitialGrantLetterSavedToWorkplaces ??
+                                                 newOrUpdatedGrantVariationLetter.FinalGrantLetterSavedToWorkplaces;
 
-
-        // switch (newOrUpdatedVariationGrantLetter.GrantLetterVariation)
-        // {
-        //     // Update variation fields based on the variation number
-        //     case 1:
-        //         po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = newOrUpdatedVariationGrantLetter.LetterDate;
-        //         po.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink = newOrUpdatedVariationGrantLetter.LetterLink;
-        //         break;
-        //     case 2:
-        //         po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = newOrUpdatedVariationGrantLetter.LetterDate;
-        //         po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink = newOrUpdatedVariationGrantLetter.LetterLink;
-        //         break;
-        //     case 3:
-        //         po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = newOrUpdatedVariationGrantLetter.LetterDate;
-        //         po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink = newOrUpdatedVariationGrantLetter.LetterLink;
-        //         break;
-        //     case 4:
-        //         po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = newOrUpdatedVariationGrantLetter.LetterDate;
-        //         po.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink = newOrUpdatedVariationGrantLetter.LetterLink;
-        //         break;
-        // }
+        
     }
 
     private static ProjectGrantLetters MapToGrantLetters(Po po)

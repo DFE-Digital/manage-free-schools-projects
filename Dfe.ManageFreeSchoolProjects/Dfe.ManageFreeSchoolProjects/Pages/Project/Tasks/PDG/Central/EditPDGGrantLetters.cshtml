@@ -8,11 +8,9 @@
 @{
     ViewData["Title"] = $"Edit Grant Letters - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-    var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId); 
+    var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId);
 
-    var initialAndFullGrantLetters = Model.GrantLetters?.VariationLetters.Where(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Initial or GrantVariationLetter.GrantLetterVariation.Full).ToList();
-    var initialGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Initial);
-    var fullGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.LetterVariation is GrantVariationLetter.GrantLetterVariation.Full);
+    var grantLetters = Model.GrantLetters;
 }
 
 @section BeforeMain {
@@ -44,7 +42,7 @@
         TempData["GrantLetterAdded"] = false;
     }
     
-    if (DoesInitialOrFullGrantLetterHaveData(initialGrantLetter, fullGrantLetter))
+    if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
     {
         var initialGrantLetterSavedToWorkplaces = initialGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
         var fullGrantLetterSavedToWorkplaces = fullGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
@@ -113,11 +111,11 @@
 
 @functions {
 
-    private static bool DoesInitialOrFullGrantLetterHaveData(GrantVariationLetter initialGrantVariationLetter, GrantVariationLetter fullGrantVariationLetter)
+    private static bool DoesInitialOrFullGrantLetterHaveData(ProjectGrantLetters grantLetters)
     {
-        return (initialGrantVariationLetter?.InitialGrantLetterDate.HasValue ?? false)
-               || (initialGrantVariationLetter?.SavedToWorkplacesFolder.HasValue ?? false)
-               || (fullGrantVariationLetter?.FinalGrantLetterDate.HasValue ?? false)
-               || (fullGrantVariationLetter?.SavedToWorkplacesFolder.HasValue ?? false);
+        return (grantLetters?.InitialGrantLetterDate.HasValue ?? false)
+               || (grantLetters?.InitialGrantLetterSavedToWorkplaces.HasValue ?? false)
+               || (grantLetters?.FinalGrantLetterDate.HasValue ?? false)
+               || (grantLetters?.FinalGrantLetterSavedToWorkplaces.HasValue ?? false);
     }
 }

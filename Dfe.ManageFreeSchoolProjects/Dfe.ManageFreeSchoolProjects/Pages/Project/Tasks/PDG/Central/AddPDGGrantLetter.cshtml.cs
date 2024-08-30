@@ -37,15 +37,15 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
 
     public async Task<IActionResult> OnPost()
     {
-        var newGrantLetter = new GrantVariationLetter
+        var newGrantLetter = new ProjectGrantLetters
         {
-            Variation = GrantVariationLetter.GrantLetterVariation.Full, 
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FullGrantLetterDateSigned,
-            SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces
+            InitialGrantLetterSavedToWorkplaces = InitialGrantLetterSavedToWorkspaces,
+            FinalGrantLetterSavedToWorkplaces = FullGrantLetterSavedToWorkspaces
         };
 
-        await grantLettersService.Update(ProjectId, newGrantLetter);
+        await grantLettersService.UpdateGrantLetters(ProjectId, newGrantLetter);
 
         TempData["GrantLetterAdded"] = true;
 
