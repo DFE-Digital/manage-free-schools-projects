@@ -1,15 +1,15 @@
 @page  "/projects/{projectId}/tasks/pdg/central/edit-grant-letters"
+@using AngleSharp.Common
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetters
 
-
 @{
-    ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit Grant Letters - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-    
+
     var initialAndFullGrantLetters = Model.GrantLetters?.Letters.Where(x => x.Type is GrantLetter.LetterType.Initial or GrantLetter.LetterType.Full).ToList();
     var initialGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.Type is GrantLetter.LetterType.Initial);
     var fullGrantLetter = initialAndFullGrantLetters?.SingleOrDefault(x => x.Type is GrantLetter.LetterType.Full);
@@ -43,18 +43,18 @@
             </govuk-summary-list>
         </govuk-summary-card>
 
-        foreach (var grantLetter in Model.GrantLetters.Letters.OrderBy(x => x.Type))
+        if (Model.GrantLetters != null)
         {
-            var grantLetterVariationNumber = (int)grantLetter.Type; 
+            var filteredGrantLetters = Model.GrantLetters.Letters.Where(x => x.Type != GrantLetter.LetterType.Initial && x.Type != GrantLetter.LetterType.Full).OrderBy(x => x.Type).ToList();
             
-            if (grantLetter.Type is not GrantLetter.LetterType.Initial and GrantLetter.LetterType.Full)
+            foreach (var grantLetter in filteredGrantLetters)
             {
                 if (grantLetter.LetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
                 {
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
                     var variationAsWord = grantLetter.Type.ToDescription().ToLower();
 
-                    <govuk-summary-card id="grant-letters-@variationAsWord-variation" label="Grant letters">
+                    <govuk-summary-card id="grant-letters-@variationAsWord-variation" label="Variation letter @grantLetter.Variation">
                         <govuk-summary-list>
                             <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.LetterDate"/>
                             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@grantLetterSavedToWorkplaces"/>
@@ -66,12 +66,14 @@
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
                             <form class="govuk-form-group" method="post">
-                                <button class="govuk-button" name="action" value="AddVariationLetter1">
-                                    Add variation letter @grantLetterVariationNumber
+                                <button class="govuk-button" name="action" value="AddVariationLetter">
+                                    Add variation letter @grantLetter.Variation
                                 </button>
                             </form>
                         </div>
                     </div>
+
+                    return; 
                 }
             }
         }
@@ -88,132 +90,6 @@
             </div>
         </div>
     }
-
-    @* foreach (var grantLetter in Model.GrantLetters.Letters) *@
-    @* { *@
-    @*     if (grantLetter.Type is not GrantLetter.LetterType.Initial and GrantLetter.LetterType.Full) *@
-    @*     { *@
-    @*         if (grantLetter. != null || !string.IsNullOrEmpty(Model.GrantLetters.FirstPdgGrantVariationLink)) *@
-    @*         { *@
-    @*             var firstVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.GrantLetters.FirstPdgGrantVariationLink); *@
-    @*          *@
-    @*             <govuk-summary-card id="grant-letters-first-variation" label="Grant letters"> *@
-    @*                 <govuk-summary-list> *@
-    @*                     <govuk-summary-item label="Due date of variation letter" asp-for="@Model.GrantLetters.FirstPdgGrantVariationDate"/> *@
-    @*                     <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@firstVariationLetterSavedToWorkplaces"/> *@
-    @*                 </govuk-summary-list> *@
-    @*             </govuk-summary-card> *@
-    @*         } *@
-    @*         else *@
-    @*         { *@
-    @*             <div class="govuk-grid-row"> *@
-    @*                 <div class="govuk-grid-column-two-thirds"> *@
-    @*                     <form class="govuk-form-group" method="post"> *@
-    @*                         <button class="govuk-button" name="action" value="AddVariationLetter1"> *@
-    @*                             Add variation letter 1 *@
-    @*                         </button> *@
-    @*                     </form> *@
-    @*                 </div> *@
-    @*             </div> *@
-    @*         } *@
-    @*     } *@
-    @* } *@
-
-    @* if (Model.GrantLetters.FirstPdgGrantVariationDate != null || !string.IsNullOrEmpty(Model.GrantLetters.FirstPdgGrantVariationLink)) *@
-    @* { *@
-    @*     var firstVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.GrantLetters.FirstPdgGrantVariationLink); *@
-    @*      *@
-    @*     <govuk-summary-card id="grant-letters-first-variation" label="Grant letters"> *@
-    @*         <govuk-summary-list> *@
-    @*             <govuk-summary-item label="Due date of variation letter" asp-for="@Model.GrantLetters.FirstPdgGrantVariationDate"/> *@
-    @*             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@firstVariationLetterSavedToWorkplaces"/> *@
-    @*         </govuk-summary-list> *@
-    @*     </govuk-summary-card> *@
-    @* } *@
-    @* else *@
-    @* { *@
-    @*     <div class="govuk-grid-row"> *@
-    @*         <div class="govuk-grid-column-two-thirds"> *@
-    @*             <form class="govuk-form-group" method="post"> *@
-    @*                 <button class="govuk-button" name="action" value="AddVariationLetter1"> *@
-    @*                     Add variation letter 1 *@
-    @*                 </button> *@
-    @*             </form> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* } *@
-    @* *@
-    @* if (Model.GrantLetters.SecondPdgGrantVariationDate != null || !string.IsNullOrEmpty(Model.GrantLetters.SecondPdgGrantVariationLink)) *@
-    @* { *@
-    @*     var secondVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.GrantLetters.SecondPdgGrantVariationLink); *@
-    @*      *@
-    @*     <govuk-summary-card id="grant-letters-second-variation" label="Grant letters"> *@
-    @*         <govuk-summary-list> *@
-    @*             <govuk-summary-item label="Due date of variation letter" asp-for="@Model.GrantLetters.SecondPdgGrantVariationDate"/> *@
-    @*             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@secondVariationLetterSavedToWorkplaces"/> *@
-    @*         </govuk-summary-list> *@
-    @*     </govuk-summary-card> *@
-    @* } *@
-    @* else *@
-    @* { *@
-    @*     <div class="govuk-grid-row"> *@
-    @*         <div class="govuk-grid-column-two-thirds"> *@
-    @*             <form class="govuk-form-group" method="post"> *@
-    @*                 <button class="govuk-button" name="action" value="AddVariationLetter2"> *@
-    @*                     Add variation letter 2 *@
-    @*                 </button> *@
-    @*             </form> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* } *@
-    @* *@
-    @* if (Model.GrantLetters.ThirdPdgGrantVariationDate != null || !string.IsNullOrEmpty(Model.GrantLetters.ThirdPdgGrantVariationLink)) *@
-    @* { *@
-    @*     var thirdVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.GrantLetters.ThirdPdgGrantVariationLink); *@
-    @*      *@
-    @*     <govuk-summary-card id="grant-letters-third-variation" label="Grant letters"> *@
-    @*         <govuk-summary-list> *@
-    @*             <govuk-summary-item label="Due date of variation letter" asp-for="@Model.GrantLetters.ThirdPdgGrantVariationLink"/> *@
-    @*             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@thirdVariationLetterSavedToWorkplaces"/> *@
-    @*         </govuk-summary-list> *@
-    @*     </govuk-summary-card> *@
-    @* } *@
-    @* else *@
-    @* { *@
-    @*     <div class="govuk-grid-row"> *@
-    @*         <div class="govuk-grid-column-two-thirds"> *@
-    @*             <form class="govuk-form-group" method="post"> *@
-    @*                 <button class="govuk-button" name="action" value="AddVariationLetter3"> *@
-    @*                     Add variation letter 3 *@
-    @*                 </button> *@
-    @*             </form> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* } *@
-    @* *@
-    @* if (Model.GrantLetters.FourthPdgGrantVariationDate != null || !string.IsNullOrEmpty(Model.GrantLetters.FourthPdgGrantVariationLink)) *@
-    @* { *@
-    @*     var fourthVariationLetterSavedToWorkplaces = !string.IsNullOrEmpty(Model.GrantLetters.FourthPdgGrantVariationLink); *@
-    @*      *@
-    @*     <govuk-summary-card id="grant-letters-fourth-variation" label="Grant letters"> *@
-    @*         <govuk-summary-list> *@
-    @*             <govuk-summary-item label="Due date of variation letter" asp-for="@Model.GrantLetters.FourthPdgGrantVariationDate"/> *@
-    @*             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@fourthVariationLetterSavedToWorkplaces"/> *@
-    @*         </govuk-summary-list> *@
-    @*     </govuk-summary-card> *@
-    @* } *@
-    @* else *@
-    @* { *@
-    @*     <div class="govuk-grid-row"> *@
-    @*         <div class="govuk-grid-column-two-thirds"> *@
-    @*             <form class="govuk-form-group" method="post"> *@
-    @*                 <button class="govuk-button" name="action" value="AddVariationLetter4"> *@
-    @*                     Add variation letter 4 *@
-    @*                 </button> *@
-    @*             </form> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* } *@
 }
 
 @functions {
@@ -223,4 +99,5 @@
         return initialGrantLetter?.LetterDate != null || !string.IsNullOrEmpty(initialGrantLetter?.LetterLink) || initialGrantLetter is { SavedToWorkplacesFolder: not null }
                || fullGrantLetter?.LetterDate != null || !string.IsNullOrEmpty(fullGrantLetter?.LetterLink) || fullGrantLetter is { SavedToWorkplacesFolder: not null };
     }
+
 }

@@ -14,6 +14,15 @@ public record GrantLetter
     public string LetterLink { get; set; }
     public bool? SavedToWorkplacesFolder { get; set; }
 
+    public int Variation => Type switch
+    {
+        LetterType.FirstVariation => 1,
+        LetterType.SecondVariation => 2,
+        LetterType.ThirdVariation => 3, 
+        LetterType.FourthVariation => 4,
+        _ => 0
+    };
+        
     public enum LetterType
     {
         NotSet = 0,
