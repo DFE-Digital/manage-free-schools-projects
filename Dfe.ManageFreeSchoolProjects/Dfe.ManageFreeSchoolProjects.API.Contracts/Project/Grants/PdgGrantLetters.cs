@@ -1,8 +1,10 @@
+using System.ComponentModel;
+
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
 public record ProjectGrantLetters
 {
-    public IEnumerable<GrantLetter> GrantLetters { get; set; }
+    public IEnumerable<GrantLetter> Letters { get; set; }
 }
 
 public record GrantLetter
@@ -14,13 +16,17 @@ public record GrantLetter
 
     public enum LetterType
     {
-        NotSet,
-        Initial, 
-        Full,
-        FirstVariation,
-        SecondVariation,
-        ThirdVariation,
-        FourthVariation
+        NotSet = 0,
+        Initial = 1,
+        Full = 2,
+        [Description("First")]
+        FirstVariation = 3,
+        [Description("Second")]
+        SecondVariation = 4,
+        [Description("Third")]
+        ThirdVariation = 5,
+        [Description("Fourth")]
+        FourthVariation = 6
     }
 }
 
@@ -29,7 +35,7 @@ public class PdgGrantLetters
     public DateTime? PdgGrantLetterDate { get; set; }
 
     public string PdgGrantLetterLink { get; set; }
-    
+
     public DateTime? FirstPdgGrantVariationDate { get; set; }
 
     public string FirstPdgGrantVariationLink { get; set; }
@@ -37,14 +43,12 @@ public class PdgGrantLetters
     public DateTime? SecondPdgGrantVariationDate { get; set; }
 
     public string SecondPdgGrantVariationLink { get; set; }
-    
+
     public DateTime? ThirdPdgGrantVariationDate { get; set; }
 
     public string ThirdPdgGrantVariationLink { get; set; }
-    
+
     public DateTime? FourthPdgGrantVariationDate { get; set; }
 
     public string FourthPdgGrantVariationLink { get; set; }
-    
-    
 }

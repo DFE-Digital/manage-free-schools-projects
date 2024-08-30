@@ -19,13 +19,13 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLett
     
     public string CurrentFreeSchoolName { get; set; }
     
-    public List<GrantLetter> PdgGrantLetters { get; set; }
+    public ProjectGrantLetters GrantLetters { get; set; }
 
     public async Task<IActionResult> OnGet()
     {
         logger.LogMethodEntered();
 
-        PdgGrantLetters = await grantLettersService.Get(ProjectId);
+        GrantLetters = await grantLettersService.Get(ProjectId);
         
         return Page();
     }

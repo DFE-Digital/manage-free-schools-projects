@@ -29,7 +29,7 @@
     var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
     var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
 
-    var grantLetters = Model.PdgGrantLetters.GrantLetters?.Where(letter => letter.Type is GrantLetter.LetterType.Initial
+    var grantLetters = Model.PdgGrantLetters.Letters?.Where(letter => letter.Type is GrantLetter.LetterType.Initial
         or GrantLetter.LetterType.Full
         or GrantLetter.LetterType.FirstVariation).ToList();
 

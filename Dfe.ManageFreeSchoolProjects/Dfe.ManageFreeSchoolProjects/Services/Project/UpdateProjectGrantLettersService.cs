@@ -22,6 +22,7 @@ public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
     public async Task<ProjectGrantLetters> Get(string projectId)
     {
         var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters";
-        return await apiClient.Get<ProjectGrantLetters>(endpoint);
+        var response = await apiClient.Get<ApiSingleResponseV2<ProjectGrantLetters>>(endpoint);
+        return response.Data;
     }
 }

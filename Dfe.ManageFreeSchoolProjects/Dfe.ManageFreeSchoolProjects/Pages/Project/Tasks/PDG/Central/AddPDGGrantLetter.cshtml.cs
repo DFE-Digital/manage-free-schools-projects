@@ -16,7 +16,7 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
 
     public string CurrentFreeSchoolName { get; set; }
 
-    public PdgGrantLetters PdgGrantLetters { get; set; }
+    public ProjectGrantLetters GrantLetters { get; set; }
 
     [BindProperty(Name = "date-signed-initial-grant-letter", BinderType = typeof(DateInputModelBinder))]
     public DateTime? InitialGrantLetterDateSigned { get; set; }
@@ -34,14 +34,9 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
     
     public async Task<IActionResult> OnGet()
     {
-        PdgGrantLetters = await grantLettersService.Get(ProjectId);
+        GrantLetters = await grantLettersService.Get(ProjectId);
         
         // InitialGrantLetterDateSigned = PdgGrantLetters.PdgGrantLetterDate;
-        FullGrantLetterDateSigned = PdgGrantLetters.PdgGrantLetterDate;
-        InitialGrantLetterSavedToWorkspaces = !string.IsNullOrEmpty(PdgGrantLetters.PdgGrantLetterLink);
-        FullGrantLetterSavedToWorkspaces = !string.IsNullOrEmpty(PdgGrantLetters.PdgGrantLetterLink);
-        
-        //Todo: check SavedToWorkspaces flags IF separate fields
         
         return Page();
     }

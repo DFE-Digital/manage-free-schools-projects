@@ -30,7 +30,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
         
         var lettersWithLinkButNotSavedToWorkspaces =
-            result.GrantLetters.Where(x =>
+            result.Letters.Where(x =>
                 !string.IsNullOrEmpty(x.LetterLink) && x.SavedToWorkplacesFolder != null &&
                 (bool) x.SavedToWorkplacesFolder == false).ToList();
 
@@ -73,7 +73,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
     {
         return new ProjectGrantLetters
         {
-            GrantLetters =
+            Letters =
             [
                 new GrantLetter
                 {
