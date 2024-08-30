@@ -1,20 +1,21 @@
-name: Docker
+name: Run Docker build
 
 on:
   pull_request:
     paths:
-      - Dockerfile.*
+      - Dockerfile.web
+      - Dockerfile.api
     types: [opened, synchronize]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-          image: [
-            "web",
-            "api"
-          ]
+      matrix:
+        image: [
+          "web",
+          "api"
+        ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,4 +28,6 @@ jobs:
         with:
           file: './Dockerfile.${{ matrix.image }}'
           secrets: github_token=${{ secrets.GITHUB_TOKEN }}
+          cache-from: type=gha
+          cache-to: type=gha
           push: false
