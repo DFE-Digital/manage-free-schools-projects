@@ -37,9 +37,9 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
 
     public async Task<IActionResult> OnPost()
     {
-        var newGrantLetter = new GrantLetter
+        var newGrantLetter = new VariationGrantLetter
         {
-            Type = GrantLetter.LetterType.Full, 
+            Variation = VariationGrantLetter.GrantLetterVariation.Full, 
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FullGrantLetterDateSigned,
             SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces
