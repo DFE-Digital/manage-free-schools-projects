@@ -21,12 +21,12 @@ public record ProjectGrantLetters
 
 public record GrantVariationLetter
 {
-    public GrantLetterVariation Variation { get; set; }
+    public LetterVariation Variation { get; set; }
     public DateTime? LetterDate { get; set; }
     public string LetterLink { get; set; }
     public bool? SavedToWorkplacesFolder { get; set; }
     
-    public enum GrantLetterVariation
+    public enum LetterVariation
     {
         NotSet = 0,
         FirstVariation = 1,

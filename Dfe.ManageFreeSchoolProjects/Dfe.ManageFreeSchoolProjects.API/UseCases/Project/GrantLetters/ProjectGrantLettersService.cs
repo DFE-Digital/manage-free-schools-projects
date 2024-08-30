@@ -70,23 +70,23 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         switch (variationLetter.Variation)
         {
             // Update variation fields based on the variation number
-            case GrantVariationLetter.GrantLetterVariation.FirstVariation:
+            case GrantVariationLetter.LetterVariation.FirstVariation:
                 po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgFirstVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case GrantVariationLetter.GrantLetterVariation.SecondVariation:
+            case GrantVariationLetter.LetterVariation.SecondVariation:
                 po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgSecondVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case  GrantVariationLetter.GrantLetterVariation.ThirdVariation:
+            case  GrantVariationLetter.LetterVariation.ThirdVariation:
                 po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgThirdVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case  GrantVariationLetter.GrantLetterVariation.FourthVariation:
+            case  GrantVariationLetter.LetterVariation.FourthVariation:
                 po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgFourthVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case GrantVariationLetter.GrantLetterVariation.NotSet:
+            case GrantVariationLetter.LetterVariation.NotSet:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -120,28 +120,28 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             [
                 new GrantVariationLetter
                 {
-                    Variation = GrantVariationLetter.GrantLetterVariation.FirstVariation,
+                    Variation = GrantVariationLetter.LetterVariation.FirstVariation,
                     LetterDate = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgFirstVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantVariationLetter
                 {
-                    Variation = GrantVariationLetter.GrantLetterVariation.SecondVariation,
+                    Variation = GrantVariationLetter.LetterVariation.SecondVariation,
                     LetterDate = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgSecondVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantVariationLetter
                 {
-                    Variation = GrantVariationLetter.GrantLetterVariation.ThirdVariation,
+                    Variation = GrantVariationLetter.LetterVariation.ThirdVariation,
                     LetterDate = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgThirdVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantVariationLetter
                 {
-                    Variation = GrantVariationLetter.GrantLetterVariation.FourthVariation,
+                    Variation = GrantVariationLetter.LetterVariation.FourthVariation,
                     LetterDate = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgFourthVariationGrantLetterSavedToWorkplaces

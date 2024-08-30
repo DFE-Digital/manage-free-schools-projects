@@ -11,6 +11,9 @@
     var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId);
 
     var grantLetters = Model.GrantLetters;
+    var initialGrantLetterSavedToWorkplaces = grantLetters?.InitialGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
+    var fullGrantLetterSavedToWorkplaces = grantLetters?.FinalGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
+
 }
 
 @section BeforeMain {
@@ -44,21 +47,18 @@
     
     if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
     {
-        var initialGrantLetterSavedToWorkplaces = initialGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
-        var fullGrantLetterSavedToWorkplaces = fullGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
-
         <govuk-summary-card id="grant-letters" label="Grant letters" href=@editGrantLetterLink>
             <govuk-summary-list>
-                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@initialGrantLetter.InitialGrantLetterDate"/>
+                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.InitialGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedToWorkplaces"/>
-                <govuk-summary-item label="Date when DfE signed the final grant letter" asp-for="@fullGrantLetter.FinalGrantLetterDate"/>
+                <govuk-summary-item label="Date when DfE signed the final grant letter" asp-for="@grantLetters.FinalGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@fullGrantLetterSavedToWorkplaces"/>
             </govuk-summary-list>
         </govuk-summary-card>
 
         if (Model.GrantLetters != null)
         {
-            var filteredGrantLetters = Model.GrantLetters.VariationLetters.Where(x => x.LetterVariation != GrantVariationLetter.GrantLetterVariation.Initial && x.LetterVariation != GrantVariationLetter.GrantLetterVariation.Full).OrderBy(x => x.LetterVariation).ToList();
+            var filteredGrantLetters = Model.GrantLetters.VariationLetters.OrderBy(x => x.Variation).ToList();
 
             foreach (var grantLetter in filteredGrantLetters)
             {
@@ -66,9 +66,9 @@
                 {
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
 
-                    var letterVariationString = grantLetter.GrantLetterVariation.ToString();
-                    var variationLetterSummaryCardId = $"variation-letter-{letterVariationString}";
-                    var variationLetterLabel = $"Variation letter {letterVariationString}";
+                    var letterVariationNumber = (int)grantLetter.Variation;
+                    var variationLetterSummaryCardId = $"variation-letter-{letterVariationNumber}";
+                    var variationLetterLabel = $"Variation letter {letterVariationNumber}";
                     
                     <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel>
                         <govuk-summary-list>
@@ -83,7 +83,7 @@
                         <div class="govuk-grid-column-two-thirds">
                             <form class="govuk-form-group" method="post">
                                 <button class="govuk-button" name="action" value="AddVariationLetter">
-                                    Add variation letter @grantLetter.GrantLetterVariation
+                                    Add variation letter @grantLetter.Variation.ToIntString()
                                 </button>
                             </form>
                         </div>
