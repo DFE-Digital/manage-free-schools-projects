@@ -33,7 +33,7 @@
         or GrantLetter.LetterType.Full
         or GrantLetter.LetterType.FirstVariation).ToList();
 
-    var anyGrantLetterInfoAdded = (grantLetters ?? []).Any(x => x.LetterDate != null || x.LetterLink != null || x.SavedToWorkplacesFolder != null);
+    var anyGrantLetterInfoAdded = (grantLetters ?? []).Any(x => x.LetterDate != null || x.InitialLetterDate != null || x.FullLetterDate != null || x.LetterLink != null || x.SavedToWorkplacesFolder != null);
 
     var initialGrantLetter = grantLetters?.SingleOrDefault(x => x.Type == GrantLetter.LetterType.Initial);
     var fullGrantLetter = grantLetters?.SingleOrDefault(x => x.Type == GrantLetter.LetterType.Full);

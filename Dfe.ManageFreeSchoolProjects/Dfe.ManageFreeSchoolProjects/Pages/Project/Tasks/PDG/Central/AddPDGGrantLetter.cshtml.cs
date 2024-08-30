@@ -29,27 +29,23 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
 
     [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
     public bool FullGrantLetterSavedToWorkspaces { get; set; }
-    
-    
-    
-    public async Task<IActionResult> OnGet()
+
+    public IActionResult OnGet()
     {
-        GrantLetters = await grantLettersService.Get(ProjectId);
-        
-        // InitialGrantLetterDateSigned = PdgGrantLetters.PdgGrantLetterDate;
-        
         return Page();
     }
 
     public async Task<IActionResult> OnPost()
     {
-        var updatedGrantLetters = new PdgGrantLetters
+        var newGrantLetter = new GrantLetter
         {
-            PdgGrantLetterDate = FullGrantLetterDateSigned
+            Type = GrantLetter.LetterType.Full, 
+            LetterDate = FullGrantLetterDateSigned,
+            SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces
         };
 
-        await grantLettersService.Update(ProjectId, updatedGrantLetters);
-        
+        await grantLettersService.Update(ProjectId, newGrantLetter);
+
         return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
     }
 }

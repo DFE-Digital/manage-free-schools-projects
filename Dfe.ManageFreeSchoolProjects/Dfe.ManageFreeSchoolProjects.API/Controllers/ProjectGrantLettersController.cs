@@ -24,11 +24,11 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
     }
     
     [HttpPut]
-    public async Task<ActionResult> UpdateGrantLetters(string projectId, PdgGrantLetters pdgGrantLetters)
+    public async Task<ActionResult> UpdateGrantLetters(string projectId, GrantLetter updatedGrantLetters)
     {
         logger.LogMethodEntered();
 
-        await grantLettersService.Update(projectId, pdgGrantLetters);
+        await grantLettersService.Update(projectId, updatedGrantLetters);
 
         return Created();
     }

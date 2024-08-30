@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.GrantLetters;
 public interface IProjectGrantLettersService
 {
     Task<ProjectGrantLetters> Get(string projectId);
-    Task Update(string projectId, PdgGrantLetters updatedPdgGrantLetters);
+    Task Update(string projectId, GrantLetter updatedOrNewGrantLetter);
 }
 
 public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLettersService
@@ -29,17 +29,10 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             from po in joinedPO.DefaultIfEmpty()
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
         
-        var lettersWithLinkButNotSavedToWorkspaces =
-            result.Letters.Where(x =>
-                !string.IsNullOrEmpty(x.LetterLink) && x.SavedToWorkplacesFolder != null &&
-                (bool) x.SavedToWorkplacesFolder == false).ToList();
-
-        lettersWithLinkButNotSavedToWorkspaces.ForEach(x => x.SavedToWorkplacesFolder = true);
-
         return result;
     }
 
-    public async Task Update(string projectId, PdgGrantLetters updatedPdgGrantLetters)
+    public async Task Update(string projectId, GrantLetter updatedPdgGrantLetters)
     {
         var dbProject = await context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
 
@@ -55,18 +48,35 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         await context.SaveChangesAsync();
     }
 
-    private static void UpdateGrantLetters(Po po, PdgGrantLetters updatedGrantLetters)
+    private static void UpdateGrantLetters(Po po, GrantLetter newOrUpdatedGrantLetter)
     {
-        po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = updatedGrantLetters.PdgGrantLetterDate;
-        po.ProjectDevelopmentGrantFundingPdgGrantLetterLink = updatedGrantLetters.PdgGrantLetterLink;
-        po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = updatedGrantLetters.FirstPdgGrantVariationDate;
-        po.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink = updatedGrantLetters.FirstPdgGrantVariationLink;
-        po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = updatedGrantLetters.SecondPdgGrantVariationDate;
-        po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink = updatedGrantLetters.SecondPdgGrantVariationLink;
-        po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = updatedGrantLetters.ThirdPdgGrantVariationDate;
-        po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink = updatedGrantLetters.ThirdPdgGrantVariationLink;
-        po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = updatedGrantLetters.FourthPdgGrantVariationDate;
-        po.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink = updatedGrantLetters.FourthPdgGrantVariationLink;
+        // Update the main grant letter information if the letter type is Initial or Full
+        if (newOrUpdatedGrantLetter.Type is GrantLetter.LetterType.Initial or GrantLetter.LetterType.Full)
+        {
+            po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantLetter.LetterDate;
+            po.ProjectDevelopmentGrantFundingPdgGrantLetterLink = newOrUpdatedGrantLetter.LetterLink;
+        }
+
+        switch (newOrUpdatedGrantLetter.Variation)
+        {
+            // Update variation fields based on the variation number
+            case 1:
+                po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
+                break;
+            case 2:
+                po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
+                break;
+            case 3:
+                po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
+                break;
+            case 4:
+                po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
+                break;
+        }
     }
 
     private static ProjectGrantLetters MapToGrantLetters(Po po)
