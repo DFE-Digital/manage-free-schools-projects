@@ -1,5 +1,5 @@
 import { Logger } from "cypress/common/logger";
-describe("Testing the footer links", () => {
+describe("Navigate through footer links", () => {
     beforeEach(() => {
         cy.login();
         cy.visit("/");
@@ -28,6 +28,8 @@ describe("Testing the footer links", () => {
             expect(href).includes('cookies')
         });
 
+        Logger.log("Get licence and copyright link");
         cy.contains('a', 'Open Government Licence v3.0').should('be.visible')
+        cy.contains('a', '© Crown copyright').should('be.visible')
     });
 });
