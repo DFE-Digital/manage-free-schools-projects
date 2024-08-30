@@ -29,6 +29,21 @@
 </h1>
 
 @{
+    @if ((bool)(TempData["GrantLetterAdded"] ?? false))
+    {
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <p class="govuk-notification-banner__heading">Grant letter added.</p>
+            </div>
+        </div>
+        TempData["GrantLetterAdded"] = false;
+    }
+    
     if (DoesInitialOrFullGrantLetterHaveData(initialGrantLetter, fullGrantLetter))
     {
         var initialGrantLetterSavedToWorkplaces = initialGrantLetter?.SavedToWorkplacesFolder == true ? "Yes" : "No";
@@ -36,9 +51,9 @@
 
         <govuk-summary-card id="grant-letters" label="Grant letters">
             <govuk-summary-list>
-                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@initialGrantLetter.LetterDate"/>
+                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@initialGrantLetter.InitialGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedToWorkplaces"/>
-                <govuk-summary-item label="Date when DfE signed the final grant letter" asp-for="@fullGrantLetter.LetterDate"/>
+                <govuk-summary-item label="Date when DfE signed the final grant letter" asp-for="@fullGrantLetter.FinalGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@fullGrantLetterSavedToWorkplaces"/>
             </govuk-summary-list>
         </govuk-summary-card>
@@ -46,17 +61,20 @@
         if (Model.GrantLetters != null)
         {
             var filteredGrantLetters = Model.GrantLetters.Letters.Where(x => x.Type != GrantLetter.LetterType.Initial && x.Type != GrantLetter.LetterType.Full).OrderBy(x => x.Type).ToList();
-            
+
             foreach (var grantLetter in filteredGrantLetters)
             {
-                if (grantLetter.LetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
+                if (grantLetter.VariationLetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
                 {
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
-                    var variationAsWord = grantLetter.Type.ToDescription().ToLower();
 
-                    <govuk-summary-card id="grant-letters-@variationAsWord-variation" label="Variation letter @grantLetter.Variation">
+                    var letterVariationString = grantLetter.Variation.ToString();
+                    var variationLetterSummaryCardId = $"variation-letter-{letterVariationString}";
+                    var variationLetterLabel = $"Variation letter {letterVariationString}";
+                    
+                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel>
                         <govuk-summary-list>
-                            <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.LetterDate"/>
+                            <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.VariationLetterDate"/>
                             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@grantLetterSavedToWorkplaces"/>
                         </govuk-summary-list>
                     </govuk-summary-card>
@@ -72,8 +90,9 @@
                             </form>
                         </div>
                     </div>
-
-                    return; 
+                    
+                    //Return/exit out of loop as add variation letter buttons should appear in order
+                    return;
                 }
             }
         }
@@ -96,8 +115,9 @@
 
     private static bool DoesInitialOrFullGrantLetterHaveData(GrantLetter initialGrantLetter, GrantLetter fullGrantLetter)
     {
-        return initialGrantLetter?.LetterDate != null || !string.IsNullOrEmpty(initialGrantLetter?.LetterLink) || initialGrantLetter is { SavedToWorkplacesFolder: not null }
-               || fullGrantLetter?.LetterDate != null || !string.IsNullOrEmpty(fullGrantLetter?.LetterLink) || fullGrantLetter is { SavedToWorkplacesFolder: not null };
+        return (initialGrantLetter?.InitialGrantLetterDate.HasValue ?? false)
+               || (initialGrantLetter?.SavedToWorkplacesFolder.HasValue ?? false)
+               || (fullGrantLetter?.FinalGrantLetterDate.HasValue ?? false)
+               || (fullGrantLetter?.SavedToWorkplacesFolder.HasValue ?? false);
     }
-
 }

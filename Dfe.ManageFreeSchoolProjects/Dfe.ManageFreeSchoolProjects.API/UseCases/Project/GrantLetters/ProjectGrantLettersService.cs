@@ -28,7 +28,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             join po in context.Po on kpi.Rid equals po.Rid into joinedPO
             from po in joinedPO.DefaultIfEmpty()
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
-        
+
         return result;
     }
 
@@ -50,10 +50,10 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
 
     private static void UpdateGrantLetters(Po po, GrantLetter newOrUpdatedGrantLetter)
     {
-        // Update the main grant letter information if the letter type is Initial or Full
+       //TODO: Find out if we need separate DB fields for Initial & Full letter dates
         if (newOrUpdatedGrantLetter.Type is GrantLetter.LetterType.Initial or GrantLetter.LetterType.Full)
         {
-            po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantLetter.LetterDate;
+            po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantLetter.InitialGrantLetterDate ?? newOrUpdatedGrantLetter.FinalGrantLetterDate;
             po.ProjectDevelopmentGrantFundingPdgGrantLetterLink = newOrUpdatedGrantLetter.LetterLink;
         }
 
@@ -61,19 +61,19 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         {
             // Update variation fields based on the variation number
             case 1:
-                po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = newOrUpdatedGrantLetter.VariationLetterDate;
                 po.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
                 break;
             case 2:
-                po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = newOrUpdatedGrantLetter.VariationLetterDate;
                 po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
                 break;
             case 3:
-                po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = newOrUpdatedGrantLetter.VariationLetterDate;
                 po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
                 break;
             case 4:
-                po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = newOrUpdatedGrantLetter.LetterDate;
+                po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = newOrUpdatedGrantLetter.VariationLetterDate;
                 po.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink = newOrUpdatedGrantLetter.LetterLink;
                 break;
         }
@@ -87,36 +87,38 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             [
                 new GrantLetter
                 {
+                    //TODO: Do we need to change this to a Full letter when Full letter date has value
                     Type = GrantLetter.LetterType.Initial,
-                    LetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
+                    InitialGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
+                    FinalGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
                     LetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
                     SavedToWorkplacesFolder = po?.PdgGrantLetterLinkSavedToWorkplaces
                 },
                 new GrantLetter
                 {
                     Type = GrantLetter.LetterType.FirstVariation,
-                    LetterDate = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate,
+                    VariationLetterDate = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgFirstVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantLetter
                 {
                     Type = GrantLetter.LetterType.SecondVariation,
-                    LetterDate = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate,
+                    VariationLetterDate = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgSecondVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantLetter
                 {
                     Type = GrantLetter.LetterType.ThirdVariation,
-                    LetterDate = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate,
+                    VariationLetterDate = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgThirdVariationGrantLetterSavedToWorkplaces
                 },
                 new GrantLetter
                 {
                     Type = GrantLetter.LetterType.FourthVariation,
-                    LetterDate = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate,
+                    VariationLetterDate = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate,
                     LetterLink = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink,
                     SavedToWorkplacesFolder = po?.PdgFourthVariationGrantLetterSavedToWorkplaces
                 }

@@ -40,11 +40,14 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
         var newGrantLetter = new GrantLetter
         {
             Type = GrantLetter.LetterType.Full, 
-            LetterDate = FullGrantLetterDateSigned,
+            InitialGrantLetterDate = InitialGrantLetterDateSigned,
+            FinalGrantLetterDate = FullGrantLetterDateSigned,
             SavedToWorkplacesFolder = FullGrantLetterSavedToWorkspaces
         };
 
         await grantLettersService.Update(ProjectId, newGrantLetter);
+
+        TempData["GrantLetterAdded"] = true;
 
         return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
     }
