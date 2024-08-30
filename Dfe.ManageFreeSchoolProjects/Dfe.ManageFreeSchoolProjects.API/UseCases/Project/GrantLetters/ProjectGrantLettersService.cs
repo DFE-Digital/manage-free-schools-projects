@@ -10,13 +10,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.GrantLetters;
 
 public interface IProjectGrantLettersService
 {
-    Task<List<GrantLetter>> Get(string projectId);
+    Task<ProjectGrantLetters> Get(string projectId);
     Task Update(string projectId, PdgGrantLetters updatedPdgGrantLetters);
 }
 
 public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLettersService
 {
-    public async Task<List<GrantLetter>> Get(string projectId)
+    public async Task<ProjectGrantLetters> Get(string projectId)
     {
         var dbProject = await context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == projectId);
         if (dbProject == null)
@@ -28,8 +28,15 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             join po in context.Po on kpi.Rid equals po.Rid into joinedPO
             from po in joinedPO.DefaultIfEmpty()
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
+        
+        var lettersWithLinkButNotSavedToWorkspaces =
+            result.GrantLetters.Where(x =>
+                !string.IsNullOrEmpty(x.LetterLink) && x.SavedToWorkplacesFolder != null &&
+                (bool) x.SavedToWorkplacesFolder == false).ToList();
 
-        return result ?? []; 
+        lettersWithLinkButNotSavedToWorkspaces.ForEach(x => x.SavedToWorkplacesFolder = true);
+
+        return result;
     }
 
     public async Task Update(string projectId, PdgGrantLetters updatedPdgGrantLetters)
@@ -62,45 +69,48 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         po.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink = updatedGrantLetters.FourthPdgGrantVariationLink;
     }
 
-    private static List<GrantLetter> MapToGrantLetters(Po po)
+    private static ProjectGrantLetters MapToGrantLetters(Po po)
     {
-        return
-        [
-            new GrantLetter
-            {
-                Type = GrantLetter.LetterType.Initial,
-                LetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
-                LetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
-                SavedToWorkplacesFolder = po?.PdgGrantLetterLinkSavedToWorkplaces
-            },
-            new GrantLetter
-            {
-                Type = GrantLetter.LetterType.FirstVariation,
-                LetterDate = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate,
-                LetterLink = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink,
-                SavedToWorkplacesFolder = po?.PdgFirstVariationGrantLetterSavedToWorkplaces
-            },
-            new GrantLetter
-            {
-                Type = GrantLetter.LetterType.SecondVariation,
-                LetterDate = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate,
-                LetterLink = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink,
-                SavedToWorkplacesFolder = po?.PdgSecondVariationGrantLetterSavedToWorkplaces
-            },
-            new GrantLetter
-            {
-                Type = GrantLetter.LetterType.ThirdVariation,
-                LetterDate = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate,
-                LetterLink = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink,
-                SavedToWorkplacesFolder = po?.PdgThirdVariationGrantLetterSavedToWorkplaces
-            },
-            new GrantLetter
-            {
-                Type = GrantLetter.LetterType.FourthVariation,
-                LetterDate = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate,
-                LetterLink = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink,
-                SavedToWorkplacesFolder = po?.PdgFourthVariationGrantLetterSavedToWorkplaces
-            }
-        ];
+        return new ProjectGrantLetters
+        {
+            GrantLetters =
+            [
+                new GrantLetter
+                {
+                    Type = GrantLetter.LetterType.Initial,
+                    LetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
+                    LetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
+                    SavedToWorkplacesFolder = po?.PdgGrantLetterLinkSavedToWorkplaces
+                },
+                new GrantLetter
+                {
+                    Type = GrantLetter.LetterType.FirstVariation,
+                    LetterDate = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate,
+                    LetterLink = po?.ProjectDevelopmentGrantFunding1stPdgGrantVariationLink,
+                    SavedToWorkplacesFolder = po?.PdgFirstVariationGrantLetterSavedToWorkplaces
+                },
+                new GrantLetter
+                {
+                    Type = GrantLetter.LetterType.SecondVariation,
+                    LetterDate = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate,
+                    LetterLink = po?.ProjectDevelopmentGrantFunding2ndPdgGrantVariationLink,
+                    SavedToWorkplacesFolder = po?.PdgSecondVariationGrantLetterSavedToWorkplaces
+                },
+                new GrantLetter
+                {
+                    Type = GrantLetter.LetterType.ThirdVariation,
+                    LetterDate = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate,
+                    LetterLink = po?.ProjectDevelopmentGrantFunding3rdPdgGrantVariationLink,
+                    SavedToWorkplacesFolder = po?.PdgThirdVariationGrantLetterSavedToWorkplaces
+                },
+                new GrantLetter
+                {
+                    Type = GrantLetter.LetterType.FourthVariation,
+                    LetterDate = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate,
+                    LetterLink = po?.ProjectDevelopmentGrantFunding4thPdgGrantVariationLink,
+                    SavedToWorkplacesFolder = po?.PdgFourthVariationGrantLetterSavedToWorkplaces
+                }
+            ]
+        };
     }
 }

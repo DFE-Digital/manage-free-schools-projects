@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
@@ -8,8 +7,6 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
-using DocumentFormat.OpenXml.EMMA;
-using System.Linq;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
@@ -22,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
     {
         public ProjectPayments ProjectPayments { get; set; }
 
-        public List<GrantLetter> PdgGrantLetters { get; set; }
+        public ProjectGrantLetters PdgGrantLetters { get; set; }
 
         public async Task<ActionResult> OnGet()
         {

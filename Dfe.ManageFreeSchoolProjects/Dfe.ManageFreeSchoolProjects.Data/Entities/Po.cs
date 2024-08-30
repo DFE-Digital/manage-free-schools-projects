@@ -6,6 +6,8 @@
 
         public bool? PdgIsWriteOffSetup { get; set; }
 
+        public bool? PdgInitialGrantLetterSavedToWorkplaces { get; set; }
+        
         public bool? PdgFirstVariationGrantLetterSavedToWorkplaces { get; set; }
         
         public bool? PdgSecondVariationGrantLetterSavedToWorkplaces { get; set; }

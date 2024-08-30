@@ -13,13 +13,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers;
 public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController> logger, IProjectGrantLettersService grantLettersService) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ApiSingleResponseV2<List<GrantLetter>>>> GetGrantLetters(string projectId)
+    public async Task<ActionResult<ApiSingleResponseV2<ProjectGrantLetters>>> GetGrantLetters(string projectId)
     {
         logger.LogMethodEntered();
 
         var grantLetters = await grantLettersService.Get(projectId);
 
-        var result = new ApiSingleResponseV2<List<GrantLetter>>(grantLetters);
+        var result = new ApiSingleResponseV2<ProjectGrantLetters>(grantLetters);
         return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
     }
     

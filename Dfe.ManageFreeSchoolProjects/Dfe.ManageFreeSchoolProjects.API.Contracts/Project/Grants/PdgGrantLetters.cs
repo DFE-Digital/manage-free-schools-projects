@@ -1,5 +1,10 @@
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
+public record ProjectGrantLetters
+{
+    public IEnumerable<GrantLetter> GrantLetters { get; set; }
+}
+
 public record GrantLetter
 {
     public LetterType Type { get; set; }
