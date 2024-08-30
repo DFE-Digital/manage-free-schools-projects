@@ -31,27 +31,27 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         [BindProperty(SupportsGet = true, Name = "paymentIndex")]
         public int PaymentIndex { get; set; }
 
+        public int TotalGrant { get; set; }
+
         public string CurrentFreeSchoolName { get; set; }
         [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "When is the payment due?")]
+        [Display(Name = "Date the payment is due")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         [Required]
         public DateTime? PaymentScheduleDate { get; set; }
 
         [BindProperty(Name = "payment-due-amount", BinderType = typeof(DecimalInputModelBinder))]
-        [Display(Name = "Amount of 1st payment due")]
-        [ValidMoney(0, 25000)]
+        [Display(Name = "Due amount")]
         [Required]
         public decimal? PaymentScheduleAmount { get; set; }
 
-        [BindProperty(Name = "actual-payment-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Actual payment date")]
+        [BindProperty(Name = "payment-actual-date", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the payment was sent")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? PaymentActualDate { get; set; }
 
         [BindProperty(Name = "payment-actual-amount", BinderType = typeof(DecimalInputModelBinder))]
-        [Display(Name = "What is the payment amount?")]
-        [ValidMoney(0, 25000)]
+        [Display(Name = "Actual amount")]
         public decimal? PaymentActualAmount { get; set; }
 
         public EditPDGPaymentModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, IUpdateProjectPaymentsService updateProjectPaymentsService, ILogger<EditPDGPaymentModel> logger,
@@ -74,12 +74,34 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
+
+            var totalGrant = project.PDGDashboard.RevisedGrant ?? project.PDGDashboard.InitialGrant;
+
+            TotalGrant = (int)totalGrant;
 
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
             {
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
+            var validPaymentScheduleAmount = IsValidMoney(PaymentScheduleAmount, "Due amount");
+
+            if (validPaymentScheduleAmount != ValidationResult.Success)
+            {
+                ModelState.AddModelError("payment-due-amount", validPaymentScheduleAmount.ErrorMessage);
+                _errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+
+            var validPaymentActualAmount = IsValidMoney(PaymentActualAmount, "Actual amount");
+
+            if (validPaymentActualAmount != ValidationResult.Success)
+            {
+                ModelState.AddModelError("payment-actual-amount", validPaymentActualAmount.ErrorMessage);
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
@@ -111,7 +133,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
+
+            var totalGrant = project.PDGDashboard.RevisedGrant ?? project.PDGDashboard.InitialGrant;
+
+            TotalGrant = (int)totalGrant;
 
             CurrentFreeSchoolName = project.SchoolName;
 
@@ -123,6 +149,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             PaymentScheduleAmount = payment.PaymentScheduleAmount;
             PaymentActualDate = payment.PaymentActualDate;
             PaymentActualAmount = payment.PaymentActualAmount;
+        }
+
+        private ValidationResult IsValidMoney(object value, string displayName)
+        {
+            if (value is null)
+                return ValidationResult.Success;
+
+            var valueAsDec = (decimal)value;
+
+            if (valueAsDec < 0 || valueAsDec > TotalGrant)
+                return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, displayName, 0, TotalGrant));
+
+            if (Math.Round(valueAsDec, 2) != valueAsDec)
+            {
+                return new ValidationResult($"{displayName} must be two decimal places");
+            }
+
+            return ValidationResult.Success;
         }
     }
 }

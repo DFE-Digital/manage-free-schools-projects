@@ -46,4 +46,5 @@ export default defineConfig({
             return config;
         },
     },
+    redirectionLimit: 30,
 });

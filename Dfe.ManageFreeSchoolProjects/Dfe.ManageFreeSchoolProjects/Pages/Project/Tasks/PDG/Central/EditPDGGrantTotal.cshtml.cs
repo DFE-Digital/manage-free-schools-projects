@@ -51,6 +51,8 @@ public class EditGrantTotal : PageModel
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
 
+            CurrentFreeSchoolName = project.SchoolName;
+
             var initialGrant = project.PDGDashboard.InitialGrant;
             var revisedGrant = project.PDGDashboard.RevisedGrant;
 

@@ -13,7 +13,7 @@
 
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container">
-        <a href=@backLink class="govuk-back-link">Back</a>
+        <a href=@backLink class="govuk-back-link">Back to Project Development Grant (PDG)</a>
     </div>
 } 
 
@@ -28,7 +28,7 @@
 
 @if ((bool)(TempData["paymentUpdated"] ?? false))
 {
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-updated-banner">
         <div class="govuk-notification-banner__header">
             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
                 Success
@@ -43,7 +43,7 @@
 
 @if ((bool)(TempData["paymentAdded"] ?? false))
 {
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-added-banner">
         <div class="govuk-notification-banner__header">
             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
                 Success
@@ -58,7 +58,7 @@
 
 @if ((bool)(TempData["paymentDeleted"] ?? false))
 {
-    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-deleted-banner">
         <div class="govuk-notification-banner__header">
             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
                 Success
@@ -72,11 +72,11 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds" data-testid="payments-list">
 
         @foreach (Payment p in Model.ProjectPayments.Payments)
         {
-            <govuk-summary-card id="payment-@p.PaymentIndex" label="Payment @p.PaymentIndex" href="@string.Format(editPaymentLink, Model.ProjectId, p.PaymentIndex)">
+            <govuk-summary-card id="payment-@p.PaymentIndex" data-testid="payment-@p.PaymentIndex" label="Payment @p.PaymentIndex" href="@string.Format(editPaymentLink, Model.ProjectId, p.PaymentIndex)">
                 <govuk-summary-list>
                     <govuk-summary-item label="Date the payment is due" asp-for="@p.PaymentScheduleDate" />
                     <govuk-summary-item label="Due amount" asp-for="@p.PaymentScheduleAmount"/>
@@ -90,7 +90,7 @@
             @if (paymentCount < 12)
             {
                 <p>You can add up to 12 scheduled payments.</p>
-                <button class="govuk-button" >
+                <button class="govuk-button" data-testid="add-payment" >
                     Add payment @nextPaymentNumber
                 </button>
             }
