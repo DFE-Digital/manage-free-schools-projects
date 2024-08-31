@@ -31,7 +31,7 @@
             <div class="govuk-form-group">
 
                 <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.InitialGrantLetterDateSigned" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
-
+                
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
@@ -46,6 +46,8 @@
                 <br/>
 
                 <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FinalGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the final grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+                <br/>
+                
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">

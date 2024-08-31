@@ -63,7 +63,7 @@
             {
                 var variation = grantLetter.Variation.ToIntString();
                 
-                if (grantLetter.LetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
+                if (grantLetter.LetterDate != null || grantLetter.SavedToWorkplacesFolder != null)
                 {
                     var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId, variation);
 
