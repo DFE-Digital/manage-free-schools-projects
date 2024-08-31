@@ -24,11 +24,11 @@ public class EditPDGGrantLetter(IGrantLettersService grantLettersService) : Page
     [BindProperty(Name = "date-signed-full-grant-letter", BinderType = typeof(DateInputModelBinder))]
     public DateTime? FinalGrantLetterDateSigned { get; set; }
 
-    [BindProperty(Name = "initial-grant-letter-saved-to-workspaces-folder")]
-    public bool? InitialGrantLetterSavedToWorkplaces { get; set; }
+    [BindProperty]
+    public bool InitialGrantLetterSavedToWorkplaces { get; set; }
 
-    [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
-    public bool? FinalGrantLetterSavedToWorkspaces { get; set; }
+    [BindProperty]
+    public bool FinalGrantLetterSavedToWorkspaces { get; set; }
 
     public async Task<IActionResult> OnGet()
     {
@@ -36,8 +36,8 @@ public class EditPDGGrantLetter(IGrantLettersService grantLettersService) : Page
 
         InitialGrantLetterDateSigned = GrantLetters.InitialGrantLetterDate;
         FinalGrantLetterDateSigned = GrantLetters.FinalGrantLetterDate;
-        InitialGrantLetterSavedToWorkplaces = GrantLetters.InitialGrantLetterSavedToWorkplaces;
-        FinalGrantLetterSavedToWorkspaces = GrantLetters.FinalGrantLetterSavedToWorkplaces;
+        InitialGrantLetterSavedToWorkplaces = GrantLetters.InitialGrantLetterSavedToWorkplaces ?? false;
+        FinalGrantLetterSavedToWorkspaces = GrantLetters.FinalGrantLetterSavedToWorkplaces ?? false;
 
         return Page();
     }
