@@ -13,7 +13,6 @@
     var grantLetters = Model.GrantLetters;
     var initialGrantLetterSavedToWorkplaces = grantLetters?.InitialGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
     var fullGrantLetterSavedToWorkplaces = grantLetters?.FinalGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
-
 }
 
 @section BeforeMain {
@@ -44,7 +43,7 @@
         </div>
         TempData["GrantLetterAdded"] = false;
     }
-    
+
     if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
     {
         <govuk-summary-card id="grant-letters" label="Grant letters" href=@editGrantLetterLink>
@@ -69,8 +68,8 @@
                     var letterVariationNumber = (int)grantLetter.Variation;
                     var variationLetterSummaryCardId = $"variation-letter-{letterVariationNumber}";
                     var variationLetterLabel = $"Variation letter {letterVariationNumber}";
-                    
-                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel>
+
+                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel href="">
                         <govuk-summary-list>
                             <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.LetterDate"/>
                             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@grantLetterSavedToWorkplaces"/>
@@ -79,11 +78,14 @@
                 }
                 else
                 {
+                    var variation = grantLetter.Variation.ToIntString();
+                    TempData["VariationLetterToAdd"] = variation;
+                    
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
                             <form class="govuk-form-group" method="post">
-                                <button class="govuk-button" name="action" value="AddVariationLetter">
-                                    Add variation letter @grantLetter.Variation.ToIntString()
+                                <button class="govuk-button">
+                                    Add variation letter @variation
                                 </button>
                             </form>
                         </div>
@@ -118,4 +120,5 @@
                || (grantLetters?.FinalGrantLetterDate.HasValue ?? false)
                || (grantLetters?.FinalGrantLetterSavedToWorkplaces.HasValue ?? false);
     }
+
 }
