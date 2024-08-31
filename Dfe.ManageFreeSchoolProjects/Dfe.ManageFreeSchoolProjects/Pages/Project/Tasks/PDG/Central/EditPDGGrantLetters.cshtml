@@ -58,22 +58,22 @@
         if (Model.GrantLetters != null)
         {
             var filteredGrantLetters = Model.GrantLetters.VariationLetters.OrderBy(x => x.Variation).ToList();
-
-            
             
             foreach (var grantLetter in filteredGrantLetters)
             {
+                var variation = grantLetter.Variation.ToIntString();
+                
                 if (grantLetter.LetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
                 {
-                    var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId);
-                    
+                    var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId, variation);
+
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
 
                     var letterVariationNumber = (int)grantLetter.Variation;
                     var variationLetterSummaryCardId = $"variation-letter-{letterVariationNumber}";
                     var variationLetterLabel = $"Variation letter {letterVariationNumber}";
 
-                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel href="">
+                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel href="@editVariationLetterLink">
                         <govuk-summary-list>
                             <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.LetterDate"/>
                             <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@grantLetterSavedToWorkplaces"/>
@@ -82,9 +82,8 @@
                 }
                 else
                 {
-                    var variation = grantLetter.Variation.ToIntString();
                     TempData["VariationLetterToAdd"] = variation;
-                    
+
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
                             <form class="govuk-form-group" method="post">
@@ -94,7 +93,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     //Return/exit out of loop as add variation letter buttons should appear in order
                     return;
                 }
