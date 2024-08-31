@@ -59,10 +59,14 @@
         {
             var filteredGrantLetters = Model.GrantLetters.VariationLetters.OrderBy(x => x.Variation).ToList();
 
+            
+            
             foreach (var grantLetter in filteredGrantLetters)
             {
                 if (grantLetter.LetterDate != null || !string.IsNullOrEmpty(grantLetter.LetterLink))
                 {
+                    var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId);
+                    
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
 
                     var letterVariationNumber = (int)grantLetter.Variation;

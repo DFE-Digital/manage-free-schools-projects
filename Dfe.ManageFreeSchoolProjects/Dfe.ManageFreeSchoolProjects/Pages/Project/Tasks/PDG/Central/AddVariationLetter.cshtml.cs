@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,15 +18,15 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
     [BindProperty(SupportsGet = true)]
     public string ProjectId { get; set; }
 
-    [BindProperty]
+    [BindProperty(Name = "due-date-variation-letter",  BinderType = typeof(DateInputModelBinder))]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
     [BindProperty]
     public bool VariationLetterSavedToWorkplaces { get; set; }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        
+        return Page();
     }
 
     public async Task<IActionResult> OnPost()

@@ -9,7 +9,7 @@ public interface IGrantLettersService
     Task UpdateGrantLetters(string projectId, ProjectGrantLetters updatedOrNewGrantLetter);
     Task<ProjectGrantLetters> Get(string projectId);
 
-    Task UpdateVariationLetter(string projectId, GrantVariationLetter updateOrNewGrantLetter);
+    Task UpdateVariationLetter(string projectId, GrantVariationLetter updateOrNewVariationLetter);
 }
 
 public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
@@ -27,8 +27,9 @@ public class GrantLettersService(MfspApiClient apiClient) : IGrantLettersService
         return response.Data;
     }
 
-    public Task UpdateVariationLetter(string projectId, GrantVariationLetter updateOrNewGrantLetter)
+    public async Task UpdateVariationLetter(string projectId, GrantVariationLetter updateOrNewVariationLetter)
     {
-        throw new System.NotImplementedException();
+        var endpoint = $"/api/v1/client/projects/{projectId}/grant-letters/variation-letter";
+        await apiClient.Put<GrantVariationLetter, ApiSingleResponseV2<object>>(endpoint, updateOrNewVariationLetter);
     }
 }

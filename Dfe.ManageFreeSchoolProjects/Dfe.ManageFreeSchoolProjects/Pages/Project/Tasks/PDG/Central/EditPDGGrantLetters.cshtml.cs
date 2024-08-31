@@ -29,11 +29,11 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLett
         return Page();
     }
 
-    public IActionResult OnPost(string action)
+    public IActionResult OnPost()
     {
         try
         {
-            return Redirect(string.Format(RouteConstants.AddPDGGrantLetter, ProjectId));
+            return Redirect(string.Format(RouteConstants.AddPDGGrantVariationLetter, ProjectId));
         }
         catch (Exception ex)
         {
@@ -41,5 +41,4 @@ public class EditPDGGrantLetters(ILogger<EditPDGGrantLetters> logger, IGrantLett
             throw;
         }
     }
-
 }

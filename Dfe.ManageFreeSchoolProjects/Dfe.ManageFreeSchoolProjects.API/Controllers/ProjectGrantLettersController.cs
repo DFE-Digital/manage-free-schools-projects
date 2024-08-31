@@ -34,7 +34,7 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
     }
     
     [HttpPut]
-    [Route("variation")]
+    [Route("variation-letter")]
     public async Task<ActionResult> UpdateVariationLetter(string projectId, GrantVariationLetter newOrUpdatedVariationLetter)
     {
         logger.LogMethodEntered();
