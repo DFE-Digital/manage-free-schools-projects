@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class AddVariationLetter(IGrantLettersService grantLettersService, ILogger<AddVariationLetter> logger) : PageModel
+public class AddVariationLetter(IGrantLettersService grantLettersService, ILogger<AddVariationLetter> logger, ErrorService errorService) : PageModel
 {
     public string CurrentFreeSchoolName { get; set; }
     
@@ -19,6 +21,7 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
     public string ProjectId { get; set; }
 
     [BindProperty(Name = "due-date-variation-letter",  BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Date")]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
     [BindProperty]
@@ -35,8 +38,14 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
 
         try
         {
+            if (!ModelState.IsValid)
+            {
+                errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
             var variationNumber = TempData.Peek("VariationLetterToAdd") as string;
-
+            
             var newVariationLetter = new GrantVariationLetter
             {
                 Variation = ParseVariation(variationNumber),
@@ -46,6 +55,9 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
 
             await grantLettersService.UpdateVariationLetter(ProjectId, newVariationLetter);
 
+            TempData["VariationLetterAdded"] = true;
+            TempData["VariationLetterNumberAdded"] = variationNumber;
+            
             return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
         }
         catch (Exception e)

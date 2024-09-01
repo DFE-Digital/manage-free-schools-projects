@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
@@ -19,9 +20,11 @@ public class EditPDGGrantLetter(IGrantLettersService grantLettersService) : Page
     public ProjectGrantLetters GrantLetters { get; set; }
 
     [BindProperty(Name = "date-signed-initial-grant-letter", BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Date")]
     public DateTime? InitialGrantLetterDateSigned { get; set; }
 
     [BindProperty(Name = "date-signed-full-grant-letter", BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Date")]
     public DateTime? FinalGrantLetterDateSigned { get; set; }
 
     [BindProperty]

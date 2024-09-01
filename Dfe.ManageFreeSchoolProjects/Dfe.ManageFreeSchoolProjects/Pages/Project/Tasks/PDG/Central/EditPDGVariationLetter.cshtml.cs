@@ -1,16 +1,18 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class EditPDGVariationLetter(IGrantLettersService grantLettersService) : PageModel
+public class EditPDGVariationLetter(IGrantLettersService grantLettersService, ErrorService errorService) : PageModel
 {
     [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
 
@@ -19,6 +21,7 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService) : 
     public string CurrentFreeSchoolName { get; set; }
 
     [BindProperty(BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Due date of variation letter")]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
     [BindProperty] public bool VariationLetterSavedToWorkplaces { get; set; }
@@ -40,28 +43,34 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService) : 
 
     public async Task<IActionResult> OnPost()
     {
-        var updatedVariationLetter = new GrantVariationLetter
+        try
         {
-            Variation = ParseVariation(Variation),
-            LetterDate = DueDateOfVariationLetter,
-            SavedToWorkplacesFolder = VariationLetterSavedToWorkplaces
-        };
+            if (!ModelState.IsValid)
+            {
+                errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
 
-        await grantLettersService.UpdateVariationLetter(ProjectId, updatedVariationLetter);
+            var updatedVariationLetter = new GrantVariationLetter
+            {
+                Variation = ParseVariation(Variation),
+                LetterDate = DueDateOfVariationLetter,
+                SavedToWorkplacesFolder = VariationLetterSavedToWorkplaces
+            };
 
-        return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
+            await grantLettersService.UpdateVariationLetter(ProjectId, updatedVariationLetter);
+
+            return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     private static GrantVariationLetter.LetterVariation ParseVariation(string variationNumber)
     {
-        // if (!int.TryParse(variationNumber, out var variationAsInt)) 
-        //     return GrantVariationLetter.LetterVariation.NotSet;
-        //
-        // if (Enum.IsDefined(typeof(GrantVariationLetter.LetterVariation), variationAsInt))
-        //     return (GrantVariationLetter.LetterVariation)variationAsInt;
-        //
-        // return GrantVariationLetter.LetterVariation.NotSet;
-
         return Enum.TryParse<GrantVariationLetter.LetterVariation>(variationNumber, out var variationEnum)
             ? variationEnum
             : GrantVariationLetter.LetterVariation.NotSet;

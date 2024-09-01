@@ -1,15 +1,18 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageModel
+public class AddPDGGrantLetter(IGrantLettersService grantLettersService, ErrorService errorService) : PageModel
 {
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
@@ -19,9 +22,11 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
     public ProjectGrantLetters GrantLetters { get; set; }
 
     [BindProperty(Name = "date-signed-initial-grant-letter", BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Date")]
     public DateTime? InitialGrantLetterDateSigned { get; set; }
 
     [BindProperty(Name = "date-signed-full-grant-letter", BinderType = typeof(DateInputModelBinder))]
+    [Display(Name = "Date")]
     public DateTime? FullGrantLetterDateSigned { get; set; }
 
     [BindProperty(Name = "initial-grant-letter-saved-to-workspaces-folder")]
@@ -37,6 +42,12 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService) : PageM
 
     public async Task<IActionResult> OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }
+
         var newGrantLetter = new ProjectGrantLetters
         {
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
