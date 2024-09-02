@@ -22,7 +22,7 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService, Er
 
     public string CurrentFreeSchoolName { get; set; }
 
-    [BindProperty(BinderType = typeof(DateInputModelBinder))]
+    [BindProperty(Name = "due-date-variation-letter", BinderType = typeof(DateInputModelBinder))]
     [Display(Name = "Due date of variation letter")]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
