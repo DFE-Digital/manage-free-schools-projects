@@ -11,9 +11,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration;
 [Collection(ApiTestCollection.ApiTestCollectionName)]
 public class ProjectGrantLetterApiTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
 {
-    private static readonly Fixture Fixture = new();
-
-
     [Fact]
     public async Task Get_ProjectGrantLetters_Returns_200()
     {
