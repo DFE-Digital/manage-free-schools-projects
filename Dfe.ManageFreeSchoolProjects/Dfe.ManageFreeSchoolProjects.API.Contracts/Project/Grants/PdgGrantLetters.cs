@@ -7,10 +7,8 @@ public record ProjectGrantLetters
     public DateTime? InitialGrantLetterDate { get; set; }
 
     public DateTime? FinalGrantLetterDate { get; set; }
-
-    public string InitalGrantLetterLink { get; set; }
     
-    public string FullGrantLetterLink { get; set; }
+    public string GrantLetterLink { get; set; }
     
     public bool? InitialGrantLetterSavedToWorkplaces { get; set; }
     

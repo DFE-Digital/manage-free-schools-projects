@@ -30,6 +30,20 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             from po in joinedPO.DefaultIfEmpty()
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
 
+        if (result.InitialGrantLetterDate != null && !string.IsNullOrEmpty(result.GrantLetterLink))
+            result.InitialGrantLetterSavedToWorkplaces = true;
+
+        if (result.FinalGrantLetterDate != null && !string.IsNullOrEmpty(result.GrantLetterLink))
+            result.FinalGrantLetterSavedToWorkplaces = true;
+        
+        var lettersWithLinkAndDateNotSaved =
+            result.VariationLetters.Where(x =>
+                !string.IsNullOrEmpty(x.LetterLink) && x.LetterDate != null
+                                                    && x.SavedToWorkplacesFolder != null
+                                                    && (bool)x.SavedToWorkplacesFolder == false).ToList();
+
+        lettersWithLinkAndDateNotSaved.ForEach(x => x.SavedToWorkplacesFolder = true);
+
         return result;
     }
 
@@ -78,11 +92,11 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
                 po.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgSecondVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case  GrantVariationLetter.LetterVariation.ThirdVariation:
+            case GrantVariationLetter.LetterVariation.ThirdVariation:
                 po.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgThirdVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
-            case  GrantVariationLetter.LetterVariation.FourthVariation:
+            case GrantVariationLetter.LetterVariation.FourthVariation:
                 po.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = variationLetter.LetterDate;
                 po.PdgFourthVariationGrantLetterSavedToWorkplaces = variationLetter.SavedToWorkplacesFolder;
                 break;
@@ -92,17 +106,14 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
-    private static void UpdateGrantLetters(Po po, ProjectGrantLetters newOrUpdatedGrantVariationLetter)
-    {
-        //todo: separate fields in DB for Initial & Final dates?
-        po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantVariationLetter.InitialGrantLetterDate ??
-                                                              newOrUpdatedGrantVariationLetter.FinalGrantLetterDate;
-        
-        po.PdgGrantLetterLinkSavedToWorkplaces = newOrUpdatedGrantVariationLetter.InitialGrantLetterSavedToWorkplaces ??
-                                                 newOrUpdatedGrantVariationLetter.FinalGrantLetterSavedToWorkplaces;
 
+    private static void UpdateGrantLetters(Po po, ProjectGrantLetters newOrUpdatedGrantLetter)
+    {
+        po.PdgInitialGrantLetterDate = newOrUpdatedGrantLetter.InitialGrantLetterDate;
+        po.PdgInitialGrantLetterSavedToWorkplaces = newOrUpdatedGrantLetter.InitialGrantLetterSavedToWorkplaces;
         
+        po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantLetter.FinalGrantLetterDate;
+        po.PdgGrantLetterLinkSavedToWorkplaces = newOrUpdatedGrantLetter.FinalGrantLetterSavedToWorkplaces;
     }
 
     private static ProjectGrantLetters MapToGrantLetters(Po po)
@@ -111,8 +122,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         {
             InitialGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
             FinalGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
-
-            //TODO: do we need separate SavedToWorkspaces fields for Initial & Final letters?
+            GrantLetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
             InitialGrantLetterSavedToWorkplaces = po?.PdgGrantLetterLinkSavedToWorkplaces,
             FinalGrantLetterSavedToWorkplaces = po?.PdgGrantLetterLinkSavedToWorkplaces,
 

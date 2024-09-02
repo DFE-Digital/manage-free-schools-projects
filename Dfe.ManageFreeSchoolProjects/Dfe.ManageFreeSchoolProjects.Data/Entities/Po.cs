@@ -5,6 +5,8 @@
         public bool? PdgGrantLetterLinkSavedToWorkplaces { get; set; }
 
         public bool? PdgIsWriteOffSetup { get; set; }
+        
+        public DateTime? PdgInitialGrantLetterDate { get; set; }
 
         public bool? PdgInitialGrantLetterSavedToWorkplaces { get; set; }
         

@@ -14,9 +14,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
 public class EditPDGVariationLetter(IGrantLettersService grantLettersService, ErrorService errorService) : PageModel
 {
-    [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string ProjectId { get; set; }
 
-    [BindProperty(SupportsGet = true)] public string Variation { get; set; }
+    [BindProperty(SupportsGet = true)] 
+    public string Variation { get; set; }
 
     public string CurrentFreeSchoolName { get; set; }
 
