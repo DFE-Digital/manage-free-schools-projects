@@ -226,7 +226,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.Rid = rid;
 
             result.FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan = true;
-            result.FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate = DateTime.Now;
+            result.FsgPreOpeningMilestonesFpaActualDateOfCompletion = DateTime.Now;
             result.FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox = false;
             result.FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder = false;
 

@@ -3,6 +3,7 @@
 * 174750 - Build: Modify API to work with new PDG designs
 * 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
 * 169881 - Impact Assessment (central route)
+* 177796 - Build: Finance plan agreed date - change to use FSS field
 
 ---
 ## 0.11.0
