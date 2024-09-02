@@ -49,10 +49,14 @@ export class ProjectRow {
         return this;
     }
 
-    public view(): this {
-        cy.wrap(this.element).within(() => {
-            cy.getByTestId("action").click();
-        });
+    public hasViewLink(value: string): this {
+        this.containsText("action", value);
+
+        return this;
+    }
+
+    public viewFirstProject(): this {
+        cy.getByTestId("action").first().click();
 
         return this;
     }
