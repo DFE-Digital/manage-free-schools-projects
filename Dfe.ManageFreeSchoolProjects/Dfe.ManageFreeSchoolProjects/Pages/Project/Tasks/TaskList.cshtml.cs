@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(Name = "schoolName")]
         public string SchoolName { get; set; }
 
-        public bool IsPresumptionRoute { get; set; }
+        public string ProjectType { get; set; }
 
         public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
 
@@ -56,6 +56,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
             SchoolType = project.SchoolDetails.SchoolType;
 
             ProjectStatus = project.ProjectStatus.ProjectStatus;
+
+            ProjectType = project.ProjectType;
 
             if (ProjectTaskListSummary is not null)
             {

@@ -43,7 +43,7 @@
     var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
     var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
     var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-    var pdgLink = @Model.IsPresumptionRoute ? pdgPresumptionLink : pdgCentralLink;
+    var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }

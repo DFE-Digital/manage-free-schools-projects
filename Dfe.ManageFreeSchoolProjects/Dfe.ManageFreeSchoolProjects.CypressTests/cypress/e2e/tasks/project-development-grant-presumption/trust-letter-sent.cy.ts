@@ -3,8 +3,8 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import pdgDashboard from "cypress/pages/tasks/project-development-grant/dashboard";
-import trustLetter from "cypress/pages/tasks/project-development-grant/edit-trust-letter";
+import pdgDashboard from "cypress/pages/tasks/project-development-grant-presumption/dashboard";
+import trustLetter from "cypress/pages/tasks/project-development-grant-presumption/edit-trust-letter";
 
 describe("Trust Letter Sent Task", () => {
     let project: ProjectDetailsRequest;
