@@ -6,7 +6,9 @@
     ViewData["Title"] = $"Add grant letter - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
 
-    var letterSavedToWorkspaceCheckedStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
+    var initialLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
+    var finalLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
+
 }
 
 @section BeforeMain {
@@ -34,7 +36,7 @@
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="initial-grant-letter-saved-to-workspaces-folder"
-                               data-testid="initial-grant-letter-saved-to-workspaces-folder" name="initial-grant-letter-saved-to-workspaces-folder" type="checkbox" @letterSavedToWorkspaceCheckedStatus>
+                               data-testid="initial-grant-letter-saved-to-workspaces-folder" name="initial-grant-letter-saved-to-workspaces-folder" type="checkbox" @initialLetterSavedCheckStatus>
                         <label class="govuk-label govuk-checkboxes__label" for="initial-grant-letter-saved-to-workspaces-folder">
                             Saved the signed initial grant letter to Workspaces folder
                         </label>
@@ -48,7 +50,7 @@
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="full-grant-letter-saved-to-workspaces-folder"
-                               data-testid="full-grant-letter-saved-to-workspaces-folder" name="full-grant-letter-saved-to-workspaces-folder" type="checkbox" @letterSavedToWorkspaceCheckedStatus>
+                               data-testid="full-grant-letter-saved-to-workspaces-folder" name="full-grant-letter-saved-to-workspaces-folder" type="checkbox" @finalLetterSavedCheckStatus>
                         <label class="govuk-label govuk-checkboxes__label" for="full-grant-letter-saved-to-workspaces-folder">
                             Saved the signed full grant letter to Workspaces folder
                         </label>

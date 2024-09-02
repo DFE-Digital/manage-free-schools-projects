@@ -26,7 +26,8 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService, Er
     [Display(Name = "Due date of variation letter")]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
-    [BindProperty] public bool VariationLetterSavedToWorkplaces { get; set; }
+    [BindProperty] 
+    public bool VariationLetterSavedToWorkplaces { get; set; }
 
     public GrantVariationLetter VariationLetter { get; set; }
 

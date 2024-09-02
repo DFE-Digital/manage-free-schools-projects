@@ -30,19 +30,19 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
             from po in joinedPO.DefaultIfEmpty()
             select MapToGrantLetters(po)).FirstOrDefaultAsync();
 
-        if (result.InitialGrantLetterDate != null && !string.IsNullOrEmpty(result.GrantLetterLink))
+        if (result.InitialGrantLetterDate != null && !string.IsNullOrEmpty(result.InitialGrantLetterLink))
             result.InitialGrantLetterSavedToWorkplaces = true;
 
         if (result.FinalGrantLetterDate != null && !string.IsNullOrEmpty(result.GrantLetterLink))
             result.FinalGrantLetterSavedToWorkplaces = true;
         
         var lettersWithLinkAndDateNotSaved =
-            result.VariationLetters.Where(x =>
+            result.VariationLetters?.Where(x =>
                 !string.IsNullOrEmpty(x.LetterLink) && x.LetterDate != null
                                                     && x.SavedToWorkplacesFolder != null
                                                     && (bool)x.SavedToWorkplacesFolder == false).ToList();
 
-        lettersWithLinkAndDateNotSaved.ForEach(x => x.SavedToWorkplacesFolder = true);
+        lettersWithLinkAndDateNotSaved?.ForEach(x => x.SavedToWorkplacesFolder = true);
 
         return result;
     }
@@ -121,6 +121,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
         return new ProjectGrantLetters
         {
             InitialGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
+            InitialGrantLetterLink = po?.PdgInitialGrantLetterLink,
             FinalGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
             GrantLetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
             InitialGrantLetterSavedToWorkplaces = po?.PdgGrantLetterLinkSavedToWorkplaces,

@@ -8671,6 +8671,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<DateTime?>("PdgInitialGrantLetterDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PdgInitialGrantLetterLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("PdgInitialGrantLetterSavedToWorkplaces")
                         .HasColumnType("bit");
 

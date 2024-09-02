@@ -5,6 +5,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 public record ProjectGrantLetters
 {
     public DateTime? InitialGrantLetterDate { get; set; }
+    
+    public string InitialGrantLetterLink { get; set; }
 
     public DateTime? FinalGrantLetterDate { get; set; }
     

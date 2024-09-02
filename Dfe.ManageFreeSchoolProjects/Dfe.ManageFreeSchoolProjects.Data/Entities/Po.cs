@@ -7,6 +7,8 @@
         public bool? PdgIsWriteOffSetup { get; set; }
         
         public DateTime? PdgInitialGrantLetterDate { get; set; }
+        
+        public string PdgInitialGrantLetterLink { get; set; }
 
         public bool? PdgInitialGrantLetterSavedToWorkplaces { get; set; }
         

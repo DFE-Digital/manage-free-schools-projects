@@ -47,6 +47,18 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                 .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
+            migrationBuilder.AddColumn<string>(
+                name: "PdgInitialGrantLetterLink",
+                schema: "dbo",
+                table: "PO",
+                type: "nvarchar(max)",
+                nullable: true)
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "POHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", "dbo")
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+
             migrationBuilder.AddColumn<bool>(
                 name: "PdgInitialGrantLetterSavedToWorkplaces",
                 schema: "dbo",
@@ -109,6 +121,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             migrationBuilder.DropColumn(
                 name: "PdgInitialGrantLetterDate",
+                schema: "dbo",
+                table: "PO")
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "POHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", "dbo")
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+
+            migrationBuilder.DropColumn(
+                name: "PdgInitialGrantLetterLink",
                 schema: "dbo",
                 table: "PO")
                 .Annotation("SqlServer:IsTemporal", true)

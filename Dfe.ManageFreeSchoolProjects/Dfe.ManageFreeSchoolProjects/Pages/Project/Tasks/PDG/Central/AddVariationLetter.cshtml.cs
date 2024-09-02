@@ -13,19 +13,20 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class AddVariationLetter(IGrantLettersService grantLettersService, ILogger<AddVariationLetter> logger, ErrorService errorService) : PageModel
+public class AddVariationLetter(
+    IGrantLettersService grantLettersService,
+    ILogger<AddVariationLetter> logger,
+    ErrorService errorService) : PageModel
 {
     public string CurrentFreeSchoolName { get; set; }
-    
-    [BindProperty(SupportsGet = true)]
-    public string ProjectId { get; set; }
 
-    [BindProperty(Name = "due-date-variation-letter",  BinderType = typeof(DateInputModelBinder))]
+    [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
+
+    [BindProperty(Name = "due-date-variation-letter", BinderType = typeof(DateInputModelBinder))]
     [Display(Name = "Date")]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
-    [BindProperty]
-    public bool VariationLetterSavedToWorkplaces { get; set; }
+    [BindProperty] public bool VariationLetterSavedToWorkplaces { get; set; }
 
     public IActionResult OnGet()
     {
@@ -43,9 +44,9 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
                 errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-            
+
             var variationNumber = TempData.Peek("VariationLetterToAdd") as string;
-            
+
             var newVariationLetter = new GrantVariationLetter
             {
                 Variation = ParseVariation(variationNumber),
@@ -57,7 +58,7 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
 
             TempData["VariationLetterAdded"] = true;
             TempData["VariationLetterNumberAdded"] = variationNumber;
-            
+
             return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
         }
         catch (Exception e)
@@ -66,16 +67,11 @@ public class AddVariationLetter(IGrantLettersService grantLettersService, ILogge
             throw;
         }
     }
-
+    
     private static GrantVariationLetter.LetterVariation ParseVariation(string variationNumber)
     {
-        if (!int.TryParse(variationNumber, out var variationAsInt)) 
-            return GrantVariationLetter.LetterVariation.NotSet;
-        
-        if (Enum.IsDefined(typeof(GrantVariationLetter.LetterVariation), variationAsInt))
-            return (GrantVariationLetter.LetterVariation)variationAsInt;
-
-        return GrantVariationLetter.LetterVariation.NotSet;
+        return Enum.TryParse<GrantVariationLetter.LetterVariation>(variationNumber, out var variationEnum)
+            ? variationEnum
+            : GrantVariationLetter.LetterVariation.NotSet;
     }
-
 }

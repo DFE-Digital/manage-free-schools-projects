@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    [Migration("20240902110007_AddNewPdgGrantLetterFields")]
+    [Migration("20240902132816_AddNewPdgGrantLetterFields")]
     partial class AddNewPdgGrantLetterFields
     {
         /// <inheritdoc />
@@ -8673,6 +8673,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<DateTime?>("PdgInitialGrantLetterDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PdgInitialGrantLetterLink")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("PdgInitialGrantLetterSavedToWorkplaces")
                         .HasColumnType("bit");
