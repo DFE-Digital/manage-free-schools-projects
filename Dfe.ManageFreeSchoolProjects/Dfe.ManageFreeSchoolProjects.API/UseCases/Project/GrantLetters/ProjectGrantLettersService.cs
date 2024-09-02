@@ -120,11 +120,11 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
     {
         return new ProjectGrantLetters
         {
-            InitialGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
+            InitialGrantLetterDate = po?.PdgInitialGrantLetterDate,
             InitialGrantLetterLink = po?.PdgInitialGrantLetterLink,
             FinalGrantLetterDate = po?.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
             GrantLetterLink = po?.ProjectDevelopmentGrantFundingPdgGrantLetterLink,
-            InitialGrantLetterSavedToWorkplaces = po?.PdgGrantLetterLinkSavedToWorkplaces,
+            InitialGrantLetterSavedToWorkplaces = po?.PdgInitialGrantLetterSavedToWorkplaces,
             FinalGrantLetterSavedToWorkplaces = po?.PdgGrantLetterLinkSavedToWorkplaces,
 
             VariationLetters =
