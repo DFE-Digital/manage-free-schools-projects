@@ -30,7 +30,7 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
         
         await grantLettersService.UpdateGrantLetter(projectId, updatedGrantLetters);
 
-        return Created();
+        return NoContent();
     }
     
     [HttpPut]
