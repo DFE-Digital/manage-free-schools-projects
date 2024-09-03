@@ -1,0 +1,74 @@
+@page "/projects/{projectId}/tasks/pdg/central/edit-grant-letter"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetter
+@{
+    ViewData["Title"] = $"Edit grant letter - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+
+    // var initialGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
+    // var finalGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
+
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Edit grant letter
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <div class="govuk-form-group">
+
+                <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.InitialGrantLetterDateSigned" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+                
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="@Model.InitialGrantLetterSavedToWorkplaces" id="initial-grant-letter-saved-to-workplaces-folder"
+                                   data-testid="initial-grant-letter-saved-to-workplaces-folder" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label" for="initial-grant-letter-saved-to-workplaces-folder">
+                                Saved the signed initial grant letter to Workspaces folder
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <br/>
+
+                <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FinalGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the final grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+                <br/>
+                
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input"  asp-for="@Model.FinalGrantLetterSavedToWorkspaces" id="full-grant-letter-saved-to-workspaces-folder"
+                                   data-testid="full-grant-letter-saved-to-workspaces-folder" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label" for="full-grant-letter-saved-to-workspaces-folder">
+                                Saved the signed final grant letter to Workspaces folder
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <br/>
+                <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                    Save and continue
+                </button>
+            </div>
+        </form>
+        <form action="@backLink">
+            <button class="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+                Discard
+            </button>
+        </form>
+    </div>
+</div>

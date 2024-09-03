@@ -1,0 +1,142 @@
+@page  "/projects/{projectId}/tasks/pdg/central/edit-grant-letters"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetters
+
+@{
+    ViewData["Title"] = $"Edit Grant Letters - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId);
+
+    var grantLetters = Model.GrantLetters;
+    var initialGrantLetterSavedToWorkplaces = grantLetters?.InitialGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
+    var fullGrantLetterSavedToWorkplaces = grantLetters?.FinalGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.CurrentFreeSchoolName</span>
+    Edit Grant Letters
+</h1>
+
+@{
+    @if ((bool)(TempData["GrantLetterAdded"] ?? false))
+    {
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <p class="govuk-notification-banner__heading">Grant letter added.</p>
+            </div>
+        </div>
+        TempData["GrantLetterAdded"] = false;
+    }
+    
+    @if ((bool)(TempData["VariationLetterAdded"] ?? false))
+    {
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <p class="govuk-notification-banner__heading">Variation letter @TempData["VariationLetterNumberAdded"] added.</p>
+            </div>
+        </div>
+        TempData["VariationLetterAdded"] = false;
+    }
+
+    if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
+    {
+        <govuk-summary-card id="grant-letters" label="Grant letters" href=@editGrantLetterLink>
+            <govuk-summary-list>
+                <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.InitialGrantLetterDate"/>
+                <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedToWorkplaces"/>
+                <govuk-summary-item label="Date when DfE signed the final grant letter" asp-for="@grantLetters.FinalGrantLetterDate"/>
+                <govuk-summary-item label="Saved the signed full grant letter in Workplaces folder" asp-for="@fullGrantLetterSavedToWorkplaces"/>
+            </govuk-summary-list>
+        </govuk-summary-card>
+
+        if (Model.GrantLetters != null)
+        {
+            var filteredGrantLetters = Model.GrantLetters.VariationLetters.OrderBy(x => x.Variation).ToList();
+            
+            foreach (var grantLetter in filteredGrantLetters)
+            {
+                var variation = grantLetter.Variation.ToIntString();
+                
+                if (grantLetter.LetterDate != null || grantLetter.SavedToWorkplacesFolder != null)
+                {
+                    var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId, variation);
+
+                    var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
+
+                    var letterVariationNumber = (int)grantLetter.Variation;
+                    var variationLetterSummaryCardId = $"variation-letter-{letterVariationNumber}";
+                    var variationLetterLabel = $"Variation letter {letterVariationNumber}";
+
+                    <govuk-summary-card id=@variationLetterSummaryCardId label=@variationLetterLabel href="@editVariationLetterLink">
+                        <govuk-summary-list>
+                            <govuk-summary-item label="Due date of variation letter" asp-for="@grantLetter.LetterDate"/>
+                            <govuk-summary-item label="Saved the variation letter in Workplaces folder" asp-for="@grantLetterSavedToWorkplaces"/>
+                        </govuk-summary-list>
+                    </govuk-summary-card>
+                }
+                else
+                {
+                    TempData["VariationLetterToAdd"] = variation;
+
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-two-thirds">
+                            <form class="govuk-form-group" method="post">
+                                <button class="govuk-button" name="action" value="AddVariationLetter">
+                                    Add variation letter @variation
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    //Return/exit out of loop as add variation letter buttons should appear in order
+                    return;
+                }
+            }
+        }
+    }
+    else
+    {
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <form class="govuk-form-group" method="post">
+                    <button class="govuk-button" name="action" value="AddGrantLetter">
+                        Add grant letter
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+}
+
+@functions {
+
+    private static bool DoesInitialOrFullGrantLetterHaveData(ProjectGrantLetters grantLetters)
+    {
+        return (grantLetters?.InitialGrantLetterDate.HasValue ?? false)
+               || (grantLetters?.InitialGrantLetterSavedToWorkplaces.HasValue ?? false)
+               || (grantLetters?.FinalGrantLetterDate.HasValue ?? false)
+               || (grantLetters?.FinalGrantLetterSavedToWorkplaces.HasValue ?? false);
+    }
+
+}

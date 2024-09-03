@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
-public class UpdatePDGGrant(MfspContext _context) : IUpdateTaskService
+public class UpdatePDGGrant(MfspContext context) : IUpdateTaskService
 {
     public async Task Update(UpdateTaskServiceParameters parameters)
     {
@@ -14,12 +14,12 @@ public class UpdatePDGGrant(MfspContext _context) : IUpdateTaskService
         if (task is null)
             return;
 
-        var db = await _context.Po.FirstOrDefaultAsync(r => r.Rid == dbKpi.Rid);
+        var db = await context.Po.FirstOrDefaultAsync(r => r.Rid == dbKpi.Rid);
 
         if (db == null)
         {
             db = new Po { Rid = dbKpi.Rid };
-            _context.Add(db);
+            context.Add(db);
         }
 
         db.ProjectDevelopmentGrantFundingInitialGrantAllocation = task.InitialGrant?.ToString("0.00");

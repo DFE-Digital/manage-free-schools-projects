@@ -10,7 +10,6 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Validators;
 using System.Linq;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
@@ -143,7 +142,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
             var projectPayments = await _getProjectPaymentsService.Execute(ProjectId);
 
-            var payment = projectPayments.Payments.Where(p => p.PaymentIndex == PaymentIndex).FirstOrDefault();
+            var payment = projectPayments.Payments.FirstOrDefault(p => p.PaymentIndex == PaymentIndex);
 
             PaymentScheduleDate = payment.PaymentScheduleDate;
             PaymentScheduleAmount = payment.PaymentScheduleAmount;

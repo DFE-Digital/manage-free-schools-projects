@@ -7,43 +7,35 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
-using DocumentFormat.OpenXml.EMMA;
-using System.Linq;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 {
-    public class ViewPDGModel : ViewTaskBaseModel
+    public class ViewPDGModel(ILogger<ViewPDGModel> logger, IGetProjectPaymentsService getProjectPaymentsService,
+        IGetProjectByTaskService getProjectService,
+        IGetTaskStatusService getTaskStatusService,
+        IUpdateTaskStatusService updateTaskStatusService, IGrantLettersService grantLettersService)
+        : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
-        private readonly ILogger<ViewPDGModel> _logger;
-        private readonly IGetProjectPaymentsService _getProjectPaymentsService;
-
         public ProjectPayments ProjectPayments { get; set; }
 
-        public ViewPDGModel(
-            ILogger<ViewPDGModel> logger,
-            IGetProjectPaymentsService getProjectPaymentsService,
-            IGetProjectByTaskService getProjectService,
-            IGetTaskStatusService getTaskStatusService,
-            IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
-        {
-            _logger = logger;
-            _getProjectPaymentsService = getProjectPaymentsService;
-        }
+        public ProjectGrantLetters PdgGrantLetters { get; set; }
 
         public async Task<ActionResult> OnGet()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             await GetTask(TaskName.PDG);
 
-            ProjectPayments = await _getProjectPaymentsService.Execute(ProjectId);
-
+            ProjectPayments = await getProjectPaymentsService.Execute(ProjectId);
+            PdgGrantLetters = await grantLettersService.Get(ProjectId);
+            
             return Page();
         }
 
         public async Task<ActionResult> OnPost()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             await PostTask(TaskName.PDG);
 

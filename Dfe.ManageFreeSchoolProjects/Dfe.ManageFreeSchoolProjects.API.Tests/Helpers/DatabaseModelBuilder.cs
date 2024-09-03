@@ -84,10 +84,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 MatUnitProjects = _fixture.Create<string>().Substring(0, 31),
                 SponsorUnitProjects = _fixture.Create<string>()
             };
-            
+
             return result;
         }
-        
+
         public static Trust BuildTrust()
         {
             var result = new Trust
@@ -152,7 +152,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
         public static Milestones BuildKickOffMeetingTask(string rid)
         {
             var result = new Milestones();
@@ -244,11 +244,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FSGPreOpeningMilestonesGIASCheckedTrustInformation = true;
             result.FSGPreOpeningMilestonesGIASSavedToWorkspaces = true;
             result.FSGPreOpeningMilestonesGIASURNSent = true;
-            
+
 
             return result;
         }
-        
+
         public static Milestones BuildEducationBriefTask(string rid)
         {
             var result = new Milestones();
@@ -259,11 +259,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FSGPreOpeningMilestonesEducationPolicesInBrief = true;
             result.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory = true;
             result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
-            
+
 
             return result;
         }
-        
+
         public static Milestones BuildAdmissionsArrangementsTask(string rid)
         {
             var result = new Milestones();
@@ -274,11 +274,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesAdmissionsArrangementsComplyWithPolicies = true;
             result.FsgPreOpeningMilestonesSapActualDateOfCompletion = new DateTime().AddDays(1);
             result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
-            
+
 
             return result;
         }
-        
+
         public static Milestones BuildImpactAssessmentTask(string rid)
         {
             var result = new Milestones();
@@ -288,10 +288,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesImpactAssessmentDone = true;
             result.FsgPreOpeningMilestonesImpactAssessmentSavedToWorkplaces = true;
             result.FsgPreOpeningMilestonesS9lActualDateOfCompletion = DateTime.Today;
-            
+
             return result;
         }
-        
+
         public static Milestones BuildPrincipleDesignateTask(string rid)
         {
             var result = new Milestones();
@@ -303,7 +303,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return result;
         }
 
-        
+
         public static Milestones EvidenceOfAcceptedOffersTask(string rid)
         {
             var result = new Milestones();
@@ -315,7 +315,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces = false;
             return result;
         }
-        
+
         public static Milestones OfstedInspectionTask(string rid)
         {
             var result = new Milestones();
@@ -326,10 +326,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces = true;
             result.FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet = true;
             result.FsgPreOpeningMilestonesInspectionConditionsMet = "Yes";
-            
+
             return result;
         }
-        
+
         public static Milestones ApplicationsEvidenceTask(string rid)
         {
             var result = new Milestones();
@@ -340,10 +340,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesApplicationsEvidenceComments = "first test comments";
             result.FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces = false;
             result.FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces = false;
-            
+
             return result;
         }
-        
+
         public static Po PupilNumbersAndCapacity(string rid)
         {
             var result = new Po()
@@ -366,7 +366,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
         public static Milestones BuildCommissionedExternalExpertTask(string rid)
         {
             var result = new Milestones();
@@ -379,7 +379,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
         public static Milestones MovingToOpenTask(string rid)
         {
             var result = new Milestones();
@@ -387,7 +387,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.Rid = rid;
 
             result.FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates = false;
-            
+
             return result;
         }
 
@@ -406,7 +406,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 ProjectDevelopmentGrantFundingAmountOf2ndPayment = _fixture.Create<decimal>().ToString(),
                 ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue = _fixture.Create<decimal>().ToString(),
                 ProjectDevelopmentGrantFundingDateOf2ndPaymentDue = new DateTime().AddDays(20),
-
             };
 
             return result;
@@ -477,7 +476,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 ProjectDevelopmentGrantFundingAmountOf12thPayment = _fixture.Create<decimal>().ToString(),
                 ProjectDevelopmentGrantFundingAmountOf12thPaymentDue = _fixture.Create<decimal>().ToString(),
                 ProjectDevelopmentGrantFundingDateOf12thPaymentDue = new DateTime().AddDays(320),
-
             };
 
             return result;
@@ -518,7 +516,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
         public static Milestones PupilNumbersChecksTask(string rid)
         {
             var result = new Milestones();
@@ -542,7 +540,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             return result;
         }
-        
+
         internal static Po BuildWriteOffTask(string rid)
         {
             var result = new Po()
@@ -555,6 +553,42 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 ProjectDevelopmentGrantFundingFinanceBusinessPartnerApprovalReceivedFrom = "asgaas",
                 ProjectDevelopmentGrantFundingDateWriteOffApprovedByFinanceBusinessPartners = new DateTime().AddDays(2),
             };
+
+            return result;
+        }
+
+        public static Po BuildProjectGrantLetters(string projectRid, bool withVariationLetters = false)
+        {
+            var finalGrantLetterDate = new DateTime().AddDays(30);
+
+            var result = new Po
+            {
+                Rid = projectRid,
+
+                PdgInitialGrantLetterDate = new DateTime().AddDays(30),
+                PdgInitialGrantLetterLink = _fixture.Create<string>(),
+                PdgInitialGrantLetterSavedToWorkplaces = true,
+                
+                ProjectDevelopmentGrantFundingPdgGrantLetterDate = finalGrantLetterDate,
+                ProjectDevelopmentGrantFundingPdgGrantLetterLink = _fixture.Create<string>(),
+                PdgGrantLetterLinkSavedToWorkplaces = true,
+                
+            };
+
+            if (!withVariationLetters) 
+                return result;
+            
+            result.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = new DateTime().AddDays(40); 
+            result.PdgFirstVariationGrantLetterSavedToWorkplaces = true;
+
+            result.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = new DateTime().AddDays(50);
+            result.PdgSecondVariationGrantLetterSavedToWorkplaces = true;
+
+            result.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = new DateTime().AddDays(60);
+            result.PdgThirdVariationGrantLetterSavedToWorkplaces = true;
+            
+            result.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = new DateTime().AddDays(70);
+            result.PdgFourthVariationGrantLetterSavedToWorkplaces = true;
 
             return result;
         }
