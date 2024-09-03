@@ -9,17 +9,16 @@ import editTotalGrant from "cypress/pages/tasks/project-development-grant-centra
 import addPayment from "cypress/pages/tasks/project-development-grant-central/add-payment";
 import editPayment from "cypress/pages/tasks/project-development-grant-central/edit-payment";
 import deletePayment from "cypress/pages/tasks/project-development-grant-central/delete-payment";
+import { DateTime } from "../../../../node_modules/luxon";
 
 describe("Payment Schedule Task", () => {
     let project: ProjectDetailsRequest;
-    let paymentDate: Date;
+    let paymentDate: DateTime;
 
     beforeEach(() => {
         cy.login();
 
         project = RequestBuilder.createProjectDetailsNonPresumption();
-
-        paymentDate = new Date(Date.now());
 
         projectApi
             .post({
@@ -92,19 +91,15 @@ describe("Payment Schedule Task", () => {
             .schoolNameIs(project.schoolName)
             .checkNoPayments()
             .selectAddPayment();
-
-        cy.log(paymentDate.toString());
-
-        paymentDate.setDate(paymentDate.getTime() - (27 * 24 * 60 * 60 * 1000));
-
-        cy.log(paymentDate.toString());
+        
+        paymentDate = DateTime.now().minus({days: 28});
 
         addPayment
             .titleIs("Add a payment")
             .schoolNameIs(project.schoolName)
-            .withPaymentDueDate(paymentDate.getDate().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentDueDate(paymentDate.day, paymentDate.month, paymentDate.year)
             .withPaymentDueAmount("5000")
-            .withPaymentActualDate(paymentDate.getDate().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentActualDate(paymentDate.day, paymentDate.month, paymentDate.year)
             .withPaymentActualAmount("5000")
             .clickContinue();
 
@@ -114,10 +109,8 @@ describe("Payment Schedule Task", () => {
             .selectEditPayment("1");
         
         cy.executeAccessibilityTests();
-        
-        paymentDate.setDate(paymentDate.getTime() + (24 * 60 * 60 * 1000));
 
-        let nextPaymentDate = paymentDate
+        paymentDate = paymentDate.plus({days: 1})
 
         editPayment
             .titleIs("Edit Payment 1")
@@ -126,7 +119,7 @@ describe("Payment Schedule Task", () => {
             .withPaymentDueDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentDueDate().showsError("Day must be a number, like 12")
-            .withPaymentDueDate(paymentDate.getDay().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentDueDate(paymentDate.day, paymentDate.month, paymentDate.year)
 
             .withPaymentDueAmount("a")
             .clickContinue()
@@ -145,7 +138,7 @@ describe("Payment Schedule Task", () => {
             .withPaymentActualDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentActualDate().showsError("Day must be a number, like 12")
-            .withPaymentActualDate(paymentDate.getDay().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentActualDate(paymentDate.day, paymentDate.month, paymentDate.year)
 
             .withPaymentActualAmount("a")
             .clickContinue()
@@ -167,7 +160,7 @@ describe("Payment Schedule Task", () => {
             .checkPaymentUpdated("1")
             .selectAddPayment();
 
-            paymentDate.setDate(paymentDate.getTime() + (28 * 24 * 60 * 60 * 1000));
+            paymentDate = paymentDate.plus({days: 26})
 
         addPayment
             .titleIs("Add a payment")
@@ -176,7 +169,7 @@ describe("Payment Schedule Task", () => {
             .withPaymentDueDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentDueDate().showsError("Day must be a number, like 12")
-            .withPaymentDueDate(paymentDate.getDay().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentDueDate(paymentDate.day, paymentDate.month, paymentDate.year)
 
             .withPaymentDueAmount("a")
             .clickContinue()
@@ -195,7 +188,7 @@ describe("Payment Schedule Task", () => {
             .withPaymentActualDate("a", "12", "2025")
             .clickContinue()
             .errorForPaymentActualDate().showsError("Day must be a number, like 12")
-            .withPaymentActualDate(paymentDate.getDay().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
+            .withPaymentActualDate(paymentDate.day, paymentDate.month, paymentDate.year)
 
             .withPaymentActualAmount("a")
             .clickContinue()
@@ -212,16 +205,37 @@ describe("Payment Schedule Task", () => {
             .withPaymentActualAmount("4000")
             .clickContinue();
 
+        var nextPaymentDate = paymentDate.plus({days: 28})
+        
+        for (var i = 3; i <= 12; i++) {
+
+            paymentDate = paymentDate.plus({days: 28})
+
+            paymentSchedule
+                .selectAddPayment();
+            addPayment
+                .titleIs("Add a payment")
+                .schoolNameIs(project.schoolName)
+                .withPaymentDueDate(paymentDate.day, paymentDate.month, paymentDate.year)
+                .withPaymentDueAmount("5000")
+                .clickContinue();
+
+            paymentSchedule
+                .schoolNameIs(project.schoolName)
+                .checkPaymentAdded(i.toString())
+        }
+
         paymentSchedule
-            .schoolNameIs(project.schoolName)
-            .checkPaymentAdded("2")
+            .checkAddPaymentDoesNotExist();
+            
+        paymentSchedule
             .selectEditPayment("1");
 
         editPayment
             .titleIs("Edit Payment 1")
             .schoolNameIs(project.schoolName)
             .clickDelete();
-        
+
         cy.executeAccessibilityTests();
 
         deletePayment
@@ -241,51 +255,19 @@ describe("Payment Schedule Task", () => {
         
         paymentSchedule
             .schoolNameIs(project.schoolName)
-            .checkPaymentDeleted();
-        
-        for (var i = 2; i <= 12; i++) {
-            
-            paymentDate.setDate(paymentDate.getTime() + (28 * 24 * 60 * 60 * 1000));
-
-            paymentSchedule
-                .selectAddPayment();
-            addPayment
-                .titleIs("Add a payment")
-                .schoolNameIs(project.schoolName)
-                .withPaymentDueDate(paymentDate.getDay().toString(), paymentDate.getMonth().toString(), paymentDate.getFullYear().toString())
-                .withPaymentDueAmount("5000")
-                .clickContinue();
-
-            paymentSchedule
-                .schoolNameIs(project.schoolName)
-                .checkPaymentAdded(i.toString())
-        }
-
-        paymentSchedule
-            .checkAddPaymentDoesNotExist();
-            
-        paymentSchedule
-            .selectEditPayment("1");
-
-        editPayment
-            .titleIs("Edit Payment 1")
-            .schoolNameIs(project.schoolName)
-            .clickDelete();
-        
-        deletePayment
-            .clickDelete()
-        
-        paymentSchedule
-            .schoolNameIs(project.schoolName)
             .checkPaymentDeleted()
             .checkAddPaymentDoesExist();
+            
+        paymentSchedule
+            .clickBack();
         
         summaryPage
+            .startFromRow(2)
             .summaryShows("Number of scheduled payments").HasValue("11")
             .summaryShows("Number of sent payments").HasValue("1")
-            .summaryShows("Next payment due date").HasValue(nextPaymentDate)
-            .summaryShows("Next due amount").HasValue("10000")
-            .summaryShows("Amount sent").HasValue("5000");
+            .summaryShows("Next payment due date").HasValue(nextPaymentDate.toFormat("d MMMM yyyy"))
+            .summaryShows("Next due amount").HasValue("£5,000")
+            .summaryShows("Amount sent").HasValue("£4,000");
 
         summaryPage.MarkAsComplete()
             .clickConfirmAndContinue();

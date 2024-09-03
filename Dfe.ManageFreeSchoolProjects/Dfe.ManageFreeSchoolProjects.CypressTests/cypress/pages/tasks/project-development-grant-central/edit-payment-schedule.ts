@@ -54,8 +54,8 @@ class editPaymentSchedule {
         cy.getByTestId(`change-payment-${index}`).click();
     }
 
-    public clickContinue() : this {
-        cy.getByTestId("continue").click();
+    public clickBack() : this {
+        cy.getByClass("govuk-back-link").click();
         return this;
     }
 }
