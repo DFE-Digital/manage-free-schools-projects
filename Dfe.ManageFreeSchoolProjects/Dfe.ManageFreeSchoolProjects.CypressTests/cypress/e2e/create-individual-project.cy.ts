@@ -59,7 +59,7 @@ describe("Testing the project creation journey", () => {
             cy.visit('/');
         });
 
-        it.only("Should create a project", () => {
+        it("Should create a project", () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
