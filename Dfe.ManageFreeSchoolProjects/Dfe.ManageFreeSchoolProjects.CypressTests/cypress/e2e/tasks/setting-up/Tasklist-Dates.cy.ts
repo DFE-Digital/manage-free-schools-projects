@@ -122,4 +122,38 @@ describe("Testing project overview", () => {
             .hasDateOfEntryIntoPreopening("11 August 2026")
             .hasProvisionalOpeningDateAgreedWithTrust("13 September 2027");
     });
+
+    it("Should show validation errors on date fields", () => {
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+        .selectDatesFromTaskList()
+
+        Logger.log("Selecting Dates link from Tasklist");
+        datesDetailsPage
+        .titleIs("Dates")
+        .schoolNameIs(project.schoolName)
+
+        summaryPage.clickChange();
+
+        Logger.log("re-enter incorrect day,month and year");
+        datesDetailsPage
+            .schoolNameIs(project.schoolName)
+            .withEntryIntoPreOpening("34", "13", "2026")
+            .withProvisionalOpeningDateAgreedWithTrust("0", "7", "2055")
+            .clickContinue();
+
+        validationComponent
+            .hasLinkedValidationError("Month must be between 1 and 12")
+            .hasLinkedValidationError("Year must be between 2000 and 2050"); 
+            
+        Logger.log("re-enter incorrect day values to check other validation messages");
+        datesDetailsPage
+            .schoolNameIs(project.schoolName)
+            .withEntryIntoPreOpening("34", "9", "2026")
+            .withProvisionalOpeningDateAgreedWithTrust("30", "2", "2026")
+            .clickContinue();
+
+        validationComponent
+          .hasLinkedValidationError("Day must be between 1 and 30")
+          .hasLinkedValidationError("Day must be between 1 and 28");                  
+    });    
 });

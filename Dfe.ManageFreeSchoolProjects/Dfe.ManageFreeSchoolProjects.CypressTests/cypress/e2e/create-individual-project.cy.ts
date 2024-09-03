@@ -259,6 +259,14 @@ describe("Testing the project creation journey", () => {
 
             cy.executeAccessibilityTests();
 
+            //re-enter incorrect age-range values to check validation
+            createProjectPage
+              .enterAgeRangeFrom("12")
+              .enterAgeRangeTo("6")
+              .continue()
+              .errorMessage("'From' age range must be less than 'to' age range")
+
+            //enter valid age-range values
             createProjectPage
                 .enterAgeRangeFrom("2")
                 .enterAgeRangeTo("7")
