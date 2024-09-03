@@ -41,6 +41,6 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
         
         await grantLettersService.UpdateVariationLetter(projectId, newOrUpdatedVariationLetter);
 
-        return Created();
+        return NoContent();
     }
 }

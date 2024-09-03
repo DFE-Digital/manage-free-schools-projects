@@ -35,12 +35,12 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
 
         if (result.FinalGrantLetterDate != null && !string.IsNullOrEmpty(result.GrantLetterLink))
             result.FinalGrantLetterSavedToWorkplaces = true;
-        
-        var lettersWithLinkAndDateNotSaved =
-            result.VariationLetters?.Where(x =>
-                !string.IsNullOrEmpty(x.LetterLink) && x.LetterDate != null
-                                                    && x.SavedToWorkplacesFolder != null
-                                                    && (bool)x.SavedToWorkplacesFolder == false).ToList();
+
+        var lettersWithLinkAndDateNotSaved = result.VariationLetters?.Where(x =>
+            !string.IsNullOrEmpty(x.LetterLink)
+            && x.LetterDate != null
+            && x.SavedToWorkplacesFolder != null
+            && (bool)x.SavedToWorkplacesFolder == false).ToList();
 
         lettersWithLinkAndDateNotSaved?.ForEach(x => x.SavedToWorkplacesFolder = true);
 
@@ -111,7 +111,7 @@ public class ProjectGrantLettersService(MfspContext context) : IProjectGrantLett
     {
         po.PdgInitialGrantLetterDate = newOrUpdatedGrantLetter.InitialGrantLetterDate;
         po.PdgInitialGrantLetterSavedToWorkplaces = newOrUpdatedGrantLetter.InitialGrantLetterSavedToWorkplaces;
-        
+
         po.ProjectDevelopmentGrantFundingPdgGrantLetterDate = newOrUpdatedGrantLetter.FinalGrantLetterDate;
         po.PdgGrantLetterLinkSavedToWorkplaces = newOrUpdatedGrantLetter.FinalGrantLetterSavedToWorkplaces;
     }
