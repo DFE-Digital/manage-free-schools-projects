@@ -4,7 +4,7 @@ describe("Testing cookie preferences", () => {
         cy.visit("/");
     });
 
-    it.skip("Should have analytics cookies if accepted", () => {
+    it("Should have analytics cookies if accepted", () => {
         cy
         .getCookie("_ga").should("not.exist")
         .getCookie(".ManageFreeSchoolProjects.Consent").should("not.exist")
@@ -13,7 +13,7 @@ describe("Testing cookie preferences", () => {
         .getCookie(".ManageFreeSchoolProjects.Consent").should("exist")
     });
 
-    it.skip("Should remove analytics cookies if rejected", () => {
+    it("Should remove analytics cookies if rejected", () => {
         cy.getCookie("_ga").should("not.exist")
         .getCookie(".ManageFreeSchoolProjects.Consent").should("not.exist")
         .getByTestId("cookie-banner-reject").click()
@@ -31,5 +31,14 @@ describe("Testing cookie preferences", () => {
         .wait(2000)
         .getCookie("_ga").should("not.exist")
         .getCookie(".ManageFreeSchoolProjects.Consent").should("exist");
+    });
+
+    it.only("Should be able to View cookies page ", () => {
+        cy.getByTestId('cookie-banner-link-2').click()
+            .url().should('contain', 'cookies')
+            .get('h1').should('contain', 'Cookie preferences')
+            .get('h2').should('contain', 'Analytics cookies (optional)')
+            .get('#cookie-consent-deny').should('be.checked')
+            .get('[data-qa="submit"]').should('be.visible')
     });
 });

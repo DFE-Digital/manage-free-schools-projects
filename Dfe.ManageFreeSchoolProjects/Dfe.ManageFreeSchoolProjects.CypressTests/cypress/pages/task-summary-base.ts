@@ -117,6 +117,11 @@ export class SummaryPage {
     public clickChangeRiskRating() {
         cy.getByTestId("change-project-risk").click();
     }
+
+    public createProjectbutton(name: string): this {
+        cy.getByTestId("create-project").contains(name);
+        return this;
+    }
 }
 
 const summaryPage = new SummaryPage();

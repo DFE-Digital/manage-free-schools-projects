@@ -32,7 +32,7 @@ describe("Testing the home page", () => {
             });
         });
 
-        it.only("Should be able to filter projects by project ID", () => {
+        it("Should be able to filter projects by project ID", () => {
             homePage.openFilter().withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
@@ -51,6 +51,7 @@ describe("Testing the home page", () => {
                     row.hasProjectTitle(secondProject.schoolName);
                     row.hasProjectType(firstProject.projectType);
                     row.hasStatus("Pre-opening");
+                    row.hasViewLink('View');
                 });
 
             // Filter is displayed and has the searched value
@@ -83,6 +84,47 @@ describe("Testing the home page", () => {
             homePage
                 .hasRegionFilter("North West")
                 .clearFilters();
+        });
+
+        it("Should show the message when no projects found", () => {
+            homePage.openFilter().withProjectFilter("TRN87009")
+                .withRegionFilter("North West").applyFilters();
+            cy.get('h1').should('contain.text', '0 projects found')
+        });
+
+        it("Should be apply multiple filter options", () => {
+            homePage.openFilter().withRegionFilter("North West")
+                .withRegionFilter("London")
+                .withLocalAuthorityFilter("City of London")
+                .withLocalAuthorityFilter("Liverpool").applyFilters();
+            cy.get('h1').should('not.have.text', '0 projects found')
+        });
+    });
+
+    describe("View Project Details page", () => {
+        let firstProject: ProjectDetailsRequest;
+
+        beforeEach(() => {
+            firstProject = RequestBuilder.createProjectDetails();
+            firstProject.region = `North West`;
+
+            projectApi.post({
+                projects: [firstProject],
+            });
+        });
+
+        it("Should be able to View the filtered project from the project list", () => {
+            homePage.openFilter().withRegionFilter("North West").applyFilters();
+            projectTable.allRowsHaveViewLink()
+            projectTable
+                .getRowByProjectType(firstProject.projectType)
+                .then((row) => {
+                    row.viewFirstProject()
+                });
+
+            //opens the project details page
+            cy.url().should('contains', 'projects')
+            cy.get('.govuk-back-link').click()
         });
     });
 

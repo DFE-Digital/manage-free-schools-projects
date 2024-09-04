@@ -36,7 +36,7 @@ describe("Testing project overview", () => {
 
         projectStatusPage
             .selectCancelled()
-            .addCancelledYear("2000")
+            .addCancelledYear("1", "1", "2000")
             .clickSaveAndContine()
 
         taskListPage.isTaskStatusIsNotStarted("Dates")
@@ -47,7 +47,7 @@ describe("Testing project overview", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Dates")
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2000").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("2000").HasChangeLink()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -66,13 +66,13 @@ describe("Testing project overview", () => {
 
         Logger.log("Checking validation");
         datesDetailsPage
-            .addCancelledDate("error")
+            .addCancelledDate("1", "1", "error")
             .withEntryIntoPreOpening("33", "", "")
             .withProvisionalOpeningDateAgreedWithTrust("44", "", "")
             .clickContinue();
 
         validationComponent
-            .hasValidationError("Enter a year in the correct format")
+            .hasValidationError("Enter a date in the correct format")
             .hasValidationError("Entry into pre-opening must include a month and year")
             .hasValidationError("Provisional opening date agreed with trust must include a month and year");
 
@@ -81,14 +81,14 @@ describe("Testing project overview", () => {
         Logger.log("Add new values");
         datesDetailsPage
             .schoolNameIs(project.schoolName)
-            .addCancelledDate("2050")
+            .addCancelledDate("12", "2","2049")
             .withEntryIntoPreOpening("10", "08", "2025")
             .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
             .clickContinue();
 
         summaryPage
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
@@ -101,7 +101,7 @@ describe("Testing project overview", () => {
 
         summaryPage
             .inOrder()
-            .summaryShows("Year the project was cancelled").HasValue("2050").HasChangeLink()
+            .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
 
@@ -122,4 +122,38 @@ describe("Testing project overview", () => {
             .hasDateOfEntryIntoPreopening("11 August 2026")
             .hasProvisionalOpeningDateAgreedWithTrust("13 September 2027");
     });
+
+    it("Should show validation errors on date fields", () => {
+        taskListPage.isTaskStatusIsNotStarted("Dates")
+        .selectDatesFromTaskList()
+
+        Logger.log("Selecting Dates link from Tasklist");
+        datesDetailsPage
+        .titleIs("Dates")
+        .schoolNameIs(project.schoolName)
+
+        summaryPage.clickChange();
+
+        Logger.log("re-enter incorrect day,month and year");
+        datesDetailsPage
+            .schoolNameIs(project.schoolName)
+            .withEntryIntoPreOpening("34", "13", "2026")
+            .withProvisionalOpeningDateAgreedWithTrust("0", "7", "2055")
+            .clickContinue();
+
+        validationComponent
+            .hasLinkedValidationError("Month must be between 1 and 12")
+            .hasLinkedValidationError("Year must be between 2000 and 2050"); 
+            
+        Logger.log("re-enter incorrect day values to check other validation messages");
+        datesDetailsPage
+            .schoolNameIs(project.schoolName)
+            .withEntryIntoPreOpening("34", "9", "2026")
+            .withProvisionalOpeningDateAgreedWithTrust("30", "2", "2026")
+            .clickContinue();
+
+        validationComponent
+          .hasLinkedValidationError("Day must be between 1 and 30")
+          .hasLinkedValidationError("Day must be between 1 and 28");                  
+    });    
 });

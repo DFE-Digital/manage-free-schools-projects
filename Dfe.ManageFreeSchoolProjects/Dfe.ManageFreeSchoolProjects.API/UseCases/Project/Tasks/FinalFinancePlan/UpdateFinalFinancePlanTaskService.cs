@@ -35,7 +35,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePl
 
             milestone.Rid = dbKpi.Rid;
             milestone.FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan = task.ConfirmedTrustHasProvidedFinalPlan;
-            milestone.FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate = task.Grade6SignedOffFinalPlanDate;
+            milestone.FsgPreOpeningMilestonesFpaActualDateOfCompletion = task.Grade6SignedOffFinalPlanDate;
             milestone.FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox = task.SentFinalPlanToRevenueFundingMailbox;
             milestone.FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder = task.SavedFinalPlanInWorkplacesFolder;
 

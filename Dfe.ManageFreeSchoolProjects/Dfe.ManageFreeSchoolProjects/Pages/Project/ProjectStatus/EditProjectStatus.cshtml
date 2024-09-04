@@ -40,7 +40,7 @@
                             <govuk-date-input id="year-withdrawn-application" name="year-withdrawn-application" asp-for="@Model.WithdrawnApplicationYear" label="Year the project was withdrawn" hint="For example, 2024" />
                         </govuk-radios-list-conditional-item>
                         <govuk-radios-list-conditional-item id="project-status-withdrawn" value="@ProjectStatus.WithdrawnDuringPreOpening" description="@ProjectStatus.WithdrawnDuringPreOpening.ToDescription()" hint="For example, the trust withdrew in the pre-opening stage." asp-for="@Model.ProjectStatus" conditional-id="withdrawn-year-date-conditional">
-                            <govuk-date-input id="year-withdrawn" name="year-withdrawn" asp-for="@Model.WithdrawnYear" label="Year the project was withdrawn" hint="For example, 2024" />
+                            <govuk-date-input id="year-withdrawn-preopening" name="year-withdrawn-preopening" asp-for="@Model.WithdrawnYear" label="Year the project was withdrawn" hint="For example, 2024" />
                         </govuk-radios-list-conditional-item>
                     </govuk-radios-list>
                 </div>
