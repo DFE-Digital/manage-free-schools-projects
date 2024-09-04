@@ -1,11 +1,11 @@
-@page "/projects/{projectId}/tasks/pdg/central/add-variation-letter/{variationNumber}"
+@page "/projects/{projectId}/tasks/pdg/central/add-variation-letter/"
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.AddVariationLetter
 @using Dfe.ManageFreeSchoolProjects.Constants
 
 @{
     ViewData["Title"] = $"Add variation letter - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
-
+    var variationNumber = TempData.Peek("VariationLetterToAdd") as string;
     // var initialGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
     // var finalGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
 }
@@ -23,7 +23,7 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Add variation letter
+    Add variation letter @variationNumber
 </h1>
 
 <div class="govuk-grid-row">

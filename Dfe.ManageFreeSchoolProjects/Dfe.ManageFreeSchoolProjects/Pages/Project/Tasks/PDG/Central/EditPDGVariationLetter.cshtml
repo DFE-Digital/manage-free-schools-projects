@@ -5,7 +5,7 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGVariationLetter
 
 @{
-    ViewData["Title"] = $"Add variation letter - {Model.CurrentFreeSchoolName}";
+    ViewData["Title"] = $"Edit variation letter {@Model.Variation} - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
 }
 
@@ -22,7 +22,7 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Add variation letter
+    Edit variation letter @Model.Variation
 </h1>
 
 <div class="govuk-grid-row">
