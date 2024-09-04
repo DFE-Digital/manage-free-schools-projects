@@ -85,6 +85,20 @@ describe("Testing the home page", () => {
                 .hasRegionFilter("North West")
                 .clearFilters();
         });
+
+        it("Should show the message when no projects found", () => {
+            homePage.openFilter().withProjectFilter("TRN87009")
+                .withRegionFilter("North West").applyFilters();
+            cy.get('h1').should('contain.text', '0 projects found')
+        });
+
+        it("Should be apply multiple filter options", () => {
+            homePage.openFilter().withRegionFilter("North West")
+                .withRegionFilter("London")
+                .withLocalAuthorityFilter("City of London")
+                .withLocalAuthorityFilter("Liverpool").applyFilters();
+            cy.get('h1').should('not.have.text', '0 projects found')
+        });
     });
 
     describe("View Project Details page", () => {
