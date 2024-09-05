@@ -150,6 +150,8 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
 
         public const string ViewReferenceNumbers = "/projects/{0}/reference-numbers";
         public const string EditReferenceNumbers = ViewReferenceNumbers + "/edit";
+        
         public const string ViewDueDiligenceChecks = TaskList + "/due-diligence-checks";
+        public const string EditDueDiligenceChecks = ViewDueDiligenceChecks + "/edit"; 
     }
 }

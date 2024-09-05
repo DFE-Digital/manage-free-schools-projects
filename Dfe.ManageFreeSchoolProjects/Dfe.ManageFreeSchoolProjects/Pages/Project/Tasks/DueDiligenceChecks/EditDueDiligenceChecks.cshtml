@@ -1,0 +1,47 @@
+@page "/projects/{projectId}/tasks/due-diligence-checks/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DueDiligenceChecks.EditDueDiligenceChecks
+
+@{
+    ViewData["Title"] = $"Edit Due diligence checks- {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewDueDiligenceChecks, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">    
+                @Model.SchoolName
+            </span>
+            Due diligence checks LOOOOL kjhsdfkjkldjfssd
+        </h1>
+        
+        <form method="post">
+
+            <govuk-checkbox-input label="Received Chair of Trustee's DBS countersigned certificate"
+                                  asp-for="@Model.ReceivedChairOfTrusteesCountersignedCertificate"
+                                  name="received-chair-of-trustees-countersigned-certificate"
+                                  id="received-chair-of-trustees-countersigned-certificate"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Non-specialist checks done on all trust members and trustees in the last 2 years"
+                                  asp-for="@Model.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees"
+                                  name="non-specialist-checks-done-on-all-trust-members-and-trustees"
+                                  id="non-specialist-checks-done-on-all-trust-members-and-trustees"
+                                  add-margin=false />
+
+                <govuk-yesno-input id="requested-counter-extremism-checks" name="requested-counter-extremism-checks" label="Requested counter extremism checks" asp-for="@Model.RequestedCounterExtremismChecks" data-testid="requested-counter-extremism-checks" leading-paragraph="cheese" />
+
+        </form>
+
+    </div>
+</div>
