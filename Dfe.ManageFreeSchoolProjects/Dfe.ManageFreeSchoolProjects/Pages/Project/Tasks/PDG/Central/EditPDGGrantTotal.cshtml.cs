@@ -24,7 +24,7 @@ public class EditGrantTotal : PageModel
     public string ProjectId { get; set; }
 
     [BindProperty(Name = "total-grant-amount", BinderType = typeof(DecimalInputModelBinder))]
-    [ValidMoney(0, int.MaxValue)] //TODO: find out what the max is, if any
+    [ValidMoney(0, int.MaxValue)]
     [Display(Name = "Total amount")]
     public decimal? GrantTotalAmount { get; set; }
     
@@ -41,7 +41,6 @@ public class EditGrantTotal : PageModel
         _updateProjectTaskService = updateProjectTaskService;
         _errorService = errorService;
     }
-
 
     public async Task<IActionResult> OnGet()
     {
@@ -81,10 +80,22 @@ public class EditGrantTotal : PageModel
         var pdgGrantTask = new PDGGrantTask();
         
         var initialGrant = SafeStringToNullableDecimal(TempData["InitialGrant"]?.ToString());
-        var revisedGrant = SafeStringToNullableDecimal(TempData["RevisedGrant"]?.ToString());
         
-        pdgGrantTask.InitialGrant = initialGrant;
-        pdgGrantTask.RevisedGrant = GrantTotalAmount ?? (initialGrant ?? revisedGrant);
+        if (initialGrant == null)
+        {
+            pdgGrantTask.InitialGrant = GrantTotalAmount;
+        }
+        else
+        {
+            if (GrantTotalAmount == null)
+            {
+                _errorService.AddError("total-grant-amount", "Total amount cannot be blank once set");
+                return Page();
+            }
+
+            pdgGrantTask.InitialGrant = initialGrant;
+            pdgGrantTask.RevisedGrant = GrantTotalAmount;
+        }
         
         var request = new UpdateProjectByTaskRequest { PDGGrantTask = pdgGrantTask };
 

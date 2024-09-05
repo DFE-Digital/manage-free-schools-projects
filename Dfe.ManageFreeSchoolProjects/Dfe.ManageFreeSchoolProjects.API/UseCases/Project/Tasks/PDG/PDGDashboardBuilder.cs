@@ -4,7 +4,6 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.StopPayments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLetterPDGLetterSent;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 {
@@ -24,8 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 
             return new PDGDashboard
             {
-                InitialGrant = ParseDecimal(po.ProjectDevelopmentGrantFundingInitialGrantAllocation), 
-                RevisedGrant = ParseDecimal(po.ProjectDevelopmentGrantFundingRevisedGrantAllocation),
+                InitialGrant = ParseDecimalAllowNull(po.ProjectDevelopmentGrantFundingInitialGrantAllocation), 
+                RevisedGrant = ParseDecimalAllowNull(po.ProjectDevelopmentGrantFundingRevisedGrantAllocation),
                 PaymentScheduleAmount = GetPaymentScheduleAmount(po),
                 PaymentScheduleDate = GetPaymentScheduleDate(po),
                 PaymentActualAmount = GetPaymentActualAmount(po),
@@ -276,6 +275,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
             if (string.IsNullOrWhiteSpace(value))
             {
                 return 0;
+            }
+
+            return decimal.Parse(value);
+        }
+
+        private static decimal? ParseDecimalAllowNull(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
             }
 
             return decimal.Parse(value);
