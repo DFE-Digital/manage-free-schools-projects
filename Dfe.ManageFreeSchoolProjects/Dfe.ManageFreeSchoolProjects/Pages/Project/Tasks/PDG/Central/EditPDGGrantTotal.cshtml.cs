@@ -74,6 +74,8 @@ public class EditGrantTotal : PageModel
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
+            CurrentFreeSchoolName = project.SchoolName;
             return Page();
         }
         
@@ -103,7 +105,7 @@ public class EditGrantTotal : PageModel
 
         return Redirect(string.Format(RouteConstants.ViewPDGCentral, ProjectId));
     }
-    
+
     private static decimal? SafeStringToNullableDecimal(string input)
     {
         if (decimal.TryParse(input, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal result))

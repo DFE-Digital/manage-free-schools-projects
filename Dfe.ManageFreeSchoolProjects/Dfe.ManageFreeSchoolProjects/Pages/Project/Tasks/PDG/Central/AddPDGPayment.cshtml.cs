@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         public DateTime? PaymentActualDate { get; set; }
 
         [BindProperty(Name = "payment-actual-amount", BinderType = typeof(DecimalInputModelBinder))]
-        [Display(Name = "Actual amount")]
+        [Display(Name = "Amount sent")]
         public decimal? PaymentActualAmount { get; set; }
 
         public AddPDGPaymentModel(IGetProjectByTaskService getProjectService, IAddProjectPaymentsService addProjectPaymentsService, ILogger<AddPDGPaymentModel> logger,

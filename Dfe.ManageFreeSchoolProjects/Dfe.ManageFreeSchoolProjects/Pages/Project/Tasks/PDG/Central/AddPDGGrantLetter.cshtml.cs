@@ -2,17 +2,24 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
-using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class AddPDGGrantLetter(IGrantLettersService grantLettersService, ErrorService errorService) : PageModel
+public class AddPDGGrantLetter(
+    IGrantLettersService grantLettersService, 
+    IGetProjectByTaskService getProjectService, 
+    ILogger<AddPDGPaymentModel> logger, 
+    ErrorService errorService) 
+    : PageModel
 {
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
@@ -35,16 +42,21 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService, ErrorSe
     [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
     public bool FullGrantLetterSavedToWorkspaces { get; set; }
 
-    public IActionResult OnGet()
+    public async Task<ActionResult> OnGet()
     {
+        logger.LogMethodEntered();
+        await LoadSchoolName();
         return Page();
     }
 
     public async Task<IActionResult> OnPost()
     {
+        logger.LogMethodEntered();
+
         if (!ModelState.IsValid)
         {
             errorService.AddErrors(ModelState.Keys, ModelState);
+            await LoadSchoolName();
             return Page();
         }
 
@@ -62,4 +74,10 @@ public class AddPDGGrantLetter(IGrantLettersService grantLettersService, ErrorSe
 
         return Redirect(string.Format(RouteConstants.EditPDGGrantLetters, ProjectId));
     }
+    private async Task LoadSchoolName()
+    {
+        var project = await getProjectService.Execute(ProjectId, TaskName.PDG);
+        CurrentFreeSchoolName = project.SchoolName;
+    }
+
 }

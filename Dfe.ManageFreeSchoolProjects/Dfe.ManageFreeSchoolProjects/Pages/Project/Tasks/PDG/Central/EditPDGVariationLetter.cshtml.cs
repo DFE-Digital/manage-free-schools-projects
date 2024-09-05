@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -12,7 +13,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
-public class EditPDGVariationLetter(IGrantLettersService grantLettersService, ErrorService errorService) : PageModel
+public class EditPDGVariationLetter(
+    IGrantLettersService grantLettersService, 
+    IGetProjectByTaskService getProjectService,
+    ErrorService errorService) : PageModel
 {
     [BindProperty(SupportsGet = true)] 
     public string ProjectId { get; set; }
@@ -41,6 +45,8 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService, Er
         DueDateOfVariationLetter = VariationLetter?.LetterDate;
         VariationLetterSavedToWorkplaces = VariationLetter?.SavedToWorkplacesFolder ?? false;
 
+        await LoadSchoolName();
+
         return Page();
     }
 
@@ -51,6 +57,7 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService, Er
             if (!ModelState.IsValid)
             {
                 errorService.AddErrors(ModelState.Keys, ModelState);
+                await LoadSchoolName();
                 return Page();
             }
 
@@ -77,5 +84,10 @@ public class EditPDGVariationLetter(IGrantLettersService grantLettersService, Er
         return Enum.TryParse<GrantVariationLetter.LetterVariation>(variationNumber, out var variationEnum)
             ? variationEnum
             : GrantVariationLetter.LetterVariation.NotSet;
+    }
+    private async Task LoadSchoolName()
+    {
+        var project = await getProjectService.Execute(ProjectId, TaskName.PDG);
+        CurrentFreeSchoolName = project.SchoolName;
     }
 }
