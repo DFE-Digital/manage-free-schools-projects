@@ -39,5 +39,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         CommissionedExternalExpert,
         MovingToOpen,
         PrincipalDesignate,
+        DueDiligenceChecks
     }
 }

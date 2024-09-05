@@ -62,6 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public int TaskCount { get; set; }
         
         public int CompletedTasks { get; set; }
+        public TaskSummaryResponse DueDiligenceChecks { get; set; }
     }
 
     public class TaskSummaryResponse

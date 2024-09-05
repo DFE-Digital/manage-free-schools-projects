@@ -1,0 +1,45 @@
+@page "/projects/{projectId}/tasks/due-diligence-checks"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DueDiligenceChecks.ViewDueDiligenceChecks
+@{
+ViewData["Title"] = $"Statutory consultation - {Model.Project.SchoolName}";
+
+var backLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+var editLink = string.Format(RouteConstants.EditStatutoryConsultation, Model.ProjectId);
+var dueDiligenceChecks = Model.Project.StatutoryConsultation;
+}
+
+@section BeforeMain {
+<div role="navigation" class="govuk-width-container">
+    <a href=@backLink class="govuk-back-link">Back</a>
+</div>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Statutory consultation
+        </h1>
+        <govuk-summary-list>
+            <govuk-summary-item label="Expected date for receiving findings from trust" asp-for="@dueDiligenceChecks.ExpectedDateForReceivingFindingsFromTrust" href="@editLink" />
+            <govuk-summary-item label="Received consultation findings from trust" asp-for="@dueDiligenceChecks.ReceivedConsultationFindingsFromTrust" href="@editLink" />
+            <govuk-summary-item label="Date received" asp-for="@dueDiligenceChecks.DateReceived" href="@editLink" />
+            <govuk-summary-item label="Consultation fulfils the trust's section 10 statutory duty" asp-for="@dueDiligenceChecks.ConsultationFulfilsTrustSection10StatutoryDuty" href="@editLink" />
+            <govuk-summary-item label="Comments" asp-for="@dueDiligenceChecks.Comments" href="@editLink" />
+            <govuk-summary-item label="Saved findings in Workplaces folder" asp-for="@dueDiligenceChecks.SavedFindingsInWorkplacesFolder" href="@editLink" />
+        </govuk-summary-list>
+
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed" />
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.Constants
+﻿using System;
+
+namespace Dfe.ManageFreeSchoolProjects.Constants
 {
     public static class RouteConstants
     {
@@ -148,5 +150,6 @@
 
         public const string ViewReferenceNumbers = "/projects/{0}/reference-numbers";
         public const string EditReferenceNumbers = ViewReferenceNumbers + "/edit";
+        public const string ViewDueDiligenceChecks = TaskList + "/due-diligence-checks";
     }
 }
