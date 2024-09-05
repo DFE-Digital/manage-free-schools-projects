@@ -6,7 +6,7 @@ ViewData["Title"] = $"Statutory consultation - {Model.Project.SchoolName}";
 
 var backLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
 var editLink = string.Format(RouteConstants.EditStatutoryConsultation, Model.ProjectId);
-var dueDiligenceChecks = Model.Project.StatutoryConsultation;
+var dueDiligenceChecks = Model.Project.DueDiligenceChecks;
 }
 
 @section BeforeMain {
@@ -24,12 +24,13 @@ var dueDiligenceChecks = Model.Project.StatutoryConsultation;
             Statutory consultation
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Expected date for receiving findings from trust" asp-for="@dueDiligenceChecks.ExpectedDateForReceivingFindingsFromTrust" href="@editLink" />
-            <govuk-summary-item label="Received consultation findings from trust" asp-for="@dueDiligenceChecks.ReceivedConsultationFindingsFromTrust" href="@editLink" />
-            <govuk-summary-item label="Date received" asp-for="@dueDiligenceChecks.DateReceived" href="@editLink" />
-            <govuk-summary-item label="Consultation fulfils the trust's section 10 statutory duty" asp-for="@dueDiligenceChecks.ConsultationFulfilsTrustSection10StatutoryDuty" href="@editLink" />
-            <govuk-summary-item label="Comments" asp-for="@dueDiligenceChecks.Comments" href="@editLink" />
-            <govuk-summary-item label="Saved findings in Workplaces folder" asp-for="@dueDiligenceChecks.SavedFindingsInWorkplacesFolder" href="@editLink" />
+            <govuk-summary-item label="Received Chair of Trustee's DBS countersigned certificate" asp-for="@dueDiligenceChecks.ReceivedChairOfTrusteesCountersignedCertificate" href="@editLink" />
+            <govuk-summary-item label="Non-specialist checks done on all trust members and trustees in last 2 years" asp-for="@dueDiligenceChecks.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees" href="@editLink" />
+            <govuk-summary-item label="Requested counter terrorism checks" asp-for="@dueDiligenceChecks.RequestedCounterExtremismChecks" href="@editLink" />
+            <govuk-summary-item label="Date when all check were completed" asp-for="@dueDiligenceChecks.DateWhenAllChecksWereCompleted" href="@editLink" />
+            <govuk-summary-item label="Saved the non-specialist checks spreadsheet in Workplaces folder" asp-for="@dueDiligenceChecks.SavedNonSpecialistChecksSpreadsheetInWorkplaces" href="@editLink" />
+            <govuk-summary-item label="Deleted copy of any Chair's DBS certificate" asp-for="@dueDiligenceChecks.DeletedAnyCopiesOfChairsDBSCertificate" href="@editLink" />
+            <govuk-summary-item label="Deleted emails containing suitability and declaration forms" asp-for="@dueDiligenceChecks.DeletedEmailsContainingSuitabilityAndDeclarationForms" href="@editLink" />
         </govuk-summary-list>
 
         <form method="post">
