@@ -61,7 +61,7 @@
 
     if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
     {
-        <govuk-summary-card id="grant-letters" label="Grant letters" href=@editGrantLetterLink>
+        <govuk-summary-card id="grant-letters" label="Grant letter" href=@editGrantLetterLink>
             <govuk-summary-list>
                 <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.InitialGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedToWorkplaces"/>
