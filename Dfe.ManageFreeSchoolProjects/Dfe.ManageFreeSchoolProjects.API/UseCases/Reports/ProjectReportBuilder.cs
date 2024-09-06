@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.FundingAgreementSubmission, TaskName = "Funding agreement submission", Section = "Pre-opening" },
                     new() { Task = project.TaskInformation.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
                     new() { Task = project.TaskInformation.AdmissionsArrangements, TaskName = "Admissions Arrangements", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.DraftGovernancePlan, TaskName = "Draft governance plan", Section = "Pre-opening" },
+                    new() { Task = project.TaskInformation.GovernancePlan, TaskName = "Governance plan", Section = "Pre-opening" },
                     new() { Task = project.TaskInformation.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" },
                     new() { Task = project.TaskInformation.EqualitiesAssessment, TaskName = "Equalities assessment", Section = "Pre-opening" },
                     new() { Task = project.TaskInformation.StatutoryConsultation, TaskName = "Statutory consultation", Section = "Pre-opening" },

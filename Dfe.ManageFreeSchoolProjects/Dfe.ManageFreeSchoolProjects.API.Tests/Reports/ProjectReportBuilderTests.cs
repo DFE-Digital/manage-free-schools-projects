@@ -76,7 +76,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
             AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
-            AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
+            AssertEntry(nameof(GovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(FundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementSubmissionTask.DraftedFundingAgreementSubmission), "Yes", project, columnHeaders);
@@ -152,7 +152,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             RpaCoverType = "Cover",
                         },
-                        DraftGovernancePlan = new DraftGovernancePlanTask()
+                        GovernancePlan = new GovernancePlanTask()
                         {
 							PlanFedBackToTrust = false,
 						},

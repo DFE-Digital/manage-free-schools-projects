@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Central
 {
-    public class ViewDraftGovernancePlanModel : ViewTaskBaseModel
+    public class ViewGovernancePlanModel : ViewTaskBaseModel
     {
-        private readonly ILogger<ViewDraftGovernancePlanModel> _logger;
+        private readonly ILogger<ViewGovernancePlanModel> _logger;
         private readonly IGetProjectRiskService _getProjectRiskService;
 
         public GetProjectRiskResponse ProjectRisk { get; set; }
 
-        public ViewDraftGovernancePlanModel(
+        public ViewGovernancePlanModel(
             IGetProjectByTaskService getProjectService,
-            ILogger<ViewDraftGovernancePlanModel> logger,
+            ILogger<ViewGovernancePlanModel> logger,
             IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService,
             IGetProjectRiskService getProjectRiskService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
         {
@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         {
             _logger.LogMethodEntered();
 
-            await GetTask(TaskName.DraftGovernancePlan);
+            await GetTask(TaskName.GovernancePlan);
 
             ProjectRisk = await _getProjectRiskService.Execute(ProjectId, 1);
 
@@ -42,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         {
             _logger.LogMethodEntered();
 
-            await PostTask(TaskName.DraftGovernancePlan);
+            await PostTask(TaskName.GovernancePlan);
 
             return Redirect(string.Format(RouteConstants.TaskList, ProjectId));
         }

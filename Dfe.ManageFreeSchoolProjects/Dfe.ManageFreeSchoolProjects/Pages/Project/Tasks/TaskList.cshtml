@@ -25,7 +25,9 @@
     var statutoryConsultationLink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
-    var draftGovernancePlanLink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
+    var governancePlanPresumptionLink = string.Format(RouteConstants.ViewGovernancePlanPresumptionTask, Model.ProjectId);
+    var governancePlanCentralLink = string.Format(RouteConstants.ViewGovernancePlanCentralTask, Model.ProjectId);
+    var governancePlanLink = (@Model.ProjectType == "Presumption") ? governancePlanPresumptionLink : governancePlanCentralLink;
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
     var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
@@ -255,12 +257,12 @@
 
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
-                            <a href="@draftGovernancePlanLink" class="govuk-link" data-testid="draft-governance-plan-task">
-                                Draft governance plans
+                            <a href="@governancePlanLink" class="govuk-link" data-testid="draft-governance-plan-task">
+                                Governance plan
                             </a>
                         </span>
                         @{
-                            RenderStatus(Model.ProjectTaskListSummary.DraftGovernancePlan);
+                            RenderStatus(Model.ProjectTaskListSummary.GovernancePlan);
                         }
                     </li>
                     <li class="app-task-list__item">

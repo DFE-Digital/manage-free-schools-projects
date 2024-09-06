@@ -1,12 +1,12 @@
-﻿@page "/projects/{projectId}/tasks/draft-governance-plan"
+﻿@page "/projects/{projectId}/tasks/governance-plan/central"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan.ViewDraftGovernancePlanModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Central.ViewGovernancePlanModel
 @{
-    ViewData["Title"] = $"Draft governance plans - {Model.Project.SchoolName}";
+    ViewData["Title"] = $" Governance plan - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editlink = string.Format(RouteConstants.EditDraftGovernancePlanTask, Model.ProjectId);
-    var draftGovernancePlan = Model.Project.DraftGovernancePlan;
+    var editlink = string.Format(RouteConstants.EditGovernancePlanCentralTask, Model.ProjectId);
+    var GovernancePlan = Model.Project.GovernancePlan;
     var riskRatingLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 
@@ -22,23 +22,28 @@
             <span class="govuk-caption-l" data-testid="school-name">
                 @Model.Project.SchoolName
             </span>
-            Draft governance plans
+             Governance plan
         </h1>
         <div class="govuk-inset-text">
             You only need to do this task if the project's overall and governance <a class="govuk-link" href="@riskRatingLink">risk ratings</a> are red or amber red.
         </div>
         <govuk-summary-list>
-            <govuk-summary-item label="Received draft governance plan from trust" asp-for="@draftGovernancePlan.PlanReceivedFromTrust" href="@editlink" />
-            @if (draftGovernancePlan.PlanReceivedFromTrust == true)
+            <govuk-summary-item label="Received  governance plan from trust" asp-for="@GovernancePlan.PlanReceivedFromTrust" href="@editlink" />
+            @if (GovernancePlan.PlanReceivedFromTrust == true)
             {
-                <govuk-summary-item label="Date received" asp-for="@draftGovernancePlan.DatePlanReceived" href="@editlink" />
+                <govuk-summary-item label="Date received" asp-for="@GovernancePlan.DatePlanReceived" href="@editlink" />
             }
-            <govuk-summary-item label="Assessed plan using assessment template" asp-for="@draftGovernancePlan.PlanAssessedUsingTemplate" href="@editlink" />
-            <govuk-summary-item label="Shared plan and assessment with external expert" asp-for="@draftGovernancePlan.PlanAndAssessmentSharedWithExpert" href="@editlink" />
-            <govuk-summary-item label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)" asp-for="@draftGovernancePlan.PlanAndAssessmentSharedWithEsfa" href="@editlink" />
-            <govuk-summary-item label="Fed back to trust on plan" asp-for="@draftGovernancePlan.PlanFedBackToTrust" href="@editlink" />
-            <govuk-summary-item label="Saved documents in Workplaces folder" asp-for="@draftGovernancePlan.SavedDocumentsInWorkplacesFolder" href="@editlink" />
-            <govuk-summary-item label="Comments" asp-for="@draftGovernancePlan.Comments" href="@editlink" />
+            <govuk-summary-item label="Assessed plan using assessment template" asp-for="@GovernancePlan.PlanAssessedUsingTemplate" href="@editlink" />
+            <govuk-summary-item label="Shared plan and assessment with external expert" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithExpert" href="@editlink" />
+            <govuk-summary-item label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithEsfa" href="@editlink" />
+            <govuk-summary-item label="Fed back to trust on plan" asp-for="@GovernancePlan.PlanFedBackToTrust" href="@editlink" />
+            <govuk-summary-item label="Final governance plan agreed" asp-for="@GovernancePlan.FinalGovernancePlanAgreed" href="@editlink" />
+            @if (GovernancePlan.DatePlanAgreed is not null)
+            {
+                <govuk-summary-item label="Date agreed" asp-for="@GovernancePlan.DatePlanAgreed" href="@editlink" />
+            }
+            <govuk-summary-item label="Saved final governance plan in Workplaces folder" asp-for="@GovernancePlan.SavedDocumentsInWorkplacesFolder" href="@editlink" />
+            <govuk-summary-item label="Comments" asp-for="@GovernancePlan.Comments" href="@editlink" />
         </govuk-summary-list>
         <form method="post">
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"

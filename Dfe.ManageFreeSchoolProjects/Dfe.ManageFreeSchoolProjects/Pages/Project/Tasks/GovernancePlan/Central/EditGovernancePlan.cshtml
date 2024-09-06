@@ -1,10 +1,10 @@
-﻿@page "/projects/{projectId}/tasks/draft-governance-plan/edit"
+﻿@page "/projects/{projectId}/tasks/governance-plan/central/edit"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan.EditDraftGovernancePlanModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Central.EditGovernancePlanModel
 @{
-    ViewData["Title"] = $"Edit Draft governance plan - {Model.SchoolName}";
+    ViewData["Title"] = $"Edit Governance plan - {Model.SchoolName}";
 
-    var backlink = string.Format(RouteConstants.ViewDraftGovernancePlanTask, Model.ProjectId);
+    var backlink = string.Format(RouteConstants.ViewGovernancePlanCentralTask, Model.ProjectId);
 }
 
 @section BeforeMain {
@@ -17,7 +17,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit Draft governance plan
+    Edit Governance plan
 </h1>
 
 <div class="govuk-grid-row">
@@ -36,7 +36,7 @@
                                checked="@(Model.PlanReceivedFromTrust == true ? "checked" : null)"
                                data-aria-controls="conditional-date-received">
                         <label class="govuk-label govuk-checkboxes__label" for="plan-received-from-trust">
-                            Received draft governance plan from trust
+                            Received governance plan from trust
                         </label>
                     </div>
                     <div class="govuk-checkboxes__conditional" id="conditional-date-received">
@@ -68,6 +68,26 @@
                                   name="plan-fed-back-to-trust"
                                   id="plan-fed-back-to-trust"
                                   add-margin=false />
+
+            <div class="govuk-form-group ">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input"
+                               id="final-governance-plan-agreed"
+                               name="final-governance-plan-agreed"
+                               type="checkbox"
+                               value="true"
+                               checked="@(Model.DatePlanAgreed is not null ? "checked" : null)"
+                               data-aria-controls="conditional-date-agreed">
+                        <label class="govuk-label govuk-checkboxes__label" for="final-governance-plan-agreed">
+                           Final governance plan agreed
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__conditional" id="conditional-date-agreed">
+                        <govuk-date-input id="date-plan-agreed" name="date-plan-agreed" asp-for="@Model.DatePlanAgreed" label="Date agreed" hint="For example, 27 3 2021" />
+                    </div>
+                </div>
+            </div>
 
             <govuk-checkbox-input label="Saved documents in Workplaces folder"
                                   asp-for="@Model.SavedDocumentsInWorkplacesFolder"

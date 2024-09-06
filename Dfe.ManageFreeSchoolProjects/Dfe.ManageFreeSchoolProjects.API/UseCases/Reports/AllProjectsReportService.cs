@@ -5,7 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociat
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
@@ -142,7 +142,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       FundingAgreementSubmission = FundingAgreementSubmissionTaskBuilder.Build(milestones),
                                       ArticlesOfAssociation = ArticlesOfAssociationTaskBuilder.Build(milestones),
                                       FinancePlan = FinancePlanTaskBuilder.Build(milestones, po),
-                                      DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones),
+                                      GovernancePlan = GovernancePlanTaskBuilder.Build(milestones),
                                       Gias = GiasTaskBuilder.Build(milestones),
                                       EducationBrief = EducationBriefTaskBuilder.Build(milestones),
                                       AdmissionsArrangements = AdmissionsArrangementsTaskBuilder.Build(milestones),

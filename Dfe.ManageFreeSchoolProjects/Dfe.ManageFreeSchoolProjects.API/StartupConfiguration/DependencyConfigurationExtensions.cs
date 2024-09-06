@@ -14,7 +14,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEviden
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
@@ -100,7 +100,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateGiasTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateStatutoryConsultationTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementTaskService>();
-			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateGovernancePlanTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEqualitiesAssessmentTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateImpactAssessmentTaskService>();

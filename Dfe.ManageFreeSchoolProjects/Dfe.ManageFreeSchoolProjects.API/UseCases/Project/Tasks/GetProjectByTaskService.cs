@@ -5,7 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociat
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
@@ -101,8 +101,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.FinancePlan:
                     result = await new GetFinancePlanTaskService(_context).Get(parameters);
                     break;
-                case TaskName.DraftGovernancePlan:
-                    result = await new GetDraftGovernancePlanTaskService(_context).Get(parameters);
+                case TaskName.GovernancePlan:
+                    result = await new GetGovernancePlanTaskService(_context).Get(parameters);
                     break;
                 case TaskName.Gias:
                     result = await new GetGiasTaskService(_context).Get(parameters);
