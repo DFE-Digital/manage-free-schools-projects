@@ -21,12 +21,13 @@
     var pdgTask = Model.Project.PDGDashboard;
 
     var totalGrantAmount = pdgTask.RevisedGrant ?? pdgTask.InitialGrant;
+    var amountDue = totalGrantAmount - pdgTask.PaymentActualAmount;
 
-    var numberOfScheduledPayments = Model.ProjectPayments.Payments.Count();
-    var numberOfSentPayments = Model.ProjectPayments.Payments.Count(p => p.PaymentActualDate < DateTime.Now);
-    var nextPaymentDate = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleDate).FirstOrDefault();
-    var nextPaymentAmount = Model.ProjectPayments.Payments.Where(p => p.PaymentIndex == numberOfSentPayments + 1).Select(p => p.PaymentScheduleAmount).FirstOrDefault();
-    var amountSent = Model.ProjectPayments.Payments.Where(p => p.PaymentActualDate < DateTime.Now).Select(p => p.PaymentActualAmount).Sum();
+    var numberOfScheduledPayments = Model.PDGPaymentInfo.numberOfScheduledPayments;
+    var numberOfSentPayments = Model.PDGPaymentInfo.numberOfSentPayments;
+    var nextPaymentDate = Model.PDGPaymentInfo.nextPaymentDate;
+    var nextPaymentAmount = Model.PDGPaymentInfo.nextPaymentAmount;
+    var amountSent = Model.PDGPaymentInfo.amountSent;
 
     var grantLetters = Model.PdgGrantLetters;
     var anyGrantLetterInfoAdded = grantLetters.InitialGrantLetterDate != null || grantLetters.FinalGrantLetterDate != null; 
@@ -53,7 +54,9 @@
         </h1>
         <h2 class="govuk-heading-m">Summary</h2>
         <govuk-summary-list no-border="true">
-            <govuk-summary-item label="Total amount" asp-for="@pdgTask.PaymentActualAmount"/>
+            <govuk-summary-item label="Total amount" asp-for="@totalGrantAmount" />
+            <govuk-summary-item label="Amount sent" asp-for="@pdgTask.PaymentActualAmount" />
+            <govuk-summary-item label="Due amount" asp-for="@amountDue" />
         </govuk-summary-list>
 
         <govuk-summary-card id="total-grant" label="Total grant" href="@editTotalGrantLink">

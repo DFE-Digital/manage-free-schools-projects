@@ -111,6 +111,7 @@ public class Startup
         services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
         services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
         services.AddScoped<IGrantLettersService, GrantLettersService>(); 
+        services.AddScoped<IPDGPaymentInfoService, PDGPaymentInfoService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
@@ -164,7 +165,6 @@ public class Startup
         });
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
     }
 
     private void SetupDataprotection(IServiceCollection services)
