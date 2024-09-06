@@ -30,7 +30,7 @@ public class EditDueDiligenceChecks(
     [BindProperty(Name = "non-specialist-checks-done-on-all-trust-members-and-trustees")]
     public bool? NonSpecialistChecksDoneOnAllTrustMembersAndTrustees { get; set; }
 
-    [BindProperty(Name = "request-counter-extremism-checks")]
+    [BindProperty(Name = "requested-counter-extremism-checks")]
     public bool? RequestedCounterExtremismChecks { get; set; }
 
     [BindProperty(Name = "date-when-all-checks-completed", BinderType = typeof(DateInputModelBinder))]
@@ -95,9 +95,11 @@ public class EditDueDiligenceChecks(
         SavedNonSpecialistChecksSpreadsheetInWorkplaces =
             project.DueDiligenceChecks.SavedNonSpecialistChecksSpreadsheetInWorkplaces;
 
+        DeletedAnyCopiesOfChairsDBSCertificate = project.DueDiligenceChecks.DeletedAnyCopiesOfChairsDBSCertificate;
+       
         DeletedEmailsContainingSuitabilityAndDeclarationForms =
             project.DueDiligenceChecks.DeletedEmailsContainingSuitabilityAndDeclarationForms;
-
+        
         SchoolName = project.SchoolName;
     }
 
@@ -113,7 +115,7 @@ public class EditDueDiligenceChecks(
                 RequestedCounterExtremismChecks = RequestedCounterExtremismChecks,
                 DateWhenAllChecksWereCompleted = DateWhenAllChecksWereCompleted,
                 SavedNonSpecialistChecksSpreadsheetInWorkplaces = SavedNonSpecialistChecksSpreadsheetInWorkplaces,
-                DeletedAnyCopiesOfChairsDBSCertificate = SavedNonSpecialistChecksSpreadsheetInWorkplaces,
+                DeletedAnyCopiesOfChairsDBSCertificate = DeletedAnyCopiesOfChairsDBSCertificate,
                 DeletedEmailsContainingSuitabilityAndDeclarationForms =
                     DeletedEmailsContainingSuitabilityAndDeclarationForms
             }

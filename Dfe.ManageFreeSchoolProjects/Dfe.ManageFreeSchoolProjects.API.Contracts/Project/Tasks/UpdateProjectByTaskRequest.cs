@@ -61,46 +61,81 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public PrincipalDesignateTask PrincipalDesignate { get; set; }
 
         public DueDiligenceChecks DueDiligenceChecks { get; set; }
-        
-        public string TaskToUpdate => TaskMappings.Where(kvp => kvp is { Key: not null, Value: not null })
-            .Select(kvp => kvp.Value).FirstOrDefault();
-        
-        private Dictionary<object, string> TaskMappings => new()
+
+        public string TaskToUpdate
         {
-            { School, "School" },
-            { ReferenceNumbers, TaskName.ReferenceNumbers.ToString() },
-            { Dates, "Dates" },
-            { Trust, "Trust" },
-            { RegionAndLocalAuthorityTask, "RegionAndLocalAuthority" },
-            { RiskAppraisalMeeting, "RiskAppraisalMeeting" },
-            { Constituency, "Constituency" },
-            { ArticlesOfAssociation, TaskName.ArticlesOfAssociation.ToString() },
-            { FinancePlan, TaskName.FinancePlan.ToString() },
-            { KickOffMeeting, TaskName.KickOffMeeting.ToString() },
-            { FundingAgreement, TaskName.FundingAgreement.ToString() },
-            { DraftGovernancePlan, TaskName.DraftGovernancePlan.ToString() },
-            { Gias, TaskName.Gias.ToString() },
-            { StatutoryConsultation, TaskName.StatutoryConsultation.ToString() },
-            { EducationBrief, TaskName.EducationBrief.ToString() },
-            { AdmissionsArrangements, TaskName.AdmissionsArrangements.ToString() },
-            { EqualitiesAssessment, TaskName.EqualitiesAssessment.ToString() },
-            { ImpactAssessment, TaskName.ImpactAssessment.ToString() },
-            { EvidenceOfAcceptedOffers, TaskName.EvidenceOfAcceptedOffers.ToString() },
-            { OfstedInspection, TaskName.OfstedInspection.ToString() },
-            { ApplicationsEvidence, TaskName.ApplicationsEvidence.ToString() },
-            { FundingAgreementHealthCheck, TaskName.FundingAgreementHealthCheck.ToString() },
-            { FundingAgreementSubmission, TaskName.FundingAgreementSubmission.ToString() },
-            { PaymentSchedule, TaskName.PaymentSchedule.ToString() },
-            { TrustPDGLetterSent, TaskName.TrustPDGLetterSent.ToString() },
-            { StopPayment, TaskName.StopPayment.ToString() },
-            { Refunds, TaskName.Refunds.ToString() },
-            { WriteOff, TaskName.WriteOff.ToString() },
-            { FinalFinancePlan, TaskName.FinalFinancePlan.ToString() },
-            { PupilNumbersChecks, TaskName.PupilNumbersChecks.ToString() },
-            { CommissionedExternalExpert, TaskName.CommissionedExternalExpert.ToString() },
-            { MovingToOpen, TaskName.MovingToOpen.ToString() },
-            { PrincipalDesignate, TaskName.PrincipalDesignate.ToString() },
-            { DueDiligenceChecks, TaskName.DueDiligenceChecks.ToString() }
-        };
+            get
+            {
+                if (School != null)
+                    return "School";
+                if (ReferenceNumbers != null)
+                    return TaskName.ReferenceNumbers.ToString();
+                if (Dates != null)
+                    return "Dates";
+                if (Trust != null)
+                    return "Trust";
+                if (RegionAndLocalAuthorityTask != null)
+                    return "RegionAndLocalAuthority";
+                if (RiskAppraisalMeeting != null)
+                    return "RiskAppraisalMeeting";
+                if (Constituency != null)
+                    return "Constituency";
+                if (ArticlesOfAssociation != null)
+                    return TaskName.ArticlesOfAssociation.ToString();
+                if (FinancePlan != null)
+                    return TaskName.FinancePlan.ToString();
+                if (KickOffMeeting != null)
+                    return TaskName.KickOffMeeting.ToString();
+                if (FundingAgreement != null)
+                    return TaskName.FundingAgreement.ToString();
+                if (DraftGovernancePlan != null)
+                    return TaskName.DraftGovernancePlan.ToString();
+                if (Gias != null)
+                    return TaskName.Gias.ToString();
+                if (StatutoryConsultation != null)
+                    return TaskName.StatutoryConsultation.ToString();
+                if (EducationBrief != null)
+                    return TaskName.EducationBrief.ToString();
+                if (AdmissionsArrangements != null)
+                    return TaskName.AdmissionsArrangements.ToString();
+                if (EqualitiesAssessment != null)
+                    return TaskName.EqualitiesAssessment.ToString();
+                if (ImpactAssessment != null)
+                    return TaskName.ImpactAssessment.ToString();
+                if (EvidenceOfAcceptedOffers != null)
+                    return TaskName.EvidenceOfAcceptedOffers.ToString();
+                if (OfstedInspection != null)
+                    return TaskName.OfstedInspection.ToString();
+                if (ApplicationsEvidence != null)
+                    return TaskName.ApplicationsEvidence.ToString();
+                if (FundingAgreementHealthCheck != null)
+                    return TaskName.FundingAgreementHealthCheck.ToString();
+                if (FundingAgreementSubmission != null)
+                    return TaskName.FundingAgreementSubmission.ToString();
+                if (PaymentSchedule != null)
+                    return TaskName.PaymentSchedule.ToString();
+                if (TrustPDGLetterSent != null)
+                    return TaskName.TrustPDGLetterSent.ToString();
+                if (StopPayment != null)
+                    return TaskName.StopPayment.ToString();
+                if (Refunds != null)
+                    return TaskName.Refunds.ToString();
+                if (WriteOff != null)
+                    return TaskName.WriteOff.ToString();
+                if (FinalFinancePlan != null)
+                    return TaskName.FinalFinancePlan.ToString();
+                if (PupilNumbersChecks != null)
+                    return TaskName.PupilNumbersChecks.ToString();
+                if (CommissionedExternalExpert != null)
+                    return TaskName.CommissionedExternalExpert.ToString();
+                if (MovingToOpen != null)
+                    return TaskName.MovingToOpen.ToString();
+                if (PrincipalDesignate != null)
+                    return TaskName.PrincipalDesignate.ToString();
+                if (DueDiligenceChecks != null)
+                    return TaskName.DueDiligenceChecks.ToString();
+                return null;
+            }
+        }
     }
 }

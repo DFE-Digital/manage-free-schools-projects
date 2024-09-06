@@ -52,6 +52,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -119,6 +120,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateFinalFinancePlanTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateMovingToOpenTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePrincipleDesignateTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateDueDiligenceChecksTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
@@ -138,7 +140,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
 			services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
             services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
-
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
