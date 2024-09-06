@@ -7,13 +7,6 @@
     var backLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editLink = string.Format(RouteConstants.EditDueDiligenceChecks, Model.ProjectId);
     var dueDiligenceChecks = Model.Project.DueDiligenceChecks;
-
-    var receivedChairOfTrusteesDbsCounterSignedCertificateVal = dueDiligenceChecks.ReceivedChairOfTrusteesCountersignedCertificate switch
-    {
-        null => null,
-        true => "Yes",
-        _ => "No"
-    };
     
     var requestedCounterTerrorismChecksVal = dueDiligenceChecks.RequestedCounterExtremismChecks switch
     {
@@ -38,7 +31,7 @@
             Due diligence checks
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Received Chair of Trustee's DBS countersigned certificate" asp-for="@receivedChairOfTrusteesDbsCounterSignedCertificateVal" href="@editLink"/>
+            <govuk-summary-item label="Received Chair of Trustee's DBS countersigned certificate" asp-for="@dueDiligenceChecks.ReceivedChairOfTrusteesCountersignedCertificate" href="@editLink"/>
             <govuk-summary-item label="Non-specialist checks done on all trust members and trustees in last 2 years" asp-for="@dueDiligenceChecks.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees" href="@editLink"/>
             <govuk-summary-item label="Requested counter terrorism checks" asp-for="@requestedCounterTerrorismChecksVal" href="@editLink"/>
             <govuk-summary-item label="Date when all check were completed" asp-for="@dueDiligenceChecks.DateWhenAllChecksWereCompleted" href="@editLink"/>
