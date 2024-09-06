@@ -24,7 +24,7 @@ public class UpdateDueDiligenceChecksTaskService(MfspContext context) : IUpdateT
         db.FsgPreOpeningReceivedChairOfTrusteesCountersignedCertificate =
             task.ReceivedChairOfTrusteesCountersignedCertificate;
 
-        db.FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees = task.RequestedCounterExtremismChecks;
+        db.FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees = task.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees;
 
         db.FsgPreOpeningRequestedCounterExtremismChecks = task.RequestedCounterExtremismChecks;
 
