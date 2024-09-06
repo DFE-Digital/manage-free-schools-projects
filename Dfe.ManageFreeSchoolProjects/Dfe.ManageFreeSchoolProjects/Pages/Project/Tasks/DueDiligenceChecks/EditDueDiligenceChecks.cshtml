@@ -47,6 +47,31 @@
                                data-testid="requested-counter-extremism-checks" 
                                leading-paragraph="You only need to do this if the non-specialist checks have revealed any concerns." />
 
+
+            <govuk-date-input id="date-when-all-checks-completed" name="date-when-all-checks-completed" asp-for="@Model.DateWhenAllChecksWereCompleted" label="Date when all checks were completed" hint="For example, 2024" width="4" bold-label="true" />
+
+            <govuk-checkbox-input label="Saved the non-specialist checks done on all trust members and trustees in the last 2 years"
+                                  asp-for="@Model.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees"
+                                  name="saved-the-non-specialist-check-spreadsheet-in-workplaces"
+                                  id="saved-the-non-specialist-check-spreadsheet-in-workplaces"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Deleted any copies of Chair's DBS certificate"
+                                  asp-for="@Model.DeletedAnyCopiesOfChairsDBSCertificate"
+                                  name="deleted-any-copies-of-chairs-dbs-certificate"
+                                  id="deleted-any-copies-of-chairs-dbs-certificate"
+                                  add-margin=false />
+
+
+            <govuk-checkbox-input label="Deleted emails containing suitability and declaration forms"
+                                  asp-for="@Model.DeletedEmailsContainingSuitabilityAndDeclarationForms"
+                                  name="deleted-emails-containing-suitability-and-declaration-forms"
+                                  id="deleted-emails-containing-suitability-and-declaration-forms"
+                                  add-margin=false />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
         </form>
 
     </div>
