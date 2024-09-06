@@ -17,12 +17,12 @@
 <partial name="_ErrorSummary"/>
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl" data-testid="title">
             <span class="govuk-caption-l" data-testid="school-name">    
                 @Model.SchoolName
             </span>
-            Due diligence checks LOOOOL kjhsdfkjkldjfssd
+            Due diligence checks
         </h1>
         
         <form method="post">
@@ -37,9 +37,15 @@
                                   asp-for="@Model.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees"
                                   name="non-specialist-checks-done-on-all-trust-members-and-trustees"
                                   id="non-specialist-checks-done-on-all-trust-members-and-trustees"
-                                  add-margin=false />
+                                  add-margin=false 
+                                  hint="The trust relationship manager should know this." />
 
-                <govuk-yesno-input id="requested-counter-extremism-checks" name="requested-counter-extremism-checks" label="Requested counter extremism checks" asp-for="@Model.RequestedCounterExtremismChecks" data-testid="requested-counter-extremism-checks" leading-paragraph="cheese" />
+            <govuk-yesno-input id="requested-counter-extremism-checks" 
+                               name="requested-counter-extremism-checks" 
+                               label="Requested counter extremism checks" 
+                               asp-for="@Model.RequestedCounterExtremismChecks" 
+                               data-testid="requested-counter-extremism-checks" 
+                               leading-paragraph="You only need to do this if the non-specialist checks have revealed any concerns." />
 
         </form>
 
