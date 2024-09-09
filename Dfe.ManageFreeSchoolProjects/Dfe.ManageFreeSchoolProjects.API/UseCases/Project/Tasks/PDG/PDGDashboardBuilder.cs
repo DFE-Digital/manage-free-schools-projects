@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 PaymentActualAmount = GetPaymentActualAmount(po),
                 PaymentActualDate = GetPaymentActualDate(po),
                 TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
-                PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
+                PDGLetterSavedInWorkplaces = GetPDGLetterSavedInWorkplaces(po),
                 PaymentStopped = stopPaymentTask.PaymentStopped,
                 PaymentStoppedDate = stopPaymentTask.PaymentStoppedDate,
                 LatestRefundDate = refundsTask.LatestRefundDate,
@@ -44,9 +44,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
             };
         }
         
-        private static bool? GetPDGLetterSavedInWorkspaces(Po po)
+        private static bool? GetPDGLetterSavedInWorkplaces(Po po)
         {
-            var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkspaces(po);
+            var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkplaces(po);
             return linkSaved == false ? null : linkSaved;
         }
 

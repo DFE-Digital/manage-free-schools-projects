@@ -56,7 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
             var project = await _getProjectService.Execute(ProjectId, TaskName.TrustPDGLetterSent);
 
             TrustSignedPDGLetterDate = project.TrustPDGLetterSent.TrustSignedPDGLetterDate;
-            SavedLetterInWorkplacesFolder = project.TrustPDGLetterSent.PDGLetterSavedInWorkspaces;
+            SavedLetterInWorkplacesFolder = project.TrustPDGLetterSent.PDGLetterSavedInWorkplaces;
             CurrentFreeSchoolName = project.SchoolName;
         }
 
@@ -78,7 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
                     TrustPDGLetterSent = new()
                     {
                         TrustSignedPDGLetterDate = TrustSignedPDGLetterDate,
-                        PDGLetterSavedInWorkspaces = SavedLetterInWorkplacesFolder
+                        PDGLetterSavedInWorkplaces = SavedLetterInWorkplacesFolder
                     }
                 };
 

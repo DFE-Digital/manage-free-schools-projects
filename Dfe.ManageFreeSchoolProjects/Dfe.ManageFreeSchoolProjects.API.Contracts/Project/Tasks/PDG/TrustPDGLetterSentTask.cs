@@ -9,6 +9,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
     public class TrustPDGLetterSentTask
     {
         public DateTime? TrustSignedPDGLetterDate { get; set; }
-        public bool? PDGLetterSavedInWorkspaces { get; set; }
+        public bool? PDGLetterSavedInWorkplaces { get; set; }
     }
 }

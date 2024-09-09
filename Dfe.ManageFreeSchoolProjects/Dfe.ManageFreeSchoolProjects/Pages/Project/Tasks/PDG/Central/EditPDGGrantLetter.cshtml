@@ -29,16 +29,16 @@
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
                 <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.InitialGrantLetterDateSigned" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
-                <govuk-checkbox-input label="Saved the signed initial grant letter to Workspaces folder"
+                <govuk-checkbox-input label="Saved the signed initial grant letter to Workplaces folder"
                                       asp-for="@Model.InitialGrantLetterSavedToWorkplaces"
                                       name="initial-grant-letter-saved-to-workplaces-folder"
                                       id="initial-grant-letter-saved-to-workplaces-folder"
                                       add-margin="false" />
                 <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FinalGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the final grant letter" hint="For example, 27 3 2021" add-margin="false"/>
-                <govuk-checkbox-input label="Saved the signed final grant letter to Workspaces folder"
-                                      asp-for="@Model.FinalGrantLetterSavedToWorkspaces"
-                                      name="full-grant-letter-saved-to-workspaces-folder"
-                                      id="full-grant-letter-saved-to-workspaces-folder"
+                <govuk-checkbox-input label="Saved the signed final grant letter to Workplaces folder"
+                                      asp-for="@Model.FinalGrantLetterSavedToWorkplaces"
+                                      name="full-grant-letter-saved-to-workplaces-folder"
+                                      id="full-grant-letter-saved-to-workplaces-folder"
                                       add-margin="false" />
                 <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
                     Save and continue

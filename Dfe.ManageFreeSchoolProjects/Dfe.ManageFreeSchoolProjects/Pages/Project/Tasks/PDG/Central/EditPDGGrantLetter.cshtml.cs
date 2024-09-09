@@ -36,8 +36,8 @@ public class EditPDGGrantLetter(
     [BindProperty(Name = "initial-grant-letter-saved-to-workplaces-folder")]
     public bool InitialGrantLetterSavedToWorkplaces { get; set; }
 
-    [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
-    public bool FinalGrantLetterSavedToWorkspaces { get; set; }
+    [BindProperty(Name = "full-grant-letter-saved-to-workplaces-folder")]
+    public bool FinalGrantLetterSavedToWorkplaces { get; set; }
 
     public async Task<IActionResult> OnGet()
     {
@@ -46,7 +46,7 @@ public class EditPDGGrantLetter(
         InitialGrantLetterDateSigned = GrantLetters.InitialGrantLetterDate;
         FinalGrantLetterDateSigned = GrantLetters.FinalGrantLetterDate;
         InitialGrantLetterSavedToWorkplaces = GrantLetters.InitialGrantLetterSavedToWorkplaces ?? false;
-        FinalGrantLetterSavedToWorkspaces = GrantLetters.FinalGrantLetterSavedToWorkplaces ?? false;
+        FinalGrantLetterSavedToWorkplaces = GrantLetters.FinalGrantLetterSavedToWorkplaces ?? false;
 
         await LoadSchoolName();
 
@@ -67,7 +67,7 @@ public class EditPDGGrantLetter(
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FinalGrantLetterDateSigned,
             InitialGrantLetterSavedToWorkplaces = InitialGrantLetterSavedToWorkplaces,
-            FinalGrantLetterSavedToWorkplaces = FinalGrantLetterSavedToWorkspaces
+            FinalGrantLetterSavedToWorkplaces = FinalGrantLetterSavedToWorkplaces
         };
 
         await grantLettersService.UpdateGrantLetters(ProjectId, updatedGrantLetter);

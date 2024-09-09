@@ -6,8 +6,8 @@
     ViewData["Title"] = $"Add grant letter - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
 
-    var initialLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
-    var finalLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkspaces ? "checked" : "";
+    var initialLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkplaces ? "checked" : "";
+    var finalLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkplaces ? "checked" : "";
 
 }
 
@@ -31,33 +31,17 @@
     <div class="govuk-grid-column-two-thirds">
         <form method="post">
             <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.InitialGrantLetterDateSigned" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
-
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="initial-grant-letter-saved-to-workspaces-folder"
-                               data-testid="initial-grant-letter-saved-to-workspaces-folder" name="initial-grant-letter-saved-to-workspaces-folder" type="checkbox" @initialLetterSavedCheckStatus>
-                        <label class="govuk-label govuk-checkboxes__label" for="initial-grant-letter-saved-to-workspaces-folder">
-                            Saved the signed initial grant letter to Workspaces folder
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-            <br/>
-
-            <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FullGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the full grant letter" hint="For example, 27 3 2021" add-margin="false"/>
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="full-grant-letter-saved-to-workspaces-folder"
-                               data-testid="full-grant-letter-saved-to-workspaces-folder" name="full-grant-letter-saved-to-workspaces-folder" type="checkbox" @finalLetterSavedCheckStatus>
-                        <label class="govuk-label govuk-checkboxes__label" for="full-grant-letter-saved-to-workspaces-folder">
-                            Saved the signed full grant letter to Workspaces folder
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-            <br/>
+            <govuk-checkbox-input label="Saved the signed initial grant letter to Workplaces folder"
+                                    asp-for="@Model.InitialGrantLetterSavedToWorkplaces"
+                                    name="initial-grant-letter-saved-to-workplaces-folder"
+                                    id="initial-grant-letter-saved-to-workplaces-folder"
+                                    add-margin="false" />
+            <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FullGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the full grant letter" hint="For example, 27 3 2021" add-margin="false" />
+            <govuk-checkbox-input label="Saved the signed final grant letter to Workplaces folder"
+                                  asp-for="@Model.FullGrantLetterSavedToWorkplaces"
+                                    name="full-grant-letter-saved-to-workplaces-folder"
+                                    id="full-grant-letter-saved-to-workplaces-folder"
+                                    add-margin="false" />
             <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>

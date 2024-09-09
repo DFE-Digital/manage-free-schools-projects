@@ -36,11 +36,11 @@ public class AddPDGGrantLetter(
     [Display(Name = "Date")]
     public DateTime? FullGrantLetterDateSigned { get; set; }
 
-    [BindProperty(Name = "initial-grant-letter-saved-to-workspaces-folder")]
-    public bool InitialGrantLetterSavedToWorkspaces { get; set; }
+    [BindProperty(Name = "initial-grant-letter-saved-to-workplaces-folder")]
+    public bool InitialGrantLetterSavedToWorkplaces { get; set; }
 
-    [BindProperty(Name = "full-grant-letter-saved-to-workspaces-folder")]
-    public bool FullGrantLetterSavedToWorkspaces { get; set; }
+    [BindProperty(Name = "full-grant-letter-saved-to-workplaces-folder")]
+    public bool FullGrantLetterSavedToWorkplaces { get; set; }
 
     public async Task<ActionResult> OnGet()
     {
@@ -64,8 +64,8 @@ public class AddPDGGrantLetter(
         {
             InitialGrantLetterDate = InitialGrantLetterDateSigned,
             FinalGrantLetterDate = FullGrantLetterDateSigned,
-            InitialGrantLetterSavedToWorkplaces = InitialGrantLetterSavedToWorkspaces,
-            FinalGrantLetterSavedToWorkplaces = FullGrantLetterSavedToWorkspaces
+            InitialGrantLetterSavedToWorkplaces = InitialGrantLetterSavedToWorkplaces,
+            FinalGrantLetterSavedToWorkplaces = FullGrantLetterSavedToWorkplaces
         };
 
         await grantLettersService.UpdateGrantLetters(ProjectId, newGrantLetter);
