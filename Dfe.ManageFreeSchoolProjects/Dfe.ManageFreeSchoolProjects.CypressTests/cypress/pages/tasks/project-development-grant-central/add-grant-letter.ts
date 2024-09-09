@@ -1,4 +1,4 @@
-class editTrustLetter {
+class AddGrantLetter {
     private errorTracking = "";
 
     public titleIs(title: string): this {
@@ -11,15 +11,10 @@ class editTrustLetter {
         return this;
     }
 
-    public withTrustLetterDate(day: string, month: string, year: string): this {
-        const key = "trust-letter-date";
+    public withInitialGrantLetterDate(day: string, month: string, year: string): this {
+        const key = "date-signed-initial-grant-letter";
         this.setDate(key, day, month, year);
         return this
-    }
-
-    public checkSavedInWorkplaces(): this {
-        cy.getById("saved-letter-in-workplaces-folder").click();
-        return this;
     }
 
     private setDate(key: string, day: string, month: string, year: string) {
@@ -27,12 +22,33 @@ class editTrustLetter {
         cy.get('#' + `${key}-month`).typeFast(month);
         cy.get('#' + `${key}-year`).typeFast(year);
     }
-    
-    errorForPaymentDueDate(): this {
-        this.errorTracking = "trust-letter-date";
+
+    public withFullGrantLetterDate(day: string, month: string, year: string): this {
+        const key = "date-signed-full-grant-letter";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+    public checkSavedInWorkplacesForInitialGrant(): this {
+        cy.get('.govuk-checkboxes__item').first().click()
         return this;
     }
-    
+
+    public checkSavedInWorkplacesForFullGrant(): this {
+        cy.get('.govuk-checkboxes__item').eq(1).click()
+        return this;
+    }
+
+    errorForInitialGrantLetterDate(): this {
+        this.errorTracking = "date-signed-initial-grant-letter";
+        return this;
+    }
+
+    errorForFullGrantLetterDate(): this {
+        this.errorTracking = "date-signed-full-grant-letter";
+        return this;
+    }
+
     showsError(error: string)
     {
         cy.get(`#${this.errorTracking}-error-link`)
@@ -49,13 +65,16 @@ class editTrustLetter {
         return this;
     }
 
+    public clickDiscard() : this {
+        cy.getByTestId("discard").click();
+        return this;
+    }
+
     public clickContinue() : this {
         cy.getByTestId("continue").click();
         return this;
     }
-
 }
 
-
-const trustLetter = new editTrustLetter();
-export default trustLetter;
+const addGrantLetters = new AddGrantLetter();
+export default addGrantLetters;
