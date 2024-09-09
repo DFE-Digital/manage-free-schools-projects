@@ -30,8 +30,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         [BindProperty(SupportsGet = true, Name = "paymentIndex")]
         public int PaymentIndex { get; set; }
 
-        public int TotalGrant { get; set; }
-
         public string CurrentFreeSchoolName { get; set; }
         [BindProperty(Name = "payment-due-date", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Date the payment is due")]
@@ -41,6 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
         [BindProperty(Name = "payment-due-amount", BinderType = typeof(DecimalInputModelBinder))]
         [Display(Name = "Due amount")]
+        [ValidMoney(0, 640000)]
         [Required]
         public decimal? PaymentScheduleAmount { get; set; }
 
@@ -51,6 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
         [BindProperty(Name = "payment-actual-amount", BinderType = typeof(DecimalInputModelBinder))]
         [Display(Name = "Actual amount")]
+        [ValidMoney(0, 640000)]
         public decimal? PaymentActualAmount { get; set; }
 
         public EditPDGPaymentModel(IGetProjectByTaskService getProjectService, IGetProjectPaymentsService getProjectPaymentsService, IUpdateProjectPaymentsService updateProjectPaymentsService, ILogger<EditPDGPaymentModel> logger,
@@ -75,32 +75,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
 
-            var totalGrant = project.PDGDashboard.RevisedGrant ?? project.PDGDashboard.InitialGrant;
-
-            TotalGrant = (int)totalGrant;
-
             CurrentFreeSchoolName = project.SchoolName;
 
             if (!ModelState.IsValid)
             {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
-            var validPaymentScheduleAmount = IsValidMoney(PaymentScheduleAmount, "Due amount");
-
-            if (validPaymentScheduleAmount != ValidationResult.Success)
-            {
-                ModelState.AddModelError("payment-due-amount", validPaymentScheduleAmount.ErrorMessage);
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
-            var validPaymentActualAmount = IsValidMoney(PaymentActualAmount, "Actual amount");
-
-            if (validPaymentActualAmount != ValidationResult.Success)
-            {
-                ModelState.AddModelError("payment-actual-amount", validPaymentActualAmount.ErrorMessage);
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
@@ -136,8 +114,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
             var totalGrant = project.PDGDashboard.RevisedGrant ?? project.PDGDashboard.InitialGrant;
 
-            TotalGrant = (int)totalGrant;
-
             CurrentFreeSchoolName = project.SchoolName;
 
             var projectPayments = await _getProjectPaymentsService.Execute(ProjectId);
@@ -148,24 +124,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
             PaymentScheduleAmount = payment.PaymentScheduleAmount;
             PaymentActualDate = payment.PaymentActualDate;
             PaymentActualAmount = payment.PaymentActualAmount;
-        }
-
-        private ValidationResult IsValidMoney(object value, string displayName)
-        {
-            if (value is null)
-                return ValidationResult.Success;
-
-            var valueAsDec = (decimal)value;
-
-            if (valueAsDec < 0 || valueAsDec > TotalGrant)
-                return new ValidationResult(string.Format(ValidationConstants.NumberValidationMessage, displayName, 0, TotalGrant));
-
-            if (Math.Round(valueAsDec, 2) != valueAsDec)
-            {
-                return new ValidationResult($"{displayName} must be two decimal places");
-            }
-
-            return ValidationResult.Success;
         }
     }
 }

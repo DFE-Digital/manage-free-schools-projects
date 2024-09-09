@@ -24,7 +24,7 @@ public class EditGrantTotal : PageModel
     public string ProjectId { get; set; }
 
     [BindProperty(Name = "total-grant-amount", BinderType = typeof(DecimalInputModelBinder))]
-    [ValidMoney(0, int.MaxValue)]
+    [ValidMoney(0, 640000)]
     [Display(Name = "Total amount")]
     public decimal? GrantTotalAmount { get; set; }
     
