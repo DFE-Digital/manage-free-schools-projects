@@ -25,7 +25,8 @@ public class AddVariationLetter(
     [BindProperty(SupportsGet = true)] public string ProjectId { get; set; }
 
     [BindProperty(Name = "due-date-variation-letter", BinderType = typeof(DateInputModelBinder))]
-    [Display(Name = "Date")]
+    [Display(Name = "Due date of variation letter")]
+    [Required]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
     [BindProperty] public bool VariationLetterSavedToWorkplaces { get; set; }

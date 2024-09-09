@@ -29,11 +29,12 @@ public class AddPDGGrantLetter(
     public ProjectGrantLetters GrantLetters { get; set; }
 
     [BindProperty(Name = "date-signed-initial-grant-letter", BinderType = typeof(DateInputModelBinder))]
-    [Display(Name = "Date")]
+    [Display(Name = "Date when DfE signed the initial grant letter")]
+    [Required]
     public DateTime? InitialGrantLetterDateSigned { get; set; }
 
     [BindProperty(Name = "date-signed-full-grant-letter", BinderType = typeof(DateInputModelBinder))]
-    [Display(Name = "Date")]
+    [Display(Name = "Date when DfE signed the full grant letter")]
     public DateTime? FullGrantLetterDateSigned { get; set; }
 
     [BindProperty(Name = "initial-grant-letter-saved-to-workplaces-folder")]

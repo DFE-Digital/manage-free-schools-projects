@@ -28,6 +28,7 @@ public class EditPDGVariationLetter(
 
     [BindProperty(Name = "due-date-variation-letter", BinderType = typeof(DateInputModelBinder))]
     [Display(Name = "Due date of variation letter")]
+    [Required]
     public DateTime? DueDateOfVariationLetter { get; set; }
 
     [BindProperty] 
