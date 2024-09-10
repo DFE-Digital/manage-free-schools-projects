@@ -153,6 +153,7 @@ public class Startup
             MfspOptions mfspOptions = GetTypedConfigurationFor<MfspOptions>();
             client.BaseAddress = new Uri(mfspOptions.ApiEndpoint);
             client.DefaultRequestHeaders.Add("ApiKey", mfspOptions.ApiKey);
+            client.DefaultRequestHeaders.Add("User-Agent", "ManageFreeSchoolProjects/1.0");
         });
 
         services.AddScoped<ErrorService>();
