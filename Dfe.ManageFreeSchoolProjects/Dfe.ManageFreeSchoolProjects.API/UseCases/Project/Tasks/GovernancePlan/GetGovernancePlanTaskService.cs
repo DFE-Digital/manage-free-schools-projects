@@ -2,13 +2,13 @@
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan
 {
-    public class GetDraftGovernancePlanTaskService : IGetTaskService
+    public class GetGovernancePlanTaskService : IGetTaskService
     {
         private readonly MfspContext _context;
 
-        public GetDraftGovernancePlanTaskService(MfspContext context)
+        public GetGovernancePlanTaskService(MfspContext context)
         {
             _context = context;
 
@@ -21,10 +21,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernanc
                                 from milestones in joinedMilestones.DefaultIfEmpty()
                                 select new GetProjectByTaskResponse()
                                 {
-                                    DraftGovernancePlan = DraftGovernancePlanTaskBuilder.Build(milestones)
+                                    GovernancePlan = GovernancePlanTaskBuilder.Build(milestones)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { DraftGovernancePlan = new() };
+            return result ?? new GetProjectByTaskResponse() { GovernancePlan = new() };
         }
     }
 }

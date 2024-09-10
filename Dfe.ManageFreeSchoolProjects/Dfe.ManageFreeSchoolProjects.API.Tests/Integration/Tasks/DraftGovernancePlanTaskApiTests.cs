@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class DraftGovernancePlanTaskApiTests : ApiTestsBase
+    public class GovernancePlanTaskApiTests : ApiTestsBase
     {
-        public DraftGovernancePlanTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
+        public GovernancePlanTaskApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
         {
         }
 
         [Fact]
-        public async Task Patch_New_DraftGovernancePlan_Returns_201()
+        public async Task Patch_New_GovernancePlan_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var request = new UpdateProjectByTaskRequest()
             {
-                DraftGovernancePlan = new DraftGovernancePlanTask()
+                GovernancePlan = new GovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = false,
                     PlanAndAssessmentSharedWithEsfa = false,
@@ -41,13 +41,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 }
             };
 
-            var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.DraftGovernancePlan.ToString());
+            var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.GovernancePlan.ToString());
 
-            AssertDraftGovernancePlan(projectResponse.DraftGovernancePlan, request.DraftGovernancePlan);
+            AssertGovernancePlan(projectResponse.GovernancePlan, request.GovernancePlan);
         }
 
         [Fact]
-        public async Task Patch_Existing_DraftGovernancePlan_Returns_201()
+        public async Task Patch_Existing_GovernancePlan_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -59,9 +59,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var dateReceived = DateTime.Now.Date.AddDays(10);
 
-            var createDraftGovernanceRequest = new UpdateProjectByTaskRequest()
+            var createGovernanceRequest = new UpdateProjectByTaskRequest()
             {
-                DraftGovernancePlan = new DraftGovernancePlanTask()
+                GovernancePlan = new GovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = false,
                     PlanAndAssessmentSharedWithEsfa = false,
@@ -74,11 +74,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 }
             };
 
-            await _client.UpdateProjectTask(projectId, createDraftGovernanceRequest, TaskName.DraftGovernancePlan.ToString());
+            await _client.UpdateProjectTask(projectId, createGovernanceRequest, TaskName.GovernancePlan.ToString());
 
-            var updateDraftGovernanceRequest = new UpdateProjectByTaskRequest()
+            var updateGovernanceRequest = new UpdateProjectByTaskRequest()
             {
-                DraftGovernancePlan = new DraftGovernancePlanTask()
+                GovernancePlan = new GovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = true,
                     PlanAndAssessmentSharedWithEsfa = true,
@@ -91,12 +91,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 }
             };
 
-            var projectResponse = await _client.UpdateProjectTask(projectId, updateDraftGovernanceRequest, TaskName.DraftGovernancePlan.ToString());
+            var projectResponse = await _client.UpdateProjectTask(projectId, updateGovernanceRequest, TaskName.GovernancePlan.ToString());
 
-            AssertDraftGovernancePlan(projectResponse.DraftGovernancePlan, updateDraftGovernanceRequest.DraftGovernancePlan);
+            AssertGovernancePlan(projectResponse.GovernancePlan, updateGovernanceRequest.GovernancePlan);
         }
 
-        private static void AssertDraftGovernancePlan(DraftGovernancePlanTask actual, DraftGovernancePlanTask expected)
+        private static void AssertGovernancePlan(GovernancePlanTask actual, GovernancePlanTask expected)
         {
             actual.DatePlanReceived.Should().Be(expected.DatePlanReceived);
             actual.PlanReceivedFromTrust.Should().Be(expected.PlanReceivedFromTrust);

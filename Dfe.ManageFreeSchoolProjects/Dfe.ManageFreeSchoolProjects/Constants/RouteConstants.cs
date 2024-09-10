@@ -54,8 +54,11 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
         public const string ViewPrincipalDesignateTask = TaskList + "/principal-designate";
         public const string EditPrincipalDesignateTask = ViewPrincipalDesignateTask + "/edit";
 
-        public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
-        public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";
+        public const string ViewGovernancePlanPresumptionTask = TaskList + "/governance-plan/presumption";
+        public const string EditGovernancePlanPresumptionTask = ViewGovernancePlanPresumptionTask + "/edit";
+
+        public const string ViewGovernancePlanCentralTask = TaskList + "/governance-plan/central";
+        public const string EditGovernancePlanCentralTask = ViewGovernancePlanCentralTask + "/edit";
 
         public const string ViewGiasTask = TaskList + "/gias";
         public const string EditGiasTask = ViewGiasTask + "/edit";

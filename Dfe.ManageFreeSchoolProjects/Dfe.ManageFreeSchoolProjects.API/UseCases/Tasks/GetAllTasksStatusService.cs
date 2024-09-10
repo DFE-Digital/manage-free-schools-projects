@@ -73,7 +73,7 @@ public class GetAllTasksStatusService : IGetTasksService
             FinancePlan = SafeRetrieveTaskSummary(projectTasks, "FinancePlan"),
             KickOffMeeting = SafeRetrieveTaskSummary(projectTasks, "KickOffMeeting"),
             Gias = SafeRetrieveTaskSummary(projectTasks, "Gias"),
-            DraftGovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.DraftGovernancePlan.ToString()),
+            GovernancePlan = SafeRetrieveTaskSummary(projectTasks, TaskName.GovernancePlan.ToString()),
             EducationBrief = SafeRetrieveTaskSummary(projectTasks, "EducationBrief"),
             EqualitiesAssessment = SafeRetrieveTaskSummary(projectTasks, "EqualitiesAssessment"),
             PupilNumbersChecks = SafeRetrieveTaskSummary(projectTasks, "PupilNumbersChecks"),

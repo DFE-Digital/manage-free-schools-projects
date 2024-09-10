@@ -1,12 +1,12 @@
-﻿@page "/projects/{projectId}/tasks/draft-governance-plan"
+﻿@page "/projects/{projectId}/tasks/governance-plan/presumption"
 @using Dfe.ManageFreeSchoolProjects.Constants
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan.ViewDraftGovernancePlanModel
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Presumption.ViewGovernancePlanModel
 @{
-    ViewData["Title"] = $"Draft governance plans - {Model.Project.SchoolName}";
+    ViewData["Title"] = $"Governance plan - {Model.Project.SchoolName}";
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editlink = string.Format(RouteConstants.EditDraftGovernancePlanTask, Model.ProjectId);
-    var draftGovernancePlan = Model.Project.DraftGovernancePlan;
+    var editlink = string.Format(RouteConstants.EditGovernancePlanPresumptionTask, Model.ProjectId);
+    var draftGovernancePlan = Model.Project.GovernancePlan;
     var riskRatingLink = string.Format(RouteConstants.ProjectRiskSummary, Model.ProjectId);
 }
 
@@ -22,7 +22,7 @@
             <span class="govuk-caption-l" data-testid="school-name">
                 @Model.Project.SchoolName
             </span>
-            Draft governance plans
+            Governance plan
         </h1>
         <div class="govuk-inset-text">
             You only need to do this task if the project's overall and governance <a class="govuk-link" href="@riskRatingLink">risk ratings</a> are red or amber red.
@@ -35,6 +35,7 @@
             }
             <govuk-summary-item label="Assessed plan using assessment template" asp-for="@draftGovernancePlan.PlanAssessedUsingTemplate" href="@editlink" />
             <govuk-summary-item label="Shared plan and assessment with external expert" asp-for="@draftGovernancePlan.PlanAndAssessmentSharedWithExpert" href="@editlink" />
+            <govuk-summary-item label="Shared plan and assessment with local authority" asp-for="@draftGovernancePlan.PlanAndAssessmentSharedWithLocalAuthority" href="@editlink" />
             <govuk-summary-item label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)" asp-for="@draftGovernancePlan.PlanAndAssessmentSharedWithEsfa" href="@editlink" />
             <govuk-summary-item label="Fed back to trust on plan" asp-for="@draftGovernancePlan.PlanFedBackToTrust" href="@editlink" />
             <govuk-summary-item label="Saved documents in Workplaces folder" asp-for="@draftGovernancePlan.SavedDocumentsInWorkplacesFolder" href="@editlink" />

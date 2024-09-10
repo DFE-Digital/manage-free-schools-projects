@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20240906152044_GovernancePlanDatePlanAgreed")]
+    partial class GovernancePlanDatePlanAgreed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5053,12 +5056,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<int?>("FinancePlanSavedInWorkplacesFolder")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("FsgPreOpeningDeletedAnyCopiesOfChairsDBSCertificate")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates")
                         .HasColumnType("bit")
                         .HasColumnName("FSG Pre Opening Milestones. Moving To Open Project Brief To Education Estates");
@@ -6019,18 +6016,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("FSG Pre Opening Milestones.View Cost Plan 2");
 
-                    b.Property<bool?>("GovernancePlanAndAssessmentSharedWithLocalAuthority");
-                    
-                    b.Property<bool?>("FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningReceivedChairOfTrusteesCountersignedCertificate")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningRequestedCounterExtremismChecks")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningSavedNonSpecialistChecksSpreadsheetInWorkplaces")
+                    b.Property<bool?>("GovernancePlanAndAssessmentSharedWithLocalAuthority")
                         .HasColumnType("bit");
 
                     b.Property<int?>("LAAgreedPupilNumbers")
@@ -8681,34 +8667,13 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
 
-                    b.Property<bool?>("PdgFirstVariationGrantLetterSavedToWorkplaces")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("PdgFourthVariationGrantLetterSavedToWorkplaces")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("PdgGrantLetterLinkSavedToWorkplaces")
                         .HasColumnType("bit")
                         .HasColumnName("PdgGrantLetterLinkSavedToWorkplaces");
 
-                    b.Property<DateTime?>("PdgInitialGrantLetterDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PdgInitialGrantLetterLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("PdgInitialGrantLetterSavedToWorkplaces")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("PdgIsWriteOffSetup")
                         .HasColumnType("bit")
                         .HasColumnName("PdgIsWriteOffSetup");
-
-                    b.Property<bool?>("PdgSecondVariationGrantLetterSavedToWorkplaces")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("PdgThirdVariationGrantLetterSavedToWorkplaces")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PeriodEnd")
                         .ValueGeneratedOnAddOrUpdate()

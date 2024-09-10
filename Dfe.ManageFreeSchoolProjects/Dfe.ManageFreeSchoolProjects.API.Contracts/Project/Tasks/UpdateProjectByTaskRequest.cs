@@ -23,8 +23,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public FinancePlanTask FinancePlan { get; set; }
 
-        public DraftGovernancePlanTask DraftGovernancePlan { get; set; }
-
+        public GovernancePlanTask GovernancePlan { get;set;}
+        
         public EducationBriefTask EducationBrief { get; set; }
 
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
@@ -90,8 +90,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.KickOffMeeting.ToString();
                 if (FundingAgreement != null)
                     return TaskName.FundingAgreement.ToString();
-                if (DraftGovernancePlan != null)
-                    return TaskName.DraftGovernancePlan.ToString();
+                if (GovernancePlan != null)
+                    return TaskName.GovernancePlan.ToString();
                 if (Gias != null)
                     return TaskName.Gias.ToString();
                 if (StatutoryConsultation != null)

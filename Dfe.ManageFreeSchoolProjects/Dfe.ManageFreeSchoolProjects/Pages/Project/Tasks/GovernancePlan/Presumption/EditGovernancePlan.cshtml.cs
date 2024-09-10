@@ -13,13 +13,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Presumption
 {
-    public class EditDraftGovernancePlanModel : PageModel
+    public class EditGovernancePlanModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditDraftGovernancePlanModel> _logger;
+        private readonly ILogger<EditGovernancePlanModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -41,6 +41,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         [BindProperty(Name = "plan-and-assessment-shared-with-esfa")]
         public bool? PlanAndAssessmentSharedWithEsfa { get; set; }
 
+        [BindProperty(Name = "plan-and-assessment-shared-with-local-authority")]
+        public bool? PlanAndAssessmentSharedWithLocalAuthority { get; set; }
+
         [BindProperty(Name = "plan-fed-back-to-trust")]
         public bool? PlanFedBackToTrust { get; set; }
 
@@ -55,9 +58,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
         [BindProperty]
         public string SchoolName { get; set; }
 
-        public EditDraftGovernancePlanModel(IGetProjectByTaskService getProjectService,
+        public EditGovernancePlanModel(IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditDraftGovernancePlanModel> logger,
+            ILogger<EditGovernancePlanModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -93,13 +96,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
 
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
-                DraftGovernancePlan = new()
+                GovernancePlan = new()
                 {
                     PlanReceivedFromTrust = PlanReceivedFromTrust,
                     DatePlanReceived = DatePlanReceived,
                     PlanAssessedUsingTemplate = PlanAssessedUsingTemplate,
                     PlanAndAssessmentSharedWithExpert = PlanAndAssessmentSharedWithExpert,
                     PlanAndAssessmentSharedWithEsfa = PlanAndAssessmentSharedWithEsfa,
+                    PlanAndAssessmentSharedWithLocalAuthority = PlanAndAssessmentSharedWithLocalAuthority,
                     PlanFedBackToTrust = PlanFedBackToTrust,
                     SavedDocumentsInWorkplacesFolder = SavedDocumentsInWorkplacesFolder,
                     Comments = Comments
@@ -108,21 +112,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DraftGovernancePlan
 
             await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
 
-            return Redirect(string.Format(RouteConstants.ViewDraftGovernancePlanTask, ProjectId));
+            return Redirect(string.Format(RouteConstants.ViewGovernancePlanPresumptionTask, ProjectId));
         }
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.DraftGovernancePlan);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.GovernancePlan);
 
-            PlanReceivedFromTrust = project.DraftGovernancePlan.PlanReceivedFromTrust;
-            DatePlanReceived = project.DraftGovernancePlan.DatePlanReceived;
-            PlanAssessedUsingTemplate = project.DraftGovernancePlan.PlanAssessedUsingTemplate;
-            PlanAndAssessmentSharedWithExpert = project.DraftGovernancePlan.PlanAndAssessmentSharedWithExpert;
-            PlanAndAssessmentSharedWithEsfa = project.DraftGovernancePlan.PlanAndAssessmentSharedWithEsfa;
-            PlanFedBackToTrust = project.DraftGovernancePlan.PlanFedBackToTrust;
-            SavedDocumentsInWorkplacesFolder = project.DraftGovernancePlan.SavedDocumentsInWorkplacesFolder;
-            Comments = project.DraftGovernancePlan.Comments;
+            PlanReceivedFromTrust = project.GovernancePlan.PlanReceivedFromTrust;
+            DatePlanReceived = project.GovernancePlan.DatePlanReceived;
+            PlanAssessedUsingTemplate = project.GovernancePlan.PlanAssessedUsingTemplate;
+            PlanAndAssessmentSharedWithExpert = project.GovernancePlan.PlanAndAssessmentSharedWithExpert;
+            PlanAndAssessmentSharedWithEsfa = project.GovernancePlan.PlanAndAssessmentSharedWithEsfa;
+            PlanAndAssessmentSharedWithLocalAuthority = project.GovernancePlan.PlanAndAssessmentSharedWithLocalAuthority;
+            PlanFedBackToTrust = project.GovernancePlan.PlanFedBackToTrust;
+            SavedDocumentsInWorkplacesFolder = project.GovernancePlan.SavedDocumentsInWorkplacesFolder;
+            Comments = project.GovernancePlan.Comments;
 
             SchoolName = project.SchoolName;
         }

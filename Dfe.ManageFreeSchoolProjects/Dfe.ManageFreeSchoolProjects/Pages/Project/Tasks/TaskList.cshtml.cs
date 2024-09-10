@@ -28,7 +28,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
         [BindProperty(Name = "schoolName")]
         public string SchoolName { get; set; }
-
         public string ProjectType { get; set; }
 
         public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
