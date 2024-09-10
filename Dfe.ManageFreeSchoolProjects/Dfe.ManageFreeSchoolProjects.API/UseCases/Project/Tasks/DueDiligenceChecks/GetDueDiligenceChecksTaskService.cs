@@ -1,6 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
+using static Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks.DueDiligenceChecksTaskBuilder;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 
@@ -13,16 +14,7 @@ public class GetDueDiligenceChecksTaskService(MfspContext context) : IGetTaskSer
             from milestones in joinedMilestones.DefaultIfEmpty()
             select new GetProjectByTaskResponse
             {
-                DueDiligenceChecks = new Contracts.Project.Tasks.DueDiligenceChecks 
-                {
-                    SavedNonSpecialistChecksSpreadsheetInWorkplaces = milestones.FsgPreOpeningSavedNonSpecialistChecksSpreadsheetInWorkplaces,
-                    RequestedCounterExtremismChecks = milestones.FsgPreOpeningRequestedCounterExtremismChecks,
-                    DateWhenAllChecksWereCompleted = milestones.FsgPreOpeningMilestonesDbscActualDateOfCompletion,
-                    ReceivedChairOfTrusteesCountersignedCertificate = milestones.FsgPreOpeningReceivedChairOfTrusteesCountersignedCertificate,
-                    DeletedAnyCopiesOfChairsDBSCertificate = milestones.FsgPreOpeningDeletedAnyCopiesOfChairsDBSCertificate,
-                    NonSpecialistChecksDoneOnAllTrustMembersAndTrustees = milestones.FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees,
-                    DeletedEmailsContainingSuitabilityAndDeclarationForms = milestones.FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms
-                }
+                DueDiligenceChecks = Build(milestones)
             }).FirstOrDefaultAsync();
 
         return result ?? new GetProjectByTaskResponse { DueDiligenceChecks = new Contracts.Project.Tasks.DueDiligenceChecks() };
