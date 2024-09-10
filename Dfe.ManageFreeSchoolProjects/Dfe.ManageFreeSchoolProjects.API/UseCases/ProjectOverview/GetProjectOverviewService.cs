@@ -155,7 +155,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 .Where(p => p.Rid == rid)
                 .Select(po => new PupilNumbersOverviewResponse
                 {
-                    TotalCapacity = SumYear14Capacities(po),
+                    TotalCapacity = SumReceptionToYear14Capacities(po),
                     Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
                     Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
                     MinimumViableNumberForFirstYear =
@@ -168,17 +168,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             return result ?? new PupilNumbersOverviewResponse();
         }
 
-        private static int SumYear14Capacities(Po po)
+        private static int SumReceptionToYear14Capacities(Po po)
         {
-            var year14CapacityOnly = po.PupilNumbersAndCapacityCellB16Year14FirstYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellC16Year14SecondYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellD16Year14ThirdYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellE16Year14FourthYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellF16Year14FifthYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellG16Year14SixthYear.ToInt() +
-                                     po.PupilNumbersAndCapacityCellH16Year14SeventhYear.ToInt();
-
-            return year14CapacityOnly;
+            return po.PupilNumbersAndCapacityNurseryUnder5s.ToInt() +
+                   po.PupilNumbersAndCapacityYrY6Capacity.ToInt() +
+                   po.PupilNumbersAndCapacityY7Y11Capacity.ToInt() +
+                   po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(); 
+            // po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt() +
+            // po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt();
+        }
         }
     }
-}
