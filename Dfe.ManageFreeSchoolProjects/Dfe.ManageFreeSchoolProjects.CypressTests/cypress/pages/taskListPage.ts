@@ -169,6 +169,14 @@ class TaskListPage {
         return this;
     }
 
+    public selectDueDiligenceFromTaskList(): this {
+        this.getDueDiligenceChecksTask().click()    
+        return this;
+    }
+    getDueDiligenceChecksTask() {
+        return cy.getByTestId("dueDiligenceChecks-task");
+    }
+
     public selectPDGFromTaskList(): this {
         cy.getByTestId("pdg-task").click()
         return this;
@@ -200,7 +208,6 @@ class TaskListPage {
 
     private getApplicationsEvidenceTask() {
         return cy.getByTestId("ApplicationsEvidence-task");
-
     }
 
     public taskCompletedCountMessage(countMessage: string): this {

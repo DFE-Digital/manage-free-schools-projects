@@ -34,13 +34,14 @@
     var acceptedOffersEvidenceLink = string.Format(RouteConstants.ViewAcceptedOffersEvidenceTask, Model.ProjectId);
     var pupilNumbersChecksLink = string.Format(RouteConstants.ViewPupilNumbersChecksTask, Model.ProjectId);
     var principalDesignateLink = string.Format(RouteConstants.ViewPrincipalDesignateTask, Model.ProjectId);
-    var OfstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
+    var ofstedPreRegistrationLink = string.Format(RouteConstants.ViewOfstedPreRegistrationTask, Model.ProjectId);
     var applicationsEvidenceLink = string.Format(RouteConstants.ViewApplicationsEvidenceTask, Model.ProjectId);
     var fundingAgreementHealthCheckLink = string.Format(RouteConstants.ViewFundingAgreementHealthCheckTask, Model.ProjectId);
     var fundingAgreementSubmissionLink = string.Format(RouteConstants.ViewFundingAgreementSubmissionTask, Model.ProjectId);
     var finalFinancePlanLink = string.Format(RouteConstants.ViewFinalFinancePlanTask, Model.ProjectId);
     var commissionedExternalExpert = string.Format(RouteConstants.ViewCommissionedExternalExpertTask, Model.ProjectId);
     var movingToOpenLink = string.Format(RouteConstants.ViewMovingToOpenTask, Model.ProjectId);
+    var dueDiligenceChecksLink = string.Format(RouteConstants.ViewDueDiligenceChecks, Model.ProjectId);
     var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
     var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
@@ -351,6 +352,16 @@
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
+                        <a href="@dueDiligenceChecksLink" class="govuk-link" data-testid="dueDiligenceChecks-task">
+                            Due diligence checks
+                        </a>
+                    </span>
+                    @{
+                    RenderStatus(Model.ProjectTaskListSummary.DueDiligenceChecks);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
                         <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
                             Impact assessment
                         </a>
@@ -361,7 +372,7 @@
                 </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
-                        <a href="@OfstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
+                        <a href="@ofstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
                             Ofsted pre-registration
                         </a>
                     </span>

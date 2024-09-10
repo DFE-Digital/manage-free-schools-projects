@@ -53,6 +53,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
@@ -122,6 +123,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateFinalFinancePlanTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateMovingToOpenTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePrincipleDesignateTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateDueDiligenceChecksTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();

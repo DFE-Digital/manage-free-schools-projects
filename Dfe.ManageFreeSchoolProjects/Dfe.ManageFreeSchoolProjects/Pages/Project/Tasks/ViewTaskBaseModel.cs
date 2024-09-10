@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 {
-    public class ViewTaskBaseModel : PageModel
+    public class ViewTaskBaseModel(
+        IGetProjectByTaskService getProjectService,
+        IGetTaskStatusService getTaskStatusService,
+        IUpdateTaskStatusService updateTaskStatusService)
+        : PageModel
     {
-        protected readonly IGetProjectByTaskService _getProjectService;
-        protected readonly IGetTaskStatusService _getTaskStatusService;
-        protected readonly IUpdateTaskStatusService _updateTaskStatusService;
+        protected readonly IGetProjectByTaskService _getProjectService = getProjectService;
+        protected readonly IGetTaskStatusService _getTaskStatusService = getTaskStatusService;
+        protected readonly IUpdateTaskStatusService _updateTaskStatusService = updateTaskStatusService;
 
         public ProjectTaskStatus ProjectTaskStatus { get; set; }
 
@@ -25,16 +29,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         public bool MarkAsCompleted { get; set; }
 
         public GetProjectByTaskResponse Project { get; set; }
-
-        public ViewTaskBaseModel(
-            IGetProjectByTaskService getProjectService,
-            IGetTaskStatusService getTaskStatusService, 
-            IUpdateTaskStatusService updateTaskStatusService)
-        {
-            _getTaskStatusService = getTaskStatusService;
-            _updateTaskStatusService = updateTaskStatusService;
-            _getProjectService = getProjectService;
-        }
 
         protected async Task GetTask(TaskName taskName)
         {

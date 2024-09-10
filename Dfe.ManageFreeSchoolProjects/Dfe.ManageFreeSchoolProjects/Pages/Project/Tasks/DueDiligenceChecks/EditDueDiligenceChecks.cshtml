@@ -1,0 +1,76 @@
+@page "/projects/{projectId}/tasks/due-diligence-checks/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.DueDiligenceChecks.EditDueDiligenceChecks
+
+@{
+    ViewData["Title"] = $"Edit Due diligence checks- {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewDueDiligenceChecks, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container msfp-wider-page">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">    
+                @Model.SchoolName
+            </span>
+            Due diligence checks
+        </h1>
+        
+        <form method="post">
+
+            <govuk-checkbox-input label="Received Chair of Trustee's DBS countersigned certificate"
+                                  asp-for="@Model.ReceivedChairOfTrusteesCountersignedCertificate"
+                                  name="received-chair-of-trustees-countersigned-certificate"
+                                  id="received-chair-of-trustees-countersigned-certificate"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Non-specialist checks done on all trust members and trustees in the last 2 years"
+                                  asp-for="@Model.NonSpecialistChecksDoneOnAllTrustMembersAndTrustees"
+                                  name="non-specialist-checks-done-on-all-trust-members-and-trustees"
+                                  id="non-specialist-checks-done-on-all-trust-members-and-trustees"
+                                  add-margin=false 
+                                  hint="The trust relationship manager should know this." />
+
+            <govuk-yesno-input id="requested-counter-extremism-checks" 
+                               name="requested-counter-extremism-checks" 
+                               label="Requested counter extremism checks" 
+                               asp-for="@Model.RequestedCounterExtremismChecks" 
+                               leading-paragraph="You only need to do this if the non-specialist checks have revealed any concerns." />
+            
+            <govuk-date-input id="date-when-all-checks-completed" name="date-when-all-checks-completed" asp-for="@Model.DateWhenAllChecksWereCompleted" label="Date when all checks were completed" hint="For example, 27 3 2024" width="4" bold-label="true" />
+
+            <govuk-checkbox-input label="Saved the non-specialist checks spreadsheet in Workplaces folder"
+                                  asp-for="@Model.SavedNonSpecialistChecksSpreadsheetInWorkplaces"
+                                  name="saved-the-non-specialist-check-spreadsheet-in-workplaces"
+                                  id="saved-the-non-specialist-check-spreadsheet-in-workplaces"
+                                  add-margin=false />
+
+            <govuk-checkbox-input label="Deleted any copies of Chair's DBS certificate"
+                                  asp-for="@Model.DeletedAnyCopiesOfChairsDBSCertificate"
+                                  name="deleted-any-copies-of-chairs-dbs-certificate"
+                                  id="deleted-any-copies-of-chairs-dbs-certificate"
+                                  add-margin=false />
+
+
+            <govuk-checkbox-input label="Deleted emails containing suitability and declaration forms"
+                                  asp-for="@Model.DeletedEmailsContainingSuitabilityAndDeclarationForms"
+                                  name="deleted-emails-containing-suitability-and-declaration-forms"
+                                  id="deleted-emails-containing-suitability-and-declaration-forms"
+                                  add-margin=false />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+
+    </div>
+</div>
