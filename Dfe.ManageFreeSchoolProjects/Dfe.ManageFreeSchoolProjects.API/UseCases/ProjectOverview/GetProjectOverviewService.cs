@@ -49,12 +49,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         }
 
         private static ProjectOverviewResponse BuildOverviewResponse(
-            Kpi project, 
-            ProjectRiskOverviewResponse risk, 
-            GetProjectSitesResponse sites, 
+            Kpi project,
+            ProjectRiskOverviewResponse risk,
+            GetProjectSitesResponse sites,
             PupilNumbersOverviewResponse pupilNumbers)
         {
-
             var projectOverviewResponse = new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
@@ -116,17 +115,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 PupilNumbers = pupilNumbers
             };
 
-            projectOverviewResponse.ProjectType = projectOverviewResponse.ProjectStatus.ApplicationWave == "FS - Presumption"
+            projectOverviewResponse.ProjectType =
+                projectOverviewResponse.ProjectStatus.ApplicationWave == "FS - Presumption"
                     ? "Presumption"
                     : "Central Route";
 
-            return projectOverviewResponse; 
+            return projectOverviewResponse;
         }
-        
+
         private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
         {
             var rag = await _context.Rag
-                .Select(e => new 
+                .Select(e => new
                 {
                     e.Rid,
                     RiskRating = e.RagRatingsOverallRagRating,
@@ -134,7 +134,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     Date = EF.Property<DateTime>(e, "PeriodStart")
                 }).FirstOrDefaultAsync(r => r.Rid == rid);
 
-            if (rag == null) 
+            if (rag == null)
             {
                 return new ProjectRiskOverviewResponse();
             }
@@ -153,29 +153,32 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         {
             var result = await _context.Po
                 .Where(p => p.Rid == rid)
-                .Select(po =>
-                new PupilNumbersOverviewResponse()
+                .Select(po => new PupilNumbersOverviewResponse
                 {
-                    Capacity = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt() +
-                                    po.PupilNumbersAndCapacityYrY6Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacityY7Y11Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt() +
-                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
+                    TotalCapacity = SumYear14Capacities(po),
                     Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
                     Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
-                    MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                    MinimumViableNumberForFirstYear =
+                        po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
                     ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
                     AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
                 })
                 .FirstOrDefaultAsync();
 
-            if (result == null)
-            {
-                return new PupilNumbersOverviewResponse();
-            }
+            return result ?? new PupilNumbersOverviewResponse();
+        }
 
-            return result;
+        private static int SumYear14Capacities(Po po)
+        {
+            var year14CapacityOnly = po.PupilNumbersAndCapacityCellB16Year14FirstYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellC16Year14SecondYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellD16Year14ThirdYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellE16Year14FourthYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellF16Year14FifthYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellG16Year14SixthYear.ToInt() +
+                                     po.PupilNumbersAndCapacityCellH16Year14SeventhYear.ToInt();
+
+            return year14CapacityOnly;
         }
     }
 }

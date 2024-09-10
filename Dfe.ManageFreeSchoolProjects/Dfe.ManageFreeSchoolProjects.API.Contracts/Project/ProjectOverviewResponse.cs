@@ -87,7 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 
     public record PupilNumbersOverviewResponse
     {
-        public int Capacity { get; set; }
+        public int TotalCapacity { get; set; }
         public int Pre16PublishedAdmissionNumber { get; set; }
         public int Post16PublishedAdmissionNumber { get; set; }
         public int MinimumViableNumberForFirstYear { get; set; }
