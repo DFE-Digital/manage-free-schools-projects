@@ -62,6 +62,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public DueDiligenceChecks DueDiligenceChecks { get; set; }
 
+        public PDGGrantTask PDGGrantTask { get; set; }
+        
         public string TaskToUpdate
         {
             get
@@ -134,6 +136,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.PrincipalDesignate.ToString();
                 if (DueDiligenceChecks != null)
                     return TaskName.DueDiligenceChecks.ToString();
+                if (PDGGrantTask != null)
+                    return TaskName.PDG.ToString();
                 return null;
             }
         }

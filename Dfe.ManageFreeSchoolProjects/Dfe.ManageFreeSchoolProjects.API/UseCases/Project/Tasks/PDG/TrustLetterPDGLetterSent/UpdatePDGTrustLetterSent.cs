@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLette
             }
 
             db.ProjectDevelopmentGrantFundingPdgGrantLetterDate = task.TrustSignedPDGLetterDate;
-            db.PdgGrantLetterLinkSavedToWorkplaces = task.PDGLetterSavedInWorkspaces;
+            db.PdgGrantLetterLinkSavedToWorkplaces = task.PDGLetterSavedInWorkplaces;
         }
     }
 }

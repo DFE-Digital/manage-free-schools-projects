@@ -32,14 +32,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetProjectPayments(string projectId)
+        public async Task<ActionResult<ApiSingleResponseV2<ProjectPayments>>> GetProjectPayments(string projectId)
         {
             _logger.LogMethodEntered();
 
             var payments = await _getProjectPaymentsService.Execute(projectId);
 
             var result = new ApiSingleResponseV2<ProjectPayments>(payments);
-            return new ObjectResult(result);
+            return new ObjectResult(result) { StatusCode = StatusCodes.Status200OK };
         }
 
         [HttpPut]

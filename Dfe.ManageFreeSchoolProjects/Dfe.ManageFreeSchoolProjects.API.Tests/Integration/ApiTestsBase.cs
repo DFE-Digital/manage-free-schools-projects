@@ -1,24 +1,12 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
-    public class ApiTestsBase
+    public class ApiTestsBase(ApiTestFixture apiTestFixture)
     {
-        protected readonly HttpClient _client;
-        protected readonly Fixture _autoFixture;
-        protected readonly ApiTestFixture _testFixture;
-
-        public ApiTestsBase(ApiTestFixture apiTestFixture)
-        {
-            _client = apiTestFixture.Client;
-            _autoFixture = new();
-            _testFixture = apiTestFixture;
-        }
+        protected readonly HttpClient _client = apiTestFixture.Client;
+        protected readonly Fixture _autoFixture = new();
+        protected readonly ApiTestFixture _testFixture = apiTestFixture;
     }
 }

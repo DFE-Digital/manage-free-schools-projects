@@ -21,14 +21,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
             var refundsTask = RefundsBuilder.Build(po);
             var writeOffTask = WriteOffBuilder.Build(po);
 
-            return new PDGDashboard()
+            return new PDGDashboard
             {
+                InitialGrant = ParseDecimalAllowNull(po.ProjectDevelopmentGrantFundingInitialGrantAllocation), 
+                RevisedGrant = ParseDecimalAllowNull(po.ProjectDevelopmentGrantFundingRevisedGrantAllocation),
                 PaymentScheduleAmount = GetPaymentScheduleAmount(po),
                 PaymentScheduleDate = GetPaymentScheduleDate(po),
                 PaymentActualAmount = GetPaymentActualAmount(po),
                 PaymentActualDate = GetPaymentActualDate(po),
                 TrustSignedPDGLetterDate = GetTrustSignedPDGLetterDate(po),
-                PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
+                PDGLetterSavedInWorkplaces = GetPDGLetterSavedInWorkplaces(po),
                 PaymentStopped = stopPaymentTask.PaymentStopped,
                 PaymentStoppedDate = stopPaymentTask.PaymentStoppedDate,
                 LatestRefundDate = refundsTask.LatestRefundDate,
@@ -41,10 +43,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
                 ApprovalDate = writeOffTask.ApprovalDate,
             };
         }
-
-        private static bool? GetPDGLetterSavedInWorkspaces(Po po)
+        
+        private static bool? GetPDGLetterSavedInWorkplaces(Po po)
         {
-            var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkspaces(po);
+            var linkSaved = TrustPDGLetterSentBuilder.GetPDGLetterSavedInWorkplaces(po);
             return linkSaved == false ? null : linkSaved;
         }
 
@@ -205,7 +207,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
 
         private static DateTime? GetPaymentActualDate(Po po)
         {
-
             if (po.ProjectDevelopmentGrantFundingDateOf12thActualPayment != null)
             {
                 return po.ProjectDevelopmentGrantFundingDateOf12thActualPayment;
@@ -279,6 +280,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG
             return decimal.Parse(value);
         }
 
+        private static decimal? ParseDecimalAllowNull(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
 
+            return decimal.Parse(value);
+        }
     }
 }

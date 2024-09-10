@@ -33,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 throw new NotFoundException($"Project {projectId} not found");
             }
 
-            var updateParameters = new UpdateTaskServiceParameters()
+            var updateParameters = new UpdateTaskServiceParameters
             {
                 Kpi = dbKpi,
                 ProjectId = projectId,
