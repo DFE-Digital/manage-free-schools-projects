@@ -19,22 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         public Task<ProjectOverviewResponse> Execute(string projectId);
     }
 
-    public class GetProjectOverviewService : IGetProjectOverviewService
+    public class GetProjectOverviewService(MfspContext context, IGetProjectSitesService getProjectSitesService) : IGetProjectOverviewService
     {
-        private readonly MfspContext _context;
-        private readonly IGetProjectSitesService _getProjectSitesService;
-
-        public GetProjectOverviewService(
-            MfspContext context,
-            IGetProjectSitesService getProjectSitesService)
-        {
-            _context = context;
-            _getProjectSitesService = getProjectSitesService;
-        }
-
         public async Task<ProjectOverviewResponse> Execute(string projectId)
         {
-            var project = await _context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
+            var project = await context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
 
             if (project == null)
             {
@@ -42,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             }
 
             var risk = await GetRisk(project.Rid);
-            var sites = await _getProjectSitesService.Execute(project);
+            var sites = await getProjectSitesService.Execute(project);
             var pupilNumbers = await GetPupilNumbers(project.Rid);
 
             return BuildOverviewResponse(project, risk, sites, pupilNumbers);
@@ -125,7 +114,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 
         private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
         {
-            var rag = await _context.Rag
+            var rag = await context.Rag
                 .Select(e => new
                 {
                     e.Rid,
@@ -151,7 +140,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 
         private async Task<PupilNumbersOverviewResponse> GetPupilNumbers(string rid)
         {
-            var result = await _context.Po
+            var result = await context.Po
                 .Where(p => p.Rid == rid)
                 .Select(po => new PupilNumbersOverviewResponse
                 {
