@@ -1,7 +1,7 @@
-class editStopPayments {
+class editVariationLetter {
     private errorTracking = "";
 
-    public titleIs(title: string): this {
+    public variationTitleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
         return this;
     }
@@ -11,33 +11,9 @@ class editStopPayments {
         return this;
     }
 
-    public paymentStoppedDateIsVisible(): this {
-        cy.getById("payment-stopped-date").should('be.visible');
-        return this;
-    }
-    
-    public paymentStoppedDateIsNotVisible(): this {
-        cy.getById("payment-stopped-date").should('be.not.visible');
-        return this;
-    }
-
-    public withPaymentStopped(value: string): this {
-        cy.getById(`payment-stopped-${value}`).click();
-        return this;
-    }
-
-    public withPaymentStoppedDate(day: string, month: string, year: string): this {
-        const key = "payment-stopped-date";
+    public variationLetterDueDate(day: string, month: string, year: string): this {
+        const key = "due-date-variation-letter";
         this.setDate(key, day, month, year);
-        return this
-    }
-
-    
-    public paymentStoppedDateIsBlank(): this {
-        const key = "payment-stopped-date";
-        cy.get('#' + `${key}-day`).should('be.empty');
-        cy.get('#' + `${key}-month`).should('be.empty');
-        cy.get('#' + `${key}-year`).should('be.empty');
         return this
     }
 
@@ -46,12 +22,18 @@ class editStopPayments {
         cy.get('#' + `${key}-month`).typeFast(month);
         cy.get('#' + `${key}-year`).typeFast(year);
     }
-    
-    errorForPaymentStoppedDate(): this {
-        this.errorTracking = "payment-stopped-date";
+
+    public checkSavedInWorkplacesForInitialGrant(): this {
+        cy.getById("initial-grant-letter-saved-to-workplaces-folder").click()
+          .should('be.checked');
         return this;
     }
-   
+
+    errorForDueDate(): this {
+        this.errorTracking = "due-date-variation-letter";
+        return this;
+    }
+
     showsError(error: string)
     {
         cy.get(`#${this.errorTracking}-error-link`)
@@ -68,11 +50,16 @@ class editStopPayments {
         return this;
     }
 
+    public clickDiscard() : this {
+        cy.getByTestId("discard").click();
+        return this;
+    }
+
     public clickContinue() : this {
         cy.getByTestId("continue").click();
         return this;
     }
 }
 
-const editstopPayments = new editStopPayments();
-export default editstopPayments;
+const changeVariationLetter = new editVariationLetter();
+export default changeVariationLetter;
