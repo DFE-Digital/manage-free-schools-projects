@@ -1,0 +1,37 @@
+@page "/projects/{projectId}/tasks/pdg/central/edit-total-grant"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditGrantTotal
+
+@{
+    ViewData["Title"] = $"Edit Total grant - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+} 
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Edit Total Grant
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form class="govuk-form-group" method="post">
+            <govuk-decimal-input id="total-grant-amount" name="total-grant-amount" asp-for="@Model.GrantTotalAmount" data-testid="total-grant-amount" label="Total amount" hint="For example, £300,000" isMonetary="true" />
+            <br/> 
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>

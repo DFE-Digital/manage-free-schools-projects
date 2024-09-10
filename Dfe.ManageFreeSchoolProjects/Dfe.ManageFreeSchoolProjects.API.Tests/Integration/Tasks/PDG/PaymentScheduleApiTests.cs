@@ -75,13 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
                 PaymentScheduleDate = new DateTime().AddDays(8)
             }
             };
-
-
-            var updateRequest = new UpdateProjectByTaskRequest()
-            {
-                PaymentSchedule = new()
-            };
-
+            
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.PaymentSchedule.ToString());
 
             projectResponse.PaymentSchedule.PaymentActualDate.Should()

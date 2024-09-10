@@ -39,6 +39,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.GrantLetters;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ProjectStatus;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
@@ -52,6 +53,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -110,6 +112,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementHealthCheckTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementSubmissionTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
+            services.AddScoped<IUpdateTaskService, UpdatePDGGrant>();
             services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
             services.AddScoped<IUpdateTaskService, UpdateRefundsService>();
@@ -138,8 +141,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
 			services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
             services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
-
-
+            services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
+            
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

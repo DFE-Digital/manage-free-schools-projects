@@ -8658,13 +8658,34 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("p_rid");
 
+                    b.Property<bool?>("PdgFirstVariationGrantLetterSavedToWorkplaces")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PdgFourthVariationGrantLetterSavedToWorkplaces")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("PdgGrantLetterLinkSavedToWorkplaces")
                         .HasColumnType("bit")
                         .HasColumnName("PdgGrantLetterLinkSavedToWorkplaces");
 
+                    b.Property<DateTime?>("PdgInitialGrantLetterDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PdgInitialGrantLetterLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("PdgInitialGrantLetterSavedToWorkplaces")
+                        .HasColumnType("bit");
+
                     b.Property<bool?>("PdgIsWriteOffSetup")
                         .HasColumnType("bit")
                         .HasColumnName("PdgIsWriteOffSetup");
+
+                    b.Property<bool?>("PdgSecondVariationGrantLetterSavedToWorkplaces")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PdgThirdVariationGrantLetterSavedToWorkplaces")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PeriodEnd")
                         .ValueGeneratedOnAddOrUpdate()

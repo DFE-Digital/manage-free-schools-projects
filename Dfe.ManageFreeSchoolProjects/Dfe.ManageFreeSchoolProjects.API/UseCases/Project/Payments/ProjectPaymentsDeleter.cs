@@ -120,7 +120,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 po.ProjectDevelopmentGrantFundingDateOf11thActualPayment = po.ProjectDevelopmentGrantFundingDateOf12thActualPayment;
             }
 
-            if (paymentIndex == 12)
+            if (paymentIndex <= 12)
             {
                 CheckPaymentExists(po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue, po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue, po.ProjectDevelopmentGrantFundingAmountOf12thPayment, po.ProjectDevelopmentGrantFundingDateOf12thActualPayment);
 

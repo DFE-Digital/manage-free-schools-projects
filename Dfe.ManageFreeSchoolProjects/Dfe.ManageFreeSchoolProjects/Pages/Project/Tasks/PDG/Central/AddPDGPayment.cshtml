@@ -1,0 +1,42 @@
+﻿@page "/projects/{projectId}/tasks/pdg/central/add-payment"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
+@model AddPDGPaymentModel
+@{
+    ViewData["Title"] = $"Add a payment - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+} 
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Add a payment
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-date-input id="payment-due-date" name="payment-due-date" asp-for="@Model.PaymentScheduleDate" data-testid="payment-due-date" label="Date the payment is due" hint="For example, 27 3 2021" add-margin="false" />
+            <govuk-decimal-input id="payment-due-amount" name="payment-due-amount" asp-for="@Model.PaymentScheduleAmount" data-testid="payment-due-amount" label="Due amount" isMonetary="true" />
+            <govuk-date-input id="payment-actual-date" name="payment-actual-date" asp-for="@Model.PaymentActualDate" data-testid="payment-actual-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
+            <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Amount sent" isMonetary="true" />
+            <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+        <form action="@backLink">
+            <button class ="govuk-button govuk-button--warning govuk-!-width-one-third" data-module="govuk-button" data-testid="discard">
+                Discard
+            </button>
+        </form>
+    </div>
+</div>
