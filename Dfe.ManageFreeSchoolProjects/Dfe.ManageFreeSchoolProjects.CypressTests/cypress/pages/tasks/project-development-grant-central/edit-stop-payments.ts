@@ -74,5 +74,5 @@ class editStopPayments {
     }
 }
 
-const stopPayments = new editStopPayments();
-export default stopPayments;
+const editstopPayments = new editStopPayments();
+export default editstopPayments;

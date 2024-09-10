@@ -3,7 +3,7 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/dashboard";
+import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/pdgDashboard";
 import paymentSchedule from "cypress/pages/tasks/project-development-grant-central/edit-payment-schedule";
 import editTotalGrant from "cypress/pages/tasks/project-development-grant-central/edit-total-grant";
 import addPayment from "cypress/pages/tasks/project-development-grant-central/add-payment";
@@ -42,7 +42,9 @@ describe("Payment Schedule Task", () => {
             .titleIs("Project development grant (PDG)")
             .inOrder()
             .summaryShows("Total amount").IsEmpty()
-            .summaryShows("Total amount").HasValue("£0.00")
+            .summaryShows("Amount sent").IsEmpty()
+            .summaryShows("Due amount").IsEmpty()
+            .summaryShows("Total amount").IsEmpty()
             .summaryShows("Number of scheduled payments").HasValue("0")
             .isNotMarkedAsComplete();
 

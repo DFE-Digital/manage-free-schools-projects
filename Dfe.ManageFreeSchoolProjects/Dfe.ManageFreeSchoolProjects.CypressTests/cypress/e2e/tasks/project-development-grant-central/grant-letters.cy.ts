@@ -3,7 +3,7 @@ import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
-import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/dashboard";
+import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/pdgDashboard";
 import editGrantLetter from "cypress/pages/tasks/project-development-grant-central/edit-grant-letter";
 import addGrantLetter from "cypress/pages/tasks/project-development-grant-central/add-grant-letter";
 import addVariationLetter from "cypress/pages/tasks/project-development-grant-central/add-variation-letter";

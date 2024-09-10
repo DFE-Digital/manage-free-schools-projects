@@ -31,12 +31,6 @@ export class SummaryPage {
         cy.get(".govuk-summary-list__key").eq(this.summaryCounter).should("contains.text", key);
         return this;
     }
-
-    public pdgSummaryShows(key: string): this {
-        this.summaryCounter;
-        cy.get(".govuk-summary-list__key").eq(this.summaryCounter).should("contains.text", key);
-        return this;
-    }
     
     public summaryShowsWithoutCount(key: string): this {
         cy.get(".govuk-summary-list__value").should("contains.text", key);
