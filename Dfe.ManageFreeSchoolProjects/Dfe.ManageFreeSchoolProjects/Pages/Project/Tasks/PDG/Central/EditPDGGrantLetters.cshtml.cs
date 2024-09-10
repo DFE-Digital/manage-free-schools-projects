@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Services;
@@ -14,6 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 public class EditPDGGrantLetters(
     ILogger<EditPDGGrantLetters> logger,
     IGrantLettersService grantLettersService,
+    IGetProjectByTaskService getProjectService,
     ErrorService errorService)
     : PageModel
 {
@@ -29,17 +31,18 @@ public class EditPDGGrantLetters(
         logger.LogMethodEntered();
 
         GrantLetters = await grantLettersService.Get(ProjectId);
-
+        await LoadSchoolName();
         return Page();
     }
 
-    public IActionResult OnPost(string action)
+    public async Task<IActionResult> OnPost(string action)
     {
         try
         {
             if (!ModelState.IsValid)
             {
                 errorService.AddErrors(ModelState.Keys, ModelState);
+                await LoadSchoolName();
                 return Page();
             }
 
@@ -52,5 +55,11 @@ public class EditPDGGrantLetters(
             logger.LogErrorMsg(ex);
             throw;
         }
+    }
+
+    private async Task LoadSchoolName()
+    {
+        var project = await getProjectService.Execute(ProjectId, TaskName.PDG);
+        CurrentFreeSchoolName = project.SchoolName;
     }
 }

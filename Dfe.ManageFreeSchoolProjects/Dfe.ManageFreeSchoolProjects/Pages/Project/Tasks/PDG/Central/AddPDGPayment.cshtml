@@ -28,13 +28,13 @@
             <govuk-date-input id="payment-due-date" name="payment-due-date" asp-for="@Model.PaymentScheduleDate" data-testid="payment-due-date" label="Date the payment is due" hint="For example, 27 3 2021" add-margin="false" />
             <govuk-decimal-input id="payment-due-amount" name="payment-due-amount" asp-for="@Model.PaymentScheduleAmount" data-testid="payment-due-amount" label="Due amount" isMonetary="true" />
             <govuk-date-input id="payment-actual-date" name="payment-actual-date" asp-for="@Model.PaymentActualDate" data-testid="payment-actual-date" label="Date the payment was sent" hint="For example, 27 3 2021" add-margin="false" />
-            <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Actual amount" isMonetary="true" />
-            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+            <govuk-decimal-input id="payment-actual-amount" name="payment-actual-amount" asp-for="@Model.PaymentActualAmount" data-testid="payment-actual-amount" label="Amount sent" isMonetary="true" />
+            <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
         </form>
         <form action="@backLink">
-            <button class ="govuk-button govuk-button--warning" data-module="govuk-button" data-testid="discard">
+            <button class ="govuk-button govuk-button--warning govuk-!-width-one-third" data-module="govuk-button" data-testid="discard">
                 Discard
             </button>
         </form>

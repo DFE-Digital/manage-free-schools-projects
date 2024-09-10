@@ -61,7 +61,7 @@
 
     if (DoesInitialOrFullGrantLetterHaveData(grantLetters))
     {
-        <govuk-summary-card id="grant-letters" label="Grant letters" href=@editGrantLetterLink>
+        <govuk-summary-card id="grant-letters" label="Grant letter" href=@editGrantLetterLink>
             <govuk-summary-list>
                 <govuk-summary-item label="Date when DfE signed the initial grant letter" asp-for="@grantLetters.InitialGrantLetterDate"/>
                 <govuk-summary-item label="Saved the signed initial grant letter in Workplaces folder" asp-for="@initialGrantLetterSavedToWorkplaces"/>
@@ -101,9 +101,10 @@
 
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
+                            <p>Add variations of the grant letter when needed.</p>
                             <form class="govuk-form-group" method="post">
                                 <button class="govuk-button" name="action" value="AddVariationLetter">
-                                    Add variation letter @variation
+                                    Add variation @variation
                                 </button>
                             </form>
                         </div>

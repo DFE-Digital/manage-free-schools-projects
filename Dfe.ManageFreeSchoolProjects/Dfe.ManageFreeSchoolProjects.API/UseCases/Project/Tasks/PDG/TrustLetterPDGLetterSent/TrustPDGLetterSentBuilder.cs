@@ -15,11 +15,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.TrustLette
             return new TrustPDGLetterSentTask()
             {
                 TrustSignedPDGLetterDate = po.ProjectDevelopmentGrantFundingPdgGrantLetterDate,
-                PDGLetterSavedInWorkspaces = GetPDGLetterSavedInWorkspaces(po),
+                PDGLetterSavedInWorkplaces = GetPDGLetterSavedInWorkplaces(po),
             };
         }
 
-        public static bool? GetPDGLetterSavedInWorkspaces(Po po)
+        public static bool? GetPDGLetterSavedInWorkplaces(Po po)
         {
             if (po == null)
             {

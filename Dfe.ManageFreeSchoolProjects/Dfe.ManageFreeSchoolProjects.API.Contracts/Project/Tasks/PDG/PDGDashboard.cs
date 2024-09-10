@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG
         public decimal? PaymentActualAmount { get; set; }
         public DateTime? PaymentActualDate { get; set; }
         public DateTime? TrustSignedPDGLetterDate { get; set; }
-        public bool? PDGLetterSavedInWorkspaces { get; set; }
+        public bool? PDGLetterSavedInWorkplaces { get; set; }
         public string PaymentStopped { get; set; }
         public DateTime? PaymentStoppedDate { get; set; }
         public DateTime? LatestRefundDate { get; set; }

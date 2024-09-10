@@ -10,10 +10,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TrustTask Trust { get; set; }
         public RegionAndLocalAuthorityTask RegionAndLocalAuthorityTask { get; set; }
         public RiskAppraisalMeetingTask RiskAppraisalMeeting { get; set; }
-		public ConstituencyTask Constituency { get; set; }
-        
+        public ConstituencyTask Constituency { get; set; }
+
         public KickOffMeetingTask KickOffMeeting { get; set; }
-        
+
         public GiasTask Gias { get; set; }
         public FundingAgreementTask FundingAgreement { get; set; }
 
@@ -23,20 +23,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public FinancePlanTask FinancePlan { get; set; }
 
-        public DraftGovernancePlanTask DraftGovernancePlan { get;set;}
-        
+        public DraftGovernancePlanTask DraftGovernancePlan { get; set; }
+
         public EducationBriefTask EducationBrief { get; set; }
 
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
-        
+
         public ImpactAssessmentTask ImpactAssessment { get; set; }
-        
+
         public EvidenceOfAcceptedOffersTask EvidenceOfAcceptedOffers { get; set; }
 
         public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
-        
+
         public OfstedInspectionTask OfstedInspection { get; set; }
-        
+
         public ApplicationsEvidenceTask ApplicationsEvidence { get; set; }
 
         public FundingAgreementHealthCheckTask FundingAgreementHealthCheck { get; set; }
@@ -48,18 +48,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public StopPaymentTask StopPayment { get; set; }
 
         public RefundsTask Refunds { get; set; }
-        
+
         public WriteOffTask WriteOff { get; set; }
         public FinalFinancePlanTask FinalFinancePlan { get; set; }
-        
+
         public PupilNumbersChecksTask PupilNumbersChecks { get; set; }
-        
+
         public CommissionedExternalExpertTask CommissionedExternalExpert { get; set; }
 
         public MovingToOpenTask MovingToOpen { get; set; }
-        
+
         public PrincipalDesignateTask PrincipalDesignate { get; set; }
-        
+
+        public DueDiligenceChecks DueDiligenceChecks { get; set; }
+
         public PDGGrantTask PDGGrantTask { get; set; }
         
         public string TaskToUpdate
@@ -78,8 +80,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return "RegionAndLocalAuthority";
                 if (RiskAppraisalMeeting != null)
                     return "RiskAppraisalMeeting";
-				if (Constituency != null)
-					return "Constituency";
+                if (Constituency != null)
+                    return "Constituency";
                 if (ArticlesOfAssociation != null)
                     return TaskName.ArticlesOfAssociation.ToString();
                 if (FinancePlan != null)
@@ -132,6 +134,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.MovingToOpen.ToString();
                 if (PrincipalDesignate != null)
                     return TaskName.PrincipalDesignate.ToString();
+                if (DueDiligenceChecks != null)
+                    return TaskName.DueDiligenceChecks.ToString();
                 if (PDGGrantTask != null)
                     return TaskName.PDG.ToString();
                 return null;

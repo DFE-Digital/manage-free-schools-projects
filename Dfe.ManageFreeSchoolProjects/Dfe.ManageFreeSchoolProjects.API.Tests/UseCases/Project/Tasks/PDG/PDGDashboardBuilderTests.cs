@@ -539,7 +539,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.Project.Tasks.PDG
         }
         
         [Fact]
-        public void WhenInitialAndRevisedGrantIsNull_ThenStringIsParsedToNullDecimal()
+        public void WhenInitialAndRevisedGrantIsNull_ThenShouldReturnNull()
         {
             var po = new Po
             {
@@ -549,8 +549,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.Project.Tasks.PDG
 
             var result = PDGDashboardBuilder.Build(po);
 
-            result.InitialGrant.Should().Be(0m);
-            result.RevisedGrant.Should().Be(0m);
+            result.InitialGrant.Should().Be(null);
+            result.RevisedGrant.Should().Be(null);
         }
     }
 }

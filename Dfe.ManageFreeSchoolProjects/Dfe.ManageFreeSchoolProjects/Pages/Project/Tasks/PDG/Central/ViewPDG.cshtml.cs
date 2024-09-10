@@ -14,9 +14,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
     public class ViewPDGModel(ILogger<ViewPDGModel> logger, IGetProjectPaymentsService getProjectPaymentsService,
         IGetProjectByTaskService getProjectService,
         IGetTaskStatusService getTaskStatusService,
-        IUpdateTaskStatusService updateTaskStatusService, IGrantLettersService grantLettersService)
+        IUpdateTaskStatusService updateTaskStatusService, 
+        IGrantLettersService grantLettersService,
+        IPDGPaymentInfoService paymentInfoService)
         : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
+        public PDGPaymentInfo PDGPaymentInfo { get; set; }
+
         public ProjectPayments ProjectPayments { get; set; }
 
         public ProjectGrantLetters PdgGrantLetters { get; set; }
@@ -29,7 +33,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
 
             ProjectPayments = await getProjectPaymentsService.Execute(ProjectId);
             PdgGrantLetters = await grantLettersService.Get(ProjectId);
-            
+            PDGPaymentInfo = paymentInfoService.GetPDGPaymentInfo(ProjectPayments);
+
             return Page();
         }
 

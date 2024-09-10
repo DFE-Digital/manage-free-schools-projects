@@ -24,7 +24,7 @@ public class EditGrantTotal : PageModel
     public string ProjectId { get; set; }
 
     [BindProperty(Name = "total-grant-amount", BinderType = typeof(DecimalInputModelBinder))]
-    [ValidMoney(0, int.MaxValue)]
+    [ValidMoney(0, 640000)]
     [Display(Name = "Total amount")]
     public decimal? GrantTotalAmount { get; set; }
     
@@ -55,9 +55,6 @@ public class EditGrantTotal : PageModel
             var initialGrant = project.PDGDashboard.InitialGrant;
             var revisedGrant = project.PDGDashboard.RevisedGrant;
 
-            TempData["InitialGrant"] = initialGrant?.ToString(CultureInfo.InvariantCulture);
-            TempData["RevisedGrant"] = revisedGrant?.ToString(CultureInfo.InvariantCulture);
-
             GrantTotalAmount = revisedGrant ?? initialGrant;
         }
         catch (Exception e)
@@ -71,15 +68,18 @@ public class EditGrantTotal : PageModel
 
     public async Task<IActionResult> OnPost()
     {
+        var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
+
         if (!ModelState.IsValid)
         {
             _errorService.AddErrors(ModelState.Keys, ModelState);
+            CurrentFreeSchoolName = project.SchoolName;
             return Page();
         }
-        
+
         var pdgGrantTask = new PDGGrantTask();
         
-        var initialGrant = SafeStringToNullableDecimal(TempData["InitialGrant"]?.ToString());
+        var initialGrant = project.PDGDashboard.InitialGrant;
         
         if (initialGrant == null)
         {
@@ -102,14 +102,5 @@ public class EditGrantTotal : PageModel
         await _updateProjectTaskService.Execute(ProjectId, request);
 
         return Redirect(string.Format(RouteConstants.ViewPDGCentral, ProjectId));
-    }
-    
-    private static decimal? SafeStringToNullableDecimal(string input)
-    {
-        if (decimal.TryParse(input, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal result))
-        {
-            return result;
-        }
-        return null;
     }
 }

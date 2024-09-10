@@ -1,9 +1,13 @@
+
+
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link
 * 174750 - Build: Modify API to work with new PDG designs
 * 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
 * 169881 - Impact Assessment (central route)
 * 177796 - Build: Finance plan agreed date - change to use FSS field
+* 147093 - Build: Due diligence checks (central route)
+
 
 ---
 ## 0.11.0
