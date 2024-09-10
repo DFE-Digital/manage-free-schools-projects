@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Funding agreement health check");
             taskHeaders.Should().Contain("Funding agreement submission");
             taskHeaders.Should().Contain("Articles of association");
-            taskHeaders.Should().Contain("Draft governance plan");
+            taskHeaders.Should().Contain("Governance plan");
             taskHeaders.Should().Contain("Finance plan");
             taskHeaders.Should().Contain("Final finance plan");
             taskHeaders.Should().Contain("Gias");
