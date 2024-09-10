@@ -155,7 +155,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 .Where(p => p.Rid == rid)
                 .Select(po => new PupilNumbersOverviewResponse
                 {
-                    TotalCapacity = SumReceptionToYear14Capacities(po),
+                    TotalCapacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt(),
                     Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
                     Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
                     MinimumViableNumberForFirstYear =
@@ -167,15 +167,5 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 
             return result ?? new PupilNumbersOverviewResponse();
         }
-
-        private static int SumReceptionToYear14Capacities(Po po)
-        {
-            return po.PupilNumbersAndCapacityNurseryUnder5s.ToInt() +
-                   po.PupilNumbersAndCapacityYrY6Capacity.ToInt() +
-                   po.PupilNumbersAndCapacityY7Y11Capacity.ToInt() +
-                   po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt(); 
-            // po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt() +
-            // po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt();
-        }
-        }
     }
+}
