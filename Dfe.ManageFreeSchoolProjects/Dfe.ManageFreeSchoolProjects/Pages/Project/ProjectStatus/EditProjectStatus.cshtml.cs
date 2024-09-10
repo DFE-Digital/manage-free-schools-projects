@@ -43,22 +43,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         public ProjectStatusType ProjectStatus { get; set; }
 
         [BindProperty(Name = CancelledYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Year the project was cancelled")]
+        [Display(Name = "Date the project was cancelled")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? CancelledYear { get; set; }
 
         [BindProperty(Name = ClosedYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Year the school was closed")]
+        [Display(Name = "Date the school was closed")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? ClosedYear { get; set; }
 
         [BindProperty(Name = WithdrawnPreopeningYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Year the project was withdrawn")]
+        [Display(Name = "Date the project was withdrawn")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnYear { get; set; }
 
         [BindProperty(Name = WithdrawnApplicationYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Year the project was withdrawn")]
+        [Display(Name = "Date the project was withdrawn")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnApplicationYear { get; set; }
 

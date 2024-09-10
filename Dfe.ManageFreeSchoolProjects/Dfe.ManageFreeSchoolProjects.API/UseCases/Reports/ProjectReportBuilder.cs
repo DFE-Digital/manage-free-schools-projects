@@ -43,6 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
                     new() { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
                     new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" },
+                    new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = "Getting ready to open" }
                 };
 
                 if (result.Headers.Count == 0)
@@ -63,7 +64,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             foreach (var task in projectTaskInformation)
             {
                 var headerRows = BuildHeaderRowsForTask(task);
-
                 result.AddRange(headerRows);
             }
 

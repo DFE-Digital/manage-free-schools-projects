@@ -6,6 +6,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExtern
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Gias;
@@ -157,7 +158,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones),
                                       MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones),
                                       PrincipalDesignate = PrincipalDesignateTaskBuilder.Build(milestones),
-                                      
+                                      DueDiligenceChecks = DueDiligenceChecksTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {

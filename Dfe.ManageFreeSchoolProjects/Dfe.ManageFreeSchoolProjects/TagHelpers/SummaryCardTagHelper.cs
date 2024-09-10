@@ -28,9 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                $@"<div class=""govuk-summary-card__title-wrapper"">
                     <h2 class=""govuk-summary-card__title"">{Label}</h2>
                         <div class=""govuk-summary-card__actions"">
-                            <a class=""govuk-link"" href=""{href}"" data-testid=""change-{Id}"">
-                                Change<span class=""govuk-visually-hidden"">{Label}</span>
-                            </a>
+                            {GetChangeLink()}
                         </div>
                     </div>
                   <div class=""govuk-summary-card__content"">
@@ -43,6 +41,17 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                  
 
             output.TagMode = TagMode.StartTagAndEndTag;
+        }
+
+        private string GetChangeLink()
+        {
+            if (href != null)
+                return $@"<a class=""govuk-link"" href=""{href}"" data-testid=""change-{Id}"">
+                                Change<span class=""govuk-visually-hidden"">{Label}</span>
+                      </a>
+            ";
+
+            return string.Empty;
         }
 
     }

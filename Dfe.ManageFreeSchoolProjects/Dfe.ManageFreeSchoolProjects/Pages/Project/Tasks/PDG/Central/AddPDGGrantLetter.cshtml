@@ -1,0 +1,55 @@
+@page "/projects/{projectId}/tasks/pdg/central/add-grant-letter"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.AddPDGGrantLetter
+
+@{
+    ViewData["Title"] = $"Add grant letter - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+
+    var initialLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkplaces ? "checked" : "";
+    var finalLetterSavedCheckStatus = Model.InitialGrantLetterSavedToWorkplaces ? "checked" : "";
+
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
+
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Add grant letter
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+            <govuk-date-input id="date-signed-initial-grant-letter" name="date-signed-initial-grant-letter" asp-for="@Model.InitialGrantLetterDateSigned" data-testid="date-signed-initial-grant-letter" label="Date when DfE signed the initial grant letter" hint="For example, 27 3 2021" add-margin="false"/>
+            <govuk-checkbox-input label="Saved the signed initial grant letter to Workplaces folder"
+                                    asp-for="@Model.InitialGrantLetterSavedToWorkplaces"
+                                    name="initial-grant-letter-saved-to-workplaces-folder"
+                                    id="initial-grant-letter-saved-to-workplaces-folder"
+                                    add-margin="false" />
+            <govuk-date-input id="date-signed-full-grant-letter" name="date-signed-full-grant-letter" asp-for="@Model.FullGrantLetterDateSigned" data-testid="full-grant-letter-signed-date" label="Date when DfE signed the full grant letter" hint="For example, 27 3 2021" add-margin="false" />
+            <govuk-checkbox-input label="Saved the signed final grant letter to Workplaces folder"
+                                  asp-for="@Model.FullGrantLetterSavedToWorkplaces"
+                                    name="full-grant-letter-saved-to-workplaces-folder"
+                                    id="full-grant-letter-saved-to-workplaces-folder"
+                                    add-margin="false" />
+            <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+        <form action="@backLink">
+            <button class="govuk-button govuk-button--warning govuk-!-width-one-third" data-module="govuk-button" data-testid="discard">
+                Discard
+            </button>
+        </form>
+    </div>
+</div>

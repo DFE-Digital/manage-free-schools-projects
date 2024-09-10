@@ -522,5 +522,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.Project.Tasks.PDG
             result.PaymentScheduleAmount.Should().Be(78);
 
         }
+
+        [Fact]
+        public void WhenInitialAndRevisedGrantSet_ThenStringIsParsedToDecimal()
+        {
+            var po = new Po
+            {
+                ProjectDevelopmentGrantFundingInitialGrantAllocation = "5000.00",
+                ProjectDevelopmentGrantFundingRevisedGrantAllocation = "10000.00"
+            };
+
+            var result = PDGDashboardBuilder.Build(po);
+
+            result.InitialGrant.Should().Be(5000.00m);
+            result.RevisedGrant.Should().Be(10000.00m);
+        }
+        
+        [Fact]
+        public void WhenInitialAndRevisedGrantIsNull_ThenShouldReturnNull()
+        {
+            var po = new Po
+            {
+                ProjectDevelopmentGrantFundingInitialGrantAllocation = null,
+                ProjectDevelopmentGrantFundingRevisedGrantAllocation = null
+            };
+
+            var result = PDGDashboardBuilder.Build(po);
+
+            result.InitialGrant.Should().Be(null);
+            result.RevisedGrant.Should().Be(null);
+        }
     }
 }

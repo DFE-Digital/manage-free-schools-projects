@@ -1,0 +1,103 @@
+﻿@page "/projects/{projectId}/tasks/pdg/central/edit-payment-schedule"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+@model EditPDGPaymentScheduleModel
+@{
+    ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+    var paymentCount = Model.ProjectPayments.Payments.Count();
+    var nextPaymentNumber = paymentCount + 1;
+    var editPaymentLink = RouteConstants.EditPDGPaymentCentral;
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back to Project Development Grant (PDG)</a>
+    </div>
+} 
+
+<partial name="_ErrorSummary" />
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Edit Payment schedule
+</h1>
+
+@if ((bool)(TempData["paymentUpdated"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-updated-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment @TempData["paymentIndex"] updated.</p>
+        </div>
+    </div>
+    TempData["paymentUpdated"] = false;
+}
+
+@if ((bool)(TempData["paymentAdded"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-added-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment @paymentCount added.</p>
+        </div>
+    </div>
+    TempData["paymentAdded"] = false;
+}
+
+@if ((bool)(TempData["paymentDeleted"] ?? false))
+{
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-testid="payment-deleted-banner">
+        <div class="govuk-notification-banner__header">
+            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                Success
+            </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+            <p class="govuk-notification-banner__heading">Payment deleted.</p>
+        </div>
+    </div>
+    TempData["paymentDeleted"] = false;
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds" data-testid="payments-list">
+
+        @foreach (Payment p in Model.ProjectPayments.Payments)
+        {
+            <govuk-summary-card id="payment-@p.PaymentIndex" data-testid="payment-@p.PaymentIndex" label="Payment @p.PaymentIndex" href="@string.Format(editPaymentLink, Model.ProjectId, p.PaymentIndex)">
+                <govuk-summary-list>
+                    <govuk-summary-item label="Date the payment is due" asp-for="@p.PaymentScheduleDate" />
+                    <govuk-summary-item label="Due amount" asp-for="@p.PaymentScheduleAmount"/>
+                    <govuk-summary-item label="Date the payment was sent" asp-for="@p.PaymentActualDate" />
+                    <govuk-summary-item label="Amount sent" asp-for="@p.PaymentActualAmount"/>
+                </govuk-summary-list>
+            </govuk-summary-card>
+        }
+        
+        <form class="govuk-form-group" method="post">
+            @if (paymentCount < 12)
+            {
+                <p>You can add up to 12 scheduled payments.</p>
+                <button class="govuk-button" data-testid="add-payment" >
+                    Add payment @nextPaymentNumber
+                </button>
+            }
+            else
+            {
+                <p>You have added 12 payments and can't add anymore.</p>
+            }
+        </form>
+    </div>
+</div>

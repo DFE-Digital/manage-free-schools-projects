@@ -241,11 +241,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var getProjectPaymentsBeforeDeleteResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
             getProjectPaymentsBeforeDeleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var countOfPaymentsBeforeDelete = GetCountOfPaymentsForProject(projectId);
-
             var projectPaymentsBeforeDelete = await getProjectPaymentsBeforeDeleteResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectPayments>>();
             var paymentAtIndexBeforeDelete = projectPaymentsBeforeDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete);
             var paymentAtNextIndexBeforeDelete = projectPaymentsBeforeDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete + 1);
+            var countOfPaymentsBeforeDelete = projectPaymentsBeforeDelete.Data.Payments.Count();
 
             var deleteProjectPaymentsResponse = await _client.DeleteAsync($"/api/v1/client/projects/{projectId}/payments/{paymentIndexToDelete}");
             deleteProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -253,12 +252,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var getProjectPaymentsAfterDeleteResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
             getProjectPaymentsAfterDeleteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var countOfPaymentsAfterDelete = GetCountOfPaymentsForProject(projectId);
-
             var projectPaymentsAfterDelete = await getProjectPaymentsAfterDeleteResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectPayments>>();
             var paymentAtIndexAfterDelete = projectPaymentsAfterDelete.Data.Payments.First(p => p.PaymentIndex == paymentIndexToDelete);
+            var countOfPaymentsAfterDelete = projectPaymentsAfterDelete.Data.Payments.Count();
 
-            countOfPaymentsBeforeDelete.Should().NotBe(countOfPaymentsAfterDelete);
+            countOfPaymentsAfterDelete.Should().Be(countOfPaymentsBeforeDelete - 1);
 
             paymentAtIndexBeforeDelete.PaymentActualDate.Should()
                    .NotBe(paymentAtIndexAfterDelete.PaymentActualDate);
@@ -311,20 +309,5 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             return decimal.Parse(value);
         }
 
-        private async Task<int?> GetCountOfPaymentsForProject(string projectId)
-        {
-            var getProjectPaymentsResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/payments");
-            getProjectPaymentsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var projectPayments = await getProjectPaymentsResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectPayments>>();
-            var countOfPayments = projectPayments.Data.Payments
-                .Last(p => p.PaymentActualDate is not null
-                        || p.PaymentActualAmount is not null
-                        || p.PaymentScheduleAmount is not null
-                        || p.PaymentScheduleDate is not null
-                    ).PaymentIndex;
-
-            return countOfPayments;
-        }
     }
 }

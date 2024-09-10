@@ -46,7 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Equalities assessment");
             taskHeaders.Should().Contain("Statutory consultation");
             taskHeaders.Should().Contain("Accepted offers evidence");
-
+            taskHeaders.Should().Contain("Due diligence checks");
+            
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Reference numbers");
@@ -92,6 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
             AssertEntry(nameof(MovingToOpenTask.SentEmailsToRelevantContacts), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PrincipalDesignateTask.CommissionedExternalExpertVisitToSchool), "Yes" , project, columnHeaders);
+            
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -223,6 +225,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         PrincipalDesignate = new PrincipalDesignateTask()
                         {
                             CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
+                        }, 
+                        DueDiligenceChecks = new DueDiligenceChecks
+                        {
+                            RequestedCounterExtremismChecks = true
                         }
                     }
                 }

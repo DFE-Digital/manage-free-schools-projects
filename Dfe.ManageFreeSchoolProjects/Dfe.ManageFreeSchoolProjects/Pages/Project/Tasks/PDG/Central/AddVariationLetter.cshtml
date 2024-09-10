@@ -1,0 +1,57 @@
+@page "/projects/{projectId}/tasks/pdg/central/add-variation-letter/"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.AddVariationLetter
+@using Dfe.ManageFreeSchoolProjects.Constants
+
+@{
+    ViewData["Title"] = $"Add variation letter - {Model.CurrentFreeSchoolName}";
+    var backLink = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+    var variationNumber = TempData.Peek("VariationLetterToAdd") as string;
+    // var initialGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
+    // var finalGrantLetterSavedToWorkplaces = Model.InitialGrantLetterSavedToWorkplaces == true ? "checked" : "";
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backLink class="govuk-back-link">Back</a>
+    </div>
+}
+
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">
+        @Model.CurrentFreeSchoolName
+    </span>
+    Add variation letter @variationNumber
+</h1>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form method="post">
+                <govuk-date-input id="due-date-variation-letter" name="due-date-variation-letter" asp-for="@Model.DueDateOfVariationLetter" data-testid="due-date-variation-letter" label="Due date of variation letter" hint="For example, 27 3 2021" add-margin="false"/>
+
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" asp-for="@Model.VariationLetterSavedToWorkplaces" id="initial-grant-letter-saved-to-workplaces-folder"
+                                   data-testid="initial-grant-letter-saved-to-workplaces-folder" type="checkbox">
+                            <label class="govuk-label govuk-checkboxes__label" for="initial-grant-letter-saved-to-workplaces-folder">
+                                Saved the signed initial grant letter to Workplaces folder
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <br/>
+
+                <button class="govuk-button govuk-!-width-one-third" data-module="govuk-button" data-testid="continue">
+                    Save and continue
+                </button>
+        </form>
+        <form action="@backLink">
+            <button class="govuk-button govuk-button--warning govuk-!-width-one-third" data-module="govuk-button" data-testid="discard">
+                Discard
+            </button>
+        </form>
+    </div>
+</div>
