@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public TaskSummaryResponse FinancePlan { get; set; }
 
-        public TaskSummaryResponse DraftGovernancePlan { get; set; }
+        public TaskSummaryResponse GovernancePlan { get; set; }
         
         public TaskSummaryResponse Gias { get; set; }
 
@@ -59,6 +59,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public TaskSummaryResponse PrincipalDesignate { get; set; }
         
+        public TaskSummaryResponse DueDiligenceChecks { get; set; }
         public int TaskCount { get; set; }
         
         public int CompletedTasks { get; set; }

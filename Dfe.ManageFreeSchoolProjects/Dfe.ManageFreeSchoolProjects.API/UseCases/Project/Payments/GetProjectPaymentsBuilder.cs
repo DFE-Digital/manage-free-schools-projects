@@ -1,5 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
 {
@@ -7,8 +9,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
     {
         public static List<Payment> Build(Po po)
         {
+            if (po == null)
+            {
+                return new List<Payment>();
+            }
 
-            return new List<Payment>()
+            List<Payment> allPayments = new()
             {
                 new Payment
                 {
@@ -107,6 +113,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                     PaymentActualDate = po.ProjectDevelopmentGrantFundingDateOf12thActualPayment
                 },
             };
+
+            List<Payment> payments = allPayments.Where(p => p.PaymentActualAmount != null || p.PaymentScheduleAmount != null || p.PaymentActualDate != null || p.PaymentScheduleDate != null).ToList();
+
+            return payments;
         }
 
         private static decimal? ParseDecimal(string value)

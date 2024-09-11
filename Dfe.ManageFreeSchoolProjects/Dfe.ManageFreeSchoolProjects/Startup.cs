@@ -106,6 +106,12 @@ public class Startup
         services.AddScoped<IUpdateProjectSitesService, UpdateProjectSitesService>();
         services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
         services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
+        services.AddScoped<IGetProjectPaymentsService, GetProjectPaymentsService>();
+        services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
+        services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
+        services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
+        services.AddScoped<IGrantLettersService, GrantLettersService>(); 
+        services.AddScoped<IPDGPaymentInfoService, PDGPaymentInfoService>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
@@ -147,6 +153,7 @@ public class Startup
             MfspOptions mfspOptions = GetTypedConfigurationFor<MfspOptions>();
             client.BaseAddress = new Uri(mfspOptions.ApiEndpoint);
             client.DefaultRequestHeaders.Add("ApiKey", mfspOptions.ApiKey);
+            client.DefaultRequestHeaders.Add("User-Agent", "ManageFreeSchoolProjects/1.0");
         });
 
         services.AddScoped<ErrorService>();
@@ -159,7 +166,6 @@ public class Startup
         });
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
     }
 
     private void SetupDataprotection(IServiceCollection services)
@@ -219,11 +225,6 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            //endpoints.MapGet("/", context =>
-            //{
-            //   context.Response.Redirect("project-type", false);
-            //   return Task.CompletedTask;
-            //});
             endpoints.MapRazorPages();
             endpoints.MapControllerRoute("default", "{controller}/{action}/");
         });

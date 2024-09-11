@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
                 TrustPDGLetterSent = new ()
                 {
                     TrustSignedPDGLetterDate = new DateTime().AddDays(10),
-                    PDGLetterSavedInWorkspaces = true,
+                    PDGLetterSavedInWorkplaces = true,
                 }
             };
 
@@ -37,8 +37,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
 
             projectResponse.TrustPDGLetterSent.TrustSignedPDGLetterDate.Should()
                 .Be(request.TrustPDGLetterSent.TrustSignedPDGLetterDate);
-            projectResponse.TrustPDGLetterSent.PDGLetterSavedInWorkspaces.Should()
-                .Be(request.TrustPDGLetterSent.PDGLetterSavedInWorkspaces);
+            projectResponse.TrustPDGLetterSent.PDGLetterSavedInWorkplaces.Should()
+                .Be(request.TrustPDGLetterSent.PDGLetterSavedInWorkplaces);
         }
 
 
@@ -60,7 +60,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
                 TrustPDGLetterSent = new()
                 {
                     TrustSignedPDGLetterDate = new DateTime().AddDays(10),
-                    PDGLetterSavedInWorkspaces = true,
+                    PDGLetterSavedInWorkplaces = true,
                 }
             };
 
@@ -74,8 +74,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks.PDG
 
             projectResponse.TrustPDGLetterSent.TrustSignedPDGLetterDate.Should()
                     .Be(request.TrustPDGLetterSent.TrustSignedPDGLetterDate);
-            projectResponse.TrustPDGLetterSent.PDGLetterSavedInWorkspaces.Should()
-                    .Be(request.TrustPDGLetterSent.PDGLetterSavedInWorkspaces);
+            projectResponse.TrustPDGLetterSent.PDGLetterSavedInWorkplaces.Should()
+                    .Be(request.TrustPDGLetterSent.PDGLetterSavedInWorkplaces);
         }
     }
 }

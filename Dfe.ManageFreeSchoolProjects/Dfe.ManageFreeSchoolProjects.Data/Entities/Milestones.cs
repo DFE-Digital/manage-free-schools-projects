@@ -147,5 +147,21 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE { get; set; }
 
         public bool? FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder { get; set; }
+
+        public bool? GovernancePlanAndAssessmentSharedWithLocalAuthority { get; set; }
+
+        public bool? FinalGovernancePlanAgreed { get; set; }
+        
+        public bool? FsgPreOpeningReceivedChairOfTrusteesCountersignedCertificate { get; set; }
+        
+        public bool? FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees { get; set; }
+        
+        public bool? FsgPreOpeningRequestedCounterExtremismChecks { get; set; }
+        
+        public bool? FsgPreOpeningSavedNonSpecialistChecksSpreadsheetInWorkplaces { get; set; }
+        
+        public bool? FsgPreOpeningDeletedAnyCopiesOfChairsDBSCertificate { get; set; }
+        
+        public bool? FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms { get; set; }
     }
 }

@@ -14,7 +14,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEviden
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ArticlesOfAssociation;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DraftGovernancePlan;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.GovernancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EqualitiesAssessment;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EvidenceOfAcceptedOffers;
@@ -39,6 +39,7 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using FluentValidation;
 using System.Reflection;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.GrantLetters;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ProjectStatus;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.CommissionedExternalExpert;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.PaymentSchedule;
@@ -52,6 +53,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -100,7 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateGiasTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateStatutoryConsultationTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementTaskService>();
-			services.AddScoped<IUpdateTaskService, UpdateDraftGovernancePlanTaskService>();
+			services.AddScoped<IUpdateTaskService, UpdateGovernancePlanTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEducationBriefTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateEqualitiesAssessmentTaskService>();
 			services.AddScoped<IUpdateTaskService, UpdateImpactAssessmentTaskService>();
@@ -110,6 +113,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementHealthCheckTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateFundingAgreementSubmissionTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePDGPaymentSchedule>();
+            services.AddScoped<IUpdateTaskService, UpdatePDGGrant>();
             services.AddScoped<IUpdateTaskService, UpdatePDGTrustLetterSent>();
             services.AddScoped<IUpdateTaskService, UpdateStopPaymentService>();
             services.AddScoped<IUpdateTaskService, UpdateRefundsService>();
@@ -119,6 +123,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateFinalFinancePlanTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateMovingToOpenTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePrincipleDesignateTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdateDueDiligenceChecksTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
@@ -138,8 +143,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateProjectPaymentsService, UpdateProjectPaymentsService>();
 			services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
             services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
-
-
+            services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
+            
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

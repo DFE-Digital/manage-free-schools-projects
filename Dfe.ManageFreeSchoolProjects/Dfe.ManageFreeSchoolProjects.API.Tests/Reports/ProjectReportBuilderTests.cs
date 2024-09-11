@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Funding agreement health check");
             taskHeaders.Should().Contain("Funding agreement submission");
             taskHeaders.Should().Contain("Articles of association");
-            taskHeaders.Should().Contain("Draft governance plan");
+            taskHeaders.Should().Contain("Governance plan");
             taskHeaders.Should().Contain("Finance plan");
             taskHeaders.Should().Contain("Final finance plan");
             taskHeaders.Should().Contain("Gias");
@@ -46,7 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Equalities assessment");
             taskHeaders.Should().Contain("Statutory consultation");
             taskHeaders.Should().Contain("Accepted offers evidence");
-
+            taskHeaders.Should().Contain("Due diligence checks");
+            
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Reference numbers");
@@ -76,7 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
             AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
-            AssertEntry(nameof(DraftGovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
+            AssertEntry(nameof(GovernancePlanTask.PlanFedBackToTrust), "No", project, columnHeaders);
 			AssertEntry(nameof(FundingAgreementTask.SharedFAWithTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementSubmissionTask.DraftedFundingAgreementSubmission), "Yes", project, columnHeaders);
@@ -92,6 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
             AssertEntry(nameof(MovingToOpenTask.SentEmailsToRelevantContacts), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PrincipalDesignateTask.CommissionedExternalExpertVisitToSchool), "Yes" , project, columnHeaders);
+            
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
@@ -152,7 +154,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             RpaCoverType = "Cover",
                         },
-                        DraftGovernancePlan = new DraftGovernancePlanTask()
+                        GovernancePlan = new GovernancePlanTask()
                         {
 							PlanFedBackToTrust = false,
 						},
@@ -223,6 +225,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         PrincipalDesignate = new PrincipalDesignateTask()
                         {
                             CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
+                        }, 
+                        DueDiligenceChecks = new DueDiligenceChecks
+                        {
+                            RequestedCounterExtremismChecks = true
                         }
                     }
                 }

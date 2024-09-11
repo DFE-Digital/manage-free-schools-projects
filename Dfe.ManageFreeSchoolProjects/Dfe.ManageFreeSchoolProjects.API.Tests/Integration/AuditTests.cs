@@ -139,7 +139,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var request = new UpdateProjectByTaskRequest()
             {
-                DraftGovernancePlan = _autoFixture.Create<DraftGovernancePlanTask>()
+                GovernancePlan = _autoFixture.Create<GovernancePlanTask>()
             };
 
             await _client.UpdateProjectTask(projectId, request, TaskName.School.ToString());

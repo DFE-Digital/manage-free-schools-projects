@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         ArticlesOfAssociation,
         FinancePlan,
         KickOffMeeting,
-        DraftGovernancePlan,
+        GovernancePlan,
         FundingAgreement,
         StatutoryConsultation,
         Gias,
@@ -39,5 +39,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         CommissionedExternalExpert,
         MovingToOpen,
         PrincipalDesignate,
+        DueDiligenceChecks
     }
 }

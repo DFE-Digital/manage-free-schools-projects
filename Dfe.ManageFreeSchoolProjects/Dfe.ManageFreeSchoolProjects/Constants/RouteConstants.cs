@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.Constants
+﻿using System;
+
+namespace Dfe.ManageFreeSchoolProjects.Constants
 {
     public static class RouteConstants
     {
@@ -52,8 +54,11 @@
         public const string ViewPrincipalDesignateTask = TaskList + "/principal-designate";
         public const string EditPrincipalDesignateTask = ViewPrincipalDesignateTask + "/edit";
 
-        public const string ViewDraftGovernancePlanTask = TaskList + "/draft-governance-plan";
-        public const string EditDraftGovernancePlanTask = ViewDraftGovernancePlanTask + "/edit";
+        public const string ViewGovernancePlanPresumptionTask = TaskList + "/governance-plan/presumption";
+        public const string EditGovernancePlanPresumptionTask = ViewGovernancePlanPresumptionTask + "/edit";
+
+        public const string ViewGovernancePlanCentralTask = TaskList + "/governance-plan/central";
+        public const string EditGovernancePlanCentralTask = ViewGovernancePlanCentralTask + "/edit";
 
         public const string ViewGiasTask = TaskList + "/gias";
         public const string EditGiasTask = ViewGiasTask + "/edit";
@@ -131,12 +136,28 @@
         public const string EditOfstedContact = "/projects/{0}/contacts/ofsted-contact-edit";
         public const string EditPrincipalDesignateContact = "/projects/{0}/contacts/principal-designate-contact-edit";
 
-        public const string ViewPDG = TaskList + "/pdg";
-        public const string EditPDGPaymentSchedule = ViewPDG + "/edit-payment-schedule/";
-        public const string EditPDGTrustLetter = ViewPDG + "/edit-trust-letter/";
-        public const string EditStopPayment = ViewPDG + "/edit-stop-payment/";
-        public const string EditRefunds = ViewPDG + "/edit-refunds/";
-        public const string EditWriteOff = ViewPDG + "/edit-write-off/";
+        public const string ViewPDGPresumption = TaskList + "/pdg/presumption";
+        public const string EditPDGPaymentSchedulePresumption = ViewPDGPresumption + "/edit-payment-schedule/";
+        public const string EditPDGTrustLetterPresumption = ViewPDGPresumption + "/edit-trust-letter/";
+        public const string EditStopPaymentPresumption = ViewPDGPresumption + "/edit-stop-payment/";
+        public const string EditRefundsPresumption = ViewPDGPresumption + "/edit-refunds/";
+        public const string EditWriteOffPresumption = ViewPDGPresumption + "/edit-write-off/";
+
+        public const string ViewPDGCentral = TaskList + "/pdg/central";
+        public const string EditPDGPaymentScheduleCentral = ViewPDGCentral + "/edit-payment-schedule";
+        public const string EditPDGPaymentCentral = EditPDGPaymentScheduleCentral + "/{1}";
+        public const string AddPDGPaymentCentral = ViewPDGCentral + "/add-payment";
+        public const string DeletePDGPaymentCentral = ViewPDGCentral + "/delete-payment/{1}";
+        public const string EditPDGTrustLetterCentral = ViewPDGCentral + "/edit-trust-letter/";
+        public const string EditStopPaymentCentral = ViewPDGCentral + "/edit-stop-payment/";
+        public const string EditRefundsCentral = ViewPDGCentral + "/edit-refunds/";
+        public const string EditWriteOffCentral = ViewPDGCentral + "/edit-write-off/";
+        public const string EditPDGTotalGrant = ViewPDGCentral + "/edit-total-grant";
+        public const string EditPDGGrantLetters = ViewPDGCentral + "/edit-grant-letters"; 
+        public const string AddPDGGrantLetter = ViewPDGCentral + "/add-grant-letter";
+        public const string EditPDGGrantLetter = ViewPDGCentral + "/edit-grant-letter"; 
+        public const string AddPDGGrantVariationLetter = ViewPDGCentral + "/add-variation-letter";
+        public const string EditPDGVariationLetter = ViewPDGCentral + "/edit-variation-letter/{1}";
 
         public const string ViewPupilNumbers = "/projects/{0}/pupil-numbers";
         public const string EditCapacityWhenFull = ViewPupilNumbers + "/capacity-when-full/edit";
@@ -148,5 +169,8 @@
 
         public const string ViewReferenceNumbers = "/projects/{0}/reference-numbers";
         public const string EditReferenceNumbers = ViewReferenceNumbers + "/edit";
+        
+        public const string ViewDueDiligenceChecks = TaskList + "/due-diligence-checks";
+        public const string EditDueDiligenceChecks = ViewDueDiligenceChecks + "/edit"; 
     }
 }

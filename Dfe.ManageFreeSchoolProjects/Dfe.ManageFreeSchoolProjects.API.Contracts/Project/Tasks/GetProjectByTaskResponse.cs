@@ -21,7 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public ArticlesOfAssociationTask ArticlesOfAssociation { get; set; }
         public GiasTask Gias { get; set; }
         public FinancePlanTask FinancePlan { get; set; }
-        public DraftGovernancePlanTask DraftGovernancePlan { get; set; }
+        public GovernancePlanTask GovernancePlan { get; set; }
         public EducationBriefTask EducationBrief { get; set; }
         public AdmissionsArrangementsTask AdmissionsArrangements { get; set; }
         public EqualitiesAssessmentTask EqualitiesAssessment { get; set; }
@@ -46,5 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public MovingToOpenTask MovingToOpen  { get; set; }
 
         public PrincipalDesignateTask PrincipalDesignate { get; set; }
+        
+        public DueDiligenceChecks DueDiligenceChecks { get; set; }
     }
 }
