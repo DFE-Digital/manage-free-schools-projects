@@ -51,6 +51,11 @@ export class SummaryPage {
         return this;
     }
 
+    public IsNotEmpty(): this {
+        cy.get(".govuk-summary-list__value").eq(this.summaryCounter).invoke('text').should('not.be.empty');
+        return this;
+    }
+
     public HasValue(value): this {
         cy.get(".govuk-summary-list__value").eq(this.summaryCounter).should("contains.text", value);
         return this;

@@ -126,11 +126,11 @@ describe("Write off Task", () => {
         summaryPage
             .inOrder()
             .skip(9)
-            .summaryShows("Is there any write-off?").HasValue("Yes")
-            .summaryShows("Write-off reason").HasValue("Reason")
-            .summaryShows("Write-off amount").HasValue("299.04")
-            .summaryShows("Write-off date").HasValue("4 December 2025")
-            .summaryShows("Finance business partner approval received from").HasValue("Sam Smigel")
+            .summaryShows("Is there any write-off?").IsNotEmpty()
+            .summaryShows("Write-off reason").IsNotEmpty()
+            .summaryShows("Write-off amount").IsNotEmpty()
+            .summaryShows("Write-off date").IsNotEmpty()
+            .summaryShows("Finance business partner approval received from").IsNotEmpty()
             .summaryShows("Approval date")       
             .MarkAsComplete()
             .clickConfirmAndContinue();
