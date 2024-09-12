@@ -92,6 +92,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.GovernancePlan.Centra
                 DatePlanReceived = null;
             }
 
+            if (FinalGovernancePlanAgreed != true)
+            {
+                var errorKeys = ModelState.Keys.Where(k => k.StartsWith("date-plan-agreed")).ToList();
+
+                errorKeys.ForEach(k => ModelState.Remove(k));
+
+                DatePlanAgreed = null;
+            }
+
             if (!ModelState.IsValid)
             {
                 _errorService.AddErrors(ModelState.Keys, ModelState);
