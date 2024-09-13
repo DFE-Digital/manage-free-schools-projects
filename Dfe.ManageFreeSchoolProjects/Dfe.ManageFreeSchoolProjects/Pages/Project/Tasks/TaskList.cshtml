@@ -352,16 +352,21 @@
                         RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
                     }
                 </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@dueDiligenceChecksLink" class="govuk-link" data-testid="dueDiligenceChecks-task">
-                            Due diligence checks
-                        </a>
-                    </span>
-                    @{
-                    RenderStatus(Model.ProjectTaskListSummary.DueDiligenceChecks);
+                @{
+                    if (Model.IsPresumptionRoute == false)
+                    {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="@dueDiligenceChecksLink" class="govuk-link" data-testid="dueDiligenceChecks-task">
+                                    Due diligence checks
+                                </a>
+                            </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.DueDiligenceChecks);
+                            }
+                        </li>
                     }
-                </li>
+                }
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
