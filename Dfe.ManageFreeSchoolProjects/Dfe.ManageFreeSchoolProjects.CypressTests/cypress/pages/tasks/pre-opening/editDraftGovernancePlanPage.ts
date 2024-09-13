@@ -35,6 +35,12 @@ class EditDraftGovernancePlanPage {
         return this;
     }
 
+    public checkPlanAndAssessmentSharedWithLa(): this {
+        cy.getById("plan-and-assessment-shared-with-local-authority").click();
+        return this;
+    }
+
+
     public checkPlanAndAssessmentSharedWithEsfa(): this {
         cy.getById("plan-and-assessment-shared-with-esfa").click();
         return this;
@@ -42,6 +48,11 @@ class EditDraftGovernancePlanPage {
 
     public checkFedBackToTrustOnPlan(): this {
         cy.getById("plan-fed-back-to-trust").click();
+        return this;
+    }
+
+    public checkFinalGovernancePlanAgreed(): this {
+        cy.getById("final-governance-plan-agreed").click();
         return this;
     }
 
