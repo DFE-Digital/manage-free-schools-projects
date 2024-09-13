@@ -66,10 +66,10 @@ describe("Testing the due diligence checks task", () => {
             .inOrder()
             .summaryShows("Received Chair of Trustee's DBS countersigned certificate").HasValue("Yes").HasChangeLink()
             .summaryShows("Non-specialist checks done on all trust members and trustees in last 2 years").HasValue("Yes").HasChangeLink()
-            .summaryShows("Requested counter terrorism checks").HasValue("No").HasChangeLink()
+            .summaryShows("Requested counter extremism checks").HasValue("No").HasChangeLink()
             .summaryShows("Date when all check were completed").HasValue("30 January 2050").HasChangeLink()
             .summaryShows("Saved the non-specialist checks spreadsheet in Workplaces folder").HasValue("Yes").HasChangeLink()
-            .summaryShows("Deleted copy of any Chair's DBS certificate").HasValue("Yes").HasChangeLink()
+            .summaryShows("Deleted any copies of Chair's DBS certificate").HasValue("Yes").HasChangeLink()
             .summaryShows("Deleted emails containing suitability and declaration forms").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .clickConfirmAndContinue();
