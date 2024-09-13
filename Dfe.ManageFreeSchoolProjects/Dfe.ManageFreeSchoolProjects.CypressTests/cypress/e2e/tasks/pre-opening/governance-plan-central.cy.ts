@@ -157,6 +157,7 @@ describe("Testing draft governance plan task", () => {
             .checkPlanAndAssessmentSharedWithExpert()
             .checkPlanAndAssessmentSharedWithEsfa()
             .checkFedBackToTrustOnPlan()
+            .checkFinalGovernancePlanAgreed()
             .checkDocumentsSavedInWorkplacesFolder()
             .withComments("This is my updated comments that I have written")
             .clickContinue();
