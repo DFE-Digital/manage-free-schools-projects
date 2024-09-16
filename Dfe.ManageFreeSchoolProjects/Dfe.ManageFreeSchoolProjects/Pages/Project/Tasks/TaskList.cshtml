@@ -46,6 +46,9 @@
     var dueDiligenceChecksLink = string.Format(RouteConstants.ViewDueDiligenceChecks, Model.ProjectId);
     var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
     var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
+
+    var readinessToOpenMeetingLink = string.Format(RouteConstants.ViewReadinessToOpenMeeting, Model.ProjectId); 
+    
     var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
@@ -395,6 +398,16 @@
                     </span>
                     @{
                         RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
+                    }
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name">
+                        <a href="@readinessToOpenMeetingLink" class="govuk-link" data-testid="readinessToOpenMeeting-task">
+                            Readiness to open meeting (ROM)
+                        </a>
+                    </span>
+                    @{
+                    RenderStatus(Model.ProjectTaskListSummary.RadinessToOpenMeeting);
                     }
                 </li>
                 <li class="app-task-list__item">

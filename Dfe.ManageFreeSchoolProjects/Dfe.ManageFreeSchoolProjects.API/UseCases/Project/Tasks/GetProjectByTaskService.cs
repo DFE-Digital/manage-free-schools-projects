@@ -43,18 +43,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         public Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName);
     }
 
-    public class GetProjectByTaskService : IGetProjectByTaskService
+    public class GetProjectByTaskService(MfspContext context) : IGetProjectByTaskService
     {
-        private readonly MfspContext _context;
-
-        public GetProjectByTaskService(MfspContext context)
-        {
-            _context = context;
-        }
-
         public async Task<GetProjectByTaskResponse> Execute(string projectId, TaskName taskName)
         {
-            var query = _context.Kpi.Where(kpi => kpi.ProjectStatusProjectId == projectId);
+            var query = context.Kpi.Where(kpi => kpi.ProjectStatusProjectId == projectId);
 
             var parameters = new GetTaskServiceParameters
             {
@@ -76,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     result = await new GetDatesTaskService().Get(parameters);
                     break;
                 case TaskName.RiskAppraisalMeeting:
-                    result = await new GetRiskAppraisalMeetingTaskService(_context).Get(parameters);
+                    result = await new GetRiskAppraisalMeetingTaskService(context).Get(parameters);
                     break;
                 case TaskName.Trust:
                     result = await new GetTrustTaskService().Get(parameters);
@@ -88,88 +81,88 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     result = await new GetConstituencyTaskService().Get(parameters);
                     break;
                 case TaskName.KickOffMeeting:
-                    result = await new GetKickOffMeetingTaskService(_context).Get(parameters);
+                    result = await new GetKickOffMeetingTaskService(context).Get(parameters);
                     break;
                 case TaskName.FundingAgreement:
-                    result = await new GetFundingAgreementTaskService(_context).Get(parameters);
+                    result = await new GetFundingAgreementTaskService(context).Get(parameters);
                     break;
                 case TaskName.StatutoryConsultation:
-                    result = await new GetStatutoryConsultationTaskService(_context).Get(parameters);
+                    result = await new GetStatutoryConsultationTaskService(context).Get(parameters);
                     break;
                 case TaskName.ArticlesOfAssociation:
-                    result = await new GetArticlesOfAssociationTaskService(_context).Get(parameters);
+                    result = await new GetArticlesOfAssociationTaskService(context).Get(parameters);
                     break;
                 case TaskName.FinancePlan:
-                    result = await new GetFinancePlanTaskService(_context).Get(parameters);
+                    result = await new GetFinancePlanTaskService(context).Get(parameters);
                     break;
                 case TaskName.GovernancePlan:
-                    result = await new GetGovernancePlanTaskService(_context).Get(parameters);
+                    result = await new GetGovernancePlanTaskService(context).Get(parameters);
                     break;
                 case TaskName.Gias:
-                    result = await new GetGiasTaskService(_context).Get(parameters);
+                    result = await new GetGiasTaskService(context).Get(parameters);
                     break;
                 case TaskName.EducationBrief:
-                    result = await new GetEducationBriefTaskService(_context).Get(parameters);
+                    result = await new GetEducationBriefTaskService(context).Get(parameters);
                     break;
                 case TaskName.AdmissionsArrangements:
-                    result = await new GetAdmissionsArrangementsTaskService(_context).Get(parameters);
+                    result = await new GetAdmissionsArrangementsTaskService(context).Get(parameters);
                     break;
                 case TaskName.EqualitiesAssessment:
-                    result = await new GetEqualitiesAssessmentTaskService(_context).Get(parameters);
+                    result = await new GetEqualitiesAssessmentTaskService(context).Get(parameters);
                     break;
                 case TaskName.ImpactAssessment:
-                    result = await new GetImpactAssessmentTaskService(_context).Get(parameters);
+                    result = await new GetImpactAssessmentTaskService(context).Get(parameters);
                     break;
                 case TaskName.EvidenceOfAcceptedOffers:
-                    result = await new GetEvidenceOfAcceptedOffersTaskService(_context).Get(parameters);
+                    result = await new GetEvidenceOfAcceptedOffersTaskService(context).Get(parameters);
                     break;
                 case TaskName.OfstedInspection:
-                    result = await new GetOfstedInspectionTaskService(_context).Get(parameters);
+                    result = await new GetOfstedInspectionTaskService(context).Get(parameters);
                     break;
                 case TaskName.ApplicationsEvidence:
-                    result = await new GetApplicationsEvidenceTaskService(_context).Get(parameters);
+                    result = await new GetApplicationsEvidenceTaskService(context).Get(parameters);
                     break;
                 case TaskName.FundingAgreementHealthCheck:
-                    result = await new GetFundingAgreementHealthCheckTaskService(_context).Get(parameters);
+                    result = await new GetFundingAgreementHealthCheckTaskService(context).Get(parameters);
                     break;
                 case TaskName.FundingAgreementSubmission:
-                    result = await new GetFundingAgreementSubmissionTaskService(_context).Get(parameters);
+                    result = await new GetFundingAgreementSubmissionTaskService(context).Get(parameters);
                     break;
                 case TaskName.PupilNumbersChecks:
-                    result = await new GetPupilNumbersChecksTaskService(_context).Get(parameters);
+                    result = await new GetPupilNumbersChecksTaskService(context).Get(parameters);
                     break;
                 case TaskName.PDG:
-                    result = await new GetPDGDashboardService(_context).Get(parameters);
+                    result = await new GetPDGDashboardService(context).Get(parameters);
                     break;
                 case TaskName.PaymentSchedule:
-                    result = await new GetPaymentScheduleService(_context).Get(parameters);
+                    result = await new GetPaymentScheduleService(context).Get(parameters);
                     break;
                 case TaskName.TrustPDGLetterSent:
-                    result = await new GetTrustPDGLetterSentService(_context).Get(parameters);
+                    result = await new GetTrustPDGLetterSentService(context).Get(parameters);
                     break;
                 case TaskName.StopPayment:
-                    result = await new GetStopPaymentService(_context).Get(parameters);
+                    result = await new GetStopPaymentService(context).Get(parameters);
                     break;
                 case TaskName.Refunds:
-                    result = await new GetRefundsService(_context).Get(parameters);
+                    result = await new GetRefundsService(context).Get(parameters);
                     break;
                 case TaskName.WriteOff:
-                    result = await new GetWriteOffService(_context).Get(parameters);
+                    result = await new GetWriteOffService(context).Get(parameters);
                     break;
                 case TaskName.FinalFinancePlan:
-                    result = await new GetFinalFinancePlanTaskService(_context).Get(parameters);
+                    result = await new GetFinalFinancePlanTaskService(context).Get(parameters);
                     break;
                 case TaskName.CommissionedExternalExpert:
-                    result = await new GetCommissionedExternalExpertTaskService(_context).Get(parameters);
+                    result = await new GetCommissionedExternalExpertTaskService(context).Get(parameters);
                     break;
                 case TaskName.MovingToOpen:
-                    result = await new GetMovingToOpenTaskService(_context).Get(parameters);
+                    result = await new GetMovingToOpenTaskService(context).Get(parameters);
                     break;
                 case TaskName.PrincipalDesignate:
-                    result = await new GetPrincipalDesignateTaskService(_context).Get(parameters);
+                    result = await new GetPrincipalDesignateTaskService(context).Get(parameters);
                     break;
                 case TaskName.DueDiligenceChecks:
-                    result = await new GetDueDiligenceChecksTaskService(_context).Get(parameters);
+                    result = await new GetDueDiligenceChecksTaskService(context).Get(parameters);
                     break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
