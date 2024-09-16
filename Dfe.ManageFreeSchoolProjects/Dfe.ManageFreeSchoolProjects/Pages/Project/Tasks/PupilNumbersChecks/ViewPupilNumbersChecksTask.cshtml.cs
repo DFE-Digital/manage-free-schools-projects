@@ -5,29 +5,20 @@ using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks
 {
-    public class ViewPupilNumbersChecksModel : ViewTaskBaseModel
+    public class ViewPupilNumbersChecksModel(
+        IGetProjectByTaskService getProjectService,
+        ILogger<ViewPupilNumbersChecksModel> logger,
+        IGetTaskStatusService getTaskStatusService,
+        IUpdateTaskStatusService updateTaskStatusService)
+        : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
-        public ProjectByTaskSummaryResponse ProjectTaskListSummary { get; set; }
-        
-        private readonly ILogger<ViewPupilNumbersChecksModel> _logger;
-
-        public ViewPupilNumbersChecksModel(
-            IGetProjectByTaskService getProjectService,
-            ILogger<ViewPupilNumbersChecksModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
-        {
-            _logger = logger;
-        }
-        public ProjectOverviewResponse ProjectOverview { get; set; }
-        
         public async Task<ActionResult> OnGet()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
             
             await GetTask(TaskName.PupilNumbersChecks);
 
@@ -36,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks
 
         public async Task<ActionResult> OnPost()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
             
             await PostTask(TaskName.PupilNumbersChecks);
 

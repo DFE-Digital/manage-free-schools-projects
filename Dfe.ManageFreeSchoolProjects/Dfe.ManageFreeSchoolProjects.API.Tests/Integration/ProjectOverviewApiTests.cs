@@ -115,7 +115,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             // Pupil numbers
             var pupilNumbers = result.Data.PupilNumbers;
-            pupilNumbers.Capacity.Should().Be(300);
+            pupilNumbers.TotalCapacity.Should().Be(300);
             pupilNumbers.Pre16PublishedAdmissionNumber.Should().Be(15);
             pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(67);
             pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(121);
@@ -165,7 +165,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             // Pupil numbers
             var pupilNumbers = result.Data.PupilNumbers;
-            pupilNumbers.Capacity.Should().Be(0);
+            pupilNumbers.TotalCapacity.Should().Be(0);
             pupilNumbers.Pre16PublishedAdmissionNumber.Should().Be(0);
             pupilNumbers.Post16PublishedAdmissionNumber.Should().Be(0);
             pupilNumbers.MinimumViableNumberForFirstYear.Should().Be(0);

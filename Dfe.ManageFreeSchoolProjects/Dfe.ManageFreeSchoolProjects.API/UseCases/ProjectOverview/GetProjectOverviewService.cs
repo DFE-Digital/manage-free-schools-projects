@@ -19,22 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         public Task<ProjectOverviewResponse> Execute(string projectId);
     }
 
-    public class GetProjectOverviewService : IGetProjectOverviewService
+    public class GetProjectOverviewService(MfspContext context, IGetProjectSitesService getProjectSitesService) : IGetProjectOverviewService
     {
-        private readonly MfspContext _context;
-        private readonly IGetProjectSitesService _getProjectSitesService;
-
-        public GetProjectOverviewService(
-            MfspContext context,
-            IGetProjectSitesService getProjectSitesService)
-        {
-            _context = context;
-            _getProjectSitesService = getProjectSitesService;
-        }
-
         public async Task<ProjectOverviewResponse> Execute(string projectId)
         {
-            var project = await _context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
+            var project = await context.Kpi.FirstOrDefaultAsync(k => k.ProjectStatusProjectId == projectId);
 
             if (project == null)
             {
@@ -42,19 +31,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             }
 
             var risk = await GetRisk(project.Rid);
-            var sites = await _getProjectSitesService.Execute(project);
+            var sites = await getProjectSitesService.Execute(project);
             var pupilNumbers = await GetPupilNumbers(project.Rid);
 
             return BuildOverviewResponse(project, risk, sites, pupilNumbers);
         }
 
         private static ProjectOverviewResponse BuildOverviewResponse(
-            Kpi project, 
-            ProjectRiskOverviewResponse risk, 
-            GetProjectSitesResponse sites, 
+            Kpi project,
+            ProjectRiskOverviewResponse risk,
+            GetProjectSitesResponse sites,
             PupilNumbersOverviewResponse pupilNumbers)
         {
-
             var projectOverviewResponse = new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
@@ -116,17 +104,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 PupilNumbers = pupilNumbers
             };
 
-            projectOverviewResponse.ProjectType = projectOverviewResponse.ProjectStatus.ApplicationWave == "FS - Presumption"
+            projectOverviewResponse.ProjectType =
+                projectOverviewResponse.ProjectStatus.ApplicationWave == "FS - Presumption"
                     ? "Presumption"
                     : "Central Route";
 
-            return projectOverviewResponse; 
+            return projectOverviewResponse;
         }
-        
+
         private async Task<ProjectRiskOverviewResponse> GetRisk(string rid)
         {
-            var rag = await _context.Rag
-                .Select(e => new 
+            var rag = await context.Rag
+                .Select(e => new
                 {
                     e.Rid,
                     RiskRating = e.RagRatingsOverallRagRating,
@@ -134,7 +123,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     Date = EF.Property<DateTime>(e, "PeriodStart")
                 }).FirstOrDefaultAsync(r => r.Rid == rid);
 
-            if (rag == null) 
+            if (rag == null)
             {
                 return new ProjectRiskOverviewResponse();
             }
@@ -151,31 +140,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
 
         private async Task<PupilNumbersOverviewResponse> GetPupilNumbers(string rid)
         {
-            var result = await _context.Po
+            var result = await context.Po
                 .Where(p => p.Rid == rid)
-                .Select(po =>
-                new PupilNumbersOverviewResponse()
+                .Select(po => new PupilNumbersOverviewResponse
                 {
-                    Capacity = po.PupilNumbersAndCapacityNurseryUnder5s.ToInt() +
-                                    po.PupilNumbersAndCapacityYrY6Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacityY7Y11Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacityY12Y14Post16Capacity.ToInt() +
-                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionSpecial.ToInt() +
-                                    po.PupilNumbersAndCapacitySpecialistResourceProvisionAp.ToInt(),
+                    TotalCapacity = po.PupilNumbersAndCapacityTotalOfCapacityTotals.ToInt(),
                     Pre16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPre16.ToInt(),
                     Post16PublishedAdmissionNumber = po.PupilNumbersAndCapacityTotalPanPost16.ToInt(),
-                    MinimumViableNumberForFirstYear = po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
+                    MinimumViableNumberForFirstYear =
+                        po.PupilNumbersAndCapacityMinimumFirstYearRecruitmentForViabilityTotal.ToInt(),
                     ApplicationsReceived = po.PupilNumbersAndCapacityNoApplicationsReceivedTotal.ToInt(),
                     AcceptedOffers = po.PupilNumbersAndCapacityNoApplicationsAcceptedTotal.ToInt(),
                 })
                 .FirstOrDefaultAsync();
 
-            if (result == null)
-            {
-                return new PupilNumbersOverviewResponse();
-            }
-
-            return result;
+            return result ?? new PupilNumbersOverviewResponse();
         }
     }
 }

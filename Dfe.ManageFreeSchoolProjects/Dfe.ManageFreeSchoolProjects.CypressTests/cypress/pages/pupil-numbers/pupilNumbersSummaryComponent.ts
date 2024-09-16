@@ -1,7 +1,7 @@
 class PupilNumbersSummaryComponent {
 
     public hasCapacity(value: string): this {
-        cy.getByTestId("capacity").should("contain.text", value);
+        cy.getByTestId("total-capacity").should("contain.text", value);
 
         return this;
     }
