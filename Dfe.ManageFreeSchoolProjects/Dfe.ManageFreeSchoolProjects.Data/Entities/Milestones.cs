@@ -77,33 +77,33 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? EqualitiesAssessmentCompletedEPR { get; set; }
 
         public bool? EqualitiesAssessmentSavedEPRInWorkplacesFolder { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesSeenEvidenceOfAcceptedOffers { get; set; }
 
         public string FsgPreOpeningMilestonesAcceptedOffersComments { get; set; }
 
         public bool? FsgPreOpeningMilestonesAcceptedOffersEmailSavedToWorkplaces { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesProcessDetailsProvided { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesInspectionBlockDecided { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesSharedOutcomeWithTrust { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesProposedToOpenOnGias { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesApplicationsEvidenceConfirmedPupilNumbers { get; set; }
-        
+
         public string FsgPreOpeningMilestonesApplicationsEvidenceComments { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesApplicationsEvidenceBuildUpFormSavedToWorkplaces { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesApplicationsEvidenceUnderwritingAgreementSavedToWorkplaces { get; set; }
         public bool? FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck { get; set; }
         public bool? FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck { get; set; }
@@ -119,31 +119,31 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder { get; set; }
 
         public bool? FsgPreOpeningMilestonesSchoolReceivedEnoughApplications { get; set; }
-        
+
         public bool? FsgPreOpeningMilestonesCapacityDataMatchesFundingAgreement { get; set; }
-        
-        public bool? FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration  { get; set; }
+
+        public bool? FsgPreOpeningMilestonesCapacityDataMatchesGiasRegistration { get; set; }
 
         public bool? FsgPreOpeningMilestonesAppointedPrincipalDesignate { get; set; }
         public YesNoNotApplicable? FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool { get; set; }
         public bool? FsgPreOpeningMilestonesCommissionedExternalExpertVisit { get; set; }
-            
+
         public DateTime? FsgPreOpeningMilestonesExternalExpertVisitDate { get; set; }
-            
+
         public bool? FsgPreOpeningMilestoneSavedExternalExpertSpecsToWorkplacesFolder { get; set; }
-        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToSfso{ get; set; }
-        
-        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates{ get; set; }
-        
-        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToNewDeliveryOfficer{ get; set; }
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToSfso { get; set; }
+
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates { get; set; }
+
+        public bool? FsgPreOpeningMilestoneMovingToOpenProjectBriefToNewDeliveryOfficer { get; set; }
         public bool? FsgPreOpeningMilestoneMovingToOpenSentEmailsToRelevantContacts { get; set; }
-        
+
         public bool? FsgPreOpeningMilestoneMovingToOpenSentEmailsToSchoolsPrinciple { get; set; }
-        
+
         public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderProjectBrief { get; set; }
-        
+
         public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexB { get; set; }
-        
+
         public bool? FsgPreOpeningMilestoneMovingToOpenSavedToWorkplacesFolderAnnexE { get; set; }
 
         public bool? FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder { get; set; }
@@ -151,17 +151,29 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? GovernancePlanAndAssessmentSharedWithLocalAuthority { get; set; }
 
         public bool? FinalGovernancePlanAgreed { get; set; }
-        
+
         public bool? FsgPreOpeningReceivedChairOfTrusteesCountersignedCertificate { get; set; }
-        
+
         public bool? FsgPreOpeningNonSpecialistChecksDoneOnAllTrustMembersAndTrustees { get; set; }
-        
+
         public bool? FsgPreOpeningRequestedCounterExtremismChecks { get; set; }
-        
+
         public bool? FsgPreOpeningSavedNonSpecialistChecksSpreadsheetInWorkplaces { get; set; }
-        
+
         public bool? FsgPreOpeningDeletedAnyCopiesOfChairsDBSCertificate { get; set; }
-        
+
         public bool? FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms { get; set; }
+
+        public string FsgROMTypeOfMeetingHeld { get; set; }
+
+        public bool? FsgROMPrincipalDesignateHasProvidedChecklist { get; set; }
+
+        public bool? FsgROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable { get; set; }
+
+        public bool? FsgROMSavedTheInternalROMReportInWorkplacesFolder { get; set; }
+
+        public bool? FsgROMSavedTheExternalROMReportInWorkplacesFolder { get; set; }
+        
+        public string FsgROMWhyAMeetingWasNotHeld { get; set; }
     }
 }

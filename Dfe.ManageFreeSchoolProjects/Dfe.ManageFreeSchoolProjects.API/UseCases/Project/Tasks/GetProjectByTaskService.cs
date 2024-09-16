@@ -34,6 +34,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG.WriteOff;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePlan;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
@@ -164,6 +165,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.DueDiligenceChecks:
                     result = await new GetDueDiligenceChecksTaskService(context).Get(parameters);
                     break;
+                case TaskName.ReadinessToOpenMeeting:
+                    result = await new GetReadinessToOpenMeetingService(context).Get(parameters);
+                    break; 
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
             }

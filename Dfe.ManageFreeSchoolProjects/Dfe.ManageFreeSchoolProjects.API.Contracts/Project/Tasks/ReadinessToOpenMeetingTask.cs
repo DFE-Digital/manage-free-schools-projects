@@ -1,6 +1,6 @@
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
-public class ReadinessToOpenMeeting
+public class ReadinessToOpenMeetingTask
 {
     public TypeOfMeetingHeld TypeOfMeetingHeld { get; set; }
     
@@ -18,7 +18,8 @@ public class ReadinessToOpenMeeting
 }
 public enum TypeOfMeetingHeld
 {
+    NotSet,
     FormalMeeting, 
     InformalMeeting, 
-    NoRomHeld
+    NoRomHeld,
 }
