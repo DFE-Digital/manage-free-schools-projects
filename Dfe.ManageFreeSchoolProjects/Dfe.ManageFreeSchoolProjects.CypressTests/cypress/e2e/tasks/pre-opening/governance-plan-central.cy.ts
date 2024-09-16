@@ -19,7 +19,7 @@ describe("Testing draft governance plan task", () => {
 
         now = toDisplayDate(new Date());
 
-        project = RequestBuilder.createProjectDetails();
+        project = RequestBuilder.createProjectDetailsNonPresumption();
         const projectRisk = RequestBuilder.CreateProjectRiskRequest();
 
         projectApi
@@ -35,26 +35,27 @@ describe("Testing draft governance plan task", () => {
 
         cy.visit(`/projects/${project.projectId}/tasks`);
 
-        Logger.log("Select draft governance plan");
-        taskListPage.isTaskStatusIsNotStarted("DraftGovernancePlan")
-            .selectDraftGovernancePlanFromTaskList();
+        Logger.log("Select governance plan");
+        taskListPage.isTaskStatusIsNotStarted("GovernancePlan")
+            .selectGovernancePlanFromTaskList();
 
         Logger.log("Go back to task list");
         summaryPage.clickBack();
 
-        taskListPage.selectDraftGovernancePlanFromTaskList();
+        taskListPage.selectGovernancePlanFromTaskList();
 
         Logger.log("Confirm empty draft governance plan");
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Draft governance plan")
+            .titleIs("Governance plan")
             .inOrder()
             .summaryShows("Received draft governance plan from trust").IsEmpty().HasChangeLink()
             .summaryShows("Assessed plan using assessment template").IsEmpty().HasChangeLink()
             .summaryShows("Shared plan and assessment with external expert").IsEmpty().HasChangeLink()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty().HasChangeLink()
             .summaryShows("Fed back to trust on plan").IsEmpty().HasChangeLink()
-            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Final governance plan agreed").IsEmpty().HasChangeLink()
+            .summaryShows("Saved final governance plan in Workplaces").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -70,7 +71,7 @@ describe("Testing draft governance plan task", () => {
 
         Logger.log("Check all the fields are optional");
         editDraftGovernancePlanPage
-            .titleIs("Edit Draft governance plan")
+            .titleIs("Edit Governance plan")
             .schoolNameIs(project.schoolName)
             .clickContinue();
 
@@ -99,6 +100,7 @@ describe("Testing draft governance plan task", () => {
             .checkPlanAndAssessmentSharedWithExpert()
             .checkPlanAndAssessmentSharedWithEsfa()
             .checkFedBackToTrustOnPlan()
+            .checkFinalGovernancePlanAgreed()
             .checkDocumentsSavedInWorkplacesFolder()
             .withComments("This is my comments")
             .clickContinue();
@@ -111,7 +113,8 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").HasValue("Yes")
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").HasValue("Yes")
             .summaryShows("Fed back to trust on plan").HasValue("Yes")
-            .summaryShows("Saved documents in Workplaces folder").HasValue("Yes")
+            .summaryShows("Final governance plan agreed").HasValue("Yes")
+            .summaryShows("Saved final governance plan in Workplaces").HasValue("Yes")
             .summaryShows("Comments").HasValue("This is my comments")
 
         Logger.log("Should clear the date if Received draft governance plan from trust is unchecked");
@@ -154,6 +157,7 @@ describe("Testing draft governance plan task", () => {
             .checkPlanAndAssessmentSharedWithExpert()
             .checkPlanAndAssessmentSharedWithEsfa()
             .checkFedBackToTrustOnPlan()
+            .checkFinalGovernancePlanAgreed()
             .checkDocumentsSavedInWorkplacesFolder()
             .withComments("This is my updated comments that I have written")
             .clickContinue();
@@ -165,20 +169,21 @@ describe("Testing draft governance plan task", () => {
             .summaryShows("Shared plan and assessment with external expert").IsEmpty()
             .summaryShows("Shared plan and assessment with ESFA (Education and Skills Funding Agency)").IsEmpty()
             .summaryShows("Fed back to trust on plan").IsEmpty()
-            .summaryShows("Saved documents in Workplaces folder").IsEmpty()
+            .summaryShows("Final governance plan agreed").IsEmpty()
+            .summaryShows("Saved final governance plan in Workplaces").IsEmpty()
             .summaryShows("Comments").HasValue("This is my updated comments that I have written");
 
         Logger.log("Should update the task status");
         summaryPage.clickConfirmAndContinue();
 
-        taskListPage.isTaskStatusInProgress("DraftGovernancePlan");
+        taskListPage.isTaskStatusInProgress("GovernancePlan");
 
-        taskListPage.selectDraftGovernancePlanFromTaskList();
+        taskListPage.selectGovernancePlanFromTaskList();
 
         summaryPage
             .MarkAsComplete()
             .clickConfirmAndContinue();
 
-        taskListPage.isTaskStatusIsCompleted("DraftGovernancePlan");
+        taskListPage.isTaskStatusIsCompleted("GovernancePlan");
     });
 });

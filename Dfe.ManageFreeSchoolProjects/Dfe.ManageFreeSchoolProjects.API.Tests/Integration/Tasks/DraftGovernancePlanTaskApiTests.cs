@@ -32,12 +32,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     SavedDocumentsInWorkplacesFolder = false,
                     PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithLocalAuthority = false,
                     PlanAndAssessmentSharedWithExpert = false,
                     PlanAssessedUsingTemplate = false,
                     PlanFedBackToTrust = false,
                     PlanReceivedFromTrust = false,
                     DatePlanReceived = dateReceived,
+                    FinalGovernancePlanAgreed = false,
                     Comments = "Comments on approval",
+
                 }
             };
 
@@ -59,17 +62,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var dateReceived = DateTime.Now.Date.AddDays(10);
 
+            var datePlanAgreed = DateTime.Now.Date.AddDays(5);
+
             var createGovernanceRequest = new UpdateProjectByTaskRequest()
             {
                 GovernancePlan = new GovernancePlanTask()
                 {
                     SavedDocumentsInWorkplacesFolder = false,
                     PlanAndAssessmentSharedWithEsfa = false,
+                    PlanAndAssessmentSharedWithLocalAuthority = false,
                     PlanAndAssessmentSharedWithExpert = false,
                     PlanAssessedUsingTemplate = false,
                     PlanFedBackToTrust = false,
                     PlanReceivedFromTrust = false,
                     DatePlanReceived = dateReceived,
+                    FinalGovernancePlanAgreed = false,
+                    DatePlanAgreed = datePlanAgreed,
                     Comments = "Comments on approval",
                 }
             };
@@ -82,11 +90,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 {
                     SavedDocumentsInWorkplacesFolder = true,
                     PlanAndAssessmentSharedWithEsfa = true,
+                    PlanAndAssessmentSharedWithLocalAuthority = true,
                     PlanAndAssessmentSharedWithExpert = true,
                     PlanAssessedUsingTemplate = true,
                     PlanFedBackToTrust = true,
                     PlanReceivedFromTrust = true,
                     DatePlanReceived = dateReceived.AddDays(5),
+                    FinalGovernancePlanAgreed = true,
+                    DatePlanAgreed = datePlanAgreed.AddDays(2),
                     Comments = "Updated comments on approval",
                 }
             };
@@ -103,8 +114,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             actual.PlanFedBackToTrust.Should().Be(expected.PlanFedBackToTrust);
             actual.PlanAssessedUsingTemplate.Should().Be(expected.PlanAssessedUsingTemplate);
             actual.PlanAndAssessmentSharedWithExpert.Should().Be(expected.PlanAndAssessmentSharedWithExpert);
+            actual.PlanAndAssessmentSharedWithLocalAuthority.Should().Be(expected.PlanAndAssessmentSharedWithLocalAuthority);
             actual.PlanAndAssessmentSharedWithEsfa.Should().Be(expected.PlanAndAssessmentSharedWithEsfa);
             actual.SavedDocumentsInWorkplacesFolder.Should().Be(expected.SavedDocumentsInWorkplacesFolder);
+            actual.FinalGovernancePlanAgreed.Should().Be(expected.FinalGovernancePlanAgreed);
+            actual.DatePlanAgreed.Should().Be(expected?.DatePlanAgreed);
             actual.Comments.Should().Be(expected.Comments);
         }
     }

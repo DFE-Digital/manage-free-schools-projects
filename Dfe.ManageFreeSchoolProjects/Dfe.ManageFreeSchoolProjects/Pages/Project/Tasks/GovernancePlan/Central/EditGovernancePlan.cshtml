@@ -77,7 +77,7 @@
                                name="final-governance-plan-agreed"
                                type="checkbox"
                                value="true"
-                               checked="@(Model.DatePlanAgreed is not null ? "checked" : null)"
+                               checked="@(Model.FinalGovernancePlanAgreed == true ? "checked" : (Model.DatePlanAgreed is not null ? true : null))"
                                data-aria-controls="conditional-date-agreed">
                         <label class="govuk-label govuk-checkboxes__label" for="final-governance-plan-agreed">
                            Final governance plan agreed
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <govuk-checkbox-input label="Saved documents in Workplaces folder"
+            <govuk-checkbox-input label="Saved final governance plan in Workplaces folder"
                                   asp-for="@Model.SavedDocumentsInWorkplacesFolder"
                                   name="saved-documents-in-workplaces-folder"
                                   id="saved-documents-in-workplaces-folder"

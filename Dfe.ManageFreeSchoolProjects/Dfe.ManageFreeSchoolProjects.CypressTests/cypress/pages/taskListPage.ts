@@ -94,7 +94,7 @@ class TaskListPage {
         return this;
     }
 
-    public selectDraftGovernancePlanFromTaskList(): this {
+    public selectGovernancePlanFromTaskList(): this {
         this.getDraftGovernancePlanTask().click();
         return this;
     }
@@ -203,7 +203,7 @@ class TaskListPage {
     }
 
     private getDraftGovernancePlanTask() {
-        return cy.getByTestId("draft-governance-plan-task");
+        return cy.getByTestId("governance-plan-task");
     }
 
     private getApplicationsEvidenceTask() {
