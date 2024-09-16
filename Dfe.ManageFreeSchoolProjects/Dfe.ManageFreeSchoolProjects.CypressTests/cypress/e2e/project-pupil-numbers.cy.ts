@@ -111,7 +111,7 @@ describe("Testing the setting of pupil numbers", () => {
             .hasYear12ToYear14("40")
             .hasSpecialEducationalNeeds("50")
             .hasAlternativeProvision("60")
-            .hasTotal("210");
+            .hasTotal("90");
     });
 
     it("Should be able to edit the pre-16 published admission numbers", () => {
@@ -592,7 +592,7 @@ describe("Testing the setting of pupil numbers", () => {
         viewPupilNumbersPage.backToProjectOverview();
 
         pupilNumbersSummaryComponent
-            .hasCapacity("210")
+            .hasCapacity("90")
             .hasPre16PublishedAdmissionNumber("110")
             .hasPost16PublishedAdmissionNumber("35")
             .hasMinimumViableNumber("168")

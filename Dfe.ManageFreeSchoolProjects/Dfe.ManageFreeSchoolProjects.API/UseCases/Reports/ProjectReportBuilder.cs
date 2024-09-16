@@ -43,7 +43,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
                     new() { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
                     new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" },
-                    new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = "Getting ready to open" }
+                    new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = "Getting ready to open" },
+                    new() { Task = project.Payments, TaskName = "Project development grant", Section = "Project development grant schedule" }
                 };
 
                 if (result.Headers.Count == 0)

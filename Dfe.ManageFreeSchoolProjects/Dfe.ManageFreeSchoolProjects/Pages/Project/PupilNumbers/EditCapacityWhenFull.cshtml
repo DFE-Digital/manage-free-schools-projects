@@ -28,6 +28,39 @@
             <table class="govuk-table govuk-table__border--full govuk-table--small">
                 <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Edit Capacity when full</caption>
                 <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header mfsp-pupil-numbers-table__first-header">School group</th>
+                    <th scope="col" class="govuk-table__header">Capacity</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Reception to year 6</td>
+                    <td class="govuk-table__cell">
+                        <govuk-number-input-cell id="reception-to-year6" name="reception-to-year6" asp-for="@Model.ReceptionToYear6" label="Reception to year 6" />
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Year 7 to year 11</td>
+                    <td class="govuk-table__cell">
+                        <govuk-number-input-cell id="year7-to-year11" name="year7-to-year11" asp-for="@Model.Year7ToYear11" label="Year 7 to year 11" />
+
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Year 12 to year 14</td>
+                    <td class="govuk-table__cell">
+                        <govuk-number-input-cell id="year12-to-year14" name="year12-to-year14" asp-for="@Model.Year12ToYear14" label="Year 12 to year 14" />
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            
+            <table class="govuk-table govuk-table__border--full govuk-table--small">
+                <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Nursery and specialist resource provision</caption>
+                <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header mfsp-pupil-numbers-table__first-header">School group</th>
                         <th scope="col" class="govuk-table__header">Capacity</th>
@@ -38,27 +71,6 @@
                         <td class="govuk-table__cell">Nursery</td>
                         <td class="govuk-table__cell">
                             <govuk-number-input-cell id="nursery" name="nursery" asp-for="@Model.Nursery" label="Nursery" />
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Reception to year 6</td>
-                        <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="reception-to-year6" name="reception-to-year6" asp-for="@Model.ReceptionToYear6" label="Reception to year 6" />
-
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Year 7 to year 11</td>
-                        <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year7-to-year11" name="year7-to-year11" asp-for="@Model.Year7ToYear11" label="Year 7 to year 11" />
-
-                        </td>
-                    </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Year 12 to year 14</td>
-                        <td class="govuk-table__cell">
-                            <govuk-number-input-cell id="year12-to-year14" name="year12-to-year14" asp-for="@Model.Year12ToYear14" label="Year 12 to year 14" />
-
                         </td>
                     </tr>
                     <tr class="govuk-table__row">

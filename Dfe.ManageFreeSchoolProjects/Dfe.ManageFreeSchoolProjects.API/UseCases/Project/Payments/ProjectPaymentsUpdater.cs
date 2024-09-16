@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
@@ -123,6 +124,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
                 default:
                     throw new NotFoundException($"Index {payment.PaymentIndex} cannot be found");
             }
+
+            po.ProjectDevelopmentGrantFundingTotalPaymentsMade = PaymentCalculation.GetTotalAmount(po).ToString();
         }
 
         public static void CheckPaymentExists(string paymentScheduleAmount, DateTime? paymentScheduleDate, string paymentActualAmount, DateTime? paymentActualDate)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
 {
-    public class ViewPupilNumbersModel : PageModel
+    public class ViewPupilNumbersModel(IGetPupilNumbersService getPupilNumbersService, IGetProjectByTaskSummaryService getProjectByTaskSummaryService) : PageModel
     {
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
@@ -19,30 +19,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.PupilNumbers
         [BindProperty(SupportsGet = true, Name = "fromSaveForm")]
         public bool ShowBanner { get; set; }
 
-        private readonly IGetPupilNumbersService _getPupilNumbersService;
-        private readonly IGetProjectByTaskSummaryService _getProjectByTaskSummaryService;
-
-        public ViewPupilNumbersModel(
-            IGetPupilNumbersService getPupilNumbersService, 
-            IGetProjectByTaskSummaryService getProjectByTaskSummaryService)
-        {
-            _getPupilNumbersService = getPupilNumbersService;
-            _getProjectByTaskSummaryService = getProjectByTaskSummaryService;
-        }
-
         public async Task<IActionResult> OnGet()
         {
-            PupilNumbers = await _getPupilNumbersService.Execute(ProjectId);
+            PupilNumbers = await getPupilNumbersService.Execute(ProjectId);
 
-            PupilNumbers.CapacityWhenFull.Total = PupilNumbers.CapacityWhenFull.ReceptionToYear6 + 
-                PupilNumbers.CapacityWhenFull.Year7ToYear11 + 
-                PupilNumbers.CapacityWhenFull.Year12ToYear14 +
-                PupilNumbers.CapacityWhenFull.Nursery +
-                PupilNumbers.CapacityWhenFull.SpecialEducationNeeds +
-                PupilNumbers.CapacityWhenFull.AlternativeProvision;
+            PupilNumbers.CapacityWhenFull.Total = PupilNumbers.CapacityWhenFull.ReceptionToYear6 +
+                                                  PupilNumbers.CapacityWhenFull.Year7ToYear11 +
+                                                  PupilNumbers.CapacityWhenFull.Year12ToYear14;
 
-                
-            ProjectTaskListSummary = await _getProjectByTaskSummaryService.Execute(ProjectId);
+            ProjectTaskListSummary = await getProjectByTaskSummaryService.Execute(ProjectId);
 
             return Page();
         }
