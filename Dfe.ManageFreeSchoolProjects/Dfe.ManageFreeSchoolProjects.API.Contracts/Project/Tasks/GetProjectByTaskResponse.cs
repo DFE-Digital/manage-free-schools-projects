@@ -48,5 +48,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public PrincipalDesignateTask PrincipalDesignate { get; set; }
         
         public DueDiligenceChecks DueDiligenceChecks { get; set; }
+        public ReadinessToOpenMeeting ReadinessToOpenMeeting { get; set; }
     }
 }
