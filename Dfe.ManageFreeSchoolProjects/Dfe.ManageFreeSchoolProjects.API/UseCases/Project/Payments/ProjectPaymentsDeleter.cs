@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Exceptions;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
@@ -134,6 +135,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments
             {
                 throw new NotFoundException("Index out of range");
             }
+
+            po.ProjectDevelopmentGrantFundingTotalPaymentsMade = PaymentCalculation.GetTotalAmount(po).ToString();
 
             paymentDeleted = false;
 

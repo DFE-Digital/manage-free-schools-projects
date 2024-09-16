@@ -89,7 +89,7 @@ public class EditGrantTotal : PageModel
         {
             if (GrantTotalAmount == null)
             {
-                _errorService.AddError("total-grant-amount", "Total amount cannot be blank once set");
+                _errorService.AddError("total-grant-amount", "Total amount cannot be empty once a number has been saved");
                 return Page();
             }
 
