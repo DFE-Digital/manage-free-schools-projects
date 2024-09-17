@@ -1,4 +1,5 @@
 @page "/projects/{projectId}/tasks/readiness-to-open-meeting/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.EditReadinessToOpenMeeting
@@ -21,14 +22,18 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <div class="govuk-form-group" id="project-status">
+            <div class="govuk-form-group" id="type-of-meeting-held">
 
                 <govuk-radios-list>
-                    
+                    <govuk-radios-list-conditional-item id="formal-meeting-option" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-meeting" asp-for="@Model.DateOfTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                    </govuk-radios-list-conditional-item>
+                    <govuk-radios-list-conditional-item id="informal-meeting-option" value="@TypeOfMeetingHeld.InformalMeeting" description="Informal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-meeting" asp-for="@Model.DateOfTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                    </govuk-radios-list-conditional-item>
                 </govuk-radios-list>
 
-
-            </div> 
+            </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
