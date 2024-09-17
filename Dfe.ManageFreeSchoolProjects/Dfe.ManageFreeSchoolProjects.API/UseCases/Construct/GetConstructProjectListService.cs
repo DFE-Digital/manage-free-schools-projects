@@ -50,8 +50,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Construct
                               ResidentialBoardingProvisionDetails = project.SchoolDetailsDetailsOfResidentialBoardingProvision,
                               Nursery = project.SchoolDetailsNursery,
                               SixthForm = project.SchoolDetailsSixthForm,
-                              AlternativeProvision = project.SchoolDetailsAlternativeProvision,
-                              SpecialEducationNeeds = project.SchoolDetailsSpecialEducationNeeds,
                               SixthFormType = project.SchoolDetailsSixthFormType,
                               FaithStatus = project.SchoolDetailsFaithStatus,
                               FaithType = project.SchoolDetailsFaithType,
