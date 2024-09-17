@@ -19,11 +19,13 @@
 </h1>
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
 
         <form method="post">
             <div class="govuk-form-group" id="type-of-meeting-held">
-
+                <h3 class="govuk-heading-m">
+                    Type of meeting held
+                </h3>
                 <govuk-radios-list>
                     <govuk-radios-list-conditional-item id="formal-meeting-option" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
                         <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-meeting" asp-for="@Model.DateOfTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
@@ -37,10 +39,32 @@
                                               asp-for="@Model.WhyMeetingWasNotHeld"
                                               test-id="why-meeting-not-held"
                                               rows="10"
-                                              label="Why meeting was not held" 
-                                              bold-label="true" />
+                                              label="Why meeting was not held"
+                                              bold-label="true"/>
                     </govuk-radios-list-conditional-item>
                 </govuk-radios-list>
+                <br />
+
+                <govuk-checkbox-input label="Principal designate (PD) has provided the checklist"
+                                      asp-for="@Model.PrincipalDesignateHasProvidedChecklist"
+                                      name="principal-designate-has-provided-checklist"
+                                      id="principal-designate-has-provided-checklist"/>
+
+                <govuk-checkbox-input label="Commissioned an external expert to attend any meetings (if applicable)"
+                                      asp-for="@Model.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable"
+                                      name="commissioned-external-expert-to-attend-any-meetings"
+                                      id="commissioned-external-expert-to-attend-any-meetings"/>
+
+
+                <govuk-checkbox-input label="Saved the internal ROM report in Workplaces folder"
+                                      asp-for="@Model.SavedTheInternalROMReportInWorkplacesFolder"
+                                      name="saved-the-internal-rom-report-workplaces-folder"
+                                      id="saved-the-internal-rom-report-workplaces-folder"/>
+
+                <govuk-checkbox-input label="Saved the external ROM report in Workplaces folder"
+                                      asp-for="@Model.SavedTheInternalROMReportInWorkplacesFolder"
+                                      name="saved-the-internal-rom-report-workplaces-folder"
+                                      id="saved-the-external-rom-report-workplaces-folder"/>
 
             </div>
 
