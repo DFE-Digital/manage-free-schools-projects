@@ -20,13 +20,18 @@ public class EditReadinessToOpenMeeting(IGetProjectByTaskService getProjectServi
     [BindProperty(Name = "date-of-the-meeting")]
     public DateTime? DateOfTheMeeting { get; set; }
 
+    [BindProperty(Name = "why-meeting-not-held")]
+    public string WhyMeetingWasNotHeld { get; set; }
+
     public async Task<IActionResult> OnGet()
     {
         Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
 
         TypeOfMeetingHeld = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld ?? API.Contracts.Project.Tasks.TypeOfMeetingHeld.NotSet;
-
         DateOfTheMeeting = Project.ReadinessToOpenMeetingTask.DateOfTheMeeting;
+        WhyMeetingWasNotHeld = Project.ReadinessToOpenMeetingTask.WhyMeetingWasNotHeld;
+        
+        
         
         return Page();
     }
