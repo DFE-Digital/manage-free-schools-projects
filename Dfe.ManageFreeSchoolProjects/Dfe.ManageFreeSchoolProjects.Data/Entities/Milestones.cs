@@ -164,16 +164,16 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
 
         public bool? FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms { get; set; }
 
-        public string FsgROMTypeOfMeetingHeld { get; set; }
+        public string ROMTypeOfMeetingHeld { get; set; }
 
-        public bool? FsgROMPrincipalDesignateHasProvidedChecklist { get; set; }
+        public bool? ROMPrincipalDesignateHasProvidedChecklist { get; set; }
 
-        public bool? FsgROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable { get; set; }
+        public bool? ROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable { get; set; }
 
-        public bool? FsgROMSavedTheInternalROMReportInWorkplacesFolder { get; set; }
+        public bool? ROMSavedTheInternalROMReportInWorkplacesFolder { get; set; }
 
-        public bool? FsgROMSavedTheExternalROMReportInWorkplacesFolder { get; set; }
+        public bool? ROMSavedTheExternalROMReportInWorkplacesFolder { get; set; }
         
-        public string FsgROMWhyAMeetingWasNotHeld { get; set; }
+        public string ROMWhyAMeetingWasNotHeld { get; set; }
     }
 }

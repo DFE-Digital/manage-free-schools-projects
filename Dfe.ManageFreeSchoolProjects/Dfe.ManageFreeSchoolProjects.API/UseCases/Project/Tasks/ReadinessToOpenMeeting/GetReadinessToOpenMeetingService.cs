@@ -8,12 +8,15 @@ public class GetReadinessToOpenMeetingService(MfspContext context) : IGetTaskSer
 {
     public async Task<GetProjectByTaskResponse> Get(GetTaskServiceParameters parameters)
     {
-        return await (from kpi in parameters.BaseQuery
+        var result = await (from kpi in parameters.BaseQuery
             join milestones in context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
             from milestones in joinedMilestones.DefaultIfEmpty()
             select new GetProjectByTaskResponse
             {
                 ReadinessToOpenMeetingTask = ROMTaskBuilder.Build(milestones)
             }).FirstOrDefaultAsync();
+
+
+        return result ?? new GetProjectByTaskResponse { ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask() };
     }
 }

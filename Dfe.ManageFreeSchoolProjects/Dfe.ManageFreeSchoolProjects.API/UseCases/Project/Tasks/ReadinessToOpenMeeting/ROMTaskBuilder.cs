@@ -13,13 +13,13 @@ public static class ROMTaskBuilder
         return new ReadinessToOpenMeetingTask
         {
             DateOfTheMeeting = milestones.FsgPreOpeningMilestonesRomActualDateOfCompletion,
-            TypeOfMeetingHeld = EnumParsers.ParseTypeOfMeetingHeld(milestones.FsgROMTypeOfMeetingHeld),
-            WhyMeetingWasNotHeld = milestones.FsgROMWhyAMeetingWasNotHeld,
-            PrincipalDesignateHasProvidedTheChecklist = milestones.FsgROMPrincipalDesignateHasProvidedChecklist,
-            SavedTheInternalRomReportToWorkplacesFolder = milestones.FsgROMSavedTheInternalROMReportInWorkplacesFolder,
-            SavedTheExternalRomReportToWorkplacesFolder = milestones.FsgROMSavedTheExternalROMReportInWorkplacesFolder,
+            TypeOfMeetingHeld = EnumParsers.ParseTypeOfMeetingHeld(milestones.ROMTypeOfMeetingHeld),
+            WhyMeetingWasNotHeld = milestones.ROMWhyAMeetingWasNotHeld,
+            PrincipalDesignateHasProvidedTheChecklist = milestones.ROMPrincipalDesignateHasProvidedChecklist,
+            SavedTheInternalRomReportToWorkplacesFolder = milestones.ROMSavedTheInternalROMReportInWorkplacesFolder,
+            SavedTheExternalRomReportToWorkplacesFolder = milestones.ROMSavedTheExternalROMReportInWorkplacesFolder,
             CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable =
-                milestones.FsgROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable
+                milestones.ROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable
         };
     }
 }
