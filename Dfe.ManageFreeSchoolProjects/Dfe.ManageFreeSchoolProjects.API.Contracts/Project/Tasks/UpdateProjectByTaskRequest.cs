@@ -64,6 +64,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public PDGGrantTask PDGGrantTask { get; set; }
         
+        public ReadinessToOpenMeetingTask ReadinessToOpenMeetingTask { get; set; }
+        
         public string TaskToUpdate
         {
             get
@@ -138,6 +140,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.DueDiligenceChecks.ToString();
                 if (PDGGrantTask != null)
                     return TaskName.PDG.ToString();
+                if (ReadinessToOpenMeetingTask != null)
+                    return TaskName.ReadinessToOpenMeeting.ToString();
                 return null;
             }
         }
