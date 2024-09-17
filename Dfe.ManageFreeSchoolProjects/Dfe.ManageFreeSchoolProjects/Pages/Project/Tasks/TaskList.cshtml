@@ -47,6 +47,7 @@
     var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
     var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
+    var preFundingAgreementCheckpointMeetingLink = string.Format(RouteConstants.ViewPreFundingAgreementCheckpointMeeting, Model.ProjectId);
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -224,6 +225,19 @@
                         }
 
                     </li>
+                    @if (@Model.ProjectType != "Presumption") {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="@preFundingAgreementCheckpointMeetingLink" class="govuk-link" data-testid="pre-funding-agreement-checkpoint-meeting-link-task">
+                                    Pre-funding agreement checkpoint meeting
+                                </a>
+                            </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.PreFundingAgreementCheckpointMeeting);
+                            }
+
+                    </li>
+                    }
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@fundingAgreementLink" class="govuk-link" data-testid="funding-agreement-task">

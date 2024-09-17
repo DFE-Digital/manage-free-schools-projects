@@ -63,6 +63,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public DueDiligenceChecks DueDiligenceChecks { get; set; }
 
         public PDGGrantTask PDGGrantTask { get; set; }
+
+        public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeeting { get; set; }
         
         public string TaskToUpdate
         {
@@ -138,6 +140,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.DueDiligenceChecks.ToString();
                 if (PDGGrantTask != null)
                     return TaskName.PDG.ToString();
+                if (PreFundingAgreementCheckpointMeeting != null)
+                    return TaskName.PreFundingAgreementCheckpointMeeting.ToString();
                 return null;
             }
         }

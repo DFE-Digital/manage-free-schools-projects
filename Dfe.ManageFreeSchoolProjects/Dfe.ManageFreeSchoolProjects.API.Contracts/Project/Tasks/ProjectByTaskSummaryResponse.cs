@@ -60,6 +60,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public TaskSummaryResponse PrincipalDesignate { get; set; }
         
         public TaskSummaryResponse DueDiligenceChecks { get; set; }
+
+        public TaskSummaryResponse PreFundingAgreementCheckpointMeeting { get; set; }
         public int TaskCount { get; set; }
         
         public int CompletedTasks { get; set; }
