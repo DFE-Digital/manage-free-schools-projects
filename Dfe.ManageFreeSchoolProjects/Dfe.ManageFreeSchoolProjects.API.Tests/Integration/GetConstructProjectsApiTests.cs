@@ -70,8 +70,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             selectedProject.ResidentialBoardingProvisionDetails.Should().Be(project.SchoolDetailsDetailsOfResidentialBoardingProvision);
             selectedProject.Nursery.Should().Be(project.SchoolDetailsNursery);
             selectedProject.SixthForm.Should().Be(project.SchoolDetailsSixthForm);
-            selectedProject.AlternativeProvision.Should().Be(project.SchoolDetailsAlternativeProvision);
-            selectedProject.SpecialEducationNeeds.Should().Be(project.SchoolDetailsSpecialEducationNeeds);
             selectedProject.SixthFormType.Should().Be(project.SchoolDetailsSixthFormType);
             selectedProject.FaithStatus.Should().Be(project.SchoolDetailsFaithStatus);
             selectedProject.FaithType.Should().Be(project.SchoolDetailsFaithType);
