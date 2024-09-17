@@ -16,7 +16,13 @@ public class GetReadinessToOpenMeetingService(MfspContext context) : IGetTaskSer
                 ReadinessToOpenMeetingTask = ROMTaskBuilder.Build(milestones)
             }).FirstOrDefaultAsync();
 
+        var readinessToOpenMeeting = result.ReadinessToOpenMeetingTask;
 
-        return result ?? new GetProjectByTaskResponse { ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask() };
+        if (readinessToOpenMeeting.DateOfTheMeeting.HasValue && readinessToOpenMeeting.TypeOfMeetingHeld is null or TypeOfMeetingHeld.NotSet)
+        {
+            readinessToOpenMeeting.TypeOfMeetingHeld = TypeOfMeetingHeld.FormalMeeting;
+        }
+        
+        return result;
     }
 }

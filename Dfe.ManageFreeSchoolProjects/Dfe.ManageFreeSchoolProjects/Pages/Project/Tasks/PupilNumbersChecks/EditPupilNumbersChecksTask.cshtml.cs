@@ -7,11 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.Models;
-using Dfe.ManageFreeSchoolProjects.Validators;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks
@@ -71,9 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PupilNumbersChecks
 
             try
             {
-                var request = new UpdateProjectByTaskRequest()
+                var request = new UpdateProjectByTaskRequest
                 {
-                    PupilNumbersChecks = new PupilNumbersChecksTask()
+                    PupilNumbersChecks = new PupilNumbersChecksTask
                     {
                         SchoolReceivedEnoughApplications = SchoolReceivedEnoughApplications, 
                         CapacityDataMatchesFundingAgreement = CapacityDataMatchesFundingAgreement,
