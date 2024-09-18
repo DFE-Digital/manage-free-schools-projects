@@ -18,7 +18,7 @@ public class GetROMService(MfspContext context) : IGetTaskService
 
         var readinessToOpenMeeting = result.ReadinessToOpenMeetingTask;
 
-        if (readinessToOpenMeeting.DateOfTheMeeting.HasValue && readinessToOpenMeeting.TypeOfMeetingHeld is null or TypeOfMeetingHeld.NotSet)
+        if (readinessToOpenMeeting.DateOfTheMeeting.HasValue && readinessToOpenMeeting.TypeOfMeetingHeld is TypeOfMeetingHeld.NotSet)
         {
             readinessToOpenMeeting.TypeOfMeetingHeld = TypeOfMeetingHeld.FormalMeeting;
         }

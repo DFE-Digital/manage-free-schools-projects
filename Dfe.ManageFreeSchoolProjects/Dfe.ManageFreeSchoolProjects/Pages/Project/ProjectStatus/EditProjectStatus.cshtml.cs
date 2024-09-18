@@ -107,14 +107,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-            
             CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
             CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
             CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnDuringPreOpening, WithdrawnYear);
             CheckErrors(WithdrawnApplicationYearId, ProjectStatusType.WithdrawnDuringApplication, WithdrawnApplicationYear);
 
             ClearNotApplicableValues();
-
 
             if (!ModelState.IsValid)
             {

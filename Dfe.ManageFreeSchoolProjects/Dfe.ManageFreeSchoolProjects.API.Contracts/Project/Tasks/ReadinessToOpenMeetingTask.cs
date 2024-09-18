@@ -2,7 +2,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 public class ReadinessToOpenMeetingTask
 {
-    public TypeOfMeetingHeld? TypeOfMeetingHeld { get; set; }
+    public TypeOfMeetingHeld TypeOfMeetingHeld { get; set; }
     
     public DateTime? DateOfTheMeeting { get; set; }
     

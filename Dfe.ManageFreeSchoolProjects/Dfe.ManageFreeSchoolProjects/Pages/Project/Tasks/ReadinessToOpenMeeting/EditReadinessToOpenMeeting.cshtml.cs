@@ -21,12 +21,8 @@ public class EditReadinessToOpenMeeting(
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
 
-    [TempData]
     public GetProjectByTaskResponse Project { get; set; }
-
-    [BindProperty(Name = "type-of-meeting-held")]
-    public TypeOfMeetingHeld? TypeOfMeetingHeld { get; set; }
-
+    
     [BindProperty(Name = "date-of-the-informal-meeting", BinderType = typeof(DateInputModelBinder))]
     public DateTime? DateOfInformalTheMeeting { get; set; }
 
@@ -47,26 +43,23 @@ public class EditReadinessToOpenMeeting(
 
     [BindProperty(Name = "saved-the-external-rom-report-workplaces-folder")]
     public bool? SavedTheExternalROMReportInWorkplacesFolder { get; set; }
-
-    public string SchoolName { get; set; }
-
+    
+    [BindProperty(Name = "type-of-meeting-held")]
+    public TypeOfMeetingHeld TypeOfMeetingHeld { get; set; }
+    
     public async Task<IActionResult> OnGet()
     {
         Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
 
-        SchoolName = Project.SchoolName;
-        TempData["SchoolName"] = Project.SchoolName;
-        
-        TypeOfMeetingHeld = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld ??
-                            API.Contracts.Project.Tasks.TypeOfMeetingHeld.NotSet;
+        TypeOfMeetingHeld = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld;
 
         var dateOfTheMeeting = Project.ReadinessToOpenMeetingTask.DateOfTheMeeting;
 
-        DateOfInformalTheMeeting = TypeOfMeetingHeld == API.Contracts.Project.Tasks.TypeOfMeetingHeld.InformalMeeting
+        DateOfInformalTheMeeting = TypeOfMeetingHeld == TypeOfMeetingHeld.InformalMeeting
             ? dateOfTheMeeting
             : null;
 
-        DateOfFormalTheMeeting = TypeOfMeetingHeld == API.Contracts.Project.Tasks.TypeOfMeetingHeld.FormalMeeting
+        DateOfFormalTheMeeting = TypeOfMeetingHeld == TypeOfMeetingHeld.FormalMeeting
             ? dateOfTheMeeting
             : null;
         
@@ -81,14 +74,13 @@ public class EditReadinessToOpenMeeting(
     {
         try
         {
-            SchoolName = TempData.Peek("SchoolName") as string;
-            
             if (!ModelState.IsValid)
             {
+                Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
                 errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-
+            
             var request = BuildUpdateRequest();
 
             await updateProjectTaskService.Execute(ProjectId, request);
@@ -108,7 +100,7 @@ public class EditReadinessToOpenMeeting(
         {
             ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask
             {
-                DateOfTheMeeting = DateOfInformalTheMeeting,
+                DateOfTheMeeting = DateOfInformalTheMeeting ?? DateOfFormalTheMeeting,
                 TypeOfMeetingHeld = TypeOfMeetingHeld,
                 WhyMeetingWasNotHeld = WhyMeetingWasNotHeld,
                 PrincipalDesignateHasProvidedTheChecklist = PrincipalDesignateHasProvidedChecklist,
