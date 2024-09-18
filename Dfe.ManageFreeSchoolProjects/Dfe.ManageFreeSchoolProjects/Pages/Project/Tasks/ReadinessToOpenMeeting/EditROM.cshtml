@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.EditReadinessToOpenMeeting
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.EditROMViewModel
 
 @{
     var backlink = string.Format(RouteConstants.ViewReadinessToOpenMeeting, Model.ProjectId);
@@ -20,7 +20,7 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h3 class="govuk-heading-m">
+         <h3 class="govuk-heading-m">
             Type of meeting held
         </h3>
         <form method="post">

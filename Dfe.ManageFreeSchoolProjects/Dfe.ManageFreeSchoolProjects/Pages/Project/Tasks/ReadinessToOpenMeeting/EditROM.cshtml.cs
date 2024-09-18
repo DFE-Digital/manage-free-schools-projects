@@ -12,11 +12,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting;
 
-public class EditReadinessToOpenMeeting(
+public class EditROMViewModel(
     IGetProjectByTaskService getProjectService,
     ErrorService errorService,
     IUpdateProjectByTaskService updateProjectTaskService,
-    ILogger<EditReadinessToOpenMeeting> logger) : PageModel
+    ILogger<EditROMViewModel> logger) : PageModel
 {
     [BindProperty(SupportsGet = true, Name = "projectId")]
     public string ProjectId { get; set; }
