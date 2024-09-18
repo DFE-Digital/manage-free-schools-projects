@@ -26,15 +26,15 @@
         <form method="post">
             <div class="govuk-form-group" id="type-of-meeting-held">
                 <govuk-radios-list>
-                    <govuk-radios-list-conditional-item id="formal-meeting-option" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                    <govuk-radios-list-conditional-item id="formal-meeting-option" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld" >
                         <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-formal-meeting" asp-for="@Model.DateOfFormalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021" />
                     </govuk-radios-list-conditional-item>
                     
-                    <govuk-radios-list-conditional-item id="informal-meeting-option" value="@TypeOfMeetingHeld.InformalMeeting" description="Informal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                    <govuk-radios-list-conditional-item id="informal-meeting-option" value="@TypeOfMeetingHeld.InformalMeeting" description="Informal meeting" asp-for="@Model.TypeOfMeetingHeld" >
                         <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-informal-meeting" asp-for="@Model.DateOfInformalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021" />
                     </govuk-radios-list-conditional-item>
 
-                    <govuk-radios-list-conditional-item id="no-rom-held-option" value="@TypeOfMeetingHeld.NoRomHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld">
+                    <govuk-radios-list-conditional-item id="no-rom-held-option" value="@TypeOfMeetingHeld.NoRomHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld" >
                         <govuk-textarea-input id="why-meeting-not-held"
                                               name="why-meeting-not-held"
                                               asp-for="@Model.WhyMeetingWasNotHeld"

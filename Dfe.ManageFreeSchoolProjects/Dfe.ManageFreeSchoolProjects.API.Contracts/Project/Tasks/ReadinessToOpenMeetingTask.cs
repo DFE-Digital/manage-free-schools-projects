@@ -16,10 +16,3 @@ public class ReadinessToOpenMeetingTask
     
     public bool? SavedTheExternalRomReportToWorkplacesFolder { get; set; }
 }
-public enum TypeOfMeetingHeld
-{
-    NotSet,
-    FormalMeeting, 
-    InformalMeeting, 
-    NoRomHeld,
-}

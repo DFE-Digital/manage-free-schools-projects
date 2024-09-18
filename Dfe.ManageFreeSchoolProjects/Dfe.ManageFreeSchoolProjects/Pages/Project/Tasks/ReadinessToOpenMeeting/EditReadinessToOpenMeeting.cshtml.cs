@@ -44,7 +44,7 @@ public class EditReadinessToOpenMeeting(
     [BindProperty(Name = "saved-the-external-rom-report-workplaces-folder")]
     public bool? SavedTheExternalROMReportInWorkplacesFolder { get; set; }
     
-    [BindProperty(Name = "type-of-meeting-held")]
+    [BindProperty(Name = "type-of-meeting-held  ")]
     public TypeOfMeetingHeld TypeOfMeetingHeld { get; set; }
     
     public async Task<IActionResult> OnGet()

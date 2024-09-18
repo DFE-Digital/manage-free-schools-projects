@@ -30,9 +30,7 @@ public class ViewReadinessToOpenMeeting(
 
         var typeOfMeetingHeldResponse = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld;
 
-        TypeOfMeetingHeld = typeOfMeetingHeldResponse == API.Contracts.Project.Tasks.TypeOfMeetingHeld.NotSet
-            ? null
-            : typeOfMeetingHeldResponse;
+        TypeOfMeetingHeld = typeOfMeetingHeldResponse;
 
         ProjectRisk = await getProjectRiskService.Execute(ProjectId, 1);
 
