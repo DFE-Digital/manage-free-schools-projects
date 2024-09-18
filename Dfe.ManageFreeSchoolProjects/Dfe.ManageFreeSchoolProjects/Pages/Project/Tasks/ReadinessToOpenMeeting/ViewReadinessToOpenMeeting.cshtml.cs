@@ -18,14 +18,22 @@ public class ViewReadinessToOpenMeeting(
     ILogger<ViewReadinessToOpenMeeting> logger)
     : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
 {
+    public TypeOfMeetingHeld? TypeOfMeetingHeld { get; set; }
+
     public GetProjectRiskResponse ProjectRisk { get; set; }
-    
+
     public async Task<ActionResult> OnGet()
     {
         logger.LogMethodEntered();
 
         await GetTask(TaskName.ReadinessToOpenMeeting);
-        
+
+        var typeOfMeetingHeldResponse = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld;
+
+        TypeOfMeetingHeld = typeOfMeetingHeldResponse == API.Contracts.Project.Tasks.TypeOfMeetingHeld.NotSet
+            ? null
+            : typeOfMeetingHeldResponse;
+
         ProjectRisk = await getProjectRiskService.Execute(ProjectId, 1);
 
         return Page();

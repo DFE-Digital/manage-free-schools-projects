@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 
-public class GetReadinessToOpenMeetingService(MfspContext context) : IGetTaskService
+public class GetROMService(MfspContext context) : IGetTaskService
 {
     public async Task<GetProjectByTaskResponse> Get(GetTaskServiceParameters parameters)
     {

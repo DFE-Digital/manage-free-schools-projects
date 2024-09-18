@@ -25,7 +25,7 @@
             Readiness to open meeting (ROM)
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Type of meeting held" asp-for="@readinessToOpenMeeting.TypeOfMeetingHeld" href="@editLink"/>
+            <govuk-summary-item label="Type of meeting held" asp-for="@Model.TypeOfMeetingHeld" href="@editLink"/>
             @{
                 if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoRomHeld)
                 {

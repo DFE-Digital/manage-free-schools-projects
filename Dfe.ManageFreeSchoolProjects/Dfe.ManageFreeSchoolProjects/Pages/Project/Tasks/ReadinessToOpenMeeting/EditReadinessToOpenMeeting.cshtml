@@ -6,7 +6,7 @@
 
 @{
     var backlink = string.Format(RouteConstants.ViewReadinessToOpenMeeting, Model.ProjectId);
-    ViewData["Title"] = "Edit Readiness to open meeting - " + $"{Model.Project.SchoolName}";
+    ViewData["Title"] = "Edit Readiness to open meeting - " + $"{Model.SchoolName}";
 }
 
 @section BeforeMain {
@@ -28,11 +28,11 @@
                 </h3>
                 <govuk-radios-list>
                     <govuk-radios-list-conditional-item id="formal-meeting-option" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
-                        <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-meeting" asp-for="@Model.DateOfTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                        <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-formal-meeting" asp-for="@Model.DateOfFormalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
                     </govuk-radios-list-conditional-item>
                     
                     <govuk-radios-list-conditional-item id="informal-meeting-option" value="@TypeOfMeetingHeld.InformalMeeting" description="Informal meeting" asp-for="@Model.TypeOfMeetingHeld">
-                        <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-meeting" asp-for="@Model.DateOfTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                        <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-informal-meeting" asp-for="@Model.DateOfInformalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
                     </govuk-radios-list-conditional-item>
                     
                     <govuk-radios-list-conditional-item id="no-rom-held-option" value="@TypeOfMeetingHeld.NoRomHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld">

@@ -166,7 +166,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                     result = await new GetDueDiligenceChecksTaskService(context).Get(parameters);
                     break;
                 case TaskName.ReadinessToOpenMeeting:
-                    result = await new GetReadinessToOpenMeetingService(context).Get(parameters);
+                    result = await new GetROMService(context).Get(parameters);
                     break; 
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
