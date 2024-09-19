@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
@@ -25,9 +26,11 @@ public class EditROMViewModel(
     public GetProjectByTaskResponse Project { get; set; }
     
     [BindProperty(Name = "date-of-the-informal-meeting", BinderType = typeof(DateInputModelBinder))]
+    [DisplayName("Date of the informal meeting")]
     public DateTime? DateOfInformalTheMeeting { get; set; }
 
     [BindProperty(Name = "date-of-the-formal-meeting", BinderType = typeof(DateInputModelBinder))]
+    [DisplayName("Date of the formal meeting")]
     public DateTime? DateOfFormalTheMeeting { get; set; }
 
     [BindProperty(Name = "why-meeting-not-held")]
