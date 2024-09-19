@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.ViewReadinessToOpenMeeting
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.ViewROMViewModel
 
 @{
     ViewData["Title"] = $"Readiness to open meeting (ROM) - {Model.Project.SchoolName}";
@@ -10,6 +10,8 @@
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editLink = string.Format(RouteConstants.EditReadinessToOpenMeeting, Model.ProjectId);
     var readinessToOpenMeeting = Model.Project.ReadinessToOpenMeetingTask;
+
+    var typeOfMeetingHeld = readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NotSet ? null : readinessToOpenMeeting.TypeOfMeetingHeld.ToDescription();
 }
 
 @section BeforeMain {
@@ -25,7 +27,7 @@
             Readiness to open meeting (ROM)
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Type of meeting held" asp-for="@Model.TypeOfMeetingHeld" href="@editLink"/>
+            <govuk-summary-item label="Type of meeting held" asp-for="@typeOfMeetingHeld" href="@editLink"/>
             @{
                 if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoRomHeld)
                 {

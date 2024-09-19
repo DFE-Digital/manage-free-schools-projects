@@ -10,16 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting;
 
-public class ViewReadinessToOpenMeeting(
+public class ViewROMViewModel(
     IGetProjectByTaskService getProjectService,
     IGetTaskStatusService getTaskStatusService,
     IUpdateTaskStatusService updateTaskStatusService,
     IGetProjectRiskService getProjectRiskService,
-    ILogger<ViewReadinessToOpenMeeting> logger)
+    ILogger<ViewROMViewModel> logger)
     : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
 {
-    public TypeOfMeetingHeld? TypeOfMeetingHeld { get; set; }
-
     public GetProjectRiskResponse ProjectRisk { get; set; }
 
     public async Task<ActionResult> OnGet()
@@ -27,11 +25,7 @@ public class ViewReadinessToOpenMeeting(
         logger.LogMethodEntered();
 
         await GetTask(TaskName.ReadinessToOpenMeeting);
-
-        var typeOfMeetingHeldResponse = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld;
-
-        TypeOfMeetingHeld = typeOfMeetingHeldResponse;
-
+        
         ProjectRisk = await getProjectRiskService.Execute(ProjectId, 1);
 
         return Page();

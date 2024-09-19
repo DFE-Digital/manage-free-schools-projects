@@ -4,7 +4,7 @@
 		<UserSecretsId>eae6d8bd-2a58-4ed4-99e2-a82f32b0ce47</UserSecretsId>
 		<CodeAnalysisRuleSet>..\.sonarlint\dfe-digital_a2b-internalcsharp.ruleset</CodeAnalysisRuleSet>
   	</PropertyGroup>
-
+	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <NoWarn>0436</NoWarn>
 	</PropertyGroup>
@@ -12,11 +12,12 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	  <NoWarn>0436</NoWarn>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 	  <Compile Remove="ViewComponents\**" />
 	  <Content Remove="ViewComponents\**" />
-	  <None Remove="ViewComponents\**" />
+		<EmbeddedResource Remove="ViewComponents\**" />
+		<None Remove="ViewComponents\**" />
 	  <None Remove="Pages\Project\Tasks\RiskAppraisalMeeting\" />
 	</ItemGroup>
 
@@ -91,5 +92,9 @@
 	  <Content Update="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Pages\Project\Tasks\ReadinessToOpenMeeting\EditROM.cshtml" />
+	  <_ContentIncludedByDefault Remove="Pages\Project\Tasks\ReadinessToOpenMeeting\ViewReadinessToOpenMeeting.cshtml" />
 	</ItemGroup>
 </Project>
