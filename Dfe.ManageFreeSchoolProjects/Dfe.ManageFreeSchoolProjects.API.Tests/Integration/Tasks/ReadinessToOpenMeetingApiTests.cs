@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks;
 public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
 {
     [Fact]
-    public async Task Patch_ROM_Returns_201()
+    public async Task Patch_NewROM_Returns_TheNewRom()
     {
         var project = DatabaseModelBuilder.BuildProject();
         var projectId = project.ProjectStatusProjectId;
@@ -55,7 +55,7 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
 
 
     [Fact]
-    public async Task Patch_Existing_ROM_Returns_201()
+    public async Task Patch_Existing_ROM_Returns_ExistingROM()
     {
         var project = DatabaseModelBuilder.BuildProject();
         var projectId = project.ProjectStatusProjectId;
