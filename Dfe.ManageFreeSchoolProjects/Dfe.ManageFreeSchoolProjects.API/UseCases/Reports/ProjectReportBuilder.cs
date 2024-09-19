@@ -9,41 +9,51 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         {
             var result = new ProjectReport();
 
+            const string aboutTheProjectSection = "About the project";
+            const string settingUpSection = "Setting-up";
+            const string referenceNumbersSection = "Reference numbers";
+            const string pdgSection = "Project development grant (PDG)";
+            const string preOpeningSection = "Pre-opening";
+            const string signOffPreparationSection = "Sign-off preparation";
+            const string gettingReadyToOpenSection = "Getting ready to open";
+            const string afterOpeningSection = "After opening";
+            
             foreach (var project in projectReportSourceData)
             {
-                var tasks = new List<ProjectTaskInformation>
-                {
-                    new() { Task = project.ProjectReferenceData, TaskName = "Reference data", Section = "About the project" },
-                    new() { Task = project.TaskInformation.Dates, TaskName = "Dates", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.School, TaskName = "School", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.Trust, TaskName = "Trust", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.Constituency, TaskName = "Constituency", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.RiskAppraisalMeeting, TaskName = "Risk appraisal meeting", Section = "Setting-up" },
-                    new() { Task = project.TaskInformation.ReferenceNumbers, TaskName = "Reference numbers", Section = "Reference numbers" },
-                    new() { Task = project.TaskInformation.PDGDashboard, TaskName = "Project development grant (PDG)", Section = "Project development grant (PDG)" },
-                    new() { Task = project.TaskInformation.KickOffMeeting, TaskName = "Kick-off meeting", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.FundingAgreement, TaskName = "Funding agreement", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.FundingAgreementHealthCheck, TaskName = "Funding agreement health check", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.FundingAgreementSubmission, TaskName = "Funding agreement submission", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.ArticlesOfAssociation, TaskName = "Articles of association", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.AdmissionsArrangements, TaskName = "Admissions Arrangements", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.GovernancePlan, TaskName = "Governance plan", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.FinancePlan, TaskName = "Finance plan", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.EqualitiesAssessment, TaskName = "Equalities assessment", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.StatutoryConsultation, TaskName = "Statutory consultation", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.PrincipalDesignate, TaskName = "Principal Designate", Section = "Pre-opening" },
-                    new() { Task = project.TaskInformation.Gias, TaskName = "Gias", Section = "Sign-off preparation" },
-                    new() { Task = project.TaskInformation.EducationBrief, TaskName = "Education brief", Section = "Sign-off preparation" },
-                    new() { Task = project.TaskInformation.EvidenceOfAcceptedOffers, TaskName = "Accepted offers evidence", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.ImpactAssessment, TaskName = "Impact assessment", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.OfstedInspection, TaskName = "Ofsted pre-registration", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.ApplicationsEvidence, TaskName = "Applications evidence", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.MovingToOpen, TaskName = "Moving to open", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = "Getting ready to open" },
-                    new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = "After opening" },
-                    new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = "Getting ready to open" }
+                 var tasks = new List<ProjectTaskInformation> 
+                 {
+                    new() { Task = project.ProjectReferenceData, TaskName = "Reference data", Section = aboutTheProjectSection },
+                    new() { Task = project.TaskInformation.Dates, TaskName = "Dates", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.School, TaskName = "School", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.Trust, TaskName = "Trust", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.RegionAndLocalAuthority, TaskName = "Region and local authority", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.Constituency, TaskName = "Constituency", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.RiskAppraisalMeeting, TaskName = "Risk appraisal meeting", Section = settingUpSection },
+                    new() { Task = project.TaskInformation.ReferenceNumbers, TaskName = "Reference numbers", Section = referenceNumbersSection },
+                    new() { Task = project.TaskInformation.PDGDashboard, TaskName = "Project development grant (PDG)", Section = pdgSection },
+                    new() { Task = project.TaskInformation.KickOffMeeting, TaskName = "Kick-off meeting", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.FundingAgreement, TaskName = "Funding agreement", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.FundingAgreementHealthCheck, TaskName = "Funding agreement health check", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.FundingAgreementSubmission, TaskName = "Funding agreement submission", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.ArticlesOfAssociation, TaskName = "Articles of association", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.AdmissionsArrangements, TaskName = "Admissions Arrangements", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.GovernancePlan, TaskName = "Governance plan", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.FinancePlan, TaskName = "Finance plan", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.EqualitiesAssessment, TaskName = "Equalities assessment", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.StatutoryConsultation, TaskName = "Statutory consultation", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.PrincipalDesignate, TaskName = "Principal Designate", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.Gias, TaskName = "Gias", Section = signOffPreparationSection },
+                    new() { Task = project.TaskInformation.EducationBrief, TaskName = "Education brief", Section = signOffPreparationSection },
+                    new() { Task = project.TaskInformation.EvidenceOfAcceptedOffers, TaskName = "Accepted offers evidence", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.ImpactAssessment, TaskName = "Impact assessment", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.OfstedInspection, TaskName = "Ofsted pre-registration", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.ApplicationsEvidence, TaskName = "Applications evidence", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.MovingToOpen, TaskName = "Moving to open", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.FinalFinancePlan, TaskName = "Final finance plan", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.PupilNumbersChecks, TaskName = "Pupil numbers checks", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = afterOpeningSection },
+                    new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = gettingReadyToOpenSection },
+                    new() { Task = project.TaskInformation.ReadinessToOpenMeetingTask, TaskName = "Readiness to open meeting", Section = gettingReadyToOpenSection }
                 };
 
                 if (result.Headers.Count == 0)

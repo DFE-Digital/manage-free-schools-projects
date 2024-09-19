@@ -47,6 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Statutory consultation");
             taskHeaders.Should().Contain("Accepted offers evidence");
             taskHeaders.Should().Contain("Due diligence checks");
+            taskHeaders.Should().Contain("Readiness to open meeting");
             
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
@@ -56,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             sectionHeaders.Should().Contain("Sign-off preparation");
             sectionHeaders.Should().Contain("Getting ready to open");
             sectionHeaders.Should().Contain("After opening");
-
+ 
             result.Projects.Count.Should().Be(1);
 
             var project = result.Projects.First();
@@ -93,14 +94,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
             AssertEntry(nameof(MovingToOpenTask.SentEmailsToRelevantContacts), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PrincipalDesignateTask.CommissionedExternalExpertVisitToSchool), "Yes" , project, columnHeaders);
-            
+            AssertEntry(nameof(DueDiligenceChecks.RequestedCounterExtremismChecks), "Yes", project, columnHeaders);
+            AssertEntry(nameof(ReadinessToOpenMeetingTask.SavedTheInternalRomReportToWorkplacesFolder), "Yes", project, columnHeaders);
         }
 
         private static List<ProjectReportSourceData> BuildSourceData()
         {
-            var result = new List<ProjectReportSourceData>()
+            var result = new List<ProjectReportSourceData>
             {
-                new ProjectReportSourceData()
+                new()
                 {
                     ProjectReferenceData = new ProjectReferenceData()
                     {
@@ -229,6 +231,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         DueDiligenceChecks = new DueDiligenceChecks
                         {
                             RequestedCounterExtremismChecks = true
+                        },
+                        ReadinessToOpenMeetingTask = new()
+                        {
+                            SavedTheInternalRomReportToWorkplacesFolder = true
                         }
                     }
                 }
