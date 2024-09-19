@@ -22,6 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         [HtmlAttributeName("hint")]
         public string Hint { get; set; }
 
+        [HtmlAttributeName("name")]
+        public string Name { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var conditionallink = Id + "-conditional";
@@ -29,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             output.TagName = "div";
             output.Attributes.SetAttribute("class", "govuk-radios__item");
 
-            output.PreContent.SetHtmlContent(RadiosListItemBuilder.BuildRadioInput(Id, Value, For, conditionallink));
+            output.PreContent.SetHtmlContent(RadiosListItemBuilder.BuildRadioInput(Id, Value, For, Name, conditionallink));
             output.PreContent.AppendHtml(RadiosListItemBuilder.BuildLabel(Id, Description));
             output.PreContent.AppendHtml(RadiosListItemBuilder.BuildHint(Id, Hint));
             output.PreContent.AppendHtml("</div>");

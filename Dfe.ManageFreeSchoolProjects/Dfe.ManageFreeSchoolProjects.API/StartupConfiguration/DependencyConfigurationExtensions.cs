@@ -55,6 +55,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -144,6 +145,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IAddProjectPaymentsService, AddProjectPaymentsService>();
             services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
             services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
+            services.AddScoped<IGetTaskService, GetROMService>();
+            services.AddScoped<IUpdateTaskService, UpdateROMService>();
             
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

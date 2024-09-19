@@ -16,9 +16,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         IUpdateTaskStatusService updateTaskStatusService)
         : PageModel
     {
-        protected readonly IGetProjectByTaskService _getProjectService = getProjectService;
-        protected readonly IGetTaskStatusService _getTaskStatusService = getTaskStatusService;
-        protected readonly IUpdateTaskStatusService _updateTaskStatusService = updateTaskStatusService;
+        protected readonly IGetProjectByTaskService GetProjectService = getProjectService;
+        protected readonly IGetTaskStatusService GetTaskStatusService = getTaskStatusService;
+        protected readonly IUpdateTaskStatusService UpdateTaskStatusService = updateTaskStatusService;
 
         public ProjectTaskStatus ProjectTaskStatus { get; set; }
 
@@ -32,9 +32,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
         protected async Task GetTask(TaskName taskName)
         {
-            Project = await _getProjectService.Execute(ProjectId, taskName);
+            Project = await GetProjectService.Execute(ProjectId, taskName);
 
-            var taskStatusResponse = await _getTaskStatusService.Execute(ProjectId, taskName.ToString());
+            var taskStatusResponse = await GetTaskStatusService.Execute(ProjectId, taskName.ToString());
 
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         {
             ProjectTaskStatus = MarkAsCompleted ? ProjectTaskStatus.Completed : ProjectTaskStatus.InProgress;
 
-            await _updateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
+            await UpdateTaskStatusService.Execute(ProjectId, new UpdateTaskStatusRequest
             {
                 TaskName = taskName.ToString(),
                 ProjectTaskStatus = ProjectTaskStatus

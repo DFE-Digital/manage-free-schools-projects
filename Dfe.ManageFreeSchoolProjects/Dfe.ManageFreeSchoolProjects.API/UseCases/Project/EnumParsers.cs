@@ -64,4 +64,9 @@ public static class EnumParsers
     {
         return Enum.TryParse<TrustType>(input, out var trustType) ? trustType : TrustType.NotSet;
     }
+
+    public static TypeOfMeetingHeld ParseTypeOfMeetingHeld(string input)
+    {
+        return Enum.TryParse<TypeOfMeetingHeld>(input, out var typeOfMeetingHeld) ? typeOfMeetingHeld : TypeOfMeetingHeld.NotSet;
+    }
 }

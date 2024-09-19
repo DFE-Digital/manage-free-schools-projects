@@ -17,10 +17,12 @@ internal static class RadiosListItemBuilder
                      </label>";
     }
 
-    public static string BuildRadioInput(string id, string value, ModelExpression aspfor, string conditionallink = null)
+    public static string BuildRadioInput(string id, string value, ModelExpression aspfor, string name = null, string conditionallink = null)
     {
         var radioChecked = value == aspfor.Model.ToString() ? "checked=\"checked\"" : "";
         var conditional = conditionallink != null ? $@"data-aria-controls=""{conditionallink}""" : "";
-        return $@"<input class=""govuk-radios__input"" id=""{id}"" name=""project-status"" type=""radio"" value=""{value}"" {radioChecked} {conditional}/>";
+        var nameAttributeAndValue = !string.IsNullOrEmpty(name) ? $@"name=""{name}""" : ""; 
+        
+        return $@"<input class=""govuk-radios__input"" id=""{id}""  type=""radio"" value=""{value}"" {nameAttributeAndValue} {radioChecked} {conditional}/>";
     }
 }
