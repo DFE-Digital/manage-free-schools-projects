@@ -133,13 +133,11 @@ public class EditROMViewModel(
         };
     }
     
-    private void CheckForErrors(string id, TypeOfMeetingHeld typeOfMeetingHeld, DateTime? year)
+    private void CheckForErrors(string id, TypeOfMeetingHeld typeOfMeetingHeld, DateTime? dateOfMeeting)
     {
-        const string yearFormatErrorMessage = "Enter a date in the correct format";
-
-        if (ModelState.IsValid && TypeOfMeetingHeld == typeOfMeetingHeld && year == null)
+        if (ModelState.IsValid && TypeOfMeetingHeld == typeOfMeetingHeld && dateOfMeeting == null)
         {
-            ModelState.AddModelError(id, yearFormatErrorMessage);
+            errorService.AddErrors(ModelState.Keys, ModelState);
         }
         
         if (TypeOfMeetingHeld != typeOfMeetingHeld)
