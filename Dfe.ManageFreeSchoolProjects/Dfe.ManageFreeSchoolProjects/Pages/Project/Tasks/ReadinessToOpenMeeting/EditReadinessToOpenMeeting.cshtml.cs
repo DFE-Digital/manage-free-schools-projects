@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
@@ -51,9 +52,11 @@ public class EditROMViewModel(
     {
         Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
 
-        TypeOfMeetingHeld = Project.ReadinessToOpenMeetingTask.TypeOfMeetingHeld;
+        var romTask = Project.ReadinessToOpenMeetingTask;
+        
+        TypeOfMeetingHeld = romTask.TypeOfMeetingHeld;
 
-        var dateOfTheMeeting = Project.ReadinessToOpenMeetingTask.DateOfTheMeeting;
+        var dateOfTheMeeting = romTask.DateOfTheMeeting;
 
         DateOfInformalTheMeeting = TypeOfMeetingHeld == TypeOfMeetingHeld.InformalMeeting
             ? dateOfTheMeeting
@@ -63,9 +66,19 @@ public class EditROMViewModel(
             ? dateOfTheMeeting
             : null;
         
-        WhyMeetingWasNotHeld = Project.ReadinessToOpenMeetingTask.WhyMeetingWasNotHeld;
+        WhyMeetingWasNotHeld = romTask.WhyMeetingWasNotHeld;
+        
         PrincipalDesignateHasProvidedChecklist =
-            Project.ReadinessToOpenMeetingTask.PrincipalDesignateHasProvidedTheChecklist;
+            romTask.PrincipalDesignateHasProvidedTheChecklist;
+
+        CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable =
+            romTask.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable;
+
+        SavedTheInternalROMReportInWorkplacesFolder =
+            romTask.SavedTheInternalRomReportToWorkplacesFolder;
+        
+        SavedTheExternalROMReportInWorkplacesFolder =
+            romTask.SavedTheExternalRomReportToWorkplacesFolder;
 
         return Page();
     }
@@ -74,6 +87,11 @@ public class EditROMViewModel(
     {
         try
         {
+            CheckForErrors("date-of-the-informal-meeting", TypeOfMeetingHeld.InformalMeeting, DateOfInformalTheMeeting);
+            CheckForErrors("date-of-the-formal-meeting", TypeOfMeetingHeld.FormalMeeting, DateOfFormalTheMeeting);
+            
+            ClearNotApplicableValues();
+            
             if (!ModelState.IsValid)
             {
                 Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
@@ -106,9 +124,49 @@ public class EditROMViewModel(
                 PrincipalDesignateHasProvidedTheChecklist = PrincipalDesignateHasProvidedChecklist,
                 CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable =
                     CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable,
+                SavedTheInternalRomReportToWorkplacesFolder = SavedTheInternalROMReportInWorkplacesFolder,
                 SavedTheExternalRomReportToWorkplacesFolder = SavedTheExternalROMReportInWorkplacesFolder,
-                SavedTheInternalRomReportToWorkplacesFolder = SavedTheInternalROMReportInWorkplacesFolder
             }
         };
+    }
+    
+    private void CheckForErrors(string id, TypeOfMeetingHeld typeOfMeetingHeld, DateTime? year)
+    {
+        const string yearFormatErrorMessage = "Enter a date in the correct format";
+
+        if (ModelState.IsValid && TypeOfMeetingHeld == typeOfMeetingHeld && year == null)
+        {
+            ModelState.AddModelError(id, yearFormatErrorMessage);
+        }
+        
+        if (TypeOfMeetingHeld != typeOfMeetingHeld)
+        {
+            ModelState.Keys.Where(errorKey => errorKey.StartsWith(id))
+                .ToList()
+                .ForEach(errorKey => ModelState.Remove(errorKey));
+        }
+    }
+
+    private void ClearNotApplicableValues()
+    {
+        switch (TypeOfMeetingHeld)
+        {
+            case TypeOfMeetingHeld.FormalMeeting:
+                DateOfInformalTheMeeting = null;
+                WhyMeetingWasNotHeld = null;
+                return;
+            case TypeOfMeetingHeld.InformalMeeting:
+                DateOfFormalTheMeeting = null;
+                WhyMeetingWasNotHeld = null;
+                return;
+            case TypeOfMeetingHeld.NoRomHeld:
+                DateOfInformalTheMeeting = null;
+                DateOfFormalTheMeeting = null;
+                return;
+        }
+
+        DateOfInformalTheMeeting = null;
+        DateOfFormalTheMeeting = null;
+        WhyMeetingWasNotHeld = null;
     }
 }

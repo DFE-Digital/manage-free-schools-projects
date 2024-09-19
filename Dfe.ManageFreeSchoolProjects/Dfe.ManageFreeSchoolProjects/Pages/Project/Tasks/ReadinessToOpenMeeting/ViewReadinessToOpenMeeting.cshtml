@@ -40,6 +40,8 @@
             }
             <govuk-summary-item label="Principal designate (PD) has provided the checklist" asp-for="@readinessToOpenMeeting.PrincipalDesignateHasProvidedTheChecklist" href="@editLink"/>
             <govuk-summary-item label="Commissioned an external expert to attend any meetings (if applicable)" asp-for="@readinessToOpenMeeting.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable" href="@editLink"/>
+            <govuk-summary-item label="Saved the internal ROM report in Workplaces folder" asp-for="@readinessToOpenMeeting.SavedTheInternalRomReportToWorkplacesFolder" href="@editLink"/>
+            <govuk-summary-item label="Saved the external ROM report in Workplaces folder" asp-for="@readinessToOpenMeeting.SavedTheExternalRomReportToWorkplacesFolder" href="@editLink"/>
         </govuk-summary-list>
 
         <form method="post">
