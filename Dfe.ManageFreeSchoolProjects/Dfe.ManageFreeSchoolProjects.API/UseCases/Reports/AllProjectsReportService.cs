@@ -169,8 +169,59 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       ApplicationNumber = kpi.ProjectStatusFreeSchoolsApplicationNumber,
                                       Urn = kpi.ProjectStatusUrnWhenGivenOne,
                                       ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+                                  },
+                                  Payments = new PaymentData()
+                                  {
+                                      DateOf1stPaymentDue = po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue,
+                                      AmountOf1stPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf1stPaymentDue,
+                                      DateOf2ndPaymentDue = po.ProjectDevelopmentGrantFundingDateOf2ndPaymentDue,
+                                      AmountOf2ndPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf2ndPaymentDue,
+                                      DateOf3rdPaymentDue = po.ProjectDevelopmentGrantFundingDateOf3rdPaymentDue,
+                                      AmountOf3rdPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf3rdPaymentDue,
+                                      DateOf4thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf4thPaymentDue,
+                                      AmountOf4thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf4thPaymentDue,
+                                      DateOf5thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf5thPaymentDue,
+                                      AmountOf5thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf5thPaymentDue,
+                                      DateOf6thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf6thPaymentDue,
+                                      AmountOf6thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf6thPaymentDue,
+                                      DateOf7thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf7thPaymentDue,
+                                      AmountOf7thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf7thPaymentDue,
+                                      DateOf8thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf8thPaymentDue,
+                                      AmountOf8thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf8thPaymentDue,
+                                      DateOf9thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf9thPaymentDue,
+                                      AmountOf9thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf9thPaymentDue,
+                                      DateOf10thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf10thPaymentDue,
+                                      AmountOf10thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf10thPaymentDue,
+                                      DateOf11thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf11thPaymentDue,
+                                      AmountOf11thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf11thPaymentDue,
+                                      DateOf12thPaymentDue = po.ProjectDevelopmentGrantFundingDateOf12thPaymentDue,
+                                      AmountOf12thPaymentDue = po.ProjectDevelopmentGrantFundingAmountOf12thPaymentDue,
+                                      DateOf1stActualPayment = po.ProjectDevelopmentGrantFundingDateOf1stActualPayment,
+                                      AmountOf1stPayment = po.ProjectDevelopmentGrantFundingAmountOf1stPayment,
+                                      DateOf2ndActualPayment = po.ProjectDevelopmentGrantFundingDateOf2ndActualPayment,
+                                      AmountOf2ndPayment = po.ProjectDevelopmentGrantFundingAmountOf2ndPayment,
+                                      DateOf3rdActualPayment = po.ProjectDevelopmentGrantFundingDateOf3rdActualPayment,
+                                      AmountOf3rdPayment = po.ProjectDevelopmentGrantFundingAmountOf3rdPayment,
+                                      DateOf4thActualPayment = po.ProjectDevelopmentGrantFundingDateOf4thActualPayment,
+                                      AmountOf4thPayment = po.ProjectDevelopmentGrantFundingAmountOf4thPayment,
+                                      DateOf5thActualPayment = po.ProjectDevelopmentGrantFundingDateOf5thActualPayment,
+                                      AmountOf5thPayment = po.ProjectDevelopmentGrantFundingAmountOf5thPayment,
+                                      DateOf6thActualPayment = po.ProjectDevelopmentGrantFundingDateOf6thActualPayment,
+                                      AmountOf6thPayment = po.ProjectDevelopmentGrantFundingAmountOf6thPayment,
+                                      DateOf7thActualPayment = po.ProjectDevelopmentGrantFundingDateOf7thActualPayment,
+                                      AmountOf7thPayment = po.ProjectDevelopmentGrantFundingAmountOf7thPayment,
+                                      DateOf8thActualPayment = po.ProjectDevelopmentGrantFundingDateOf8thActualPayment,
+                                      AmountOf8thPayment = po.ProjectDevelopmentGrantFundingAmountOf8thPayment,
+                                      DateOf9thActualPayment = po.ProjectDevelopmentGrantFundingDateOf9thActualPayment,
+                                      AmountOf9thPayment = po.ProjectDevelopmentGrantFundingAmountOf9thPayment,
+                                      DateOf10thActualPayment = po.ProjectDevelopmentGrantFundingDateOf10thActualPayment,
+                                      AmountOf10thPayment = po.ProjectDevelopmentGrantFundingAmountOf10thPayment,
+                                      DateOf11thActualPayment = po.ProjectDevelopmentGrantFundingDateOf11thActualPayment,
+                                      AmountOf11thPayment = po.ProjectDevelopmentGrantFundingAmountOf11thPayment,
+                                      DateOf12thActualPayment = po.ProjectDevelopmentGrantFundingDateOf12thActualPayment,
+                                      AmountOf12thPayment = po.ProjectDevelopmentGrantFundingAmountOf12thPayment,
                                   }
-                               }).ToListAsync();
+                              }).ToListAsync();
              return data;
         }
         private static WorkbookPart BuildWorkbook(SpreadsheetDocument spreadsheetDocument)
@@ -251,6 +302,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
     {
         public ProjectReferenceData ProjectReferenceData { get; set; }
         public GetProjectByTaskResponse TaskInformation { get; set; }
+        public PaymentData Payments { get; set; }
+
     }
 
     public class ProjectReferenceData
@@ -261,6 +314,58 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         public string ProjectStatus  { get; set; }
         public string ApplicationNumber { get; set; }
         public string ApplicationWave { get; set; }
-
     }
+
+    public class PaymentData
+    {
+        public DateTime? DateOf1stPaymentDue { get; set; }
+        public string AmountOf1stPaymentDue { get; set; }
+        public DateTime? DateOf2ndPaymentDue { get; set; }
+        public string AmountOf2ndPaymentDue { get; set; }
+        public DateTime? DateOf3rdPaymentDue { get; set; }
+        public string AmountOf3rdPaymentDue { get; set; }
+        public DateTime? DateOf4thPaymentDue { get; set; }
+        public string AmountOf4thPaymentDue { get; set; }
+        public DateTime? DateOf5thPaymentDue { get; set; }
+        public string AmountOf5thPaymentDue { get; set; }
+        public DateTime? DateOf6thPaymentDue { get; set; }
+        public string AmountOf6thPaymentDue { get; set; }
+        public DateTime? DateOf7thPaymentDue { get; set; }
+        public string AmountOf7thPaymentDue { get; set; }
+        public DateTime? DateOf8thPaymentDue { get; set; }
+        public string AmountOf8thPaymentDue { get; set; }
+        public DateTime? DateOf9thPaymentDue { get; set; }
+        public string AmountOf9thPaymentDue { get; set; }
+        public DateTime? DateOf10thPaymentDue { get; set; }
+        public string AmountOf10thPaymentDue { get; set; }
+        public DateTime? DateOf11thPaymentDue { get; set; }
+        public string AmountOf11thPaymentDue { get; set; }
+        public DateTime? DateOf12thPaymentDue { get; set; }
+        public string AmountOf12thPaymentDue { get; set; }
+        public DateTime? DateOf1stActualPayment { get; set; }
+        public string AmountOf1stPayment { get; set; }
+        public DateTime? DateOf2ndActualPayment { get; set; }
+        public string AmountOf2ndPayment { get; set; }
+        public DateTime? DateOf3rdActualPayment { get; set; }
+        public string AmountOf3rdPayment { get; set; }
+        public DateTime? DateOf4thActualPayment { get; set; }
+        public string AmountOf4thPayment { get; set; }
+        public DateTime? DateOf5thActualPayment { get; set; }
+        public string AmountOf5thPayment { get; set; }
+        public DateTime? DateOf6thActualPayment { get; set; }
+        public string AmountOf6thPayment { get; set; }
+        public DateTime? DateOf7thActualPayment { get; set; }
+        public string AmountOf7thPayment { get; set; }
+        public DateTime? DateOf8thActualPayment { get; set; }
+        public string AmountOf8thPayment { get; set; }
+        public DateTime? DateOf9thActualPayment { get; set; }
+        public string AmountOf9thPayment { get; set; }
+        public DateTime? DateOf10thActualPayment { get; set; }
+        public string AmountOf10thPayment { get; set; }
+        public DateTime? DateOf11thActualPayment { get; set; }
+        public string AmountOf11thPayment { get; set; }
+        public DateTime? DateOf12thActualPayment { get; set; }
+        public string AmountOf12thPayment { get; set; }
+    }
+
 }
