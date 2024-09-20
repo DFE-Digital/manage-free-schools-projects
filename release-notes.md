@@ -1,3 +1,6 @@
+## 0.13.0
+* 147110 - Build: Readiness to open meeting (ROM)
+
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link
 * 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
