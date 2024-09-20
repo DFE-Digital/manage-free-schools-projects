@@ -33,7 +33,7 @@
                 {
                     <govuk-summary-item label="Why a meeting was not held" asp-for="@readinessToOpenMeeting.WhyMeetingWasNotHeld" href="@editLink"/>
                 }
-                else
+                else if (readinessToOpenMeeting.TypeOfMeetingHeld is TypeOfMeetingHeld.FormalMeeting or TypeOfMeetingHeld.InformalMeeting)
                 {
                     <govuk-summary-item label="Date of the meeting" asp-for="@readinessToOpenMeeting.DateOfTheMeeting" href="@editLink"/>
                 }
@@ -54,17 +54,17 @@
                 Confirm and continue
             </button>
         </form>
-    </div>
 
-    <div class="govuk-grid-row govuk-!-margin-top-6">
-        <div class="govuk-grid-column-two-thirds">
-            <h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
-            <p class="govuk-body">You may want to update the education risk rating.</p>
-            <govuk-risk-rating-summary project-id="@Model.ProjectId"
-                                       change-link-text="Change"
-                                       date="@Model.ProjectRisk.Date"
-                                       risk-rating="@Model.ProjectRisk.Overall.RiskRating"
-                                       summary="@Model.ProjectRisk.Overall.Summary"/>
+        <div class="govuk-grid-row govuk-!-margin-top-6">
+            <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
+                <p class="govuk-body">You may want to update the risk rating after the readiness to open meeting.</p>
+                <govuk-risk-rating-summary project-id="@Model.ProjectId"
+                                           change-link-text="Change"
+                                           date="@Model.ProjectRisk.Date"
+                                           risk-rating="@Model.ProjectRisk.Overall.RiskRating"
+                                           summary="@Model.ProjectRisk.Overall.Summary"/>
+            </div>
         </div>
     </div>
 </div>
