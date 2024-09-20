@@ -153,7 +153,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
         {
             var result = new List<ProjectReportSourceData>()
             {
-                new ProjectReportSourceData()
+                new()
                 {
                     ProjectReferenceData = new ProjectReferenceData()
                     {
@@ -287,7 +287,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         {
                             SavedTheInternalRomReportToWorkplacesFolder = true
                         }, 
-                        Payments = new PaymentData()
+                    }, 
+                    Payments = new PaymentData()
                     {
                         DateOf1stPaymentDue = new DateTime(2021, 1, 1),
                         AmountOf1stPaymentDue = "1",
@@ -338,7 +339,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         DateOf12thActualPayment = new DateTime(2021, 2, 12),
                         AmountOf12thPayment = "120",
                     }
-                        }
                 }
             };
 
