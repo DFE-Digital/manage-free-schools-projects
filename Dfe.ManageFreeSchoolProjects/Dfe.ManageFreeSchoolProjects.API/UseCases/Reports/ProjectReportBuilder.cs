@@ -13,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             const string settingUpSection = "Setting-up";
             const string referenceNumbersSection = "Reference numbers";
             const string pdgSection = "Project development grant (PDG)";
+            const string pdgScheduleSection = "Project development grant schedule";
             const string preOpeningSection = "Pre-opening";
             const string signOffPreparationSection = "Sign-off preparation";
             const string gettingReadyToOpenSection = "Getting ready to open";
@@ -54,7 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = afterOpeningSection },
                     new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = gettingReadyToOpenSection },
                     new() { Task = project.TaskInformation.ReadinessToOpenMeetingTask, TaskName = "Readiness to open meeting", Section = gettingReadyToOpenSection },
-                    new() { Task = project.Payments, TaskName = "Project development grant", Section = pdgSection }
+                    new() { Task = project.Payments, TaskName = "Project development grant", Section = pdgScheduleSection }
                 };
 
                 if (result.Headers.Count == 0)
