@@ -11,37 +11,48 @@
     ViewData["Title"] = "Edit Project status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
     var isVisibleToPresumption = Model.Project.ProjectType.Contains("Presumption");
-    
-    List<ProjectStatusOption> GetProjectStatusOptions()
+
+    var options = new List<ProjectStatusOption>
     {
-        var options = new List<ProjectStatusOption>
-        {
-            new(id: "project-status-application-competition-stage", value: ProjectStatus.ApplicationCompetitionStage, description: ProjectStatus.ApplicationCompetitionStage.ToDescription(), hint: "The special or alternative provision application is being considered.", isVisible: !isVisibleToPresumption, isConditional: false),
+        new("project-status-application-competition-stage", ProjectStatus.ApplicationCompetitionStage, !isVisibleToPresumption,
+            ProjectStatus.ApplicationCompetitionStage.ToDescription(), "The special or alternative provision application is being considered.", false),
 
-            new(id: "project-status-application-stage", value: ProjectStatus.ApplicationStage, description: ProjectStatus.ApplicationStage.ToDescription(), hint: "The school's application is being considered.", isVisible: !isVisibleToPresumption, isConditional: false),
+        new("project-status-application-stage", ProjectStatus.ApplicationStage, !isVisibleToPresumption,
+            ProjectStatus.ApplicationStage.ToDescription(), "The school's application is being considered.", false),
 
-            new(id: "project-status-cancelled", value: ProjectStatus.Cancelled, description: ProjectStatus.Cancelled.ToDescription(), hint: "The project was cancelled in pre-opening.", isVisible: isVisibleToPresumption, isConditional: true, dateInputId: "year-cancelled", dateInputName: "year-cancelled", dateInputLabel: "Date the project was cancelled", dateInputHint: "For example, 27 3 2021", dateInputValueAspFor: Model.CancelledYear),
+        new("project-status-cancelled", ProjectStatus.Cancelled, isVisibleToPresumption,
+            ProjectStatus.Cancelled.ToDescription(), "The project was cancelled in pre-opening.", true,
+            "year-cancelled", "year-cancelled", "Date the project was cancelled", "For example, 27 3 2021", Model.CancelledYear),
 
-            new(id: "project-status-closed", value: ProjectStatus.Closed, description: ProjectStatus.Closed.ToDescription(), hint: "The school has closed.", isVisible: isVisibleToPresumption, isConditional: true, dateInputId: "year-closed", dateInputName: "year-closed", dateInputLabel: "Date the school was closed", dateInputHint: "For example, 23 2 2021", dateInputValueAspFor: Model.ClosedYear),
+        new("project-status-closed", ProjectStatus.Closed, isVisibleToPresumption,
+            ProjectStatus.Closed.ToDescription(), "The school has closed.", true,
+            "year-closed", "year-closed", "Date the school was closed", "For example, 23 2 2021", Model.ClosedYear),
 
-            new(id: "project-status-open", value: ProjectStatus.Open, description: ProjectStatus.Open.ToDescription(), hint: "The school has opened.", isVisible: isVisibleToPresumption, isConditional: false),
+        new("project-status-open", ProjectStatus.Open, isVisibleToPresumption,
+            ProjectStatus.Open.ToDescription(), "The school has opened.", false),
 
-            new(id: "project-status-open-not-included", value: ProjectStatus.OpenNotIncludedInFigures, description: ProjectStatus.OpenNotIncludedInFigures.ToDescription(), hint: "For example, this project is not a free school but is using free schools budget.", isVisible: !isVisibleToPresumption, isConditional: false),
+        new("project-status-open-not-included", ProjectStatus.OpenNotIncludedInFigures, !isVisibleToPresumption,
+            ProjectStatus.OpenNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
 
-            new(id: "project-status-pre-opening", value: ProjectStatus.Preopening, description: ProjectStatus.Preopening.ToDescription(), hint: "The project stage after the application stage.", isVisible: isVisibleToPresumption, isConditional: false),
+        new("project-status-pre-opening", ProjectStatus.Preopening, isVisibleToPresumption,
+            ProjectStatus.Preopening.ToDescription(), "The project stage after the application stage.", false),
 
-            new(id: "project-status-pre-opening-not-included", value: ProjectStatus.PreopeningNotIncludedInFigures, description: ProjectStatus.PreopeningNotIncludedInFigures.ToDescription(), hint: "For example, this project is not a free school but is using free schools budget.", isVisible: !isVisibleToPresumption, isConditional: false),
+        new("project-status-pre-opening-not-included", ProjectStatus.PreopeningNotIncludedInFigures, !isVisibleToPresumption,
+            ProjectStatus.PreopeningNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
 
-            new(id: "project-status-rejected", value: ProjectStatus.Rejected, description: ProjectStatus.Rejected.ToDescription(), hint: "A Regional Director did not approve the project to move into pre-opening.", isVisible: !isVisibleToPresumption, isConditional: false),
+        new("project-status-rejected", ProjectStatus.Rejected, !isVisibleToPresumption,
+            ProjectStatus.Rejected.ToDescription(), "A Regional Director did not approve the project to move into pre-opening.", false),
 
-            new(id: "project-status-withdrawn-application", value: ProjectStatus.WithdrawnDuringApplication, description: ProjectStatus.WithdrawnDuringApplication.ToDescription(), hint: "For example, the trust withdrew their application.", isVisible: !isVisibleToPresumption, isConditional: true, dateInputId: "year-withdrawn-application", dateInputName: "year-withdrawn-application", dateInputLabel: "Date the project was withdrawn", dateInputHint: "For example, 23 2 2021", dateInputValueAspFor: Model.WithdrawnApplicationYear),
+        new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, !isVisibleToPresumption,
+            ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", true,
+            "year-withdrawn-application", "year-withdrawn-application", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnApplicationYear),
 
-            new(id: "project-status-withdrawn", value: ProjectStatus.WithdrawnDuringPreOpening, description: ProjectStatus.WithdrawnDuringPreOpening.ToDescription(), hint: "For example, the trust withdrew in the pre-opening stage.", isVisible: isVisibleToPresumption, isConditional: true, dateInputId: "year-withdrawn-preopening", dateInputName: "year-withdrawn-preopening", dateInputLabel: "Date the project was withdrawn", dateInputHint: "For example, 23 2 2021", dateInputValueAspFor: Model.WithdrawnYear)
-        };
-
-        return options.Where(option => option.IsVisible).ToList();
-    }
+        new("project-status-withdrawn", ProjectStatus.WithdrawnDuringPreOpening, isVisibleToPresumption,
+            ProjectStatus.WithdrawnDuringPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
+            "year-withdrawn-preopening", "year-withdrawn-preopening", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnYear)
+    };
 }
+
 
 @section BeforeMain {
     <govuk-back-link href="@backlink" xmlns="http://www.w3.org/1999/html"/>
@@ -56,10 +67,10 @@
             Edit Project status
         </h1>
         <form method="post">
-            
+
             <div class="govuk-form-group" id="project-status">
                 <govuk-radios-list>
-                    @foreach (var option in GetProjectStatusOptions())
+                    @foreach (var option in options.Where(option => option.IsVisible).ToList())
                     {
                         if (option.IsConditional)
                         {
