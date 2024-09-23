@@ -1,5 +1,6 @@
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
+* 179195 - Build: Show only statuses relevant to Presumption route
 
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link

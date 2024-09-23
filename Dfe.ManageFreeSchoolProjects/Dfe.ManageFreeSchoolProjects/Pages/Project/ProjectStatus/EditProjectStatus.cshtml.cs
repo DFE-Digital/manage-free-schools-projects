@@ -17,25 +17,24 @@ using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 {
-    public class EditProjectStatusModel : PageModel
+    public class EditProjectStatusModel(
+        IGetProjectOverviewService getProjectOverviewService,
+        IUpdateProjectStatusService updateProjectStatusService,
+        ILogger<EditProjectStatusModel> logger,
+        IHttpContextAccessor httpContextAccessor,
+        ErrorService errorService)
+        : PageModel
     {
         public const string CancelledYearId = "year-cancelled";
         public const string ClosedYearId = "year-closed";
         public const string WithdrawnPreopeningYearId = "year-withdrawn-preopening";
         public const string WithdrawnApplicationYearId = "year-withdrawn-application";
 
-        private readonly IGetProjectOverviewService _getProjectOverviewService;
-        private readonly IUpdateProjectStatusService _updateProjectStatusService;
-        private readonly ILogger<EditProjectStatusModel> _logger;
-        private readonly ErrorService _errorService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         public ProjectOverviewResponse Project { get; set; }
         
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-
-        public string CurrentFreeSchoolName { get; set; }
-
+        
         [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
 
@@ -59,25 +58,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnApplicationYear { get; set; }
 
-        public EditProjectStatusModel(IGetProjectOverviewService getProjectOverviewService,
-            IUpdateProjectStatusService updateProjectStatusService,
-            ILogger<EditProjectStatusModel> logger,IHttpContextAccessor httpContextAccessor,
-            ErrorService errorService)
-        {
-            _getProjectOverviewService = getProjectOverviewService;
-            _updateProjectStatusService = updateProjectStatusService;
-            _logger = logger;
-            _errorService = errorService;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
         public async Task<IActionResult> OnGet()
         {
             try
             {
                 var projectId = RouteData.Values["projectId"] as string;
 
-                Project = await _getProjectOverviewService.Execute(projectId);
+                Project = await getProjectOverviewService.Execute(projectId);
                 ProjectStatus = Project.ProjectStatus.ProjectStatus;
                 
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
@@ -94,7 +81,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
             }
 
             ProjectId = Project.ProjectStatus.ProjectId;
@@ -113,8 +100,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
             if (!ModelState.IsValid)
             {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                Project = await _getProjectOverviewService.Execute(ProjectId);
+                errorService.AddErrors(ModelState.Keys, ModelState);
+                Project = await getProjectOverviewService.Execute(ProjectId);
 
                 return Page();
             }
@@ -129,7 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
             var projectId = RouteData.Values["projectId"] as string;
 
-            await _updateProjectStatusService.Execute(projectId, request);
+            await updateProjectStatusService.Execute(projectId, request);
             TempData["projectStatusUpdated"] = true;
             return Redirect(GetNextPage());
         }
@@ -191,7 +178,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         
         public string GetNextPage()
         {
-            var referrerQuery = _httpContextAccessor.HttpContext.Request.Query["referrer"];
+            var referrerQuery = httpContextAccessor.HttpContext.Request.Query["referrer"];
 
             var isReferred = Enum.TryParse(referrerQuery, out Referrer referrer);
 
