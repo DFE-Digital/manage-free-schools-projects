@@ -86,7 +86,7 @@ public class GetAllTasksStatusService : IGetTasksService
             CommissionedExternalExpert = SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
             MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString()),
             DueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString()),
-            PreFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.PreFundingAgreementCheckpointMeeting.ToString()),
+            PreFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, "PreFundingAgreementCheckpointMeeting"),
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());

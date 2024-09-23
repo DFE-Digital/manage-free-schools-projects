@@ -30,6 +30,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgre
                 db.Rid = dbKpi.Rid;
                 _context.Add(db);
             }
+
+            db.FsgPreOpeningMilestonesPfacmBaselineDate = null;
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PreFundingAgreementCh
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PreFundingAgreementCheckpointMeeting);
             SchoolName = project.SchoolName;
             IsPresumptionRoute = project.IsPresumptionRoute;
 
@@ -82,20 +82,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PreFundingAgreementCh
             {
                 var request = new UpdateProjectByTaskRequest()
                 {
-                    KickOffMeeting = new KickOffMeetingTask()
-                    {
-                        FundingArrangementAgreed = FundingArrangementAgreed,
-                        FundingArrangementDetailsAgreed = FundingArrangementDetailsAgreed,
-                        RealisticYearOfOpening = RealisticYearOfOpening,
-                        ProvisionalOpeningDate = ProvisionalOpeningDate,
-                        SavedDocumentsInWorkplacesFolder = SavedDocumentsInWorkplacesFolder
-                        
-                    }
                 };
 
                 await _updateProjectTaskService.Execute(ProjectId, request);
 
-                return Redirect(string.Format(RouteConstants.ViewKickOffMeeting, ProjectId));
+                return Redirect(string.Format(RouteConstants.ViewPreFundingAgreementCheckpointMeeting, ProjectId));
             }
             catch (Exception ex)
             {
@@ -106,13 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PreFundingAgreementCh
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.KickOffMeeting);
-
-            FundingArrangementAgreed = project.KickOffMeeting.FundingArrangementAgreed;
-            FundingArrangementDetailsAgreed = project.KickOffMeeting.FundingArrangementDetailsAgreed;
-            RealisticYearOfOpening = project.KickOffMeeting.RealisticYearOfOpening;
-            ProvisionalOpeningDate = project.KickOffMeeting.ProvisionalOpeningDate;
-            SavedDocumentsInWorkplacesFolder = project.KickOffMeeting.SavedDocumentsInWorkplacesFolder;
+            var project = await _getProjectService.Execute(ProjectId, TaskName.PreFundingAgreementCheckpointMeeting);
             
             SchoolName = project.SchoolName;
             IsPresumptionRoute = project.IsPresumptionRoute;

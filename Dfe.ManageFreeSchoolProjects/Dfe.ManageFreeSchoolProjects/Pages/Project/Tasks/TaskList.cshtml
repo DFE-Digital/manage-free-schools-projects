@@ -225,7 +225,7 @@
                         }
 
                     </li>
-                    @if (@Model.ProjectType != "Presumption") {
+                    @if (Model.IsPresumptionRoute == false) {
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">
                                 <a href="@preFundingAgreementCheckpointMeetingLink" class="govuk-link" data-testid="pre-funding-agreement-checkpoint-meeting-link-task">

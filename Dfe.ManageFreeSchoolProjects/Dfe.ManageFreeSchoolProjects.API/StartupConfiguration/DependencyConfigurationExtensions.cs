@@ -55,6 +55,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -124,6 +125,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateMovingToOpenTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePrincipleDesignateTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateDueDiligenceChecksTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdatePreFundingAgreementCheckpointMeetingTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
