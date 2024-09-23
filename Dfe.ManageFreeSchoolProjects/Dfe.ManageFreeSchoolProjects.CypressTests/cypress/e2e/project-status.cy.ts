@@ -9,15 +9,12 @@ import contactsPage from "../pages/contacts/contactsPage";
 
 describe("Testing that we can change the project status", () => {
     let project: ProjectDetailsRequest;
-    let now: Date;
 
     describe("Change project status", () => {
 
         it("Change status for central route project", () => {
 
           cy.login();
-
-            now = new Date();
     
             project = RequestBuilder.createProjectDetailsCentralRoute();
     
@@ -97,8 +94,6 @@ describe("Testing that we can change the project status", () => {
         it("Change status for Presumption project", () => {
 
             cy.login();
-
-            now = new Date();
     
             project = RequestBuilder.createNewProjectDetails();
     
