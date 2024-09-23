@@ -175,5 +175,8 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
 
         public const string ViewPreFundingAgreementCheckpointMeeting = TaskList + "/pre-funding-agreement-checkpoint-meeting";
         public const string EditPreFundingAgreementCheckpointMeeting = ViewPreFundingAgreementCheckpointMeeting + "/edit";
+        
+        public const string ViewReadinessToOpenMeeting = TaskList + "/readiness-to-open-meeting";
+        public const string EditReadinessToOpenMeeting = ViewReadinessToOpenMeeting + "/edit";
     }
 }

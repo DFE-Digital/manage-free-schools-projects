@@ -33,6 +33,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.MovingToOpen;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
@@ -158,7 +159,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       CommissionedExternalExpert = CommissionedExternalExpertTaskBuilder.Build(milestones),
                                       MovingToOpen = MovingToOpenTaskBuilder.Build(kpi,milestones),
                                       PrincipalDesignate = PrincipalDesignateTaskBuilder.Build(milestones),
-                                      DueDiligenceChecks = DueDiligenceChecksTaskBuilder.Build(milestones)
+                                      DueDiligenceChecks = DueDiligenceChecksTaskBuilder.Build(milestones), 
+                                      ReadinessToOpenMeetingTask = ROMTaskBuilder.Build(milestones)
                                   },
                                   ProjectReferenceData = new ProjectReferenceData()
                                   {

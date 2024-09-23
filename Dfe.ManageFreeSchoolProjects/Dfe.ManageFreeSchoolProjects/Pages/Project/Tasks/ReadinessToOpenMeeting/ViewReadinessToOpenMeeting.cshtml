@@ -1,0 +1,70 @@
+@page "/projects/{projectId}/tasks/readiness-to-open-meeting"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.ViewROMViewModel
+
+@{
+    ViewData["Title"] = $"Readiness to open meeting (ROM) - {Model.Project.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editLink = string.Format(RouteConstants.EditReadinessToOpenMeeting, Model.ProjectId);
+    var readinessToOpenMeeting = Model.Project.ReadinessToOpenMeetingTask;
+
+    var typeOfMeetingHeld = readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NotSet ? null : readinessToOpenMeeting.TypeOfMeetingHeld.ToDescription();
+}
+
+@section BeforeMain {
+    <govuk-back-link href="@backlink"/>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">
+                @Model.Project.SchoolName
+            </span>
+            Readiness to open meeting (ROM)
+        </h1>
+        <govuk-summary-list>
+            <govuk-summary-item label="Type of meeting held" asp-for="@typeOfMeetingHeld" href="@editLink"/>
+            @{
+                if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoRomHeld)
+                {
+                    <govuk-summary-item label="Why a meeting was not held" asp-for="@readinessToOpenMeeting.WhyMeetingWasNotHeld" href="@editLink"/>
+                }
+                else if (readinessToOpenMeeting.TypeOfMeetingHeld is TypeOfMeetingHeld.FormalMeeting or TypeOfMeetingHeld.InformalMeeting)
+                {
+                    <govuk-summary-item label="Date of the meeting" asp-for="@readinessToOpenMeeting.DateOfTheMeeting" href="@editLink"/>
+                }
+            }
+            <govuk-summary-item label="Principal designate (PD) has provided the checklist" asp-for="@readinessToOpenMeeting.PrincipalDesignateHasProvidedTheChecklist" href="@editLink"/>
+            <govuk-summary-item label="Commissioned an external expert to attend any meetings (if applicable)" asp-for="@readinessToOpenMeeting.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable" href="@editLink"/>
+            <govuk-summary-item label="Saved the internal ROM report in Workplaces folder" asp-for="@readinessToOpenMeeting.SavedTheInternalRomReportToWorkplacesFolder" href="@editLink"/>
+            <govuk-summary-item label="Saved the external ROM report in Workplaces folder" asp-for="@readinessToOpenMeeting.SavedTheExternalRomReportToWorkplacesFolder" href="@editLink"/>
+        </govuk-summary-list>
+
+        <form method="post">
+            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+                                  asp-for="MarkAsCompleted"
+                                  name="mark-as-completed"
+                                  id="mark-as-completed"/>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                Confirm and continue
+            </button>
+        </form>
+
+        <div class="govuk-grid-row govuk-!-margin-top-6">
+            <div class="govuk-grid-column-two-thirds">
+                <h2 class="govuk-heading-l" data-testid="title">Review risk rating</h2>
+                <p class="govuk-body">You may want to update the risk rating after the readiness to open meeting.</p>
+                <govuk-risk-rating-summary project-id="@Model.ProjectId"
+                                           change-link-text="Change"
+                                           date="@Model.ProjectRisk.Date"
+                                           risk-rating="@Model.ProjectRisk.Overall.RiskRating"
+                                           summary="@Model.ProjectRisk.Overall.Summary"/>
+            </div>
+        </div>
+    </div>
+</div>

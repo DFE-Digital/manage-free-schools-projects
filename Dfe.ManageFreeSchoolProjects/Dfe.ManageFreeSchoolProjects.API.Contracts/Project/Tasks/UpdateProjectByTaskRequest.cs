@@ -66,6 +66,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeeting { get; set; }
         
+        public ReadinessToOpenMeetingTask ReadinessToOpenMeetingTask { get; set; }
+        
         public string TaskToUpdate
         {
             get
@@ -142,6 +144,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.PDG.ToString();
                 if (PreFundingAgreementCheckpointMeeting != null)
                     return TaskName.PreFundingAgreementCheckpointMeeting.ToString();
+                if (ReadinessToOpenMeetingTask != null)
+                    return TaskName.ReadinessToOpenMeeting.ToString();
                 return null;
             }
         }

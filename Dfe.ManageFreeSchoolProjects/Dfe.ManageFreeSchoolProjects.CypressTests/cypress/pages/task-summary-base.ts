@@ -127,6 +127,10 @@ export class SummaryPage {
         cy.getByTestId("create-project").contains(name);
         return this;
     }
+
+    public reviewRiskRating() {
+        cy.get('h2').contains('Review risk rating')
+    }
 }
 
 const summaryPage = new SummaryPage();

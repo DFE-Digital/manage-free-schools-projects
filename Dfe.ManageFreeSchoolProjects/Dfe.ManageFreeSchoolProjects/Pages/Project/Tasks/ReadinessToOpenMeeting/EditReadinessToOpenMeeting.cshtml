@@ -1,0 +1,80 @@
+@page "/projects/{projectId}/tasks/readiness-to-open-meeting/edit"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.EditROMViewModel
+
+@{
+    var backlink = string.Format(RouteConstants.ViewReadinessToOpenMeeting, Model.ProjectId);
+    ViewData["Title"] = "Edit Readiness to open meeting - " + $"{Model.Project.SchoolName}";
+}
+
+@section BeforeMain {
+    <govuk-back-link href="@backlink" xmlns="http://www.w3.org/1999/html"/>
+}
+
+<partial name="_ErrorSummary" />
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.SchoolName</span>
+            Edit Readiness to open meeting (ROM)
+        </h1>
+        <h3 class="govuk-heading-m">
+            Type of meeting held
+        </h3>
+        <form method="post">
+            <div class="govuk-form-group" id="type-of-meeting-held">
+                <govuk-radios-list>
+                    <govuk-radios-list-conditional-item id="formal-meeting-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-formal-meeting" asp-for="@Model.DateOfFormalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                    </govuk-radios-list-conditional-item>
+
+                    <govuk-radios-list-conditional-item id="informal-meeting-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.InformalMeeting" description="Informal meeting" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-informal-meeting" asp-for="@Model.DateOfInformalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
+                    </govuk-radios-list-conditional-item>
+
+                    <govuk-radios-list-conditional-item id="no-rom-held-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.NoRomHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-textarea-input id="why-meeting-not-held"
+                                              name="why-meeting-not-held"
+                                              asp-for="@Model.WhyMeetingWasNotHeld"
+                                              test-id="why-meeting-not-held"
+                                              rows="10"
+                                              label="Why meeting was not held"
+                                              bold-label="true"/>
+                    </govuk-radios-list-conditional-item>
+                </govuk-radios-list>
+            </div>
+            <br/>
+
+
+            <govuk-checkbox-input label="Principal designate (PD) has provided the checklist"
+                                  asp-for="@Model.PrincipalDesignateHasProvidedChecklist"
+                                  name="principal-designate-has-provided-checklist"
+                                  id="principal-designate-has-provided-checklist"/>
+
+            <govuk-checkbox-input label="Commissioned an external expert to attend any meetings (if applicable)"
+                                  asp-for="@Model.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable"
+                                  name="commissioned-external-expert-to-attend-any-meetings"
+                                  id="commissioned-external-expert-to-attend-any-meetings"/>
+
+
+            <govuk-checkbox-input label="Saved the internal ROM report in Workplaces folder"
+                                  asp-for="@Model.SavedTheInternalROMReportInWorkplacesFolder"
+                                  name="saved-the-internal-rom-report-workplaces-folder"
+                                  id="saved-the-internal-rom-report-workplaces-folder"/>
+
+            <govuk-checkbox-input label="Saved the external ROM report in Workplaces folder"
+                                  asp-for="@Model.SavedTheExternalROMReportInWorkplacesFolder"
+                                  name="saved-the-external-rom-report-workplaces-folder"
+                                  id="saved-the-external-rom-report-workplaces-folder"/>
+
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>

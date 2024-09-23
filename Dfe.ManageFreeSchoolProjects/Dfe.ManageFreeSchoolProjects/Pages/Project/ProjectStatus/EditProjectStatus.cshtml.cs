@@ -1,11 +1,9 @@
 using System;
-using System.ComponentModel;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Globalization;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -15,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
@@ -107,14 +104,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-            
             CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
             CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
             CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnDuringPreOpening, WithdrawnYear);
             CheckErrors(WithdrawnApplicationYearId, ProjectStatusType.WithdrawnDuringApplication, WithdrawnApplicationYear);
 
             ClearNotApplicableValues();
-
 
             if (!ModelState.IsValid)
             {

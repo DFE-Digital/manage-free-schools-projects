@@ -1,13 +1,19 @@
-
+## 0.13.0
+* 147110 - Build: Readiness to open meeting (ROM)
 
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link
-* 174750 - Build: Modify API to work with new PDG designs
 * 175099 - Each project listed shows the project type (Dashboard & Individual project pages)
 * 169881 - Impact Assessment (central route)
 * 177796 - Build: Finance plan agreed date - change to use FSS field
 * 147093 - Build: Due diligence checks (central route)
 * 161362 - Build: Project development grant (PDG) page (Central route)
+* 177731 - Iterate capacity when full (pupil numbers)
+* 177566 - Build: governance plans (Central route)
+* 178318 - Build: Iterate project status date field name and hint text
+* 177796 - Build: Finance plan agreed date
+* 176816 - Build: Iterate project statuses to include full dates
+* 169289 - User Story 169289: Build: Project statuses for Central route
 
 ---
 ## 0.11.0
