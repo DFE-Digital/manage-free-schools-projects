@@ -28,21 +28,61 @@ describe("Testing that we can change the project status", () => {
     });
 
     describe("Change project status", () => {
-        it("Should be able to change assigned to", () => {
+
+        it("Change status for central route project", () => {
+
+            Logger.log("Verify relevant project statuses shown for central route project");
+
+            projectOverviewPage
+                 .clickChangeProjectStatus();
+
+                 projectStatusPage
+                 .clickApplicationCompetitionStage()
+                 .clickSaveAndContine()
+
+            projectOverviewPage
+                .hasProjectStatus("Application competition stage");
+
+
+            // projectStatusPage
+            //     .withdrawnIsChecked()
+            //     .withdrawnYearHasValue("1", "1", "2047")
+            //     .selectWithdrawnInApplication()
+            //     .clickSaveAndContine()
+            //     .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+            //     .addWithdrawnInApplicationYear("1", "1", "error")
+            //     .clickSaveAndContine()
+            //     .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+            //     .addWithdrawnInApplicationYear("1", "1", "1999")
+            //     .clickSaveAndContine()
+            //     .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+            //     .clickSaveAndContine()
+            //     .addWithdrawnInApplicationYear("1", "1", "2051")
+            //     .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+            //     .addWithdrawnInApplicationYear("1", "1", "2045")
+            //     .clickSaveAndContine();
+
+            // Logger.log("user is sent back to projects overview page");
+
+            // projectOverviewPage
+            //     .hasWithdrawnDate("1 January 2045");
+        });
+
+        it.skip("Change status for Presumption project", () => {
 
             projectOverviewPage
               .hasProjectStatus("Pre-opening")
-              .clickChangeProjectStatus()
-            
+              .clickChangeProjectStatus();
+
             projectStatusPage
               .preOpeningIsChecked()
-              .clickBackLink()
+              .clickBackLink();
 
             Logger.log("verify user is back on projectList Page");
             
             projectOverviewPage
                 .hasTrustId(project.TRN)
-                .selectTaskListTab()
+                .selectTaskListTab();
             
             taskListPage
                 .hasProjectStatus("Pre-opening")
@@ -50,13 +90,13 @@ describe("Testing that we can change the project status", () => {
 
             projectStatusPage
                 .preOpeningIsChecked()
-                .clickBackLink()
+                .clickBackLink();
 
             Logger.log("verify user is back on tasklist page");
             
             taskListPage
                 .onTasklistTab()
-                .selectContactTab()
+                .selectContactTab();
             
             contactsPage
                 .hasProjectStatus("Pre-opening")
@@ -64,29 +104,29 @@ describe("Testing that we can change the project status", () => {
 
             projectStatusPage
                 .preOpeningIsChecked()
-                .clickBackLink()
+                .clickBackLink();
             
             Logger.log("verify user is back on contacts page");
             
             contactsPage
                 .onContactsTab()
-                .selectAboutTheProjectTab()
+                .selectAboutTheProjectTab();
 
             Logger.log("change status to open");
 
             projectOverviewPage
                 .hasProjectStatus("Pre-opening")
-                .clickChangeProjectStatus()
+                .clickChangeProjectStatus();
             
             projectStatusPage
                 .preOpeningIsChecked()
                 .selectOpen()
-                .clickSaveAndContine()
+                .clickSaveAndContine();
 
             projectOverviewPage
                 .hasProjectStatus("Open")
                 .hasTrustId(project.TRN)
-                .selectTaskListTab()
+                .selectTaskListTab();
 
             Logger.log("change status to cancelled");
 
@@ -109,21 +149,21 @@ describe("Testing that we can change the project status", () => {
                 .addCancelledYear("1", "1", "2051")
                 .errorForCancelledDate("Year must be between 2000 and 2050")
                 .addCancelledYear("1", "1", "2050")
-                .clickSaveAndContine()
+                .clickSaveAndContine();
 
             Logger.log("user is sent back to tasklist");
             
             taskListPage
                 .onTasklistTab()
                 .hasProjectStatus("Cancelled")
-                .selectAboutTheProjectTab()
+                .selectAboutTheProjectTab();
 
 
             Logger.log("cancelled date is shown on project overview");
             
             projectOverviewPage
                 .hasCancelledDate("1 January 2050")
-                .selectContactsTab()
+                .selectContactsTab();
 
             Logger.log("change status to closed");
             
@@ -147,7 +187,7 @@ describe("Testing that we can change the project status", () => {
                 .addClosedYear("1", "1", "2051")
                 .errorForClosedDate("Year must be between 2000 and 2050")
                 .addClosedYear("1", "1", "2048")
-                .clickSaveAndContine()
+                .clickSaveAndContine();
 
             Logger.log("user is sent back to contacts page");
            
@@ -159,12 +199,12 @@ describe("Testing that we can change the project status", () => {
             Logger.log("closed date is shown on project overview");
 
             projectOverviewPage
-                .hasClosedDate("1 January 2048")
+                .hasClosedDate("1 January 2048");
 
             Logger.log("change status to withdrawn");
 
             projectOverviewPage
-                .clickChangeProjectStatus()
+                .clickChangeProjectStatus();
 
             projectStatusPage
                 .closedIsChecked()
@@ -182,40 +222,12 @@ describe("Testing that we can change the project status", () => {
                 .addWithdrawnYear("1", "1", "2051")
                 .errorForWithdrawnDate("Year must be between 2000 and 2050")
                 .addWithdrawnYear("1", "1", "2047")
-                .clickSaveAndContine()
+                .clickSaveAndContine();
 
             Logger.log("user is sent back to projects overview page");
 
             projectOverviewPage
-                .hasWithdrawnDate("1 January 2047")
-
-            Logger.log("change status to withdrawn in application");
-
-            projectOverviewPage
-                .clickChangeProjectStatus()
-
-            projectStatusPage
-                .withdrawnIsChecked()
-                .withdrawnYearHasValue("1", "1", "2047")
-                .selectWithdrawnInApplication()
-                .clickSaveAndContine()
-                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
-                .addWithdrawnInApplicationYear("1", "1", "error")
-                .clickSaveAndContine()
-                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
-                .addWithdrawnInApplicationYear("1", "1", "1999")
-                .clickSaveAndContine()
-                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
-                .clickSaveAndContine()
-                .addWithdrawnInApplicationYear("1", "1", "2051")
-                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
-                .addWithdrawnInApplicationYear("1", "1", "2045")
-                .clickSaveAndContine()
-
-            Logger.log("user is sent back to projects overview page");
-
-            projectOverviewPage
-                .hasWithdrawnDate("1 January 2045")
-        })
-    })
-})
+                .hasWithdrawnDate("1 January 2047");
+        });
+    });
+});

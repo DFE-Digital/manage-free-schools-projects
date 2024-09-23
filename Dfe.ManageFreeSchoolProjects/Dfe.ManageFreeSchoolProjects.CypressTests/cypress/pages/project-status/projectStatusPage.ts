@@ -125,6 +125,12 @@ class ProjectStatusPage {
         cy.getById('year-withdrawn-application-error-link').contains(error)
         return this
     }
+
+
+    clickApplicationCompetitionStage(): this {
+        cy.getByTestId("project-status-application-competition-stage").click();
+        return this;
+    }
 }
 
 const projectStatusPage = new ProjectStatusPage();
