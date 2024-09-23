@@ -127,8 +127,28 @@ class ProjectStatusPage {
     }
 
 
-    clickApplicationCompetitionStage(): this {
-        cy.getByTestId("project-status-application-competition-stage").click();
+    selectApplicationCompetitionStage(): this {
+        cy.getById("project-status-application-competition-stage").click();
+        return this;
+    }
+
+    selectApplicationStage(): this {
+        cy.getById("project-status-application-stage").click();
+        return this;
+    }
+
+    selectOpenNotIncludedFigures(): this {
+        cy.getById("project-status-open-not-included").click();
+        return this;
+    }
+
+    selectPreOpeningNotIncludedFigures(): this {
+        cy.getById("project-status-pre-opening-not-included").click();
+        return this;
+    }
+
+    selectRejected(): this { 
+        cy.getById("project-status-rejected").click();
         return this;
     }
 }

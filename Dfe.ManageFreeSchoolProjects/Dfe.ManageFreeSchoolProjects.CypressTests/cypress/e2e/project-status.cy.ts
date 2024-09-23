@@ -11,61 +11,87 @@ describe("Testing that we can change the project status", () => {
     let project: ProjectDetailsRequest;
     let now: Date;
 
-    beforeEach(() => {
-        cy.login();
-
-        now = new Date();
-
-        project = RequestBuilder.createProjectDetails();
-
-        projectApi
-            .post({
-                projects: [project],
-            })
-            .then(() => {
-                cy.visit(`/projects/${project.projectId}/overview`);
-            });
-    });
-
     describe("Change project status", () => {
 
         it("Change status for central route project", () => {
 
-            Logger.log("Verify relevant project statuses shown for central route project");
+            cy.login();
+
+            now = new Date();
+    
+            project = RequestBuilder.createProjectDetailsCentralRoute();
+    
+            projectApi
+                .post({
+                    projects: [project],
+                })
+                .then(() => {
+                    cy.visit(`/projects/${project.projectId}/overview`);
+                });
 
             projectOverviewPage
                  .clickChangeProjectStatus();
 
-                 projectStatusPage
-                 .clickApplicationCompetitionStage()
+            projectStatusPage
+                 .selectApplicationCompetitionStage()
                  .clickSaveAndContine()
 
             projectOverviewPage
-                .hasProjectStatus("Application competition stage");
+                .hasProjectStatus("Application competition stage")
+                .clickChangeProjectStatus();
 
+            projectStatusPage
+                .selectApplicationStage()
+                .clickSaveAndContine();
 
-            // projectStatusPage
-            //     .withdrawnIsChecked()
-            //     .withdrawnYearHasValue("1", "1", "2047")
-            //     .selectWithdrawnInApplication()
-            //     .clickSaveAndContine()
-            //     .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
-            //     .addWithdrawnInApplicationYear("1", "1", "error")
-            //     .clickSaveAndContine()
-            //     .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
-            //     .addWithdrawnInApplicationYear("1", "1", "1999")
-            //     .clickSaveAndContine()
-            //     .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
-            //     .clickSaveAndContine()
-            //     .addWithdrawnInApplicationYear("1", "1", "2051")
-            //     .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
-            //     .addWithdrawnInApplicationYear("1", "1", "2045")
-            //     .clickSaveAndContine();
+            projectOverviewPage
+                .hasProjectStatus("Application stage")
+                .clickChangeProjectStatus();
 
-            // Logger.log("user is sent back to projects overview page");
+            projectStatusPage
+                .selectOpenNotIncludedFigures()
+                .clickSaveAndContine();
 
-            // projectOverviewPage
-            //     .hasWithdrawnDate("1 January 2045");
+            projectOverviewPage
+                .hasProjectStatus("Open - not included in figures")
+                .clickChangeProjectStatus();
+
+            projectStatusPage
+                .selectPreOpeningNotIncludedFigures()
+                .clickSaveAndContine();
+
+            projectOverviewPage
+                .hasProjectStatus("Pre-opening - not included in figures")
+                .clickChangeProjectStatus();
+
+            projectStatusPage
+                .selectRejected()
+                .clickSaveAndContine();
+
+            projectOverviewPage
+                .hasProjectStatus("Rejected")
+                .clickChangeProjectStatus();
+
+            projectStatusPage
+                .selectWithdrawnInApplication()
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+                .addWithdrawnInApplicationYear("1", "1", "error")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Enter a date in the correct format")
+                .addWithdrawnInApplicationYear("1", "1", "1999")
+                .clickSaveAndContine()
+                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+                .clickSaveAndContine()
+                .addWithdrawnInApplicationYear("1", "1", "2051")
+                .errorForWithdrawnInApplicationDate("Year must be between 2000 and 2050")
+                .addWithdrawnInApplicationYear("1", "1", "2045")
+                .clickSaveAndContine();
+
+            Logger.log("user is sent back to projects overview page");
+
+            projectOverviewPage
+                .hasWithdrawnDate("1 January 2045");
         });
 
         it.skip("Change status for Presumption project", () => {
