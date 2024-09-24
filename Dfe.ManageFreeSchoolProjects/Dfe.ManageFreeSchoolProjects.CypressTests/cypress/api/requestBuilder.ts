@@ -28,6 +28,10 @@ export class RequestBuilder {
         return {...this.createNewProjectDetails(), applicationWave: "Other Wave"};
     }
 
+    public static createProjectDetailsCentralRoute(): ProjectDetailsRequest {
+        return {...this.createNewProjectDetails(), applicationWave: "Other Wave", projectType: "Central Route"};
+    }
+
     public static CreateProjectRiskRequest(): CreateProjectRiskRequest {
         const result: CreateProjectRiskRequest = {
             overall: {
