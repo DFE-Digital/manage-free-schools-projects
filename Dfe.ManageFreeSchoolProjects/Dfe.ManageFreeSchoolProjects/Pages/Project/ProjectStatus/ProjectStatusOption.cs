@@ -6,7 +6,6 @@ public class ProjectStatusOption
 {
     public string Id { get; set; }
     public API.Contracts.Project.ProjectStatus Value { get; set; }
-    public bool IsVisible { get; set; }  // Remains here as the third property
     public string Description { get; set; }
     public string Hint { get; set; }
     public bool IsConditional { get; set; }
@@ -20,19 +19,18 @@ public class ProjectStatusOption
     {
     }
 
-    public ProjectStatusOption(string id, API.Contracts.Project.ProjectStatus value, bool isVisible, string description, string hint, bool isConditional)
+    public ProjectStatusOption(string id, API.Contracts.Project.ProjectStatus value, string description, string hint, bool isConditional)
     {
         Id = id;
         Value = value;
-        IsVisible = isVisible;  
         Description = description;
         Hint = hint;
         IsConditional = isConditional;
     }
 
-    public ProjectStatusOption(string id, API.Contracts.Project.ProjectStatus value, bool isVisible, string description, string hint,
+    public ProjectStatusOption(string id, API.Contracts.Project.ProjectStatus value, string description, string hint,
         bool isConditional, string dateInputId, string dateInputName, string dateInputLabel,
-        string dateInputHint, DateTime? dateInputValueAspFor) : this(id, value, isVisible, description, hint, isConditional)
+        string dateInputHint, DateTime? dateInputValueAspFor) : this(id, value, description, hint, isConditional)
     {
         DateInputId = dateInputId;
         DateInputName = dateInputName;
