@@ -1,7 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.Data;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
     {
         public string ProjectId { get; set; }
         public string TestData { get; set; }
-        public string TestDataTwo { get; set; }
+        public string OtherTestData { get; set; }
+        public string DependantTestData { get; set; }
+        public string DataForValidation { get; set; }
 
         public string Identifier => ProjectId;
     }
@@ -32,7 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         internal const string HeaderOneName = "TestHeader";
         internal const string HeaderTwoName = "TestHeaderTwo";
         internal const string ProjectId = "ProjectId";
-
+        internal const string HeaderData = "DependantTestData";
 
         public string IdentifingHeader => ProjectId;
 
@@ -42,17 +43,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             {
                 new() { Name = ProjectId, Type = new TestProjectIdValidation(), GetFromDto = (x => x.ProjectId) },
                 new() { Name = HeaderOneName, Type = new TestValidation(), GetFromDto = (x => x.TestData) },
-                new() { Name = HeaderTwoName, Type = new TestValidation(), GetFromDto = (x => x.TestDataTwo) },
+                new() { Name = HeaderTwoName, Type = new TestValidation(), GetFromDto = (x => x.OtherTestData) },
+                new() { Name = HeaderData, Type = new DataDependencyValidation(), GetFromDto = (x => x.DependantTestData)}
             };
         }
     }
 
-    internal class TestProjectIdValidation : IValidationCommand
+    internal class TestProjectIdValidation : IValidationCommand<TestDto> 
     {
         internal const string ValidationMessage = "TriggeredValidation";
         internal const string ValidInput = "Valid";
 
-        public ValidationResult Execute(string value)
+        public ValidationResult Execute(TestDto data, string value)
         {
             return new ValidationResult()
             {
@@ -61,12 +63,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         }
     }
 
-    internal class TestValidation : IValidationCommand
+    internal class TestValidation : IValidationCommand<TestDto>
     {
         internal const string ValidationMessage = "TriggeredValidation";
         internal const string ValidInput = "Valid";
 
-        public ValidationResult Execute(string value)
+        public ValidationResult Execute(TestDto data, string value)
         {
             return new ValidationResult()
             {
@@ -74,14 +76,31 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                 errorMessage = value == ValidInput ? null : ValidationMessage
             };
         }
-    }   
+    }
+
+
+    internal class DataDependencyValidation : IValidationCommand<TestDto>
+    {
+        internal const string DataValidationMessage = "Triggered data validation";
+
+        public ValidationResult Execute(TestDto data, string value)
+        {
+            return new ValidationResult()
+            {
+                IsValid = data.DataForValidation == value,
+                errorMessage = data.DataForValidation == value ? null : DataValidationMessage
+            };
+        }
+    }
 
     public class BulkEditProcessTest
     {
         private const string HeaderOneName = TestHeaderRegister.HeaderOneName;
         private const string HeaderTwoName = TestHeaderRegister.HeaderTwoName;
+        private const string DataHeader = TestHeaderRegister.HeaderData;
         private const string ProjectId = TestHeaderRegister.ProjectId;
         private const string ValidationMessage = TestValidation.ValidationMessage;
+        private const string DataValidationMessage = DataDependencyValidation.DataValidationMessage;
         private const string ValidInput = TestValidation.ValidInput;
         private const string InvalidInput = "Invalid";
         private const string Existing = "Existing";
@@ -228,7 +247,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                     {
                         ProjectId = "1",
                         TestData = Existing,
-                        TestDataTwo = MoreExisting,
+                        OtherTestData = MoreExisting,
                     }
                 },
                 {
@@ -236,7 +255,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                     {
                         ProjectId = "2",
                         TestData = Existing,
-                        TestDataTwo = MoreExisting,
+                        OtherTestData = MoreExisting,
                     }
                 },
                 {
@@ -244,7 +263,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                     {
                         ProjectId = "3",
                         TestData = Existing,
-                        TestDataTwo = MoreExisting,
+                        OtherTestData = MoreExisting,
 
                     }
                 }
@@ -325,6 +344,70 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             AssertInvalidCell(response.InvalidRows, 6, 0, ValidationMessage);
         }
 
+        [Fact]
+        public async Task ValidationOfFileUsingData()
+        {
+            var file = new BulkEditValidateRequest()
+            {
+                Headers = new()
+                {
+                    new HeaderInfo() { Index = 0, Name = ProjectId },
+                    new HeaderInfo() { Index = 1, Name = DataHeader },
+                },
+                Rows = new()
+                {
+                    new RowInfo()
+                    {
+                        FileRowIndex = 1,
+                        Columns = new()
+                        {
+                            new ColumnInfo() { ColumnIndex = 0, Value = "1" },
+                            new ColumnInfo() { ColumnIndex = 1, Value = ValidInput },
+                        }
+                    },
+                    new RowInfo()
+                    {
+                        FileRowIndex = 2,
+                        Columns = new()
+                        {
+                            new ColumnInfo() { ColumnIndex = 0, Value = "2" },
+                            new ColumnInfo() { ColumnIndex = 1, Value = ValidInput },
+                        }
+                    },
+                }
+            };
+
+
+            Dictionary<string, TestDto> data = new()
+            {
+                {
+                    "1", new TestDto()
+                    {
+                        ProjectId = "1",
+                        DependantTestData = Existing,
+                        DataForValidation = ValidInput,
+                    }
+                },
+                {
+                    "2", new TestDto()
+                    {
+                        ProjectId = "2",
+                        DependantTestData = MoreExisting,
+                        DataForValidation = InvalidInput,
+                    }
+                },
+            };
+
+            var response = await RunTest(file, data);
+            response.ValidRows.Count.Should().Be(1);
+            AssertValidCell(response.ValidRows, 1, 1, Existing, ValidInput);
+
+            response.InvalidRows.Count.Should().Be(1);
+            AssertInvalidCell(response.InvalidRows, 2, 1, DataValidationMessage);
+
+        }
+
+
         private void AssertValidCell(List<ValidRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue)
         {
             var row = validrows.FirstOrDefault(x => x.FileRowIndex == rowIndex);
@@ -352,7 +435,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 
             using (var context = new MfspContext(GetContextOptions(), null))
             {
-                var process = new BulkEditProcess<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data), context);
+                var process = new BulkEditValidation<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data), context);
 
                 return await process.Execute(file);
             }

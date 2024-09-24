@@ -1,22 +1,7 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public record HeaderType<T>
-    {
-            public string Name { get; set; }
 
-            public IValidationCommand Type { get; set; }
-
-            public Func<T, string> GetFromDto { get; set; }
-    }
-
-    public record BulkEditDto: IBulkEditDto
-    {
-        public string ProjectId { get; set; }
-        public string SchoolName { get; set; }
-        public string Identifier { get => ProjectId; }
-    }
-
-    public class HeaderRegister : IHeaderRegister<BulkEditDto>
+    public class BulkEditHeaderRegister : IHeaderRegister<BulkEditDto>
     {
         public string IdentifingHeader => "ProjectId";
         public List<HeaderType<BulkEditDto>> GetHeaders()

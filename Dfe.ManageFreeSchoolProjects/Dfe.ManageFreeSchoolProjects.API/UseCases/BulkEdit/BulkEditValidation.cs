@@ -1,34 +1,9 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public interface IBulkEditDto
-    {
-        string Identifier { get; }
-    }
-
-    public interface IBulkEditDataRetrieval<TDto> where TDto : IBulkEditDto
-    {
-        Task<Dictionary<string, TDto>> Retrieve(List<string> projectIds);
-    }
-
-    public class BulkEditDataRetrieval(MfspContext context) : IBulkEditDataRetrieval<BulkEditDto>
-    {
-        public async Task<Dictionary<string, BulkEditDto>> Retrieve(List<string> projectIds)
-        {
-            return await context.Kpi.Where(x => projectIds.Contains(x.ProjectStatusProjectId))
-                .Select(x => new BulkEditDto
-                {
-                    ProjectId = x.ProjectStatusProjectId,
-                    SchoolName = x.ProjectStatusCurrentFreeSchoolName
-                })
-                .ToDictionaryAsync(k => k.ProjectId);
-        }
-    }
-
-    public class BulkEditProcess<TDto>(IHeaderRegister<TDto> headerRegister, IBulkEditDataRetrieval<TDto> dataRetrieval, MfspContext context) where TDto: IBulkEditDto
+    public class BulkEditValidation<TDto>(IHeaderRegister<TDto> headerRegister, IBulkEditDataRetrieval<TDto> dataRetrieval, MfspContext context) where TDto: IBulkEditDto
     {   
         public async Task<BulkEditValidateResponse> Execute(BulkEditValidateRequest request)
         {
@@ -54,11 +29,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             foreach (var row in request.Rows)
             {
                 var validRow = true;
+                var currentRow = projects[row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value];
 
                 foreach (var column in row.Columns)
                 {
                     var header = headerMap[column.ColumnIndex];
-                    var validationResult = header.Type.Execute(column.Value);
+                    var validationResult = header.Type.Execute(currentRow, column.Value);
                     if (!validationResult.IsValid)
                     {
                         validRow = false;
@@ -102,9 +78,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     {
                         response.ValidRows = new List<ValidRowInfo>();
                     }
-
-                    //TODO - need to get project id from variable column index
-                    var currentRow = projects[row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value];
 
                     response.ValidRows.Add(new ValidRowInfo()
                     {

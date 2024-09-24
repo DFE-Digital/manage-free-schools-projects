@@ -1,8 +1,8 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public class TextValidationCommand(int maxLength) : IValidationCommand
+    public class TextValidationCommand(int maxLength) : IValidationCommand<BulkEditDto>
     {
-        public ValidationResult Execute(string value)
+        public ValidationResult Execute(BulkEditDto data, string value)
         {
             return new ValidationResult
             {

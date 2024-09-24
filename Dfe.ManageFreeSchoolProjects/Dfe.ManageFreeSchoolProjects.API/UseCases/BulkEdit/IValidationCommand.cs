@@ -1,8 +1,8 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public interface IValidationCommand
+    public interface IValidationCommand<TDto> where TDto : IBulkEditDto
     {
-        ValidationResult Execute(string value);
+        ValidationResult Execute(TDto data, string value);
     }
 
     public record ValidationResult()
