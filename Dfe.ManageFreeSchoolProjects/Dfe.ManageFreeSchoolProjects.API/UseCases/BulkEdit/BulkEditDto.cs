@@ -2,9 +2,10 @@
 {
     public record BulkEditDto: IBulkEditDto
     {
+        public string Identifier { get => ProjectId; }
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
-        public string Identifier { get => ProjectId; }
+        public string LocalAuthority { get; set; }
     }
 
 }

@@ -1,29 +1,34 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/bulkedit")]
     [ApiController]
-    public class BulkEditController(Logger<BulkEditController> logger) : ControllerBase
+    public class BulkEditController(ILogger<BulkEditController> logger, IBulkEditValidation bulkEditValidation) : ControllerBase
     {
 
         [HttpPost]
         [Route("validate")]
         public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> validate(BulkEditValidateRequest request)
         {
-            //            Are all headers in the possible list of headers
-            //Has project id been provided
-            //Are all values in rows valid for the header they are under
-            //Does the project Id match a project in the system
-            
-            //* Is the data type valid
-            //* Are there range validations
-            //* Is this a required field
-            //* Are there any special validation rules i.e.must be above another field
-            return null;
+            logger.LogMethodEntered();
+
+            if (request == null)
+            {
+                return BadRequest("Request body is required.");
+            }
+
+            var response = await bulkEditValidation.Execute(request);
+
+            return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response))
+            { StatusCode = StatusCodes.Status200OK };
         }
     }
 }

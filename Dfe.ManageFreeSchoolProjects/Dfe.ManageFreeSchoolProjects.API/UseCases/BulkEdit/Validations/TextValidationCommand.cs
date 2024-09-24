@@ -1,4 +1,4 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
+﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public class TextValidationCommand(int maxLength) : IValidationCommand<BulkEditDto>
     {

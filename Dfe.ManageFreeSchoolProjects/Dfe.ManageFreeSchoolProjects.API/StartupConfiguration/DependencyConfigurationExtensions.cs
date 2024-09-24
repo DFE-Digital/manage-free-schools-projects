@@ -56,6 +56,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -147,7 +148,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
             services.AddScoped<IGetTaskService, GetROMService>();
             services.AddScoped<IUpdateTaskService, UpdateROMService>();
-            
+			services.AddScoped<IBulkEditValidation, BulkEditValidation<BulkEditDto>>();
+            services.AddScoped<IHeaderRegister<BulkEditDto>, BulkEditHeaderRegister>();
+            services.AddScoped<IBulkEditDataRetrieval<BulkEditDto>, BulkEditDataRetrieval>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

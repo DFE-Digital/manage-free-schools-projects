@@ -3,20 +3,22 @@ using Dfe.ManageFreeSchoolProjects.Data;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public class BulkEditValidation<TDto>(IHeaderRegister<TDto> headerRegister, IBulkEditDataRetrieval<TDto> dataRetrieval, MfspContext context) where TDto: IBulkEditDto
-    {   
+    public class BulkEditValidation<TDto>(IHeaderRegister<TDto> headerRegister, IBulkEditDataRetrieval<TDto> dataRetrieval) : IBulkEditValidation where TDto : IBulkEditDto
+    {
         public async Task<BulkEditValidateResponse> Execute(BulkEditValidateRequest request)
         {
             var headers = headerRegister.GetHeaders();
 
             var response = new BulkEditValidateResponse();
 
+            response.Headers = request.Headers;
+
             var IdColumnIndex = request.Headers.FirstOrDefault(x => x.Name == headerRegister.IdentifingHeader).Index;
 
             // Validate headers
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
             var projects = await dataRetrieval.Retrieve(projectIds);
-            
+
 
             //Validate row by row
             var headerMap = new Dictionary<int, HeaderType<TDto>>();
@@ -72,7 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     }
                 }
 
-                if(validRow)
+                if (validRow)
                 {
                     if (response.ValidRows == null)
                     {
