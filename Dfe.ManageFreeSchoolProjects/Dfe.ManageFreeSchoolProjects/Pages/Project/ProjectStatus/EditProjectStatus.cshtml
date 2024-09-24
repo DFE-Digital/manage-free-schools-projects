@@ -66,7 +66,7 @@
                 <govuk-radios-list>
                     @{
                         var options = isPresumptionProject ? projectStatusOptions.Where(x => presumptionStatuses.Contains(x.Value)) : projectStatusOptions;
-                        
+
                         foreach (var option in options.OrderBy(x => Enum.GetName(typeof(ProjectStatus), x.Value)))
                         {
                             if (option.IsConditional)
