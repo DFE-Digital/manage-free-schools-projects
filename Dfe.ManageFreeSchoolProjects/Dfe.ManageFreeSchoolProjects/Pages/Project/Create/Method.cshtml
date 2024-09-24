@@ -3,22 +3,51 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.MethodModel
 @{
     ViewData["Title"] = "Create new free school projects";
-    var labels = new[] { "Create one project", "Upload multiple projects" };
-    var values = new[] { ProjectCreateMethod.Individual.ToString(), ProjectCreateMethod.Bulk.ToString() };
-    var hints = new[] {
+    var labels = new[] { "Create one project", "Create a central route project", "Upload multiple projects" };
+    var values = new[] { ProjectCreateMethod.Individual.ToString(), ProjectCreateMethod.CentralRoute.ToString(), ProjectCreateMethod.Bulk.ToString() };
+    var hints = new[]
+    {
         "Presumption route only",
+        "Central route only",
         "Wave route only"
     };
 }
+
 @section BeforeMain {
     <div class="govuk-width-container">
         <a href="/" class="govuk-back-link">Back</a>
     </div>
 }
+
 <div class="govuk-grid-row">
-    <partial name="_ErrorSummary" />
+    <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="govuk-form-group" method="post">
+
+            <govuk-radios-list>
+                <govuk-radios-list-item id="create-presumption-route-project-method"
+                                        name="create-presumption-route-project-method"
+                                        value="@ProjectCreateMethod.Individual.ToString()"
+                                        description="Create a presumption project"
+                                        hint="Presumption route only"
+                                        asp-for="@Model.Method"/>
+
+
+                <govuk-radios-list-conditional-item id="create-central-route-project-method"
+                                                    name="create-central-route-project-method"
+                                                    value="@ProjectCreateMethod.CentralRoute.ToString()"
+                                                    description="Create a central route project"
+                                                    hint="Cenral route only"
+                                                    asp-for="@Model.Method">
+
+                    <govuk-text-input id="project-id" name="project-id" asp-for="@Model.ProjectID" data-testid="project-id-input" label="Project ID" />
+                    
+                    
+                </govuk-radios-list-conditional-item>
+
+
+            </govuk-radios-list>
+
 
             <govuk-radios-input id="method"
                                 name="method"
@@ -26,7 +55,7 @@
                                 labels="@labels"
                                 values="@values"
                                 hints="@hints"
-                                label="What do you want to do?" 
+                                label="What do you want to do?"
                                 xl-heading-label="true"/>
             <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue

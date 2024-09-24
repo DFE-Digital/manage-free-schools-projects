@@ -3,6 +3,7 @@
     public enum ProjectCreateMethod
     {
         Individual = 1,
-        Bulk = 2
+        Bulk = 2,
+        CentralRoute = 3
     }
 }
