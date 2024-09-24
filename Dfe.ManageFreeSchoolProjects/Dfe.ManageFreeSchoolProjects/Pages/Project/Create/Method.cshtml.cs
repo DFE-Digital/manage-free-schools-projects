@@ -16,6 +16,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
 
+
+        public string CentralRouteApplicationWave { get; set; }
+
         private readonly ErrorService _errorService;
         private readonly ICreateProjectCache _createProjectCache;
 

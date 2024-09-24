@@ -26,7 +26,7 @@
 
             <govuk-radios-list>
                 <govuk-radios-list-item id="create-presumption-route-project-method"
-                                        name="create-presumption-route-project-method"
+                                        name="method"
                                         value="@ProjectCreateMethod.Individual.ToString()"
                                         description="Create a presumption project"
                                         hint="Presumption route only"
@@ -34,14 +34,17 @@
 
 
                 <govuk-radios-list-conditional-item id="create-central-route-project-method"
-                                                    name="create-central-route-project-method"
+                                                    name="method"
                                                     value="@ProjectCreateMethod.CentralRoute.ToString()"
                                                     description="Create a central route project"
                                                     hint="Cenral route only"
                                                     asp-for="@Model.Method">
 
-                    <govuk-text-input id="project-id" name="project-id" asp-for="@Model.ProjectID" data-testid="project-id-input" label="Project ID" />
-                    
+                    <govuk-text-input id="central-route-application-wave"
+                                      name="central-route-application-wave"
+                                      asp-for="@Model.CentralRouteApplicationWave"
+                                      label="Application wave"
+                                      hint="For example, &quot;FS Wave 4&quot; or &quot;FS Wave 12&quot;" />
                     
                 </govuk-radios-list-conditional-item>
 
