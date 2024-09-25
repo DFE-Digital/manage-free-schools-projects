@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 {
-
     internal record TestDto: IBulkEditDto
     {
         public string ProjectId { get; set; }
@@ -93,7 +92,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         }
     }
 
-    public class BulkEditProcessTest
+    public class BulkEditValidationTest
     {
         private const string HeaderOneName = TestHeaderRegister.HeaderOneName;
         private const string HeaderTwoName = TestHeaderRegister.HeaderTwoName;
@@ -377,7 +376,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                 }
             };
 
-
             Dictionary<string, TestDto> data = new()
             {
                 {
@@ -431,36 +429,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 
         private async Task<BulkEditValidateResponse> RunTest(BulkEditValidateRequest file, Dictionary<string, TestDto> data)
         {
-            //SetupTestContext();
-
             using (var context = new MfspContext(GetContextOptions(), null))
             {
-                var process = new BulkEditValidation<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data), context);
+                var process = new BulkEditValidation<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data));
 
                 return await process.Execute(file);
             }
         }
-
-
-        //private void SetupTestContext()
-        //{
-        //    using (var context = new MfspContext(GetContextOptions(), null))
-        //    {
-        //        context.Kpi.Add(new Kpi() { 
-        //            Rid = "a", 
-        //            ProjectStatusProjectStatus = "1",
-        //            ProjectStatusCurrentFreeSchoolName = Existing,
-        //            AprilIndicator = "",
-        //            FsType = "",
-        //            FsType1 = "",
-        //            MatUnitProjects = "",
-        //            SponsorUnitProjects = "",
-        //            UpperStatus = "",
-        //            Wave = ""
-        //        });
-        //        context.SaveChanges();
-        //    }
-        //}
 
         private static DbContextOptions<MfspContext> GetContextOptions()
         {

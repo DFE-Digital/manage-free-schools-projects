@@ -1,5 +1,4 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
-using Dfe.ManageFreeSchoolProjects.Data;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -18,7 +17,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             // Validate headers
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
             var projects = await dataRetrieval.Retrieve(projectIds);
-
 
             //Validate row by row
             var headerMap = new Dictionary<int, HeaderType<TDto>>();
