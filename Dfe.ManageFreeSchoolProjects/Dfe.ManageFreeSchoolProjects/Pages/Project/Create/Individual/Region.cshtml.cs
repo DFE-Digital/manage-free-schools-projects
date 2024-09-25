@@ -35,10 +35,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
 
             if (project.Region != 0)
-                Region = _createProjectCache.Get().Region.ToString();
+                Region = CreateProjectCache.Get().Region.ToString();
 
             BackLink = GetPreviousPage(CreateProjectPageName.Region); 
             return Page();
@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.Region);
 
             if (!ModelState.IsValid)
@@ -64,7 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 project.PreviousRegion = (ProjectRegion)Enum.Parse(typeof(ProjectRegion), Region);
             }
 
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect("/project/create/localauthority");
         }

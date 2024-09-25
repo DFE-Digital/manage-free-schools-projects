@@ -35,7 +35,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         }
 
         
-        var project = _createProjectCache.Get();
+        var project = CreateProjectCache.Get();
 
         FaithType = project.FaithType;
         OtherFaithType = project.OtherFaithType;
@@ -47,7 +47,7 @@ public class FaithTypeModel : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
-        var project = _createProjectCache.Get();
+        var project = CreateProjectCache.Get();
         BackLink = GetPreviousPage(CreateProjectPageName.FaithType);
 
         if (!ModelState.IsValid)
@@ -72,7 +72,7 @@ public class FaithTypeModel : CreateProjectBaseModel
         project.FaithType = FaithType;
         project.OtherFaithType = OtherFaithType;
 
-        _createProjectCache.Update(project);
+        CreateProjectCache.Update(project);
 
         return Redirect(GetNextPage(CreateProjectPageName.FaithType));
     }

@@ -36,7 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             ProjectId = project.ProjectId;
             
             BackLink = GetPreviousPage(CreateProjectPageName.ProjectId);
@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         
         public async Task<IActionResult> OnPostAsync()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.ProjectId);
 
             if (!ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             project.ProjectId = ProjectId;
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.ProjectId));
         }

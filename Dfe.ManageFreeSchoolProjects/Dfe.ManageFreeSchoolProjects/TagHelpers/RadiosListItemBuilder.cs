@@ -19,7 +19,7 @@ internal static class RadiosListItemBuilder
 
     public static string BuildRadioInput(string id, string value, ModelExpression aspfor, string name = null, string conditionallink = null)
     {
-        var radioChecked = value == aspfor.Model.ToString() ? "checked=\"checked\"" : "";
+        var radioChecked = value == aspfor.Model?.ToString() ? "checked=\"checked\"" : "";
         var conditional = conditionallink != null ? $@"data-aria-controls=""{conditionallink}""" : "";
         var nameAttributeAndValue = !string.IsNullOrEmpty(name) ? $@"name=""{name}""" : ""; 
         

@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             ProvisionalOpeningDate = project.ProvisionalOpeningDate;
             BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate);
 
@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.ProvisionalOpeningDate);
 
             if (!ModelState.IsValid)
@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             project.ProvisionalOpeningDate = ProvisionalOpeningDate;
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.ProvisionalOpeningDate));
         }

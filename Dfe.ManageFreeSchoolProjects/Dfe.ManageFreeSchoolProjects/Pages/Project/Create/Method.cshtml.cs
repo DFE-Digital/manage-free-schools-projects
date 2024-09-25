@@ -9,24 +9,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class MethodModel : PageModel
+    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache) : PageModel
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
         [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
-
-
+        
         public string CentralRouteApplicationWave { get; set; }
-
-        private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
-
-        public MethodModel(ErrorService errorService,ICreateProjectCache createProjectCache)
-        {
-            _createProjectCache = createProjectCache;
-            _errorService = errorService;
-        }
 
         public IActionResult OnGet()
         {
@@ -42,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             if (!ModelState.IsValid)
             {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
+                errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
@@ -50,11 +40,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             switch (chosenMethod)
             {
-                case ProjectCreateMethod.Individual:
-                    _createProjectCache.Delete();
+                case ProjectCreateMethod.PresumptionRoute:
+                    createProjectCache.Delete();
+                    //TODO: implement presumption route journey
                     return Redirect(RouteConstants.CreateProjectId);
-                case ProjectCreateMethod.Bulk:
-                    return Redirect("/project/create/bulk");
+                case ProjectCreateMethod.CentralRoute:
+                    return Redirect(RouteConstants.CreateCentralRouteApplicationNumber);
                 default:
                     throw new InvalidOperationException($"Unrecognised method {Method}");
             }

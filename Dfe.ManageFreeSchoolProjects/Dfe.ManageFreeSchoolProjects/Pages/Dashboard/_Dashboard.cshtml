@@ -28,15 +28,26 @@
 
     var noResults = (Model.Projects == null || Model.Projects.Count == 0);
     var noFilteredResults = (isFilterActive && Model.Projects.Count == 0);
-    var projectIds= String.Join(",", Model.TotalProjectIds);
+    var projectIds= string.Join(",", Model.TotalProjectIds);
 }
 
 @if (Model.UserCanCreateProject)
 {
-    <p class="govuk-body govuk-!-margin-top-3">You can add new projects by using the button below.</p>
-    <a href=@createProjectLink role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-6" data-module="govuk-button">
-        Create new projects
-    </a>
+    <div class="dfe-grid-container">
+        <div class="dfe-card">
+            <div class="dfe-card-container">
+                <h3 class="govuk-heading-m">
+                    <a href="@createProjectLink" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">Create a project</a>
+                </h3>
+                <p>Add a presumption or central route project.</p>
+            </div>
+        </div>
+    </div>
+    
+    @* <p class="govuk-body govuk-!-margin-top-3">You can add new projects by using the button below.</p> *@
+    @* <a href=@createProjectLink role="button" draggable="false" class="govuk-button govuk-!-margin-bottom-6" data-module="govuk-button"> *@
+    @*     Create new projects *@
+    @* </a> *@
 }
 
 <details class="govuk-details mfsp-project-listing__filters-container" data-module="govuk-details" @openFilter>

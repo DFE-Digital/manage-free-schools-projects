@@ -2,8 +2,7 @@
 {
     public enum ProjectCreateMethod
     {
-        Individual = 1,
-        Bulk = 2,
-        CentralRoute = 3
+        PresumptionRoute = 1,
+        CentralRoute = 2
     }
 }

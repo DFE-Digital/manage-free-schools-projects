@@ -47,7 +47,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return new UnauthorizedResult();
             }
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             Nursery = project.Nursery;
             SixthForm = project.SixthForm;
             AlternativeProvision = project.AlternativeProvision;
@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             if (project.ReachedCheckYourAnswers && !(project.PreviousSchoolType.Equals(SchoolType.NotSet)))
             {
                 project.SchoolType = project.PreviousSchoolType;
@@ -103,7 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             project.SpecialEducationNeeds = SpecialEducationNeeds;
             project.ResidentialOrBoarding = ResidentialOrBoarding;
 
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.ClassType));
         }

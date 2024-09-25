@@ -5,23 +5,17 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class CreateProjectBaseModel : PageModel
+    public class CreateProjectBaseModel(ICreateProjectCache createProjectCache) : PageModel
     {
         protected internal string BackLink { get; set; }
-        protected readonly ICreateProjectCache _createProjectCache;
-
-        public CreateProjectBaseModel(ICreateProjectCache createProjectCache)
-        {
-            _createProjectCache = createProjectCache;
-        }
+        protected readonly ICreateProjectCache CreateProjectCache = createProjectCache;
 
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
         }
 
-        public string GetPreviousPage(CreateProjectPageName currentPageName,
-            string routeParameter = "")
+        public string GetPreviousPage(CreateProjectPageName currentPageName, string routeParameter = "")
         {
             return currentPageName switch
             {
@@ -35,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         }
 		private string PreviousProvisionalOpeningDate()
 		{
-			var cache = _createProjectCache.Get();
+			var cache = CreateProjectCache.Get();
 
 			var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
 
@@ -48,7 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
 		private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
         {
-            var cache = _createProjectCache.Get();
+            var cache = CreateProjectCache.Get();
 
             if (cache.ReachedCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
@@ -86,7 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         private string NextFaithStatus()
         {
-            var cache = _createProjectCache.Get();
+            var cache = CreateProjectCache.Get();
 
             var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
 
@@ -99,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         private string DefaultNextRoute(CreateProjectPageName currentPageName)
         {
-            var cache = _createProjectCache.Get();
+            var cache = CreateProjectCache.Get();
 
             if (cache.ReachedCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
