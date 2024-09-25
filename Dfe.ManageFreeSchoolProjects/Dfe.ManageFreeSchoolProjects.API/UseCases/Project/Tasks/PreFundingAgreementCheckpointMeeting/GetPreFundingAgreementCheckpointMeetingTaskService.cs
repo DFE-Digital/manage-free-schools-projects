@@ -4,27 +4,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting
 {
-    internal class GetPreFundingAgreementCheckpointMeetingTaskService : IGetTaskService
+    public class GetPreFundingAgreementCheckpointMeetingTaskService(MfspContext context) : IGetTaskService
     {
-        private readonly MfspContext _context;
-
-        public GetPreFundingAgreementCheckpointMeetingTaskService(MfspContext context)
-        {
-            _context = context;
-
-        }
 
         public async Task<GetProjectByTaskResponse> Get(GetTaskServiceParameters parameters)
         {
-            var result = await(from kpi in parameters.BaseQuery
-                                join milestones in _context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
+            var result = await (from kpi in parameters.BaseQuery
+                                join milestones in context.Milestones on kpi.Rid equals milestones.Rid into joinedMilestones
                                 from milestones in joinedMilestones.DefaultIfEmpty()
-                                select new GetProjectByTaskResponse()
+                                select new GetProjectByTaskResponse
                                 {
-                                    PreFundingAgreementCheckpointMeeting = PreFundingAgreementCheckpointMeetingTaskBuilder.Build(milestones)
+                                    PreFundingAgreementCheckpointMeetingTask = PreFundingAgreementCheckpointMeetingTaskBuilder.Build(milestones)
                                 }).FirstOrDefaultAsync();
 
-            return result ?? new GetProjectByTaskResponse() { PreFundingAgreementCheckpointMeeting = new () };
+            var preFundingAgreementCheckpointMeeting = result.PreFundingAgreementCheckpointMeetingTask;
+
+            if (preFundingAgreementCheckpointMeeting.DateOfTheMeeting.HasValue && preFundingAgreementCheckpointMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NotSet)
+            {
+                preFundingAgreementCheckpointMeeting.TypeOfMeetingHeld = TypeOfMeetingHeld.FormalCheckpointMeeting;
+            }
+
+            return result;
         }
-}
+    }
 }

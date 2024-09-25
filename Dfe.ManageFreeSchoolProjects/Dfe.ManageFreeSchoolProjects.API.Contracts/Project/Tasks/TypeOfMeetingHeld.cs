@@ -6,9 +6,13 @@ public enum TypeOfMeetingHeld
 {
     NotSet,
     [Description("Formal meeting")]
-    FormalMeeting, 
+    FormalMeeting,
+    [Description("Formal checkpoint meeting")]
+    FormalCheckpointMeeting,
     [Description("Informal meeting")]
-    InformalMeeting, 
+    InformalMeeting,
+    [Description("Internal review / case conference")]
+    InternalReviewMeeting,
     [Description("No meeting held")]
-    NoRomHeld,
+    NoMeetingHeld,
 }

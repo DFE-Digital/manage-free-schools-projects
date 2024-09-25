@@ -7,15 +7,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgre
     {
         public static PreFundingAgreementCheckpointMeetingTask Build(Milestones milestones)
         {
-            return new PreFundingAgreementCheckpointMeetingTask()
+            if (milestones == null)
+                return new PreFundingAgreementCheckpointMeetingTask();
+
+            return new PreFundingAgreementCheckpointMeetingTask
             {
-                TypeOfMeetingHeld = null,
-                WhyAMeetingWasNotHeld = null,
-                DateOfTheMeeting = null,
-                CommissionedExternalExpert = null,
-                SavedMeetingNoteInWorkplacesFolder = null,
-                SentAnEmailToTheTrust = null
-            };
+                DateOfTheMeeting = milestones.FsgPreOpeningMilestonesPfacmActualDateOfCompletion,
+                TypeOfMeetingHeld = EnumParsers.ParseTypeOfMeetingHeld(milestones.PFACMTypeOfMeetingHeld),
+                WhyMeetingWasNotHeld = milestones.PFACMWhyAMeetingWasNotHeld,
+                CommissionedExternalExpert = milestones.PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable,
+                SavedMeetingNoteInWorkplacesFolder = milestones.PFACMSavedMeetingNoteInWorkplacesFolder,
+                SentAnEmailToTheTrust = milestones.PFACMSentAnEmailToTheTrust
+            }; 
         }
     }
 }

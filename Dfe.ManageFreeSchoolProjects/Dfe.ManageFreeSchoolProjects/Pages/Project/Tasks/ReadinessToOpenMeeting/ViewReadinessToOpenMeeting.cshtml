@@ -29,7 +29,7 @@
         <govuk-summary-list>
             <govuk-summary-item label="Type of meeting held" asp-for="@typeOfMeetingHeld" href="@editLink"/>
             @{
-                if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoRomHeld)
+                if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoMeetingHeld)
                 {
                     <govuk-summary-item label="Why a meeting was not held" asp-for="@readinessToOpenMeeting.WhyMeetingWasNotHeld" href="@editLink"/>
                 }

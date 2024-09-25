@@ -64,7 +64,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 
         public PDGGrantTask PDGGrantTask { get; set; }
 
-        public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeeting { get; set; }
+        public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeetingTask { get; set; }
         
         public ReadinessToOpenMeetingTask ReadinessToOpenMeetingTask { get; set; }
         
@@ -142,7 +142,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
                     return TaskName.DueDiligenceChecks.ToString();
                 if (PDGGrantTask != null)
                     return TaskName.PDG.ToString();
-                if (PreFundingAgreementCheckpointMeeting != null)
+                if (PreFundingAgreementCheckpointMeetingTask != null)
                     return TaskName.PreFundingAgreementCheckpointMeeting.ToString();
                 if (ReadinessToOpenMeetingTask != null)
                     return TaskName.ReadinessToOpenMeeting.ToString();

@@ -607,5 +607,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 ROMWhyAMeetingWasNotHeld = whyMeetingWasNotHeld,
             };
         }
+
+        public static Milestones PreFundingAgreementCheckpointMeetingTask(string projectRid, TypeOfMeetingHeld typeOfMeetingHeld, DateTime dateOfTheMeeting, string whyMeetingWasNotHeld)
+        {
+            return new Milestones
+            {
+                Rid = projectRid,
+                FsgPreOpeningMilestonesPfacmActualDateOfCompletion = dateOfTheMeeting,
+                PFACMTypeOfMeetingHeld = typeOfMeetingHeld.ToString(),
+                PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable = true,
+                PFACMSavedMeetingNoteInWorkplacesFolder = true,
+                PFACMSentAnEmailToTheTrust = true,
+                PFACMWhyAMeetingWasNotHeld = whyMeetingWasNotHeld,
+            };
+        }
     }
 }

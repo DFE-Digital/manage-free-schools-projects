@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgre
 
         public async Task Update(UpdateTaskServiceParameters parameters)
         {
-            var task = parameters.Request.PreFundingAgreementCheckpointMeeting;
+            var task = parameters.Request.PreFundingAgreementCheckpointMeetingTask;
             var dbKpi = parameters.Kpi;
 
             if (task is null)
@@ -31,7 +31,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgre
                 _context.Add(db);
             }
 
-            db.FsgPreOpeningMilestonesPfacmBaselineDate = null;
+            db.FsgPreOpeningMilestonesPfacmActualDateOfCompletion =
+                parameters.Request.PreFundingAgreementCheckpointMeetingTask.DateOfTheMeeting;
+
+            db.PFACMTypeOfMeetingHeld = parameters.Request.PreFundingAgreementCheckpointMeetingTask.TypeOfMeetingHeld.ToString();
+
+            db.PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable =
+                parameters.Request.PreFundingAgreementCheckpointMeetingTask.CommissionedExternalExpert;
+
+            db.PFACMSavedMeetingNoteInWorkplacesFolder = parameters.Request.PreFundingAgreementCheckpointMeetingTask
+                .SavedMeetingNoteInWorkplacesFolder;
+
+            db.PFACMSentAnEmailToTheTrust = parameters.Request.PreFundingAgreementCheckpointMeetingTask
+                .SentAnEmailToTheTrust;
+
+            db.PFACMWhyAMeetingWasNotHeld = parameters.Request.PreFundingAgreementCheckpointMeetingTask.WhyMeetingWasNotHeld;
         }
     }
 }

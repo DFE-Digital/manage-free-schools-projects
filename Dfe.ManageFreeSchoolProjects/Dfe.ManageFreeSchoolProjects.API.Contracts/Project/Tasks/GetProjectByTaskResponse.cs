@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         
         public DueDiligenceChecks DueDiligenceChecks { get; set; }
 
-        public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeeting { get; set; }
+        public PreFundingAgreementCheckpointMeetingTask PreFundingAgreementCheckpointMeetingTask { get; set; }
         public ReadinessToOpenMeetingTask ReadinessToOpenMeetingTask { get; set; }
     }
 }

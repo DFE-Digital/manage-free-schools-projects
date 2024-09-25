@@ -126,7 +126,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IUpdateTaskService, UpdateMovingToOpenTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePrincipleDesignateTaskService>();
             services.AddScoped<IUpdateTaskService, UpdateDueDiligenceChecksTaskService>();
-            services.AddScoped<IUpdateTaskService, UpdatePreFundingAgreementCheckpointMeetingTaskService>();
             services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
 			services.AddScoped<ISfaReportService, SfaReportService>();
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
@@ -149,7 +148,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
             services.AddScoped<IGetTaskService, GetROMService>();
             services.AddScoped<IUpdateTaskService, UpdateROMService>();
-            
+            services.AddScoped<IGetTaskService, GetPreFundingAgreementCheckpointMeetingTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdatePreFundingAgreementCheckpointMeetingTaskService>();
+
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 
             return services;

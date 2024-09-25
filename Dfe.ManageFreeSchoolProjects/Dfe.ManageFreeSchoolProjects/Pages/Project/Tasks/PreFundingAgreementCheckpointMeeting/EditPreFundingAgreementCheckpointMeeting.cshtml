@@ -1,11 +1,12 @@
 ﻿@page "/projects/{projectId}/tasks/pre-funding-agreement-checkpoint-meeting/edit"
-@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PreFundingAgreementCheckpointMeeting.EditPreFundingAgreementCheckpointMeetingModel
-@{
-    ViewData["Title"] = $"Edit Pre-funding agreement checkpoint meeting - {Model.SchoolName}";
 
+@{
     var backlink = string.Format(RouteConstants.ViewPreFundingAgreementCheckpointMeeting, Model.ProjectId);
+    ViewData["Title"] = $"Edit Pre-funding agreement checkpoint meeting - {Model.Project.SchoolName}";
 }
 
 @section BeforeMain {
@@ -14,28 +15,61 @@
     </div>
 }
 
-<partial name="_ErrorSummary"/>
-
-<h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Pre-funding agreement checkpoint meeting
-</h1>
+<partial name="_ErrorSummary" />
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl" data-testid="title">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.SchoolName</span>
+            Edit Pre-funding agreement checkpoint meeting
+        </h1>
+        <h3 class="govuk-heading-m">
+            Type of meeting held
+        </h3>
         <form method="post">
-            @if (Model.IsPresumptionRoute)
-            {
-                <govuk-checkbox-input id="funding-arrangement-agreed" name="funding-arrangement-agreed" label="Funding arrangement details agreed between local authority and trust" asp-for="@Model.FundingArrangementAgreed" add-margin="true" data-testid="funding-arrangement-agreed"/>
-            }
-            <govuk-textarea-input id="funding-arrangement-details-agreed" label="Comments" rows="5" bold-label="true" name="funding-arrangement-details-agreed" asp-for="@Model.FundingArrangementDetailsAgreed" add-margin="true" data-testid="funding-arrangement-details-agreed"/>
-            <govuk-year-start-end id="realistic-year-of-opening"  name="realistic-year-of-opening" bold-label="true" label="Realistic year of opening" asp-for="@Model.RealisticYearOfOpening" add-margin="true" data-testid="realistic-year-of-opening" hint="For example, 2021 2022"/>
-            <govuk-date-input id="provisional-opening-date" name="provisional-opening-date" bold-label="true" label="Provisional opening date agreed with trust" asp-for="@Model.ProvisionalOpeningDate" add-margin="true" data-testid="provisional-opening-date" hint="For example, 27 3 2021"/>
-            <govuk-checkbox-input id="saved-documents-in-workplaces-folder" name="saved-documents-in-workplaces-folder" bold-label="true" label="Saved documents in Workplaces folder" asp-for="@Model.SavedDocumentsInWorkplacesFolder" add-margin="true" data-testid="saved-documents-in-workplaces-folder" />
+            <div class="govuk-form-group" id="type-of-meeting-held">
+                <govuk-radios-list>
+                    <govuk-radios-list-conditional-item id="formal-checkpoint-meeting-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.FormalCheckpointMeeting" description="Formal checkpoint meeting" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-formal-meeting" name="date-of-the-formal-meeting" asp-for="@Model.DateOfTheFormalMeeting" label="Date of the meeting" hint="For example, 27 3 2021" />
+                    </govuk-radios-list-conditional-item>
+
+                    <govuk-radios-list-conditional-item id="internal-review-meeting-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.InternalReviewMeeting" description="Internal review / case conference" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-date-input id="date-of-the-internal-review-meeting" name="date-of-the-internal-review-meeting" asp-for="@Model.DateOfTheInternalReviewMeeting" label="Date of the meeting" hint="For example, 27 3 2021" />
+                    </govuk-radios-list-conditional-item>
+
+                    <govuk-radios-list-conditional-item id="no-meeting-held-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.NoMeetingHeld" description="No meeting held" asp-for="@Model.TypeOfMeetingHeld">
+                        <govuk-textarea-input id="why-meeting-not-held"
+                                              name="why-meeting-not-held"       
+                                              asp-for="@Model.WhyMeetingWasNotHeld"
+                                              test-id="why-meeting-not-held"
+                                              rows="10"
+                                              label="Why meeting was not held"
+                                              bold-label="true" />
+                    </govuk-radios-list-conditional-item>
+                </govuk-radios-list>
+            </div>
+            <br />
+
+            <govuk-checkbox-input label="Commissioned an external expert to attend any meetings (if applicable)"
+                                  asp-for="@Model.CommissionedExternalExpert"
+                                  name="commissioned-external-expert"
+                                  id="commissioned-external-expert" />
+
+            <govuk-checkbox-input label="Saved the meeting note in Workplaces folder"
+                                  asp-for="@Model.SavedMeetingNoteInWorkplacesFolder"
+                                  name="saved-meeting-note-in-workplaces-folder"
+                                  id="saved-meeting-note-in-workplaces-folder" />
+
+
+            <govuk-checkbox-input label="Sent an email to the trust highlighting any significant concerns and necessary actions (if applicable)"
+                                  asp-for="@Model.SentAnEmailToTheTrust"
+                                  name="sent-an-email=to-the-trust"
+                                  id="sent-an-email=to-the-trust" />
+
+
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>
         </form>
-
     </div>
 </div>

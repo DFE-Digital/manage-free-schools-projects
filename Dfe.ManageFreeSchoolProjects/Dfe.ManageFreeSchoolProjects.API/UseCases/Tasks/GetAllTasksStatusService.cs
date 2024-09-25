@@ -87,7 +87,7 @@ public class GetAllTasksStatusService : IGetTasksService
                 SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
             MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString()),
             DueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString()),
-            PreFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, "PreFundingAgreementCheckpointMeeting"),
+            PreFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.PreFundingAgreementCheckpointMeeting.ToString()),
             ReadinessToOpenMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString())
         };
 
