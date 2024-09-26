@@ -1,5 +1,4 @@
 class PreFundingAgreementCheckpointMeetingEditPage {
-    private errorTracking = "";
 
     selectFormalCheckpointMeeting(): this {
         cy.getById("formal-checkpoint-meeting-option").click()

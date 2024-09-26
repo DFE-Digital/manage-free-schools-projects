@@ -16,20 +16,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesig
 
 			if (milestones.FsgPreOpeningMilestonesAppointedPrincipalDesignate == null && milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion.HasValue)
 			{
-				principleDesignateTask.TrustAppointedPrincipleDesignate =
+				principleDesignateTask.TrustAppointedPrincipalDesignate =
 					true;
 			}
 
 			else
 			{
-				principleDesignateTask.TrustAppointedPrincipleDesignate =
+				principleDesignateTask.TrustAppointedPrincipalDesignate =
 					milestones.FsgPreOpeningMilestonesAppointedPrincipalDesignate;
 			}
 
-			principleDesignateTask.TrustAppointedPrincipleDesignateDate =
+			principleDesignateTask.ActualDatePrincipalDesignateAppointed =
 				milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion;
 			principleDesignateTask.CommissionedExternalExpertVisitToSchool =
 				milestones.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool;
+			principleDesignateTask.ExpectedDatePrincipalDesignateAppointed = milestones.FsgPreOpeningMilestonesPdappForecastDate;
 			
 			return principleDesignateTask;
 		}

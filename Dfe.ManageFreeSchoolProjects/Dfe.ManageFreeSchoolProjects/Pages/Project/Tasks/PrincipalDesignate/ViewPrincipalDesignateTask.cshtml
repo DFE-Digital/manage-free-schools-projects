@@ -7,7 +7,7 @@
 
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
     var editlink = string.Format(RouteConstants.EditPrincipalDesignateTask, Model.ProjectId);
-    var principleDesignate = Model.Project.PrincipalDesignate;
+    var principalDesignate = Model.Project.PrincipalDesignate;
 }
 @section BeforeMain {
     
@@ -25,16 +25,10 @@
             Principal designate
         </h1>
         <govuk-summary-list>
-           
-            <govuk-summary-item label="Trust has appointed a principal designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignate" href="@editlink"/>
-            
-            @if (@principleDesignate.TrustAppointedPrincipleDesignateDate.HasValue)
-            {
-                <govuk-summary-item label="Date that the trust appointed principal designate" asp-for="@principleDesignate.TrustAppointedPrincipleDesignateDate" href="@editlink" />
-            }
-            
-            <govuk-summary-item label="Commissioned an external expert" asp-for="@principleDesignate.CommissionedExternalExpertVisitToSchool" href="@editlink" />
-
+            <govuk-summary-item label="Commissioned an external expert" asp-for="@principalDesignate.CommissionedExternalExpertVisitToSchool" href="@editlink" />
+            <govuk-summary-item label="Expected date that principal designate will be appointed" asp-for="@principalDesignate.ExpectedDatePrincipalDesignateAppointed" href="@editlink" />
+            <govuk-summary-item label="Trust has appointed a principal designate" asp-for="@principalDesignate.TrustAppointedPrincipalDesignate" href="@editlink" />
+            <govuk-summary-item label="Actual date that principal designate was appointed" asp-for="@principalDesignate.ActualDatePrincipalDesignateAppointed" href="@editlink" />
         </govuk-summary-list>
         <form method="post">
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
