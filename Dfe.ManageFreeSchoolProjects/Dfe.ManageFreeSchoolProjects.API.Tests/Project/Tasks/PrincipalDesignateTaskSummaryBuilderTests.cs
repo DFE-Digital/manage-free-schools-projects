@@ -7,7 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project.Tasks;
 public class PrincipalDesignateTaskSummaryBuilderTests
 {
     [Theory]
-    [InlineData("FS - Presumption", true)]
+    [InlineData("FS - Presumption", false)]
     [InlineData("otherWaveType", false)]
     public void Build(string waveType, bool isHidden)
     {
