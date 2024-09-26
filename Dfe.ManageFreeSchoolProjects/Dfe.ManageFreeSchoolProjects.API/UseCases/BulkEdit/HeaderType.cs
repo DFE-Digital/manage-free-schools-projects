@@ -7,6 +7,8 @@
             public IValidationCommand<T> Type { get; set; }
 
             public Func<T, string> GetFromDto { get; set; }
+
+            public Func<string, T, T> SetToDto { get; set; }
     }
 
 }

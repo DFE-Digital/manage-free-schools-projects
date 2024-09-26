@@ -4,6 +4,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
     public interface IBulkEditValidation
     {
-        Task<BulkEditValidateResponse> Execute(BulkEditValidateRequest request);
+        Task<BulkEditValidateResponse> Execute(BulkEditRequest request);
     }
 }

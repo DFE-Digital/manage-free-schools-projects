@@ -8,23 +8,23 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
 {
     public interface IBulkEditFileReader
     {
-        BulkEditValidateRequest Read(DataTable table);
+        BulkEditRequest Read(DataTable table);
     }
 
     public class BulkEditFileReader : IBulkEditFileReader
     {
-        public BulkEditValidateRequest Read(DataTable table)
+        public BulkEditRequest Read(DataTable table)
         {
 
-            BulkEditValidateRequest projectTable = ReadProjectTable(table);
+            BulkEditRequest projectTable = ReadProjectTable(table);
 
             return projectTable;
         }
 
 
-        private static BulkEditValidateRequest ReadProjectTable(DataTable table)
+        private static BulkEditRequest ReadProjectTable(DataTable table)
         {
-            BulkEditValidateRequest request = new BulkEditValidateRequest();
+            BulkEditRequest request = new BulkEditRequest();
 
             request.Headers = new List<HeaderInfo>();
             request.Rows = new List<RowInfo>();

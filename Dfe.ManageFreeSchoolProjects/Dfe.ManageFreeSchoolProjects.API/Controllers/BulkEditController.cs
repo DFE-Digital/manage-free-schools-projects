@@ -11,12 +11,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/bulkedit")]
     [ApiController]
-    public class BulkEditController(ILogger<BulkEditController> logger, IBulkEditValidation bulkEditValidation) : ControllerBase
+    public class BulkEditController(ILogger<BulkEditController> logger, IBulkEditValidation bulkEditValidation, IBulkEditCommit bulkEditCommit) : ControllerBase
     {
 
         [HttpPost]
         [Route("validate")]
-        public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> validate(BulkEditValidateRequest request)
+        public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> validate(BulkEditRequest request)
         {
             logger.LogMethodEntered();
 
@@ -26,6 +26,25 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             }
 
             var response = await bulkEditValidation.Execute(request);
+
+            return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response))
+            { StatusCode = StatusCodes.Status200OK };
+        }
+
+        [HttpPost]
+        [Route("commit")]
+        public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> commit(BulkEditRequest request)
+        {
+            logger.LogMethodEntered();
+
+            if (request == null)
+            {
+                return BadRequest("Request body is required.");
+            }
+
+            var response = await bulkEditValidation.Execute(request);
+
+            await bulkEditCommit.Execute(request);
 
             return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response))
             { StatusCode = StatusCodes.Status200OK };

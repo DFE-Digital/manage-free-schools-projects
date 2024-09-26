@@ -11,12 +11,14 @@ using System;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.Services.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 {
     public class BulkEditFileUploadModel(
                     IBulkEditValidateService bulkEditValidateService,
                     IBulkEditFileReader bulkEditFileReader,
+                    IBulkEditCache bulkEditCache,
                     ILogger<BulkEditFileUploadModel> logger) : PageModel
     {
 
@@ -34,6 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
             {
                 return new UnauthorizedResult();
             }
+
+            bulkEditCache.Delete();
+
             return Page();
         }
 
@@ -66,8 +71,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                     })
                 });
 
-
                 HasErrors = Rows.Any(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
+
+                if(!HasErrors)
+                {
+                    bulkEditCache.Update(request);
+                }
             }
 
             catch (Exception ex)

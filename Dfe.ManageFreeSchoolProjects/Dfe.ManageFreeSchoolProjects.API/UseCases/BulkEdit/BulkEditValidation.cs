@@ -4,7 +4,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
     public class BulkEditValidation<TDto>(IHeaderRegister<TDto> headerRegister, IBulkEditDataRetrieval<TDto> dataRetrieval) : IBulkEditValidation where TDto : IBulkEditDto
     {
-        public async Task<BulkEditValidateResponse> Execute(BulkEditValidateRequest request)
+        public async Task<BulkEditValidateResponse> Execute(BulkEditRequest request)
         {
             var headers = headerRegister.GetHeaders();
 

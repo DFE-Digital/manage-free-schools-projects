@@ -22,7 +22,7 @@
         }
     }
 
-    public record BulkEditValidateRequest
+    public record BulkEditRequest
     {
         public List<HeaderInfo> Headers { get; set; }
         public List<RowInfo> Rows { get; set; }

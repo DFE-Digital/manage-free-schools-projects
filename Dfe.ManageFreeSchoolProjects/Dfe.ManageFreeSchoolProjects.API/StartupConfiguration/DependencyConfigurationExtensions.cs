@@ -151,6 +151,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IBulkEditValidation, BulkEditValidation<BulkEditDto>>();
             services.AddScoped<IHeaderRegister<BulkEditDto>, BulkEditHeaderRegister>();
             services.AddScoped<IBulkEditDataRetrieval<BulkEditDto>, BulkEditDataRetrieval>();
+            services.AddScoped<IBulkEditCommit, BulkEditCommit<BulkEditDto>>();
+			services.AddScoped<IBulkDataCommit<BulkEditDto>, BulkDataCommit>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

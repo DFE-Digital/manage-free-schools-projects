@@ -115,7 +115,8 @@ public class Startup
         services.AddScoped<IPDGPaymentInfoService, PDGPaymentInfoService>();
         services.AddScoped<IBulkEditFileReader, BulkEditFileReader>();
         services.AddScoped<IBulkEditValidateService, BulkEditValidateService>();
-        
+        services.AddScoped<IBulkEditCache, BulkEditCache>();
+
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
         {
