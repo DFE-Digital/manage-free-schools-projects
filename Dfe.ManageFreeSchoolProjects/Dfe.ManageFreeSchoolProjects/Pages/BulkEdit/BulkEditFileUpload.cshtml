@@ -52,7 +52,7 @@
         {
             <h2>Validation errors</h2>
 
-            @foreach (var row in Model.Rows)
+            @foreach (var row in Model.Rows.Where(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error))))
             {
                 <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
                     <govuk-summary-list>
