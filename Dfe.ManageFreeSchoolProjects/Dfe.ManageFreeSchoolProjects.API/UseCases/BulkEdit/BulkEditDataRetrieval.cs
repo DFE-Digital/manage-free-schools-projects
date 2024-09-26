@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 .Select(x => new BulkEditDto
                 {
                     ProjectId = x.ProjectStatusProjectId,
-                    SchoolName = x.ProjectStatusCurrentFreeSchoolName
+                    SchoolName = x.ProjectStatusCurrentFreeSchoolName,
                 })
                 .ToDictionaryAsync(k => k.ProjectId);
         }

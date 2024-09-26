@@ -17,6 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 {
     public class BulkEditFileUploadModel(
                     IBulkEditValidateService bulkEditValidateService,
+                    IBulkEditCommitService bulkEditCommitService,
                     IBulkEditFileReader bulkEditFileReader,
                     IBulkEditCache bulkEditCache,
                     ILogger<BulkEditFileUploadModel> logger) : PageModel
@@ -77,6 +78,27 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 {
                     bulkEditCache.Update(request);
                 }
+            }
+
+            catch (Exception ex)
+            {
+                logger.LogErrorMsg(ex);
+            }
+
+            return Page();
+
+        }
+
+        public async Task<IActionResult> OnPostCommit()
+        {
+            logger.LogMethodEntered();
+
+            try
+            {
+                var request = bulkEditCache.Get();
+                await bulkEditCommitService.Execute(request);
+
+                return Redirect(string.Format("/bulk-edit-file-complete"));
             }
 
             catch (Exception ex)
