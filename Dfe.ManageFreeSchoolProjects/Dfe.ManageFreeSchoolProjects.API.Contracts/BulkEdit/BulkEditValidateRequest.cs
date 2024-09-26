@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit
+﻿namespace Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit
 {
+    public static class HeaderNames
+    {
+        public const string ProjectId = "Project Id";
+        public const string SchoolName = "School Name";
+        public const string LocalAuthority = "Local Authority";
+        public const string Region = "Region";
+
+        public static string[] AllHeaders
+        {
+            get
+            {
+                return
+                [
+                    ProjectId,
+                    SchoolName,
+                    LocalAuthority,
+                    Region
+                ];
+            }
+        }
+    }
+
     public record BulkEditValidateRequest
     {
         public List<HeaderInfo> Headers { get; set; }

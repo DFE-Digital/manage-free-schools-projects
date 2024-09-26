@@ -1,5 +1,4 @@
-﻿using ExcelDataReader;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -17,38 +16,13 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
     {
         public ProjectTable Read(MemoryStream stream, string contentType)
         {
-            using var reader = CreateReader(stream, contentType);
-
-            var dataSet = reader.AsDataSet(BuildConfiguration());
+            var dataSet = ExcelToDataSetBuilder.Build(stream, contentType);
 
             var table = dataSet.Tables[0];
 
             ProjectTable projectTable = ReadProjectTable(table);
 
             return projectTable;
-        }
-
-        private static IExcelDataReader CreateReader(MemoryStream stream, string contentType)
-        {
-            if (contentType == "text/csv")
-            {
-                return ExcelReaderFactory.CreateCsvReader(stream);
-            }
-
-            return ExcelReaderFactory.CreateReader(stream);
-        }
-
-        private static ExcelDataSetConfiguration BuildConfiguration()
-        {
-            return new ExcelDataSetConfiguration()
-            {
-                UseColumnDataType = false,
-                ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
-                {
-                    // Possibly could allow the user to tell us this information in the form
-                    UseHeaderRow = true,
-                },
-            };
         }
 
         private static ProjectTable ReadProjectTable(DataTable table)

@@ -9,24 +9,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit
     public record BulkEditValidateResponse
     {
        public List<HeaderInfo> Headers { get; set; }
-        public List<InvalidRowInfo> InvalidRows { get; set; }
-        public List<ValidRowInfo> ValidRows { get; set; }
+        public List<ValidationRowInfo> ValidationResultRows { get; set; }
 
     }
 
-    public record InvalidRowInfo
-    {
-        public int FileRowIndex { get; set; }
-        public List<ErrorInfo> Errors { get; set; }
-    }
-
-    public record ErrorInfo
-    {
-        public int ColumnIndex { get; set; }
-        public string Error { get; set; }
-    }
-
-    public record ValidRowInfo
+    public record ValidationRowInfo
     {
         public int FileRowIndex { get; set; }
         public List<ValueChangeInfo> Columns { get; set; }
@@ -37,5 +24,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit
         public int ColumnIndex { get; set; }
         public string CurrentValue { get; set; }
         public string NewValue { get; set; }
+        public string Error { get; set; }
     }
 }

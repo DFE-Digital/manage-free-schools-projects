@@ -12,6 +12,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             response.Headers = request.Headers;
 
+            response.ValidationResultRows = new();
+
             var IdColumnIndex = request.Headers.FirstOrDefault(x => x.Name == headerRegister.IdentifingHeader).Index;
 
             // Validate headers
@@ -28,8 +30,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             foreach (var row in request.Rows)
             {
-                var validRow = true;
                 var currentRow = projects[row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value];
+
+                var validationRowResult = new ValidationRowInfo()
+                {
+                    FileRowIndex = row.FileRowIndex,
+                    Columns = new()
+                };
 
                 foreach (var column in row.Columns)
                 {
@@ -37,62 +44,27 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     var validationResult = header.Type.Execute(currentRow, column.Value);
                     if (!validationResult.IsValid)
                     {
-                        validRow = false;
-
-                        if (response.InvalidRows == null)
+                        validationRowResult.Columns.Add(new ValueChangeInfo()
                         {
-                            response.InvalidRows = new List<InvalidRowInfo>();
-                        }
+                            ColumnIndex = column.ColumnIndex,
+                            CurrentValue = header.GetFromDto(currentRow),
+                            NewValue = column.Value,
+                            Error = validationResult.errorMessage
+                        });
 
-                        var existingRow = response.InvalidRows.FirstOrDefault(x => x.FileRowIndex == row.FileRowIndex);
-
-                        if (existingRow == null)
+                    }
+                    else
+                    {
+                        validationRowResult.Columns.Add(new ValueChangeInfo()
                         {
-                            response.InvalidRows.Add(new InvalidRowInfo()
-                            {
-                                FileRowIndex = row.FileRowIndex,
-                                Errors = new List<ErrorInfo>()
-                            {
-                                new ErrorInfo()
-                                {
-                                    ColumnIndex = column.ColumnIndex,
-                                    Error = validationResult.errorMessage
-                                }
-                            }
-                            });
-                        }
-                        else
-                        {
-                            existingRow.Errors.Add(new ErrorInfo()
-                            {
-                                ColumnIndex = column.ColumnIndex,
-                                Error = validationResult.errorMessage
-                            });
-                        }
+                            ColumnIndex = column.ColumnIndex,
+                            CurrentValue = header.GetFromDto(currentRow),
+                            NewValue = column.Value
+                        });
                     }
                 }
 
-                if (validRow)
-                {
-                    if (response.ValidRows == null)
-                    {
-                        response.ValidRows = new List<ValidRowInfo>();
-                    }
-
-                    response.ValidRows.Add(new ValidRowInfo()
-                    {
-                        FileRowIndex = row.FileRowIndex,
-                        Columns = row.Columns
-                        .Where(x => headerMap[x.ColumnIndex].GetFromDto(currentRow) != x.Value)
-                        .Select(x => new ValueChangeInfo()
-                        {
-                            ColumnIndex = x.ColumnIndex,
-                            CurrentValue = headerMap[x.ColumnIndex].GetFromDto(currentRow),
-                            NewValue = x.Value
-                        }).ToList()
-                    });
-                }
-
+                response.ValidationResultRows.Add(validationRowResult);
             }
 
             return response;

@@ -35,8 +35,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             {
                 Headers = new List<HeaderInfo>
                 {
-                    new HeaderInfo { Name = "ProjectId", Index = 0 },
-                    new HeaderInfo { Name = "SchoolName", Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
+                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
                 },
                 Rows = new List<RowInfo>
                 {
@@ -60,10 +60,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             result.Data.Headers.Should().BeEquivalentTo(bulkValidateRequest.Headers);
             
-            var resultRow = result.Data.ValidRows.FirstOrDefault();
+            var resultRow = result.Data.ValidationResultRows.FirstOrDefault();
 
             resultRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo> 
-            { 
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId.ToString(),
+                    NewValue = projectId.ToString()
+                }
+                ,
                 new() 
                 { 
                     ColumnIndex = 1, 
@@ -71,8 +78,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     NewValue = NewSchoolName 
                 } 
             });
-
-            result.Data.InvalidRows.Should().BeNullOrEmpty();
 
         }
     }

@@ -1,0 +1,133 @@
+﻿@page "/bulk-edit-file-upload"
+@model Dfe.ManageFreeSchoolProjects.Pages.BulkEdit.BulkEditFileUploadModel
+@{
+    var backlink = "/bulk-edit-file-upload";
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+@if (Model.Rows == null || Model.Rows.Count() == 0 || Model.HasErrors)
+{
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form class="form" enctype="multipart/form-data" method="post">
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+                    Update multiple fields
+                </h1>
+
+                <p class="govuk-body">You can edit these fields in multiple projects:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>project status</li>
+                    <li>actual opening date</li>
+                    <li>local authority</li>
+                </ul>
+
+                <p class="govuk-body">You can download this <a href="/public/downloads/SPA Team - Bulk Upload Template.xlsx">example spreadsheet</a> and upload a completed one.</p>
+
+                <div class="govuk-inset-text govuk-!-margin-bottom-8">
+                    Leaving spreadsheet fields empty will not remove any existing project data.
+                </div>
+
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="upload">
+                        Upload a file
+                    </label>
+                    <input id="upload" class="govuk-file-upload" name="upload" type="file" accept=".xlsx,.csv" data-testid="upload">
+                </div>
+
+                <button class="govuk-button" data-module="govuk-button" data-testid="upload">
+                    Upload
+                </button>
+
+            </form>
+
+        </div>
+
+        @if (Model.HasErrors)
+        {
+            <h2>Validation errors</h2>
+
+            @foreach (var row in Model.Rows)
+            {
+                <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                    <govuk-summary-list>
+                        @foreach (var cell in row.Cells)
+                        {
+                            if(string.IsNullOrEmpty(@cell.Error))
+                            {
+                                <govuk-summary-item label="@cell.ColumnName" asp-for="@cell.Value" />
+                            }
+                            else
+                            {
+                                <div class="govuk-summary-list__row mfsp-validation-failed">
+                                    <dt class="govuk-summary-list__key govuk-error-message">
+                                        @cell.ColumnName
+                                    </dt>
+                                    <dd class="govuk-summary-list__value govuk-error-message">
+                                        @cell.Value
+                                    </dd>
+                                    <dd class="govuk-error-message">
+                                        @cell.Error
+                                    </dd>
+                                </div>
+                            }
+                        }
+                    </govuk-summary-list>
+                </govuk-summary-card>
+            }
+        }
+    </div>
+}
+
+@if (Model.Rows != null && Model.Rows.Count() > 0 && !Model.HasErrors)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form class="form" method="post">
+
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+                    Check your answers
+                </h1>
+
+                <p class="govuk-body">You are about to edit these records:</p>
+
+                @foreach (var row in Model.Rows)
+                {
+                    <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                        <govuk-summary-list>
+                            @foreach (var cell in row.Cells)
+                            {
+                                <govuk-summary-item label="@cell.ColumnName" asp-for="@cell.Value" />
+                            }
+                        </govuk-summary-list>
+                    </govuk-summary-card>
+                }
+
+                <h2 class="govuk-heading-m">
+                    Now edit these projects
+                </h2>
+
+                <p>
+                    By selecting the Edit projects button, you are confirming that you have approval to edit projects.
+                </p>
+
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">
+                        Edit projects
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+}
+
+

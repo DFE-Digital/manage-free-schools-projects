@@ -142,8 +142,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 
             var response = await RunTest(file, data);
 
-            response.InvalidRows.Count.Should().Be(1);
-            AssertInvalidCell(response.InvalidRows, 5, 1, ValidationMessage);
+            response.ValidationResultRows.Count.Should().Be(1);
+            AssertCell(response.ValidationResultRows, 5, 1, Existing, InvalidInput, ValidationMessage);
 
         }
 
@@ -185,9 +185,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 
             var response = await RunTest(file, data);
                 
-            response.ValidRows.Count.Should().Be(1);
+            response.ValidationResultRows.Count.Should().Be(1);
 
-            AssertValidCell(response.ValidRows, 4, 1, Existing, ValidInput);
+            AssertCell(response.ValidationResultRows, 4, 1, Existing, ValidInput);
 
         }
 
@@ -269,16 +269,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             };
 
             var response = await RunTest(file, data);
-            response.ValidRows.Count.Should().Be(1);
+            response.ValidationResultRows.Count.Should().Be(3);
 
-            AssertValidCell(response.ValidRows, 1, 1, Existing, ValidInput);
-            AssertValidCell(response.ValidRows, 1, 2, MoreExisting, ValidInput);
+            AssertCell(response.ValidationResultRows, 1, 1, Existing, ValidInput);
+            AssertCell(response.ValidationResultRows, 1, 2, MoreExisting, ValidInput);
 
-            response.InvalidRows.Count.Should().Be(2);
-            AssertInvalidCell(response.InvalidRows, 2, 2, ValidationMessage);
-            AssertInvalidCell(response.InvalidRows, 3, 1, ValidationMessage);
-            AssertInvalidCell(response.InvalidRows, 3, 2, ValidationMessage);
+            AssertCell(response.ValidationResultRows, 2, 1, Existing, ValidInput);
+            AssertCell(response.ValidationResultRows, 2, 2, MoreExisting, InvalidInput, ValidationMessage);
 
+            AssertCell(response.ValidationResultRows, 3, 1, Existing, InvalidInput, ValidationMessage);
+            AssertCell(response.ValidationResultRows, 3, 2, MoreExisting, InvalidInput, ValidationMessage);
         }
 
         [Fact]
@@ -336,11 +336,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 
             var response = await RunTest(file, data);
 
-            response.ValidRows.Count.Should().Be(1);
-            AssertValidCell(response.ValidRows, 4, 0, Existing, ValidInput);
+            response.ValidationResultRows.Count.Should().Be(2);
 
-            response.InvalidRows.Count.Should().Be(1);
-            AssertInvalidCell(response.InvalidRows, 6, 0, ValidationMessage);
+            AssertCell(response.ValidationResultRows, 4, 0, Existing, ValidInput);
+            AssertCell(response.ValidationResultRows, 6, 0, Existing, InvalidInput, ValidationMessage);
+
         }
 
         [Fact]
@@ -397,16 +397,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             };
 
             var response = await RunTest(file, data);
-            response.ValidRows.Count.Should().Be(1);
-            AssertValidCell(response.ValidRows, 1, 1, Existing, ValidInput);
-
-            response.InvalidRows.Count.Should().Be(1);
-            AssertInvalidCell(response.InvalidRows, 2, 1, DataValidationMessage);
-
+            response.ValidationResultRows.Count.Should().Be(2);
+            AssertCell(response.ValidationResultRows, 1, 1, Existing, ValidInput);
+            AssertCell(response.ValidationResultRows, 2, 1, MoreExisting, ValidInput, DataValidationMessage);
         }
 
 
-        private void AssertValidCell(List<ValidRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue)
+        private void AssertCell(List<ValidationRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue, string error = null)
         {
             var row = validrows.FirstOrDefault(x => x.FileRowIndex == rowIndex);
             row.Should().NotBeNull();
@@ -415,15 +412,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             column.ColumnIndex.Should().Be(columnIndex);
             column.CurrentValue.Should().Be(currentValue);
             column.NewValue.Should().Be(newValue);
-        }
-
-        private void AssertInvalidCell(List<InvalidRowInfo> validrows, int rowIndex, int columnIndex, string error)
-        {
-            var row = validrows.FirstOrDefault(x => x.FileRowIndex == rowIndex);
-            row.Should().NotBeNull();
-            var column = row.Errors.FirstOrDefault(x => x.ColumnIndex == columnIndex);
-            column.Should().NotBeNull();
-            column.ColumnIndex.Should().Be(columnIndex);
             column.Error.Should().Be(error);
         }
 
