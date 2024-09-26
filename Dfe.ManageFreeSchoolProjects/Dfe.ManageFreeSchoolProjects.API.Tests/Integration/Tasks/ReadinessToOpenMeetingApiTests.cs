@@ -64,7 +64,7 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
         context.Kpi.Add(project);
 
         var pupilNumbersChecksTask = DatabaseModelBuilder.ReadinessToOpenMeetingTask(project.Rid,
-            TypeOfMeetingHeld.NoRomHeld, DateTime.Today, whyMeetingWasNotHeld: string.Empty);
+            TypeOfMeetingHeld.NoMeetingHeld, DateTime.Today, whyMeetingWasNotHeld: string.Empty);
         context.Milestones.Add(pupilNumbersChecksTask);
         await context.SaveChangesAsync();
         

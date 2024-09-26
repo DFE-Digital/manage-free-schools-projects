@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Risk appraisal meeting");
             taskHeaders.Should().Contain("Project development grant (PDG)");
             taskHeaders.Should().Contain("Kick-off meeting");
+            taskHeaders.Should().Contain("Pre-funding agreement checkpoint meeting");
             taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
             taskHeaders.Should().Contain("Funding agreement submission");
@@ -77,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(RiskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted), "No", project, columnHeaders);
             AssertEntry(nameof(PDGDashboard.PaymentActualDate), "01/02/2024", project, columnHeaders);
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
+            AssertEntry(nameof(PreFundingAgreementCheckpointMeetingTask.SentAnEmailToTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
             AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
@@ -198,6 +200,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         KickOffMeeting = new KickOffMeetingTask()
                         {
                             FundingArrangementAgreed = true,
+                        },
+                        PreFundingAgreementCheckpointMeetingTask = new PreFundingAgreementCheckpointMeetingTask()
+                        {
+                            SentAnEmailToTheTrust = true,
                         },
                         ArticlesOfAssociation = new ArticlesOfAssociationTask()
                         {

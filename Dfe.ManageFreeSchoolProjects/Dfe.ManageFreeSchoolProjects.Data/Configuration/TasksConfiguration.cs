@@ -25,7 +25,7 @@ public partial class TasksConfiguration : IEntityTypeConfiguration<Tasks>
                 v => ConvertTaskName(v));
 
         builder.Property(e => e.TaskName)
-            .HasMaxLength(30)
+            .HasMaxLength(50)
             .IsUnicode(false)
             .HasColumnName("Task Name")
             .HasConversion(taskConverter);

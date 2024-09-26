@@ -36,7 +36,7 @@
                         <govuk-date-input id="date-of-the-informal-meeting" name="date-of-the-informal-meeting" asp-for="@Model.DateOfInformalTheMeeting" label="Date of the meeting" hint="For example, 27 3 2021"/>
                     </govuk-radios-list-conditional-item>
 
-                    <govuk-radios-list-conditional-item id="no-rom-held-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.NoRomHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld">
+                    <govuk-radios-list-conditional-item id="no-rom-held-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.NoMeetingHeld" description="No ROM held (paper-based process only)" asp-for="@Model.TypeOfMeetingHeld">
                         <govuk-textarea-input id="why-meeting-not-held"
                                               name="why-meeting-not-held"
                                               asp-for="@Model.WhyMeetingWasNotHeld"

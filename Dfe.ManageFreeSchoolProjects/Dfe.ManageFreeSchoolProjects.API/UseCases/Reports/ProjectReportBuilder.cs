@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.ReferenceNumbers, TaskName = "Reference numbers", Section = referenceNumbersSection },
                     new() { Task = project.TaskInformation.PDGDashboard, TaskName = "Project development grant (PDG)", Section = pdgSection },
                     new() { Task = project.TaskInformation.KickOffMeeting, TaskName = "Kick-off meeting", Section = preOpeningSection },
+                    new() { Task = project.TaskInformation.PreFundingAgreementCheckpointMeetingTask, TaskName = "Pre-funding agreement checkpoint meeting", Section = preOpeningSection },
                     new() { Task = project.TaskInformation.FundingAgreement, TaskName = "Funding agreement", Section = preOpeningSection },
                     new() { Task = project.TaskInformation.FundingAgreementHealthCheck, TaskName = "Funding agreement health check", Section = preOpeningSection },
                     new() { Task = project.TaskInformation.FundingAgreementSubmission, TaskName = "Funding agreement submission", Section = preOpeningSection },
