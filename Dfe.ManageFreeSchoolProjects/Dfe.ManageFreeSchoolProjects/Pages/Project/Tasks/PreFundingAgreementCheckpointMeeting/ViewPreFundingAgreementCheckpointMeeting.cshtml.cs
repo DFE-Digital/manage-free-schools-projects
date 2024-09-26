@@ -1,3 +1,4 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -9,30 +10,31 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PreFundingAgreementCheckpointMeeting;
 
-public class ViewPreFundingAgreementCheckpointMeetingModel : ViewTaskBaseModel
+public class ViewPreFundingAgreementCheckpointMeetingModel(
+    IGetProjectByTaskService getProjectService,
+    IGetTaskStatusService getTaskStatusService,
+    IUpdateTaskStatusService updateTaskStatusService,
+    IGetProjectRiskService getProjectRiskService,
+    ILogger<ViewPreFundingAgreementCheckpointMeetingModel> logger)
+    : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
 {
-    private readonly ILogger<ViewPreFundingAgreementCheckpointMeetingModel> _logger;
 
-    public ViewPreFundingAgreementCheckpointMeetingModel(
-        IGetProjectByTaskService getProjectService,
-        ILogger<ViewPreFundingAgreementCheckpointMeetingModel> logger,
-        IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
-    {
-        _logger = logger;
-    }
+    public GetProjectRiskResponse ProjectRisk { get; set; }
 
     public async Task<ActionResult> OnGet()
     {
-        _logger.LogMethodEntered();
+        logger.LogMethodEntered();
 
         await GetTask(TaskName.PreFundingAgreementCheckpointMeeting);
+
+        ProjectRisk = await getProjectRiskService.Execute(ProjectId, 1);
 
         return Page();
     }
 
     public async Task<ActionResult> OnPost()
     {
-        _logger.LogMethodEntered();
+        logger.LogMethodEntered();
 
         await PostTask(TaskName.PreFundingAgreementCheckpointMeeting);
 
