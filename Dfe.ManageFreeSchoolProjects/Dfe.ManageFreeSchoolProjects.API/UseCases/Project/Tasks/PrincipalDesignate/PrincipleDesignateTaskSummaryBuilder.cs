@@ -15,11 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesig
             var taskSummary = parameters.TaskSummary;
             var applicationWave = parameters.ApplicationWave;
 
-            if (applicationWave is "FS - Presumption")
-            {
-                taskSummary.IsHidden = true;
-            }
-
             return taskSummary;
         }
     }

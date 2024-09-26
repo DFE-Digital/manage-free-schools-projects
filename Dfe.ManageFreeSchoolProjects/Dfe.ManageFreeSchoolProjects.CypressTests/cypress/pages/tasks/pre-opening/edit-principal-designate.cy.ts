@@ -4,12 +4,12 @@ class PrincipalDesignateEditPage
 
 
     checkYesForPrincipleDesignate(): this {
-        cy.getById("trust-appointed-principal-designate-Yes").check()
+        cy.getById("principal-designate-appointed").check()
         return this
     }
 
     checkNoForPrincipleDesignate(): this {
-        cy.getById("trust-appointed-principal-designate-No").check()
+        cy.getById("principal-designate-appointed").uncheck()
         return this
     }
 
@@ -34,12 +34,23 @@ class PrincipalDesignateEditPage
     }
 
     errorForPrincipleDesignateAppointedDate(): this {
-        this.errorTracking = "trust-appointed-principal-designate-date";
+        this.errorTracking = "actual-date-that-principal-designate-was-appointed";
         return this;
     }
 
     withPrincipleDesignateAppointedDate(day: string, month: string, year: string): this {
-        const key = "trust-appointed-principal-designate-date";
+        const key = "actual-date-that-principal-designate-was-appointed";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+    errorForExpectedPrincipleDesignateAppointedDate(): this {
+        this.errorTracking = "expected-date-that-principal-designate-will-be-appointed";
+        return this;
+    }
+
+    withExpectedPrincipleDesignateAppointedDate(day: string, month: string, year: string): this {
+        const key = "expected-date-that-principal-designate-will-be-appointed";
         this.setDate(key, day, month, year);
         return this
     }

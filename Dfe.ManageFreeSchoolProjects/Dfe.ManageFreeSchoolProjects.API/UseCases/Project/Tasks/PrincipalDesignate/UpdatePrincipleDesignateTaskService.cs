@@ -31,9 +31,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesig
                 _context.Add(db);
             }
 
-            db.FsgPreOpeningMilestonesAppointedPrincipalDesignate = task.TrustAppointedPrincipleDesignate;
-            db.FsgPreOpeningMilestonesPdappActualDateOfCompletion = task.TrustAppointedPrincipleDesignateDate;
+            db.FsgPreOpeningMilestonesAppointedPrincipalDesignate = task.TrustAppointedPrincipalDesignate;
+            db.FsgPreOpeningMilestonesPdappActualDateOfCompletion = task.ActualDatePrincipalDesignateAppointed;
             db.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool = task.CommissionedExternalExpertVisitToSchool;
+            db.FsgPreOpeningMilestonesPdappForecastDate = task.ExpectedDatePrincipalDesignateAppointed;
         }
     }
 }
