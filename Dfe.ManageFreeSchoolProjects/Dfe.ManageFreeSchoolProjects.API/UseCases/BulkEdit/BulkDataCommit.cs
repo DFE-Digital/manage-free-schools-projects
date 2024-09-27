@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -18,7 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             {
                 var entity = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == dto.ProjectId);
 
-                entity.ProjectStatusCurrentFreeSchoolName = dto.SchoolName;
+                if(!dto.SchoolName.IsNullOrEmpty())
+                {
+                    entity.ProjectStatusCurrentFreeSchoolName = dto.SchoolName;
+                }
+                
             }
 
             await _context.SaveChangesAsync();

@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -40,6 +41,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                 foreach (var column in row.Columns)
                 {
+                    if (column.Value.IsNullOrEmpty())
+                    {
+                        continue;
+                    }
+
                     var header = headerMap[column.ColumnIndex];
                     var validationResult = header.Type.Execute(currentRow, column.Value);
                     if (!validationResult.IsValid)

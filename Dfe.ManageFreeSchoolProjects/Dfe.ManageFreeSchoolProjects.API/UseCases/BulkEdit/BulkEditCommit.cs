@@ -1,5 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
-using Dfe.ManageFreeSchoolProjects.Data;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -30,6 +30,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 foreach (var column in row.Columns)
                 {
                     if (column.ColumnIndex == IdColumnIndex)
+                    {
+                        continue;
+                    }
+
+                    if(column.Value.IsNullOrEmpty())
                     {
                         continue;
                     }
