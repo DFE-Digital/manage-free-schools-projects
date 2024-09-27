@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache) : PageModel
+    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
@@ -39,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             switch (chosenMethod)
             {
                 case ProjectCreateMethod.PresumptionRoute:
-                    createProjectCache.Delete();
+                    CreateProjectCache.Delete();
                     UpdateCacheWithCreateMethod(ProjectCreateMethod.PresumptionRoute);
                     return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.CentralRoute:
@@ -53,19 +54,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         private void DeleteCacheIfProjectMethodNull()
         {
-            var projCache = createProjectCache.Get();
+            var projCache = CreateProjectCache.Get();
 
             if (projCache.ProjectCreateMethod == ProjectCreateMethod.NotSet)
                 return;
             
-            createProjectCache.Delete();
+            CreateProjectCache.Delete();
         }
 
         private void UpdateCacheWithCreateMethod(ProjectCreateMethod method)
         {
-            var projCache = createProjectCache.Get();
+            var projCache = CreateProjectCache.Get();
             projCache.ProjectCreateMethod = method;
-            createProjectCache.Update(projCache);
+            CreateProjectCache.Update(projCache);
         }
     }
 }
