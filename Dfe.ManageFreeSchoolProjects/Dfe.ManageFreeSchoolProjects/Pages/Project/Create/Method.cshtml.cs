@@ -16,7 +16,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
         
-        public string CentralRouteApplicationWave { get; set; }
 
         public IActionResult OnGet()
         {
@@ -37,18 +36,27 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var chosenMethod = (ProjectCreateMethod)Enum.Parse(typeof(ProjectCreateMethod), Method);
-
+            
             switch (chosenMethod)
             {
                 case ProjectCreateMethod.PresumptionRoute:
                     createProjectCache.Delete();
-                    //TODO: implement presumption route journey
+                    UpdateCacheWithCreateMethod(ProjectCreateMethod.PresumptionRoute);
                     return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.CentralRoute:
+                    createProjectCache.Delete();
+                    UpdateCacheWithCreateMethod(ProjectCreateMethod.CentralRoute);
                     return Redirect(RouteConstants.CreateApplicationNumber);
                 default:
                     throw new InvalidOperationException($"Unrecognised method {Method}");
             }
+        }
+        
+        private void UpdateCacheWithCreateMethod(ProjectCreateMethod method)
+        {
+            var projCache = createProjectCache.Get();
+            projCache.ProjectCreateMethod = method;
+            createProjectCache.Update(projCache);
         }
     }
 }

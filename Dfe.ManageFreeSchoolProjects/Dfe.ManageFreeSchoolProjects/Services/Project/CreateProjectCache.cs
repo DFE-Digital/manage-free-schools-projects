@@ -22,6 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
 
     public record CreateProjectCacheItem
     {
+        public ProjectCreateMethod ProjectCreateMethod { get; set; }
         public bool ReachedCheckYourAnswers { get; set; }
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }

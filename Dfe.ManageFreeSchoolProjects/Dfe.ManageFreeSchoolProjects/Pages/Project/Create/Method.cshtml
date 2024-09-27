@@ -15,12 +15,19 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="govuk-form-group" method="post">
+            <govuk-create-title label="What project do you want to create?" for="method" />
+            <br>
 
+            <div class="govuk-hint">
+                You can only create one at a time.
+            </div>
+            <br/>
+            
             <govuk-radios-list>
                 <govuk-radios-list-item id="create-presumption-route-project-method"
                                         name="method"
                                         value="@ProjectCreateMethod.PresumptionRoute.ToString()"
-                                        description="Presumption route"
+                                        description="Presumption route (to be implemented)"
                                         asp-for="@Model.Method"/>
 
                 <govuk-radios-list-item id="create-central-route-project-method"
@@ -30,6 +37,7 @@
                                         asp-for="@Model.Method"/>
             </govuk-radios-list>
 
+            <br/>
             <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
