@@ -12,25 +12,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class CheckYourAnswersModel : PageModel
+    public class CheckYourAnswersModel(
+        ErrorService errorService,
+        ICreateProjectCache createProjectCache,
+        ICreateProjectService createProjectService,
+        INotifyUserService notifyUserService)
+        : PageModel
     {
         public CreateProjectCacheItem Project { get; set; }
-
-        private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
-        private readonly ICreateProjectService _createProjectService;
-        private readonly INotifyUserService _notifyUserService;
-        private readonly MfspApiClient _mfspApiClient;
-
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache,
-            ICreateProjectService createProjectService, INotifyUserService notifyUserService, MfspApiClient mfspApiClient)
-        {
-            _createProjectCache = createProjectCache;
-            _createProjectService = createProjectService;
-            _notifyUserService = notifyUserService;
-            _mfspApiClient = mfspApiClient;
-            _errorService = errorService;
-        }
 
         public IActionResult OnGet()
         {
@@ -39,16 +28,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return new UnauthorizedResult();
             }
 
-            Project = _createProjectCache.Get();
+            Project = createProjectCache.Get();
             Project.ReachedCheckYourAnswers = true;
-            _createProjectCache.Update(Project);
+            createProjectCache.Update(Project);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
-            var project = _createProjectCache.Get();
+            var project = createProjectCache.Get();
 
             var projReq = new ProjectDetails
             {
@@ -86,7 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             try
             {
-                await _createProjectService.Execute(createProjectRequest);
+                await createProjectService.Execute(createProjectRequest);
 
                 await SendEmail();
             }
@@ -94,7 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 if (e.StatusCode == HttpStatusCode.UnprocessableEntity)
                 {
-                    _errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
+                    errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
                     Project = project;
                     return Page();
                 }
@@ -113,9 +102,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var projectUrl =
                 $"{HttpContext.Request.Scheme}://" +
                 $"{HttpContext.Request.Host}" +
-                $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
+                $"{string.Format(RouteConstants.ProjectOverview, createProjectCache.Get().ProjectId)}";
 
-            await _notifyUserService.Execute(_createProjectCache.Get().ProjectAssignedToEmail, projectUrl);
+            await notifyUserService.Execute(createProjectCache.Get().ProjectAssignedToEmail, projectUrl);
         }
     }
 }

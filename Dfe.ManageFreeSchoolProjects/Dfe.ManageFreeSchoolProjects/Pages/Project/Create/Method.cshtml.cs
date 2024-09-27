@@ -15,7 +15,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Display(Name = "method")]
         [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
-        
 
         public IActionResult OnGet()
         {
@@ -44,14 +43,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     UpdateCacheWithCreateMethod(ProjectCreateMethod.PresumptionRoute);
                     return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.CentralRoute:
-                    createProjectCache.Delete();
+                    DeleteCacheIfProjectMethodNull();
                     UpdateCacheWithCreateMethod(ProjectCreateMethod.CentralRoute);
                     return Redirect(RouteConstants.CreateApplicationNumber);
                 default:
                     throw new InvalidOperationException($"Unrecognised method {Method}");
             }
         }
-        
+
+        private void DeleteCacheIfProjectMethodNull()
+        {
+            var projCache = createProjectCache.Get();
+
+            if (projCache.ProjectCreateMethod == ProjectCreateMethod.NotSet)
+                return;
+            
+            createProjectCache.Delete();
+        }
+
         private void UpdateCacheWithCreateMethod(ProjectCreateMethod method)
         {
             var projCache = createProjectCache.Get();

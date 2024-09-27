@@ -20,9 +20,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             return currentPageName switch
             {
-                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
-                CreateProjectPageName.ApplicationWave => RouteConstants.CreateApplicationNumber,
-
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.ProvisionalOpeningDate => PreviousProvisionalOpeningDate(),
@@ -56,6 +53,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ApplicationWave => RouteConstants.CreateApplicationNumber,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectId,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
@@ -76,8 +75,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             return currentPageName switch
             {
-                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
-                CreateProjectPageName.ApplicationWave => RouteConstants.CreateProjectId,
                 CreateProjectPageName.FaithStatus => NextFaithStatus(),
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
@@ -110,10 +107,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             return currentPageName switch
             {
-                CreateProjectPageName.ProjectId => cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute
+                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
+                CreateProjectPageName.ApplicationWave => RouteConstants.CreateProjectId,
+                CreateProjectPageName.SchoolName => cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute
                     ? RouteConstants.CreateProjectCheckYourAnswers
-                    : RouteConstants.CreateProjectSchool,
-                CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
+                    : RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
