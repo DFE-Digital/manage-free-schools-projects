@@ -30,17 +30,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
-
-        [BindProperty(Name = "trust-appointed-principal-designate")]
-        
-        public string TrustAppointedPrincipleDesignate { get; set; }
-
-        [BindProperty(Name = "trust-appointed-principal-designate-date", BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Trust appointed principal designate date")]
-        public DateTime? TrustAppointedPrincipleDesignateDate { get; set; }
-        
         [BindProperty(Name = "commissioned-external-expert-visit")]
         public string CommissionedExternalExpertVisit { get; set; }
+
+        [BindProperty(Name = "expected-date-that-principal-designate-will-be-appointed", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Expected date that principal designate will be appointed")]
+        public DateTime? ExpectedDatePrincipalDesignateAppointed { get; set; }
+
+        [BindProperty(Name = "principal-designate-appointed")]
+        public bool? PrincipalDesignateAppointed { get; set; }
+
+        [BindProperty(Name = "actual-date-that-principal-designate-was-appointed", BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Actual date that principal designate was appointed")]
+        public DateTime? ActualDatePrincipalDesignateAppointed { get; set; }
         
         [BindProperty]
         public string SchoolName { get; set; }
@@ -67,18 +69,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
 
         public async Task<ActionResult> OnPost()
         {
-            var trustAppointedPrincipleDesignate = ConvertYesNo(TrustAppointedPrincipleDesignate);
-
-            if (trustAppointedPrincipleDesignate != YesNo.Yes)
-            {
-
-                var errorKeys = ModelState.Keys.Where(k =>
-                    k.StartsWith("trust-appointed-principle-designate-date") ||
-                    k == "trust-appointed-principle-designate").ToList();
-                errorKeys.ForEach(k => ModelState.Remove(k));
-                TrustAppointedPrincipleDesignateDate = null;
-            }
-
 
             if (!ModelState.IsValid)
             {
@@ -86,33 +76,36 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
                 return Page();
             }
 
-            if (trustAppointedPrincipleDesignate == YesNo.Yes && !TrustAppointedPrincipleDesignateDate.HasValue)
+            if (PrincipalDesignateAppointed == true && !ActualDatePrincipalDesignateAppointed.HasValue)
             {
-                ModelState.AddModelError("trust-appointed-principal-designate-date",
-                    "Enter the actual date a principal designate was appointed");
+                ModelState.AddModelError("actual-date-that-principal-designate-was-appointed",
+                    "Enter the actual date that principal designate was appointed");
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var principleDesignateTask = new PrincipalDesignateTask();
+            var principalDesignateTask = new PrincipalDesignateTask();
 
-            if (trustAppointedPrincipleDesignate == null)
+            if (PrincipalDesignateAppointed == null)
             {
-                principleDesignateTask.TrustAppointedPrincipleDesignate = null;
+                principalDesignateTask.TrustAppointedPrincipalDesignate = null;
             }
 
             else
             {
-                principleDesignateTask.TrustAppointedPrincipleDesignate = TrustAppointedPrincipleDesignateDate.HasValue;
+                principalDesignateTask.TrustAppointedPrincipalDesignate = ActualDatePrincipalDesignateAppointed.HasValue;
             }
 
-            principleDesignateTask.TrustAppointedPrincipleDesignateDate = TrustAppointedPrincipleDesignateDate;
-            principleDesignateTask.CommissionedExternalExpertVisitToSchool = ConvertYesNoNotApplicable(CommissionedExternalExpertVisit);
+            principalDesignateTask.CommissionedExternalExpertVisitToSchool = ConvertYesNoNotApplicable(CommissionedExternalExpertVisit);
+            principalDesignateTask.ExpectedDatePrincipalDesignateAppointed = ExpectedDatePrincipalDesignateAppointed;
+            principalDesignateTask.ActualDatePrincipalDesignateAppointed = ActualDatePrincipalDesignateAppointed;
+            
+            
 
 
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
-                PrincipalDesignate = principleDesignateTask
+                PrincipalDesignate = principalDesignateTask
             };
             
             await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
@@ -125,9 +118,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
             var project = await _getProjectService.Execute(ProjectId, TaskName.PrincipalDesignate);
             
             SchoolName = project.SchoolName;
-            TrustAppointedPrincipleDesignateDate = project.PrincipalDesignate.TrustAppointedPrincipleDesignateDate;
+
             CommissionedExternalExpertVisit = project.PrincipalDesignate.CommissionedExternalExpertVisitToSchool?.ToString();
-            TrustAppointedPrincipleDesignate = project.PrincipalDesignate.TrustAppointedPrincipleDesignate.ToYesNoString();
+            ExpectedDatePrincipalDesignateAppointed = project.PrincipalDesignate.ExpectedDatePrincipalDesignateAppointed;
+            PrincipalDesignateAppointed = project.PrincipalDesignate.TrustAppointedPrincipalDesignate;
+            ActualDatePrincipalDesignateAppointed = project.PrincipalDesignate.ActualDatePrincipalDesignateAppointed;
+            
         }
         private static YesNoNotApplicable? ConvertYesNoNotApplicable(string value)
         {
