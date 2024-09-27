@@ -5,6 +5,7 @@
 * 178584 - Build: Principal designate (both routes)
 * 177522 - Build: Display the ‘Realistic Year of Opening’ field in the Dates section under Setting up section
 * 181651 - Build: update kick-off meeting task
+* 181679 - Build: add 'if applicable' to governance plan fields
 
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link
