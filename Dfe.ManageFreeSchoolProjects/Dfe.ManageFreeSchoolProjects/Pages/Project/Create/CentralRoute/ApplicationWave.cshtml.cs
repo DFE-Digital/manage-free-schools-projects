@@ -1,15 +1,17 @@
+using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute;
 
-public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
+public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache)
+    : CreateProjectBaseModel(createProjectCache)
 {
     [BindProperty(Name = "application-wave")]
     public string ApplicationWave { get; set; }
 
-    
+
     public IActionResult OnGet()
     {
         BackLink = GetPreviousPage(CreateProjectPageName.ApplicationWave);
@@ -25,11 +27,14 @@ public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache) : 
     {
         BackLink = GetPreviousPage(CreateProjectPageName.ApplicationWave);
 
-        var project = CreateProjectCache.Get();
-        project.ApplicationWave = ApplicationWave;
-        
-        CreateProjectCache.Update(project);
+        var projCache = CreateProjectCache.Get();
 
-        return Redirect(GetNextPage(CreateProjectPageName.ApplicationWave));
+        var nextPage = !string.IsNullOrEmpty(projCache.ProjectId) && projCache.ReachedCheckYourAnswers
+            ? RouteConstants.CreateProjectCheckYourAnswers
+            : GetNextPage(CreateProjectPageName.ApplicationWave);
+        
+        CreateProjectCache.Update(projCache);
+
+        return Redirect(nextPage);
     }
 }

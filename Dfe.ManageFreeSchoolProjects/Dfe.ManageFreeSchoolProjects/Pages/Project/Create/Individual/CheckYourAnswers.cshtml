@@ -12,7 +12,7 @@
     ViewData["Title"] = "Check your answers";
 
     var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" : Model.Project.FaithType.ToDescription();
-    var faithTypeLink = Model.Project.FaithStatus == FaithStatus.None ? RouteConstants.CreateFaithStatus : @RouteConstants.CreateFaithType;
+    var faithTypeLink = Model.Project.FaithStatus == FaithStatus.None ? RouteConstants.CreateFaithStatus : RouteConstants.CreateFaithType;
 }
 
 @section BeforeMain {
@@ -30,7 +30,7 @@
         </h1>
 
         <dl class="govuk-summary-list">
-            
+
             @if (Model.Project.ProjectCreateMethod == ProjectCreateMethod.CentralRoute)
             {
                 @RenderSummaryRow("Project type", Model.Project.ProjectCreateMethod.ToDescription(), RouteConstants.CreateProjectMethod)
@@ -68,15 +68,13 @@
                 @RenderSummaryRow("Reception to year 6 capacity", Model.Project.YRY6Capacity.ToString(), RouteConstants.CreateProjectCapacity)
                 @RenderSummaryRow("Year 7 to year 11 capacity", Model.Project.Y7Y11Capacity.ToString(), RouteConstants.CreateProjectCapacity)
                 @RenderSummaryRow("Year 12 to year 14 capacity", Model.Project.Y12Y14Capacity.ToString(), RouteConstants.CreateProjectCapacity)
-                
+
                 @RenderSummaryRow("Faith status", Model.Project.FaithStatus.ToString(), RouteConstants.CreateFaithStatus)
                 @RenderSummaryRow("Faith type", faithType, faithTypeLink)
                 @RenderSummaryRow("Provisional opening date agreed with trust", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
                 @RenderSummaryRow("Project assigned to", Model.Project.ProjectAssignedToName, RouteConstants.CreateProjectAssignedTo)
                 @RenderSummaryRow("Email", Model.Project.ProjectAssignedToEmail, RouteConstants.CreateProjectAssignedTo)
             }
-
-            
         </dl>
 
         <h2 class="govuk-heading-m">Now create your project</h2>
@@ -92,15 +90,12 @@
 
 @functions {
 
-    
-    public IHtmlContent RenderSummaryRow(string key, string value, string link, string visuallyHiddenText = "", string testId = "")
+    private static IHtmlContent RenderSummaryRow(string key, string value, string link, string visuallyHiddenText = "", string testId = "")
     {
-        // Handle empty or "NotSet" values with a default "Empty" placeholder.
-        var renderedValue = string.IsNullOrEmpty(value) || value == "NotSet" 
+        var renderedValue = string.IsNullOrEmpty(value) || value == "NotSet"
             ? "<span class=\"empty\">Empty</span>"
             : value;
 
-        // Build the HTML string for the summary row.
         var htmlString = $@"
         <div class=""govuk-summary-list__row"">
             <dt class=""govuk-summary-list__key"">{key}</dt>
@@ -110,18 +105,7 @@
             </dd>
         </div>";
 
-        // Return the HTML as an HtmlString to be rendered.
         return new HtmlString(htmlString);
     }
-    public void RenderValue(string value)
-    {
-        if (string.IsNullOrEmpty(value) || value == "NotSet")
-        {
-            <span class="empty">Empty</span>
-        }
-        else
-        {
-            @value
-        }
-    }
+
 }

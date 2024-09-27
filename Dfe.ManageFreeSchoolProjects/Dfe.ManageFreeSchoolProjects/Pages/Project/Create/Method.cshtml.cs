@@ -42,15 +42,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             return GetNextPage(projCache, chosenMethod);
         }
 
-        private IActionResult GetNextPage(CreateProjectCacheItem projCache, ProjectCreateMethod chosenMethod)
+        private RedirectResult GetNextPage(CreateProjectCacheItem projCache, ProjectCreateMethod chosenMethod)
         {
-            var changedMethodFromCheckYourAnswers =
-                projCache.ReachedCheckYourAnswers && chosenMethod != projCache.ProjectCreateMethod;
-
+            //TODO: is deleting cache needed here?
+            CreateProjectCache.Delete();
+            
             return chosenMethod switch
             {
-                ProjectCreateMethod.PresumptionRoute => Redirect(changedMethodFromCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers : RouteConstants.CreateProjectId),
-                ProjectCreateMethod.CentralRoute => Redirect(changedMethodFromCheckYourAnswers ? RouteConstants.CreateApplicationNumber : RouteConstants.CreateProjectCheckYourAnswers),
+                ProjectCreateMethod.PresumptionRoute => Redirect(projCache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers : RouteConstants.CreateProjectId),
+                ProjectCreateMethod.CentralRoute => Redirect(projCache.ReachedCheckYourAnswers ? RouteConstants.CreateApplicationNumber : RouteConstants.CreateProjectCheckYourAnswers),
                 _ => throw new InvalidOperationException($"Unrecognised method {chosenMethod}")
             };
         }
