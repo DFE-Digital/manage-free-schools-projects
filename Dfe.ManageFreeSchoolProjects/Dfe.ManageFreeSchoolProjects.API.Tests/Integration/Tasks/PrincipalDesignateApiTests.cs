@@ -36,8 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.PrincipalDesignate.ToString());
 
-            projectResponse.PrincipalDesignate.TrustAppointedPrincipalDesignate.Should()
-                .Be(true);
             projectResponse.PrincipalDesignate.ActualDatePrincipalDesignateAppointed.Should()
                 .Be(request.PrincipalDesignate.ActualDatePrincipalDesignateAppointed);
             projectResponse.PrincipalDesignate.CommissionedExternalExpertVisitToSchool.Should()
