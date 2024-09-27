@@ -228,40 +228,14 @@
                         }
 
                     </li>
-                    @if (Model.IsPresumptionRoute == false) {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">
-                                <a href="@preFundingAgreementCheckpointMeetingLink" class="govuk-link" data-testid="pre-funding-agreement-checkpoint-meeting-task">
-                                    Pre-funding agreement checkpoint meeting
-                                </a>
-                            </span>
-                            @{
-                                RenderStatus(Model.ProjectTaskListSummary.PreFundingAgreementCheckpointMeeting);
-                            }
-
-                    </li>
-                    }
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
-                            <a href="@fundingAgreementLink" class="govuk-link" data-testid="funding-agreement-task">
-                                Funding agreement
+                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
+                                Admissions arrangements
                             </a>
                         </span>
                         @{
-                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreement);
-                        }
-                    </li>
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
-                                Statutory consultation
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
+                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
                         }
                     </li>
                     <li class="app-task-list__item">
@@ -274,7 +248,6 @@
                             RenderStatus(Model.ProjectTaskListSummary.ArticlesOfAssociation);
                         }
                     </li>
-
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@governancePlanLink" class="govuk-link" data-testid="governance-plan-task">
@@ -287,15 +260,14 @@
                     </li>
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
-                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
-                                Admissions arrangements
+                            <a href="@educationBriefLink" class="govuk-link" data-testid="educationBrief-task">
+                                Education brief
                             </a>
                         </span>
                         @{
-                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
+                            RenderStatus(Model.ProjectTaskListSummary.EducationBrief);
                         }
                     </li>
-
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
                             <a href="@financePlanLink" class="govuk-link" data-testid="finance-plan-task">
@@ -304,6 +276,26 @@
                         </span>
                         @{
                             RenderStatus(Model.ProjectTaskListSummary.FinancePlan);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
+                                Statutory consultation
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
+                        }
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
+                                Impact assessment
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
                         }
                     </li>
                     <li class="app-task-list__item">
@@ -317,32 +309,34 @@
                         }
 
                     </li>
-                </ul>
-                <h2 class="app-task-list__section">
-                    Sign-off preparation
-                </h2>
-                <ul class="app-task-list__items">
                     <li class="app-task-list__item">
                         <span class="app-task-list__task-name">
-                            <a href="@educationBriefLink" class="govuk-link" data-testid="educationBrief-task">
-                                Education brief
+                            <a href="@fundingAgreementLink" class="govuk-link" data-testid="funding-agreement-task">
+                                Funding agreement
                             </a>
                         </span>
                         @{
-                            RenderStatus(Model.ProjectTaskListSummary.EducationBrief);
+                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreement);
                         }
                     </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@giasLink" class="govuk-link" data-testid="get-information-about-schools">
-                                Set up the school on GIAS (Get information about schools)
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.Gias);
-                        }
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
+                    @if (Model.IsPresumptionRoute == false) {
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="@preFundingAgreementCheckpointMeetingLink" class="govuk-link" data-testid="pre-funding-agreement-checkpoint-meeting-task">
+                                    Pre-funding agreement checkpoint meeting
+                                </a>
+                            </span>
+                            @{
+                                RenderStatus(Model.ProjectTaskListSummary.PreFundingAgreementCheckpointMeeting);
+                            }
 
                     </li>
+                    }
+
+                    
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
                 </ul>
                 <h2 class="app-task-list__section">
                     Getting ready to open
@@ -369,6 +363,18 @@
                         RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
                     }
                 </li>
+
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="@giasLink" class="govuk-link" data-testid="get-information-about-schools">
+                                Set up the school on GIAS (Get information about schools)
+                            </a>
+                        </span>
+                        @{
+                            RenderStatus(Model.ProjectTaskListSummary.Gias);
+                        }
+
+                 </li>
                 @{
                     if (Model.IsPresumptionRoute == false)
                     {
@@ -384,16 +390,6 @@
                         </li>
                     }
                 }
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
-                            Impact assessment
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
-                    }
-                </li>
                 <li class="app-task-list__item">
                     <span class="app-task-list__task-name">
                         <a href="@ofstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
@@ -436,7 +432,7 @@
                 </li>
             </ul>
             <h2 class="app-task-list__section">
-                After Opening
+                After opening
             </h2>
             <ul class="app-task-list__items">
                 <li class="app-task-list__item">
