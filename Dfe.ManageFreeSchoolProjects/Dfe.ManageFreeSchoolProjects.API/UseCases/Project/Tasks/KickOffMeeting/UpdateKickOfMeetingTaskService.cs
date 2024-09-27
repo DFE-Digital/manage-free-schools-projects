@@ -31,7 +31,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
                 _context.Add(db);
             }
 
-            dbKpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust = task.ProvisionalOpeningDate;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
             db.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor = task.FundingArrangementAgreed;
             db.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor =

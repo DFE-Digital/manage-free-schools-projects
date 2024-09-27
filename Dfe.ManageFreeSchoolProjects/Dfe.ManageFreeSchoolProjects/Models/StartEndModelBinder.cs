@@ -124,7 +124,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 
 		private static bool ValidateYearFormat(string year)
 		{
-			return Regex.Match(year, "^20\\d\\d", RegexOptions.None, TimeSpan.FromSeconds(5)).Success;
+			return Regex.Match(year, "^20", RegexOptions.None, TimeSpan.FromSeconds(5)).Success;
 		}
 
         private static Type ValidateBindingContext(ModelBindingContext bindingContext)
