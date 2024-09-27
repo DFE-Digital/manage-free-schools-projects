@@ -28,19 +28,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 PrincipalDesignate = new PrincipalDesignateTask()
                 {
-                    TrustAppointedPrincipleDesignateDate = new DateTime().AddDays(9),
-                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes
+                    ActualDatePrincipalDesignateAppointed = new DateTime().AddDays(9),
+                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.Yes,
+                    ExpectedDatePrincipalDesignateAppointed = new DateTime().AddDays(8),
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.PrincipalDesignate.ToString());
 
-            projectResponse.PrincipalDesignate.TrustAppointedPrincipleDesignate.Should()
+            projectResponse.PrincipalDesignate.TrustAppointedPrincipalDesignate.Should()
                 .Be(true);
-            projectResponse.PrincipalDesignate.TrustAppointedPrincipleDesignateDate.Should()
-                .Be(request.PrincipalDesignate.TrustAppointedPrincipleDesignateDate);
+            projectResponse.PrincipalDesignate.ActualDatePrincipalDesignateAppointed.Should()
+                .Be(request.PrincipalDesignate.ActualDatePrincipalDesignateAppointed);
             projectResponse.PrincipalDesignate.CommissionedExternalExpertVisitToSchool.Should()
                 .Be(request.PrincipalDesignate.CommissionedExternalExpertVisitToSchool);
+            projectResponse.PrincipalDesignate.ExpectedDatePrincipalDesignateAppointed.Should()
+                .Be(request.PrincipalDesignate.ExpectedDatePrincipalDesignateAppointed);
         }
 
         [Fact]
@@ -60,9 +63,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             {
                 PrincipalDesignate = new PrincipalDesignateTask()
                 {
-                    TrustAppointedPrincipleDesignate = false,
-                    TrustAppointedPrincipleDesignateDate = null,
-                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.No
+                    TrustAppointedPrincipalDesignate = false,
+                    ActualDatePrincipalDesignateAppointed = null,
+                    CommissionedExternalExpertVisitToSchool = YesNoNotApplicable.No,
+                    ExpectedDatePrincipalDesignateAppointed = new DateTime().AddDays(8),
                 }
             };
 
@@ -71,12 +75,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.PrincipalDesignate.ToString());
 
-            projectResponse.PrincipalDesignate.TrustAppointedPrincipleDesignate.Should()
+            projectResponse.PrincipalDesignate.TrustAppointedPrincipalDesignate.Should()
                 .Be(false);
-            projectResponse.PrincipalDesignate.TrustAppointedPrincipleDesignateDate.Should()
+            projectResponse.PrincipalDesignate.ActualDatePrincipalDesignateAppointed.Should()
                 .Be(null);
             projectResponse.PrincipalDesignate.CommissionedExternalExpertVisitToSchool.Should()
                 .Be(request.PrincipalDesignate.CommissionedExternalExpertVisitToSchool);
+            projectResponse.PrincipalDesignate.ExpectedDatePrincipalDesignateAppointed.Should()
+                .Be(request.PrincipalDesignate.ExpectedDatePrincipalDesignateAppointed);
         }
 
     }

@@ -10,45 +10,39 @@
     var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     ViewData["Title"] = "Edit Project status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
-    var isVisibleToPresumption = Model.Project.ProjectType.Contains("Presumption");
+    var isPresumptionProject = Model.Project.ProjectType.Contains("Presumption");
 
-    var options = new List<ProjectStatusOption>
+    ProjectStatus[] presumptionStatuses = [ProjectStatus.Cancelled, ProjectStatus.Closed, ProjectStatus.Open, ProjectStatus.Preopening, ProjectStatus.WithdrawnDuringPreOpening];
+
+    var projectStatusOptions = new List<ProjectStatusOption>
     {
-        new("project-status-application-competition-stage", ProjectStatus.ApplicationCompetitionStage, !isVisibleToPresumption,
+        new("project-status-application-competition-stage", ProjectStatus.ApplicationCompetitionStage,
             ProjectStatus.ApplicationCompetitionStage.ToDescription(), "The special or alternative provision application is being considered.", false),
 
-        new("project-status-application-stage", ProjectStatus.ApplicationStage, !isVisibleToPresumption,
+        new("project-status-application-stage", ProjectStatus.ApplicationStage,
             ProjectStatus.ApplicationStage.ToDescription(), "The school's application is being considered.", false),
 
-        new("project-status-cancelled", ProjectStatus.Cancelled, isVisibleToPresumption,
-            ProjectStatus.Cancelled.ToDescription(), "The project was cancelled in pre-opening.", true,
+        new("project-status-cancelled", ProjectStatus.Cancelled, ProjectStatus.Cancelled.ToDescription(), "The project was cancelled in pre-opening.", true,
             "year-cancelled", "year-cancelled", "Date the project was cancelled", "For example, 27 3 2021", Model.CancelledYear),
 
-        new("project-status-closed", ProjectStatus.Closed, isVisibleToPresumption,
-            ProjectStatus.Closed.ToDescription(), "The school has closed.", true,
+        new("project-status-closed", ProjectStatus.Closed, ProjectStatus.Closed.ToDescription(), "The school has closed.", true,
             "year-closed", "year-closed", "Date the school was closed", "For example, 23 2 2021", Model.ClosedYear),
 
-        new("project-status-open", ProjectStatus.Open, isVisibleToPresumption,
-            ProjectStatus.Open.ToDescription(), "The school has opened.", false),
+        new("project-status-open", ProjectStatus.Open, ProjectStatus.Open.ToDescription(), "The school has opened.", false),
 
-        new("project-status-open-not-included", ProjectStatus.OpenNotIncludedInFigures, !isVisibleToPresumption,
-            ProjectStatus.OpenNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
+        new("project-status-open-not-included", ProjectStatus.OpenNotIncludedInFigures, ProjectStatus.OpenNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
 
-        new("project-status-pre-opening", ProjectStatus.Preopening, isVisibleToPresumption,
-            ProjectStatus.Preopening.ToDescription(), "The project stage after the application stage.", false),
+        new("project-status-pre-opening", ProjectStatus.Preopening, ProjectStatus.Preopening.ToDescription(), "The project stage after the application stage.", false),
 
-        new("project-status-pre-opening-not-included", ProjectStatus.PreopeningNotIncludedInFigures, !isVisibleToPresumption,
-            ProjectStatus.PreopeningNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
+        new("project-status-pre-opening-not-included", ProjectStatus.PreopeningNotIncludedInFigures, ProjectStatus.PreopeningNotIncludedInFigures.ToDescription(), "For example, this project is not a free school but is using free schools budget.", false),
 
-        new("project-status-rejected", ProjectStatus.Rejected, !isVisibleToPresumption,
+        new("project-status-rejected", ProjectStatus.Rejected,
             ProjectStatus.Rejected.ToDescription(), "A Regional Director did not approve the project to move into pre-opening.", false),
 
-        new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, !isVisibleToPresumption,
-            ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", true,
+        new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", true,
             "year-withdrawn-application", "year-withdrawn-application", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnApplicationYear),
 
-        new("project-status-withdrawn", ProjectStatus.WithdrawnDuringPreOpening, isVisibleToPresumption,
-            ProjectStatus.WithdrawnDuringPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
+        new("project-status-withdrawn", ProjectStatus.WithdrawnDuringPreOpening, ProjectStatus.WithdrawnDuringPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
             "year-withdrawn-preopening", "year-withdrawn-preopening", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnYear)
     };
 }
@@ -70,17 +64,21 @@
 
             <div class="govuk-form-group" id="project-status">
                 <govuk-radios-list>
-                    @foreach (var option in options.Where(option => option.IsVisible).ToList())
-                    {
-                        if (option.IsConditional)
+                    @{
+                        var options = isPresumptionProject ? projectStatusOptions.Where(x => presumptionStatuses.Contains(x.Value)) : projectStatusOptions;
+
+                        foreach (var option in options.OrderBy(x => Enum.GetName(typeof(ProjectStatus), x.Value)))
                         {
-                            <govuk-radios-list-conditional-item id="@option.Id" value="@option.Value" description="@option.Description" hint="@option.Hint" asp-for="@Model.ProjectStatus" name="project-status">
-                                <govuk-date-input id="@option.DateInputId" name="@option.DateInputName" asp-for="@option.DateInputValueAspFor" label="@option.DateInputLabel" hint="@option.DateInputHint"/>
-                            </govuk-radios-list-conditional-item>
-                        }
-                        else
-                        {
-                            <govuk-radios-list-item id="@option.Id" value="@option.Value" description="@option.Description" hint="@option.Hint" asp-for="@Model.ProjectStatus" name="project-status"/>
+                            if (option.IsConditional)
+                            {
+                                <govuk-radios-list-conditional-item id="@option.Id" value="@option.Value" description="@option.Description" hint="@option.Hint" asp-for="@Model.ProjectStatus" name="project-status">
+                                    <govuk-date-input id="@option.DateInputId" name="@option.DateInputName" asp-for="@option.DateInputValueAspFor" label="@option.DateInputLabel" hint="@option.DateInputHint"/>
+                                </govuk-radios-list-conditional-item>
+                            }
+                            else
+                            {
+                                <govuk-radios-list-item id="@option.Id" value="@option.Value" description="@option.Description" hint="@option.Hint" asp-for="@Model.ProjectStatus" name="project-status"/>
+                            }
                         }
                     }
                 </govuk-radios-list>
