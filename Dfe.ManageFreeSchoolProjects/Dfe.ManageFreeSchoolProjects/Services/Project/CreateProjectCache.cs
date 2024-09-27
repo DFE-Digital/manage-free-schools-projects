@@ -8,27 +8,20 @@ using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface ICreateProjectCache: ICookieCacheService<CreateProjectCacheItem>
+    public interface ICreateProjectCache : ICookieCacheService<CreateProjectCacheItem>
     {
     }
 
     public class CreateProjectCache : CookieCacheService<CreateProjectCacheItem>, ICreateProjectCache
     {
-        public CreateProjectCache(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider)
-            : base(httpContextAccessor, DataProtectionProvider, "CP1")
+        public CreateProjectCache(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider dataProtectionProvider) : 
+            base(httpContextAccessor, dataProtectionProvider, "CP1")
         {
         }
     }
 
-    public enum CreateProjectNavigation
-    {
-        Default,
-        FromFaithType,
-    }
-
     public record CreateProjectCacheItem
     {
-        public CreateProjectNavigation Navigation { get; set; }
         public bool ReachedCheckYourAnswers { get; set; }
         public string ProjectId { get; set; }
         public string SchoolName { get; set; }
@@ -62,5 +55,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Project
         public DateTime? ProvisionalOpeningDate { get; set; }
         public string ProjectAssignedToName { get; set; }
         public string ProjectAssignedToEmail { get; set; }
+        public string ApplicationNumber { get; set; }
+        public string ApplicationWave { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-@page "/project/create/application-number"
-@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute.ApplicationNumberViewModel
+@page "/project/create/application-wave"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute.ApplicationWaveViewModel
 
 @{
-    ViewData["Title"] = "What is the application number?";
+    ViewData["Title"] = "What is the application wave?";
 }
 @section BeforeMain {
     <div role="navigation" class="govuk-width-container">
@@ -15,8 +15,8 @@
         <form class="form" method="post">
 
             <div class="govuk-form-group">
-                <govuk-create-title label="What is the application number?" for="application-number" />
-                <govuk-text-input id="application-number" name="application-number" asp-for="@Model.ApplicationNumber" data-testid="application-number" hint="For example, SPW3-075." />
+                <govuk-create-title label="What is the application wave?" for="application-wave" />
+                <govuk-text-input id="application-wave" name="application-wave" asp-for="@Model.ApplicationWave" data-testid="application-number" hint="For example, SPW3-075." />
             </div>
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">

@@ -3,16 +3,6 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.MethodModel
 @{
     ViewData["Title"] = "Create new free school projects";
-    var labels = new[] { "Create one project", "Create a central route project", "Upload multiple projects" };
-    var values = new[] { ProjectCreateMethod.Individual.ToString(), ProjectCreateMethod.CentralRoute.ToString(), ProjectCreateMethod.Bulk.ToString() };
-    var hints = new[]
-    {
-        "Presumption route only",
-        "Central route only",
-        "Wave route only"
-    };
-
-    const string centralRouteApplicationWaveHintText = @"For example, ""FS Wave 4"" or ""FS Wave 12""";
 }
 
 @section BeforeMain {
@@ -25,11 +15,11 @@
     <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="govuk-form-group" method="post">
-            
+
             <govuk-radios-list>
                 <govuk-radios-list-item id="create-presumption-route-project-method"
                                         name="method"
-                                        value="@ProjectCreateMethod.Individual.ToString()"
+                                        value="@ProjectCreateMethod.PresumptionRoute.ToString()"
                                         description="Presumption route"
                                         asp-for="@Model.Method"/>
 
@@ -38,20 +28,8 @@
                                         value="@ProjectCreateMethod.CentralRoute.ToString()"
                                         description="Central route"
                                         asp-for="@Model.Method"/>
-             
-            
-            
             </govuk-radios-list>
 
-
-            @* <govuk-radios-input id="method" *@
-            @*                     name="method" *@
-            @*                     asp-for="@Model.Method" *@
-            @*                     labels="@labels" *@
-            @*                     values="@values" *@
-            @*                     hints="@hints" *@
-            @*                     label="What do you want to do?" *@
-            @*                     xl-heading-label="true"/> *@
             <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>

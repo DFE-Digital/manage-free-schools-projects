@@ -19,6 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             return currentPageName switch
             {
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ApplicationWave => RouteConstants.CreateApplicationNumber,
+                
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.FaithType => RouteConstants.CreateFaithStatus,
                 CreateProjectPageName.ProvisionalOpeningDate => PreviousProvisionalOpeningDate(),
@@ -53,8 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectId,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
-                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust,
-                    routeParameter),
+                CreateProjectPageName.SchoolType => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
                 CreateProjectPageName.SchoolPhase => RouteConstants.CreateClassType,
                 CreateProjectPageName.AgeRange => RouteConstants.CreateProjectSchoolPhase,
@@ -70,6 +72,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             return currentPageName switch
             {
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
+                CreateProjectPageName.ApplicationWave => RouteConstants.CreateProjectId,
                 CreateProjectPageName.FaithStatus => NextFaithStatus(),
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),

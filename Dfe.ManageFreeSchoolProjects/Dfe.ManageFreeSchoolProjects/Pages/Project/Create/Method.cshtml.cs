@@ -45,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     //TODO: implement presumption route journey
                     return Redirect(RouteConstants.CreateProjectId);
                 case ProjectCreateMethod.CentralRoute:
-                    return Redirect(RouteConstants.CreateCentralRouteApplicationNumber);
+                    return Redirect(RouteConstants.CreateApplicationNumber);
                 default:
                     throw new InvalidOperationException($"Unrecognised method {Method}");
             }
