@@ -7,7 +7,7 @@
             return new ValidationResult
             {
                 IsValid = value.Length <= maxLength,
-                errorMessage = value.Length <= maxLength ? null : $"Value exceeds maximum length of {maxLength}."
+                ErrorMessage = value.Length <= maxLength ? null : $"Value exceeds maximum length of {maxLength}."
             };
         }
     }

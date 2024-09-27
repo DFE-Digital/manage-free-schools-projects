@@ -22,13 +22,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 if(!dto.SchoolName.IsNullOrEmpty())
                 {
                     entity.ProjectStatusCurrentFreeSchoolName = dto.SchoolName;
+                    entity.ProjectStatusActualOpeningDate = DateTime.Parse(dto.OpeningDate);
                 }
                 
             }
 
             await _context.SaveChangesAsync();
-
-
         }
     }
 }

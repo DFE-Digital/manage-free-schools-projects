@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -12,6 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 {
                     ProjectId = x.ProjectStatusProjectId,
                     SchoolName = x.ProjectStatusCurrentFreeSchoolName,
+                    OpeningDate = x.ProjectStatusActualOpeningDate.Value.ToString("dd/MM/yyyy")
                 })
                 .ToDictionaryAsync(k => k.ProjectId);
         }

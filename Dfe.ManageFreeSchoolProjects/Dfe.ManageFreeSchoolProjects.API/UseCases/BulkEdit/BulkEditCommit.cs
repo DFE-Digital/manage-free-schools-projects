@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                     var header = headers.FirstOrDefault(x => x.Name == request.Headers[column.ColumnIndex].Name);
                     var value = column.Value;
-                    header.SetToDto(value, currentRow);
+                    header.DataInteration.ApplyToDto(value, currentRow);
                 }
             }
 

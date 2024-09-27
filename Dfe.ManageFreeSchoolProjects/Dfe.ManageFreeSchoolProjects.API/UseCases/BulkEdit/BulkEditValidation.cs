@@ -31,7 +31,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             foreach (var row in request.Rows)
             {
-                var currentRow = projects[row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value];
+                string Id = row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value;
+                var currentRow = projects.ContainsKey(Id) ? projects[Id] : default;
 
                 var validationRowResult = new ValidationRowInfo()
                 {
@@ -48,14 +49,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                     var header = headerMap[column.ColumnIndex];
                     var validationResult = header.Type.Execute(currentRow, column.Value);
+                    var currentValue = currentRow != null ? header.DataInteration.GetFromDto(currentRow) : "";
                     if (!validationResult.IsValid)
                     {
+
                         validationRowResult.Columns.Add(new ValueChangeInfo()
                         {
                             ColumnIndex = column.ColumnIndex,
-                            CurrentValue = header.GetFromDto(currentRow),
+                            CurrentValue = currentValue,
                             NewValue = column.Value,
-                            Error = validationResult.errorMessage
+                            Error = validationResult.ErrorMessage
                         });
 
                     }
@@ -64,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         validationRowResult.Columns.Add(new ValueChangeInfo()
                         {
                             ColumnIndex = column.ColumnIndex,
-                            CurrentValue = header.GetFromDto(currentRow),
+                            CurrentValue = currentValue,
                             NewValue = column.Value
                         });
                     }

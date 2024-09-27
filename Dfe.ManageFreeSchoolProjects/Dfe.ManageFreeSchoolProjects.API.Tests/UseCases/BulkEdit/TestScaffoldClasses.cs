@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,20 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         }
     }
 
+    internal class TestInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteration<TestDto>
+    {
+        public string GetFromDto(TestDto dto)
+        {
+            return getDto(dto);
+        }
+
+        public TestDto ApplyToDto(string value, TestDto dto)
+        {
+            setDto(value, dto);
+            return dto;
+        }
+    }
+
     internal class TestHeaderRegister : IHeaderRegister<TestDto>
     {
         internal const string HeaderOneName = "TestHeader";
@@ -37,10 +52,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         {
             return new()
             {
-                new() { Name = ProjectId, Type = new TestProjectIdValidation(), GetFromDto = (x => x.ProjectId), },
-                new() { Name = HeaderOneName, Type = new TestValidation(), GetFromDto = (x => x.TestData), SetToDto = (v,t) => { t.TestData = v; return t; } },
-                new() { Name = HeaderTwoName, Type = new TestValidation(), GetFromDto = (x => x.OtherTestData) },
-                new() { Name = HeaderData, Type = new DataDependencyValidation(), GetFromDto = (x => x.DependantTestData)}
+                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteration = new TestInteraction((x => x.ProjectId), (x, t) => t.ProjectId = x) },
+                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteration = new TestInteraction((x => x.TestData), (x, t) => t.TestData = x) },
+                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteration = new TestInteraction((x => x.OtherTestData), (x, t) => t.OtherTestData = x) },
+                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteration = new TestInteraction((x => x.DependantTestData), (x, t) => t.DependantTestData = x) },
             };
         }
     }
@@ -69,7 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             return new ValidationResult()
             {
                 IsValid = value == ValidInput,
-                errorMessage = value == ValidInput ? null : ValidationMessage
+                ErrorMessage = value == ValidInput ? null : ValidationMessage
             };
         }
     }
@@ -84,7 +99,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             return new ValidationResult()
             {
                 IsValid = data.DataForValidation == value,
-                errorMessage = data.DataForValidation == value ? null : DataValidationMessage
+                ErrorMessage = data.DataForValidation == value ? null : DataValidationMessage
             };
         }
     }

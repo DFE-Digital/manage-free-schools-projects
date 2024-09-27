@@ -5,6 +5,7 @@
         public const string ProjectId = "Project Id";
         public const string SchoolName = "School Name";
         public const string LocalAuthority = "Local Authority";
+        public const string OpeningDate = "Opening Date";
         public const string Region = "Region";
 
         public static string[] AllHeaders
@@ -16,7 +17,8 @@
                     ProjectId,
                     SchoolName,
                     LocalAuthority,
-                    Region
+                    Region,
+                    OpeningDate,
                 ];
             }
         }

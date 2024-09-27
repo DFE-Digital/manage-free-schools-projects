@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,7 +27,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
             var ExistingSchoolName = project.ProjectStatusCurrentFreeSchoolName;
+            var ExistingOpeningDate = project.ProjectStatusActualOpeningDate;
             var NewSchoolName = "School Name";
+            var NewOpeningDate = "01/01/2021";
 
 
             using var context = _testFixture.GetContext();
@@ -39,6 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
                     new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
                 },
                 Rows = new List<RowInfo>
                 {
@@ -49,6 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
                             new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate},
                         }
                     }
                 }
@@ -78,7 +83,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ColumnIndex = 1, 
                     CurrentValue = ExistingSchoolName, 
                     NewValue = NewSchoolName 
-                } 
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue = ExistingOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    NewValue = NewOpeningDate
+                }
             });
 
         }
@@ -90,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
             var NewSchoolName = "School Name";
-
+            var NewOpeningDate = new DateTime(2021, 1, 1);
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
@@ -102,6 +113,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
                     new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
                 },
                 Rows = new List<RowInfo>
                 {
@@ -112,6 +124,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
                             new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate.ToString("dd/MM/yyyy")},
                         }
                     }
                 }
@@ -130,6 +143,115 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var result = await overviewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
 
             result.Data.ProjectStatus.CurrentFreeSchoolName.Should().Be(NewSchoolName);
+            result.Data.ProjectStatus.ActualOpeningDate.Should().Be(NewOpeningDate);
+        }
+
+
+        [Fact]
+        public async Task ProjectIDMissingTest()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+
+            var projectId = project.ProjectStatusProjectId;
+            var ExistingSchoolName = project.ProjectStatusCurrentFreeSchoolName;
+            var ExistingOpeningDate = project.ProjectStatusActualOpeningDate;
+            var NewSchoolName = "School Name";
+            var NewOpeningDate = "01/01/2021";
+
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            await context.SaveChangesAsync();
+
+            var bulkValidateRequest = new BulkEditRequest
+            {
+                Headers = new List<HeaderInfo>
+                {
+                    new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
+                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
+                },
+                Rows = new List<RowInfo>
+                {
+                    new RowInfo
+                    {
+                        FileRowIndex = 1,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = "ABCDEF" },
+                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
+                        }
+                    },
+                    new RowInfo
+                    {
+                        FileRowIndex = 2,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
+                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
+                        }
+                    }
+                }
+            };
+
+            var response = await _testFixture.Client.PostAsync($"api/v1/bulkedit/validate", bulkValidateRequest.ConvertToJson());
+
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<BulkEditValidateResponse>>();
+
+            result.Data.Headers.Should().BeEquivalentTo(bulkValidateRequest.Headers);
+
+            var resultRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 1);
+
+            resultRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = "",
+                    NewValue = "ABCDEF",
+                    Error = "Project Id does not exist"
+                },
+                new()
+                {
+                    ColumnIndex = 1,
+                    CurrentValue = "",
+                    NewValue = NewSchoolName
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue = "",
+                    NewValue = NewOpeningDate
+                }
+            });
+
+            var resultValidRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 2);
+
+            resultValidRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId.ToString(),
+                    NewValue = projectId.ToString(),
+                },
+                new()
+                {
+                    ColumnIndex = 1,
+                    CurrentValue = ExistingSchoolName,
+                    NewValue = NewSchoolName
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue = ExistingOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    NewValue = NewOpeningDate
+                }
+            });
         }
 
 

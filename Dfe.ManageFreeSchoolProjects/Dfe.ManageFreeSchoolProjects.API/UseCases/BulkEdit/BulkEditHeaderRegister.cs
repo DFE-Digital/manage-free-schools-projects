@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations;
 
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
@@ -12,11 +13,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
         {
             return new List<HeaderType<BulkEditDto>>
             {
-                new() { Name = HeaderNames.ProjectId, Type = new ProjectIdValidationCommand(), GetFromDto = (x => x.ProjectId) },
-                new() { Name = HeaderNames.SchoolName, Type = new TextValidationCommand(100), GetFromDto = (x => x.SchoolName), SetToDto = (v, t) => { t.SchoolName = v; return t; } },
-                new() { Name = HeaderNames.LocalAuthority, Type = new TextValidationCommand(10), GetFromDto = (x => x.LocalAuthority)}
+                new() { Name = HeaderNames.ProjectId, Type = new ProjectIdValidationCommand(), DataInteration = new ProjectIdInteraction() },
+                new() { Name = HeaderNames.SchoolName, Type = new TextValidationCommand(100), DataInteration = new SchoolNameInteraction() },
+                new() { Name = HeaderNames.OpeningDate, Type = new DateValidationCommand(), DataInteration = new OpeningDateInteration() },
             };
         }
     }
-
 }

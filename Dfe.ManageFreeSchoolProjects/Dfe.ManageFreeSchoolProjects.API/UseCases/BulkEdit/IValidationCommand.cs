@@ -8,6 +8,6 @@
     public record ValidationResult()
     {
         public bool IsValid { get; set; }
-        public string errorMessage { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }
