@@ -11,13 +11,6 @@ class KickOffMeetingEditPage {
         return this;
     }
 
-
-    private setDate(key: string, day: string, month: string, year: string) {
-        cy.get('#' + `${key}-day`).typeFast(day);
-        cy.get('#' + `${key}-month`).typeFast(month);
-        cy.get('#' + `${key}-year`).typeFast(year);
-    }
-
     withComments(comment: string): this {
         cy.getById("funding-arrangement-details-agreed").typeFast(comment)
         return this;
@@ -32,15 +25,6 @@ class KickOffMeetingEditPage {
         cy.getById("realistic-year-of-opening-endyear").typeFast(year)
         return this;
     }
-
-
-    withProvisionalOpeningDate(day: string, month: string, year: string): this {
-        const key = "provisional-opening-date";
-        this.setDate(key, day, month, year);
-        return this
-    }
-
-
 
     checkSavedDocumentsInWorkplacesFolder(): this {
         cy.getById("saved-documents-in-workplaces-folder").check()

@@ -39,7 +39,6 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Funding arrangement details agreed between local authority and trust").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -78,7 +77,6 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Funding arrangement details agreed between local authority and trust").IsEmpty().HasChangeLink()
             .summaryShows("Comments").IsEmpty().HasChangeLink()
             .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .clickChange();
@@ -118,19 +116,6 @@ describe("Testing kick off meeting Task", () => {
         cy.log('Provisional opening date agreed with trust validation')
 
         kickOffMeetingEditPage
-            .withProvisionalOpeningDate("Z", "3", "2020")
-            .clickContinue()
-            .errorForProvisionalOpeningDate().showsError("Day must be a number, like 12")
-            .withProvisionalOpeningDate("1", "3", "2051")
-            .clickContinue()
-            .errorForProvisionalOpeningDate().showsError("Year must be between 2000 and 2050")
-            .withProvisionalOpeningDate("1", "3", "2050")
-            .clickContinue();
-
-        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "1 March 2050")
-            .clickChange();
-
-        kickOffMeetingEditPage
             .checkFundingArrangementAgreed()
             .clickContinue()
 
@@ -150,7 +135,6 @@ describe("Testing kick off meeting Task", () => {
             .summaryShows("Funding arrangement details agreed between local authority and trust").HasValue("Yes").HasChangeLink()
             .summaryShows("Comments").HasValue("comment that's ok").HasChangeLink()
             .summaryShows("Realistic year of opening").HasValue("2049/50").HasChangeLink()
-            .summaryShows("Provisional opening date agreed with trust").HasValue("1 March 2050").HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
