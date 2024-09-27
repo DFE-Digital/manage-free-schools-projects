@@ -34,8 +34,8 @@
                 <govuk-summary-item label="Date received" asp-for="@GovernancePlan.DatePlanReceived" href="@editlink" />
             }
             <govuk-summary-item label="Assessed plan using assessment template" asp-for="@GovernancePlan.PlanAssessedUsingTemplate" href="@editlink" />
-            <govuk-summary-item label="Shared plan and assessment with external expert" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithExpert" href="@editlink" />
-            <govuk-summary-item label="Shared plan and assessment with ESFA (Education and Skills Funding Agency)" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithEsfa" href="@editlink" />
+            <govuk-summary-item label="Shared plan and assessment with external expert - if applicable" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithExpert" href="@editlink" />
+            <govuk-summary-item label="Shared plan and assessment with ESFA (Education and Skills Funding Agency) - if applicable" asp-for="@GovernancePlan.PlanAndAssessmentSharedWithEsfa" href="@editlink" />
             <govuk-summary-item label="Fed back to trust on plan" asp-for="@GovernancePlan.PlanFedBackToTrust" href="@editlink" />
             <govuk-summary-item label="Final governance plan agreed" asp-for="@GovernancePlan.FinalGovernancePlanAgreed" href="@editlink" />
             @if (GovernancePlan.DatePlanAgreed is not null)
