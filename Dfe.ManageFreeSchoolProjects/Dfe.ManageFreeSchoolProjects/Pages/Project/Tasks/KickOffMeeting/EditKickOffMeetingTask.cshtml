@@ -30,8 +30,7 @@
             }
             <govuk-textarea-input id="funding-arrangement-details-agreed" label="Comments" rows="5" bold-label="true" name="funding-arrangement-details-agreed" asp-for="@Model.FundingArrangementDetailsAgreed" add-margin="true" data-testid="funding-arrangement-details-agreed"/>
             <govuk-year-start-end id="realistic-year-of-opening"  name="realistic-year-of-opening" bold-label="true" label="Realistic year of opening" asp-for="@Model.RealisticYearOfOpening" add-margin="true" data-testid="realistic-year-of-opening" hint="For example, 2021 2022"/>
-            <govuk-date-input id="provisional-opening-date" name="provisional-opening-date" bold-label="true" label="Provisional opening date agreed with trust" asp-for="@Model.ProvisionalOpeningDate" add-margin="true" data-testid="provisional-opening-date" hint="For example, 27 3 2021"/>
-            <govuk-checkbox-input id="saved-documents-in-workplaces-folder" name="saved-documents-in-workplaces-folder" bold-label="true" label="Saved documents in Workplaces folder" asp-for="@Model.SavedDocumentsInWorkplacesFolder" add-margin="true" data-testid="saved-documents-in-workplaces-folder" />
+            <govuk-checkbox-input id="saved-documents-in-workplaces-folder" name="saved-documents-in-workplaces-folder" label="Saved documents in Workplaces folder" asp-for="@Model.SavedDocumentsInWorkplacesFolder" add-margin="true" data-testid="saved-documents-in-workplaces-folder" />
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue
             </button>

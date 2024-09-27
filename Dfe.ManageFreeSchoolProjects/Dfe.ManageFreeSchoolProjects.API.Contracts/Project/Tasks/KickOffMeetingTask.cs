@@ -7,7 +7,5 @@ public class KickOffMeetingTask
     public string FundingArrangementDetailsAgreed { get; set; }
     public string RealisticYearOfOpening { get; set; }
     
-    public DateTime? ProvisionalOpeningDate { get; set; }
-    
     public bool? SavedDocumentsInWorkplacesFolder { get; set; }
 }
