@@ -1,13 +1,16 @@
-using Dfe.ManageFreeSchoolProjects.Constants;
+using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
+using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute;
 
-public class ApplicationNumberViewModel(ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
+public class ApplicationNumberViewModel(ICreateProjectCache createProjectCache, ErrorService errorService) : CreateProjectBaseModel(createProjectCache)
 {
     [BindProperty(Name = "application-number")]
+    [Display(Name = "application number")]
+    [StringLength(10, ErrorMessage = "The application number must be 10 characters or less.")]
     public string ApplicationNumber { get; set; }
     
     public IActionResult OnGet()
@@ -24,6 +27,12 @@ public class ApplicationNumberViewModel(ICreateProjectCache createProjectCache) 
     public IActionResult OnPost()
     {
         BackLink = GetPreviousPage(CreateProjectPageName.ApplicationNumber);
+
+        if (ModelState.IsValid == false)
+        {
+            errorService.AddErrors(ModelState.Keys, ModelState);
+            return Page();
+        }   
         
         var project = CreateProjectCache.Get();
 
