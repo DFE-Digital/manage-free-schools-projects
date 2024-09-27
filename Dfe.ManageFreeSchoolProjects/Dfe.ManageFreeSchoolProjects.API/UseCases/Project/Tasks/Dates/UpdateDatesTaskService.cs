@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
+﻿using DocumentFormat.OpenXml.Drawing;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
 {
     public class UpdateDatesTaskService : IUpdateTaskService
     {
@@ -17,6 +19,7 @@
             dbKpi.ProjectStatusDateClosed = task.ProjectClosedDate;
             dbKpi.ProjectStatusDateCancelled = task.ProjectCancelledDate;
             dbKpi.ProjectStatusDateWithdrawn = task.ProjectWithdrawnDate;
+            dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
         }
     }
 }
