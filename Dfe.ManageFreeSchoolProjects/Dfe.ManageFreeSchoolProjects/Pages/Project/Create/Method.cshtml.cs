@@ -3,14 +3,14 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
+    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+        : CreateProjectBaseModel(createProjectCache)
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
@@ -19,11 +19,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnGet()
         {
-            if(!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
             {
                 return new UnauthorizedResult();
             }
-            
+
             return Page();
         }
 
@@ -36,35 +36,35 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             var chosenMethod = (ProjectCreateMethod)Enum.Parse(typeof(ProjectCreateMethod), Method);
+
+            var projCache = CreateProjectCache.Get();
             
-            switch (chosenMethod)
-            {
-                case ProjectCreateMethod.PresumptionRoute:
-                    CreateProjectCache.Delete();
-                    UpdateCacheWithCreateMethod(ProjectCreateMethod.PresumptionRoute);
-                    return Redirect(RouteConstants.CreateProjectId);
-                case ProjectCreateMethod.CentralRoute:
-                    DeleteCacheIfProjectMethodNull();
-                    UpdateCacheWithCreateMethod(ProjectCreateMethod.CentralRoute);
-                    return Redirect(RouteConstants.CreateApplicationNumber);
-                default:
-                    throw new InvalidOperationException($"Unrecognised method {Method}");
-            }
+            return GetNextPage(projCache, chosenMethod);
         }
 
-        private void DeleteCacheIfProjectMethodNull()
+        private IActionResult GetNextPage(CreateProjectCacheItem projCache, ProjectCreateMethod chosenMethod)
         {
-            var projCache = CreateProjectCache.Get();
+            var changedMethodFromCheckYourAnswers =
+                projCache.ReachedCheckYourAnswers && chosenMethod != projCache.ProjectCreateMethod;
 
+            return chosenMethod switch
+            {
+                ProjectCreateMethod.PresumptionRoute => Redirect(changedMethodFromCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers : RouteConstants.CreateProjectId),
+                ProjectCreateMethod.CentralRoute => Redirect(changedMethodFromCheckYourAnswers ? RouteConstants.CreateApplicationNumber : RouteConstants.CreateProjectCheckYourAnswers),
+                _ => throw new InvalidOperationException($"Unrecognised method {chosenMethod}")
+            };
+        }
+
+        private void DeleteCacheIfProjectMethodNull(CreateProjectCacheItem projCache)
+        {
             if (projCache.ProjectCreateMethod == ProjectCreateMethod.NotSet)
                 return;
-            
+
             CreateProjectCache.Delete();
         }
 
-        private void UpdateCacheWithCreateMethod(ProjectCreateMethod method)
+        private void UpdateCacheWithCreateMethod(ProjectCreateMethod method, CreateProjectCacheItem projCache)
         {
-            var projCache = CreateProjectCache.Get();
             projCache.ProjectCreateMethod = method;
             CreateProjectCache.Update(projCache);
         }
