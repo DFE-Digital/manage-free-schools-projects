@@ -76,32 +76,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PrincipalDesignate
                 return Page();
             }
 
-            if (PrincipalDesignateAppointed == true && !ActualDatePrincipalDesignateAppointed.HasValue)
-            {
-                ModelState.AddModelError("actual-date-that-principal-designate-was-appointed",
-                    "Enter the actual date that principal designate was appointed");
-                _errorService.AddErrors(ModelState.Keys, ModelState);
-                return Page();
-            }
-
             var principalDesignateTask = new PrincipalDesignateTask();
-
-            if (PrincipalDesignateAppointed == null)
-            {
-                principalDesignateTask.TrustAppointedPrincipalDesignate = null;
-            }
-
-            else
-            {
-                principalDesignateTask.TrustAppointedPrincipalDesignate = ActualDatePrincipalDesignateAppointed.HasValue;
-            }
-
+            
+            principalDesignateTask.TrustAppointedPrincipalDesignate = PrincipalDesignateAppointed;
             principalDesignateTask.CommissionedExternalExpertVisitToSchool = ConvertYesNoNotApplicable(CommissionedExternalExpertVisit);
             principalDesignateTask.ExpectedDatePrincipalDesignateAppointed = ExpectedDatePrincipalDesignateAppointed;
             principalDesignateTask.ActualDatePrincipalDesignateAppointed = ActualDatePrincipalDesignateAppointed;
-            
-            
-
 
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
