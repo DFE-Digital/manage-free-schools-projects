@@ -1,7 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
-using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Po = Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Po;
+using RiskAppraisalMeetingTask = Dfe.ManageFreeSchoolProjects.Data.Entities.RiskAppraisalMeetingTask;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 {
@@ -568,17 +569,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 PdgInitialGrantLetterDate = new DateTime().AddDays(30),
                 PdgInitialGrantLetterLink = _fixture.Create<string>(),
                 PdgInitialGrantLetterSavedToWorkplaces = true,
-                
+
                 ProjectDevelopmentGrantFundingPdgGrantLetterDate = finalGrantLetterDate,
                 ProjectDevelopmentGrantFundingPdgGrantLetterLink = _fixture.Create<string>(),
                 PdgGrantLetterLinkSavedToWorkplaces = true,
-                
             };
 
-            if (!withVariationLetters) 
+            if (!withVariationLetters)
                 return result;
-            
-            result.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = new DateTime().AddDays(40); 
+
+            result.ProjectDevelopmentGrantFunding1stPdgGrantVariationDate = new DateTime().AddDays(40);
             result.PdgFirstVariationGrantLetterSavedToWorkplaces = true;
 
             result.ProjectDevelopmentGrantFunding2ndPdgGrantVariationDate = new DateTime().AddDays(50);
@@ -586,11 +586,40 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             result.ProjectDevelopmentGrantFunding3rdPdgGrantVariationDate = new DateTime().AddDays(60);
             result.PdgThirdVariationGrantLetterSavedToWorkplaces = true;
-            
+
             result.ProjectDevelopmentGrantFunding4thPdgGrantVariationDate = new DateTime().AddDays(70);
             result.PdgFourthVariationGrantLetterSavedToWorkplaces = true;
 
             return result;
+        }
+
+        public static Milestones ReadinessToOpenMeetingTask(string projectRid, TypeOfMeetingHeld typeOfMeetingHeld, DateTime dateOfTheMeeting, string whyMeetingWasNotHeld)
+        {
+            return new Milestones
+            {
+                Rid = projectRid,
+                FsgPreOpeningMilestonesRomActualDateOfCompletion = dateOfTheMeeting,
+                ROMTypeOfMeetingHeld = typeOfMeetingHeld.ToString(),
+                ROMPrincipalDesignateHasProvidedChecklist = true,
+                ROMCommissionedAnExternalExpertToAttendMeetingsIfApplicable = true,
+                ROMSavedTheInternalROMReportInWorkplacesFolder = true,
+                ROMSavedTheExternalROMReportInWorkplacesFolder = true,
+                ROMWhyAMeetingWasNotHeld = whyMeetingWasNotHeld,
+            };
+        }
+
+        public static Milestones PreFundingAgreementCheckpointMeetingTask(string projectRid, TypeOfMeetingHeld typeOfMeetingHeld, DateTime dateOfTheMeeting, string whyMeetingWasNotHeld)
+        {
+            return new Milestones
+            {
+                Rid = projectRid,
+                FsgPreOpeningMilestonesPfacmActualDateOfCompletion = dateOfTheMeeting,
+                PFACMTypeOfMeetingHeld = typeOfMeetingHeld.ToString(),
+                PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable = true,
+                PFACMSavedMeetingNoteInWorkplacesFolder = true,
+                PFACMSentAnEmailToTheTrust = true,
+                PFACMWhyAMeetingWasNotHeld = whyMeetingWasNotHeld,
+            };
         }
     }
 }

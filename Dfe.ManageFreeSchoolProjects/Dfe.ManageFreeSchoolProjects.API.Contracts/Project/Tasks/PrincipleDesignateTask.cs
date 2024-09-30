@@ -5,10 +5,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 public class PrincipalDesignateTask
 {
-    
-    public bool?  TrustAppointedPrincipleDesignate { get; set; }
-    
-    public DateTime?  TrustAppointedPrincipleDesignateDate { get; set; }
-    
     public YesNoNotApplicable? CommissionedExternalExpertVisitToSchool { get; set; }
+
+    public DateTime? ExpectedDatePrincipalDesignateAppointed { get; set; }
+
+    public bool?  TrustAppointedPrincipalDesignate { get; set; }
+    
+    public DateTime?  ActualDatePrincipalDesignateAppointed { get; set; }
+    
 }

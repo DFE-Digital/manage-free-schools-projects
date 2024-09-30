@@ -6046,6 +6046,21 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<bool>("MAACheckedSubmittedArticlesMatch")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PFACMSavedMeetingNoteInWorkplacesFolder")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PFACMSentAnEmailToTheTrust")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PFACMTypeOfMeetingHeld")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PFACMWhyAMeetingWasNotHeld")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PRid")
                         .HasMaxLength(11)
                         .IsUnicode(false)
@@ -12133,9 +12148,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("RID");
 
                     b.Property<string>("TaskName")
-                        .HasMaxLength(30)
+                        .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(30)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("Task Name");
 
                     b.Property<DateTime>("PeriodEnd")

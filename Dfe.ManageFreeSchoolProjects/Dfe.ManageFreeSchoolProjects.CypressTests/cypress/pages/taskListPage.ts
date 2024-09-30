@@ -159,6 +159,16 @@ class TaskListPage {
         return this;
     }
 
+    public selectReadinessToOpenMeetingFromTaskList(): this {
+        cy.getByTestId("readinessToOpenMeeting-task").click()
+        return this;
+    }
+
+    public selectPreFundingAgreementCheckpointMeetingFromTaskList(): this {
+        cy.getByTestId("pre-funding-agreement-checkpoint-meeting-task").click()
+        return this;
+    }
+
     public selectMovingToOpenFromTaskList(): this {
         cy.getByTestId("movingToOpen-task").click()
         return this;

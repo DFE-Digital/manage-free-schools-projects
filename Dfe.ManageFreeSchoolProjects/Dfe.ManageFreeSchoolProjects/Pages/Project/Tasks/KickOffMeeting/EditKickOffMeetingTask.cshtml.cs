@@ -36,10 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
         [BindProperty(Name = "realistic-year-of-opening", BinderType= typeof(StartEndModelBinder))]
         public string RealisticYearOfOpening { get; set; }
         
-        [BindProperty(Name = "provisional-opening-date", BinderType = typeof(DateInputModelBinder))]
-        
-        public DateTime? ProvisionalOpeningDate { get; set; }
-        
         [BindProperty(Name = "saved-documents-in-workplaces-folder")]
         public bool? SavedDocumentsInWorkplacesFolder { get; set; }
 
@@ -87,7 +83,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
                         FundingArrangementAgreed = FundingArrangementAgreed,
                         FundingArrangementDetailsAgreed = FundingArrangementDetailsAgreed,
                         RealisticYearOfOpening = RealisticYearOfOpening,
-                        ProvisionalOpeningDate = ProvisionalOpeningDate,
                         SavedDocumentsInWorkplacesFolder = SavedDocumentsInWorkplacesFolder
                         
                     }
@@ -111,7 +106,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.KickOffMeeting
             FundingArrangementAgreed = project.KickOffMeeting.FundingArrangementAgreed;
             FundingArrangementDetailsAgreed = project.KickOffMeeting.FundingArrangementDetailsAgreed;
             RealisticYearOfOpening = project.KickOffMeeting.RealisticYearOfOpening;
-            ProvisionalOpeningDate = project.KickOffMeeting.ProvisionalOpeningDate;
             SavedDocumentsInWorkplacesFolder = project.KickOffMeeting.SavedDocumentsInWorkplacesFolder;
             
             SchoolName = project.SchoolName;

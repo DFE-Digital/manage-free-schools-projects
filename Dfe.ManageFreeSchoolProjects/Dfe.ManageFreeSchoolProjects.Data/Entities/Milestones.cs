@@ -175,5 +175,15 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? ROMSavedTheExternalROMReportInWorkplacesFolder { get; set; }
         
         public string ROMWhyAMeetingWasNotHeld { get; set; }
+
+        public string PFACMTypeOfMeetingHeld { get; set; }
+
+        public bool? PFACMCommissionedAnExternalExpertToAttendMeetingsIfApplicable { get; set; }
+
+        public bool? PFACMSavedMeetingNoteInWorkplacesFolder { get; set; }
+
+        public bool? PFACMSentAnEmailToTheTrust { get; set; }
+
+        public string PFACMWhyAMeetingWasNotHeld { get; set; }
     }
 }

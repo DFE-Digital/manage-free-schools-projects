@@ -33,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Risk appraisal meeting");
             taskHeaders.Should().Contain("Project development grant (PDG)");
             taskHeaders.Should().Contain("Kick-off meeting");
+            taskHeaders.Should().Contain("Pre-funding agreement checkpoint meeting");
             taskHeaders.Should().Contain("Funding agreement");
             taskHeaders.Should().Contain("Funding agreement health check");
             taskHeaders.Should().Contain("Funding agreement submission");
@@ -47,6 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Statutory consultation");
             taskHeaders.Should().Contain("Accepted offers evidence");
             taskHeaders.Should().Contain("Due diligence checks");
+            taskHeaders.Should().Contain("Readiness to open meeting");
             taskHeaders.Should().Contain("Project development grant");
             
             sectionHeaders.Should().Contain("About the project");
@@ -76,6 +78,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(RiskAppraisalMeetingTask.InitialRiskAppraisalMeetingCompleted), "No", project, columnHeaders);
             AssertEntry(nameof(PDGDashboard.PaymentActualDate), "01/02/2024", project, columnHeaders);
             AssertEntry(nameof(KickOffMeetingTask.FundingArrangementAgreed), "Yes", project, columnHeaders);
+            AssertEntry(nameof(PreFundingAgreementCheckpointMeetingTask.SentAnEmailToTheTrust), "Yes", project, columnHeaders);
             AssertEntry(nameof(ArticlesOfAssociationTask.ChairHaveSubmittedConfirmation), "No", project, columnHeaders);
             AssertEntry(nameof(FinancePlanTask.RpaCoverType), "Cover", project, columnHeaders);
             AssertEntry(nameof(FinalFinancePlanTask.Grade6SignedOffFinalPlanDate), "01/01/2023", project, columnHeaders);
@@ -95,6 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(CommissionedExternalExpertTask.CommissionedExternalExpertVisit), "Yes" , project, columnHeaders);
             AssertEntry(nameof(MovingToOpenTask.SentEmailsToRelevantContacts), "Yes" , project, columnHeaders);
             AssertEntry(nameof(PrincipalDesignateTask.CommissionedExternalExpertVisitToSchool), "Yes" , project, columnHeaders);
+            AssertEntry(nameof(DueDiligenceChecks.RequestedCounterExtremismChecks), "Yes", project, columnHeaders);
+            AssertEntry(nameof(ReadinessToOpenMeetingTask.SavedTheInternalRomReportToWorkplacesFolder), "Yes", project, columnHeaders);
             
             AssertEntry(nameof(PaymentData.DateOf1stPaymentDue), "01/01/2021", project, columnHeaders);
             AssertEntry(nameof(PaymentData.DateOf2ndPaymentDue), "02/01/2021", project, columnHeaders);
@@ -150,7 +155,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
         {
             var result = new List<ProjectReportSourceData>()
             {
-                new ProjectReportSourceData()
+                new()
                 {
                     ProjectReferenceData = new ProjectReferenceData()
                     {
@@ -195,6 +200,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         KickOffMeeting = new KickOffMeetingTask()
                         {
                             FundingArrangementAgreed = true,
+                        },
+                        PreFundingAgreementCheckpointMeetingTask = new PreFundingAgreementCheckpointMeetingTask()
+                        {
+                            SentAnEmailToTheTrust = true,
                         },
                         ArticlesOfAssociation = new ArticlesOfAssociationTask()
                         {
@@ -279,8 +288,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         DueDiligenceChecks = new DueDiligenceChecks
                         {
                             RequestedCounterExtremismChecks = true
-                        }
-                    },
+                        },
+                        ReadinessToOpenMeetingTask = new()
+                        {
+                            SavedTheInternalRomReportToWorkplacesFolder = true
+                        }, 
+                    }, 
                     Payments = new PaymentData()
                     {
                         DateOf1stPaymentDue = new DateTime(2021, 1, 1),

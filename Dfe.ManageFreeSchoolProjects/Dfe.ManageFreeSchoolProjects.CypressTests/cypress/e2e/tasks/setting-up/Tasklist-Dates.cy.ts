@@ -159,6 +159,27 @@ describe("Testing project overview", () => {
 
         validationComponent
           .hasLinkedValidationError("Day must be between 1 and 30")
-          .hasLinkedValidationError("Day must be between 1 and 28");                  
+          .hasLinkedValidationError("Day must be between 1 and 28");
+          
+        datesDetailsPage
+          .withEntryIntoPreOpening("30", "9", "2026")
+          .withProvisionalOpeningDateAgreedWithTrust("28", "2", "2026")
+          .withRealisticYearOfOpeningStartDate("1234")
+          .clickContinue()
+          .errorForRealisticStartDate("Start date must begin with 20")
+          .withRealisticYearOfOpeningStartDate("2050")
+          .withRealisticYearOfOpeningEndDate("1234")
+          .clickContinue()
+          .errorForRealisticStartDate("End date must begin with 20")
+          .withRealisticYearOfOpeningStartDate("2049")
+          .withRealisticYearOfOpeningEndDate("2050")
+          .clickContinue()
+
+        summaryPage.SummaryHasValue("Entry into pre-opening", "30 September 2026")
+        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "28 February 2026")
+        summaryPage.SummaryHasValue("Realistic year of opening", "2049/50")
+
+
+        
     });    
 });
