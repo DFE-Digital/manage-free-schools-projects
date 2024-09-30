@@ -52,7 +52,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             return currentPageName switch
             {
-                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ProjectId => cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute
+                    ? RouteConstants.CreateApplicationWave
+                    : RouteConstants.CreateProjectMethod,
                 CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
                 CreateProjectPageName.ApplicationWave => RouteConstants.CreateApplicationNumber,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectId,
@@ -80,7 +82,35 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
                     routeParameter),
                 CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
+                CreateProjectPageName.ApplicationWave => NextPageAfterApplicationWave(),
                 _ => DefaultNextRoute(currentPageName)
+            };
+        }
+
+        private string DefaultNextRoute(CreateProjectPageName currentPageName)
+        {
+            var cache = CreateProjectCache.Get();
+
+            if (cache.ReachedCheckYourAnswers)
+                return RouteConstants.CreateProjectCheckYourAnswers;
+
+            return currentPageName switch
+            {
+                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
+                CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
+                CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
+                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
+                CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
+                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
+                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectAgeRange,
+                CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
+                CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatus,
+                CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
+                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateProjectAssignedTo,
+                CreateProjectPageName.ProjectAssignedTo => RouteConstants.CreateProjectCheckYourAnswers,
+                CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
+                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
         }
 
@@ -98,34 +128,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return RouteConstants.CreateFaithType;
         }
 
-        private string DefaultNextRoute(CreateProjectPageName currentPageName)
+        private string NextPageAfterApplicationWave()
         {
             var cache = CreateProjectCache.Get();
 
-            if (cache.ReachedCheckYourAnswers)
-                return RouteConstants.CreateProjectCheckYourAnswers;
-
-            return currentPageName switch
-            {
-                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
-                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
-                CreateProjectPageName.ApplicationWave => RouteConstants.CreateProjectId,
-                CreateProjectPageName.SchoolName => cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute
-                    ? RouteConstants.CreateProjectCheckYourAnswers
-                    : RouteConstants.CreateProjectRegion,
-                CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
-                CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
-                CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
-                CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolPhase,
-                CreateProjectPageName.SchoolPhase => RouteConstants.CreateProjectAgeRange,
-                CreateProjectPageName.AgeRange => RouteConstants.CreateProjectCapacity,
-                CreateProjectPageName.Capacity => RouteConstants.CreateFaithStatus,
-                CreateProjectPageName.FaithType => RouteConstants.CreateProjectProvisionalOpeningDate,
-                CreateProjectPageName.ProvisionalOpeningDate => RouteConstants.CreateProjectAssignedTo,
-                CreateProjectPageName.ProjectAssignedTo => RouteConstants.CreateProjectCheckYourAnswers,
-                CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
-                _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
-            };
+            return cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute && cache.ReachedCheckYourAnswers
+                ? RouteConstants.CreateProjectCheckYourAnswers
+                : RouteConstants.CreateProjectId;
         }
     }
 }

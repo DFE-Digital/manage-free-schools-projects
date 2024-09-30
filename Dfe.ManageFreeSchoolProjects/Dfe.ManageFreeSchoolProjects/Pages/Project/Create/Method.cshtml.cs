@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
         [Required(ErrorMessage = "Select what you want to do")]
-        public string Method { get; set; }
+        public ProjectCreateMethod Method { get; set; }
         
         public IActionResult OnGet()
         {
@@ -23,6 +23,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return new UnauthorizedResult();
             }
 
+            Method = CreateProjectCache.Get().ProjectCreateMethod;
+            
+            //TODO: remove, for testing only
+            // CreateProjectCache.Delete();
+            
             return Page();
         }
 
@@ -33,50 +38,40 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
-
-            var chosenMethod = (ProjectCreateMethod)Enum.Parse(typeof(ProjectCreateMethod), Method);
-
+            
             var projCache = CreateProjectCache.Get();
 
-            var nextPage = GetNextPage(projCache, chosenMethod);
+            var nextPage = GetNextPage(projCache, Method);
 
-            if (chosenMethod != projCache.ProjectCreateMethod)
+            //TODO: when do we delete cache? 
+            if (projCache.ProjectCreateMethod == ProjectCreateMethod.NotSet)
                 CreateProjectCache.Delete();
             
-            UpdateCacheWithCreateMethod(chosenMethod, projCache);
+            UpdateCacheWithCreateMethod(Method, projCache);
             
             return nextPage;
         }
 
         private RedirectResult GetNextPage(CreateProjectCacheItem projCache, ProjectCreateMethod chosenMethod)
         {
-            var centralRouteNextPage = GetCentralRouteNextPage(projCache, chosenMethod);
+            var projectTypeChanged = projCache.ProjectCreateMethod != chosenMethod;
             
             return chosenMethod switch
             {
-                ProjectCreateMethod.PresumptionRoute => Redirect(projCache.ReachedCheckYourAnswers
-                    ? RouteConstants.CreateProjectCheckYourAnswers
-                    : RouteConstants.CreateProjectId),
+                ProjectCreateMethod.PresumptionRoute => Redirect(
+                    projCache.ReachedCheckYourAnswers 
+                        ? RouteConstants.CreateProjectCheckYourAnswers 
+                        : RouteConstants.CreateProjectId),
 
-                ProjectCreateMethod.CentralRoute => Redirect(centralRouteNextPage),
+                ProjectCreateMethod.CentralRoute => Redirect(
+                    projCache.ReachedCheckYourAnswers && projectTypeChanged
+                        ? RouteConstants.CreateApplicationNumber 
+                        : RouteConstants.CreateProjectCheckYourAnswers),
 
                 _ => throw new InvalidOperationException($"Unrecognized method {chosenMethod}")
             };
         }
         
-        private static string GetCentralRouteNextPage(CreateProjectCacheItem cache, ProjectCreateMethod selectedMethod)
-        {
-            // If we reached "Check Your Answers" and the method changed, go to application number page
-            if (cache.ReachedCheckYourAnswers)
-            {
-                return cache.ProjectCreateMethod != selectedMethod 
-                    ? RouteConstants.CreateApplicationNumber 
-                    : RouteConstants.CreateProjectCheckYourAnswers;
-            }
-
-            return RouteConstants.CreateApplicationNumber;
-        }
-
         private void UpdateCacheWithCreateMethod(ProjectCreateMethod method, CreateProjectCacheItem projCache)
         {
             projCache.ProjectCreateMethod = method;

@@ -31,9 +31,10 @@
 
         <dl class="govuk-summary-list">
 
+            @RenderSummaryRow("Project type", Model.Project.ProjectCreateMethod.ToDescription(), RouteConstants.CreateProjectMethod)
+
             @if (Model.Project.ProjectCreateMethod == ProjectCreateMethod.CentralRoute)
             {
-                @RenderSummaryRow("Project type", Model.Project.ProjectCreateMethod.ToDescription(), RouteConstants.CreateProjectMethod)
                 @RenderSummaryRow("Application number", Model.Project.ApplicationNumber, RouteConstants.CreateApplicationNumber)
                 @RenderSummaryRow("Application wave", Model.Project.ApplicationWave, RouteConstants.CreateApplicationWave)
             }
@@ -41,40 +42,39 @@
             @RenderSummaryRow("Temporary Project ID", Model.Project.ProjectId, RouteConstants.CreateProjectId)
             @RenderSummaryRow("Current free school name", Model.Project.SchoolName, RouteConstants.CreateProjectSchool)
 
-            @if (Model.Project.ProjectCreateMethod != ProjectCreateMethod.CentralRoute)
+
+            @RenderSummaryRow("Region", Model.Project.Region.ToDescription(), RouteConstants.CreateProjectRegion)
+            @RenderSummaryRow("Local authority", Model.Project.LocalAuthority, RouteConstants.CreateProjectLocalAuthority)
+            @RenderSummaryRow("Trust", Model.Project.TrustName, RouteConstants.CreateProjectSearchTrust)
+            @RenderSummaryRow("School type", Model.Project.SchoolType.ToDescription(), RouteConstants.CreateProjectSchoolType)
+            @RenderSummaryRow("Nursery", Model.Project.Nursery.ToString(), RouteConstants.CreateClassType)
+            @RenderSummaryRow("Sixth form", Model.Project.SixthForm.ToString(), RouteConstants.CreateClassType)
+            @RenderSummaryRow("Residential or boarding", Model.Project.ResidentialOrBoarding.ToString(), RouteConstants.CreateClassType)
+
+            @if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(Model.Project.SchoolType))
             {
-                @RenderSummaryRow("Region", Model.Project.Region.ToDescription(), RouteConstants.CreateProjectRegion)
-                @RenderSummaryRow("Local authority", Model.Project.LocalAuthority, RouteConstants.CreateProjectLocalAuthority)
-                @RenderSummaryRow("Trust", Model.Project.TrustName, RouteConstants.CreateProjectSearchTrust)
-                @RenderSummaryRow("School type", Model.Project.SchoolType.ToDescription(), RouteConstants.CreateProjectSchoolType)
-                @RenderSummaryRow("Nursery", Model.Project.Nursery.ToString(), RouteConstants.CreateClassType)
-                @RenderSummaryRow("Sixth form", Model.Project.SixthForm.ToString(), RouteConstants.CreateClassType)
-                @RenderSummaryRow("Residential or boarding", Model.Project.ResidentialOrBoarding.ToString(), RouteConstants.CreateClassType)
-
-                if (ProjectConstants.SchoolTypesWithSpecialistProvisions.Contains(Model.Project.SchoolType))
-                {
-                    @RenderSummaryRow("Alternative provision", Model.Project.AlternativeProvision.ToString(), RouteConstants.CreateClassType)
-                    @RenderSummaryRow("Special educational needs", Model.Project.SpecialEducationNeeds.ToString(), RouteConstants.CreateClassType)
-                }
-
-                @RenderSummaryRow("School phase", Model.Project.SchoolPhase.ToDescription(), RouteConstants.CreateProjectSchoolPhase)
-                @RenderSummaryRow("Age range", Model.Project.AgeRange, RouteConstants.CreateProjectAgeRange)
-
-                if (Model.Project.Nursery == Nursery.Yes)
-                {
-                    @RenderSummaryRow("Nursery capacity", Model.Project.NurseryCapacity.ToString(), RouteConstants.CreateProjectCapacity)
-                }
-
-                @RenderSummaryRow("Reception to year 6 capacity", Model.Project.YRY6Capacity.ToString(), RouteConstants.CreateProjectCapacity)
-                @RenderSummaryRow("Year 7 to year 11 capacity", Model.Project.Y7Y11Capacity.ToString(), RouteConstants.CreateProjectCapacity)
-                @RenderSummaryRow("Year 12 to year 14 capacity", Model.Project.Y12Y14Capacity.ToString(), RouteConstants.CreateProjectCapacity)
-
-                @RenderSummaryRow("Faith status", Model.Project.FaithStatus.ToString(), RouteConstants.CreateFaithStatus)
-                @RenderSummaryRow("Faith type", faithType, faithTypeLink)
-                @RenderSummaryRow("Provisional opening date agreed with trust", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
-                @RenderSummaryRow("Project assigned to", Model.Project.ProjectAssignedToName, RouteConstants.CreateProjectAssignedTo)
-                @RenderSummaryRow("Email", Model.Project.ProjectAssignedToEmail, RouteConstants.CreateProjectAssignedTo)
+                @RenderSummaryRow("Alternative provision", Model.Project.AlternativeProvision.ToString(), RouteConstants.CreateClassType)
+                @RenderSummaryRow("Special educational needs", Model.Project.SpecialEducationNeeds.ToString(), RouteConstants.CreateClassType)
             }
+
+            @RenderSummaryRow("School phase", Model.Project.SchoolPhase.ToDescription(), RouteConstants.CreateProjectSchoolPhase)
+            @RenderSummaryRow("Age range", Model.Project.AgeRange, RouteConstants.CreateProjectAgeRange)
+
+            @if (Model.Project.Nursery == Nursery.Yes)
+            {
+                @RenderSummaryRow("Nursery capacity", Model.Project.NurseryCapacity.ToString(), RouteConstants.CreateProjectCapacity)
+            }
+
+            @RenderSummaryRow("Reception to year 6 capacity", Model.Project.YRY6Capacity.ToString(), RouteConstants.CreateProjectCapacity)
+            @RenderSummaryRow("Year 7 to year 11 capacity", Model.Project.Y7Y11Capacity.ToString(), RouteConstants.CreateProjectCapacity)
+            @RenderSummaryRow("Year 12 to year 14 capacity", Model.Project.Y12Y14Capacity.ToString(), RouteConstants.CreateProjectCapacity)
+
+            @RenderSummaryRow("Faith status", Model.Project.FaithStatus.ToString(), RouteConstants.CreateFaithStatus)
+            @RenderSummaryRow("Faith type", faithType, faithTypeLink)
+            @RenderSummaryRow("Provisional opening date agreed with trust", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
+            @RenderSummaryRow("Project assigned to", Model.Project.ProjectAssignedToName, RouteConstants.CreateProjectAssignedTo)
+            @RenderSummaryRow("Email", Model.Project.ProjectAssignedToEmail, RouteConstants.CreateProjectAssignedTo)
+
         </dl>
 
         <h2 class="govuk-heading-m">Now create your project</h2>

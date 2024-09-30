@@ -5,13 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute;
 
-public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache)
-    : CreateProjectBaseModel(createProjectCache)
+public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
 {
     [BindProperty(Name = "application-wave")]
     public string ApplicationWave { get; set; }
-
-
+    
     public IActionResult OnGet()
     {
         BackLink = GetPreviousPage(CreateProjectPageName.ApplicationWave);
@@ -31,7 +29,7 @@ public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache)
 
         projCache.ApplicationWave = ApplicationWave;
 
-        var nextPage = !string.IsNullOrEmpty(projCache.ProjectId) && projCache.ReachedCheckYourAnswers
+        var nextPage = projCache.ReachedCheckYourAnswers
             ? RouteConstants.CreateProjectCheckYourAnswers
             : GetNextPage(CreateProjectPageName.ApplicationWave);
         
