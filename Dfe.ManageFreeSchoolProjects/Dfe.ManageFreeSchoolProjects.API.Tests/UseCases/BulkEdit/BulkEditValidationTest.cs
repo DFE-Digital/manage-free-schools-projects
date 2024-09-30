@@ -14,6 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         private const string HeaderTwoName = TestHeaderRegister.HeaderTwoName;
         private const string DataHeader = TestHeaderRegister.HeaderData;
         private const string ProjectId = TestHeaderRegister.ProjectId;
+        private const string FormattedName = TestHeaderRegister.FormattedName;
         private const string ValidationMessage = TestValidation.ValidationMessage;
         private const string DataValidationMessage = DataDependencyValidation.DataValidationMessage;
         private const string ValidInput = TestValidation.ValidInput;
@@ -317,7 +318,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             AssertCell(response.ValidationResultRows, 1, 1, Existing, ValidInput);
             AssertCell(response.ValidationResultRows, 2, 1, MoreExisting, ValidInput, DataValidationMessage);
         }
-
 
         private void AssertCell(List<ValidationRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue, string error = null)
         {

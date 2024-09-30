@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
             var validationResult = dateValidation.Execute(null, date);
 
             validationResult.IsValid.Should().BeTrue();
-            validationResult.ErrorMessage.Should().BeNull() ;
+            validationResult.ErrorMessage.Should().BeNull();
 
         }
     }

@@ -45,6 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         internal const string HeaderTwoName = "TestHeaderTwo";
         internal const string ProjectId = "ProjectId";
         internal const string HeaderData = "DependantTestData";
+        internal const string FormattedName = "Formatted";
 
         public string IdentifingHeader => ProjectId;
 
@@ -52,10 +53,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         {
             return new()
             {
-                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteration = new TestInteraction((x => x.ProjectId), (x, t) => t.ProjectId = x) },
-                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteration = new TestInteraction((x => x.TestData), (x, t) => t.TestData = x) },
-                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteration = new TestInteraction((x => x.OtherTestData), (x, t) => t.OtherTestData = x) },
-                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteration = new TestInteraction((x => x.DependantTestData), (x, t) => t.DependantTestData = x) },
+                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteration = new TestInteraction(x => x.ProjectId, (x, t) => t.ProjectId = x) },
+                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
+                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteration = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
+                new() { Name = FormattedName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
             };
         }
     }
