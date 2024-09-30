@@ -49,6 +49,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Date the project was cancelled").HasValue("2000").HasChangeLink()
             .summaryShows("Entry into pre-opening").IsEmpty().HasChangeLink()
+            .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -83,6 +84,8 @@ describe("Testing project overview", () => {
             .schoolNameIs(project.schoolName)
             .addCancelledDate("12", "2","2049")
             .withEntryIntoPreOpening("10", "08", "2025")
+            .withRealisticYearOfOpeningStartDate("2040")
+            .withRealisticYearOfOpeningEndDate("2041")
             .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
             .clickContinue();
 
@@ -90,6 +93,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
+            .summaryShows("Realistic year of opening").HasValue("2040/41").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
 
@@ -103,6 +107,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
+            .summaryShows("Realistic year of opening").HasValue("2040/41").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
 
         Logger.log("Should update the task status");

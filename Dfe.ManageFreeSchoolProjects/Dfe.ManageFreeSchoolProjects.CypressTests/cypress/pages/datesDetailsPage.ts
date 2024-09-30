@@ -29,6 +29,16 @@ class DatesDetailsPage {
         cy.enterDate("provisional-opening-date-agreed-with-trust", day, month, year);
         return this;
     }
+
+    withRealisticYearOfOpeningStartDate(year: string): this {
+        cy.getById("realistic-year-of-opening-startyear").typeFast(year)
+        return this;
+    }
+
+    withRealisticYearOfOpeningEndDate(year: string): this {
+        cy.getById("realistic-year-of-opening-endyear").typeFast(year)
+        return this;
+    }
 }
 
 const datesDetailsPage = new DatesDetailsPage();
