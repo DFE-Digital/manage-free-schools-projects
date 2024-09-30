@@ -4,7 +4,7 @@
     {
         public const string ProjectId = "Project Id";
         public const string SchoolName = "School Name";
-        public const string LocalAuthority = "Local Authority";
+        public const string LACode = "LA Code";
         public const string OpeningDate = "Opening Date";
         public const string ProjectStatus = "Project Status";
         
@@ -18,7 +18,7 @@
                     ProjectId,
                     SchoolName,
                     ProjectStatus,
-                    LocalAuthority,
+                    LACode,
                     OpeningDate,
                 ];
             }

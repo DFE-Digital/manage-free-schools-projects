@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using System.Globalization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {

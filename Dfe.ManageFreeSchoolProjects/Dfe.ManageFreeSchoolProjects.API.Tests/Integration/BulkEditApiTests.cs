@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
@@ -252,6 +253,164 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     NewValue = NewOpeningDate
                 }
             });
+        }
+
+
+        [Fact]
+        public async Task LocalAuthorityValidationTest()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var project2 = DatabaseModelBuilder.BuildProject();
+
+            var projectId = project.ProjectStatusProjectId;
+            var projectId2 = project2.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            context.Kpi.Add(project2);
+
+            context.LaData.Add(new()
+            {
+                LocalAuthoritiesLaCode = "123",
+                LocalAuthoritiesLaName = "Local Authority"
+            });
+
+            await context.SaveChangesAsync();
+
+            var bulkValidateRequest = new BulkEditRequest
+            {
+                Headers = new List<HeaderInfo>
+                {
+                    new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
+                    new HeaderInfo { Name = HeaderNames.LACode, Index = 1 },
+                },
+                Rows = new List<RowInfo>
+                {
+                    new RowInfo
+                    {
+                        FileRowIndex = 1,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
+                            new ColumnInfo { ColumnIndex = 1, Value = "123" },
+                        }
+                    },
+                    new RowInfo
+                    {
+                        FileRowIndex = 2,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId2 },
+                            new ColumnInfo { ColumnIndex = 1, Value = "456" },
+                        }
+                    }
+                }
+            };
+
+            var response = await _testFixture.Client.PostAsync($"api/v1/bulkedit/validate", bulkValidateRequest.ConvertToJson());
+
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<BulkEditValidateResponse>>();
+
+            result.Data.Headers.Should().BeEquivalentTo(bulkValidateRequest.Headers);
+
+            var resultValidRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 1);
+
+            resultValidRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId,
+                    NewValue = projectId,
+                },
+                new()
+                {
+                    ColumnIndex = 1,
+                    CurrentValue = project.SchoolDetailsLocalAuthority,
+                    NewValue = "123",
+                }
+            });
+
+
+
+            var resultInValidRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 2);
+
+            resultInValidRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId2,
+                    NewValue = projectId2,
+                },
+                new()
+                {
+                    ColumnIndex = 1,
+                    CurrentValue = project.SchoolDetailsLocalAuthority,
+                    NewValue = "456",
+                    Error = "Local Authority code does not exist"
+                }
+            });
+
+
+        }
+
+
+        [Fact]
+        public async Task LocalAuthoritySaveTest()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+            
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+
+            context.LaData.Add(new()
+            {
+                LocalAuthoritiesLaCode = "123",
+                LocalAuthoritiesLaName = "Local Authority",
+                LocalAuthoritiesGeographicalRegion = "Geographic Region 1"
+                
+            });
+
+            await context.SaveChangesAsync();
+
+            var bulkEditRequest = new BulkEditRequest
+            {
+                Headers = new List<HeaderInfo>
+                {
+                    new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
+                    new HeaderInfo { Name = HeaderNames.LACode, Index = 1 },
+                },
+                Rows = new List<RowInfo>
+                {
+                    new RowInfo
+                    {
+                        FileRowIndex = 1,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
+                            new ColumnInfo { ColumnIndex = 1, Value = "123" },
+                        }
+                    }
+                }
+            };
+
+            var response = await _testFixture.Client.PostAsync($"api/v1/bulkedit/commit", bulkEditRequest.ConvertToJson());
+
+            response.EnsureSuccessStatusCode();
+
+            await _testFixture.Client.PostAsync($"api/v1/bulkedit/commit", bulkEditRequest.ConvertToJson());
+
+            var getProjectByTaskResponse = await _testFixture.Client.GetAsync($"/api/v1/client/projects/{projectId}/tasks/{TaskName.RegionAndLocalAuthority}");
+            getProjectByTaskResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var result = await getProjectByTaskResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectByTaskResponse>>();
+
+            result.Data.RegionAndLocalAuthority.LocalAuthority.Should().Be("Local Authority");
+            result.Data.RegionAndLocalAuthority.Region.Should().Be("Geographic Region 1");
         }
 
 
