@@ -88,17 +88,16 @@ public class GetAllTasksStatusService : IGetTasksService
             CommissionedExternalExpert =
                 SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
             MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString()),
-            PrincipalDesignate = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString())
+            PrincipalDesignate = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString()),
+            ApplicationsEvidence = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString()),
         };
 
-        var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
         var fundingAgreementHealthCheckTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck");
         var fundingAgreementSubmissionTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission");
         var romTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString());
         var preFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.PreFundingAgreementCheckpointMeeting.ToString());
         var dueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString());
 
-        result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
         result.FundingAgreementHealthCheck =
             BuildFundingAgreementHealthCheckTask(fundingAgreementHealthCheckTask, dbKpi);
         result.FundingAgreementSubmission = BuildFundingAgreementSubmissionTask(fundingAgreementSubmissionTask, dbKpi);
@@ -108,7 +107,6 @@ public class GetAllTasksStatusService : IGetTasksService
 
         result.TaskCount = _tasksCount;
 
-        RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
         RemoveHiddenCompletedTaskStatus(result.FundingAgreementHealthCheck);
         RemoveHiddenCompletedTaskStatus(result.FundingAgreementSubmission);
         RemoveHiddenCompletedTaskStatus(result.ReadinessToOpenMeeting);
@@ -128,21 +126,6 @@ public class GetAllTasksStatusService : IGetTasksService
         _tasksCount++;
         return projectTasks.FirstOrDefault(x => x.Name == taskName,
             new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
-    }
-
-    private static TaskSummaryResponse BuildApplicationsEvidenceTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
-    {
-        var parameters = new ApplicationsEvidenceTaskSummaryBuilderParameters()
-        {
-            SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
-            TaskSummary = taskSummaryResponse
-        };
-
-        var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
-
-        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
-
-        return result;
     }
 
     private static TaskSummaryResponse BuildFundingAgreementHealthCheckTask(TaskSummaryResponse taskSummaryResponse,
