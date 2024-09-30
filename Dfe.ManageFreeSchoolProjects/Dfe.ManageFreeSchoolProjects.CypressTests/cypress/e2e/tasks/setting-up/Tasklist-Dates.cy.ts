@@ -166,20 +166,17 @@ describe("Testing project overview", () => {
           .withProvisionalOpeningDateAgreedWithTrust("28", "2", "2026")
           .withRealisticYearOfOpeningStartDate("1234")
           .clickContinue()
-          .errorForRealisticStartDate("Start date must begin with 20")
+          .errorForRealisticStartDate("Start year must begin with 20")
           .withRealisticYearOfOpeningStartDate("2050")
           .withRealisticYearOfOpeningEndDate("1234")
           .clickContinue()
-          .errorForRealisticStartDate("End date must begin with 20")
+          .errorForRealisticStartDate("End year must begin with 20")
           .withRealisticYearOfOpeningStartDate("2049")
           .withRealisticYearOfOpeningEndDate("2050")
           .clickContinue()
 
         summaryPage.SummaryHasValue("Entry into pre-opening", "30 September 2026")
-        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "28 February 2026")
         summaryPage.SummaryHasValue("Realistic year of opening", "2049/50")
-
-
-        
+        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "28 February 2026")    
     });    
 });
