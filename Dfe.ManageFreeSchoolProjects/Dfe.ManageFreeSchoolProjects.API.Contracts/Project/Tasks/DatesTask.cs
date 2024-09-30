@@ -11,5 +11,7 @@
         public DateTime? ProjectCancelledDate { get; set; }
         
         public DateTime? ProjectWithdrawnDate { get; set; }
+
+        public string RealisticYearOfOpening { get; set; }
     }
 }

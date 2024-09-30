@@ -55,6 +55,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.LocalAuthority;
@@ -155,6 +156,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IBulkEditCommit, BulkEditCommit<BulkEditDto>>();
 			services.AddScoped<IBulkDataCommit<BulkEditDto>, BulkDataCommit>();
 			services.AddScoped<ILocalAuthorityCache, LocalAuthorityCache>();
+            services.AddScoped<IGetTaskService, GetPreFundingAgreementCheckpointMeetingTaskService>();
+            services.AddScoped<IUpdateTaskService, UpdatePreFundingAgreementCheckpointMeetingTaskService>();
 
             services.AddValidatorsFromAssembly(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
 

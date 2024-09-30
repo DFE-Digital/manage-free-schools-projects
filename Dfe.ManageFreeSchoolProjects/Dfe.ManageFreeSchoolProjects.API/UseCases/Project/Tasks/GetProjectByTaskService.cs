@@ -36,6 +36,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PupilNumbersChecks;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
 {
@@ -165,9 +166,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 case TaskName.DueDiligenceChecks:
                     result = await new GetDueDiligenceChecksTaskService(context).Get(parameters);
                     break;
+                case TaskName.PreFundingAgreementCheckpointMeeting:
+                    result = await new GetPreFundingAgreementCheckpointMeetingTaskService(context).Get(parameters);
+                    break;
                 case TaskName.ReadinessToOpenMeeting:
                     result = await new GetROMService(context).Get(parameters);
-                    break; 
+                    break;
                 default:
                     throw new ArgumentException($"Unknown task name {taskName}");
             }

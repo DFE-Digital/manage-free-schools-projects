@@ -87,7 +87,9 @@ public class GetAllTasksStatusService : IGetTasksService
                 SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
             MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString()),
             DueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString()),
-            ReadinessToOpenMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString())
+            PreFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.PreFundingAgreementCheckpointMeeting.ToString()),
+            ReadinessToOpenMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString()),
+            PrincipalDesignate = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString())
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
@@ -96,7 +98,6 @@ public class GetAllTasksStatusService : IGetTasksService
         var fundingAgreementSubmissionTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission");
 
         result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
-        result.PrincipalDesignate = BuildPrincipleDesignateTask(principalDesignateTask, dbKpi);
         result.FundingAgreementHealthCheck =
             BuildFundingAgreementHealthCheckTask(fundingAgreementHealthCheckTask, dbKpi);
         result.FundingAgreementSubmission = BuildFundingAgreementSubmissionTask(fundingAgreementSubmissionTask, dbKpi);
@@ -130,21 +131,6 @@ public class GetAllTasksStatusService : IGetTasksService
         };
 
         var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
-
-        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
-
-        return result;
-    }
-
-    private static TaskSummaryResponse BuildPrincipleDesignateTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
-    {
-        var parameters = new PrincipalDesignateTaskSummaryBuilderParameters()
-        {
-            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
-            TaskSummary = taskSummaryResponse
-        };
-
-        var result = new PrincipalDesignateTaskSummaryBuilder().Build(parameters);
 
         _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
 

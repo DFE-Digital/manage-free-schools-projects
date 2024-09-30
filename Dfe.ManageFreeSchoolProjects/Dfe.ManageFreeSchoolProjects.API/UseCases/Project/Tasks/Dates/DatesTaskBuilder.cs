@@ -13,7 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
                 ProvisionalOpeningDateAgreedWithTrust = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                 ProjectClosedDate = kpi.ProjectStatusDateClosed,
                 ProjectCancelledDate = kpi.ProjectStatusDateCancelled,
-                ProjectWithdrawnDate = kpi.ProjectStatusDateWithdrawn
+                ProjectWithdrawnDate = kpi.ProjectStatusDateWithdrawn,
+                RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
             };
         }
     }

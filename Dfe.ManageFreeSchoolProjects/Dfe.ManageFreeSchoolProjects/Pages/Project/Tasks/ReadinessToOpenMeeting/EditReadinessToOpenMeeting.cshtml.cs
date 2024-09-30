@@ -160,7 +160,7 @@ public class EditROMViewModel(
                 DateOfFormalTheMeeting = null;
                 WhyMeetingWasNotHeld = null;
                 return;
-            case TypeOfMeetingHeld.NoRomHeld:
+            case TypeOfMeetingHeld.NoMeetingHeld:
                 DateOfInformalTheMeeting = null;
                 DateOfFormalTheMeeting = null;
                 return;

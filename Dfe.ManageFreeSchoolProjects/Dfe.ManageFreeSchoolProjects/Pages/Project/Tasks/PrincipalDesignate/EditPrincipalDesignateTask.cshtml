@@ -28,9 +28,6 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form method="post">
-            <govuk-conditional-radio id="trust-appointed-principal-designate" label="Trust has appointed a principal designate" asp-for="@Model.TrustAppointedPrincipleDesignate">
-                <govuk-date-input id="trust-appointed-principal-designate-date" name="trust-appointed-principal-designate-date" asp-for="@Model.TrustAppointedPrincipleDesignateDate" hint="For example, 27 3 2021" label="Date the trust appointed principal designate" />
-            </govuk-conditional-radio>
             <govuk-radios-input id="commissioned-external-expert-visit"
                                 medium-heading-label="true"
                                 name="commissioned-external-expert-visit"
@@ -39,6 +36,9 @@
                                 values="@yesNoNotApplicableValues"
                                 labels="@yesNoNotApplicableLabels"
                                 test-ids="@commissionedExternalExpertTestIds" />
+            <govuk-date-input id="expected-date-that-principal-designate-will-be-appointed" name="expected-date-that-principal-designate-will-be-appointed" asp-for="@Model.ExpectedDatePrincipalDesignateAppointed" hint="For example, 27 3 2021" label="Expected date that principal designate will be appointed" />
+            <govuk-checkbox-input id="principal-designate-appointed" label="Principal designate appointed" asp-for="@Model.PrincipalDesignateAppointed"/>
+            <govuk-date-input id="actual-date-that-principal-designate-was-appointed" name="actual-date-that-principal-designate-was-appointed" asp-for="@Model.ActualDatePrincipalDesignateAppointed" hint="For example, 27 3 2021" label="Actual date that principal designate was appointed" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="continue">
                 Save and continue

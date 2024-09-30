@@ -12,7 +12,7 @@ describe("Testing Principal designate task", () => {
     beforeEach(() => {
         cy.login();
 
-        project = RequestBuilder.createProjectDetailsNonPresumption();
+        project = RequestBuilder.createProjectDetails();
 
         projectApi
             .post({
@@ -25,7 +25,7 @@ describe("Testing Principal designate task", () => {
 
     it("Should be able to set a Principal designate", () => {
         
-        Logger.log("Select finance plan");
+        Logger.log("Select principal designate");
         taskListPage.isTaskStatusIsNotStarted("PrincipalDesignate")
             .selectPrincipleDesignateFromTaskList();
 
@@ -34,8 +34,10 @@ describe("Testing Principal designate task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Principal designate")
             .inOrder()
-            .summaryShows("Trust has appointed a principal designate").IsEmpty().HasChangeLink()
             .summaryShows("Commissioned an external expert").IsEmpty().HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Principal designate appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.log("Go back to task list");
@@ -51,7 +53,6 @@ describe("Testing Principal designate task", () => {
         taskListPage.isTaskStatusInProgress("PrincipalDesignate")
             .selectPrincipleDesignateFromTaskList();
         
-        
         summaryPage.clickChange();
 
         cy.log("Check empty values accepted");
@@ -63,24 +64,24 @@ describe("Testing Principal designate task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Principal designate")
             .inOrder()
-            .summaryShows("Trust has appointed a principal designate").IsEmpty().HasChangeLink()
             .summaryShows("Commissioned an external expert").IsEmpty().HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Principal designate appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .clickChange()
         
-        cy.log("Check validation for principal designate");
+        cy.log("Check validation for actual principal designate date");
         
         editPrincipalDesignatePage
-            .checkYesForPrincipleDesignate()
-            .clickContinue()
-            .errorForPrincipleDesignateAppointedDate().showsError("Enter the actual date a principal designate was appointed")
             .withPrincipleDesignateAppointedDate("24","","")
             .clickContinue()
-            .errorForPrincipleDesignateAppointedDate().showsError("Trust appointed principal designate date must include a month and year")
+            .errorForPrincipleDesignateAppointedDate().showsError("Actual date that principal designate was appointed must include a month and year")
             .withPrincipleDesignateAppointedDate("24","4","")
             .clickContinue()
-            .errorForPrincipleDesignateAppointedDate().showsError("Trust appointed principal designate date must include a year")
+            .errorForPrincipleDesignateAppointedDate().showsError("Actual date that principal designate was appointed must include a year")
             .withPrincipleDesignateAppointedDate("24","4","2049")
+            .checkYesForPrincipleDesignate()
             .checkYesForExternalExpert()
             .clickContinue()
 
@@ -88,14 +89,38 @@ describe("Testing Principal designate task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Principal designate")
             .inOrder()
-            .summaryShows("Trust has appointed a principal designate").HasValue("Yes").HasChangeLink()
-            .summaryShows("Date that the trust appointed principal designate").HasValue("24 April 2049").HasChangeLink()
             .summaryShows("Commissioned an external expert").HasValue("Yes").HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Principal designate appointed").HasValue("Yes").HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").HasValue("24 April 2049").HasChangeLink()
             .isNotMarkedAsComplete();
 
         summaryPage.clickChange();
+//
+        cy.log("Check validation for expected principal designate date");
+        
+        editPrincipalDesignatePage
+            .withExpectedPrincipleDesignateAppointedDate("25","","")
+            .clickContinue()
+            .errorForExpectedPrincipleDesignateAppointedDate().showsError("Expected date that principal designate will be appointed must include a month and year")
+            .withExpectedPrincipleDesignateAppointedDate("25","4","")
+            .clickContinue()
+            .errorForExpectedPrincipleDesignateAppointedDate().showsError("Expected date that principal designate will be appointed must include a year")
+            .withExpectedPrincipleDesignateAppointedDate("25","4","2049")
+            .clickContinue()
 
+        summaryPage
+            .schoolNameIs(project.schoolName)
+            .titleIs("Principal designate")
+            .inOrder()
+            .summaryShows("Commissioned an external expert").HasValue("Yes").HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").HasValue("25 April 2049").HasChangeLink()
+            .summaryShows("Principal designate appointed").HasValue("Yes").HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").HasValue("24 April 2049").HasChangeLink()
+            .isNotMarkedAsComplete();
 
+        summaryPage.clickChange();
+//
         editPrincipalDesignatePage
             .checkNoForPrincipleDesignate()
             .checkNotApplicableForExternalExpert()
@@ -105,8 +130,10 @@ describe("Testing Principal designate task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Principal designate")
             .inOrder()
-            .summaryShows("Trust has appointed a principal designate").HasValue("No").HasChangeLink()
             .summaryShows("Commissioned an external expert").HasValue("Not applicable").HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").HasValue("25 April 2049").HasChangeLink()
+            .summaryShows("Principal designate appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").HasValue("24 April 2049").HasChangeLink()
             .isNotMarkedAsComplete()
 
         cy.log("can edit principal designate");
@@ -115,16 +142,18 @@ describe("Testing Principal designate task", () => {
 
 
         editPrincipalDesignatePage
-            .checkNoForPrincipleDesignate()
             .checkNoForExternalExpert()
+            .withPrincipleDesignateAppointedDate("", "", "")
             .clickContinue()
 
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Principal designate")
             .inOrder()
-            .summaryShows("Trust has appointed a principal designate").HasValue("No").HasChangeLink()
             .summaryShows("Commissioned an external expert").HasValue("No").HasChangeLink()
+            .summaryShows("Expected date that principal designate will be appointed").HasValue("25 April 2049").HasChangeLink()
+            .summaryShows("Principal designate appointed").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date that principal designate was appointed").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
             .clickConfirmAndContinue()

@@ -11,7 +11,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
             {
                 FundingArrangementAgreed = milestones?.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor,
                 FundingArrangementDetailsAgreed = milestones?.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor,
-                ProvisionalOpeningDate = kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust,
                 RealisticYearOfOpening = kpi.ProjectStatusRealisticYearOfOpening,
                 SavedDocumentsInWorkplacesFolder = milestones?.FsgPreOpeningMilestonesKickoffMeetingDocumentsSavedInWorkplacesFolder
             };

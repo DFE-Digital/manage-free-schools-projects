@@ -40,6 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         MovingToOpen,
         PrincipalDesignate,
         DueDiligenceChecks,
+        PreFundingAgreementCheckpointMeeting,
         ReadinessToOpenMeeting
     }
 }
