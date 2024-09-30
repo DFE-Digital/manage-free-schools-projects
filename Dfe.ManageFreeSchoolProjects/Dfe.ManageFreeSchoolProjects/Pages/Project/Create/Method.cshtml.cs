@@ -9,14 +9,13 @@ using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache)
-        : CreateProjectBaseModel(createProjectCache)
+    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache) : CreateProjectBaseModel(createProjectCache)
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
         [Required(ErrorMessage = "Select what you want to do")]
         public string Method { get; set; }
-
+        
         public IActionResult OnGet()
         {
             if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
@@ -38,29 +37,44 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             var chosenMethod = (ProjectCreateMethod)Enum.Parse(typeof(ProjectCreateMethod), Method);
 
             var projCache = CreateProjectCache.Get();
+
+            var nextPage = GetNextPage(projCache, chosenMethod);
+
+            if (chosenMethod != projCache.ProjectCreateMethod)
+                CreateProjectCache.Delete();
             
-            return GetNextPage(projCache, chosenMethod);
+            UpdateCacheWithCreateMethod(chosenMethod, projCache);
+            
+            return nextPage;
         }
 
         private RedirectResult GetNextPage(CreateProjectCacheItem projCache, ProjectCreateMethod chosenMethod)
         {
-            //TODO: is deleting cache needed here?
-            CreateProjectCache.Delete();
+            var centralRouteNextPage = GetCentralRouteNextPage(projCache, chosenMethod);
             
             return chosenMethod switch
             {
-                ProjectCreateMethod.PresumptionRoute => Redirect(projCache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers : RouteConstants.CreateProjectId),
-                ProjectCreateMethod.CentralRoute => Redirect(projCache.ReachedCheckYourAnswers ? RouteConstants.CreateApplicationNumber : RouteConstants.CreateProjectCheckYourAnswers),
-                _ => throw new InvalidOperationException($"Unrecognised method {chosenMethod}")
+                ProjectCreateMethod.PresumptionRoute => Redirect(projCache.ReachedCheckYourAnswers
+                    ? RouteConstants.CreateProjectCheckYourAnswers
+                    : RouteConstants.CreateProjectId),
+
+                ProjectCreateMethod.CentralRoute => Redirect(centralRouteNextPage),
+
+                _ => throw new InvalidOperationException($"Unrecognized method {chosenMethod}")
             };
         }
-
-        private void DeleteCacheIfProjectMethodNull(CreateProjectCacheItem projCache)
+        
+        private static string GetCentralRouteNextPage(CreateProjectCacheItem cache, ProjectCreateMethod selectedMethod)
         {
-            if (projCache.ProjectCreateMethod == ProjectCreateMethod.NotSet)
-                return;
+            // If we reached "Check Your Answers" and the method changed, go to application number page
+            if (cache.ReachedCheckYourAnswers)
+            {
+                return cache.ProjectCreateMethod != selectedMethod 
+                    ? RouteConstants.CreateApplicationNumber 
+                    : RouteConstants.CreateProjectCheckYourAnswers;
+            }
 
-            CreateProjectCache.Delete();
+            return RouteConstants.CreateApplicationNumber;
         }
 
         private void UpdateCacheWithCreateMethod(ProjectCreateMethod method, CreateProjectCacheItem projCache)

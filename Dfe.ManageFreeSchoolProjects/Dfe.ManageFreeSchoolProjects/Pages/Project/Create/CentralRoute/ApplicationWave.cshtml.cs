@@ -29,6 +29,8 @@ public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache)
 
         var projCache = CreateProjectCache.Get();
 
+        projCache.ApplicationWave = ApplicationWave;
+
         var nextPage = !string.IsNullOrEmpty(projCache.ProjectId) && projCache.ReachedCheckYourAnswers
             ? RouteConstants.CreateProjectCheckYourAnswers
             : GetNextPage(CreateProjectPageName.ApplicationWave);
