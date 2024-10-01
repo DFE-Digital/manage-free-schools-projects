@@ -1,7 +1,7 @@
 ﻿@page "/bulk-edit-file-upload"
 @model Dfe.ManageFreeSchoolProjects.Pages.BulkEdit.BulkEditFileUploadModel
 @{
-    var backlink = "/bulk-edit-file-upload";
+    var backlink = Model.BackLink;
 }
 
 @section BeforeMain {
@@ -12,7 +12,6 @@
 
 @if (Model.Rows == null || Model.Rows.Count() == 0 || Model.HasErrors)
 {
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <form class="form" enctype="multipart/form-data" method="post">
@@ -27,7 +26,7 @@
                     <li>local authority</li>
                 </ul>
 
-                <p class="govuk-body">You can download this <a href="/public/downloads/SPA Team - Bulk Upload Template.xlsx">example spreadsheet</a> and upload a completed one.</p>
+                <p class="govuk-body">You can download this <a class="govuk-link" href="/public/downloads/SPA Team - Bulk Upload Template.xlsx">example spreadsheet</a> and upload a completed one.</p>
 
                 <div class="govuk-inset-text govuk-!-margin-bottom-8">
                     Leaving spreadsheet fields empty will not remove any existing project data.

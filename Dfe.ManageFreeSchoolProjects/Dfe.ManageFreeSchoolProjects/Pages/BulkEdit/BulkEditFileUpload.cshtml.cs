@@ -24,8 +24,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                     IBulkEditFileValidator bulkEditFileValidator,
                     ILogger<BulkEditFileUploadModel> logger) : PageModel
     {
-
-
         [BindProperty]
         public IFormFile Upload { get; set; }
 
@@ -35,12 +33,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
         public string FileError { get; set; }
 
+        public string BackLink { get; set; }
+
         public IActionResult OnGet()
         {
             if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
             {
                 return new UnauthorizedResult();
             }
+
+            ViewData["Title"] = "Update multiple fields";
+            BackLink = "/";
 
             bulkEditCache.Delete();
 
@@ -97,6 +100,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 if(!HasErrors)
                 {
                     bulkEditCache.Update(request);
+                    ViewData["Title"] = "Check your answers";
+                    BackLink = RouteConstants.BulkUpload;
+                }
+                else
+                {
+                    ViewData["Title"] = "Update multiple fields";
+                    BackLink = "/";
                 }
             }
 
@@ -119,7 +129,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 var request = bulkEditCache.Get();
                 await bulkEditCommitService.Execute(request);
                 var requestCount = request.Rows.Count();
-                return Redirect(string.Format($"/bulk-edit-file-complete?count={requestCount}"));
+                return Redirect(RouteConstants.BulkEditFileComplete + $"?count={requestCount}");
             }
 
             catch (Exception ex)

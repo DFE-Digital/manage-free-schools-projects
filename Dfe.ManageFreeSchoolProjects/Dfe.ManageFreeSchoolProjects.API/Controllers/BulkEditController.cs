@@ -5,6 +5,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("commit")]
-        public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> commit(BulkEditRequest request)
+        public async Task<ActionResult> commit(BulkEditRequest request)
         {
             logger.LogMethodEntered();
 
@@ -42,12 +43,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 return BadRequest("Request body is required.");
             }
 
-            var response = await bulkEditValidation.Execute(request);
+            var validation = await bulkEditValidation.Execute(request);
+
+            if(validation.ValidationResultRows.Any(r => r.Columns.Any(x => x.Error != null)))
+            {
+                return BadRequest();
+            }
 
             await bulkEditCommit.Execute(request);
 
-            return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response))
-            { StatusCode = StatusCodes.Status200OK };
+            return NoContent();
         }
     }
 }

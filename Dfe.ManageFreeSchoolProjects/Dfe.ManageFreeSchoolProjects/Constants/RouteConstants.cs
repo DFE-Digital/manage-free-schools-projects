@@ -178,5 +178,8 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
         
         public const string ViewReadinessToOpenMeeting = TaskList + "/readiness-to-open-meeting";
         public const string EditReadinessToOpenMeeting = ViewReadinessToOpenMeeting + "/edit";
+
+        public const string BulkUpload = "/bulk-edit-file-upload";
+        public const string BulkEditFileComplete = "/bulk-edit-file-complete";
     }
 }
