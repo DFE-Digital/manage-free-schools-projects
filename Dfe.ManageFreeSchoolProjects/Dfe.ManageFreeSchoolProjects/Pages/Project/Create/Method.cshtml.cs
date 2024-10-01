@@ -17,7 +17,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         [Required(ErrorMessage = "Select what you want to do")]
         public ProjectCreateMethod Method { get; set; }
 
-        [FromQuery(Name = "newProject")] public bool? IsNewProject { get; set; }
+        [FromQuery(Name = "newProject")] 
+        public bool? IsNewProject { get; set; }
 
         public IActionResult OnGet()
         {
@@ -60,11 +61,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             {
                 case ProjectCreateMethod.PresumptionRoute:
                     ClearCentralRouteFields(projCache);
-                   
+
                     return Redirect(projCache.ReachedCheckYourAnswers
                         ? RouteConstants.CreateProjectCheckYourAnswers
                         : RouteConstants.CreateProjectId);
-                
+
                 case ProjectCreateMethod.CentralRoute:
                     return Redirect(projCache.ReachedCheckYourAnswers && hasApplicationWaveOrApplicationNumber
                         ? RouteConstants.CreateProjectCheckYourAnswers
@@ -73,14 +74,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                     throw new InvalidOperationException($"Unrecognized method {chosenMethod}");
             }
         }
-        
+
         private void ClearCentralRouteFields(CreateProjectCacheItem projCache)
         {
             projCache.ApplicationNumber = null;
             projCache.ApplicationWave = null;
             CreateProjectCache.Update(projCache);
         }
-        
+
         private void UpdateCacheWithCreateMethod(ProjectCreateMethod method, CreateProjectCacheItem projCache)
         {
             projCache.ProjectCreateMethod = method;

@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         private readonly IUpdateCapacityWhenFullService _updateCapacityWhenFullService;
 
         public CreateProject(
-            MfspContext context, 
+            MfspContext context,
             IUpdateCapacityWhenFullService updateCapacityWhenFullService)
         {
             _context = context;
@@ -86,6 +86,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return new Kpi
             {
                 Rid = rid,
+                ProjectStatusProjectStatus = proj.ProjectType == ProjectCreateMethod.CentralRoute
+                    ? Contracts.Project.ProjectStatus.ApplicationStage.ToDescription()
+                    : Contracts.Project.ProjectStatus.Preopening.ToDescription(),
                 ProjectStatusProjectId = proj.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
                 ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
@@ -135,7 +138,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
             if (existingProjectIds.Any())
             {
-                throw new UnprocessableContentException($"The following project(s) already exist: {string.Join(",", existingProjectIds)}");
+                throw new UnprocessableContentException(
+                    $"The following project(s) already exist: {string.Join(",", existingProjectIds)}");
             }
         }
 
