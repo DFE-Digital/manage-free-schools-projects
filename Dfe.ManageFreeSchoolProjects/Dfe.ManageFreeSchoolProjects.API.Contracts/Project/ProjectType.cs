@@ -2,7 +2,7 @@
 
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
 {
-    public enum ProjectCreateMethod
+    public enum ProjectType
     {
         NotSet = 0,
         [Description("Presumption")]

@@ -52,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
             return currentPageName switch
             {
-                CreateProjectPageName.ProjectId => cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute
+                CreateProjectPageName.ProjectId => cache.ProjectType == ProjectType.CentralRoute
                     ? RouteConstants.CreateApplicationWave
                     : RouteConstants.CreateProjectMethod,
                 CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
@@ -132,7 +132,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
         {
             var cache = CreateProjectCache.Get();
 
-            return cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute && cache.ReachedCheckYourAnswers
+            return cache.ProjectType == ProjectType.CentralRoute && cache.ReachedCheckYourAnswers
                 ? RouteConstants.CreateProjectCheckYourAnswers
                 : RouteConstants.CreateProjectId;
         }

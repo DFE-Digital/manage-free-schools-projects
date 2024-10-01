@@ -14,14 +14,12 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-	public class ProjectApiTests : ApiTestsBase
-	{
-		public ProjectApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
-		{
-		}
-
-        [Fact]
-        public async Task When_CreateProject_Returns_NewProjectFields_201()
+	public class ProjectApiTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
+    {
+        [Theory]
+        [InlineData(ProjectType.CentralRoute)]
+        [InlineData(ProjectType.PresumptionRoute)]
+        public async Task When_CreateProject_Returns_NewProjectFields_201(ProjectType projectType)
         {
             using var context = _testFixture.GetContext();
             var trust = DatabaseModelBuilder.BuildTrust();
@@ -35,6 +33,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.Nursery = ClassType.Nursery.Yes;
 
             projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            projectDetails.ApplicationNumber = _autoFixture.Create<string>();
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
@@ -97,6 +96,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdPo.PupilNumbersAndCapacityYrY11Pre16Capacity.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity).ToString());
             createdPo.PupilNumbersAndCapacityY12Y14Post16Capacity.Should().Be(projectDetails.Y12Y14Capacity.ToString());
             createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity).ToString());
+
+            if (projectType == ProjectType.CentralRoute)
+            {
+                
+            }
         }
 
         [Fact]

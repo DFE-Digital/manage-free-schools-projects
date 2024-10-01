@@ -86,7 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return new Kpi
             {
                 Rid = rid,
-                ProjectStatusProjectStatus = proj.ProjectType == ProjectCreateMethod.CentralRoute
+                ProjectStatusProjectStatus = proj.ProjectType == ProjectType.CentralRoute
                     ? Contracts.Project.ProjectStatus.ApplicationStage.ToDescription()
                     : Contracts.Project.ProjectStatus.Preopening.ToDescription(),
                 ProjectStatusProjectId = proj.ProjectId,

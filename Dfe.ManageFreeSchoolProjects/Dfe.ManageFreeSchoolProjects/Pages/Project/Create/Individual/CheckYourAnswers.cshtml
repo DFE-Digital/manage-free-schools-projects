@@ -31,9 +31,9 @@
 
         <dl class="govuk-summary-list">
 
-            @RenderSummaryRow("Project type", Model.Project.ProjectCreateMethod.ToDescription(), RouteConstants.CreateProjectMethod)
+            @RenderSummaryRow("Project type", Model.Project.ProjectType.ToDescription(), RouteConstants.CreateProjectMethod)
 
-            @if (Model.Project.ProjectCreateMethod == ProjectCreateMethod.CentralRoute)
+            @if (Model.Project.ProjectType == ProjectType.CentralRoute)
             {
                 @RenderSummaryRow("Application number", Model.Project.ApplicationNumber, RouteConstants.CreateApplicationNumber)
                 @RenderSummaryRow("Application wave", Model.Project.ApplicationWave, RouteConstants.CreateApplicationWave)
