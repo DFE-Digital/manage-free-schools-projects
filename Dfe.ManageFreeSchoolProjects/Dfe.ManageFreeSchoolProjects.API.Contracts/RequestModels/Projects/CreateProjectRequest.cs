@@ -39,5 +39,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects
         public string ProjectAssignedToName { get; set; }
 		public string ProjectAssignedToEmail { get; set; }
 		public string ApplicationWave {  get; set; }
+        public string ApplicationNumber { get; set; }
     }
 }

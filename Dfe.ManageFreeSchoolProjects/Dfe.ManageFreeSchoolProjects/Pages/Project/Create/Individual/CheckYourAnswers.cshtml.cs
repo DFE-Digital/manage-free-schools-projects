@@ -68,7 +68,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
                 ProjectAssignedToName = project.ProjectAssignedToName,
                 ProjectAssignedToEmail = project.ProjectAssignedToEmail,
-                ApplicationWave = "FS - Presumption", 
+                ApplicationWave = project.ApplicationWave, 
+                ApplicationNumber = project.ApplicationNumber
             };
 
             createProjectRequest.Projects.Add(projReq);

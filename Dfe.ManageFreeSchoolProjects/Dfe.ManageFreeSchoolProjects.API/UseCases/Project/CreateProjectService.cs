@@ -52,7 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
                 _context.Kpi.Add(kpi);
                 _context.Tasks.AddRange(ProjectTaskBuilder.BuildTasks(rid));
-                _context.RiskAppraisalMeetingTask.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = rid });
+                _context.RiskAppraisalMeetingTask.Add(new Data.Entities.RiskAppraisalMeetingTask { RID = rid });
                 _context.Po.Add(po);
             }
 
@@ -65,12 +65,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             var nurseryCapacity = proj.Nursery == ClassType.Nursery.Yes ? proj.NurseryCapacity : 0;
 
-            var result = new Po()
+            var result = new Po
             {
                 Rid = rid,
             };
 
-            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull()
+            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull
             {
                 Nursery = nurseryCapacity,
                 ReceptionToYear6 = proj.YRY6Capacity,
@@ -89,7 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 ProjectStatusProjectId = proj.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
                 ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
-                ProjectStatusFreeSchoolsApplicationNumber = "",
+                ProjectStatusFreeSchoolsApplicationNumber = proj.ApplicationNumber,
                 AprilIndicator = "",
                 Wave = proj.ApplicationWave,
                 UpperStatus = "",

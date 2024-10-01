@@ -83,6 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                     routeParameter),
                 CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
                 CreateProjectPageName.ApplicationWave => NextPageAfterApplicationWave(),
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
                 _ => DefaultNextRoute(currentPageName)
             };
         }
@@ -97,7 +98,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return currentPageName switch
             {
                 CreateProjectPageName.ProjectId => RouteConstants.CreateProjectSchool,
-                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectRegion,
                 CreateProjectPageName.LocalAuthority => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSchoolType,
@@ -135,6 +135,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             return cache.ProjectCreateMethod == ProjectCreateMethod.CentralRoute && cache.ReachedCheckYourAnswers
                 ? RouteConstants.CreateProjectCheckYourAnswers
                 : RouteConstants.CreateProjectId;
+        }
+
+        private string NextPageAfterApplicationNumber()
+        {
+            var cache = CreateProjectCache.Get();
+
+            var hasApplicationWave = string.IsNullOrEmpty(cache.ApplicationWave);
+
+            return hasApplicationWave && cache.ReachedCheckYourAnswers
+                ? RouteConstants.CreateProjectCheckYourAnswers
+                : RouteConstants.CreateApplicationWave;
         }
     }
 }
