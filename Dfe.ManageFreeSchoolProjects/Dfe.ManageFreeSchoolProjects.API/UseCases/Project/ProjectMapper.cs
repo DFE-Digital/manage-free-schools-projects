@@ -83,7 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         
         public static ProjectStatusType ToProjectStatusType(string projectStatus)
         {
-            return projectStatus.ToLower() switch
+            return projectStatus?.ToLower() switch
             {
                 "pre-opening" => ProjectStatusType.Preopening,
                 "open" => ProjectStatusType.Open,

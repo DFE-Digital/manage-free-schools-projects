@@ -32,5 +32,6 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             result.Rows[0].Columns[1].ColumnIndex.Should().Be(1);
             result.Rows[0].Columns[1].Value.Should().Be("School 1");
         }
+
     }
 }

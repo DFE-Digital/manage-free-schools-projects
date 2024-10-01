@@ -37,6 +37,13 @@
                     <label class="govuk-label" for="upload">
                         Upload a file
                     </label>
+                    @if (@Model.FileError != null)
+                    {
+                        <span id="file-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> @Model.FileError
+                        </span>
+                    }
+
                     <input id="upload" class="govuk-file-upload" name="upload" type="file" accept=".xlsx,.csv" data-testid="upload">
                 </div>
 

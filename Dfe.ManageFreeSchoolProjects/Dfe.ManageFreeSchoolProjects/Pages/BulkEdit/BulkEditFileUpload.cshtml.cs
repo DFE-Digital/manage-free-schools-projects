@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
+using System.Data;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 {
@@ -20,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                     IBulkEditCommitService bulkEditCommitService,
                     IBulkEditFileReader bulkEditFileReader,
                     IBulkEditCache bulkEditCache,
+                    IBulkEditFileValidator bulkEditFileValidator,
                     ILogger<BulkEditFileUploadModel> logger) : PageModel
     {
 
@@ -30,6 +32,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
         public IEnumerable<RowViewModel> Rows { get; set; }
 
         public bool HasErrors { get; set; }
+
+        public string FileError { get; set; }
 
         public IActionResult OnGet()
         {
@@ -47,6 +51,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
         {
             logger.LogMethodEntered();
 
+            if(!Upload.FileName.EndsWith(".csv") && !Upload.FileName.EndsWith(".xlsx"))
+            {
+                FileError = "The selected file must be an Excel spreadsheet or CSV";
+                return Page();
+            }
+
             try
             {
                 using MemoryStream stream = new MemoryStream();
@@ -55,7 +65,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
                 var dataset = ExcelToDataSetBuilder.Build(stream, Upload.ContentType);
 
-                var request = bulkEditFileReader.Read(dataset.Tables[0]);
+                var table = GetRelevantDataTable(dataset);
+
+                var fileValidation = bulkEditFileValidator.Validate(table);
+
+                if (!fileValidation.IsValid)
+                {
+                    FileError = fileValidation.ErrorMessage;
+                    return Page();
+                }
+
+                var request = bulkEditFileReader.Read(table);
 
                 var response = (await bulkEditValidateService.Execute(request)).Data;
 
@@ -82,6 +102,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
             catch (Exception ex)
             {
+                FileError = "File could not be read";
                 logger.LogErrorMsg(ex);
             }
 
@@ -97,8 +118,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
             {
                 var request = bulkEditCache.Get();
                 await bulkEditCommitService.Execute(request);
-
-                return Redirect(string.Format("/bulk-edit-file-complete"));
+                var requestCount = request.Rows.Count();
+                return Redirect(string.Format($"/bulk-edit-file-complete?count={requestCount}"));
             }
 
             catch (Exception ex)
@@ -108,6 +129,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
             return Page();
 
+        }
+
+        private DataTable GetRelevantDataTable(DataSet dataSet)
+        {
+            foreach (DataTable table in dataSet.Tables)
+            {
+                if (table.TableName == "Upload")
+                {
+                    return table;
+                }
+            }
+
+            return dataSet.Tables[0];
         }
 
         public record RowViewModel

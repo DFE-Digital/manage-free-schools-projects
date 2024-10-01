@@ -114,6 +114,7 @@ public class Startup
         services.AddScoped<IGrantLettersService, GrantLettersService>(); 
         services.AddScoped<IPDGPaymentInfoService, PDGPaymentInfoService>();
         services.AddScoped<IBulkEditFileReader, BulkEditFileReader>();
+        services.AddScoped<IBulkEditFileValidator, BulkEditFileValidator>();
         services.AddScoped<IBulkEditValidateService, BulkEditValidateService>();
         services.AddScoped<IBulkEditCommitService, BulkEditCommitService>();
         services.AddScoped<IBulkEditCache, BulkEditCache>();
