@@ -271,7 +271,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             context.LaData.Add(new()
             {
-                LocalAuthoritiesLaCode = "123",
+                LocalAuthoritiesLaCode = "124",
                 LocalAuthoritiesLaName = "Local Authority"
             });
 
@@ -292,7 +292,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         Columns = new List<ColumnInfo>
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId },
-                            new ColumnInfo { ColumnIndex = 1, Value = "123" },
+                            new ColumnInfo { ColumnIndex = 1, Value = "124" },
                         }
                     },
                     new RowInfo
@@ -329,7 +329,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 {
                     ColumnIndex = 1,
                     CurrentValue = project.SchoolDetailsLocalAuthority,
-                    NewValue = "123",
+                    NewValue = "124",
                 }
             });
 

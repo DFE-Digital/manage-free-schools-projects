@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Extensions
                 if (Attribute.GetCustomAttribute(field,
                 typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
                 {
-                    if (attribute.Description == description)
+                    if (attribute.Description.ToLower() == description.ToLower())
                         return (T)field.GetValue(null);
                 }
                 else

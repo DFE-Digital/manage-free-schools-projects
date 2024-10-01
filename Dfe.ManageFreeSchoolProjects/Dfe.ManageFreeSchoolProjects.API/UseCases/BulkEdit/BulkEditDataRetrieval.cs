@@ -13,7 +13,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 {
                     ProjectId = x.ProjectStatusProjectId,
                     SchoolName = x.ProjectStatusCurrentFreeSchoolName,
-                    OpeningDate = x.ProjectStatusActualOpeningDate.Value.ToString("dd/MM/yyyy")
+                    OpeningDate = x.ProjectStatusActualOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    LocalAuthorityCode = x.SchoolDetailsLocalAuthority,
+                    ApplicationWave = x.ProjectStatusFreeSchoolApplicationWave,
                 })
                 .ToDictionaryAsync(k => k.ProjectId);
         }

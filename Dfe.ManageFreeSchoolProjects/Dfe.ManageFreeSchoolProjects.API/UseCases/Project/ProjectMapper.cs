@@ -83,21 +83,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         
         public static ProjectStatusType ToProjectStatusType(string projectStatus)
         {
-            return projectStatus switch
+            return projectStatus.ToLower() switch
             {
-                "Pre-opening" => ProjectStatusType.Preopening,
-                "Open" => ProjectStatusType.Open,
-                "Closed" => ProjectStatusType.Closed,
-                "Cancelled during pre-opening" => ProjectStatusType.Cancelled,
-                "Cancelled" => ProjectStatusType.Cancelled,
-                "Withdrawn during pre-opening" => ProjectStatusType.WithdrawnDuringPreOpening,
-                "Withdrawn in pre-opening" => ProjectStatusType.WithdrawnDuringPreOpening,
-                "Rejected at application stage" => ProjectStatusType.Rejected,
-                "Application Competition stage" => ProjectStatusType.ApplicationCompetitionStage,
-                "Application stage" => ProjectStatusType.ApplicationStage,
-                "Open free school - Not included in figures" => ProjectStatusType.OpenNotIncludedInFigures,
-                "Pre-opening - Not included in the figures" => ProjectStatusType.PreopeningNotIncludedInFigures,
-                "Withdrawn at application stage" => ProjectStatusType.WithdrawnDuringApplication,
+                "pre-opening" => ProjectStatusType.Preopening,
+                "open" => ProjectStatusType.Open,
+                "closed" => ProjectStatusType.Closed,
+                "cancelled during pre-opening" => ProjectStatusType.Cancelled,
+                "cancelled" => ProjectStatusType.Cancelled,
+                "withdrawn during pre-opening" => ProjectStatusType.WithdrawnDuringPreOpening,
+                "withdrawn in pre-opening" => ProjectStatusType.WithdrawnDuringPreOpening,
+                "rejected at application stage" => ProjectStatusType.Rejected,
+                "application competition stage" => ProjectStatusType.ApplicationCompetitionStage,
+                "application stage" => ProjectStatusType.ApplicationStage,
+                "open free school - not included in figures" => ProjectStatusType.OpenNotIncludedInFigures,
+                "pre-opening - not included in the figures" => ProjectStatusType.PreopeningNotIncludedInFigures,
+                "withdrawn at application stage" => ProjectStatusType.WithdrawnDuringApplication,
                 _ => ProjectStatusType.Preopening,
             };
         }
