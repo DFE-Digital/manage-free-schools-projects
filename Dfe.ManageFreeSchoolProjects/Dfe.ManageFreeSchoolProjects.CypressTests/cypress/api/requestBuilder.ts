@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import { CreateProjectRiskRequest, ProjectDetailsRequest } from "./domain";
 import { EnvUsername } from "cypress/constants/cypressConstants";
 import dataGenerator from "cypress/fixtures/dataGenerator";
