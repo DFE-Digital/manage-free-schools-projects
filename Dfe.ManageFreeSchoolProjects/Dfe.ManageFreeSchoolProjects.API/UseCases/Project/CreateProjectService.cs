@@ -46,7 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 var rid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 11);
                 var trust = await GetTrust(proj.TRN);
 
-                Kpi kpi = MapToKpi(proj, rid, trust);
+                var kpi = MapToKpi(proj, rid, trust);
 
                 var po = MapToPo(proj, rid);
 
@@ -94,7 +94,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave ?? string.Empty,
                 ProjectStatusFreeSchoolsApplicationNumber = proj.ApplicationNumber ?? string.Empty,
                 AprilIndicator = "",
-                Wave = proj.ApplicationWave ?? string.Empty,
+                Wave = proj.ApplicationWave == "FS - Presumption" ? "FS - Presumption" : "Non-Presumption",
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",

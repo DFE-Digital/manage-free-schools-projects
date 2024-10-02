@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
@@ -69,8 +70,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
                 ProjectAssignedToName = project.ProjectAssignedToName,
                 ProjectAssignedToEmail = project.ProjectAssignedToEmail,
-                ApplicationWave = project.ApplicationWave, 
-                ApplicationNumber = project.ApplicationNumber
+                ApplicationNumber = project.ApplicationNumber,
+                ApplicationWave = Project.ProjectType == ProjectType.PresumptionRoute
+                    ? "FS - Presumption"
+                    : project.ApplicationWave
             };
 
             createProjectRequest.Projects.Add(projReq);
@@ -90,12 +93,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                     return Page();
                 }
 
-                if (e.StatusCode == HttpStatusCode.InternalServerError) 
+                if (e.StatusCode == HttpStatusCode.InternalServerError)
                     return Redirect(RouteConstants.CreateProjectConfirmation);
 
                 throw;
             }
-            
+
             return Redirect(RouteConstants.CreateProjectConfirmation);
         }
 
