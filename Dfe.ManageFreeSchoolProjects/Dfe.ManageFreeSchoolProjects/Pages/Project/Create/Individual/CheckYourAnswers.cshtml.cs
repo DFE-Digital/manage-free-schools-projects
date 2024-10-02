@@ -70,12 +70,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
                 ProjectAssignedToName = project.ProjectAssignedToName,
                 ProjectAssignedToEmail = project.ProjectAssignedToEmail,
-                ApplicationNumber = project.ApplicationNumber,
-                ApplicationWave = Project.ProjectType == ProjectType.PresumptionRoute
-                    ? "FS - Presumption"
-                    : project.ApplicationWave
+                ApplicationNumber = project.ApplicationNumber ?? string.Empty,
+                ApplicationWave = project.ProjectType == ProjectType.PresumptionRoute
+                ? "FS - Presumption"
+                : project.ApplicationWave
             };
-
+            
             createProjectRequest.Projects.Add(projReq);
 
             try
