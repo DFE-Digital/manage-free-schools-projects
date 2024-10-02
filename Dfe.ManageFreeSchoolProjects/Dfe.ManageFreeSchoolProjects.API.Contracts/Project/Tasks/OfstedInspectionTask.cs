@@ -1,3 +1,5 @@
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+
 namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
 public class OfstedInspectionTask
@@ -12,7 +14,7 @@ public class OfstedInspectionTask
         
     public bool? SharedOutcomeWithTrust { get; set; }
     
-    public bool? InspectionConditionsMet { get; set; }
+    public YesNoNotApplicable InspectionConditionsMet { get; set; }
         
     public bool? ProposedToOpenOnGias { get; set; }
         

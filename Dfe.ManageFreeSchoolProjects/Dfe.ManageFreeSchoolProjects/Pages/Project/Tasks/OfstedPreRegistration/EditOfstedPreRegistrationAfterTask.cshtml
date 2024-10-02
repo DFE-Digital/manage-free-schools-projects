@@ -1,4 +1,5 @@
 @page "/projects/{projectId}/tasks/ofsted-pre-registration/edit-after-inspection"
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration.EditOfstedPreRegistrationAfterTaskModel
 @{
@@ -22,18 +23,38 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <form method="post">
+        <form class="govuk-form-group" method="post">
             <govuk-checkbox-input label="Shared the outcome with the trust"
                                   asp-for="@Model.SharedOutcomeWithTrust"
                                   name="shared-outcome-with-trust"
                                   id="shared-outcome-with-trust"
                                   add-margin="false"/>
             
-            <govuk-checkbox-input label="Any actions to meet conditions have been taken - if applicable"
-                                  asp-for="@Model.InspectionConditionsMet"
-                                  name="inspection-conditions-met"
-                                  id="inspection-conditions-met"
-                                  add-margin="false"/>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                Any actions to meet conditions have been completed
+            </legend>
+            <govuk-radios-list>
+                
+                <govuk-radios-list-item id="inspection-conditions-met-yes"
+                                        name="inspection-conditions-met"
+                                        value="@YesNoNotApplicable.Yes"
+                                        description="Yes"
+                                        asp-for="@Model.InspectionConditionsMet"/>
+
+                <govuk-radios-list-item id="inspection-conditions-met-no"
+                                        name="inspection-conditions-met"
+                                        value="@YesNoNotApplicable.No"
+                                        description="No"
+                                        asp-for="@Model.InspectionConditionsMet"/>
+
+
+                <govuk-radios-list-item id="inspection-conditions-met-not-applicable"
+                                        name="inspection-conditions-met"
+                                        value="@YesNoNotApplicable.NotApplicable"
+                                        description="Not applicable"
+                                        asp-for="@Model.InspectionConditionsMet"/>
+            </govuk-radios-list>
+            <br/> 
             
             <govuk-checkbox-input label="Requested that the school is changed to 'proposed to open' on GIAS"
                                   asp-for="@Model.ProposedToOpenOnGias"

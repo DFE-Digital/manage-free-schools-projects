@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspection
@@ -26,17 +27,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
 
         }
 
-        private static bool? InspectionConditionsMet(string condition)
+        private static YesNoNotApplicable InspectionConditionsMet(string condition)
         {
-            switch (condition)
+            return condition switch
             {
-                case "Yes":
-                    return true;
-                case "No":
-                    return false;
-                default:
-                    return null;
-            }
+                "Yes" => YesNoNotApplicable.Yes,
+                "No" => YesNoNotApplicable.No,
+                "Not applicable" => YesNoNotApplicable.NotApplicable
+            };
         }
     }
 }

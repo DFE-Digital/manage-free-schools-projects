@@ -3,16 +3,13 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-    public class OfstedInspectionApiTests : ApiTestsBase
+    public class OfstedInspectionApiTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
     {
-        public OfstedInspectionApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
-        {
-        }
-
         [Fact]
         public async Task Patch_NewOfstedInspection_Returns_201()
         {
@@ -32,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     OfstedAndTrustLiaisonDetailsConfirmed = true,
                     BlockAndContentDetailsToOpenersSpreadSheet = true, 
                     SharedOutcomeWithTrust  = true,
-                    InspectionConditionsMet  = true,
+                    InspectionConditionsMet = YesNoNotApplicable.Yes,
                     ProposedToOpenOnGias = true,
                     SavedToWorkplaces = true,
                 }
@@ -80,19 +77,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                    OfstedAndTrustLiaisonDetailsConfirmed = false,
                    BlockAndContentDetailsToOpenersSpreadSheet = false,
                    SharedOutcomeWithTrust = false,
-                   InspectionConditionsMet = false,
+                   InspectionConditionsMet = YesNoNotApplicable.No,
                    ProposedToOpenOnGias = false,
                    SavedToWorkplaces = false
                 }
             };
 
             await _client.UpdateProjectTask(projectId, request, TaskName.OfstedInspection.ToString());
-
-            var updateRequest = new UpdateProjectByTaskRequest()
-            {
-                OfstedInspection = new()
-            };
-
+            
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.OfstedInspection.ToString());
 
             projectResponse.OfstedInspection.ProcessDetailsProvided.Should()
