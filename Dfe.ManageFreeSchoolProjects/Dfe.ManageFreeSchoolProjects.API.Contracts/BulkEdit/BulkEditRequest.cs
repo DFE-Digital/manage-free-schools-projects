@@ -5,7 +5,7 @@
         public const string ProjectId = "Project Id";
         public const string SchoolName = "School Name";
         public const string LACode = "LA Code";
-        public const string OpeningDate = "Opening Date";
+        public const string OpeningDate = "Actual opening date";
         public const string ProjectStatus = "Project Status";
         
 

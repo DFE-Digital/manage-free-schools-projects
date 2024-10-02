@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             response.ValidationResultRows = new();
 
-            var IdColumnIndex = request.Headers.FirstOrDefault(x => x.Name == headerRegister.IdentifingHeader).Index;
+            var IdColumnIndex = request.Headers.FirstOrDefault(x => string.Compare(x.Name, headerRegister.IdentifingHeader, true) == 0).Index;
 
             // Validate headers
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             var headerMap = new Dictionary<int, HeaderType<TDto>>();
             foreach (var header in request.Headers)
             {
-                var headerInfo = headers.FirstOrDefault(x => x.Name == header.Name);
+                var headerInfo = headers.FirstOrDefault(x => string.Compare(x.Name, header.Name, true) == 0);
                 headerMap.Add(header.Index, headerInfo);
             }
 
