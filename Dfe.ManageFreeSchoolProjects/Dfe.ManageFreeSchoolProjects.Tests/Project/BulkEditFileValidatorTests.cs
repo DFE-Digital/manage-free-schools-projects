@@ -13,8 +13,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             
             var table = new DataTable();
             table.Columns.Add(HeaderNames.ProjectId);
-            table.Columns.Add(HeaderNames.SchoolName);
-            table.Rows.Add("123", "School 1");
+            table.Columns.Add(HeaderNames.OpeningDate);
+            table.Rows.Add("123", "12/10/2025");
 
             var validator = new BulkEditFileValidator();
             var result = validator.Validate(table);
@@ -30,8 +30,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             var table = new DataTable();
             table.Columns.Add(HeaderNames.ProjectId);
             table.Columns.Add("Column 1");
-            table.Columns.Add(HeaderNames.SchoolName);
-            table.Rows.Add("123", "", "School 1");
+            table.Columns.Add(HeaderNames.OpeningDate);
+            table.Rows.Add("123", "", "12/10/2025");
 
             var validator = new BulkEditFileValidator();
             var result = validator.Validate(table);
@@ -47,8 +47,8 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             var table = new DataTable();
             table.Columns.Add(HeaderNames.ProjectId);
             table.Columns.Add("LocalPlace");
-            table.Columns.Add(HeaderNames.SchoolName);
-            table.Rows.Add("123", "London", "School 1");
+            table.Columns.Add(HeaderNames.OpeningDate);
+            table.Rows.Add("123", "London", "12/10/2025");
 
             var validator = new BulkEditFileValidator();
             var result = validator.Validate(table);

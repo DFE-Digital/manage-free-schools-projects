@@ -38,8 +38,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     {
                         continue;
                     }
-
-                    var header = headers.FirstOrDefault(x => string.Compare(x.Name, request.Headers[column.ColumnIndex].Name, true) == 0);
+                    var headerName = request.Headers.Where(x => x.Index == column.ColumnIndex).FirstOrDefault()?.Name;
+                    var header = headers.FirstOrDefault(x => string.Compare(x.Name, headerName, true) == 0);
                     var value = column.Value;
                     header.DataInteration.ApplyToDto(value, currentRow);
                 }

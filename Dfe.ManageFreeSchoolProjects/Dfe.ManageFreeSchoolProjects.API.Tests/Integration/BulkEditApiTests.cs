@@ -27,9 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-            var ExistingSchoolName = project.ProjectStatusCurrentFreeSchoolName;
             var ExistingOpeningDate = project.ProjectStatusActualOpeningDate;
-            var NewSchoolName = "School Name";
             var NewOpeningDate = "01/01/2021";
 
 
@@ -42,7 +40,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
                     new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
                 },
                 Rows = new List<RowInfo>
@@ -53,7 +50,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         Columns = new List<ColumnInfo>
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
-                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate},
                         }
                     }
@@ -79,12 +75,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     NewValue = projectId.ToString()
                 }
                 ,
-                new() 
-                { 
-                    ColumnIndex = 1, 
-                    CurrentValue = ExistingSchoolName, 
-                    NewValue = NewSchoolName 
-                },
                 new()
                 {
                     ColumnIndex = 2,
@@ -101,7 +91,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-            var NewSchoolName = "School Name";
             var NewOpeningDate = new DateTime(2021, 1, 1);
 
             using var context = _testFixture.GetContext();
@@ -113,7 +102,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
                     new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
                 },
                 Rows = new List<RowInfo>
@@ -124,7 +112,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         Columns = new List<ColumnInfo>
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
-                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate.ToString("dd/MM/yyyy")},
                         }
                     }
@@ -143,7 +130,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var result = await overviewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
 
-            result.Data.ProjectStatus.CurrentFreeSchoolName.Should().Be(NewSchoolName);
             result.Data.ProjectStatus.ActualOpeningDate.Should().Be(NewOpeningDate);
         }
 
@@ -154,9 +140,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
 
             var projectId = project.ProjectStatusProjectId;
-            var ExistingSchoolName = project.ProjectStatusCurrentFreeSchoolName;
             var ExistingOpeningDate = project.ProjectStatusActualOpeningDate;
-            var NewSchoolName = "School Name";
             var NewOpeningDate = "01/01/2021";
 
 
@@ -169,7 +153,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
                     new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
                 },
                 Rows = new List<RowInfo>
@@ -180,7 +163,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         Columns = new List<ColumnInfo>
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = "ABCDEF" },
-                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
                         }
                     },
@@ -190,7 +172,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         Columns = new List<ColumnInfo>
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
-                            new ColumnInfo { ColumnIndex = 1, Value = NewSchoolName },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
                         }
                     }
@@ -218,12 +199,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 },
                 new()
                 {
-                    ColumnIndex = 1,
-                    CurrentValue = "",
-                    NewValue = NewSchoolName
-                },
-                new()
-                {
                     ColumnIndex = 2,
                     CurrentValue = "",
                     NewValue = NewOpeningDate
@@ -239,12 +214,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ColumnIndex = 0,
                     CurrentValue = projectId.ToString(),
                     NewValue = projectId.ToString(),
-                },
-                new()
-                {
-                    ColumnIndex = 1,
-                    CurrentValue = ExistingSchoolName,
-                    NewValue = NewSchoolName
                 },
                 new()
                 {
@@ -420,7 +389,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
-            var schoolName = project.ProjectStatusCurrentFreeSchoolName;
+            var openingDate = project.ProjectStatusActualOpeningDate;
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
@@ -431,7 +400,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.SchoolName, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 1 },
                 },
                 Rows = new List<RowInfo>
                 {
@@ -459,7 +428,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var result = await overviewResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<ProjectOverviewResponse>>();
 
-            result.Data.ProjectStatus.CurrentFreeSchoolName.Should().Be(schoolName);
+            result.Data.ProjectStatus.ActualOpeningDate.Should().Be(openingDate.Value.Date);
         }
     }
 }
