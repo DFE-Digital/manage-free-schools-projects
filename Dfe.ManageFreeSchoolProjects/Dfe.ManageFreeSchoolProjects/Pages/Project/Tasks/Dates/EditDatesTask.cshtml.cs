@@ -31,6 +31,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? EntryIntoPreOpening { get; set; }
 
+        [BindProperty(Name = "realistic-year-of-opening", BinderType = typeof(StartEndModelBinder))]
+        public string RealisticYearOfOpening { get; set; }
+
         [BindProperty(Name = "provisional-opening-date-agreed-with-trust", BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Provisional opening date agreed with trust")]
         [DateValidation(DateRangeValidationService.DateRange.Future)]
@@ -84,6 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                 ProjectCancelledDate = project.Dates.ProjectCancelledDate;
                 ProjectWithdrawnDate = project.Dates.ProjectWithdrawnDate;
                 ProvisionalOpeningDateAgreedWithTrust = project.Dates.ProvisionalOpeningDateAgreedWithTrust;
+                RealisticYearOfOpening = project.Dates.RealisticYearOfOpening;
             }
             catch (Exception ex)
             {
@@ -162,6 +166,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.Dates
                         ProjectClosedDate = ProjectClosedDate,
                         ProjectCancelledDate = ProjectCancelledDate,
                         ProjectWithdrawnDate = ProjectWithdrawnDate,
+                        RealisticYearOfOpening = RealisticYearOfOpening
                     }
                 };
 

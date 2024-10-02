@@ -32,7 +32,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     FundingArrangementAgreed = true,
                     RealisticYearOfOpening = "2049/2050",
                     FundingArrangementDetailsAgreed = "text",
-                    ProvisionalOpeningDate = dateNineDaysInFuture,
                     SavedDocumentsInWorkplacesFolder = false
                 }
             };
@@ -41,7 +40,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             projectResponse.KickOffMeeting.SavedDocumentsInWorkplacesFolder.Should().Be(request.KickOffMeeting.SavedDocumentsInWorkplacesFolder);
             projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
-            projectResponse.KickOffMeeting.ProvisionalOpeningDate.Should().Be(request.KickOffMeeting.ProvisionalOpeningDate);
             projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
         }
@@ -69,7 +67,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     FundingArrangementAgreed = true,
                     RealisticYearOfOpening = "2049/2050",
                     FundingArrangementDetailsAgreed = "text",
-                    ProvisionalOpeningDate = dateNineDaysInFuture,
                     SavedDocumentsInWorkplacesFolder = true
                 }
             };
@@ -78,7 +75,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 
             projectResponse.KickOffMeeting.SavedDocumentsInWorkplacesFolder.Should().Be(request.KickOffMeeting.SavedDocumentsInWorkplacesFolder);
             projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
-            projectResponse.KickOffMeeting.ProvisionalOpeningDate.Should().Be(request.KickOffMeeting.ProvisionalOpeningDate);
             projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
         }

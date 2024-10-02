@@ -35,6 +35,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReferenceNumbers;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
+
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
 {
@@ -139,6 +141,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       RiskAppraisalMeeting = RiskAppraisalMeetingTaskBuilder.Build(riskAppraisalMeetingTask),
                                       PDGDashboard = PDGDashboardBuilder.Build(po),
                                       KickOffMeeting = KickOffMeetingTaskBuilder.Build(kpi, milestones),
+                                      PreFundingAgreementCheckpointMeetingTask = PreFundingAgreementCheckpointMeetingTaskBuilder.Build(milestones),
                                       FundingAgreement = FundingAgreementTaskBuilder.Build(milestones),
                                       FundingAgreementHealthCheck = FundingAgreementHealthCheckTaskBuilder.Build(milestones),
                                       FundingAgreementSubmission = FundingAgreementSubmissionTaskBuilder.Build(milestones),

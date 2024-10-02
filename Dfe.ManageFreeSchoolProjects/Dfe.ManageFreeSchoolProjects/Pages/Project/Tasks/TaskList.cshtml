@@ -25,9 +25,6 @@
     var statutoryConsultationLink = string.Format(RouteConstants.ViewStatutoryConsultation, Model.ProjectId);
     var articlesOfAssociationLink = string.Format(RouteConstants.ViewArticlesOfAssociation, Model.ProjectId);
     var financePlanLink = string.Format(RouteConstants.ViewFinancePlanTask, Model.ProjectId);
-    var governancePlanPresumptionLink = string.Format(RouteConstants.ViewGovernancePlanPresumptionTask, Model.ProjectId);
-    var governancePlanCentralLink = string.Format(RouteConstants.ViewGovernancePlanCentralTask, Model.ProjectId);
-    var governancePlanLink = (@Model.ProjectType == "Presumption") ? governancePlanPresumptionLink : governancePlanCentralLink;
     var giasLink = string.Format(RouteConstants.ViewGiasTask, Model.ProjectId);
     var educationBriefLink = string.Format(RouteConstants.ViewEducationBriefTask, Model.ProjectId);
     var admissionsArrangementsLink = string.Format(RouteConstants.ViewAdmissionsArrangementsTask, Model.ProjectId);
@@ -46,10 +43,13 @@
     var dueDiligenceChecksLink = string.Format(RouteConstants.ViewDueDiligenceChecks, Model.ProjectId);
     var pdgPresumptionLink = string.Format(RouteConstants.ViewPDGPresumption, Model.ProjectId);
     var pdgCentralLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-
+    var governancePlanPresumptionLink = string.Format(RouteConstants.ViewGovernancePlanPresumptionTask, Model.ProjectId);
+    var governancePlanCentralLink = string.Format(RouteConstants.ViewGovernancePlanCentralTask, Model.ProjectId);
+    var preFundingAgreementCheckpointMeetingLink = string.Format(RouteConstants.ViewPreFundingAgreementCheckpointMeeting, Model.ProjectId);
     var readinessToOpenMeetingLink = string.Format(RouteConstants.ViewReadinessToOpenMeeting, Model.ProjectId); 
     
     var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
+    var governancePlanLink = (@Model.ProjectType == "Presumption") ? governancePlanPresumptionLink : governancePlanCentralLink;
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
@@ -115,66 +115,12 @@
                     Setting-up
                 </h2>
                 <ul class="app-task-list__items">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@datesTaskLink" class="govuk-link" data-testid="dates-task">
-                                @Model.ProjectTaskListSummary.Dates.Name
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.Dates);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@schoolTaskLink" class="govuk-link" data-testid="school-task">
-                                @Model.ProjectTaskListSummary.School.Name
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.School);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@trustTaskLink" class="govuk-link" data-testid="trust-task">
-                                @Model.ProjectTaskListSummary.Trust.Name
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.Trust);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@regionAndLocalAuthorityLink" class="govuk-link" data-testid="region-la-task">
-                                Region and local authority
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.RegionAndLocalAuthority);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@constituencyTaskLink" class="govuk-link" data-testid="constituency-task">
-                                @Model.ProjectTaskListSummary.Constituency.Name
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.Constituency);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@riskAppraisalMeetingLink" class="govuk-link" data-testid="risk-appraisal-meeting-task">
-                                Risk appraisal meeting
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.RiskAppraisalMeeting);
-                        }
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.Dates" href="@datesTaskLink" label="@Model.ProjectTaskListSummary.Dates.Name" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.School" href="@schoolTaskLink" label="@Model.ProjectTaskListSummary.School.Name" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.Trust" href="@trustTaskLink" label="@Model.ProjectTaskListSummary.Trust.Name" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.RegionAndLocalAuthority" href="@regionAndLocalAuthorityLink" label="Region and local authority" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.Constituency" href="@constituencyTaskLink" label="@Model.ProjectTaskListSummary.Constituency.Name" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.RiskAppraisalMeeting" href="@riskAppraisalMeetingLink" label="Risk appraisal meeting" />
                 </ul>
 
                 <h2 class="app-task-list__section">
@@ -182,16 +128,7 @@
                 </h2>
                 <p>(This part is editable by the School Places Analysis team only)</p>
                 <ul class="app-task-list__items">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@referenceNumbersTaskLink" class="govuk-link" data-testid="reference-numbers-task">
-                               Reference numbers
-                            </a>
-                        </span>
-                            @{
-                                RenderStatus(Model.ProjectTaskListSummary.ReferenceNumbers);
-                            }
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ReferenceNumbers" href="@referenceNumbersTaskLink" label="Reference numbers" />
                 </ul>
 
                 <h2 class="app-task-list__section">
@@ -199,243 +136,50 @@
                 </h2>
                 <p>(This part is editable by Grant Management and Finance Unit only)</p>
                 <ul class="app-task-list__items">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@pdgLink" class="govuk-link" data-testid="pdg-task">
-                                Project development grant (PDG)
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.PDG);
-                        }
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PDG" href="@pdgLink" label="Project development grant (PDG)" />
                 </ul>
-
 
                 <h2 class="app-task-list__section">
                     Pre-opening
                 </h2>
                 <ul class="app-task-list__items">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@kickOffMeetingLink" class="govuk-link" data-testid="kick-off-meeting-task">
-                                Kick-off meeting
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.KickOffMeeting);
-                        }
-
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@fundingAgreementLink" class="govuk-link" data-testid="funding-agreement-task">
-                                Funding agreement
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.FundingAgreement);
-                        }
-                    </li>
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.KickOffMeeting" href="@kickOffMeetingLink" label="Kick-off meeting" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.AdmissionsArrangements" href="@admissionsArrangementsLink" label="Admissions arrangements" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ArticlesOfAssociation" href="@articlesOfAssociationLink" label="Articles of association" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.GovernancePlan" href="@governancePlanLink" label="Governance plan" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.EducationBrief" href="@educationBriefLink" label="Education brief" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FinancePlan" href="@financePlanLink" label="Finance plan" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.StatutoryConsultation" href="@statutoryConsultationLink" label="Statutory consultation" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ImpactAssessment" href="@impactAssessmentLink" label="Impact assessment" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.EqualitiesAssessment" href="@equalitiesAssessmentLink" label="Equalities assessment" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.DueDiligenceChecks" href="@dueDiligenceChecksLink" label="Due diligence checks" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PreFundingAgreementCheckpointMeeting" href="@preFundingAgreementCheckpointMeetingLink" label="Pre-funding agreement checkpoint meeting" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreement" href="@fundingAgreementLink" label="Funding agreement" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@statutoryConsultationLink" class="govuk-link" data-testid="statutory-consultation-task">
-                                Statutory consultation
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.StatutoryConsultation);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@articlesOfAssociationLink" class="govuk-link" data-testid="articles-of-association-task">
-                                Articles of association
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.ArticlesOfAssociation);
-                        }
-                    </li>
-
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@governancePlanLink" class="govuk-link" data-testid="governance-plan-task">
-                                Governance plan
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.GovernancePlan);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@admissionsArrangementsLink" class="govuk-link" data-testid="admissions-arrangements-task">
-                                Admissions arrangements
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.AdmissionsArrangements);
-                        }
-                    </li>
-
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@financePlanLink" class="govuk-link" data-testid="finance-plan-task">
-                                Finance plan
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.FinancePlan);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@equalitiesAssessmentLink" class="govuk-link" data-testid="equalities-assessment-task">
-                                Equalities assessment
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.EqualitiesAssessment);
-                        }
-
-                    </li>
                 </ul>
-                <h2 class="app-task-list__section">
-                    Sign-off preparation
-                </h2>
-                <ul class="app-task-list__items">
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@educationBriefLink" class="govuk-link" data-testid="educationBrief-task">
-                                Education brief
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.EducationBrief);
-                        }
-                    </li>
-                    <li class="app-task-list__item">
-                        <span class="app-task-list__task-name">
-                            <a href="@giasLink" class="govuk-link" data-testid="get-information-about-schools">
-                                Set up the school on GIAS (Get information about schools)
-                            </a>
-                        </span>
-                        @{
-                            RenderStatus(Model.ProjectTaskListSummary.Gias);
-                        }
 
-                    </li>
-                </ul>
                 <h2 class="app-task-list__section">
                     Getting ready to open
                 </h2>
-            <ul class="app-task-list__items">
-                <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@acceptedOffersEvidenceLink" class="govuk-link" data-testid="acceptedoffersevidence-task">
-                            Accepted offers evidence
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.EvidenceOfAcceptedOffers);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@pupilNumbersChecksLink" class="govuk-link" data-testid="pupilnumberschecks-task">
-                            Pupil numbers checks
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.PupilNumbersChecks);
-                    }
-                </li>
-                @{
-                    if (Model.IsPresumptionRoute == false)
-                    {
-                        <li class="app-task-list__item">
-                            <span class="app-task-list__task-name">
-                                <a href="@dueDiligenceChecksLink" class="govuk-link" data-testid="dueDiligenceChecks-task">
-                                    Due diligence checks
-                                </a>
-                            </span>
-                            @{
-                                RenderStatus(Model.ProjectTaskListSummary.DueDiligenceChecks);
-                            }
-                        </li>
-                    }
-                }
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@impactAssessmentLink" class="govuk-link" data-testid="impactAssessment-task">
-                            Impact assessment
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.ImpactAssessment);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@ofstedPreRegistrationLink" class="govuk-link" data-testid="ofstedpreregistration-task">
-                            Ofsted pre-registration
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.OfstedInspection);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@finalFinancePlanLink" class="govuk-link" data-testid="finalFinancePlan-task">
-                            Final finance plan
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.FinalFinancePlan);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@readinessToOpenMeetingLink" class="govuk-link" data-testid="readinessToOpenMeeting-task">
-                            Readiness to open meeting (ROM)
-                        </a>
-                    </span>
-                    @{
-                    RenderStatus(Model.ProjectTaskListSummary.ReadinessToOpenMeeting);
-                    }
-                </li>
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@movingToOpenLink" class="govuk-link" data-testid="movingToOpen-task">
-                            Moving to open
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.MovingToOpen);
-                    }
-                </li>
-            </ul>
-            <h2 class="app-task-list__section">
-                After Opening
-            </h2>
-            <ul class="app-task-list__items">
-                <li class="app-task-list__item">
-                    <span class="app-task-list__task-name">
-                        <a href="@commissionedExternalExpert" class="govuk-link" data-testid="externalExpertVisit-task">
-                            External expert visit
-                        </a>
-                    </span>
-                    @{
-                        RenderStatus(Model.ProjectTaskListSummary.CommissionedExternalExpert);
-                    }
-                </li>
-            </ul>
+                <ul class="app-task-list__items">
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ApplicationsEvidence" href="@applicationsEvidenceLink" label="Applications evidence" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.EvidenceOfAcceptedOffers" href="@acceptedOffersEvidenceLink" label="Accepted offers evidence" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PupilNumbersChecks" href="@pupilNumbersChecksLink" label="Pupil numbers checks" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.Gias" href="@giasLink" label="Set up the school on GIAS (Get information about schools)" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.OfstedInspection" href="@ofstedPreRegistrationLink" label="Ofsted pre-registration" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FinalFinancePlan" href="@finalFinancePlanLink" label="Final finance plan" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ReadinessToOpenMeeting" href="@readinessToOpenMeetingLink" label="Readiness to open meeting (ROM)" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.MovingToOpen" href="@movingToOpenLink" label="Moving to open" />
+                </ul>
+
+                <h2 class="app-task-list__section">
+                    After opening
+                </h2>
+                <ul class="app-task-list__items">
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.CommissionedExternalExpert" href="@commissionedExternalExpert" label="External expert visit" />
+                </ul>
             </li>
         </ol>
     </div>

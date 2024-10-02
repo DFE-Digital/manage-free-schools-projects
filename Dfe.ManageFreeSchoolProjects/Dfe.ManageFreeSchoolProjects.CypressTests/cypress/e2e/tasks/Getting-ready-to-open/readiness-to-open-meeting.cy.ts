@@ -12,8 +12,7 @@ describe("Testing readiness to open meeting task", () => {
 
     beforeEach(() => {
         cy.login();
-
-        project = RequestBuilder.createProjectDetails();
+        project = RequestBuilder.createProjectDetailsNonPresumption();
 
         projectApi
             .post({

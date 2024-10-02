@@ -25,62 +25,62 @@ class TaskListPage {
     }
     
     public selectDatesFromTaskList(): this {
-        cy.getByTestId("dates-task").click()
+        cy.getByTestId("Dates-task").click()
         return this;
     }
 
     public selectSchoolFromTaskList(): this {
-        cy.getByTestId("school-task").click()
+        cy.getByTestId("School-task").click()
         return this;
     }
 
     public selectReferenceNumbersFromTaskList(): this {
-        cy.getByTestId("reference-numbers-task").click()
+        cy.getByTestId("ReferenceNumbers-task").click()
         return this;
     }
 
     public selectRegionAndLAFromTaskList(): this {
-        cy.getByTestId("region-la-task").click()
+        cy.getByTestId("RegionAndLocalAuthority-task").click()
         return this;
     }
 
     public selectTrustFromTaskList(): this {
-        cy.getByTestId("trust-task").click()
+        cy.getByTestId("Trust-task").click()
         return this;
     }
 
     public selectConstituencyFromTaskList(): this {
-        cy.getByTestId("constituency-task").click()
+        cy.getByTestId("Constituency-task").click()
         return this;
     }
 
     public selectRiskAppraisalMeetingFromTaskList(): this {
-        cy.getByTestId("risk-appraisal-meeting-task").click()
+        cy.getByTestId("RiskAppraisalMeeting-task").click()
         return this;
     }
 
     public selectArticlesOfAssociationFromTaskList(): this {
-        cy.getByTestId("articles-of-association-task").click()
+        cy.getByTestId("ArticlesOfAssociation-task").click()
         return this;
     }
 
     public selectFinancePlanFromTaskList(): this {
-        cy.getByTestId("finance-plan-task").click()
+        cy.getByTestId("FinancePlan-task").click()
         return this;
     }
 
     public selectFinalFinancePlanFromTaskList(): this {
-        cy.getByTestId("finalFinancePlan-task").click()
+        cy.getByTestId("FinalFinancePlan-task").click()
         return this;
     }
 
     public selectKickOffMeetingFromTaskList(): this {
-        cy.getByTestId("kick-off-meeting-task").click()
+        cy.getByTestId("KickOffMeeting-task").click()
         return this;
     }
 
     public selectFundingAgreementFromTaskList(): this {
-        cy.getByTestId("funding-agreement-task").click()
+        cy.getByTestId("FundingAgreement-task").click()
         return this;
     }
 
@@ -106,51 +106,51 @@ class TaskListPage {
     }
 
     public selectStatutoryConsultationFromTaskList(): this {
-        cy.getByTestId("statutory-consultation-task").click()
+        cy.getByTestId("StatutoryConsultation-task").click()
         return this;
     }
 
     public selectGiasFromTaskList(): this {
-        cy.getByTestId("get-information-about-schools").click()
+        cy.getByTestId("Gias-task").click()
         return this;
     }
 
     public selectEducationBriefFromList(): this {
-        cy.getByTestId("educationBrief-task").click()
+        cy.getByTestId("EducationBrief-task").click()
         return this;
     }
 
     public selectAdmissionsArrangementsFromTaskList(): this {
-        cy.getByTestId("admissions-arrangements-task").click()
+        cy.getByTestId("AdmissionsArrangements-task").click()
         return this;
     }
 
     public selectImpactAssessmentFromTaskList(): this {
-        cy.getByTestId("impactAssessment-task").click()
+        cy.getByTestId("ImpactAssessment-task").click()
         return this;
     }
 
     public selectEqualitiesAssessmentFromTaskList(): this {
-        cy.getByTestId("equalities-assessment-task").click()
+        cy.getByTestId("EqualitiesAssessment-task").click()
         return this;
     }
 
     public selectAcceptedOffersEvidenceFromTaskList(): this {
-        cy.getByTestId("acceptedoffersevidence-task").click()
+        cy.getByTestId("EvidenceOfAcceptedOffers-task").click()
         return this;
     }
 
     public selectPupilNumbersChecksTaskList(): this {
-        cy.getByTestId("pupilnumberschecks-task").click()
+        cy.getByTestId("PupilNumbersChecks-task").click()
         return this;
     }
 
     public selectOfstedPreregistrationFromTaskList(): this {
-        cy.getByTestId("ofstedpreregistration-task").click()
+        cy.getByTestId("OfstedInspection-task").click()
         return this;
     }
     public selectExternalExpertVisitFromTaskList(): this {
-        cy.getByTestId("externalExpertVisit-task").click()
+        cy.getByTestId("CommissionedExternalExpert-task").click()
         return this;
     }
 
@@ -160,12 +160,17 @@ class TaskListPage {
     }
 
     public selectReadinessToOpenMeetingFromTaskList(): this {
-        cy.getByTestId("readinessToOpenMeeting-task").click()
+        cy.getByTestId("ReadinessToOpenMeeting-task").click()
+        return this;
+    }
+
+    public selectPreFundingAgreementCheckpointMeetingFromTaskList(): this {
+        cy.getByTestId("PreFundingAgreementCheckpointMeeting-task").click()
         return this;
     }
 
     public selectMovingToOpenFromTaskList(): this {
-        cy.getByTestId("movingToOpen-task").click()
+        cy.getByTestId("MovingToOpen-task").click()
         return this;
     }
 
@@ -179,11 +184,11 @@ class TaskListPage {
         return this;
     }
     getDueDiligenceChecksTask() {
-        return cy.getByTestId("dueDiligenceChecks-task");
+        return cy.getByTestId("DueDiligenceChecks-task");
     }
 
     public selectPDGFromTaskList(): this {
-        cy.getByTestId("pdg-task").click()
+        cy.getByTestId("PDG-task").click()
         return this;
     }
 
@@ -208,7 +213,7 @@ class TaskListPage {
     }
 
     private getDraftGovernancePlanTask() {
-        return cy.getByTestId("governance-plan-task");
+        return cy.getByTestId("GovernancePlan-task");
     }
 
     private getApplicationsEvidenceTask() {

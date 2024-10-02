@@ -476,3 +476,9 @@ variable "mssql_sku_name" {
   type        = string
   default     = "Basic"
 }
+
+variable "container_min_replicas" {
+  description = "Container min replicas"
+  type        = number
+  default     = 1
+}

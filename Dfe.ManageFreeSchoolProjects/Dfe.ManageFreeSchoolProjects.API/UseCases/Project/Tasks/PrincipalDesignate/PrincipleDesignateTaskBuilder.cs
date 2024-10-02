@@ -14,22 +14,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesig
 
 			var principleDesignateTask = new PrincipalDesignateTask();
 
-			if (milestones.FsgPreOpeningMilestonesAppointedPrincipalDesignate == null && milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion.HasValue)
-			{
-				principleDesignateTask.TrustAppointedPrincipleDesignate =
-					true;
-			}
-
-			else
-			{
-				principleDesignateTask.TrustAppointedPrincipleDesignate =
+			principleDesignateTask.TrustAppointedPrincipalDesignate =
 					milestones.FsgPreOpeningMilestonesAppointedPrincipalDesignate;
-			}
-
-			principleDesignateTask.TrustAppointedPrincipleDesignateDate =
+			principleDesignateTask.ActualDatePrincipalDesignateAppointed =
 				milestones.FsgPreOpeningMilestonesPdappActualDateOfCompletion;
 			principleDesignateTask.CommissionedExternalExpertVisitToSchool =
 				milestones.FsgPreOpeningMilestonesCommissionedExternalExpertVisitToSchool;
+			principleDesignateTask.ExpectedDatePrincipalDesignateAppointed = milestones.FsgPreOpeningMilestonesPdappForecastDate;
 			
 			return principleDesignateTask;
 		}

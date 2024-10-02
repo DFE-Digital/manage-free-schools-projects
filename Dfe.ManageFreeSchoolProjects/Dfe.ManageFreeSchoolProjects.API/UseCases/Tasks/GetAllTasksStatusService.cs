@@ -4,7 +4,9 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ApplicationsEvidence;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementHealthCheck;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreementSubmission;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PrincipalDesignate;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +22,8 @@ public class GetAllTasksStatusService : IGetTasksService
 {
     private readonly MfspContext _context;
 
-    private static int _hiddenCompletedTasks;
-    private static int _tasksCount;
+    private int _hiddenCompletedTasks;
+    private int _tasksCount;
 
     public GetAllTasksStatusService(MfspContext context)
     {
@@ -50,7 +52,7 @@ public class GetAllTasksStatusService : IGetTasksService
         return result;
     }
 
-    private static ProjectByTaskSummaryResponse BuildProjectByTaskSummaryResponse(Kpi dbKpi,
+    private ProjectByTaskSummaryResponse BuildProjectByTaskSummaryResponse(Kpi dbKpi,
         IEnumerable<TaskSummaryResponse> taskSummaryResponses)
     {
         _tasksCount = 0;
@@ -86,25 +88,31 @@ public class GetAllTasksStatusService : IGetTasksService
             CommissionedExternalExpert =
                 SafeRetrieveTaskSummary(projectTasks, TaskName.CommissionedExternalExpert.ToString()),
             MovingToOpen = SafeRetrieveTaskSummary(projectTasks, TaskName.MovingToOpen.ToString()),
-            DueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString()),
-            ReadinessToOpenMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString())
+            PrincipalDesignate = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString()),
         };
 
         var applicationsEvidenceTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ApplicationsEvidence.ToString());
-        var principalDesignateTask = SafeRetrieveTaskSummary(projectTasks, TaskName.PrincipalDesignate.ToString());
         var fundingAgreementHealthCheckTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementHealthCheck");
         var fundingAgreementSubmissionTask = SafeRetrieveTaskSummary(projectTasks, "FundingAgreementSubmission");
+        var romTask = SafeRetrieveTaskSummary(projectTasks, TaskName.ReadinessToOpenMeeting.ToString());
+        var preFundingAgreementCheckpointMeeting = SafeRetrieveTaskSummary(projectTasks, TaskName.PreFundingAgreementCheckpointMeeting.ToString());
+        var dueDiligenceChecks = SafeRetrieveTaskSummary(projectTasks, TaskName.DueDiligenceChecks.ToString());
 
-        result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
-        result.PrincipalDesignate = BuildPrincipleDesignateTask(principalDesignateTask, dbKpi);
         result.FundingAgreementHealthCheck =
             BuildFundingAgreementHealthCheckTask(fundingAgreementHealthCheckTask, dbKpi);
         result.FundingAgreementSubmission = BuildFundingAgreementSubmissionTask(fundingAgreementSubmissionTask, dbKpi);
+        result.ReadinessToOpenMeeting = BuildROMTask(romTask, dbKpi);
+        result.PreFundingAgreementCheckpointMeeting = BuildPFACMTask(preFundingAgreementCheckpointMeeting, dbKpi);
+        result.DueDiligenceChecks = BuildDueDiligenceChecksTask(dueDiligenceChecks, dbKpi);
+        result.ApplicationsEvidence = BuildApplicationsEvidenceTask(applicationsEvidenceTask, dbKpi);
 
         result.TaskCount = _tasksCount;
 
-        RemoveHiddenCompletedTaskStatus(result.ApplicationsEvidence);
-        RemoveHiddenCompletedTaskStatus(result.PrincipalDesignate);
+        RemoveHiddenCompletedTaskStatus(result.FundingAgreementHealthCheck);
+        RemoveHiddenCompletedTaskStatus(result.FundingAgreementSubmission);
+        RemoveHiddenCompletedTaskStatus(result.ReadinessToOpenMeeting);
+        RemoveHiddenCompletedTaskStatus(result.PreFundingAgreementCheckpointMeeting);
+        RemoveHiddenCompletedTaskStatus(result.DueDiligenceChecks);
 
         result.CompletedTasks =
             projectTasks.Count(x => x.Status == ProjectTaskStatus.Completed) - _hiddenCompletedTasks;
@@ -113,7 +121,7 @@ public class GetAllTasksStatusService : IGetTasksService
         return result;
     }
 
-    private static TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks,
+    private TaskSummaryResponse SafeRetrieveTaskSummary(IEnumerable<TaskSummaryResponse> projectTasks,
         string taskName)
     {
         _tasksCount++;
@@ -121,37 +129,7 @@ public class GetAllTasksStatusService : IGetTasksService
             new TaskSummaryResponse { Name = taskName, Status = ProjectTaskStatus.NotStarted });
     }
 
-    private static TaskSummaryResponse BuildApplicationsEvidenceTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
-    {
-        var parameters = new ApplicationsEvidenceTaskSummaryBuilderParameters()
-        {
-            SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
-            TaskSummary = taskSummaryResponse
-        };
-
-        var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
-
-        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
-
-        return result;
-    }
-
-    private static TaskSummaryResponse BuildPrincipleDesignateTask(TaskSummaryResponse taskSummaryResponse, Kpi kpi)
-    {
-        var parameters = new PrincipalDesignateTaskSummaryBuilderParameters()
-        {
-            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
-            TaskSummary = taskSummaryResponse
-        };
-
-        var result = new PrincipalDesignateTaskSummaryBuilder().Build(parameters);
-
-        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
-
-        return result;
-    }
-
-    private static TaskSummaryResponse BuildFundingAgreementHealthCheckTask(TaskSummaryResponse taskSummaryResponse,
+    private TaskSummaryResponse BuildFundingAgreementHealthCheckTask(TaskSummaryResponse taskSummaryResponse,
         Kpi kpi)
     {
         var parameters = new FundingAgreementHealthCheckTaskSummaryBuilderParameters()
@@ -167,7 +145,7 @@ public class GetAllTasksStatusService : IGetTasksService
         return result;
     }
 
-    private static TaskSummaryResponse BuildFundingAgreementSubmissionTask(TaskSummaryResponse taskSummaryResponse,
+    private TaskSummaryResponse BuildFundingAgreementSubmissionTask(TaskSummaryResponse taskSummaryResponse,
         Kpi kpi)
     {
         var parameters = new FundingAgreementSubmissionTaskSummaryBuilderParameters()
@@ -183,7 +161,72 @@ public class GetAllTasksStatusService : IGetTasksService
         return result;
     }
 
-    private static void RemoveHiddenCompletedTaskStatus(TaskSummaryResponse taskSummaryResponse)
+    private TaskSummaryResponse BuildROMTask(TaskSummaryResponse taskSummaryResponse,
+    Kpi kpi)
+    {
+        var parameters = new ROMTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new ROMTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
+        return result;
+    }
+
+    private TaskSummaryResponse BuildPFACMTask(TaskSummaryResponse taskSummaryResponse,
+    Kpi kpi)
+    {
+        var parameters = new PreFundingAgreementCheckpointMeetingTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new PreFundingAgreementCheckpointMeetingTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
+        return result;
+    }
+
+    private TaskSummaryResponse BuildDueDiligenceChecksTask(TaskSummaryResponse taskSummaryResponse,
+    Kpi kpi)
+    {
+        var parameters = new DueDiligenceChecksTaskSummaryBuilderParameters()
+        {
+            ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new DueDiligenceChecksTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
+        return result;
+    }
+
+    private TaskSummaryResponse BuildApplicationsEvidenceTask(TaskSummaryResponse taskSummaryResponse,
+Kpi kpi)
+    {
+        var parameters = new ApplicationsEvidenceTaskSummaryBuilderParameters()
+        {
+            SchoolType = ProjectMapper.ToSchoolType(kpi.SchoolDetailsSchoolTypeMainstreamApEtc),
+            TaskSummary = taskSummaryResponse
+        };
+
+        var result = new ApplicationsEvidenceTaskSummaryBuilder().Build(parameters);
+
+        _tasksCount -= taskSummaryResponse.IsHidden ? 1 : 0;
+
+        return result;
+    }
+
+
+    private void RemoveHiddenCompletedTaskStatus(TaskSummaryResponse taskSummaryResponse)
     {
         if (taskSummaryResponse.IsHidden && taskSummaryResponse.Status == ProjectTaskStatus.Completed)
         {
