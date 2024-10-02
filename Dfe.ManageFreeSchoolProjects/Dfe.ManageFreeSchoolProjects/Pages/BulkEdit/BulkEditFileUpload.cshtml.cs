@@ -101,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 {
                     bulkEditCache.Update(request);
                     ViewData["Title"] = "Check your answers";
-                    BackLink = RouteConstants.BulkUpload;
+                    BackLink = RouteConstants.BulkEditFileUpload;
                 }
                 else
                 {

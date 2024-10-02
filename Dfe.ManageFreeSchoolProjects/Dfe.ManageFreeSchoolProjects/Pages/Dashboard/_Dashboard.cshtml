@@ -16,7 +16,8 @@
     var projectManagerLabels = Model.ProjectManagers;
 
     const string createNewProjectLink = RouteConstants.CreateProjectMethod + "?newProject=true";
-    
+    const string bulkEditFileUploadLink = RouteConstants.BulkEditFileUpload;
+
     var isFilterActive =
         !string.IsNullOrWhiteSpace(Model.ProjectSearchTerm)
         || Model.RegionSearchTerm.Any()
@@ -40,6 +41,14 @@
                     <a href="@createNewProjectLink" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">Create a project</a>
                 </h3>
                 <p>Add a presumption or central route project.</p>
+            </div>
+        </div>
+        <div class="dfe-card">
+            <div class="dfe-card-container">
+                <h3 class="govuk-heading-m">
+                    <a href="@bulkEditFileUploadLink" class="govuk-link govuk-link--no-visited-state dfe-card-link--header">Update multiple fields</a>
+                </h3>
+                <p>Update certain fields across multiple presumption and central route projects.</p>
             </div>
         </div>
     </div>
