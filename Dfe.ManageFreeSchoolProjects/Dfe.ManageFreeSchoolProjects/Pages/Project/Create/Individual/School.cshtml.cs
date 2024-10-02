@@ -30,7 +30,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return new UnauthorizedResult();
             }
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             School = project.SchoolName;
             BackLink = GetPreviousPage(CreateProjectPageName.SchoolName);
 
@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.SchoolName);
 
             if (!ModelState.IsValid)
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             }
 
             project.SchoolName = School;
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.SchoolName));
         }

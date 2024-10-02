@@ -1,27 +1,22 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Constants;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class CreateProjectBaseModel : PageModel
+    public class CreateProjectBaseModel(ICreateProjectCache createProjectCache) : PageModel
     {
         protected internal string BackLink { get; set; }
-        protected readonly ICreateProjectCache _createProjectCache;
-
-        public CreateProjectBaseModel(ICreateProjectCache createProjectCache)
-        {
-            _createProjectCache = createProjectCache;
-        }
+        protected readonly ICreateProjectCache CreateProjectCache = createProjectCache;
 
         public bool IsUserAuthorised()
         {
             return User.IsInRole(RolesConstants.ProjectRecordCreator);
         }
 
-        public string GetPreviousPage(CreateProjectPageName currentPageName,
-            string routeParameter = "")
+        public string GetPreviousPage(CreateProjectPageName currentPageName, string routeParameter = "")
         {
             return currentPageName switch
             {
@@ -31,31 +26,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.ConfirmTrustSearch => RouteConstants.CreateProjectSearchTrust,
                 CreateProjectPageName.ClassType => RouteConstants.CreateProjectSchoolType,
                 _ => DefaultPreviousRoute(currentPageName, routeParameter)
-            };           
+            };
         }
-		private string PreviousProvisionalOpeningDate()
-		{
-			var cache = _createProjectCache.Get();
 
-			var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
-
-			if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
-				return cache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers
-													 : RouteConstants.CreateFaithStatus;
-
-			return RouteConstants.CreateFaithType;
-		}
-
-		private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
+        private string PreviousProvisionalOpeningDate()
         {
-            var cache = _createProjectCache.Get();
+            var cache = CreateProjectCache.Get();
+
+            var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
+
+            if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
+                return cache.ReachedCheckYourAnswers
+                    ? RouteConstants.CreateProjectCheckYourAnswers
+                    : RouteConstants.CreateFaithStatus;
+
+            return RouteConstants.CreateFaithType;
+        }
+
+        private string DefaultPreviousRoute(CreateProjectPageName currentPageName, string routeParameter)
+        {
+            var cache = CreateProjectCache.Get();
 
             if (cache.ReachedCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
 
             return currentPageName switch
             {
-                CreateProjectPageName.ProjectId => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ProjectId => cache.ProjectType == ProjectType.CentralRoute
+                    ? RouteConstants.CreateApplicationWave
+                    : RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateProjectMethod,
+                CreateProjectPageName.ApplicationWave => RouteConstants.CreateApplicationNumber,
                 CreateProjectPageName.SchoolName => RouteConstants.CreateProjectId,
                 CreateProjectPageName.Region => RouteConstants.CreateProjectSchool,
                 CreateProjectPageName.SearchTrust => RouteConstants.CreateProjectLocalAuthority,
@@ -78,28 +79,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 CreateProjectPageName.FaithStatus => NextFaithStatus(),
                 CreateProjectPageName.Region => RouteConstants.CreateProjectLocalAuthority,
-                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust, routeParameter),
+                CreateProjectPageName.SearchTrust => string.Format(RouteConstants.CreateProjectConfirmTrust,
+                    routeParameter),
                 CreateProjectPageName.SchoolType => RouteConstants.CreateClassType,
+                CreateProjectPageName.ApplicationWave => NextPageAfterApplicationWave(),
+                CreateProjectPageName.ApplicationNumber => RouteConstants.CreateApplicationWave,
                 _ => DefaultNextRoute(currentPageName)
             };
         }
 
-        private string NextFaithStatus()
-        {
-            var cache = _createProjectCache.Get();
-
-            var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
-
-            if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
-                return cache.ReachedCheckYourAnswers ? RouteConstants.CreateProjectCheckYourAnswers
-                                                     : RouteConstants.CreateProjectProvisionalOpeningDate;
-
-            return RouteConstants.CreateFaithType;
-        }
-
         private string DefaultNextRoute(CreateProjectPageName currentPageName)
         {
-            var cache = _createProjectCache.Get();
+            var cache = CreateProjectCache.Get();
 
             if (cache.ReachedCheckYourAnswers)
                 return RouteConstants.CreateProjectCheckYourAnswers;
@@ -121,6 +112,29 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 CreateProjectPageName.CheckYourAnswers => RouteConstants.CreateProjectConfirmation,
                 _ => throw new ArgumentOutOfRangeException($"Unsupported create project page {currentPageName}")
             };
+        }
+
+        private string NextFaithStatus()
+        {
+            var cache = CreateProjectCache.Get();
+
+            var faithStatus = cache.ReachedCheckYourAnswers ? cache.PreviousFaithStatus : cache.FaithStatus;
+
+            if (faithStatus == API.Contracts.Project.Tasks.FaithStatus.None)
+                return cache.ReachedCheckYourAnswers
+                    ? RouteConstants.CreateProjectCheckYourAnswers
+                    : RouteConstants.CreateProjectProvisionalOpeningDate;
+
+            return RouteConstants.CreateFaithType;
+        }
+
+        private string NextPageAfterApplicationWave()
+        {
+            var cache = CreateProjectCache.Get();
+
+            return cache.ProjectType == ProjectType.CentralRoute && cache.ReachedCheckYourAnswers
+                ? RouteConstants.CreateProjectCheckYourAnswers
+                : RouteConstants.CreateProjectId;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         private readonly IUpdateCapacityWhenFullService _updateCapacityWhenFullService;
 
         public CreateProject(
-            MfspContext context, 
+            MfspContext context,
             IUpdateCapacityWhenFullService updateCapacityWhenFullService)
         {
             _context = context;
@@ -46,13 +46,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 var rid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 11);
                 var trust = await GetTrust(proj.TRN);
 
-                Kpi kpi = MapToKpi(proj, rid, trust);
+                var kpi = MapToKpi(proj, rid, trust);
 
                 var po = MapToPo(proj, rid);
 
                 _context.Kpi.Add(kpi);
                 _context.Tasks.AddRange(ProjectTaskBuilder.BuildTasks(rid));
-                _context.RiskAppraisalMeetingTask.Add(new Data.Entities.RiskAppraisalMeetingTask() { RID = rid });
+                _context.RiskAppraisalMeetingTask.Add(new Data.Entities.RiskAppraisalMeetingTask { RID = rid });
                 _context.Po.Add(po);
             }
 
@@ -65,12 +65,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             var nurseryCapacity = proj.Nursery == ClassType.Nursery.Yes ? proj.NurseryCapacity : 0;
 
-            var result = new Po()
+            var result = new Po
             {
                 Rid = rid,
             };
 
-            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull()
+            _updateCapacityWhenFullService.Execute(result, new CapacityWhenFull
             {
                 Nursery = nurseryCapacity,
                 ReceptionToYear6 = proj.YRY6Capacity,
@@ -86,12 +86,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             return new Kpi
             {
                 Rid = rid,
+                ProjectStatusProjectStatus = proj.ProjectType == ProjectType.CentralRoute
+                    ? Contracts.Project.ProjectStatus.ApplicationStage.ToDescription()
+                    : Contracts.Project.ProjectStatus.Preopening.ToDescription(),
                 ProjectStatusProjectId = proj.ProjectId,
                 ProjectStatusCurrentFreeSchoolName = proj.SchoolName,
-                ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave,
-                ProjectStatusFreeSchoolsApplicationNumber = "",
+                ProjectStatusFreeSchoolApplicationWave = proj.ApplicationWave ?? string.Empty,
+                ProjectStatusFreeSchoolsApplicationNumber = proj.ApplicationNumber ?? string.Empty,
                 AprilIndicator = "",
-                Wave = proj.ApplicationWave,
+                Wave = proj.ApplicationWave == "FS - Presumption" ? "FS - Presumption" : "Non-Presumption",
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",
@@ -135,7 +138,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
             if (existingProjectIds.Any())
             {
-                throw new UnprocessableContentException($"The following project(s) already exist: {string.Join(",", existingProjectIds)}");
+                throw new UnprocessableContentException(
+                    $"The following project(s) already exist: {string.Join(",", existingProjectIds)}");
             }
         }
 

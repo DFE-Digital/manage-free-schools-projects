@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Extensions;
@@ -12,25 +13,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
 {
-    public class CheckYourAnswersModel : PageModel
+    public class CheckYourAnswersModel(
+        ErrorService errorService,
+        ICreateProjectCache createProjectCache,
+        ICreateProjectService createProjectService,
+        INotifyUserService notifyUserService)
+        : PageModel
     {
         public CreateProjectCacheItem Project { get; set; }
-
-        private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
-        private readonly ICreateProjectService _createProjectService;
-        private readonly INotifyUserService _notifyUserService;
-        private readonly MfspApiClient _mfspApiClient;
-
-        public CheckYourAnswersModel(ErrorService errorService, ICreateProjectCache createProjectCache,
-            ICreateProjectService createProjectService, INotifyUserService notifyUserService, MfspApiClient mfspApiClient)
-        {
-            _createProjectCache = createProjectCache;
-            _createProjectService = createProjectService;
-            _notifyUserService = notifyUserService;
-            _mfspApiClient = mfspApiClient;
-            _errorService = errorService;
-        }
 
         public IActionResult OnGet()
         {
@@ -39,20 +29,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 return new UnauthorizedResult();
             }
 
-            Project = _createProjectCache.Get();
+            Project = createProjectCache.Get();
             Project.ReachedCheckYourAnswers = true;
-            _createProjectCache.Update(Project);
+            createProjectCache.Update(Project);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var createProjectRequest = new CreateProjectRequest();
-            var project = _createProjectCache.Get();
+            var project = createProjectCache.Get();
 
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
+                ProjectType = project.ProjectType,
                 SchoolName = project.SchoolName,
                 SchoolType = project.SchoolType,
                 SchoolPhase = project.SchoolPhase,
@@ -79,14 +70,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ProvisionalOpeningDate = project.ProvisionalOpeningDate,
                 ProjectAssignedToName = project.ProjectAssignedToName,
                 ProjectAssignedToEmail = project.ProjectAssignedToEmail,
-                ApplicationWave = "FS - Presumption", 
+                ApplicationNumber = project.ApplicationNumber ?? string.Empty,
+                ApplicationWave = project.ProjectType == ProjectType.PresumptionRoute
+                ? "FS - Presumption"
+                : project.ApplicationWave
             };
-
+            
             createProjectRequest.Projects.Add(projReq);
 
             try
             {
-                await _createProjectService.Execute(createProjectRequest);
+                await createProjectService.Execute(createProjectRequest);
 
                 await SendEmail();
             }
@@ -94,17 +88,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             {
                 if (e.StatusCode == HttpStatusCode.UnprocessableEntity)
                 {
-                    _errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
+                    errorService.AddError("projectid", $"Project with ID {project.ProjectId} already exists");
                     Project = project;
                     return Page();
                 }
 
-                if (e.StatusCode == HttpStatusCode.InternalServerError) 
+                if (e.StatusCode == HttpStatusCode.InternalServerError)
                     return Redirect(RouteConstants.CreateProjectConfirmation);
 
                 throw;
             }
-            
+
             return Redirect(RouteConstants.CreateProjectConfirmation);
         }
 
@@ -113,9 +107,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var projectUrl =
                 $"{HttpContext.Request.Scheme}://" +
                 $"{HttpContext.Request.Host}" +
-                $"{string.Format(RouteConstants.ProjectOverview, _createProjectCache.Get().ProjectId)}";
+                $"{string.Format(RouteConstants.ProjectOverview, createProjectCache.Get().ProjectId)}";
 
-            await _notifyUserService.Execute(_createProjectCache.Get().ProjectAssignedToEmail, projectUrl);
+            await notifyUserService.Execute(createProjectCache.Get().ProjectAssignedToEmail, projectUrl);
         }
     }
 }

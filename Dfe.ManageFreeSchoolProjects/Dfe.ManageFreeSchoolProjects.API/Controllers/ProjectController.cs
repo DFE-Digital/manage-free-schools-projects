@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         {
             _logger.LogMethodEntered();
 
-            var validationResult = _createProjectRequestValidator.Validate(createProjectRequest);
+            var validationResult = await _createProjectRequestValidator.ValidateAsync(createProjectRequest);
 
             if (!validationResult.IsValid)
             {

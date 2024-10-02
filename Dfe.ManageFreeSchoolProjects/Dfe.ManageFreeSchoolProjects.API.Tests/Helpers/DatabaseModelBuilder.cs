@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Po = Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.Po;
 using RiskAppraisalMeetingTask = Dfe.ManageFreeSchoolProjects.Data.Entities.RiskAppraisalMeetingTask;
@@ -121,9 +122,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             return _fixture.Create<string>().Substring(0, 24);
         }
 
-        public static string CreateProjectWave()
+        public static string CreateProjectWave(ProjectType projType = ProjectType.NotSet)
         {
-            return _fixture.Create<string>().Substring(0, 15);
+            return projType == ProjectType.PresumptionRoute ? "FS - Presumption" : "Central Route";
         }
 
         public static RiskAppraisalMeetingTask BuildRiskAppraisalMeetingTask(string rid)

@@ -53,7 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
             try
             {
-                var project = _createProjectCache.Get();
+                var project = CreateProjectCache.Get();
 
                 BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust);
             }
@@ -69,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             _logger.LogMethodEntered();
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
 
             BackLink = GetPreviousPage(CreateProjectPageName.SearchTrust);
 

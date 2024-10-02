@@ -1,0 +1,27 @@
+@page "/project/create/application-wave"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute.ApplicationWaveViewModel
+
+@{
+    ViewData["Title"] = "What is the application wave?";
+}
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <nav href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</nav>
+    </div>
+}
+<div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <div class="govuk-form-group">
+                <govuk-create-title label="What is the application wave?" for="application-wave" />
+                <govuk-text-input id="application-wave" name="application-wave" asp-for="@Model.ApplicationWave" data-testid="application-wave" hint="For example, SPW3-075." />
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

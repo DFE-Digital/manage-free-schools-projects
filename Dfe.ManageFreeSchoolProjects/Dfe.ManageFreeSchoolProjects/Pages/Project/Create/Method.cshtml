@@ -3,31 +3,41 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.MethodModel
 @{
     ViewData["Title"] = "Create new free school projects";
-    var labels = new[] { "Create one project", "Upload multiple projects" };
-    var values = new[] { ProjectCreateMethod.Individual.ToString(), ProjectCreateMethod.Bulk.ToString() };
-    var hints = new[] {
-        "Presumption route only",
-        "Wave route only"
-    };
 }
+
 @section BeforeMain {
     <div class="govuk-width-container">
         <a href="/" class="govuk-back-link">Back</a>
     </div>
 }
+
 <div class="govuk-grid-row">
-    <partial name="_ErrorSummary" />
+    <partial name="_ErrorSummary"/>
     <div class="govuk-grid-column-two-thirds">
         <form class="govuk-form-group" method="post">
+            <govuk-create-title label="What project do you want to create?" for="method" />
+            <br>
 
-            <govuk-radios-input id="method"
-                                name="method"
-                                asp-for="@Model.Method"
-                                labels="@labels"
-                                values="@values"
-                                hints="@hints"
-                                label="What do you want to do?" 
-                                xl-heading-label="true"/>
+            <div class="govuk-hint">
+                You can only create one at a time.
+            </div>
+            <br/>
+            
+            <govuk-radios-list>
+                <govuk-radios-list-item id="create-presumption-route-project-method"
+                                        name="method"
+                                        value="@ProjectType.PresumptionRoute"
+                                        description="Presumption route"
+                                        asp-for="@Model.Method"/>
+
+                <govuk-radios-list-item id="create-central-route-project-method"
+                                        name="method"
+                                        value="@ProjectType.CentralRoute"
+                                        description="Central route"
+                                        asp-for="@Model.Method"/>
+            </govuk-radios-list>
+
+            <br/>
             <button class="govuk-button govuk-!-margin-top-3" data-module="govuk-button" data-testid="continue">
                 Continue
             </button>
