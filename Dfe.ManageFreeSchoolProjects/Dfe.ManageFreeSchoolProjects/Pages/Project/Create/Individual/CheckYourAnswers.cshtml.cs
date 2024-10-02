@@ -43,7 +43,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
             var projReq = new ProjectDetails
             {
                 ProjectId = project.ProjectId,
-                ProjectType = project.ProjectType,
                 SchoolName = project.SchoolName,
                 SchoolType = project.SchoolType,
                 SchoolPhase = project.SchoolPhase,
