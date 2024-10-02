@@ -28,7 +28,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             }
 
             if (IsNewProject != null && (bool)IsNewProject)
+            {
                 CreateProjectCache.Delete();
+                Method = ProjectType.NotSet;
+            }
+
 
             Method = CreateProjectCache.Get().ProjectType;
 

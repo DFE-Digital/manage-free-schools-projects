@@ -28,7 +28,7 @@ public class ApplicationNumberViewModel(ICreateProjectCache createProjectCache, 
     {
         BackLink = GetPreviousPage(CreateProjectPageName.ApplicationNumber);
 
-        if (ModelState.IsValid == false)
+        if (!ModelState.IsValid)
         {
             errorService.AddErrors(ModelState.Keys, ModelState);
             return Page();

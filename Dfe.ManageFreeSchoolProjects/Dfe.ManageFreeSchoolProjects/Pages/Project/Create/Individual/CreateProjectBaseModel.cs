@@ -136,16 +136,5 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual
                 ? RouteConstants.CreateProjectCheckYourAnswers
                 : RouteConstants.CreateProjectId;
         }
-
-        private string NextPageAfterApplicationNumber()
-        {
-            var cache = CreateProjectCache.Get();
-
-            var hasApplicationWave = string.IsNullOrEmpty(cache.ApplicationWave);
-
-            return hasApplicationWave && cache.ReachedCheckYourAnswers
-                ? RouteConstants.CreateProjectCheckYourAnswers
-                : RouteConstants.CreateApplicationWave;
-        }
     }
 }
