@@ -28,13 +28,9 @@ public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache) : 
         var projCache = CreateProjectCache.Get();
 
         projCache.ApplicationWave = ApplicationWave;
-
-        var nextPage = projCache.ReachedCheckYourAnswers
-            ? RouteConstants.CreateProjectCheckYourAnswers
-            : GetNextPage(CreateProjectPageName.ApplicationWave);
         
         CreateProjectCache.Update(projCache);
 
-        return Redirect(nextPage);
+        return Redirect(GetNextPage(CreateProjectPageName.ApplicationWave));
     }
 }
