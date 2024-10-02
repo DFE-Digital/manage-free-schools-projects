@@ -20,5 +20,7 @@
         ProvisionalOpeningDate,
         ProjectAssignedTo,
         CheckYourAnswers,
+        ApplicationNumber,
+        ApplicationWave
     }
 }

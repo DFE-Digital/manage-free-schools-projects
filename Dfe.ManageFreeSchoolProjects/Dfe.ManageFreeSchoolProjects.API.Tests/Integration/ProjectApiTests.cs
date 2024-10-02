@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using System;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
@@ -14,14 +15,13 @@ using System.Threading.Tasks;
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 {
     [Collection(ApiTestCollection.ApiTestCollectionName)]
-	public class ProjectApiTests : ApiTestsBase
-	{
-		public ProjectApiTests(ApiTestFixture apiTestFixture) : base(apiTestFixture)
-		{
-		}
-
-        [Fact]
-        public async Task When_CreateProject_Returns_NewProjectFields_201()
+    public class ProjectApiTests(ApiTestFixture apiTestFixture) : ApiTestsBase(apiTestFixture)
+    {
+        [Theory]
+        [InlineData(ProjectType.CentralRoute, "12345")]
+        [InlineData(ProjectType.PresumptionRoute)]
+        public async Task When_CreateProject_Returns_NewProjectFields_201(ProjectType projectType,
+            string applicationNumber = "")
         {
             using var context = _testFixture.GetContext();
             var trust = DatabaseModelBuilder.BuildTrust();
@@ -34,7 +34,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.SchoolPhase = SchoolPhase.Primary;
             projectDetails.Nursery = ClassType.Nursery.Yes;
 
-            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave(projectType);
+
+            projectDetails.ApplicationNumber = applicationNumber;
 
             var request = new CreateProjectRequest();
             projectDetails.TRN = trust.TrustRef;
@@ -43,11 +45,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectId = DatabaseModelBuilder.CreateProjectId();
             request.Projects[0].ProjectId = projectId;
 
-            var createProjectResponse = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
+            var createProjectResponse =
+                await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
             createProjectResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-            var createProjectContent  = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
+            var createProjectContent = await createProjectResponse.Content
+                .ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
 
             createProjectContent.Data.Projects.Should().HaveCount(1);
             createProjectContent.Data.Projects[0].ProjectId.Should().Be(projectId);
@@ -59,10 +63,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.Rid.Should().HaveLength(11);
             createdProject.ProjectStatusProjectId.Should().Be(projectDetails.ProjectId);
             createdProject.ProjectStatusCurrentFreeSchoolName.Should().Be(projectDetails.SchoolName);
-            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().Be(projectDetails.ApplicationWave);
-            createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeEmpty();
+
             createdProject.AprilIndicator.Should().BeEmpty();
-            createdProject.Wave.Should().Be(projectDetails.ApplicationWave);
             createdProject.UpperStatus.Should().BeEmpty();
             createdProject.FsType.Should().BeEmpty();
             createdProject.FsType1.Should().BeEmpty();
@@ -81,22 +83,41 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.SchoolDetailsTrustType.Should().Be(trust.TrustsTrustType);
             createdProject.SchoolDetailsSixthForm.Should().Be(projectDetails.SixthForm.ToString());
             createdProject.SchoolDetailsNursery.Should().Be(projectDetails.Nursery.ToString());
-            createdProject.SchoolDetailsAlternativeProvision.Should().Be(projectDetails.AlternativeProvision.ToString());
-            createdProject.SchoolDetailsSpecialEducationNeeds.Should().Be(projectDetails.SpecialEducationNeeds.ToString());
+            createdProject.SchoolDetailsAlternativeProvision.Should()
+                .Be(projectDetails.AlternativeProvision.ToString());
+            createdProject.SchoolDetailsSpecialEducationNeeds.Should()
+                .Be(projectDetails.SpecialEducationNeeds.ToString());
             createdProject.SchoolDetailsAgeRange.Should().Be(projectDetails.AgeRange);
             createdProject.SchoolDetailsNumberOfFormsOfEntry.Should().Be(projectDetails.FormsOfEntry);
             createdProject.SchoolDetailsFaithStatus.Should().Be(projectDetails.FaithStatus.ToString());
             createdProject.SchoolDetailsFaithType.Should().Be(projectDetails.FaithType.ToDescription());
             createdProject.SchoolDetailsPleaseSpecifyOtherFaithType.Should().Be(projectDetails.OtherFaithType);
-            createdProject.ProjectStatusProvisionalOpeningDateAgreedWithTrust.Value.Date.Should().Be(projectDetails.ProvisionalOpeningDate.Value.Date);
+            createdProject.ProjectStatusProvisionalOpeningDateAgreedWithTrust.Value.Date.Should()
+                .Be(projectDetails.ProvisionalOpeningDate.Value.Date);
 
             createdPo.Rid.Should().Be(createdProject.Rid);
             createdPo.PupilNumbersAndCapacityNurseryUnder5s.Should().Be(projectDetails.NurseryCapacity.ToString());
             createdPo.PupilNumbersAndCapacityYrY6Capacity.Should().Be(projectDetails.YRY6Capacity.ToString());
             createdPo.PupilNumbersAndCapacityY7Y11Capacity.Should().Be(projectDetails.Y7Y11Capacity.ToString());
-            createdPo.PupilNumbersAndCapacityYrY11Pre16Capacity.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity).ToString());
+            createdPo.PupilNumbersAndCapacityYrY11Pre16Capacity.Should()
+                .Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity).ToString());
             createdPo.PupilNumbersAndCapacityY12Y14Post16Capacity.Should().Be(projectDetails.Y12Y14Capacity.ToString());
-            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity).ToString());
+            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be(
+                (projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity)
+                .ToString());
+
+            createdProject.ProjectStatusFreeSchoolApplicationWave.Should().Be(projectDetails.ApplicationWave);
+
+            if (projectType == ProjectType.CentralRoute)
+            {
+                createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().Be(projectDetails.ApplicationNumber);
+                createdProject.Wave.Should().Be("Non-Presumption");
+            }
+            else
+            {
+                createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeEmpty();
+                createdProject.Wave.Should().Be("FS - Presumption");
+            }
         }
 
         [Fact]
@@ -109,6 +130,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await context.SaveChangesAsync();
 
             var projectDetails = _autoFixture.Create<ProjectDetails>();
+            projectDetails.ApplicationNumber = string.Empty;
+            
             projectDetails.Nursery = ClassType.Nursery.No;
 
             var request = new CreateProjectRequest();
@@ -121,10 +144,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectId = DatabaseModelBuilder.CreateProjectId();
             request.Projects[0].ProjectId = projectId;
 
-            var createProjectResponse = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
+            var createProjectResponse =
+                await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
             createProjectResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-            var createProjectContent = await createProjectResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
+            var createProjectContent = await createProjectResponse.Content
+                .ReadFromJsonAsync<ApiSingleResponseV2<CreateProjectResponse>>();
             createProjectContent.Data.Projects.Should().HaveCount(1);
             createProjectContent.Data.Projects[0].ProjectId.Should().Be(projectId);
 
@@ -132,8 +157,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var createdPo = context.Po.First(p => p.Rid == createdProject.Rid);
 
             createdPo.PupilNumbersAndCapacityNurseryUnder5s.Should().Be("0");
-            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be((projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity).ToString());
-
+            createdPo.PupilNumbersAndCapacityTotalOfCapacityTotals.Should().Be(
+                (projectDetails.YRY6Capacity + projectDetails.Y7Y11Capacity + projectDetails.Y12Y14Capacity)
+                .ToString());
         }
 
         [Fact]
@@ -153,7 +179,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var proj2 = _autoFixture.Create<ProjectDetails>();
             var proj3 = _autoFixture.Create<ProjectDetails>();
 
-            CreateProjectRequest request = new CreateProjectRequest();
+            var request = new CreateProjectRequest();
 
             proj1.TRN = trust1.TrustRef;
             proj2.TRN = trust2.TrustRef;
@@ -162,8 +188,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
             proj2.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
             proj3.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
-
-
+            
             request.Projects.AddRange(new List<ProjectDetails>
             {
                 proj1,
@@ -174,6 +199,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             foreach (ProjectDetails p in request.Projects)
             {
                 p.ProjectId = DatabaseModelBuilder.CreateProjectId();
+                p.ApplicationNumber = string.Empty;
             }
 
             var result = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
@@ -189,7 +215,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject1.ProjectStatusProjectId.Should().Be(request.Projects[0].ProjectId);
             createdProject2.ProjectStatusProjectId.Should().Be(request.Projects[1].ProjectId);
             createdProject3.ProjectStatusProjectId.Should().Be(request.Projects[2].ProjectId);
-
         }
 
         [Fact]
@@ -202,7 +227,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             await setupContext.SaveChangesAsync();
 
             var proj1 = _autoFixture.Create<ProjectDetails>();
+            proj1.ApplicationNumber = string.Empty;
 
+            
             CreateProjectRequest request = new CreateProjectRequest();
             proj1.TRN = trust.TrustRef;
             proj1.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
@@ -233,14 +260,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var projectDetails = _autoFixture.Create<ProjectDetails>();
             projectDetails.ProjectId = DatabaseModelBuilder.CreateProjectId();
 
-            var request = new CreateProjectRequest()
-            {
-                Projects = new List<ProjectDetails> { projectDetails }
-            };
+            var request = new CreateProjectRequest { Projects = [projectDetails] };
 
             var response = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
             response.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
-            
+
             var content = await response.Content.ReadAsStringAsync();
 
             content.Should().Contain($"The trust does not exist: {projectDetails.TRN}");
@@ -249,13 +273,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         [Fact]
         public async Task When_CreateProject_InvalidRequest_Returns_400()
         {
-            var request = new CreateProjectRequest()
-            {
-                Projects = new List<ProjectDetails>()
-                {
-                    new ProjectDetails()
-                }
-            };
+            var request = new CreateProjectRequest { Projects = [new ProjectDetails()] };
 
             var response = await _client.PostAsync($"/api/v1/client/projects/create", request.ConvertToJson());
 
@@ -269,4 +287,3 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         }
     }
 }
-

@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return new UnauthorizedResult();
             }
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             NurseryCapacity = project.NurseryCapacity.ToString();
             YRY6Capacity = project.YRY6Capacity.ToString();
             Y7Y11Capacity = project.Y7Y11Capacity.ToString();
@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public IActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.Capacity);
             HasNursery = project.Nursery;
 
@@ -87,7 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             project.YRY6Capacity = int.Parse(YRY6Capacity);
             project.Y7Y11Capacity = int.Parse(Y7Y11Capacity);
             project.Y12Y14Capacity = int.Parse(Y12Y14Capacity);
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.Capacity));
         }

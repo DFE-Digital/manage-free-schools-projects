@@ -121,6 +121,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             projectDetails.TRN = trust.TrustRef;
 
             projectDetails.ApplicationWave = DatabaseModelBuilder.CreateProjectWave();
+            projectDetails.ApplicationNumber = string.Empty;
 
             request.Projects.Add(projectDetails);
 

@@ -84,6 +84,8 @@ describe("Testing project overview", () => {
             .schoolNameIs(project.schoolName)
             .addCancelledDate("12", "2","2049")
             .withEntryIntoPreOpening("10", "08", "2025")
+            .withRealisticYearOfOpeningStartDate("2040")
+            .withRealisticYearOfOpeningEndDate("2041")
             .withProvisionalOpeningDateAgreedWithTrust("12", "09", "2026")
             .clickContinue();
 
@@ -91,7 +93,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("10 August 2025").HasChangeLink()
-            .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
+            .summaryShows("Realistic year of opening").HasValue("2040/41").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("12 September 2026").HasChangeLink()
             .clickChange();
 
@@ -105,7 +107,7 @@ describe("Testing project overview", () => {
             .inOrder()
             .summaryShows("Date the project was cancelled").HasValue("12 February 2049").HasChangeLink()
             .summaryShows("Entry into pre-opening").HasValue("11 August 2026").HasChangeLink()
-            .summaryShows("Realistic year of opening").IsEmpty().HasChangeLink()
+            .summaryShows("Realistic year of opening").HasValue("2040/41").HasChangeLink()
             .summaryShows("Provisional opening date agreed with trust").HasValue("13 September 2027").HasChangeLink()
 
         Logger.log("Should update the task status");
@@ -164,20 +166,17 @@ describe("Testing project overview", () => {
           .withProvisionalOpeningDateAgreedWithTrust("28", "2", "2026")
           .withRealisticYearOfOpeningStartDate("1234")
           .clickContinue()
-          .errorForRealisticStartDate("Start date must begin with 20")
+          .errorForRealisticStartDate("Start year must begin with 20")
           .withRealisticYearOfOpeningStartDate("2050")
           .withRealisticYearOfOpeningEndDate("1234")
           .clickContinue()
-          .errorForRealisticStartDate("End date must begin with 20")
+          .errorForRealisticStartDate("End year must begin with 20")
           .withRealisticYearOfOpeningStartDate("2049")
           .withRealisticYearOfOpeningEndDate("2050")
           .clickContinue()
 
         summaryPage.SummaryHasValue("Entry into pre-opening", "30 September 2026")
-        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "28 February 2026")
         summaryPage.SummaryHasValue("Realistic year of opening", "2049/50")
-
-
-        
+        summaryPage.SummaryHasValue("Provisional opening date agreed with trust", "28 February 2026")    
     });    
 });

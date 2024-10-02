@@ -33,7 +33,7 @@ public class ProjectAssignedTo : CreateProjectBaseModel
         }
 
 
-        var projectCache = _createProjectCache.Get();
+        var projectCache = CreateProjectCache.Get();
 
         BackLink = GetPreviousPage(CreateProjectPageName.ProjectAssignedTo);
 
@@ -46,7 +46,7 @@ public class ProjectAssignedTo : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
-        var projectCache = _createProjectCache.Get();
+        var projectCache = CreateProjectCache.Get();
         BackLink = GetPreviousPage(CreateProjectPageName.ProjectAssignedTo);
 
         if (!ModelState.IsValid)
@@ -87,7 +87,7 @@ public class ProjectAssignedTo : CreateProjectBaseModel
 
         projectCache.ProjectAssignedToName = Name;
         projectCache.ProjectAssignedToEmail = Email;
-        _createProjectCache.Update(projectCache);
+        CreateProjectCache.Update(projectCache);
         
         return Redirect(RouteConstants.CreateProjectCheckYourAnswers);
     }

@@ -3,35 +3,39 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Dfe.ManageFreeSchoolProjects.Pages.Project.Create.Individual;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 {
-    public class MethodModel : PageModel
+    public class MethodModel(ErrorService errorService, ICreateProjectCache createProjectCache)
+        : CreateProjectBaseModel(createProjectCache)
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
         [Required(ErrorMessage = "Select what you want to do")]
-        public string Method { get; set; }
+        public ProjectType Method { get; set; }
 
-        private readonly ErrorService _errorService;
-        private readonly ICreateProjectCache _createProjectCache;
-
-        public MethodModel(ErrorService errorService,ICreateProjectCache createProjectCache)
-        {
-            _createProjectCache = createProjectCache;
-            _errorService = errorService;
-        }
+        [FromQuery(Name = "newProject")] 
+        public bool? IsNewProject { get; set; }
 
         public IActionResult OnGet()
         {
-            if(!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
             {
                 return new UnauthorizedResult();
             }
-            
+
+            if (IsNewProject != null && (bool)IsNewProject)
+            {
+                CreateProjectCache.Delete();
+                Method = ProjectType.NotSet;
+            }
+
+
+            Method = CreateProjectCache.Get().ProjectType;
+
             return Page();
         }
 
@@ -39,22 +43,53 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
         {
             if (!ModelState.IsValid)
             {
-                _errorService.AddErrors(ModelState.Keys, ModelState);
+                errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
 
-            var chosenMethod = (ProjectCreateMethod)Enum.Parse(typeof(ProjectCreateMethod), Method);
+            var projCache = CreateProjectCache.Get();
+
+            var nextPage = GetNextPage(projCache, Method);
+
+            UpdateCacheWithCreateMethod(Method, projCache);
+
+            return nextPage;
+        }
+
+        private RedirectResult GetNextPage(CreateProjectCacheItem projCache, ProjectType chosenMethod)
+        {
+            var hasApplicationWaveOrApplicationNumber = !string.IsNullOrEmpty(projCache.ApplicationWave) ||
+                                                        !string.IsNullOrEmpty(projCache.ApplicationNumber);
 
             switch (chosenMethod)
             {
-                case ProjectCreateMethod.Individual:
-                    _createProjectCache.Delete();
-                    return Redirect(RouteConstants.CreateProjectId);
-                case ProjectCreateMethod.Bulk:
-                    return Redirect("/project/create/bulk");
+                case ProjectType.PresumptionRoute:
+                    ClearCentralRouteFields(projCache);
+
+                    return Redirect(projCache.ReachedCheckYourAnswers
+                        ? RouteConstants.CreateProjectCheckYourAnswers
+                        : RouteConstants.CreateProjectId);
+
+                case ProjectType.CentralRoute:
+                    return Redirect(projCache.ReachedCheckYourAnswers && hasApplicationWaveOrApplicationNumber
+                        ? RouteConstants.CreateProjectCheckYourAnswers
+                        : RouteConstants.CreateApplicationNumber);
                 default:
-                    throw new InvalidOperationException($"Unrecognised method {Method}");
+                    throw new InvalidOperationException($"Unrecognized method {chosenMethod}");
             }
+        }
+
+        private void ClearCentralRouteFields(CreateProjectCacheItem projCache)
+        {
+            projCache.ApplicationNumber = null;
+            projCache.ApplicationWave = null;
+            CreateProjectCache.Update(projCache);
+        }
+
+        private void UpdateCacheWithCreateMethod(ProjectType method, CreateProjectCacheItem projCache)
+        {
+            projCache.ProjectType = method;
+            CreateProjectCache.Update(projCache);
         }
     }
 }

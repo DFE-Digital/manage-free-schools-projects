@@ -112,7 +112,7 @@ describe("Testing the tasks completed count", () => {
 
         Logger.log("completed count and sections count is adjusted correctly");
 
-        taskListPage.taskCompletedCountMessage(`You have completed 1 of ${taskCount -1} sections.`)
+        taskListPage.taskCompletedCountMessage(`You have completed 2 of ${taskCount -1} sections.`)
             .isTaskStatusIsCompleted("CommissionedExternalExpert")
 
 

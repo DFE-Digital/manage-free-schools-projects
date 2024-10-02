@@ -121,6 +121,10 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
         public const string CreateFormsOfEntry = CreateProject + "/forms-of-entry";
         public const string CreateProjectProvisionalOpeningDate = CreateProject + "/provisional-opening-date";
 
+        public const string CreateApplicationNumber = CreateProject + "/application-number";
+        public const string CreateApplicationWave = CreateProject + "/application-wave";
+
+
         public const string ProjectRiskSummary = "/projects/{0}/risk/summary";
         public const string ProjectRiskReview = "/projects/{0}/risk/add/review";
         public const string ProjectRiskConfirmation = "/projects/{0}/risk/add/confirmation?schoolName={1}";

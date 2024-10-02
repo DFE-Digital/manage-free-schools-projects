@@ -39,7 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 return new UnauthorizedResult();
             }
 
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             
             var localAuthorities = await GetLocalAuthoritiesByRegion();
             LocalAuthorities = localAuthorities.Values.ToList();
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
             if (!string.IsNullOrEmpty(project.LocalAuthority))
                 LocalAuthority = project.LocalAuthority;
             
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority);
             
@@ -58,12 +58,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
 
         public ActionResult OnPost()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             BackLink = GetPreviousPage(CreateProjectPageName.LocalAuthority);
 
             if (!ModelState.IsValid)
             {
-                LocalAuthorities = _createProjectCache.Get().LocalAuthorities.Values.ToList();
+                LocalAuthorities = CreateProjectCache.Get().LocalAuthorities.Values.ToList();
                 _errorService.AddErrors(ModelState.Keys, ModelState);
                 return Page();
             }
@@ -76,14 +76,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
                 project.Region = project.PreviousRegion;
             }
 
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
 
             return Redirect(GetNextPage(CreateProjectPageName.LocalAuthority));
         }
 
         private async Task<Dictionary<string, string>> GetLocalAuthoritiesByRegion()
         {
-            var project = _createProjectCache.Get();
+            var project = CreateProjectCache.Get();
             var region = project.Region.ToDescription();
 
             if (project.ReachedCheckYourAnswers)

@@ -321,6 +321,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var project = _autoFixture.Create<ProjectDetails>();
             
+            project.ApplicationNumber = string.Empty;
+            
             using var context = _testFixture.GetContext();
             
             var trust = DatabaseModelBuilder.BuildTrust();

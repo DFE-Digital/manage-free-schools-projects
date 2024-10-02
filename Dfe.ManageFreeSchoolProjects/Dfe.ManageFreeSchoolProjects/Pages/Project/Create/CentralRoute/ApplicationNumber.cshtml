@@ -1,0 +1,27 @@
+@page "/project/create/application-number"
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.CentralRoute.ApplicationNumberViewModel
+
+@{
+    ViewData["Title"] = "What is the application number?";
+}
+@section BeforeMain {
+    <nav role="navigation" class="govuk-width-container">
+        <a href="@Model.BackLink" class="govuk-back-link" data-testid="back">Back</a>
+    </nav>
+}
+<div class="govuk-grid-row">
+    <partial name="_ErrorSummary" />
+    <div class="govuk-grid-column-two-thirds">
+        <form class="form" method="post">
+
+            <div class="govuk-form-group">
+                <govuk-create-title label="What is the application number?" for="application-number" />
+                <govuk-text-input id="application-number" name="application-number" asp-for="@Model.ApplicationNumber" data-testid="application-number" hint="For example, SPW3-075." />
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+                Continue
+            </button>
+        </form>
+    </div>
+</div>

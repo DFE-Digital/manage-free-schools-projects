@@ -29,7 +29,7 @@ public class FaithStatusModel : CreateProjectBaseModel
             return new UnauthorizedResult();
         }
         
-        var project = _createProjectCache.Get();
+        var project = CreateProjectCache.Get();
         FaithStatus = project.FaithStatus;
 
         BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus);
@@ -39,7 +39,7 @@ public class FaithStatusModel : CreateProjectBaseModel
 
     public IActionResult OnPost()
     {
-        var project = _createProjectCache.Get();
+        var project = CreateProjectCache.Get();
         BackLink = GetPreviousPage(CreateProjectPageName.FaithStatus);
 
         if (!ModelState.IsValid)
@@ -53,7 +53,7 @@ public class FaithStatusModel : CreateProjectBaseModel
             project.FaithStatus = FaithStatus;
             project.PreviousFaithStatus = FaithStatus;
             project.FaithType = FaithType.NotSet;
-            _createProjectCache.Update(project);
+            CreateProjectCache.Update(project);
             return Redirect(GetNextPage(CreateProjectPageName.FaithStatus));
         }
 
@@ -66,8 +66,8 @@ public class FaithStatusModel : CreateProjectBaseModel
             project.PreviousFaithStatus = FaithStatus;
         }
 
-        _createProjectCache.Update(project);
-
+        CreateProjectCache.Update(project);
+        
         return Redirect(GetNextPage(CreateProjectPageName.FaithStatus));
     }
 }

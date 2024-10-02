@@ -101,19 +101,17 @@ describe("Testing kick off meeting Task", () => {
         kickOffMeetingEditPage
             .withRealisticYearOfOpeningStartDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("Start date must begin with 20")
+            .errorForRealisticStartDate("Start year must begin with 20")
             .withRealisticYearOfOpeningStartDate("2050")
             .withRealisticYearOfOpeningEndDate("1234")
             .clickContinue()
-            .errorForRealisticStartDate("End date must begin with 20")
+            .errorForRealisticStartDate("End year must begin with 20")
             .withRealisticYearOfOpeningStartDate("2049")
             .withRealisticYearOfOpeningEndDate("2050")
             .clickContinue()
 
         summaryPage.SummaryHasValue("Realistic year of opening", "2049/50")
             .clickChange();
-
-        cy.log('Provisional opening date agreed with trust validation')
 
         kickOffMeetingEditPage
             .checkFundingArrangementAgreed()
