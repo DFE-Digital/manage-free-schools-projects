@@ -11,6 +11,7 @@ public class ApplicationNumberViewModel(ICreateProjectCache createProjectCache, 
     [BindProperty(Name = "application-number")]
     [Display(Name = "application number")]
     [StringLength(10, ErrorMessage = "The application number must be 10 characters or less.")]
+    [Required]
     public string ApplicationNumber { get; set; }
     
     public IActionResult OnGet()
