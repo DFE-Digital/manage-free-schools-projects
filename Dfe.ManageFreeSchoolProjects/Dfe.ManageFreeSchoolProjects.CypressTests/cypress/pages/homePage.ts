@@ -1,13 +1,13 @@
 class HomePage {
 
-    public createNewProjects(): this {
-        cy.contains("Create new projects").click();
+    public createNewProjects(): this { 
+        cy.contains("Create a project").click();
         //   cy.login({role: ProjectRecordCreator})
         return this;
     }
 
     public createProject(): this {
-        cy.getByTestId("create-project-button").click();
+        cy.getByTestId("create-project").click();
 
         return this;
     }

@@ -28,6 +28,7 @@ export type CreateProjectRequest = {
 
 export type ProjectDetailsRequest = {
     projectId: string;
+    projectType: string;
     schoolName: string;
     applicationNumber?: string;
     applicationWave: string;
