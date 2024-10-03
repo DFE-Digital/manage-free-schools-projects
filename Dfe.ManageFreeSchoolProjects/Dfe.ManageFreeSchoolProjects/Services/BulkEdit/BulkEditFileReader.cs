@@ -3,6 +3,7 @@ using System.IO;
 using System;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
 {
@@ -13,6 +14,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
 
     public class BulkEditFileReader : IBulkEditFileReader
     {
+        public const int FileRowStartIndex = 2;
+
         public BulkEditRequest Read(DataTable table)
         {
 
@@ -38,13 +41,18 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
             for (int i = 0; i < table.Rows.Count; i++)
             {
                 var row = table.Rows[i];
-                var info = new RowInfo { FileRowIndex = i + 1 };
+                var info = new RowInfo { FileRowIndex = i + FileRowStartIndex };
 
                 info.Columns = new List<ColumnInfo>();
 
                 for (int j = 0; j < row.ItemArray.Length; j++)
                 {
                     info.Columns.Add(new() { ColumnIndex = j, Value = ParseColumn(row.ItemArray[j]) });
+                }
+
+                if (info.Columns.All(x => string.IsNullOrEmpty(x.Value)))
+                {
+                    continue;
                 }
 
                 request.Rows.Add(info);
