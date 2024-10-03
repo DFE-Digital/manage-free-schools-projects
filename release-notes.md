@@ -3,9 +3,11 @@
 * 179195 - Build: Show only statuses relevant to Presumption route
 * 147094 - Build: Pre-funding agreement checkpoint meeting (Central route)
 * 178584 - Build: Principal designate (both routes)
+* 178422 - Build: Principal designate forecast dates
 * 177522 - Build: Display the ‘Realistic Year of Opening’ field in the Dates section under Setting up section
 * 181651 - Build: update kick-off meeting task
 * 181679 - Build: add 'if applicable' to governance plan fields
+* 181647 - Build: Changes to task list including re-ordering
 
 ## 0.12.0
 * 175400 - Build: Update 'You do not have access to the service' page with access form link
