@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FundingAgreeme
                 DraftedFundingAgreementHealthCheck = milestones.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck,
                 RegionalDirectorSignedOffFundingAgreementHealthCheck = milestones.FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck,
                 MinisterSignedOffFundingAgreementHealthCheck = milestones.FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck,
+                IncludedSignedOffImpactAssessment = milestones.FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaHealthCheck,
                 SavedFundingAgreementHealthCheckInWorkplacesFolder = milestones.FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder
             };
 

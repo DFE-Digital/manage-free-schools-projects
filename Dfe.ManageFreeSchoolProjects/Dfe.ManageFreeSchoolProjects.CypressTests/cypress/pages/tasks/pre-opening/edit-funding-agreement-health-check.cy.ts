@@ -30,6 +30,16 @@ class FundingAgreementHealthCheckPage {
         return this
     }
 
+    checkIncludedSignedOffImpactAssessment(): this {
+        cy.getById("included-signed-off-impact-assessment").check()
+        return this
+    }
+
+    uncheckIncludedSignedOffImpactAssessment(): this {
+        cy.getById("included-signed-off-impact-assessment").uncheck()
+        return this
+    }
+
     checkSavedFAHealthCheckInWorkplacesFolder(): this {
         cy.getById("saved-fa-health-check-in-workplaces-folder").check()
         return this
