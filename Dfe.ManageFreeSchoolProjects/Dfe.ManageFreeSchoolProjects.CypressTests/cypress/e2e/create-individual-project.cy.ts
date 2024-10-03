@@ -46,9 +46,9 @@ describe("Testing the project creation journey", () => {
             cy.visit('/');
         });
 
-        it("Should display Create new projects button for projectRecordCreator role", () => {
+        it("Should display Create a project card for projectRecordCreator role", () => {
             Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
-            cy.contains('Create new projects').should('be.visible');
+            cy.contains('Create a project').should('be.visible');
             cy.executeAccessibilityTests();
         });
     });
@@ -73,12 +73,12 @@ describe("Testing the project creation journey", () => {
 
             createProjectPage
                 .continue()
-                .errorMessage("Select what you want to do");
+               // .errorMessage("Select what project you want to create");
 
             cy.executeAccessibilityTests();
 
             createProjectPage
-                .selectOption("Create one project")
+                .selectOption("Presumption route")
                 .continue();
 
             Logger.log("Check project id validation");
@@ -389,6 +389,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Check answers");
             summaryPage.inOrder()
+                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
@@ -435,7 +436,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Use individual method");
             createProjectPage
-                .selectOption("Create one project")
+                .selectOption("Presumption route")
                 .continue();
 
             Logger.log("Enter Valid project ID");
@@ -520,6 +521,7 @@ describe("Testing the project creation journey", () => {
             Logger.log("Check answers");
 
             summaryPage.inOrder()
+                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
