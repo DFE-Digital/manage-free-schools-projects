@@ -32,6 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     InspectionConditionsMet = YesNoNotApplicable.Yes,
                     ProposedToOpenOnGias = true,
                     SavedToWorkplaces = true,
+                    DateInspectionsAndAnyActionsCompleted = new DateTime().Date.AddDays(10)
                 }
             };
 
@@ -53,6 +54,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.OfstedInspection.ProposedToOpenOnGias);
             projectResponse.OfstedInspection.SavedToWorkplaces.Should()
                 .Be(request.OfstedInspection.SavedToWorkplaces);
+            projectResponse.OfstedInspection.DateInspectionsAndAnyActionsCompleted.Should()
+                .Be(request.OfstedInspection.DateInspectionsAndAnyActionsCompleted);
         }
 
         [Fact]
@@ -77,9 +80,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                    OfstedAndTrustLiaisonDetailsConfirmed = false,
                    BlockAndContentDetailsToOpenersSpreadSheet = false,
                    SharedOutcomeWithTrust = false,
-                   InspectionConditionsMet = YesNoNotApplicable.No,
+                   InspectionConditionsMet = YesNoNotApplicable.NotApplicable,
                    ProposedToOpenOnGias = false,
-                   SavedToWorkplaces = false
+                   SavedToWorkplaces = false,
+                   DateInspectionsAndAnyActionsCompleted = null
                 }
             };
 
@@ -103,6 +107,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.OfstedInspection.ProposedToOpenOnGias);
             projectResponse.OfstedInspection.SavedToWorkplaces.Should()
                 .Be(request.OfstedInspection.SavedToWorkplaces);
+            projectResponse.OfstedInspection.DateInspectionsAndAnyActionsCompleted.Should()
+                .Be(request.OfstedInspection.DateInspectionsAndAnyActionsCompleted);
         }
     }
 }
