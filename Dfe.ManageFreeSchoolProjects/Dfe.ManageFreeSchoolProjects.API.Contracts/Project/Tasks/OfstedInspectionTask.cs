@@ -14,7 +14,7 @@ public class OfstedInspectionTask
         
     public bool? SharedOutcomeWithTrust { get; set; }
     
-    public YesNoNotApplicable InspectionConditionsMet { get; set; }
+    public YesNoNotApplicable? InspectionConditionsMet { get; set; }
         
     public bool? ProposedToOpenOnGias { get; set; }
         

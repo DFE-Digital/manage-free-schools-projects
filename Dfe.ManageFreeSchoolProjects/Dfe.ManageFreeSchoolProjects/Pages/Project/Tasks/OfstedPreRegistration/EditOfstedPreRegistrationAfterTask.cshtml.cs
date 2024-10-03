@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         public bool? SharedOutcomeWithTrust { get; set; }
 
         [BindProperty(Name = "inspection-conditions-met")]
-        public YesNoNotApplicable InspectionConditionsMet { get; set; }
+        public YesNoNotApplicable? InspectionConditionsMet { get; set; }
 
         [BindProperty(Name = "proposed-to-open-on-gias")]
         public bool? ProposedToOpenOnGias { get; set; }
