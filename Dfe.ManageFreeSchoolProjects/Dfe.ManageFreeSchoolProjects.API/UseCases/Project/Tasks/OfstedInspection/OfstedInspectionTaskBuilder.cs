@@ -28,13 +28,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
 
         }
 
-        private static YesNoNotApplicable InspectionConditionsMet(string condition)
+        private static YesNoNotApplicable? InspectionConditionsMet(string condition)
         {
             return condition switch
             {
                 "Yes" => YesNoNotApplicable.Yes,
                 "No" => YesNoNotApplicable.No,
-                "Not applicable" => YesNoNotApplicable.NotApplicable
+                "Not applicable" => YesNoNotApplicable.NotApplicable,
+                _ => null
             };
         }
     }

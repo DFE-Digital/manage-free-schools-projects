@@ -4,10 +4,6 @@ class AfterInspectionEditPage {
         cy.getById("shared-outcome-with-trust").check()
         return this
     }
-    checkInspectionConditionsMet(): this {
-        cy.getById("inspection-conditions-met").check()
-        return this
-    }
 
     checkProposedToOpenOnGias(): this {
         cy.getById("proposed-to-open-on-gias").check()
@@ -22,10 +18,6 @@ class AfterInspectionEditPage {
         cy.getById("shared-outcome-with-trust").uncheck()
         return this
     }
-    uncheckInspectionConditionsMet(): this {
-        cy.getById("inspection-conditions-met").uncheck()
-        return this
-    }
 
     uncheckProposedToOpenOnGias(): this {
         cy.getById("proposed-to-open-on-gias").uncheck()
@@ -33,6 +25,11 @@ class AfterInspectionEditPage {
     }
     uncheckSavedToWorkplaces(): this {
         cy.getById("saved-to-workplaces").uncheck()
+        return this
+    }
+
+    clearDateThatInspectionAndAnyActionsCompleted(): this {
+        cy.getById("date-inspection-and-any-actions-completed").clear()
         return this
     }
 
