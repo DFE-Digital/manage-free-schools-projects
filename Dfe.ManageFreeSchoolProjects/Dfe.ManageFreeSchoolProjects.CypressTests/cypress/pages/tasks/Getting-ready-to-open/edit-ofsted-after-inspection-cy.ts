@@ -35,7 +35,18 @@ class AfterInspectionEditPage {
         cy.getById("saved-to-workplaces").uncheck()
         return this
     }
-   
+
+    enterDateThatInspectionAndAnyActionsCompleted(day : string, month: string, year: string): this {
+        cy.enterDate("date-inspection-and-any-actions-completed", day, month, year)
+        return this
+    }
+
+    selectAnyActionsToMeetConditionCompletedOption(option: "Yes" | "No" | "Not applicable"): this {
+        // cy.getById("inspection-conditions-met").select(option)
+        cy.getByRadioOption(option).check();
+        return this
+     }
+
     clickContinue() : this {
         cy.getByTestId("continue").click();
         return this;
