@@ -5,7 +5,7 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-describe("Testing the project creation journey", () => {
+describe("Testing the presumption route project creation journey", () => {
     beforeEach(() => {
         cy.login({ role: "POTATO" });
         cy.visit(Cypress.env('url'));
@@ -53,7 +53,7 @@ describe("Testing the project creation journey", () => {
         });
     });
 
-    describe("Creating an individual project - Create a new project", () => {
+    describe("Creating an individual project - Create a Presumption route new project", () => {
         beforeEach(() => {
             cy.login({ role: ProjectRecordCreator });
             cy.visit('/');
