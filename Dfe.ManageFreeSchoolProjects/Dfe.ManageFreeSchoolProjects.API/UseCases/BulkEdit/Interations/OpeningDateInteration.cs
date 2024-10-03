@@ -12,5 +12,15 @@
             dto.OpeningDate = value;
             return dto;
         }
+
+        public string FormatValue(string value)
+        {
+            if(DateTime.TryParse(value, out var date))
+            {
+                return date.ToString("dd/MM/yyyy");
+            }
+
+            return value;
+        }
     }
 }

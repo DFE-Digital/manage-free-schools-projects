@@ -319,6 +319,47 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             AssertCell(response.ValidationResultRows, 2, 1, MoreExisting, ValidInput, DataValidationMessage);
         }
 
+
+        [Fact]
+        public async Task ValidationReturnsFormatted()
+        {
+            var file = new BulkEditRequest()
+            {
+                Headers = new()
+                {
+                    new HeaderInfo() { Index = 0, Name = ProjectId },
+                    new HeaderInfo() { Index = 1, Name = FormattedName },
+                },
+                Rows = new()
+                {
+                    new RowInfo()
+                    {
+                        FileRowIndex = 1,
+                        Columns = new()
+                        {
+                            new ColumnInfo() { ColumnIndex = 0, Value = "1" },
+                            new ColumnInfo() { ColumnIndex = 1, Value = ValidInput },
+                        }
+                    }
+                }
+            };
+
+            Dictionary<string, TestDto> data = new()
+            {
+                {
+                    "1", new TestDto()
+                    {
+                        ProjectId = "1",
+                        TestData = Existing,
+                    }
+                },
+            };
+
+            var response = await RunTest(file, data);
+            response.ValidationResultRows.Count.Should().Be(1);
+            AssertCell(response.ValidationResultRows, 1, 1, Existing, ValidInput + TestFormattedInteraction.Format);
+        }
+
         private void AssertCell(List<ValidationRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue, string error = null)
         {
             var row = validrows.FirstOrDefault(x => x.FileRowIndex == rowIndex);
@@ -336,13 +377,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             var process = new BulkEditValidation<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data));
 
             return await process.Execute(file);
-        }
-
-        private static DbContextOptions<MfspContext> GetContextOptions()
-        {
-            return new DbContextOptionsBuilder<MfspContext>()
-                .UseInMemoryDatabase(databaseName: "mfsp")
-                .Options;
         }
     }
 }

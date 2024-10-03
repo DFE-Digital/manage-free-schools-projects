@@ -1,7 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
-using Dfe.ManageFreeSchoolProjects.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,16 +21,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
     public class BulkEditCommitTest
     {
         private const string HeaderOneName = TestHeaderRegister.HeaderOneName;
-        private const string HeaderTwoName = TestHeaderRegister.HeaderTwoName;
-        private const string DataHeader = TestHeaderRegister.HeaderData;
         private const string ProjectId = TestHeaderRegister.ProjectId;
-        private const string ValidationMessage = TestValidation.ValidationMessage;
-        private const string DataValidationMessage = DataDependencyValidation.DataValidationMessage;
         private const string ValidInput = TestValidation.ValidInput;
-        private const string InvalidInput = "Invalid";
         private const string Existing = "Existing";
-        private const string MoreExisting = "MoreExisting";
-
+        
         [Fact]
         public async Task CommitSingleItem()
         {

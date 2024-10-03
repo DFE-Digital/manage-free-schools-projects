@@ -57,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         {
                             ColumnIndex = column.ColumnIndex,
                             CurrentValue = currentValue,
-                            NewValue = column.Value,
+                            NewValue = header.DataInteration.FormatValue(column.Value),
                             Error = validationResult.ErrorMessage
                         });
 
@@ -68,7 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         {
                             ColumnIndex = column.ColumnIndex,
                             CurrentValue = currentValue,
-                            NewValue = column.Value
+                            NewValue = header.DataInteration.FormatValue(column.Value)
                         });
                     }
                 }

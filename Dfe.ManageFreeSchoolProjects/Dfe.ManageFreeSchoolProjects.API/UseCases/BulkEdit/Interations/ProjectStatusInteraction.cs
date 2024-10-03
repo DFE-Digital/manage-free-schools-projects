@@ -12,5 +12,10 @@
         {
             return dto.ProjectStatus;
         }
+
+        public string FormatValue(string value)
+        {
+            return value;
+        }
     }
 }

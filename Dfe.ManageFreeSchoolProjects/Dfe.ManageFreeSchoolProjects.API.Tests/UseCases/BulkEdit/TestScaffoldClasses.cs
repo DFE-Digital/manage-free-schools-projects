@@ -37,6 +37,32 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             setDto(value, dto);
             return dto;
         }
+
+        public string FormatValue(string value)
+        {
+            return value;
+        }
+    }
+
+    internal class TestFormattedInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteration<TestDto>
+    {
+        public const string Format = "format";
+
+        public string GetFromDto(TestDto dto)
+        {
+            return getDto(dto);
+        }
+
+        public TestDto ApplyToDto(string value, TestDto dto)
+        {
+            setDto(value, dto);
+            return dto;
+        }
+
+        public string FormatValue(string value)
+        {
+            return value + Format;
+        }
     }
 
     internal class TestHeaderRegister : IHeaderRegister<TestDto>
@@ -57,7 +83,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
                 new() { Name = HeaderOneName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
                 new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
                 new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteration = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
-                new() { Name = FormattedName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = FormattedName, Type = new TestValidation(), DataInteration = new TestFormattedInteraction(x => x.TestData, (x, t) => t.TestData = x) },
             };
         }
     }

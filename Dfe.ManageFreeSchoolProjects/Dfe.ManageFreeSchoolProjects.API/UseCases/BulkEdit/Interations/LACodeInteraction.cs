@@ -19,5 +19,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
         {
             return dto.LocalAuthorityCode;
         }
+
+        public string FormatValue(string value)
+        {
+            return value;
+        }
     }
 }

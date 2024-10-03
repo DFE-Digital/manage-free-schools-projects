@@ -11,5 +11,10 @@
         {
             throw new Exception("ProjectId cannot be changed");
         }
+
+        public string FormatValue(string value)
+        {
+            return value;
+        }
     }
 }

@@ -5,6 +5,8 @@
         public string GetFromDto(T dto);
 
         public T ApplyToDto(string value, T dto);
+
+        public string FormatValue(string value);
     }
 
     public record HeaderType<T> where T : IBulkEditDto
