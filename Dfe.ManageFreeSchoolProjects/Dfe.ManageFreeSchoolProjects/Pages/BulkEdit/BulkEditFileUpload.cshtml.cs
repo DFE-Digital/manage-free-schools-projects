@@ -54,6 +54,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
         {
             logger.LogMethodEntered();
 
+            if(Upload == null)
+            {
+                FileError = "Select a file";
+                return Page();
+            }
+
             if(!Upload.FileName.EndsWith(".csv") && !Upload.FileName.EndsWith(".xlsx"))
             {
                 FileError = "The selected file must be an Excel spreadsheet or CSV";
@@ -105,6 +111,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 }
                 else
                 {
+                    var errorCount = Rows.Count(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
+                    FileError = $"The selected file has {errorCount} validation errors";
                     ViewData["Title"] = "Update multiple fields";
                     BackLink = "/";
                 }

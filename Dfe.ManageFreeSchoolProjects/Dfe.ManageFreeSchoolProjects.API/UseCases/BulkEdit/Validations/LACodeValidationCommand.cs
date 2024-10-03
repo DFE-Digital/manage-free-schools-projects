@@ -6,12 +6,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
     {
         public ValidationResult Execute(BulkEditDto data, string value)
         {
+            if(value.Length < 3)
+            {
+                return new ValidationResult
+                {
+                    IsValid = false,
+                    ErrorMessage = "Local authority must be 3 numbers or more"
+                };
+            }
+
             var isValid = localAuthorityCache.GetLocalAuthorities().Any(x => x.LACode == value);
             
             return new ValidationResult
             {
                 IsValid = isValid,
-                ErrorMessage = isValid ? null : "Local Authority code does not exist"
+                ErrorMessage = isValid ? null : "Enter an existing local authority"
             };
         }
     }

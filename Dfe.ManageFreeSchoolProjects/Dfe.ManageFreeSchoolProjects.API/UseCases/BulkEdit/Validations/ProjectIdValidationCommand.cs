@@ -9,7 +9,7 @@
                 return new ValidationResult
                 {
                     IsValid = false,
-                    ErrorMessage = "Project Id does not exist"
+                    ErrorMessage = "Enter an existing project ID"
                 };
             }
 

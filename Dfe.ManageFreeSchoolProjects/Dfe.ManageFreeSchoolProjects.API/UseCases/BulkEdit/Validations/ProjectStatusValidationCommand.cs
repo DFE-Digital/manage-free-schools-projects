@@ -40,7 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 return new ValidationResult
                 {
                     IsValid = false,
-                    ErrorMessage = "Project Status is not in possible list of statuses"
+                    ErrorMessage = "Select an existing project status"
                 };
             }
 
@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 return new ValidationResult
                 {
                     IsValid = false,
-                    ErrorMessage = "Project status not valid for Presumption projects"
+                    ErrorMessage = "Select a presumption route project status"
                 };
             }
 

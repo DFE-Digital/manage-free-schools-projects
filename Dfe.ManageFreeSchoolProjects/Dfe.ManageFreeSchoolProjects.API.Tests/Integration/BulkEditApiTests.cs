@@ -195,7 +195,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ColumnIndex = 0,
                     CurrentValue = "",
                     NewValue = "ABCDEF",
-                    Error = "Project Id does not exist"
+                    Error = "Enter an existing project ID"
                 },
                 new()
                 {
@@ -230,13 +230,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
         {
             var project = DatabaseModelBuilder.BuildProject();
             var project2 = DatabaseModelBuilder.BuildProject();
+            var project3 = DatabaseModelBuilder.BuildProject();
 
             var projectId = project.ProjectStatusProjectId;
             var projectId2 = project2.ProjectStatusProjectId;
+            var projectId3 = project3.ProjectStatusProjectId;
 
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
             context.Kpi.Add(project2);
+            context.Kpi.Add(project3);
 
             context.LaData.Add(new()
             {
@@ -271,6 +274,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         {
                             new ColumnInfo { ColumnIndex = 0, Value = projectId2 },
                             new ColumnInfo { ColumnIndex = 1, Value = "456" },
+                        }
+                    },
+                    new RowInfo
+                    {
+                        FileRowIndex = 3,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId3 },
+                            new ColumnInfo { ColumnIndex = 1, Value = "12" },
                         }
                     }
                 }
@@ -319,7 +331,26 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                     ColumnIndex = 1,
                     CurrentValue = project.SchoolDetailsLocalAuthority,
                     NewValue = "456",
-                    Error = "Local Authority code does not exist"
+                    Error = "Enter an existing local authority"
+                }
+            });
+
+            var resultInValidCodeRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 3);
+
+            resultInValidCodeRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId3,
+                    NewValue = projectId3,
+                },
+                new()
+                {
+                    ColumnIndex = 1,
+                    CurrentValue = project.SchoolDetailsLocalAuthority,
+                    NewValue = "12",
+                    Error = "Local authority must be 3 numbers or more"
                 }
             });
 

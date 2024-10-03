@@ -2,6 +2,9 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.BulkEdit.BulkEditFileUploadModel
 @{
     var backlink = Model.BackLink;
+
+    var formGroupClass = Model.FileError != null ? "govuk-form-group govuk-form-group--error" : "govuk-form-group";
+    var uploadButtonClass = Model.FileError != null ? "govuk-button govuk-button--error" : "govuk-button";
 }
 
 @section BeforeMain {
@@ -12,6 +15,24 @@
 
 @if (Model.Rows == null || Model.Rows.Count() == 0 || Model.HasErrors)
 {
+    @if (@Model.FileError != null)
+    {
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#file-upload-button">@Model.FileError</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <form class="form" enctype="multipart/form-data" method="post">
@@ -32,7 +53,7 @@
                     Leaving spreadsheet fields empty will not remove any existing project data.
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="@formGroupClass">
                     <label class="govuk-label" for="upload">
                         Upload a file
                     </label>
@@ -43,10 +64,10 @@
                         </span>
                     }
 
-                    <input id="upload" class="govuk-file-upload" name="upload" type="file" accept=".xlsx,.csv" data-testid="upload">
+                    <input id="upload" class="govuk-file-upload" name="upload" type="file" id="file-upload-button" accept=".xlsx,.csv" data-testid="upload">
                 </div>
 
-                <button class="govuk-button" data-module="govuk-button" data-testid="upload">
+                <button class="@uploadButtonClass" data-module="govuk-button" data-testid="upload">
                     Upload
                 </button>
 

@@ -11,9 +11,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
     public class ProjectStatusValidationCommandTests
     {
         [Theory]
-        [InlineData("123", "Project Status is not in possible list of statuses")]
-        [InlineData("a", "Project Status is not in possible list of statuses")]
-        [InlineData("Cancelledd", "Project Status is not in possible list of statuses")]
+        [InlineData("123", "Select an existing project status")]
+        [InlineData("a", "Select an existing project status")]
+        [InlineData("Cancelledd", "Select an existing project status")]
         public void StatusValidationFails(string date, string error)
         {
             var projectStatusValidation = new ProjectStatusValidationCommand();
@@ -75,7 +75,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
             }
             else
             {
-                validationResult.ErrorMessage.Should().Be("Project status not valid for Presumption projects");
+                validationResult.ErrorMessage.Should().Be("Select a presumption route project status");
             }
         }
     }
