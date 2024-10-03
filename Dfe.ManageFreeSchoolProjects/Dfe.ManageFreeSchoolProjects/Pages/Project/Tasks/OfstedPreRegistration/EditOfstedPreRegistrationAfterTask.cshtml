@@ -13,11 +13,11 @@
     </div>
 }
 
-<partial name="_ErrorSummary" />
+<partial name="_ErrorSummary"/>
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>
-    Edit After the inspection - Ofsted pre-registration 
+    Edit After the inspection - Ofsted pre-registration
 </h1>
 
 <div class="govuk-grid-row">
@@ -29,12 +29,12 @@
                                   name="shared-outcome-with-trust"
                                   id="shared-outcome-with-trust"
                                   add-margin="false"/>
-            
+
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                 Any actions to meet conditions have been completed
             </legend>
             <govuk-radios-list>
-                
+
                 <govuk-radios-list-item id="inspection-conditions-met-yes"
                                         name="inspection-conditions-met"
                                         value="@YesNoNotApplicable.Yes"
@@ -54,14 +54,22 @@
                                         description="Not applicable"
                                         asp-for="@Model.InspectionConditionsMet"/>
             </govuk-radios-list>
-            <br/> 
-            
+            <br/>
+            <br/>
+
+            <govuk-date-input 
+                id="date-inspection-and-any-actions-completed" 
+                name="date-inspection-and-any-actions-completed" 
+                asp-for="@Model.DateInspectionsAndAnyActionsCompleted" 
+                data-testid="date-inspection-and-any-actions-completed"
+                label="Date that inspection and any actions were completed" />
+
             <govuk-checkbox-input label="Requested that the school is changed to 'proposed to open' on GIAS"
                                   asp-for="@Model.ProposedToOpenOnGias"
                                   name="proposed-to-open-on-gias"
                                   id="proposed-to-open-on-gias"
                                   add-margin="false"/>
-            
+
             <govuk-checkbox-input label="Saved inspection documents and G6 agreement in Workplaces folder"
                                   asp-for="@Model.SavedToWorkplaces"
                                   name="saved-to-workplaces"

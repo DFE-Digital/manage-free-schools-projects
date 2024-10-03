@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
                 return new OfstedInspectionTask();
             }
 
-            return new OfstedInspectionTask()
+            return new OfstedInspectionTask
             {
                 ProcessDetailsProvided = milestones.FsgPreOpeningMilestonesProcessDetailsProvided,
                 InspectionBlockDecided = milestones.FsgPreOpeningMilestonesInspectionBlockDecided,
@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
                 ProposedToOpenOnGias = milestones.FsgPreOpeningMilestonesProposedToOpenOnGias,
                 SavedToWorkplaces = milestones.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces,
                 InspectionConditionsMet = InspectionConditionsMet(milestones.FsgPreOpeningMilestonesInspectionConditionsMet),
+                DateInspectionsAndAnyActionsCompleted = milestones.FsgPreOpeningMilestonesOprActualDateOfCompletion
             };
 
         }

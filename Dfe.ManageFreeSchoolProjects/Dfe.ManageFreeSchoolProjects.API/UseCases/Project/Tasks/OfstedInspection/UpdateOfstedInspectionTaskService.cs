@@ -31,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
             db.FsgPreOpeningMilestonesInspectionConditionsMet = task.InspectionConditionsMet.ToDescription();
             db.FsgPreOpeningMilestonesProposedToOpenOnGias = task.ProposedToOpenOnGias;
             db.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces = task.SavedToWorkplaces;
+            db.FsgPreOpeningMilestonesOprActualDateOfCompletion = task.DateInspectionsAndAnyActionsCompleted;
         }
     }
 }

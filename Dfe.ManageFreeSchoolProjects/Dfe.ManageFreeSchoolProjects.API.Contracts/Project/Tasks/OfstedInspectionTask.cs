@@ -19,4 +19,6 @@ public class OfstedInspectionTask
     public bool? ProposedToOpenOnGias { get; set; }
         
     public bool? SavedToWorkplaces { get; set; }
+
+    public DateTime? DateInspectionsAndAnyActionsCompleted { get; set; }
 }

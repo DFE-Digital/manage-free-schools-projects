@@ -11,22 +11,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
         public Task Execute(string projectId, UpdateProjectByTaskRequest request);
     }
 
-    public class UpdateProjectByTaskService : IUpdateProjectByTaskService
+    public class UpdateProjectByTaskService(MfspContext context, IEnumerable<IUpdateTaskService> updateTaskServices) : IUpdateProjectByTaskService
     {
-        private readonly MfspContext _context;
-        private readonly IEnumerable<IUpdateTaskService> _updateTaskServices;
-
-        public UpdateProjectByTaskService(
-            MfspContext context,
-            IEnumerable<IUpdateTaskService> updateTaskServices)
-        {
-            _context = context;
-            _updateTaskServices = updateTaskServices;
-        }
-
         public async Task Execute(string projectId, UpdateProjectByTaskRequest request)
         {
-            var dbKpi = await _context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
+            var dbKpi = await context.Kpi.FirstOrDefaultAsync(p => p.ProjectStatusProjectId == projectId);
 
             if (dbKpi == null)
             {
@@ -40,21 +29,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks
                 Request = request
             };
 
-            foreach (var updateTaskService in _updateTaskServices)
+            foreach (var updateTaskService in updateTaskServices)
             {
                 await updateTaskService.Update(updateParameters);
             }
 
             await UpdateTaskStatus(dbKpi.Rid, Status.InProgress, request);
 
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
-        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus, UpdateProjectByTaskRequest updateProjectByTaskRequest)
+        private async Task UpdateTaskStatus(string taskRid, Status updatedStatus,
+            UpdateProjectByTaskRequest updateProjectByTaskRequest)
         {
             var taskNameToUpdate = Enum.Parse<TaskName>(updateProjectByTaskRequest.TaskToUpdate);
 
-            var task = await _context.Tasks.FirstOrDefaultAsync(x => x.Rid == taskRid && x.TaskName == taskNameToUpdate);
+            var task = await context.Tasks.FirstOrDefaultAsync(x => x.Rid == taskRid && x.TaskName == taskNameToUpdate);
             if (task is null)
                 return;
 

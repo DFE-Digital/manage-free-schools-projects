@@ -41,7 +41,8 @@
         
         <govuk-summary-list>
             <govuk-summary-item label="Shared the outcome with the trust" asp-for="@ofstedPreRegistration.SharedOutcomeWithTrust" href="@editAfterlink" id="afterpagelink" />
-            <govuk-summary-item label="Any actions to meet conditions have been taken - if applicable" asp-for="@ofstedPreRegistration.InspectionConditionsMet" href="@editAfterlink" />
+            <govuk-summary-item label="Any actions to meet conditions have been completed" asp-for="@ofstedPreRegistration.InspectionConditionsMet" href="@editAfterlink" />
+            <govuk-summary-item label="Date that inspection and any actions completed" asp-for="@ofstedPreRegistration.DateInspectionsAndAnyActionsCompleted" href="@editAfterlink" />
             <govuk-summary-item label="Requested that the school is changed to 'proposed to open' on GIAS" asp-for="@ofstedPreRegistration.ProposedToOpenOnGias" href="@editAfterlink"/>
             <govuk-summary-item label="Saved inspection documents and G6 agreement in Workplaces folder" asp-for="@ofstedPreRegistration.SavedToWorkplaces" href="@editAfterlink" />
         </govuk-summary-list>
