@@ -73,12 +73,12 @@ describe("Testing the presumption route project creation journey", () => {
 
             createProjectPage
                 .continue()
-               // .errorMessage("Select what project you want to create");
+                .errorMessage("Select what project you want to create");
 
             cy.executeAccessibilityTests();
 
             createProjectPage
-                .selectOption("Presumption route")
+                .selectOption("Presumption")
                 .continue();
 
             Logger.log("Check project id validation");
@@ -399,8 +399,8 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
@@ -436,7 +436,7 @@ describe("Testing the presumption route project creation journey", () => {
 
             Logger.log("Use individual method");
             createProjectPage
-                .selectOption("Presumption route")
+                .selectOption("Presumption")
                 .continue();
 
             Logger.log("Enter Valid project ID");
@@ -531,8 +531,8 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("No").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("No").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
@@ -629,14 +629,14 @@ describe("Testing the presumption route project creation journey", () => {
             createProjectPage.setAlternativeProvisionTo("Yes")
                 .continue();
             summaryPage
-                .SummaryHasValue("Alternative provision (specialist resource provision)", "Yes")
+                .SummaryHasValue("Alternative provision", "Yes")
 
             Logger.log("Change Special educational needs")
             summaryPage.clickChangeFor("Special educational needs");
             createProjectPage.setSpecialEducationNeedsTo("No")
                 .continue();
             summaryPage
-                .SummaryHasValue("Special educational needs (specialist resource provision)", "No")
+                .SummaryHasValue("Special educational needs", "No")
 
             Logger.log("Change School phase")
             summaryPage.clickChangeFor("School phase");
