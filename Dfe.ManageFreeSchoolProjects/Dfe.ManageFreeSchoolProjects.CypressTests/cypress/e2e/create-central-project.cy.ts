@@ -99,9 +99,9 @@ describe("Testing the central route project creation journey", () => {
 
                 Logger.log("Check application wave validation");
                 createProjectPage
-                    .titleIs("What is the application number?")
+                    .titleIs("What is the application wave?")
                     .continue()
-                    .errorMessage(" Enter the application wave")
+                    .errorMessage("Enter the application wave")
                     //enter valid application wave 
                     .enterApplicationWave(applicationWave)
                     .continue()
@@ -254,8 +254,8 @@ describe("Testing the central route project creation journey", () => {
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
