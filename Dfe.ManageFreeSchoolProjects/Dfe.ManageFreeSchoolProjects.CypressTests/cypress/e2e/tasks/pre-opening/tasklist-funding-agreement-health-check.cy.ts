@@ -38,6 +38,7 @@ describe("Testing Funding agreement health check Task", () => {
             .summaryShows("Drafted a funding agreement (FA) health check").IsEmpty().HasChangeLink()
             .summaryShows("Regional Director has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Minister has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
+            .summaryShows("Included a signed-off impact assessment in the health check").IsEmpty().HasChangeLink()
             .summaryShows("Saved the health check in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -67,6 +68,7 @@ describe("Testing Funding agreement health check Task", () => {
         fundingAgreementHealthCheckEditPage
             .checkDraftedFAHealthCheck()
             .checkMinisterSignedOffFAHealthCheck()
+            .checkIncludedSignedOffImpactAssessment()
             .clickContinue()
 
         summaryPage
@@ -76,6 +78,7 @@ describe("Testing Funding agreement health check Task", () => {
             .summaryShows("Drafted a funding agreement (FA) health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Regional Director has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
             .summaryShows("Minister has signed-off the FA health check (if applicable)").HasValue("Yes").HasChangeLink()
+            .summaryShows("Included a signed-off impact assessment in the health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved the health check in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -96,6 +99,7 @@ describe("Testing Funding agreement health check Task", () => {
             .summaryShows("Drafted a funding agreement (FA) health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Regional Director has signed-off the FA health check (if applicable)").HasValue("Yes").HasChangeLink()
             .summaryShows("Minister has signed-off the FA health check (if applicable)").IsEmpty().HasChangeLink()
+            .summaryShows("Included a signed-off impact assessment in the health check").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved the health check in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()

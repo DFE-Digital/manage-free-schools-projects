@@ -5,6 +5,7 @@
         public bool? DraftedFundingAgreementSubmission { get; set; }
         public bool? RegionalDirectorSignedOffFundingAgreementSubmission { get; set; }
         public bool? MinisterSignedOffFundingAgreementSubmission { get; set; }
+        public bool? IncludedSignedOffImpactAssessment { get; set; }
         public bool? SavedFundingAgreementSubmissionInWorkplacesFolder { get; set; }
     }
 }
