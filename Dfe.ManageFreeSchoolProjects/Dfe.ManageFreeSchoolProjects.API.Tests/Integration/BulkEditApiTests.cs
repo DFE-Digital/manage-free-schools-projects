@@ -254,7 +254,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.LACode, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.LocalAuthority, Index = 1 },
                 },
                 Rows = new List<RowInfo>
                 {
@@ -382,7 +382,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 Headers = new List<HeaderInfo>
                 {
                     new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
-                    new HeaderInfo { Name = HeaderNames.LACode, Index = 1 },
+                    new HeaderInfo { Name = HeaderNames.LocalAuthority, Index = 1 },
                 },
                 Rows = new List<RowInfo>
                 {

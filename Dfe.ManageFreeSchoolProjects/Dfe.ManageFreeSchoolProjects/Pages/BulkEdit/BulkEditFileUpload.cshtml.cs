@@ -42,8 +42,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 return new UnauthorizedResult();
             }
 
-            ViewData["Title"] = "Update multiple fields";
-            BackLink = "/";
+            SetToUpdateMultipleFields();
 
             bulkEditCache.Delete();
 
@@ -57,12 +56,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
             if(Upload == null)
             {
                 FileError = "Select a file";
+                SetToUpdateMultipleFields();
                 return Page();
             }
 
             if(!Upload.FileName.EndsWith(".csv") && !Upload.FileName.EndsWith(".xlsx"))
             {
                 FileError = "The selected file must be an Excel spreadsheet or CSV";
+                SetToUpdateMultipleFields();
                 return Page();
             }
 
@@ -81,6 +82,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 if (!fileValidation.IsValid)
                 {
                     FileError = fileValidation.ErrorMessage;
+                    SetToUpdateMultipleFields();
                     return Page();
                 }
 
@@ -106,26 +108,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 if(!HasErrors)
                 {
                     bulkEditCache.Update(request);
-                    ViewData["Title"] = "Check your answers";
-                    BackLink = RouteConstants.BulkEditFileUpload;
+                    SetToCheckYourAnswers();
                 }
                 else
                 {
                     var errorCount = Rows.Count(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
-                    FileError = $"The selected file has {errorCount} validation errors";
-                    ViewData["Title"] = "Update multiple fields";
-                    BackLink = "/";
+                    FileError = $"The upload tab has {errorCount} validation errors";
+                    SetToUpdateMultipleFields();
                 }
             }
 
             catch (Exception ex)
             {
                 FileError = "File could not be read";
+                SetToUpdateMultipleFields();
                 logger.LogErrorMsg(ex);
             }
 
             return Page();
 
+        }
+
+        private void SetToCheckYourAnswers()
+        {
+            ViewData["Title"] = "Check your answers";
+            BackLink = RouteConstants.BulkEditFileUpload;
+        }
+
+        private void SetToUpdateMultipleFields()
+        {
+            ViewData["Title"] = "Update multiple fields";
+            BackLink = "/";
         }
 
         public async Task<IActionResult> OnPostCommit()

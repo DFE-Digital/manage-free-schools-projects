@@ -3,7 +3,7 @@
     public static class HeaderNames
     {
         public const string ProjectId = "Project Id";
-        public const string LACode = "LA Code";
+        public const string LocalAuthority = "Local authority";
         public const string OpeningDate = "Actual opening date";
         public const string ProjectStatus = "Project Status";
         
@@ -16,7 +16,7 @@
                 [
                     ProjectId,
                     ProjectStatus,
-                    LACode,
+                    LocalAuthority,
                     OpeningDate,
                 ];
             }

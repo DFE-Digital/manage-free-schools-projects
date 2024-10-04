@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 return new()
                 {
                     IsValid = false,
-                    ErrorMessage = IsValid ? null : $"Date format is not valid"
+                    ErrorMessage = IsValid ? null : $"Enter a valid date. For example, 27/03/2021"
                 };
             }
 

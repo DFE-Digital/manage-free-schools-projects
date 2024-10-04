@@ -17,7 +17,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                 new() { Name = HeaderNames.ProjectId, Type = new ProjectIdValidationCommand(), DataInteration = new ProjectIdInteraction() },
                 new() { Name = HeaderNames.OpeningDate, Type = new DateValidationCommand(), DataInteration = new OpeningDateInteration() },
                 new() { Name = HeaderNames.ProjectStatus, Type = new ProjectStatusValidationCommand(), DataInteration = new ProjectStatusInteraction() },
-                new() { Name = HeaderNames.LACode, Type = new LACodeValidationCommand(localAuthorityCache), DataInteration = new LACodeInteraction(localAuthorityCache) },
+                new() { Name = HeaderNames.LocalAuthority, Type = new LACodeValidationCommand(localAuthorityCache), DataInteration = new LACodeInteraction(localAuthorityCache) },
 
             };
         }
