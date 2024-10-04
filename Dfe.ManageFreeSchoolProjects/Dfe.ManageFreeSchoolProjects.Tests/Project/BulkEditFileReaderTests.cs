@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             result.Headers[1].Index.Should().Be(1);
 
             result.Rows.Should().HaveCount(1);
-            result.Rows[0].FileRowIndex.Should().Be(1);
+            result.Rows[0].FileRowIndex.Should().Be(2);
             result.Rows[0].Columns[0].ColumnIndex.Should().Be(0);
             result.Rows[0].Columns[0].Value.Should().Be("123");
             result.Rows[0].Columns[1].ColumnIndex.Should().Be(1);

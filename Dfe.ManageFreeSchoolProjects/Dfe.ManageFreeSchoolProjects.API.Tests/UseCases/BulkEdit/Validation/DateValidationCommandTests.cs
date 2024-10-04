@@ -5,9 +5,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
     public class DateValidationCommandTests
     {
         [Theory]
-        [InlineData("g", "Date format is not valid")]
-        [InlineData("12", "Date format is not valid")]
-        [InlineData("12-13-2025", "Date format is not valid")]
+        [InlineData("g", "Enter a valid date. For example, 27/03/2021")]
+        [InlineData("12", "Enter a valid date. For example, 27/03/2021")]
+        [InlineData("12-13-2025", "Enter a valid date. For example, 27/03/2021")]
         [InlineData("12/10/2051", "Year must be between 2000 and 2050")]
         [InlineData("12/10/1999", "Year must be between 2000 and 2050")]
         public void DateValidationFails(string date, string error)
