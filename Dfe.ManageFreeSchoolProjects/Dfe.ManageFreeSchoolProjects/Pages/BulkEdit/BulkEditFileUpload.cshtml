@@ -1,0 +1,162 @@
+﻿@page "/bulk-edit-file-upload"
+@model Dfe.ManageFreeSchoolProjects.Pages.BulkEdit.BulkEditFileUploadModel
+@inject Microsoft.Extensions.Configuration.IConfiguration _configuration
+@{
+    var backlink = Model.BackLink;
+
+    var formGroupClass = Model.FileError != null ? "govuk-form-group govuk-form-group--error" : "govuk-form-group";
+    var uploadButtonClass = Model.FileError != null ? "govuk-button govuk-button--error" : "govuk-button";
+    var linkToExampleSpreadsheet = _configuration["BulkEditSpreadsheetLink"];
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+@if (Model.Rows == null || Model.Rows.Any() || Model.HasErrors)
+{
+    @if (@Model.FileError != null)
+    {
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a href="#file-upload-button">@Model.FileError</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <form class="form" enctype="multipart/form-data" method="post">
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+                    Update multiple fields
+                </h1>
+
+                <p class="govuk-body">You can edit these fields in multiple projects:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>project status</li>
+                    <li>actual opening date</li>
+                    <li>local authority</li>
+                </ul>
+
+                <p class="govuk-body">Download this <a class="govuk-link" href="@linkToExampleSpreadsheet">spreadsheet</a> and upload a completed one.</p>
+
+                <div class="govuk-inset-text govuk-!-margin-bottom-8">
+                    Leaving spreadsheet fields empty will not remove any existing project data.
+                </div>
+
+                <div class="@formGroupClass">
+                    <label class="govuk-label" for="upload">
+                        Upload a file
+                    </label>
+                    @if (@Model.FileError != null)
+                    {
+                        <span id="file-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> @Model.FileError
+                        </span>
+                    }
+
+                    <input id="file-upload-button" class="govuk-file-upload" name="upload" type="file" id="file-upload-button" accept=".xlsx,.csv" data-testid="upload">
+                </div>
+
+                <button class="@uploadButtonClass" data-module="govuk-button" data-testid="upload">
+                    Upload
+                </button>
+
+            </form>
+
+        </div>
+
+        @if (Model.HasErrors)
+        {
+            <h2>Validation errors</h2>
+
+            @foreach (var row in Model.Rows.Where(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error))))
+            {
+                <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                    <govuk-summary-list>
+                        @foreach (var cell in row.Cells)
+                        {
+                            if(string.IsNullOrEmpty(@cell.Error))
+                            {
+                                <govuk-summary-item label="@cell.ColumnName" asp-for="@cell.Value" />
+                            }
+                            else
+                            {
+                                <div class="govuk-summary-list__row mfsp-validation-failed">
+                                    <dt class="govuk-summary-list__key govuk-error-message">
+                                        @cell.ColumnName
+                                    </dt>
+                                    <dd class="govuk-summary-list__value govuk-error-message">
+                                        @cell.Value
+                                    </dd>
+                                    <dd class="govuk-error-message">
+                                        @cell.Error
+                                    </dd>
+                                </div>
+                            }
+                        }
+                    </govuk-summary-list>
+                </govuk-summary-card>
+            }
+        }
+    </div>
+}
+
+@if (Model.Rows != null && Model.Rows.Any() && !Model.HasErrors)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form class="form" method="post" asp-page-handler="Commit">
+
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+                    Check your answers
+                </h1>
+
+                <p class="govuk-body">You are about to edit these records:</p>
+
+                @foreach (var row in Model.Rows)
+                {
+                    <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                        <govuk-summary-list>
+                            @foreach (var cell in row.Cells)
+                            {
+                                <govuk-summary-item label="@cell.ColumnName" asp-for="@cell.Value" />
+                            }
+                        </govuk-summary-list>
+                    </govuk-summary-card>
+                }
+
+                <h2 class="govuk-heading-m">
+                    Now edit these projects
+                </h2>
+
+                <p>
+                    By selecting the Edit projects button, you are confirming that you have approval to edit projects.
+                </p>
+
+                <div class="govuk-button-group">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">
+                        Edit projects
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+}
+
+

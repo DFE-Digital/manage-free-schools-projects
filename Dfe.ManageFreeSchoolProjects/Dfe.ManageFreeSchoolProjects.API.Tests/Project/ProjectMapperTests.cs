@@ -70,7 +70,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         [InlineData(ProjectStatus.Open, "Open")]
         [InlineData(ProjectStatus.Preopening, "Pre-opening")]
         //[InlineData("AnyNotRecognised", ProjectStatus.Preopening)]
-        [InlineData(ProjectStatus.Cancelled, "Cancelled")]
+        [InlineData(ProjectStatus.Cancelled, "Cancelled during pre-opening")]
         [InlineData(ProjectStatus.Closed, "Closed")]
         [InlineData(ProjectStatus.WithdrawnDuringPreOpening, "Withdrawn during pre-opening")]
         [InlineData(ProjectStatus.ApplicationCompetitionStage, "Application Competition stage")]

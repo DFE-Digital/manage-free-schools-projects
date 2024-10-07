@@ -57,6 +57,8 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.DueDiligenceChecks
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.PreFundingAgreementCheckpointMeeting;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.ReadinessToOpenMeeting;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.LocalAuthority;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 {
@@ -148,6 +150,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
             services.AddScoped<IProjectGrantLettersService, ProjectGrantLettersService>();
             services.AddScoped<IGetTaskService, GetROMService>();
             services.AddScoped<IUpdateTaskService, UpdateROMService>();
+			services.AddScoped<IBulkEditValidation, BulkEditValidation<BulkEditDto>>();
+            services.AddScoped<IHeaderRegister<BulkEditDto>, BulkEditHeaderRegister>();
+            services.AddScoped<IBulkEditDataRetrieval<BulkEditDto>, BulkEditDataRetrieval>();
+            services.AddScoped<IBulkEditCommit, BulkEditCommit<BulkEditDto>>();
+			services.AddScoped<IBulkDataCommit<BulkEditDto>, BulkDataCommit>();
+			services.AddScoped<ILocalAuthorityCache, LocalAuthorityCache>();
             services.AddScoped<IGetTaskService, GetPreFundingAgreementCheckpointMeetingTaskService>();
             services.AddScoped<IUpdateTaskService, UpdatePreFundingAgreementCheckpointMeetingTaskService>();
 

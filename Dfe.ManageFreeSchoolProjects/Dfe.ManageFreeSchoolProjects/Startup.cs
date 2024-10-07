@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Reports;
+using Dfe.ManageFreeSchoolProjects.Services.BulkEdit;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -112,6 +113,11 @@ public class Startup
         services.AddScoped<IDeleteProjectPaymentsService, DeleteProjectPaymentsService>();
         services.AddScoped<IGrantLettersService, GrantLettersService>(); 
         services.AddScoped<IPDGPaymentInfoService, PDGPaymentInfoService>();
+        services.AddScoped<IBulkEditFileReader, BulkEditFileReader>();
+        services.AddScoped<IBulkEditFileValidator, BulkEditFileValidator>();
+        services.AddScoped<IBulkEditValidateService, BulkEditValidateService>();
+        services.AddScoped<IBulkEditCommitService, BulkEditCommitService>();
+        services.AddScoped<IBulkEditCache, BulkEditCache>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>
