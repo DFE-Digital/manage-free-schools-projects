@@ -29,8 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     OfstedAndTrustLiaisonDetailsConfirmed = true,
                     BlockAndContentDetailsToOpenersSpreadSheet = true, 
                     SharedOutcomeWithTrust  = true,
-                    InspectionConditionsMetNotApplicable = "Not applicable",
-                    InspectionConditionsMet = null,
+                    InspectionConditionsMet = YesNoNotApplicable.Yes,
                     ProposedToOpenOnGias = true,
                     SavedToWorkplaces = true,
                     DateInspectionsAndAnyActionsCompleted = new DateTime().Date.AddDays(10)
@@ -49,8 +48,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet);
             projectResponse.OfstedInspection.SharedOutcomeWithTrust.Should()
                 .Be(request.OfstedInspection.SharedOutcomeWithTrust);
-            projectResponse.OfstedInspection.InspectionConditionsMetNotApplicable.Should()
-                .Be(request.OfstedInspection.InspectionConditionsMetNotApplicable);
+            projectResponse.OfstedInspection.InspectionConditionsMet.Should()
+                .Be(request.OfstedInspection.InspectionConditionsMet);
             projectResponse.OfstedInspection.ProposedToOpenOnGias.Should()
                 .Be(request.OfstedInspection.ProposedToOpenOnGias);
             projectResponse.OfstedInspection.SavedToWorkplaces.Should()
@@ -81,8 +80,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                    OfstedAndTrustLiaisonDetailsConfirmed = false,
                    BlockAndContentDetailsToOpenersSpreadSheet = false,
                    SharedOutcomeWithTrust = false,
-                   InspectionConditionsMetNotApplicable = null,
-                   InspectionConditionsMet = "No",
+                   InspectionConditionsMet = YesNoNotApplicable.NotApplicable,
                    ProposedToOpenOnGias = false,
                    SavedToWorkplaces = false,
                    DateInspectionsAndAnyActionsCompleted = null
@@ -103,8 +101,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.OfstedInspection.BlockAndContentDetailsToOpenersSpreadSheet);
             projectResponse.OfstedInspection.SharedOutcomeWithTrust.Should()
                 .Be(request.OfstedInspection.SharedOutcomeWithTrust);
-            projectResponse.OfstedInspection.InspectionConditionsMetNotApplicable.Should()
-                .Be(request.OfstedInspection.InspectionConditionsMetNotApplicable);
+            projectResponse.OfstedInspection.InspectionConditionsMet.Should()
+                .Be(request.OfstedInspection.InspectionConditionsMet);
             projectResponse.OfstedInspection.ProposedToOpenOnGias.Should()
                 .Be(request.OfstedInspection.ProposedToOpenOnGias);
             projectResponse.OfstedInspection.SavedToWorkplaces.Should()

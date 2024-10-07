@@ -10,6 +10,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
         {
             if (milestones == null)
                 return new OfstedInspectionTask();
+            
+            var inspectionConditionMet = milestones.FsgPreOpeningMilestonesInspectionConditionsMet;
 
             return new OfstedInspectionTask
             {
@@ -22,8 +24,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
                 SharedOutcomeWithTrust = milestones.FsgPreOpeningMilestonesSharedOutcomeWithTrust,
                 ProposedToOpenOnGias = milestones.FsgPreOpeningMilestonesProposedToOpenOnGias,
                 SavedToWorkplaces = milestones.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces,
-                InspectionConditionsMetNotApplicable = milestones.FsgPreOpeningInspectionConditionsMetNotApplicable,
-                InspectionConditionsMet = milestones.FsgPreOpeningMilestonesInspectionConditionsMet,
+                InspectionConditionsMet = !string.IsNullOrEmpty(inspectionConditionMet)
+                    ? EnumParsers.ParseInspectionConditionsMetToEnum(inspectionConditionMet)
+                    : EnumParsers.ParseInspectionConditionsMetToEnum(milestones
+                        .FsgPreOpeningInspectionConditionsMetNotApplicable),
                 DateInspectionsAndAnyActionsCompleted = milestones.FsgPreOpeningMilestonesOprActualDateOfCompletion
             };
         }

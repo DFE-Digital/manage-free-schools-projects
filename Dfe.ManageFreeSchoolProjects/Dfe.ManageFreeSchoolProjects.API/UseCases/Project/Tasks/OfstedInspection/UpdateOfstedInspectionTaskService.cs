@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Extensions;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
@@ -31,8 +32,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
             db.FsgPreOpeningMilestonesProposedToOpenOnGias = task.ProposedToOpenOnGias;
             db.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces = task.SavedToWorkplaces;
             db.FsgPreOpeningMilestonesOprActualDateOfCompletion = task.DateInspectionsAndAnyActionsCompleted;
-            db.FsgPreOpeningInspectionConditionsMetNotApplicable = task.InspectionConditionsMetNotApplicable;
-            db.FsgPreOpeningMilestonesInspectionConditionsMet = task.InspectionConditionsMet;
+
+
+            switch (task.InspectionConditionsMet)
+            {
+                case YesNoNotApplicable.Yes or YesNoNotApplicable.No:
+                    db.FsgPreOpeningMilestonesInspectionConditionsMet = task.InspectionConditionsMet.ToDescription();
+                    db.FsgPreOpeningInspectionConditionsMetNotApplicable = null;
+                    break;
+                case YesNoNotApplicable.NotApplicable:
+                    db.FsgPreOpeningInspectionConditionsMetNotApplicable = task.InspectionConditionsMet.ToDescription();
+                    db.FsgPreOpeningMilestonesInspectionConditionsMet = null;
+                    break;
+                default:
+                    db.FsgPreOpeningInspectionConditionsMetNotApplicable = null;
+                    db.FsgPreOpeningMilestonesInspectionConditionsMet = null;
+                    break;
+            }
         }
     }
 }

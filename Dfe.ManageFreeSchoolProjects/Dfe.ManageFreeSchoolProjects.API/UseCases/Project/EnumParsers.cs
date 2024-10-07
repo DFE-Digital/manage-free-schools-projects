@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using static Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ClassType;
@@ -68,5 +69,28 @@ public static class EnumParsers
     public static TypeOfMeetingHeld ParseTypeOfMeetingHeld(string input)
     {
         return Enum.TryParse<TypeOfMeetingHeld>(input, out var typeOfMeetingHeld) ? typeOfMeetingHeld : TypeOfMeetingHeld.NotSet;
+    }
+    
+    public static YesNoNotApplicable? ParseInspectionConditionsMetToEnum(string condition)
+    {
+        return condition switch
+        {
+            "Yes" => YesNoNotApplicable.Yes,
+            "No" => YesNoNotApplicable.No,
+            "Not applicable" => YesNoNotApplicable.NotApplicable,
+            _ => null
+        };
+
+    }
+        
+    public static string ParseInspectionConditionsMetToString(YesNoNotApplicable? condition)
+    {
+        return condition switch
+        {
+            YesNoNotApplicable.Yes => "Yes",
+            YesNoNotApplicable.No => "No",
+            YesNoNotApplicable.NotApplicable => "Not applicable",
+            _ => null
+        };
     }
 }
