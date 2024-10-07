@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
         {
             var headers = headerRegister.GetHeaders();
 
-            var IdColumnIndex = request.Headers.FirstOrDefault(x => string.Compare(x.Name, headerRegister.IdentifingHeader, true) == 0).Index;
+            var IdColumnIndex = request.Headers.Find(x => string.Compare(x.Name, headerRegister.IdentifingHeader, true) == 0).Index;
 
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
             var projects = await dataRetrieval.Retrieve(projectIds);
@@ -38,7 +38,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     {
                         continue;
                     }
-                    var headerName = request.Headers.FirstOrDefault(x => x.Index == column.ColumnIndex)?.Name;
+                    var headerName = request.Headers.Find(x => x.Index == column.ColumnIndex)?.Name;
                     var header = headers.Find(x => string.Compare(x.Name, headerName, true) == 0);
                     var value = column.Value;
                     header.DataInteration.ApplyToDto(value, currentRow);

@@ -66,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             dto.First().TestData.Should().Be(ValidInput);
 
         }
-        private async Task<List<TestDto>> RunTest(BulkEditRequest file, Dictionary<string, TestDto> data)
+        private static async Task<List<TestDto>> RunTest(BulkEditRequest file, Dictionary<string, TestDto> data)
         {
             var dataCommit = new TestDataCommit();
             var process = new BulkEditCommit<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data), dataCommit);

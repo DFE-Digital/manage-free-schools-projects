@@ -62,7 +62,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 
         private static ProjectStatus? GetStatusUsingDatabaseName(string value)
         {
-            if (value.ToLower() == "pre-opening")
+            if (value.Equals("pre-opening", StringComparison.OrdinalIgnoreCase))
             {
                 return ProjectStatus.Preopening;
             }

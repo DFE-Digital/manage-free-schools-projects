@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             response.ValidationResultRows = new();
 
-            var IdColumnIndex = request.Headers.FirstOrDefault(x => string.Compare(x.Name, headerRegister.IdentifingHeader, true) == 0).Index;
+            var IdColumnIndex = request.Headers.Find(x => string.Compare(x.Name, headerRegister.IdentifingHeader, true) == 0).Index;
 
             // Validate headers
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
@@ -25,14 +25,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             var headerMap = new Dictionary<int, HeaderType<TDto>>();
             foreach (var header in request.Headers)
             {
-                var headerInfo = headers.FirstOrDefault(x => string.Compare(x.Name, header.Name, true) == 0);
+                var headerInfo = headers.Find(x => string.Compare(x.Name, header.Name, true) == 0);
                 headerMap.Add(header.Index, headerInfo);
             }
 
             foreach (var row in request.Rows)
             {
-                string Id = row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value;
-                var currentRow = projects.ContainsKey(Id) ? projects[Id] : default;
+                string Id = row.Columns.Find(x => x.ColumnIndex == IdColumnIndex).Value;
+                projects.TryGetValue(Id, out var currentRow);
 
                 var validationRowResult = new ValidationRowInfo()
                 {

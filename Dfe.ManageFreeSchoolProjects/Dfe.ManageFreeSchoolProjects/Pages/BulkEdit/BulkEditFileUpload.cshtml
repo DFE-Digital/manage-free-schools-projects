@@ -113,7 +113,7 @@
     </div>
 }
 
-@if (Model.Rows != null && Model.Rows.Count() > 0 && !Model.HasErrors)
+@if (Model.Rows != null && Model.Rows.Any() && !Model.HasErrors)
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
