@@ -149,7 +149,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
             {
                 var request = bulkEditCache.Get();
                 await bulkEditCommitService.Execute(request);
-                var requestCount = request.Rows.Count();
+                var requestCount = request.Rows.Count;
                 return Redirect(RouteConstants.BulkEditFileComplete + $"?count={requestCount}");
             }
 
@@ -162,7 +162,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
         }
 
-        private DataTable GetRelevantDataTable(DataSet dataSet)
+        private static DataTable GetRelevantDataTable(DataSet dataSet)
         {
             foreach (DataTable table in dataSet.Tables)
             {

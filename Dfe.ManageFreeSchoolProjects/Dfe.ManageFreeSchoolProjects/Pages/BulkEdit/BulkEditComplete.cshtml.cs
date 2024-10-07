@@ -8,8 +8,5 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
     {
         [FromQuery]
         public int Count { get; set; }
-        public void OnGet()
-        {
-        }
     }
 }

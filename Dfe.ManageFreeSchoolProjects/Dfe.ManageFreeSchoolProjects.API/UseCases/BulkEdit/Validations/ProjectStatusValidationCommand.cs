@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 
             ProjectStatus? status = null;
 
-            if(value.ToLower() == "cancelled in pre-opening")
+            if(value.Equals("cancelled in pre-opening", StringComparison.OrdinalIgnoreCase))
             {
                 status = ProjectStatus.Cancelled;
             }

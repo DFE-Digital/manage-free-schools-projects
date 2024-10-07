@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 };
             }
 
-            var isValid = localAuthorityCache.GetLocalAuthorities().Any(x => x.LACode == value);
+            var isValid = localAuthorityCache.GetLocalAuthorities().Exists(x => x.LACode == value);
             
             return new ValidationResult
             {

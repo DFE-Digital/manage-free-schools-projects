@@ -9,12 +9,19 @@
 
         public BulkEditDto ApplyToDto(string value, BulkEditDto dto)
         {
-            throw new Exception("ProjectId cannot be changed");
+            throw new ProjectIdCannotChangeException();
         }
 
         public string FormatValue(string value)
         {
             return value;
+        }
+    }
+    
+    public class ProjectIdCannotChangeException : Exception
+    {
+        public ProjectIdCannotChangeException() : base("ProjectId cannot be changed")
+        {
         }
     }
 }

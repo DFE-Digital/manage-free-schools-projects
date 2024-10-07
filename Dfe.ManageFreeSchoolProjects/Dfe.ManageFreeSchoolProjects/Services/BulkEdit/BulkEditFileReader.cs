@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
                     info.Columns.Add(new() { ColumnIndex = j, Value = ParseColumn(row.ItemArray[j]) });
                 }
 
-                if (info.Columns.All(x => string.IsNullOrEmpty(x.Value)))
+                if (info.Columns.TrueForAll(x => string.IsNullOrEmpty(x.Value)))
                 {
                     continue;
                 }

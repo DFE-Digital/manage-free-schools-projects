@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
 {
-    public class ExcelToDataSetBuilder
+    public static class ExcelToDataSetBuilder
     {
         public static DataSet Build(MemoryStream stream, string contentType)
         {

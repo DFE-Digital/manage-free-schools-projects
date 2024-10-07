@@ -1,4 +1,6 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
+﻿using System.Globalization;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
 {
     public class OpeningDateInteration : IHeaderDataInteration<BulkEditDto>
     {
@@ -15,7 +17,7 @@
 
         public string FormatValue(string value)
         {
-            if(DateTime.TryParse(value, out var date))
+            if(DateTime.TryParse(value, new CultureInfo("en-GB"), out var date))
             {
                 return date.ToString("dd/MM/yyyy");
             }

@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
     {
         public BulkEditDto ApplyToDto(string value, BulkEditDto dto)
         {
-            var localAuthority = localAuthorityCache.GetLocalAuthorities().FirstOrDefault(x => x.LACode == value);
+            var localAuthority = localAuthorityCache.GetLocalAuthorities().Find(x => x.LACode == value);
 
             dto.LocalAuthorityCode = localAuthority.LACode;
             dto.LocalAuthorityName = localAuthority.Name;
