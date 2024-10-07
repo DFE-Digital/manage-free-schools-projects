@@ -1,3 +1,4 @@
+using System;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -6,59 +7,42 @@ using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.Models;
-using Dfe.ManageFreeSchoolProjects.Validators;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
 {
-    public class EditOfstedPreRegistrationAfterTaskModel : PageModel
+    public class EditOfstedPreRegistrationAfterTaskModel(
+        IGetProjectByTaskService getProjectService,
+        IUpdateProjectByTaskService updateProjectTaskService,
+        ILogger<EditOfstedPreRegistrationAfterTaskModel> logger,
+        ErrorService errorService) : PageModel
     {
-        private readonly IGetProjectByTaskService _getProjectService;
-        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly ILogger<EditOfstedPreRegistrationAfterTaskModel> _logger;
-        
-
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
+
         [BindProperty(Name = "shared-outcome-with-trust")]
-        
-        public bool? SharedOutcomeWithTrust{ get; set; }
-        
-        
+        public bool? SharedOutcomeWithTrust { get; set; }
+
         [BindProperty(Name = "inspection-conditions-met")]
-        
-        public bool? InspectionConditionsMet{ get; set; }
-        
-        
+        public YesNoNotApplicable? InspectionConditionsMet { get; set; }
+
         [BindProperty(Name = "proposed-to-open-on-gias")]
-        
-        public bool? ProposedToOpenOnGias{ get; set; }
-        
+        public bool? ProposedToOpenOnGias { get; set; }
+
         [BindProperty(Name = "saved-to-workplaces")]
-        
         public bool? SavedToWorkplaces { get; set; }
-        
+
         public string SchoolName { get; set; }
-
-        public EditOfstedPreRegistrationAfterTaskModel(IGetProjectByTaskService getProjectService,
-            IUpdateProjectByTaskService updateProjectTaskService,
-            ILogger<EditOfstedPreRegistrationAfterTaskModel> logger,
-            ErrorService errorService)
-        {
-            _getProjectService = getProjectService;
-            _updateProjectTaskService = updateProjectTaskService;
-            _logger = logger;
-        }
-
+        
+        [BindProperty(Name = "date-inspection-and-any-actions-completed", BinderType = typeof(DateInputModelBinder))]
+        public DateTime? DateInspectionsAndAnyActionsCompleted { get; set; }
+        
         public async Task<ActionResult> OnGet()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             await LoadProject();
             return Page();
@@ -66,33 +50,40 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
 
         public async Task<ActionResult> OnPost()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
+            var project = await getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
             SchoolName = project.SchoolName;
+            
+            if (!ModelState.IsValid)
+            {
+                errorService.AddErrors(ModelState.Keys, ModelState);
+                return Page();
+            }
+            
+            var request = new UpdateProjectByTaskRequest()
+            {
+                OfstedInspection = project.OfstedInspection
+            };
+            
+            request.OfstedInspection.SharedOutcomeWithTrust = SharedOutcomeWithTrust;
+            request.OfstedInspection.InspectionConditionsMet = InspectionConditionsMet;
+            request.OfstedInspection.ProposedToOpenOnGias = ProposedToOpenOnGias;
+            request.OfstedInspection.SavedToWorkplaces = SavedToWorkplaces;
+            request.OfstedInspection.DateInspectionsAndAnyActionsCompleted = DateInspectionsAndAnyActionsCompleted;
 
-          
-                var request = new UpdateProjectByTaskRequest()
-                {
-                    OfstedInspection = project.OfstedInspection
-                };
-
-                request.OfstedInspection.SharedOutcomeWithTrust = SharedOutcomeWithTrust;
-                request.OfstedInspection.InspectionConditionsMet = InspectionConditionsMet;
-                request.OfstedInspection.ProposedToOpenOnGias = ProposedToOpenOnGias;
-                request.OfstedInspection.SavedToWorkplaces = SavedToWorkplaces;
-
-                await _updateProjectTaskService.Execute(ProjectId, request);
-                return Redirect(string.Format(RouteConstants.ViewOfstedPreRegistrationTask, ProjectId));
+            await updateProjectTaskService.Execute(ProjectId, request);
+            return Redirect(string.Format(RouteConstants.ViewOfstedPreRegistrationTask, ProjectId));
         }
 
         private async Task LoadProject()
         {
-            var project = await _getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
+            var project = await getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
             
             SharedOutcomeWithTrust = project.OfstedInspection.SharedOutcomeWithTrust;
             InspectionConditionsMet = project.OfstedInspection.InspectionConditionsMet;
             ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias;
             SavedToWorkplaces = project.OfstedInspection.SavedToWorkplaces;
-           
+            DateInspectionsAndAnyActionsCompleted = project.OfstedInspection.DateInspectionsAndAnyActionsCompleted;
+
             SchoolName = project.SchoolName;
         }
     }

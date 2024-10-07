@@ -40,7 +40,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").IsEmpty().HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").IsEmpty().HasChangeLink()
             .summaryShows("Shared the outcome with the trust").IsEmpty().HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").IsEmpty().HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").IsEmpty().HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").IsEmpty().HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -61,7 +62,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").IsEmpty().HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").IsEmpty().HasChangeLink()
             .summaryShows("Shared the outcome with the trust").IsEmpty().HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").IsEmpty().HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").IsEmpty().HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").IsEmpty().HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
@@ -83,7 +85,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").IsEmpty().HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").IsEmpty().HasChangeLink()
             .summaryShows("Shared the outcome with the trust").IsEmpty().HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").IsEmpty().HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").IsEmpty().HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").IsEmpty().HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
@@ -108,7 +111,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").HasValue("Yes").HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").HasValue("Yes").HasChangeLink()
             .summaryShows("Shared the outcome with the trust").IsEmpty().HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").IsEmpty().HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").IsEmpty().HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").IsEmpty().HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
@@ -119,8 +123,9 @@ describe("Testing the ofsted pre registration", () => {
         
         afterInspectionEditPage
             .checkSharedOutcomeWithTrust()
+            .selectAnyActionsToMeetConditionCompletedOption("Yes")
+            .enterDateThatInspectionAndAnyActionsCompleted("30", "01", "2050")
             .checkProposedToOpenOnGias()
-            .checkInspectionConditionsMet()
             .checkSavedToWorkplaces()
             .clickContinue()
 
@@ -133,7 +138,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").HasValue("Yes").HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").HasValue("Yes").HasChangeLink()
             .summaryShows("Shared the outcome with the trust").HasValue("Yes").HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").HasValue("Yes").HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").HasValue("Yes").HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").HasValue("30 January 2050").HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete()
@@ -160,8 +166,9 @@ describe("Testing the ofsted pre registration", () => {
 
         afterInspectionEditPage
             .uncheckSharedOutcomeWithTrust()
+            .selectAnyActionsToMeetConditionCompletedOption("Not applicable")
+            .enterDateThatInspectionAndAnyActionsCompleted(" ", " ", " ")
             .uncheckProposedToOpenOnGias()
-            .uncheckInspectionConditionsMet()
             .uncheckSavedToWorkplaces()
             .clickContinue()
 
@@ -174,7 +181,8 @@ describe("Testing the ofsted pre registration", () => {
             .summaryShows("Confirmed contact details for Ofsted and the trust to liaise with each other").IsEmpty().HasChangeLink()
             .summaryShows("Added the block and contact details to openers spreadsheet").IsEmpty().HasChangeLink()
             .summaryShows("Shared the outcome with the trust").IsEmpty().HasChangeLink()
-            .summaryShows("Any actions to meet conditions have been taken - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Any actions to meet conditions have been completed").HasValue("Not applicable").HasChangeLink()
+            .summaryShows("Date that inspection and any actions completed").IsEmpty().HasChangeLink()
             .summaryShows("Requested that the school is changed to 'proposed to open' on GIAS").IsEmpty().HasChangeLink()
             .summaryShows("Saved inspection documents and G6 agreement in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
@@ -182,7 +190,5 @@ describe("Testing the ofsted pre registration", () => {
             .clickConfirmAndContinue()
 
         taskListPage.isTaskStatusIsCompleted("OfstedInspection");
-        
-        
     });
 })

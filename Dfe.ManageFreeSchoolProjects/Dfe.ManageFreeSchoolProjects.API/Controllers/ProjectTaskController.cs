@@ -9,31 +9,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
     [Route("api/v{version:apiVersion}/client/projects/{projectId}/tasks")]
     [ApiController]
-    public class ProjectTaskController : ControllerBase
+    public class ProjectTaskController(
+        IUpdateProjectByTaskService updateProjectTaskService,
+        IGetProjectByTaskService getProjectByTaskService,
+        IGetTasksService getTasksService,
+        ILogger<ProjectTaskController> logger)
+        : ControllerBase
     {
-        private readonly IUpdateProjectByTaskService _updateProjectTaskService;
-        private readonly IGetProjectByTaskService _getProjectByTaskService;
-        private readonly IGetTasksService _getTasksService;
-        private readonly ILogger<ProjectTaskController> _logger;
-
-        public ProjectTaskController(
-            IUpdateProjectByTaskService updateProjectTaskService,
-            IGetProjectByTaskService getProjectByTaskService,
-            IGetTasksService getTasksService,
-            ILogger<ProjectTaskController> logger)
-        {
-            _updateProjectTaskService = updateProjectTaskService;
-            _getProjectByTaskService = getProjectByTaskService;
-            _getTasksService = getTasksService;
-            _logger = logger;
-        }
-
         [HttpPatch]
         public async Task<ActionResult> PatchTask(string projectId, UpdateProjectByTaskRequest request)
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
-            await _updateProjectTaskService.Execute(projectId, request);
+            await updateProjectTaskService.Execute(projectId, request);
 
             return new OkResult();
         }
@@ -42,13 +30,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         [Route("{taskName}")]
         public async Task<ActionResult<ApiSingleResponseV2<GetProjectByTaskResponse>>> GetProjectByTask(string projectId, TaskName taskName)
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
-            var projectByTask = await _getProjectByTaskService.Execute(projectId, taskName);
+            var projectByTask = await getProjectByTaskService.Execute(projectId, taskName);
 
             if (projectByTask == null)
             {
-                _logger.LogInformation("No project could be found for the given project id {projectId}", projectId);
+                logger.LogInformation("No project could be found for the given project id {projectId}", projectId);
                 return new NotFoundResult();
             }
 
@@ -62,9 +50,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         public async Task<ActionResult<ApiSingleResponseV2<ProjectByTaskSummaryResponse>>> GetProjectTaskListSummary(
             string projectId)
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
-            var summary = await _getTasksService.Execute(projectId);
+            var summary = await getTasksService.Execute(projectId);
            
             var response = new ApiSingleResponseV2<ProjectByTaskSummaryResponse>(summary);
 

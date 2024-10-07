@@ -4,10 +4,6 @@ class AfterInspectionEditPage {
         cy.getById("shared-outcome-with-trust").check()
         return this
     }
-    checkInspectionConditionsMet(): this {
-        cy.getById("inspection-conditions-met").check()
-        return this
-    }
 
     checkProposedToOpenOnGias(): this {
         cy.getById("proposed-to-open-on-gias").check()
@@ -22,10 +18,6 @@ class AfterInspectionEditPage {
         cy.getById("shared-outcome-with-trust").uncheck()
         return this
     }
-    uncheckInspectionConditionsMet(): this {
-        cy.getById("inspection-conditions-met").uncheck()
-        return this
-    }
 
     uncheckProposedToOpenOnGias(): this {
         cy.getById("proposed-to-open-on-gias").uncheck()
@@ -35,7 +27,23 @@ class AfterInspectionEditPage {
         cy.getById("saved-to-workplaces").uncheck()
         return this
     }
-   
+
+    clearDateThatInspectionAndAnyActionsCompleted(): this {
+        cy.getById("date-inspection-and-any-actions-completed").clear()
+        return this
+    }
+
+    enterDateThatInspectionAndAnyActionsCompleted(day : string, month: string, year: string): this {
+        cy.enterDate("date-inspection-and-any-actions-completed", day, month, year)
+        return this
+    }
+
+    selectAnyActionsToMeetConditionCompletedOption(option: "Yes" | "No" | "Not applicable"): this {
+        // cy.getById("inspection-conditions-met").select(option)
+        cy.getByRadioOption(option).check();
+        return this
+     }
+
     clickContinue() : this {
         cy.getByTestId("continue").click();
         return this;

@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20241007123217_Add_InspectionConditionsMetNotApplicable_Milestones")]
+    partial class Add_InspectionConditionsMetNotApplicable_Milestones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5500,12 +5503,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                     b.Property<DateTime?>("FsgPreOpeningMilestonesMfadForecastDate")
                         .HasColumnType("date")
                         .HasColumnName("FSG Pre Opening Milestones.MFAD Forecast date");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaHealthCheck")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaSubmission")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck")
                         .HasColumnType("bit");
