@@ -68,8 +68,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             createdProject.UpperStatus.Should().BeEmpty();
             createdProject.FsType.Should().BeEmpty();
             createdProject.FsType1.Should().BeEmpty();
-            createdProject.MatUnitProjects.Should().BeEmpty();
-            createdProject.SponsorUnitProjects.Should().BeEmpty();
+            createdProject.MatUnitProjects.Should().Be("Other");
+            createdProject.SponsorUnitProjects.Should().Be("Free Schools (including Studio Schools)");
             createdProject.SchoolDetailsGeographicalRegion.Should().Be(projectDetails.Region);
             createdProject.SchoolDetailsLocalAuthority.Should().Be(projectDetails.LocalAuthorityCode);
             createdProject.LocalAuthority.Should().Be(projectDetails.LocalAuthority);
@@ -118,6 +118,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 createdProject.ProjectStatusFreeSchoolsApplicationNumber.Should().BeEmpty();
                 createdProject.Wave.Should().Be("FS - Presumption");
             }
+
+            createdProject.RyooWd.Should().Be("Awaiting Year");
         }
 
         [Fact]

@@ -7,6 +7,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public bool? DraftedFundingAgreementHealthCheck { get; set; }
         public bool? RegionalDirectorSignedOffFundingAgreementHealthCheck { get; set; }
         public bool? MinisterSignedOffFundingAgreementHealthCheck { get; set; }
+        public bool? IncludedSignedOffImpactAssessment { get; set; }
         public bool? SavedFundingAgreementHealthCheckInWorkplacesFolder { get; set; }
     }
 }

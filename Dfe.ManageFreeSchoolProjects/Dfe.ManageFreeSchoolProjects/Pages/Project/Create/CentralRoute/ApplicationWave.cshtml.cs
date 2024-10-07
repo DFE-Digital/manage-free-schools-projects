@@ -12,7 +12,7 @@ public class ApplicationWaveViewModel(ICreateProjectCache createProjectCache, Er
 {
     [BindProperty(Name = "application-wave")]
     [DisplayName("application wave")]
-    [Required]
+    [Required(ErrorMessage = "Enter the application wave")]
     public string ApplicationWave { get; set; }
     
     public IActionResult OnGet()

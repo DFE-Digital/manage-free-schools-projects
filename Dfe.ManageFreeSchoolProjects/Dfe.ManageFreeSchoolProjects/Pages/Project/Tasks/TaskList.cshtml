@@ -155,9 +155,9 @@
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PrincipalDesignate" href="@principalDesignateLink" label="Principal designate" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.DueDiligenceChecks" href="@dueDiligenceChecksLink" label="Due diligence checks" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PreFundingAgreementCheckpointMeeting" href="@preFundingAgreementCheckpointMeetingLink" label="Pre-funding agreement checkpoint meeting" />
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreement" href="@fundingAgreementLink" label="Funding agreement" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementHealthCheck" href="@fundingAgreementHealthCheckLink" label="Funding agreement health check" />
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreementSubmission" href="@fundingAgreementSubmissionLink" label="Funding agreement submission" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.FundingAgreement" href="@fundingAgreementLink" label="Funding agreement" />
                 </ul>
 
                 <h2 class="app-task-list__section">
@@ -184,24 +184,3 @@
         </ol>
     </div>
 </div>
-@functions {
-
-    public void RenderStatus(TaskSummaryResponse task)
-    {
-        var testId = $"task-{task.Name}-status";
-
-        if (task.Status == ProjectTaskStatus.Completed)
-        {
-            <strong class="govuk-tag govuk-tag--blue app-task-list__tag" data-testid="@testId">Completed</strong>
-        }
-        else if (task.Status == ProjectTaskStatus.InProgress)
-        {
-            <strong class="govuk-tag govuk-tag--light-blue app-task-list__tag" data-testid="@testId">In progress</strong>
-        }
-        else
-        {
-            <strong class="govuk-tag govuk-tag--grey app-task-list__tag" data-testid="@testId">Not started</strong>
-        }
-    }
-
-}

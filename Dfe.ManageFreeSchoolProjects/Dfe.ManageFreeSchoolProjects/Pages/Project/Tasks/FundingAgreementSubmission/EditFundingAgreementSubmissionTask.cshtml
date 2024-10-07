@@ -28,6 +28,7 @@
             <govuk-checkbox-input id="drafted-fa-submission" name="drafted-fa-submission" asp-for="@Model.DraftedFASubmission" label="Drafted a funding agreement (FA) submission" />
             <govuk-checkbox-input id="regional-director-signed-off-fa-submission" name="regional-director-signed-off-fa-submission" asp-for="@Model.RegionalDirectorSignedOffFaSubmission" label="Regional Director has signed-off the FA submission (if applicable)" />
             <govuk-checkbox-input id="minister-signed-off-fa-submission" name="minister-signed-off-fa-submission" asp-for="@Model.MinisterSignedOffFaSubmission" label="Minister has signed-off the FA submission (if applicable)" />
+            <govuk-checkbox-input id="included-signed-off-impact-assessment" name="included-signed-off-impact-assessment" asp-for="@Model.IncludedSignedOffImpactAssessment" label="Included a signed-off impact assessment in the submission" />
             <govuk-checkbox-input id="saved-fa-submission-in-workplaces-folder" name="saved-fa-submission-in-workplaces-folder" asp-for="@Model.SavedFaSubmissionInWorkplacesFolder" label="Saved the submission in Workplaces folder" />
             
             @Html.HiddenFor(m => m.SchoolName)

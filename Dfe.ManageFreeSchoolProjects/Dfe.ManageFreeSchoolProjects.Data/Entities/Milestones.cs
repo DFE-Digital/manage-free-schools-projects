@@ -187,5 +187,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string PFACMWhyAMeetingWasNotHeld { get; set; }
         
         public string FsgPreOpeningInspectionConditionsMetNotApplicable { get; set; }
+
+        public bool? FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaHealthCheck { get; set; }
+
+        public bool? FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaSubmission { get; set; }
     }
 }

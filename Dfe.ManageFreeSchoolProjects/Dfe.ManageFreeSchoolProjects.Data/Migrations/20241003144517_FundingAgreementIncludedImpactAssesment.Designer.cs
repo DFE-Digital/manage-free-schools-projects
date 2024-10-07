@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20241003144517_FundingAgreementIncludedImpactAssesment")]
+    partial class FundingAgreementIncludedImpactAssesment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5058,9 +5061,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
                     b.Property<bool?>("FsgPreOpeningDeletedEmailsContainingSuitabilityAndDeclarationForms")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FsgPreOpeningInspectionConditionsMetNotApplicable")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("FsgPreOpeningMilestoneMovingToOpenProjectBriefToEducationEstates")
                         .HasColumnType("bit")

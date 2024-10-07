@@ -1,5 +1,7 @@
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
 {
@@ -32,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
             }
 
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.RyooWd = task.RealisticYearOfOpening.IsNullOrEmpty() ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
             db.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor = task.FundingArrangementAgreed;
             db.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor =
                 task.FundingArrangementDetailsAgreed;
