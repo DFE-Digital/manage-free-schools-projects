@@ -7,6 +7,7 @@ using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
@@ -83,6 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
         private static Kpi MapToKpi(ProjectDetails proj, string rid, Trust trust)
         {
+
             return new Kpi
             {
                 Rid = rid,
@@ -96,8 +98,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",
-                MatUnitProjects = "Other",
-                SponsorUnitProjects = "Free Schools (including Studio Schools)",
+                MatUnitProjects = ProjectConstants.MATUnitProjects,
+                SponsorUnitProjects = ProjectConstants.SponsorUnitProjects,
                 SchoolDetailsGeographicalRegion = proj.Region,
                 SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                 LocalAuthority = proj.LocalAuthority,
@@ -122,7 +124,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
                 KeyContactsFsgLeadContact = proj.ProjectAssignedToName,
                 KeyContactsFsgLeadContactEmail = proj.ProjectAssignedToEmail,
-                RyooWd = "Awaiting Year"
+                RyooWd = ProjectConstants.RYOODefaultValue
 
             };
         }

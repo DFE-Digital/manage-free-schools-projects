@@ -1,6 +1,7 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,8 +46,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
 
             using var contextPostSave = _testFixture.GetContext();
-            var createdProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
-            createdProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
+            var updatedProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            updatedProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
         }
 
         [Fact]
@@ -84,8 +85,47 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
 
             using var contextPostSave = _testFixture.GetContext();
-            var createdProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
-            createdProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
+            var updatedProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            updatedProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
+        }
+
+        [Fact]
+        public async Task Patch_ExistingKickOffMeeting_NoRYOOSetsDefaultValue()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var projectId = project.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+
+            var kickOffMeetingTask = DatabaseModelBuilder.BuildKickOffMeetingTask(project.Rid);
+            context.Milestones.Add(kickOffMeetingTask);
+
+            await context.SaveChangesAsync();
+
+            var dateNineDaysInFuture = new DateTime().AddDays(9);
+
+            var request = new UpdateProjectByTaskRequest()
+            {
+                KickOffMeeting = new KickOffMeetingTask()
+                {
+                    FundingArrangementAgreed = true,
+                    RealisticYearOfOpening = "",
+                    FundingArrangementDetailsAgreed = "text",
+                    SavedDocumentsInWorkplacesFolder = true
+                }
+            };
+
+            var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.KickOffMeeting.ToString());
+
+            projectResponse.KickOffMeeting.SavedDocumentsInWorkplacesFolder.Should().Be(request.KickOffMeeting.SavedDocumentsInWorkplacesFolder);
+            projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
+            projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
+            projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
+
+            using var contextPostSave = _testFixture.GetContext();
+            var updatedProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            updatedProject.RyooWd.Should().Be(ProjectConstants.RYOODefaultValue);
         }
     }
 }

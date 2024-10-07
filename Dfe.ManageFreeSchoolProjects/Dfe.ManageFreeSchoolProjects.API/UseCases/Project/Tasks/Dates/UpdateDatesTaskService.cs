@@ -1,4 +1,7 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
+﻿using Microsoft.IdentityModel.Tokens;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
 {
     public class UpdateDatesTaskService : IUpdateTaskService
     {
@@ -6,6 +9,7 @@
         {
             var dbKpi = parameters.Kpi;
             var task = parameters.Request.Dates;
+
 
             if (task == null)
             {
@@ -18,7 +22,7 @@
             dbKpi.ProjectStatusDateCancelled = task.ProjectCancelledDate;
             dbKpi.ProjectStatusDateWithdrawn = task.ProjectWithdrawnDate;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
-            dbKpi.RyooWd = task.RealisticYearOfOpening.Length > 0 ? task.RealisticYearOfOpening : "Awaiting Year";
+            dbKpi.RyooWd = task.RealisticYearOfOpening.IsNullOrEmpty() ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
         }
     }
 }
