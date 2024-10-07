@@ -1,4 +1,4 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
+﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interactions
 {
     public class ProjectIdInteraction : IHeaderDataInteraction<BulkEditDto>
     {

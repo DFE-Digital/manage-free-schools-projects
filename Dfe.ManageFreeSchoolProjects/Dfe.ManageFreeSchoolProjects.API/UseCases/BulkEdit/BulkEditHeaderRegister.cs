@@ -1,6 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
-using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interactions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.LocalAuthority;
 
 

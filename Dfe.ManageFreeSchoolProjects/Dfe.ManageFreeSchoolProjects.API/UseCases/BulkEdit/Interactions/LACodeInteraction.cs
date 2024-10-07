@@ -1,6 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.UseCases.LocalAuthority;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interactions
 {
     internal class LACodeInteraction(ILocalAuthorityCache localAuthorityCache) : IHeaderDataInteraction<BulkEditDto>
     {

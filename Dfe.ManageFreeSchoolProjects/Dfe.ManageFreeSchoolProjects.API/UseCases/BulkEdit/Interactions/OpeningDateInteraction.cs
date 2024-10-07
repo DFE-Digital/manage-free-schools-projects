@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interactions
 {
     public class OpeningDateInteraction : IHeaderDataInteraction<BulkEditDto>
     {
