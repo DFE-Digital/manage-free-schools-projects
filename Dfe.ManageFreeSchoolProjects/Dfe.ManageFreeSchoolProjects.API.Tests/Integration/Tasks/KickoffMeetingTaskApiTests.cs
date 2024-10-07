@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
@@ -42,6 +43,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
             projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
+
+            using var contextPostSave = _testFixture.GetContext();
+            var createdProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            createdProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
         }
 
         [Fact]
@@ -77,6 +82,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.KickOffMeeting.RealisticYearOfOpening.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
             projectResponse.KickOffMeeting.FundingArrangementAgreed.Should().Be(request.KickOffMeeting.FundingArrangementAgreed);
             projectResponse.KickOffMeeting.FundingArrangementDetailsAgreed.Should().Be(request.KickOffMeeting.FundingArrangementDetailsAgreed);
+
+            using var contextPostSave = _testFixture.GetContext();
+            var createdProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            createdProject.RyooWd.Should().Be(request.KickOffMeeting.RealisticYearOfOpening);
         }
     }
 }

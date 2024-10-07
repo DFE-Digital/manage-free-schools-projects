@@ -96,8 +96,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 UpperStatus = "",
                 FsType = "",
                 FsType1 = "",
-                MatUnitProjects = "",
-                SponsorUnitProjects = "",
+                MatUnitProjects = "Other",
+                SponsorUnitProjects = "Free Schools (including Studio Schools)",
                 SchoolDetailsGeographicalRegion = proj.Region,
                 SchoolDetailsLocalAuthority = proj.LocalAuthorityCode,
                 LocalAuthority = proj.LocalAuthority,
@@ -122,6 +122,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 ProjectStatusProvisionalOpeningDateAgreedWithTrust = proj.ProvisionalOpeningDate,
                 KeyContactsFsgLeadContact = proj.ProjectAssignedToName,
                 KeyContactsFsgLeadContactEmail = proj.ProjectAssignedToEmail,
+                RyooWd = "Awaiting Year"
+
             };
         }
 

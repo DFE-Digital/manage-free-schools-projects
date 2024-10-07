@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 using System.Threading.Tasks;
 using System;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
 {
@@ -44,6 +45,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.Dates.ProjectClosedDate.Should().Be(DateTenDaysInFuture);
             projectResponse.Dates.RealisticYearOfOpening.Should().Be(request.Dates.RealisticYearOfOpening);
             projectResponse.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
+
+            using var contextPostSave = _testFixture.GetContext();
+            var createdProject = contextPostSave.Kpi.First(p => p.ProjectStatusProjectId == projectId);
+            createdProject.RyooWd.Should().Be(request.Dates.RealisticYearOfOpening);
         }
     }
 }

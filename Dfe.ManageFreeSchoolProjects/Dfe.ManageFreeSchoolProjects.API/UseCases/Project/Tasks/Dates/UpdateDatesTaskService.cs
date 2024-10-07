@@ -20,6 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
             dbKpi.ProjectStatusDateCancelled = task.ProjectCancelledDate;
             dbKpi.ProjectStatusDateWithdrawn = task.ProjectWithdrawnDate;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
+            dbKpi.RyooWd = task.RealisticYearOfOpening.Length > 0 ? task.RealisticYearOfOpening : "Awaiting Year";
         }
     }
 }
