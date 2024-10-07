@@ -1,5 +1,6 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Microsoft.IdentityModel.Tokens;
+using System.Data.Common;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -49,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                     var header = headerMap[column.ColumnIndex];
                     var validationResult = header.Type.Execute(currentRow, column.Value);
-                    var currentValue = currentRow != null ? header.DataInteration.GetFromDto(currentRow) : "";
+                    var currentValue = IsNotNullOrEmpty(currentRow) ? header.DataInteration.GetFromDto(currentRow) : "";
                     if (!validationResult.IsValid)
                     {
 
@@ -78,5 +79,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
             return response;
         }
+        private static bool IsNotNullOrEmpty(TDto value)
+        {
+            return !Equals(value, default(TDto));
+        }
     }
 }
+
