@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
@@ -27,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                 if(!dto.OpeningDate.IsNullOrEmpty())
                 {
-                    entity.ProjectStatusActualOpeningDate = DateTime.Parse(dto.OpeningDate);
+                    entity.ProjectStatusActualOpeningDate = DateTime.Parse(dto.OpeningDate, new CultureInfo("en-GB"));
                 }
 
                 if (!dto.ProjectStatus.IsNullOrEmpty())

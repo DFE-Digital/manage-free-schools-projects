@@ -23,11 +23,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             var projectIds = request.Rows.Select(x => x.Columns.Where(y => y.ColumnIndex == IdColumnIndex).Select(y => y.Value).FirstOrDefault()).ToList();
             var projects = await dataRetrieval.Retrieve(projectIds);
 
-            foreach (var row in request.Rows)
+            foreach (var columns in request.Rows.Select(x => x.Columns))
             {
-                var currentRow = projects[row.Columns.FirstOrDefault(x => x.ColumnIndex == IdColumnIndex).Value];
+                var currentRow = projects[columns.Find(x => x.ColumnIndex == IdColumnIndex).Value];
 
-                foreach (var column in row.Columns)
+                foreach (var column in columns)
                 {
                     if (column.ColumnIndex == IdColumnIndex)
                     {
@@ -38,8 +38,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     {
                         continue;
                     }
-                    var headerName = request.Headers.Where(x => x.Index == column.ColumnIndex).FirstOrDefault()?.Name;
-                    var header = headers.FirstOrDefault(x => string.Compare(x.Name, headerName, true) == 0);
+                    var headerName = request.Headers.FirstOrDefault(x => x.Index == column.ColumnIndex)?.Name;
+                    var header = headers.Find(x => string.Compare(x.Name, headerName, true) == 0);
                     var value = column.Value;
                     header.DataInteration.ApplyToDto(value, currentRow);
                 }

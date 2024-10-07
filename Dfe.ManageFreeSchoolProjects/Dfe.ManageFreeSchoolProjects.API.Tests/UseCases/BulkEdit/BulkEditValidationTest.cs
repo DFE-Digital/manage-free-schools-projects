@@ -360,7 +360,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             AssertCell(response.ValidationResultRows, 1, 1, Existing, ValidInput + TestFormattedInteraction.Format);
         }
 
-        private void AssertCell(List<ValidationRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue, string error = null)
+        private static void AssertCell(List<ValidationRowInfo> validrows, int rowIndex, int columnIndex, string currentValue, string newValue, string error = null)
         {
             var row = validrows.FirstOrDefault(x => x.FileRowIndex == rowIndex);
             row.Should().NotBeNull();
@@ -372,7 +372,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
             column.Error.Should().Be(error);
         }
 
-        private async Task<BulkEditValidateResponse> RunTest(BulkEditRequest file, Dictionary<string, TestDto> data)
+        private static async Task<BulkEditValidateResponse> RunTest(BulkEditRequest file, Dictionary<string, TestDto> data)
         {
             var process = new BulkEditValidation<TestDto>(new TestHeaderRegister(), new TestDataRetrieval(data));
 

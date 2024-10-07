@@ -45,7 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var validation = await bulkEditValidation.Execute(request);
 
-            if(validation.ValidationResultRows.Any(r => r.Columns.Any(x => x.Error != null)))
+            if(validation.ValidationResultRows.Exists(r => r.Columns.Exists(x => x.Error != null)))
             {
                 return BadRequest();
             }
