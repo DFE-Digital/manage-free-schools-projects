@@ -184,24 +184,3 @@
         </ol>
     </div>
 </div>
-@functions {
-
-    public void RenderStatus(TaskSummaryResponse task)
-    {
-        var testId = $"task-{task.Name}-status";
-
-        if (task.Status == ProjectTaskStatus.Completed)
-        {
-            <strong class="govuk-tag govuk-tag--blue app-task-list__tag" data-testid="@testId">Completed</strong>
-        }
-        else if (task.Status == ProjectTaskStatus.InProgress)
-        {
-            <strong class="govuk-tag govuk-tag--light-blue app-task-list__tag" data-testid="@testId">In progress</strong>
-        }
-        else
-        {
-            <strong class="govuk-tag govuk-tag--grey app-task-list__tag" data-testid="@testId">Not started</strong>
-        }
-    }
-
-}
