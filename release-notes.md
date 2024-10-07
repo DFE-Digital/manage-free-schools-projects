@@ -1,6 +1,7 @@
 ## 0.14.0
 * 177717 - Build: Create central route projects
 * 178172 - Build: Iterate funding agreement health check and submission
+* 182793 - Build: set values for calculated database fields
 
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
