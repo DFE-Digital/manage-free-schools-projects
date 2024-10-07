@@ -77,33 +77,31 @@ describe("Testing the central route project creation journey", () => {
 
             createProjectPage
                 .continue()
-               // .errorMessage("Select what project you want to create");
+                .errorMessage("Select what project you want to create");
 
             cy.executeAccessibilityTests();
 
             createProjectPage
-                .selectOption("Central route")
+                .selectOption("Central")
                 .continue();
 
             Logger.log("Check application number validation");
             createProjectPage
-        
                 .titleIs("What is the application number?")
                 .continue()
                 .errorMessage("Enter the application number")
                 .enterApplicationNumber("TYTDHGC6746467467467")
                 .continue()
-                .errorMessage("Application number must be 10 characters or less")
+                .errorMessage("The application number must be 10 characters or less")
                 //enter valid application number    
                 .enterApplicationNumber(applicationNumber)
                 .continue()
 
                 Logger.log("Check application wave validation");
                 createProjectPage
-            
-                    .titleIs("What is the application number?")
+                    .titleIs("What is the application wave?")
                     .continue()
-                    .errorMessage(" Enter the application wave")
+                    .errorMessage("Enter the application wave")
                     //enter valid application wave 
                     .enterApplicationWave(applicationWave)
                     .continue()
@@ -244,7 +242,7 @@ describe("Testing the central route project creation journey", () => {
 
             Logger.log("Check answers");
             summaryPage.inOrder()
-                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
+                .summaryShows("Project type").HasValue("Central").HasChangeLink()
                 .summaryShows("Application number").HasValue(applicationNumber).HasChangeLink()
                 .summaryShows("Application wave").HasValue(applicationWave).HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
@@ -256,8 +254,8 @@ describe("Testing the central route project creation journey", () => {
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()

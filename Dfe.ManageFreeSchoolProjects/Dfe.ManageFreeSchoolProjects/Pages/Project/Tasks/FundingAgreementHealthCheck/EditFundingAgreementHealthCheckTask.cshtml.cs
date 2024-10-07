@@ -32,6 +32,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
         [BindProperty(Name = "minister-signed-off-fa-health-check")]
         public bool? MinisterSignedOffFaHealthCheck { get; set; }
 
+        [BindProperty(Name = "included-signed-off-impact-assessment")]
+        public bool? IncludedSignedOffImpactAssessment { get; set; }
+
         [BindProperty(Name = "saved-fa-health-check-in-workplaces-folder")]
         public bool? SavedFaHealthCheckInWorkplacesFolder { get; set; }
 
@@ -81,6 +84,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
                     DraftedFundingAgreementHealthCheck = DraftedFAHealthCheck,
                     RegionalDirectorSignedOffFundingAgreementHealthCheck = RegionalDirectorSignedOffFaHealthCheck,
                     MinisterSignedOffFundingAgreementHealthCheck = MinisterSignedOffFaHealthCheck,
+                    IncludedSignedOffImpactAssessment = IncludedSignedOffImpactAssessment,
                     SavedFundingAgreementHealthCheckInWorkplacesFolder = SavedFaHealthCheckInWorkplacesFolder
                 }
             };
@@ -97,6 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementHealt
             DraftedFAHealthCheck = project.FundingAgreementHealthCheck.DraftedFundingAgreementHealthCheck;
             RegionalDirectorSignedOffFaHealthCheck = project.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck;
             MinisterSignedOffFaHealthCheck = project.FundingAgreementHealthCheck.MinisterSignedOffFundingAgreementHealthCheck;
+            IncludedSignedOffImpactAssessment = project.FundingAgreementHealthCheck.IncludedSignedOffImpactAssessment;
             SavedFaHealthCheckInWorkplacesFolder = project.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder;
 
             SchoolName = project.SchoolName;

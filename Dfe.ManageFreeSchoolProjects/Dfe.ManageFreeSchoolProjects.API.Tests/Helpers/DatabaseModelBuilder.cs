@@ -204,6 +204,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesMfadDraftedFaHealthCheck = true;
             result.FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaHealthCheck = false;
             result.FsgPreOpeningMilestonesMfadMinisterSignedOffFaHealthCheck = false;
+            result.FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaHealthCheck = false;
             result.FsgPreOpeningMilestonesMfadSavedFaHealthCheckInWorkplacesFolder = false;
 
             return result;
@@ -218,6 +219,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.FsgPreOpeningMilestonesMfadDraftedFaSubmission = true;
             result.FsgPreOpeningMilestonesMfadRegionalDirectorSignedOffFaSubmission = false;
             result.FsgPreOpeningMilestonesMfadMinisterSignedOffFaSubmission = false;
+            result.FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaSubmission = false;
             result.FsgPreOpeningMilestonesMfadSavedFaSubmissionInWorkplacesFolder = false;
 
             return result;

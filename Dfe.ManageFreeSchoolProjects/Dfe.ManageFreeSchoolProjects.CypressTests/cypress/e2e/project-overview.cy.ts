@@ -42,7 +42,7 @@ describe("Testing project overview", () => {
         homePage.createNewProjects();
 
         createProjectPage
-            .selectOption("Presumption route")
+            .selectOption("Presumption")
             .continue();
 
         createProjectPage
