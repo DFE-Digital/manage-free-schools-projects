@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.Drawing;
-
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
+﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
 {
     public class UpdateDatesTaskService : IUpdateTaskService
     {
