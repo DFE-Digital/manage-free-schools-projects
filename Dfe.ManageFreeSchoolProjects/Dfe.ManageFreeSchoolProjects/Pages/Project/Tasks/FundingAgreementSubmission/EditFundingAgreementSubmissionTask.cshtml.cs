@@ -33,6 +33,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
         [BindProperty(Name = "minister-signed-off-fa-submission")]
         public bool? MinisterSignedOffFaSubmission { get; set; }
 
+        [BindProperty(Name = "included-signed-off-impact-assessment")]
+        public bool? IncludedSignedOffImpactAssessment { get; set; }
+
         [BindProperty(Name = "saved-fa-submission-in-workplaces-folder")]
         public bool? SavedFaSubmissionInWorkplacesFolder { get; set; }
 
@@ -83,6 +86,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
                     DraftedFundingAgreementSubmission = DraftedFASubmission,
                     RegionalDirectorSignedOffFundingAgreementSubmission = RegionalDirectorSignedOffFaSubmission,
                     MinisterSignedOffFundingAgreementSubmission = MinisterSignedOffFaSubmission,
+                    IncludedSignedOffImpactAssessment = IncludedSignedOffImpactAssessment,
                     SavedFundingAgreementSubmissionInWorkplacesFolder = SavedFaSubmissionInWorkplacesFolder
                 }
             };
@@ -99,6 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FundingAgreementSubmi
             DraftedFASubmission = project.FundingAgreementSubmission.DraftedFundingAgreementSubmission;
             RegionalDirectorSignedOffFaSubmission = project.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission;
             MinisterSignedOffFaSubmission = project.FundingAgreementSubmission.MinisterSignedOffFundingAgreementSubmission;
+            IncludedSignedOffImpactAssessment = project.FundingAgreementSubmission.IncludedSignedOffImpactAssessment;
             SavedFaSubmissionInWorkplacesFolder = project.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder;
 
             SchoolName = project.SchoolName;

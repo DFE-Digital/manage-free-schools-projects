@@ -5,7 +5,7 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-describe("Testing the project creation journey", () => {
+describe("Testing the presumption route project creation journey", () => {
     beforeEach(() => {
         cy.login({ role: "POTATO" });
         cy.visit(Cypress.env('url'));
@@ -46,14 +46,14 @@ describe("Testing the project creation journey", () => {
             cy.visit('/');
         });
 
-        it("Should display Create new projects button for projectRecordCreator role", () => {
+        it("Should display Create a project card for projectRecordCreator role", () => {
             Logger.log("Testing that a projectrecordcreator role DOES have the green Create new projects CTA");
-            cy.contains('Create new projects').should('be.visible');
+            cy.contains('Create a project').should('be.visible');
             cy.executeAccessibilityTests();
         });
     });
 
-    describe("Creating an individual project - Create a new project", () => {
+    describe("Creating an individual project - Create a Presumption route new project", () => {
         beforeEach(() => {
             cy.login({ role: ProjectRecordCreator });
             cy.visit('/');
@@ -73,12 +73,12 @@ describe("Testing the project creation journey", () => {
 
             createProjectPage
                 .continue()
-                .errorMessage("Select what you want to do");
+                .errorMessage("Select what project you want to create");
 
             cy.executeAccessibilityTests();
 
             createProjectPage
-                .selectOption("Create one project")
+                .selectOption("Presumption")
                 .continue();
 
             Logger.log("Check project id validation");
@@ -389,6 +389,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Check answers");
             summaryPage.inOrder()
+                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
@@ -398,8 +399,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("Yes").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
@@ -435,7 +436,7 @@ describe("Testing the project creation journey", () => {
 
             Logger.log("Use individual method");
             createProjectPage
-                .selectOption("Create one project")
+                .selectOption("Presumption")
                 .continue();
 
             Logger.log("Enter Valid project ID");
@@ -520,6 +521,7 @@ describe("Testing the project creation journey", () => {
             Logger.log("Check answers");
 
             summaryPage.inOrder()
+                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
@@ -529,8 +531,8 @@ describe("Testing the project creation journey", () => {
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("No").HasChangeLink()
-                .summaryShows("Alternative provision (specialist resource provision)").HasValue("No").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("Yes").HasChangeLink()
+                .summaryShows("Alternative provision").HasValue("No").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
@@ -627,14 +629,14 @@ describe("Testing the project creation journey", () => {
             createProjectPage.setAlternativeProvisionTo("Yes")
                 .continue();
             summaryPage
-                .SummaryHasValue("Alternative provision (specialist resource provision)", "Yes")
+                .SummaryHasValue("Alternative provision", "Yes")
 
             Logger.log("Change Special educational needs")
             summaryPage.clickChangeFor("Special educational needs");
             createProjectPage.setSpecialEducationNeedsTo("No")
                 .continue();
             summaryPage
-                .SummaryHasValue("Special educational needs (specialist resource provision)", "No")
+                .SummaryHasValue("Special educational needs", "No")
 
             Logger.log("Change School phase")
             summaryPage.clickChangeFor("School phase");

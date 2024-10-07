@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import { CreateProjectRiskRequest, ProjectDetailsRequest } from "./domain";
 import { EnvUsername } from "cypress/constants/cypressConstants";
 import dataGenerator from "cypress/fixtures/dataGenerator";
@@ -8,10 +7,8 @@ export class RequestBuilder {
     public static createNewProjectDetails(): ProjectDetailsRequest {
         const result: ProjectDetailsRequest =  {
             projectId: dataGenerator.generateTemporaryId(25),
-            applicationNumber: v4().substring(0, 9),
             createdBy: Cypress.env(EnvUsername),
             schoolName: dataGenerator.generateSchoolName(),
-            projectType: "Presumption",
             TRN: 'TR00111',
             applicationWave: "FS - Presumption",
             projectAssignedToName: "Test Person",
@@ -29,7 +26,7 @@ export class RequestBuilder {
     }
 
     public static createProjectDetailsCentralRoute(): ProjectDetailsRequest {
-        return {...this.createNewProjectDetails(), applicationWave: "Other Wave", projectType: "Central Route"};
+        return {...this.createNewProjectDetails(), applicationWave: "Other Wave", applicationNumber: dataGenerator.generateTemporaryId(5), projectType: "Central Route"};
     }
 
     public static CreateProjectRiskRequest(): CreateProjectRiskRequest {

@@ -39,8 +39,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.FundingAgreementSubmission.DraftedFundingAgreementSubmission);
             projectResponse.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission.Should()
                 .Be(request.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission);
-            projectResponse.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission.Should()
-                .Be(request.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission);
+            projectResponse.FundingAgreementSubmission.MinisterSignedOffFundingAgreementSubmission.Should()
+                .Be(request.FundingAgreementSubmission.MinisterSignedOffFundingAgreementSubmission);
+            projectResponse.FundingAgreementSubmission.IncludedSignedOffImpactAssessment.Should()
+                .Be(request.FundingAgreementSubmission.IncludedSignedOffImpactAssessment);
             projectResponse.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder.Should()
                 .Be(request.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder);
 
@@ -65,7 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 FundingAgreementSubmission = new FundingAgreementSubmissionTask()
                 {
                     DraftedFundingAgreementSubmission = true,
-                    RegionalDirectorSignedOffFundingAgreementSubmission = true,
+                    RegionalDirectorSignedOffFundingAgreementSubmission = false,
+                    MinisterSignedOffFundingAgreementSubmission = true,
+                    IncludedSignedOffImpactAssessment = true,
                     SavedFundingAgreementSubmissionInWorkplacesFolder = true
                 }
             };
@@ -77,8 +81,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.FundingAgreementSubmission.DraftedFundingAgreementSubmission);
             projectResponse.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission.Should()
                 .Be(request.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission);
-            projectResponse.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission.Should()
-                .Be(request.FundingAgreementSubmission.RegionalDirectorSignedOffFundingAgreementSubmission);
+            projectResponse.FundingAgreementSubmission.MinisterSignedOffFundingAgreementSubmission.Should()
+                .Be(request.FundingAgreementSubmission.MinisterSignedOffFundingAgreementSubmission);
+            projectResponse.FundingAgreementSubmission.IncludedSignedOffImpactAssessment.Should()
+                .Be(request.FundingAgreementSubmission.IncludedSignedOffImpactAssessment);
             projectResponse.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder.Should()
                 .Be(request.FundingAgreementSubmission.SavedFundingAgreementSubmissionInWorkplacesFolder);
         }

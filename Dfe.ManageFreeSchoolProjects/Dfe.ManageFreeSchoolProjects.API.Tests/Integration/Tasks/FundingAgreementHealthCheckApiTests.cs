@@ -39,8 +39,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.FundingAgreementHealthCheck.DraftedFundingAgreementHealthCheck);
             projectResponse.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck.Should()
                 .Be(request.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck);
-            projectResponse.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck.Should()
-                .Be(request.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck);
+            projectResponse.FundingAgreementHealthCheck.MinisterSignedOffFundingAgreementHealthCheck.Should()
+                .Be(request.FundingAgreementHealthCheck.MinisterSignedOffFundingAgreementHealthCheck);
+            projectResponse.FundingAgreementHealthCheck.IncludedSignedOffImpactAssessment.Should()
+                .Be(request.FundingAgreementHealthCheck.IncludedSignedOffImpactAssessment);
             projectResponse.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder.Should()
                 .Be(request.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder);
 
@@ -65,7 +67,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 FundingAgreementHealthCheck = new FundingAgreementHealthCheckTask()
                 {
                     DraftedFundingAgreementHealthCheck = true,
-                    RegionalDirectorSignedOffFundingAgreementHealthCheck = true,
+                    RegionalDirectorSignedOffFundingAgreementHealthCheck = false,
+                    MinisterSignedOffFundingAgreementHealthCheck = true,
+                    IncludedSignedOffImpactAssessment = true,
                     SavedFundingAgreementHealthCheckInWorkplacesFolder = true
                 }
             };
@@ -77,8 +81,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 .Be(request.FundingAgreementHealthCheck.DraftedFundingAgreementHealthCheck);
             projectResponse.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck.Should()
                 .Be(request.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck);
-            projectResponse.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck.Should()
-                .Be(request.FundingAgreementHealthCheck.RegionalDirectorSignedOffFundingAgreementHealthCheck);
+            projectResponse.FundingAgreementHealthCheck.MinisterSignedOffFundingAgreementHealthCheck.Should()
+                .Be(request.FundingAgreementHealthCheck.MinisterSignedOffFundingAgreementHealthCheck);
+            projectResponse.FundingAgreementHealthCheck.IncludedSignedOffImpactAssessment.Should()
+                .Be(request.FundingAgreementHealthCheck.IncludedSignedOffImpactAssessment);
             projectResponse.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder.Should()
                 .Be(request.FundingAgreementHealthCheck.SavedFundingAgreementHealthCheckInWorkplacesFolder);
         }

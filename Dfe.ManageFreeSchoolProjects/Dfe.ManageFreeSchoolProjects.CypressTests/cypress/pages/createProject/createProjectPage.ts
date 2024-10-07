@@ -28,6 +28,16 @@ class CreateProjectPage {
         return this;
     }
 
+    public enterApplicationNumber(value: string) {
+        cy.getByTestId("application-number").clear().type(value);
+        return this;
+    }
+
+    public enterApplicationWave(value: string) {
+        cy.getByTestId("application-wave").clear().type(value);
+        return this;
+    }
+
     public hasProjectId(value: string) {
         cy.getByTestId("projectid").should("have.value", value);
         return this;

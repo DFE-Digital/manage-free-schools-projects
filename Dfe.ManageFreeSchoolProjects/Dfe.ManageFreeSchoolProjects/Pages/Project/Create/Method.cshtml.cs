@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Create
     {
         [BindProperty(Name = "method")]
         [Display(Name = "method")]
-        [Required(ErrorMessage = "Select what you want to do")]
+        [Required(ErrorMessage = "Select what project you want to create")]
         public ProjectType Method { get; set; }
 
         [FromQuery(Name = "newProject")] 
