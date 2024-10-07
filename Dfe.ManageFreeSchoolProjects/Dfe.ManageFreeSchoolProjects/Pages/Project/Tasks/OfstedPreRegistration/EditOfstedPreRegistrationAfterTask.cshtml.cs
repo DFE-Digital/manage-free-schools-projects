@@ -64,8 +64,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
                 OfstedInspection = project.OfstedInspection
             };
 
+
+            var parsedInspectionCondition = ParseInspectionConditionsMetToString(InspectionConditionsMet);
+
+            switch (InspectionConditionsMet)
+            {
+                case YesNoNotApplicable.No or YesNoNotApplicable.Yes:
+                    request.OfstedInspection.InspectionConditionsMet = parsedInspectionCondition;
+                    request.OfstedInspection.InspectionConditionsMetNotApplicable = null;
+                    break;
+                case YesNoNotApplicable.NotApplicable:
+                    request.OfstedInspection.InspectionConditionsMetNotApplicable = parsedInspectionCondition;
+                    request.OfstedInspection.InspectionConditionsMet = null;
+                    break;
+            }
+
             request.OfstedInspection.SharedOutcomeWithTrust = SharedOutcomeWithTrust;
-            request.OfstedInspection.InspectionConditionsMet = InspectionConditionsMet;
+            
             request.OfstedInspection.ProposedToOpenOnGias = ProposedToOpenOnGias;
             request.OfstedInspection.SavedToWorkplaces = SavedToWorkplaces;
             request.OfstedInspection.DateInspectionsAndAnyActionsCompleted = DateInspectionsAndAnyActionsCompleted;
@@ -78,13 +93,40 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         {
             var project = await getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
 
+            var parsedInspectionConditionsMet = !string.IsNullOrEmpty(project.OfstedInspection.InspectionConditionsMet)
+                ? ParseInspectionConditionsMetToEnum(project.OfstedInspection.InspectionConditionsMet)
+                : ParseInspectionConditionsMetToEnum(project.OfstedInspection.InspectionConditionsMetNotApplicable);
+            
             SharedOutcomeWithTrust = project.OfstedInspection.SharedOutcomeWithTrust;
-            InspectionConditionsMet = project.OfstedInspection.InspectionConditionsMet;
+            InspectionConditionsMet = parsedInspectionConditionsMet;
             ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias;
             SavedToWorkplaces = project.OfstedInspection.SavedToWorkplaces;
             DateInspectionsAndAnyActionsCompleted = project.OfstedInspection.DateInspectionsAndAnyActionsCompleted;
 
             SchoolName = project.SchoolName;
+        }
+        
+        private static YesNoNotApplicable? ParseInspectionConditionsMetToEnum(string condition)
+        {
+            return condition switch
+            {
+                "Yes" => YesNoNotApplicable.Yes,
+                "No" => YesNoNotApplicable.No,
+                "Not applicable" => YesNoNotApplicable.NotApplicable,
+                _ => null
+            };
+
+        }
+        
+        private static string ParseInspectionConditionsMetToString(YesNoNotApplicable? condition)
+        {
+            return condition switch
+            {
+                YesNoNotApplicable.Yes => "Yes",
+                YesNoNotApplicable.No => "No",
+                YesNoNotApplicable.NotApplicable => "Not applicable",
+                _ => null
+            };
         }
     }
 }

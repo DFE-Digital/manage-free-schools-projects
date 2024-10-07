@@ -9,33 +9,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.OfstedInspecti
         public static OfstedInspectionTask Build(Milestones milestones)
         {
             if (milestones == null)
-            {
                 return new OfstedInspectionTask();
-            }
 
             return new OfstedInspectionTask
             {
                 ProcessDetailsProvided = milestones.FsgPreOpeningMilestonesProcessDetailsProvided,
                 InspectionBlockDecided = milestones.FsgPreOpeningMilestonesInspectionBlockDecided,
-                OfstedAndTrustLiaisonDetailsConfirmed = milestones.FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed,
-                BlockAndContentDetailsToOpenersSpreadSheet = milestones.FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet,
+                OfstedAndTrustLiaisonDetailsConfirmed =
+                    milestones.FsgPreOpeningMilestonesOfstedAndTrustLiaisonDetailsConfirmed,
+                BlockAndContentDetailsToOpenersSpreadSheet =
+                    milestones.FsgPreOpeningMilestonesBlockAndContentDetailsToOpenersSpreadSheet,
                 SharedOutcomeWithTrust = milestones.FsgPreOpeningMilestonesSharedOutcomeWithTrust,
                 ProposedToOpenOnGias = milestones.FsgPreOpeningMilestonesProposedToOpenOnGias,
                 SavedToWorkplaces = milestones.FsgPreOpeningMilestonesDocumentsAndG6SavedToWorkplaces,
-                InspectionConditionsMet = InspectionConditionsMet(milestones.FsgPreOpeningMilestonesInspectionConditionsMet),
+                InspectionConditionsMetNotApplicable = milestones.FsgPreOpeningInspectionConditionsMetNotApplicable,
+                InspectionConditionsMet = milestones.FsgPreOpeningMilestonesInspectionConditionsMet,
                 DateInspectionsAndAnyActionsCompleted = milestones.FsgPreOpeningMilestonesOprActualDateOfCompletion
-            };
-
-        }
-
-        private static YesNoNotApplicable? InspectionConditionsMet(string condition)
-        {
-            return condition switch
-            {
-                "Yes" => YesNoNotApplicable.Yes,
-                "No" => YesNoNotApplicable.No,
-                "Not applicable" => YesNoNotApplicable.NotApplicable,
-                _ => null
             };
         }
     }

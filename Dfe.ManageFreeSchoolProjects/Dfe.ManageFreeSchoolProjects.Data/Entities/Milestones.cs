@@ -185,5 +185,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? PFACMSentAnEmailToTheTrust { get; set; }
 
         public string PFACMWhyAMeetingWasNotHeld { get; set; }
+        
+        public string FsgPreOpeningInspectionConditionsMetNotApplicable { get; set; }
     }
 }

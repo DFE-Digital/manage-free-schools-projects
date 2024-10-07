@@ -9,11 +9,9 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
 {
-    public class ViewOfstedPreRegistrationModel(
-        IGetProjectByTaskService getProjectService,
-        ILogger<ViewOfstedPreRegistrationModel> logger,
+    public class ViewOfstedPreRegistrationModel(IGetProjectByTaskService getProjectService, ILogger<ViewOfstedPreRegistrationModel> logger,
         IGetTaskStatusService getTaskStatusService,
-        IUpdateTaskStatusService updateTaskStatusService)
+        IUpdateTaskStatusService updateTaskStatusService) 
         : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
         public async Task<ActionResult> OnGet()
