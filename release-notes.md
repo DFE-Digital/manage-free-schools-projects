@@ -2,7 +2,8 @@
 * 177717 - Build: Create central route projects
 * 178172 - Build: Iterate funding agreement health check and submission
 * 179446 - Build: Bulk edit projects
-* 
+* 182793 - Build: Set values for calculated database fields
+
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
 * 179195 - Build: Show only statuses relevant to Presumption route

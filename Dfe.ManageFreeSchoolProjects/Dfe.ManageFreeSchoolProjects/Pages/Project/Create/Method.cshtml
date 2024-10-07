@@ -2,7 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Create.MethodModel
 @{
-    ViewData["Title"] = "What project do you want to create? - Manage free school projects";
+    ViewData["Title"] = "What project do you want to create?";
 
     var methods = Enum.GetValues<ProjectType>().Except(new [] { ProjectType.NotSet }).ToList();
     var labels = methods.Select(x => x.ToDescription()).ToArray();
