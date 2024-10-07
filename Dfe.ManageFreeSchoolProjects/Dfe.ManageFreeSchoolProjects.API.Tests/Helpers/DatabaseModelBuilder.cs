@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
             result.ProjectStatusUrnWhenGivenOne = _fixture.Create<string>();
             result.ProjectStatusFreeSchoolApplicationWave = _fixture.Create<string>();
             result.ProjectStatusRealisticYearOfOpening = _fixture.Create<string>();
+            result.RyooWd = result.ProjectStatusRealisticYearOfOpening;
             result.ProjectStatusDateOfEntryIntoPreOpening = _fixture.Create<DateTime>();
             result.ProjectStatusProvisionalOpeningDateAgreedWithTrust = _fixture.Create<DateTime>();
             result.ProjectStatusActualOpeningDate = _fixture.Create<DateTime>();
@@ -83,8 +84,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 UpperStatus = _fixture.Create<string>().Substring(0, 10),
                 FsType = _fixture.Create<string>().Substring(0, 13),
                 FsType1 = _fixture.Create<string>().Substring(0, 15),
-                MatUnitProjects = _fixture.Create<string>().Substring(0, 31),
-                SponsorUnitProjects = _fixture.Create<string>()
+                MatUnitProjects = "Other",
+                SponsorUnitProjects = "Free Schools (including Studio Schools)"
             };
 
             return result;
