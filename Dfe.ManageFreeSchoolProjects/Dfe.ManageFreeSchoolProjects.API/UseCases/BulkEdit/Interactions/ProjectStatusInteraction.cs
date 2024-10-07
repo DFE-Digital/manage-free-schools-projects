@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
 {
-    public class ProjectStatusInteraction : IHeaderDataInteration<BulkEditDto>
+    public class ProjectStatusInteraction : IHeaderDataInteraction<BulkEditDto>
     {
         public BulkEditDto ApplyToDto(string value, BulkEditDto dto)
         {

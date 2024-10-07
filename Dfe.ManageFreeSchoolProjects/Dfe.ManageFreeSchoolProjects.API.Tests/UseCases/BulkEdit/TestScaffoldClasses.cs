@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         }
     }
 
-    internal class TestInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteration<TestDto>
+    internal class TestInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteraction<TestDto>
     {
         public string GetFromDto(TestDto dto)
         {
@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         }
     }
 
-    internal class TestFormattedInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteration<TestDto>
+    internal class TestFormattedInteraction(Func<TestDto, string> getDto, Action<string, TestDto> setDto) : IHeaderDataInteraction<TestDto>
     {
         public const string Format = "format";
 
@@ -79,11 +79,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         {
             return new()
             {
-                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteration = new TestInteraction(x => x.ProjectId, (x, t) => t.ProjectId = x) },
-                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
-                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteration = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
-                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteration = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
-                new() { Name = FormattedName, Type = new TestValidation(), DataInteration = new TestFormattedInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteraction = new TestInteraction(x => x.ProjectId, (x, t) => t.ProjectId = x) },
+                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteraction = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteraction = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
+                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteraction = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
+                new() { Name = FormattedName, Type = new TestValidation(), DataInteraction = new TestFormattedInteraction(x => x.TestData, (x, t) => t.TestData = x) },
             };
         }
     }

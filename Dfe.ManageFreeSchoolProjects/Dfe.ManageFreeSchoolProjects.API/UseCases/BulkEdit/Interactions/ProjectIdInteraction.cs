@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
 {
-    public class ProjectIdInteraction : IHeaderDataInteration<BulkEditDto>
+    public class ProjectIdInteraction : IHeaderDataInteraction<BulkEditDto>
     {
         public string GetFromDto(BulkEditDto dto)
         {

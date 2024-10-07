@@ -1,6 +1,6 @@
 ﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public interface IHeaderDataInteration<T> where T : IBulkEditDto
+    public interface IHeaderDataInteraction<T> where T : IBulkEditDto
     {
         public string GetFromDto(T dto);
 
@@ -15,7 +15,7 @@
 
             public IValidationCommand<T> Type { get; set; }
 
-            public IHeaderDataInteration<T> DataInteration { get; set; }
+            public IHeaderDataInteraction<T> DataInteraction { get; set; }
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
 {
-    internal class LACodeInteraction(ILocalAuthorityCache localAuthorityCache) : IHeaderDataInteration<BulkEditDto>
+    internal class LACodeInteraction(ILocalAuthorityCache localAuthorityCache) : IHeaderDataInteraction<BulkEditDto>
     {
         public BulkEditDto ApplyToDto(string value, BulkEditDto dto)
         {

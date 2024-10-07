@@ -2,7 +2,7 @@
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interations
 {
-    public class OpeningDateInteration : IHeaderDataInteration<BulkEditDto>
+    public class OpeningDateInteraction : IHeaderDataInteraction<BulkEditDto>
     {
         public string GetFromDto(BulkEditDto dto)
         {

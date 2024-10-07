@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                     var header = headerMap[column.ColumnIndex];
                     var validationResult = header.Type.Execute(currentRow, column.Value);
-                    var currentValue = IsNotNullOrEmpty(currentRow) ? header.DataInteration.GetFromDto(currentRow) : "";
+                    var currentValue = IsNotNullOrEmpty(currentRow) ? header.DataInteraction.GetFromDto(currentRow) : "";
                     if (!validationResult.IsValid)
                     {
 
@@ -58,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         {
                             ColumnIndex = column.ColumnIndex,
                             CurrentValue = currentValue,
-                            NewValue = header.DataInteration.FormatValue(column.Value),
+                            NewValue = header.DataInteraction.FormatValue(column.Value),
                             Error = validationResult.ErrorMessage
                         });
 
@@ -69,7 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         {
                             ColumnIndex = column.ColumnIndex,
                             CurrentValue = currentValue,
-                            NewValue = header.DataInteration.FormatValue(column.Value)
+                            NewValue = header.DataInteraction.FormatValue(column.Value)
                         });
                     }
                 }
