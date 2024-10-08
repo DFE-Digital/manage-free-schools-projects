@@ -10,7 +10,7 @@ describe("Trust Letter Sent Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
 
         project = RequestBuilder.createProjectDetails();
 

@@ -4,12 +4,18 @@
 @{
     ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
 
+    var userAuthorisedToChange = User.IsInRole(RolesConstants.GrantManagers);
     var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentSchedulePresumption, Model.ProjectId);
-    var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetterPresumption, Model.ProjectId);
-    var editStopPaymentLink = string.Format(RouteConstants.EditStopPaymentPresumption, Model.ProjectId);
-    var editRefundsLink = string.Format(RouteConstants.EditRefundsPresumption, Model.ProjectId);
-    var editWriteOffLink = string.Format(RouteConstants.EditWriteOffPresumption, Model.ProjectId);
+
+    string BuildLink(string url)
+    {
+        return userAuthorisedToChange ? string.Format(url, Model.ProjectId) : "";
+    }
+    var editPaymentScheduleLink = BuildLink(RouteConstants.EditPDGPaymentSchedulePresumption);
+    var editTrustLetterLink = BuildLink(RouteConstants.EditPDGTrustLetterPresumption);
+    var editStopPaymentLink = BuildLink(RouteConstants.EditStopPaymentPresumption);
+    var editRefundsLink = BuildLink(RouteConstants.EditRefundsPresumption);
+    var editWriteOffLink = BuildLink(RouteConstants.EditWriteOffPresumption);
     var pdgTask = Model.Project.PDGDashboard;
 }
 
@@ -74,15 +80,17 @@
                 }
             </govuk-summary-list>
         </govuk-summary-card>
-
-        <form method="post">
-            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+        @if (userAuthorisedToChange)
+        {
+            <form method="post">
+                <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
                                   asp-for="MarkAsCompleted"
                                   name="mark-as-completed"
                                   id="mark-as-completed" />
-            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
-                Confirm and continue
-            </button>
-        </form>
+                <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                    Confirm and continue
+                </button>
+            </form>
+        }
     </div>
 </div>

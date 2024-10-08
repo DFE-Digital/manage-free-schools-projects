@@ -10,7 +10,7 @@ describe("Stop Payments Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
 
         project = RequestBuilder.createProjectDetails();
 
