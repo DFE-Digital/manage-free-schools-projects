@@ -4,6 +4,7 @@
 * 179446 - Build: Bulk edit projects
 * 182793 - Build: Set values for calculated database fields
 * 178419 - Build: Ofsted pre-registration, actual date
+* 181754 - Build: readiness to open meeting (ROM) forecast date
 
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
