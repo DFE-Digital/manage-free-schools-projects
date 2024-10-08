@@ -8,5 +8,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
         public DateTime? Grade6SignedOffFinalPlanDate { get; set; }
         public bool? SentFinalPlanToRevenueFundingMailbox { get; set; }
         public bool? SavedFinalPlanInWorkplacesFolder { get; set; }
+        public DateTime? ExpectedDateGrade6WillSignOffTheFinalPlan { get; set; }
     }
 }
