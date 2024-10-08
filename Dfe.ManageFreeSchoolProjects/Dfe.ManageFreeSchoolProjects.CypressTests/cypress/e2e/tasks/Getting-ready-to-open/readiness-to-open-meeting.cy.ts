@@ -32,6 +32,7 @@ describe("Testing readiness to open meeting task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Readiness to open meeting (ROM)")
             .inOrder()
+            .summaryShows("A ROM is expected to happen").IsEmpty().HasChangeLink()
             .summaryShows("Type of meeting held").IsEmpty().HasChangeLink()
             .summaryShows("Principal designate (PD) has provided the checklist").IsEmpty().HasChangeLink()
             .summaryShows("Commissioned an external expert to attend any meetings (if applicable)").IsEmpty().HasChangeLink()
@@ -56,6 +57,14 @@ describe("Testing readiness to open meeting task", () => {
         summaryPage.clickChange();
 
         readinessToOpenMeetingEditPage
+            .selectAROMIsExpectedToHappenYes()
+            .expectedDateOfTheMeeting("60", "12", "2050")
+            .clickContinue()
+            .errorForExpectedMeetingDate("Day must be between 1 and 31")
+            .expectedDateOfTheMeeting("30", "12", "1999")
+            .clickContinue()
+            .errorForExpectedMeetingDate("Year must be between 2000 and 2050")
+            .expectedDateOfTheMeeting("5", "6", "2040")
             .selectFormalMeeting()
             .dateOfTheFormalMeeting("60", "12", "2050")
             .clickContinue()
@@ -76,6 +85,8 @@ describe("Testing readiness to open meeting task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Readiness to open meeting (ROM)")
             .inOrder()
+            .summaryShows("A ROM is expected to happen").HasValue("Yes").HasChangeLink()
+            .summaryShows("Expected date of the meeting").HasValue("5 June 2040").HasChangeLink()
             .summaryShows("Type of meeting held").HasValue("Formal meeting").HasChangeLink()
             .summaryShows("Date of the meeting").HasValue("5 May 2040").HasChangeLink()
             .summaryShows("Principal designate (PD) has provided the checklist").HasValue("Yes").HasChangeLink()
@@ -94,6 +105,7 @@ describe("Testing readiness to open meeting task", () => {
         summaryPage.clickChange();
 
         readinessToOpenMeetingEditPage
+            .selectAROMIsExpectedToHappenNo()
             .selectNoRomHeld()
             .whyMeetingWasNotHeld()
             .uncheckPrincipalDesignate()
@@ -108,6 +120,7 @@ describe("Testing readiness to open meeting task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Readiness to open meeting (ROM)")
             .inOrder()
+            .summaryShows("A ROM is expected to happen").HasValue("No").HasChangeLink()
             .summaryShows("Type of meeting held").HasValue("No meeting held").HasChangeLink()
             .summaryShows("Why a meeting was not held").HasValue("This is the reason why meeting was not held").HasChangeLink()
             .summaryShows("Principal designate (PD) has provided the checklist").IsEmpty().HasChangeLink()
@@ -125,6 +138,8 @@ describe("Testing readiness to open meeting task", () => {
         Logger.log("Should be able to select Informal meeting");
 
         readinessToOpenMeetingEditPage
+            .selectAROMIsExpectedToHappenYes()
+            .expectedDateOfTheMeeting("6", "6", "2040")
             .selectInformalMeeting()
             .dateOfTheInformalMeeting("60", "12", "2050")
             .clickContinue()
@@ -143,6 +158,8 @@ describe("Testing readiness to open meeting task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Readiness to open meeting (ROM)")
             .inOrder()
+            .summaryShows("A ROM is expected to happen").HasValue("Yes").HasChangeLink()
+            .summaryShows("Expected date of the meeting").HasValue("6 June 2040").HasChangeLink()
             .summaryShows("Type of meeting held").HasValue("Informal meeting").HasChangeLink()
             .summaryShows("Date of the meeting").HasValue("23 May 2030").HasChangeLink()
             .summaryShows("Principal designate (PD) has provided the checklist").HasValue("Yes").HasChangeLink()

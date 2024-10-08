@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Helpers;
 
@@ -24,7 +25,9 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
         {
             ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask
             {
-                DateOfTheMeeting = new DateTime().Date,
+                AROMIsExpectedToHappen = YesNo.Yes,
+                ExpectedDateOfTheMeeting = new DateTime().Date,
+                DateOfTheMeeting = new DateTime().Date.AddDays(1),
                 TypeOfMeetingHeld = TypeOfMeetingHeld.InformalMeeting,
                 WhyMeetingWasNotHeld = null,
                 PrincipalDesignateHasProvidedTheChecklist = true,
@@ -37,6 +40,10 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
         var projectResponse =
             await _client.UpdateProjectTask(projectId, request, TaskName.ReadinessToOpenMeeting.ToString());
 
+        projectResponse.ReadinessToOpenMeetingTask.AROMIsExpectedToHappen.Should()
+           .Be(request.ReadinessToOpenMeetingTask.AROMIsExpectedToHappen);
+        projectResponse.ReadinessToOpenMeetingTask.ExpectedDateOfTheMeeting.Should()
+            .Be(request.ReadinessToOpenMeetingTask.ExpectedDateOfTheMeeting);
         projectResponse.ReadinessToOpenMeetingTask.DateOfTheMeeting.Should()
             .Be(request.ReadinessToOpenMeetingTask.DateOfTheMeeting);
         projectResponse.ReadinessToOpenMeetingTask.TypeOfMeetingHeld.Should()
@@ -72,6 +79,7 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
         {
             ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask
             {
+                AROMIsExpectedToHappen = YesNo.No,
                 SavedTheInternalRomReportToWorkplacesFolder = false,
                 CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable = false,
                 SavedTheExternalRomReportToWorkplacesFolder = false
@@ -79,7 +87,9 @@ public class ReadinessToOpenMeetingApiTests(ApiTestFixture apiTestFixture) : Api
         };
         
         var updateProjRes = await _client.UpdateProjectTask(projectId, request, TaskName.ReadinessToOpenMeeting.ToString());
-        
+
+        updateProjRes.ReadinessToOpenMeetingTask.AROMIsExpectedToHappen.Should().Be(YesNo.No);
+        updateProjRes.ReadinessToOpenMeetingTask.ExpectedDateOfTheMeeting.Should().BeNull();
         updateProjRes.ReadinessToOpenMeetingTask.SavedTheInternalRomReportToWorkplacesFolder.Should().BeFalse();
         updateProjRes.ReadinessToOpenMeetingTask.CommissionedAnExternalExpertToAttendAnyMeetingsIfApplicable.Should().BeFalse();
         updateProjRes.ReadinessToOpenMeetingTask.SavedTheExternalRomReportToWorkplacesFolder.Should().BeFalse();
