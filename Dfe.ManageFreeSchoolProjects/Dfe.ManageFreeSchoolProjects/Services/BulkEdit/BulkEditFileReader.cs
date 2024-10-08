@@ -14,7 +14,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
 
     public class BulkEditFileReader : IBulkEditFileReader
     {
-        public const int FileRowStartIndex = 2;
+        public const int FileRowStartIndex = 4;
 
         public BulkEditRequest Read(DataTable table)
         {
