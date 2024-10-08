@@ -14,6 +14,7 @@ using Dfe.ManageFreeSchoolProjects.Validators;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
+    [Authorize(Roles = RolesConstants.GrantManagers)]
     public class EditWriteOffModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;

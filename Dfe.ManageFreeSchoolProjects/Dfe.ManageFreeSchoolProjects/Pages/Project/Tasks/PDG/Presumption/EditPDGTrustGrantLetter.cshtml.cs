@@ -13,6 +13,7 @@ using Dfe.ManageFreeSchoolProjects.Constants;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
+    [Authorize(Roles = RolesConstants.GrantManagers)]
     public class EditPDGTrustGrantLetterModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;

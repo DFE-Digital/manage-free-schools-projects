@@ -10,10 +10,12 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
+    [Authorize(Roles = RolesConstants.GrantManagers)]
     public class EditStopPaymentModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
