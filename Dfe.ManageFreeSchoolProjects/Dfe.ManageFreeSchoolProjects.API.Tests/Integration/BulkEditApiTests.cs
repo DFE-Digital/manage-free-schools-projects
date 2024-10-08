@@ -310,7 +310,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 {
                     ColumnIndex = 1,
                     CurrentValue = project.SchoolDetailsLocalAuthority,
-                    NewValue = "124",
+                    NewValue = "Local Authority",
                 }
             });
 

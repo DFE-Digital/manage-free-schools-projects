@@ -22,7 +22,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Interactions
 
         public string FormatValue(string value)
         {
-            return value;
+            var localAuthority = localAuthorityCache.GetLocalAuthorities().Find(x => x.LACode == value);
+
+            return localAuthority?.Name ?? value;
         }
     }
 }
