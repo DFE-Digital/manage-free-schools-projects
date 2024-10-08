@@ -9,6 +9,18 @@ class FinalFinancePlanEditPage {
 
    
 
+    withExpectedDateGrade6WillSignOffFinalPlan(day: string, month: string, year: string): this {
+        const key = "expected-date-grade6-will-signoff-final-plan";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+    errorExpectedDateGrade6WillSignOffFinalPlan(): this {
+        this.errorTracking = "expected-date-grade6-will-signoff-final-plan";
+        return this;
+    }
+
+
     withGrade6SignedOffFinalPlanDate(day: string, month: string, year: string): this {
         const key = "grade-6-signed-off-final-plan-date";
         this.setDate(key, day, month, year);
