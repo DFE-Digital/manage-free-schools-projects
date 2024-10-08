@@ -10,12 +10,10 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
-    [Authorize(Roles = RolesConstants.GrantManagers)]
     public class EditStopPaymentModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
@@ -50,6 +48,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
         {
             _logger.LogMethodEntered();
 
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             await LoadProject();
             return Page();
         }
@@ -65,6 +68,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 
         public async Task<ActionResult> OnPost()
         {
+            _logger.LogMethodEntered();
+
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
             CurrentFreeSchoolName = project.SchoolName;
 

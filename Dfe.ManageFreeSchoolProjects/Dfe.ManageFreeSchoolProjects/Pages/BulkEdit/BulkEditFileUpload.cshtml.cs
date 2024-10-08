@@ -53,7 +53,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
         {
             logger.LogMethodEntered();
 
-            if(Upload == null)
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
+
+            if (Upload == null)
             {
                 FileError = "Select a file";
                 SetToUpdateMultipleFields();

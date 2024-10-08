@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.Validators;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 {
-    [Authorize(Roles = RolesConstants.GrantManagers)]
     public class EditPDGPaymentScheduleModel : PageModel
     {
         private readonly IGetProjectByTaskService _getProjectService;
@@ -60,12 +60,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
         {
             _logger.LogMethodEntered();
 
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             await LoadProject();
             return Page();
         }
 
         public async Task<ActionResult> OnPost()
         {
+            _logger.LogMethodEntered();
+
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             var project = await _getProjectService.Execute(ProjectId, TaskName.PaymentSchedule);
             CurrentFreeSchoolName = project.SchoolName;
 
