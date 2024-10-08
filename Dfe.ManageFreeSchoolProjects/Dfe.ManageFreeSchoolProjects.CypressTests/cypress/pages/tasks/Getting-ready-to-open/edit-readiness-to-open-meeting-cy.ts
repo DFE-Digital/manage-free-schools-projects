@@ -1,6 +1,16 @@
 class ReadinessToOpenMeetingEditPage {
     private errorTracking = "";
 
+    selectAROMIsExpectedToHappenYes(): this {
+        cy.getById("a-rom-is-expected-to-happen-yes").click()
+        return this
+    }
+
+    selectAROMIsExpectedToHappenNo(): this {
+        cy.getById("a-rom-is-expected-to-happen-no").click()
+        return this
+    }
+
     selectFormalMeeting(): this {
         cy.getById("formal-meeting-option").click()
         return this
@@ -61,6 +71,14 @@ class ReadinessToOpenMeetingEditPage {
         return this
     }
 
+    
+    expectedDateOfTheMeeting(day: string, month: string, year: string): this {
+        const key = "expected-date-of-the-meeting";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+
     dateOfTheFormalMeeting(day: string, month: string, year: string): this {
         const key = "date-of-the-formal-meeting";
         this.setDate(key, day, month, year);
@@ -81,6 +99,11 @@ class ReadinessToOpenMeetingEditPage {
     clickContinue(): this {
         cy.getByTestId("continue").click();
         return this;
+    }
+
+    errorForExpectedMeetingDate(error: string): this {
+        cy.getById('expected-date-of-the-meeting-error').contains(error)
+        return this
     }
 
     errorForFormalMeetingDate(error: string): this {
