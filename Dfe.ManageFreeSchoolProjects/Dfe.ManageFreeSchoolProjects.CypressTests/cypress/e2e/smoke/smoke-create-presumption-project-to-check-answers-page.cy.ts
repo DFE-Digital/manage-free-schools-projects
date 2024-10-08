@@ -5,13 +5,13 @@ import createProjectPage from "cypress/pages/createProject/createProjectPage";
 import homePage from "cypress/pages/homePage";
 import summaryPage from "cypress/pages/task-summary-base";
 
-    describe("Smoke Test Create an individual project - (Up Until Check your answers Page)", () => {
+    describe("Smoke Test Create an individual Presumption project - (Up Until Check your answers Page)", () => {
         beforeEach(() => {
             cy.login({ role: ProjectRecordCreator });
             cy.visit('/');
         });
 
-        it("Should Smoke Test go through create a project wizard happy path up until Check your answers page", { tags: ['smoke'] }, () => {
+        it("Should create a presumption project, up until Check your answers page", { tags: ['smoke'] }, () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
             const TestTrn = "TR00111";
@@ -23,7 +23,7 @@ import summaryPage from "cypress/pages/task-summary-base";
             cy.executeAccessibilityTests();
 
             createProjectPage
-                .selectOption("Create one project")
+                .selectOption("Presumption")
                 .continue();
 
             cy.executeAccessibilityTests();
@@ -150,6 +150,7 @@ import summaryPage from "cypress/pages/task-summary-base";
 
             Logger.log("Check answers");
             summaryPage.inOrder()
+                .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
                 .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
