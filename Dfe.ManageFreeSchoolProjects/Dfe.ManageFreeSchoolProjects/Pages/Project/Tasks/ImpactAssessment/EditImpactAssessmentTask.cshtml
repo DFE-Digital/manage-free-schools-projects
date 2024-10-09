@@ -5,6 +5,11 @@
     ViewData["Title"] = $"Edit Impact assessment - {Model.SchoolName}";
 
     var backlink = string.Format(RouteConstants.ViewImpactAssessmentTask, Model.ProjectId);
+
+    var SavedInWorkplacesFolderLabel = Model.IsPresumptionRoute
+        ? "Saved the signed-off impact assessment in Workplaces folder"
+        : "Saved the section 9 letter and signed-off impact assessment in Workplaces folder";
+
 }
 
 @section BeforeMain {
@@ -59,7 +64,7 @@
                                   id="impact-assessment-done"
                                   add-margin=false />
 
-            <govuk-checkbox-input label="Saved section 9 letter and signed-off impact assessment in Workplaces folder"
+            <govuk-checkbox-input label="@SavedInWorkplacesFolderLabel"
                                   asp-for="@Model.SavedToWorkplaces"
                                   name="saved-to-workplaces"
                                   id="saved-to-workplaces"

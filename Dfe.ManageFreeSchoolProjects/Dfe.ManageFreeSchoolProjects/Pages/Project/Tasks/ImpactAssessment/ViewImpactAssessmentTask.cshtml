@@ -8,6 +8,10 @@
     var editlink = string.Format(RouteConstants.EditImpactAssessmentTask, Model.ProjectId);
     var impactAssessment = Model.Project.ImpactAssessment;
 
+    var SavedInWorkplacesFolderLabel = Model.Project.IsPresumptionRoute
+        ? "Saved the signed-off impact assessment in Workplaces folder"
+        : "Saved the section 9 letter and signed-off impact assessment in Workplaces folder";
+
     Model.Section9LetterSentToLocalAuthority = impactAssessment.Section9LetterDateSent != null;
 }
 
@@ -35,7 +39,7 @@
              }
          }
             <govuk-summary-item label="Conducted the impact assessment" asp-for="@impactAssessment.ImpactAssessment" href="@editlink"/>
-            <govuk-summary-item label="Saved the section 9 letter and signed-off impact assessment in Workplaces folder" asp-for="@impactAssessment.SavedToWorkplaces" href="@editlink"/>
+            <govuk-summary-item label="@SavedInWorkplacesFolderLabel" asp-for="@impactAssessment.SavedToWorkplaces" href="@editlink" />
         </govuk-summary-list>
         <form method="post">
             <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
