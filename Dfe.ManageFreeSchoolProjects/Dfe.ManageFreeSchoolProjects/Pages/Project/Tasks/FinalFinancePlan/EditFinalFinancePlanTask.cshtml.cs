@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
         public bool? ConfirmedTrustHasProvidedFinalPlan { get; set; }
 
         [BindProperty(Name = "grade-6-signed-off-final-plan-date", BinderType = typeof(DateInputModelBinder))]
-        [DisplayName("Date that the Grade 6 signed-off the final plan")]
+        [DisplayName("Actual date that the Grade 6 signed-off the final plan")]
         public DateTime? Grade6SignedOffFinalPlanDate { get; set; }
 
         [BindProperty(Name = "sent-final-plan-to-revenue-funding-mailbox")]
