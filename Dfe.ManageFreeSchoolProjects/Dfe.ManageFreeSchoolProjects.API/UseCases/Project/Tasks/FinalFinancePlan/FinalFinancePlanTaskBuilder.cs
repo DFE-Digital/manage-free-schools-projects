@@ -8,12 +8,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePl
         public static FinalFinancePlanTask Build(Milestones milestones)
         {
             if (milestones == null)
-            {
                 return new FinalFinancePlanTask();
-            }
 
             return new FinalFinancePlanTask()
             {
+                ExpectedDateGrade6WillSignOffTheFinalPlan = milestones.FsgPreOpeningMilestonesFpaForecastDate,
                 ConfirmedTrustHasProvidedFinalPlan = milestones.FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan,
                 Grade6SignedOffFinalPlanDate = milestones.FsgPreOpeningMilestonesFpaActualDateOfCompletion,
                 SentFinalPlanToRevenueFundingMailbox = milestones.FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox,

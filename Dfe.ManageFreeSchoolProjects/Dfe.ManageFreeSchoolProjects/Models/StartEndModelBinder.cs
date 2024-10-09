@@ -127,7 +127,7 @@ namespace Dfe.ManageFreeSchoolProjects.Models
 			{
 				bindingContext.ModelState.SetModelValue(startYearModelName, startValueProviderResult);
 				bindingContext.ModelState.SetModelValue(endYearModelName, endValueProviderResult);
-				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End year must be after the start date");
+				bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "End year must be after the start year");
 				bindingContext.Result = ModelBindingResult.Failed();
 				return Task.CompletedTask;
 			}
