@@ -2,6 +2,8 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.BulkEdit.BulkEditCompleteModel
 @{
     ViewData["Title"] = "Confirmation";
+    var plural = Model.Count > 1 ? "s" : "";
+    var confirmationMessage = Model.Count + $" free school project{plural} edited";
 }
 
 
@@ -10,7 +12,7 @@
 
         <div class="govuk-panel govuk-panel--confirmation">
             <h1 class="govuk-panel__title">
-                @Model.Count free school projects edited
+                @confirmationMessage
             </h1>
         </div>
 

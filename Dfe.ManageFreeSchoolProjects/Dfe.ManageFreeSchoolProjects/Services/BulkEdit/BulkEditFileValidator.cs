@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
                     return new FileValidationResult
                     {
                         IsValid = false,
-                        ErrorMessage = $"File has a invalid column header: {column.ColumnName}"
+                        ErrorMessage = $"File has an invalid column header: {column.ColumnName}"
                     };
                 }
             }
