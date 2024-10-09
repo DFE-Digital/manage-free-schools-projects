@@ -8,9 +8,9 @@
     var editlink = string.Format(RouteConstants.EditImpactAssessmentTask, Model.ProjectId);
     var impactAssessment = Model.Project.ImpactAssessment;
 
-    var SavedInWorkplacesFolderLabel = Model.Project.IsPresumptionRoute == false
-        ? "Saved the section 9 letter and signed-off impact assessment in Workplaces folder"
-        : "Saved the signed-off impact assessment in Workplaces folder";
+    var SavedInWorkplacesFolderLabel = Model.Project.IsPresumptionRoute
+        ? "Saved the signed-off impact assessment in Workplaces folder"
+        : "Saved the section 9 letter and signed-off impact assessment in Workplaces folder";
 
     Model.Section9LetterSentToLocalAuthority = impactAssessment.Section9LetterDateSent != null;
 }
