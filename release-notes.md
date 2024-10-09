@@ -7,6 +7,7 @@
 * 181757 - Build: finance plan agreed forecast date
 * 181754 - Build: readiness to open meeting (ROM) forecast date
 * 183590 - BUG: Start End Year component still refers to "start date" in error message
+* 180341 - Build: MFSP team to amend the footer
 
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
