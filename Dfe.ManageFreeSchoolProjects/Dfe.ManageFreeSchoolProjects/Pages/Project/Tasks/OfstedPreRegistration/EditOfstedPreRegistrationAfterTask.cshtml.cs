@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
@@ -38,6 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
         public string SchoolName { get; set; }
         
         [BindProperty(Name = "date-inspection-and-any-actions-completed", BinderType = typeof(DateInputModelBinder))]
+        [DisplayName("Date that inspection and any actions were completed")]
         public DateTime? DateInspectionsAndAnyActionsCompleted { get; set; }
         
         public async Task<ActionResult> OnGet()
