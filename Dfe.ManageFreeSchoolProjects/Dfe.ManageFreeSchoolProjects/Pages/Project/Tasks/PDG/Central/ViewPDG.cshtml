@@ -26,7 +26,6 @@
     var editTotalGrantLink = BuildLink(RouteConstants.EditPDGTotalGrant);
     var editProtectedLinkLabel = userAuthorisedToChange ? "Change" : "View Details";
 
-    var editTrustLetterLink = BuildLink(RouteConstants.EditPDGTrustLetterCentral);
     var editPaymentScheduleLink = userAuthorisedToChange || numberOfScheduledPayments > 0 ? string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId) : "";
     var editStopPaymentLink = BuildLink(RouteConstants.EditStopPaymentCentral);
     var editRefundsLink = BuildLink(RouteConstants.EditRefundsCentral);

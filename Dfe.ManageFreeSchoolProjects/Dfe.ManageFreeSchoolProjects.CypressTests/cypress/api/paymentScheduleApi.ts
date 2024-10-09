@@ -2,7 +2,7 @@ import { ApiClient } from "./apiClient";
 import { CreatePDGPaymentScheduleRequest, ResponseWrapper } from "./domain";
 
 class PaymentScheduleApi {
-    public constructor(private apiClient: ApiClient) { }
+    public constructor(private readonly apiClient: ApiClient) { }
 
     public post(
         projectId: string,

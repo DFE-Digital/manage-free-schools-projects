@@ -2,7 +2,7 @@ import { ApiClient } from "./apiClient";
 import { CreatePDGGrantLettersRequest, ResponseWrapper } from "./domain";
 
 class GrantLettersApi {
-    public constructor(private apiClient: ApiClient) { }
+    public constructor(private readonly apiClient: ApiClient) { }
 
     public put(
         projectId: string,
