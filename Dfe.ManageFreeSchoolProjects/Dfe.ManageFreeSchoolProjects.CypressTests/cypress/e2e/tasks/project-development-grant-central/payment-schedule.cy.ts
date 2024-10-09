@@ -10,13 +10,14 @@ import addPayment from "cypress/pages/tasks/project-development-grant-central/ad
 import editPayment from "cypress/pages/tasks/project-development-grant-central/edit-payment";
 import deletePayment from "cypress/pages/tasks/project-development-grant-central/delete-payment";
 import { DateTime } from "../../../../node_modules/luxon";
+import { GrantManagers } from "cypress/constants/cypressConstants";
 
 describe("Payment Schedule Task", () => {
     let project: ProjectDetailsRequest;
     let paymentDate: DateTime;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
 
         project = RequestBuilder.createProjectDetailsNonPresumption();
 

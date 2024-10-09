@@ -5,12 +5,13 @@ import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/pdgDashboard";
 import writeOff from "cypress/pages/tasks/project-development-grant-central/edit-write-off";
+import { GrantManagers } from "cypress/constants/cypressConstants";
 
 describe("Write off Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
 
         project = RequestBuilder.createProjectDetailsNonPresumption();
 

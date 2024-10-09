@@ -4,7 +4,9 @@ class PdgDashboard {
     }
 
     selectChangePaymentSchedule() {
-        cy.getByTestId("change-payment-schedule").click();
+        cy.getByTestId("change-payment-schedule")
+        .should("contain.text", "Change")
+        .click();
     }
     
     selectChangeTrustLetter() {
@@ -27,6 +29,47 @@ class PdgDashboard {
         cy.getByTestId("change-refunds").click();
     }
 
+    selectViewDetailsPaymentSchedule() {
+        cy.getByTestId("change-payment-schedule")
+            .should("contain.text", "View Details")
+            .click();
+    }
+    
+    selectViewDetailsGrantLetter() {
+        cy.getByTestId("change-grant-letters")
+            .should("contain.text", "View Details")
+            .click();
+    }
+    
+
+    changePaymentScheduleNotShown(): this {
+        cy.getByTestId("change-payment-schedule").should('not.exist');
+        return this;
+    }
+    changeTotalGrantScheduleNotShown(): this {
+        cy.getByTestId("change-total-grant").should('not.exist');
+        return this;
+    }
+    
+    changeTrustLetterNotShown(): this {
+        cy.getByTestId("change-total-grant").should('not.exist');
+        return this;
+    }
+
+    changeWriteOffNotShown(): this {
+        cy.getByTestId("change-write-off").should('not.exist');
+        return this;
+    }
+
+    changeStopPaymentsNotShown(): this {
+        cy.getByTestId("change-stop-payments").should('not.exist');
+        return this;
+    }
+
+    changeRefundsNotShown(): this {
+        cy.getByTestId("change-refunds").should('not.exist');
+        return this;
+    }
 }
 
 const pdgDashboard = new PdgDashboard();

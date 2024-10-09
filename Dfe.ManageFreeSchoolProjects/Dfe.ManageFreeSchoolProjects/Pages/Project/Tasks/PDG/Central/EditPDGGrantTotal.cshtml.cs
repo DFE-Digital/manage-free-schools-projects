@@ -46,6 +46,11 @@ public class EditGrantTotal : PageModel
     {
         _logger.LogMethodEntered();
 
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+
         try
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
@@ -68,6 +73,13 @@ public class EditGrantTotal : PageModel
 
     public async Task<IActionResult> OnPost()
     {
+        _logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+        
         var project = await _getProjectService.Execute(ProjectId, TaskName.PDG);
 
         if (!ModelState.IsValid)

@@ -4,18 +4,21 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
 public class EditPDGGrantLetter(
     IGrantLettersService grantLettersService,
     IGetProjectByTaskService getProjectService,
-    ErrorService errorService
+    ErrorService errorService,
+    ILogger<EditPDGGrantLetter> logger
     ) : PageModel
 {
     [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -42,6 +45,13 @@ public class EditPDGGrantLetter(
 
     public async Task<IActionResult> OnGet()
     {
+        logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+
         GrantLetters = await grantLettersService.Get(ProjectId);
 
         InitialGrantLetterDateSigned = GrantLetters.InitialGrantLetterDate;
@@ -56,6 +66,13 @@ public class EditPDGGrantLetter(
 
     public async Task<IActionResult> OnPost()
     {
+        logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+
         if (!ModelState.IsValid)
         {
             errorService.AddErrors(ModelState.Keys, ModelState);

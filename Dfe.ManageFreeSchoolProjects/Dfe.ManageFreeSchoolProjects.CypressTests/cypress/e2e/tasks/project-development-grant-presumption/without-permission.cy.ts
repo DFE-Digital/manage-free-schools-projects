@@ -1,6 +1,7 @@
 import { ProjectDetailsRequest } from "cypress/api/domain";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
+import root from "cypress/pages/root";
 import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import pdgDashboard from "cypress/pages/tasks/project-development-grant-presumption/dashboard";
@@ -48,6 +49,11 @@ describe("Payment Schedule Task", () => {
 
         cy.executeAccessibilityTests();
 
+        root.checkAccessToPage(`/projects/${project.projectId}/tasks/pdg/presumption/edit-payment-schedule`)
+            .checkAccessToPage(`/projects/${project.projectId}/tasks/pdg/presumption/edit-trust-letter`)
+            .checkAccessToPage(`/projects/${project.projectId}/tasks/pdg/presumption/edit-refunds`)
+            .checkAccessToPage(`/projects/${project.projectId}/tasks/pdg/presumption/edit-stop-payment`)
+            .checkAccessToPage(`/projects/${project.projectId}/tasks/pdg/presumption/edit-write-off`)
     });
 
 });

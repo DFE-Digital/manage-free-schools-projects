@@ -9,6 +9,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         [HtmlAttributeName("label")]
         public string Label { get; set; }
 
+        [HtmlAttributeName("link-label")]
+        public string LinkLabel { get; set; }
+
         [HtmlAttributeName("id")]
 
         public string Id { get; set; }
@@ -46,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         {
             if (!href.IsNullOrEmpty())
                 return $@"<a class=""govuk-link"" href=""{href}"" data-testid=""change-{Id}"">
-                                Change<span class=""govuk-visually-hidden"">{Label}</span>
+                                {LinkLabel ?? "Change"}<span class=""govuk-visually-hidden"">{Label}</span>
                       </a>
             ";
 

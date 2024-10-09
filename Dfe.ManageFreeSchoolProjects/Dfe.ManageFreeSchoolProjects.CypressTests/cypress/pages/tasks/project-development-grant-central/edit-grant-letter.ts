@@ -6,6 +6,11 @@ class editGrantLetter {
         return this;
     }
 
+    public clickBack() : this {
+        cy.getByClass("govuk-back-link").click();
+        return this;
+    }
+
     public grantTitleIs(title: string): this {
         cy.getByTestId("title").should("contain.text", title)
         return this;
@@ -18,6 +23,12 @@ class editGrantLetter {
     public addGrantLetter(): this {
         cy.get('.govuk-form-group > .govuk-button').should('include.text', 'Add grant letter')
          .click();
+        return this;
+    }
+
+    public addGrantLetterNotShown(): this {
+        cy.get('.govuk-form-group > .govuk-button')
+         .should("not.exist");
         return this;
     }
 
@@ -67,7 +78,11 @@ class editGrantLetter {
     changeVariationLetter(index: string) {
         cy.getByTestId(`change-variation-letter-${index}`).click();
     }
-    
+
+    changeVariationLetterNotShown(index: string): this {
+        cy.getByTestId(`change-variation-letter-${index}`).should("not.exist");
+        return this;
+    }    
 
     errorForPaymentDueDate(): this {
         this.errorTracking = "trust-letter-date";
