@@ -2,6 +2,7 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.ViewROMViewModel
 
 @{
@@ -27,6 +28,13 @@
             Readiness to open meeting (ROM)
         </h1>
         <govuk-summary-list>
+            <govuk-summary-item label="A ROM is expected to happen" asp-for="@readinessToOpenMeeting.AROMIsExpectedToHappen" href="@editLink" />
+            @{
+                if (readinessToOpenMeeting.AROMIsExpectedToHappen == YesNo.Yes)
+                {
+                    <govuk-summary-item label="Expected date of the meeting" asp-for="@readinessToOpenMeeting.ExpectedDateOfTheMeeting" href="@editLink" />
+                }
+            }
             <govuk-summary-item label="Type of meeting held" asp-for="@typeOfMeetingHeld" href="@editLink"/>
             @{
                 if (readinessToOpenMeeting.TypeOfMeetingHeld == TypeOfMeetingHeld.NoMeetingHeld)

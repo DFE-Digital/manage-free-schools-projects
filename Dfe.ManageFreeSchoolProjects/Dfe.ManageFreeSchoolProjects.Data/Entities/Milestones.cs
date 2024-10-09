@@ -191,5 +191,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaHealthCheck { get; set; }
 
         public bool? FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaSubmission { get; set; }
+
+        public YesNo? AROMIsExpectedToHappen { get; set; }
     }
 }

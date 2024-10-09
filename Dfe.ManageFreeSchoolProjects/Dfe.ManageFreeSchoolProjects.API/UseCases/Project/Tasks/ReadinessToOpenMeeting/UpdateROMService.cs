@@ -20,7 +20,11 @@ public class UpdateROMService(MfspContext context) : IUpdateTaskService
             db = new Data.Entities.Existing.Milestones { Rid = dbKpi.Rid };
             context.Add(db);
         }
-      
+
+        db.AROMIsExpectedToHappen = parameters.Request.ReadinessToOpenMeetingTask.AROMIsExpectedToHappen;
+
+        db.FsgPreOpeningMilestonesRomForecastDate = parameters.Request.ReadinessToOpenMeetingTask.ExpectedDateOfTheMeeting;
+
         db.FsgPreOpeningMilestonesRomActualDateOfCompletion =
             parameters.Request.ReadinessToOpenMeetingTask.DateOfTheMeeting;
 

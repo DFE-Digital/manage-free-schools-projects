@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
@@ -24,7 +25,15 @@ public class EditROMViewModel(
     public string ProjectId { get; set; }
 
     public GetProjectByTaskResponse Project { get; set; }
-    
+
+    [BindProperty(Name = "a-rom-is-expected-to-happen")]
+    public YesNo? AROMIsExpectedToHappen { get; set; }
+
+    [BindProperty(Name = "expected-date-of-the-meeting", BinderType = typeof(DateInputModelBinder))]
+    [DisplayName("Expected date of the meeting")]
+    public DateTime? ExpectedDateOfTheMeeting { get; set; }
+
+
     [BindProperty(Name = "date-of-the-informal-meeting", BinderType = typeof(DateInputModelBinder))]
     [DisplayName("Date of the informal meeting")]
     public DateTime? DateOfInformalTheMeeting { get; set; }
@@ -56,6 +65,10 @@ public class EditROMViewModel(
         Project = await getProjectService.Execute(ProjectId, TaskName.ReadinessToOpenMeeting);
 
         var romTask = Project.ReadinessToOpenMeetingTask;
+
+        AROMIsExpectedToHappen = romTask.AROMIsExpectedToHappen;
+
+        ExpectedDateOfTheMeeting = romTask.ExpectedDateOfTheMeeting;
         
         TypeOfMeetingHeld = romTask.TypeOfMeetingHeld;
 
@@ -121,6 +134,8 @@ public class EditROMViewModel(
         {
             ReadinessToOpenMeetingTask = new ReadinessToOpenMeetingTask
             {
+                AROMIsExpectedToHappen = AROMIsExpectedToHappen,
+                ExpectedDateOfTheMeeting = AROMIsExpectedToHappen == YesNo.Yes ? ExpectedDateOfTheMeeting : null,
                 DateOfTheMeeting = DateOfInformalTheMeeting ?? DateOfFormalTheMeeting,
                 TypeOfMeetingHeld = TypeOfMeetingHeld,
                 WhyMeetingWasNotHeld = WhyMeetingWasNotHeld,

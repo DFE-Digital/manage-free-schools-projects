@@ -35,8 +35,9 @@ describe("Testing Final finance plan Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Final finance plan")
             .inOrder()
-            .summaryShows("Confirmed that the trust has provided the final finance plan").IsEmpty().HasChangeLink()
-            .summaryShows("Date the Grade 6 signed-off the final plan").IsEmpty().HasChangeLink()
+            .summaryShows("Expected date that the Grade 6 will sign-off the final plan").IsEmpty().HasChangeLink()
+            .summaryShows("Confirmed that the trust has provided the final plan").IsEmpty().HasChangeLink()
+            .summaryShows("Actual date the Grade 6 signed-off the final plan").IsEmpty().HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").IsEmpty().HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -62,6 +63,19 @@ describe("Testing Final finance plan Task", () => {
 
         cy.executeAccessibilityTests({ "aria-allowed-attr": { enabled: false } });
         
+        cy.log("Expected date that the Grade 6 will sign-off the final plan Validation")
+
+        finalFinancePlanEditPage
+            .withExpectedDateGrade6WillSignOffFinalPlan("2","ds","2050")
+            .clickContinue()
+            .errorExpectedDateGrade6WillSignOffFinalPlan().showsError("Enter a date in the correct format")
+            .withExpectedDateGrade6WillSignOffFinalPlan("2","2","2090")
+            .clickContinue()
+            .errorExpectedDateGrade6WillSignOffFinalPlan().showsError("Year must be between 2000 and 2050")
+            .withExpectedDateGrade6WillSignOffFinalPlan("2","2","1999")
+            .clickContinue()
+            .errorExpectedDateGrade6WillSignOffFinalPlan().showsError("Year must be between 2000 and 2050")
+
         cy.log("Date the Grade 6 signed-off the final plan Validation")
 
         finalFinancePlanEditPage
@@ -75,9 +89,8 @@ describe("Testing Final finance plan Task", () => {
             .clickContinue()
             .errorGrade6SignedOffFinalPlanDate().showsError("Year must be between 2000 and 2050")
 
-        cy.log("Date the Grade 6 signed-off the final plan Validation")
-
         finalFinancePlanEditPage
+            .withExpectedDateGrade6WillSignOffFinalPlan("2","2","2050")
             .checkConfirmedTrustHasProvidedFinalPlan()
             .withGrade6SignedOffFinalPlanDate("2","2","2050")
             .checkSentFinalPlanToRevenueFundingMailbox()
@@ -88,8 +101,9 @@ describe("Testing Final finance plan Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Final finance plan")
             .inOrder()
-            .summaryShows("Confirmed that the trust has provided the final finance plan").HasValue("Yes").HasChangeLink()
-            .summaryShows("Date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Expected date that the Grade 6 will sign-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Confirmed that the trust has provided the final plan").HasValue("Yes").HasChangeLink()
+            .summaryShows("Actual date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").HasValue("Yes").HasChangeLink()
 
@@ -107,8 +121,9 @@ describe("Testing Final finance plan Task", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Final finance plan")
             .inOrder()
-            .summaryShows("Confirmed that the trust has provided the final finance plan").IsEmpty().HasChangeLink()
-            .summaryShows("Date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Expected date that the Grade 6 will sign-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Confirmed that the trust has provided the final plan").IsEmpty().HasChangeLink()
+            .summaryShows("ctual date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").IsEmpty().HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()

@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 };
             }
 
-            if (data.ApplicationWave == "FS - Presumption" && !PresumptionOnly.Contains(status.Value))
+            if (data != null && data.ApplicationWave == "FS - Presumption" && !PresumptionOnly.Contains(status.Value))
             {
                 return new ValidationResult
                 {

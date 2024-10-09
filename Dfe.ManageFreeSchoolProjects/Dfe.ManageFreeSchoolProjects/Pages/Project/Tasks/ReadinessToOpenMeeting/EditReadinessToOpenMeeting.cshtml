@@ -1,5 +1,6 @@
 @page "/projects/{projectId}/tasks/readiness-to-open-meeting/edit"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
 @using Dfe.ManageFreeSchoolProjects.Constants
 @using Dfe.ManageFreeSchoolProjects.TagHelpers
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.ReadinessToOpenMeeting.EditROMViewModel
@@ -22,10 +23,22 @@
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.SchoolName</span>
             Edit Readiness to open meeting (ROM)
         </h1>
-        <h3 class="govuk-heading-m">
-            Type of meeting held
-        </h3>
         <form method="post">
+            <h3 class="govuk-heading-m">
+                A ROM is expected to happen
+            </h3>
+            <div class="govuk-form-group" id="is-rom-expected">
+                <govuk-radios-list>
+                    <govuk-radios-list-conditional-item id="a-rom-is-expected-to-happen-yes" name="a-rom-is-expected-to-happen" value="@YesNo.Yes" description="Yes" asp-for="@Model.AROMIsExpectedToHappen">
+                        <govuk-date-input id="expected-date-of-the-meeting" name="expected-date-of-the-meeting" asp-for="@Model.ExpectedDateOfTheMeeting" label="Expected date of the meeting" hint="For example, 27 3 2021" />
+                    </govuk-radios-list-conditional-item>
+
+                    <govuk-radios-list-conditional-item id="a-rom-is-expected-to-happen-no" name="a-rom-is-expected-to-happen" value="@YesNo.No" description="No" asp-for="@Model.AROMIsExpectedToHappen" />
+                </govuk-radios-list>
+            </div>
+            <h3 class="govuk-heading-m">
+                Type of meeting held
+            </h3>
             <div class="govuk-form-group" id="type-of-meeting-held">
                 <govuk-radios-list>
                     <govuk-radios-list-conditional-item id="formal-meeting-option" name="type-of-meeting-held" value="@TypeOfMeetingHeld.FormalMeeting" description="Formal meeting" asp-for="@Model.TypeOfMeetingHeld">
