@@ -6,6 +6,7 @@
 * 178419 - Build: Ofsted pre-registration, actual date
 * 181757 - Build: finance plan agreed forecast date
 * 181754 - Build: readiness to open meeting (ROM) forecast date
+* 183590 - BUG: Start End Year component still refers to "start date" in error message
 
 ## 0.13.0
 * 147110 - Build: Readiness to open meeting (ROM)
