@@ -10,8 +10,6 @@
 
 
     var widePage = ViewData["WidePage"] != null ? "mfsp-wider-page" : string.Empty;
-
-    var supportLink = $"mailto:{_configuration["SupportEmail"]}?subject=Manage%20free%20school%20projects:%20support%20query";
 }
 
 <!DOCTYPE html>
@@ -108,9 +106,7 @@
                 <h2 class="govuk-footer__heading govuk-heading-m">Get help</h2>
                 <ul class="govuk-footer__list govuk-footer__list--column-1">
                     <li class="govuk-footer__list-item">
-                        <a class="govuk-footer__link" href="@supportLink">
-                            Email Service Support for help with using this system
-                        </a>
+                        <a class="govuk-footer__link" href="@_configuration["SupportLink"]" target="_blank">Get help with a Regions Group system (opens in a new tab)</a>
                     </li>
                 </ul>
             </div>
@@ -118,10 +114,10 @@
                 <h2 class="govuk-footer__heading govuk-heading-m">Give feedback</h2>
                 <ul class="govuk-footer__list">
                     <li class="govuk-footer__list-item">
-                        <a class="govuk-footer__link" href="@_configuration["FeedbackLink"]" target="_blank">Give feedback (opens in a new tab)</a>
+                        <a class="govuk-footer__link" href="@_configuration["FeedbackLink"]" target="_blank">Give feedback about a Regions Group system (opens in a new tab)</a>
                     </li>
                     <li class="govuk-footer__list-item">
-                        <a class="govuk-footer__link" href="@_configuration["SuggestionsLink"]" target="_blank">Suggest a change (opens in a new tab)</a>
+                        <a class="govuk-footer__link" href="@_configuration["SuggestionsLink"]" target="_blank">Suggest a change to a Regions Group system (opens in a new tab)</a>
                     </li>
                 </ul>
             </div>
