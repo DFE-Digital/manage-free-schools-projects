@@ -24,8 +24,10 @@
             Final finance plan
         </h1>
         <govuk-summary-list>
-            <govuk-summary-item label="Confirmed that the trust has provided the final finance plan" asp-for="@finalFinancePlan.ConfirmedTrustHasProvidedFinalPlan" href="@editlink" />
-            <govuk-summary-item label="Date the Grade 6 signed-off the final plan" asp-for="@finalFinancePlan.Grade6SignedOffFinalPlanDate" href="@editlink" />
+
+            <govuk-summary-item label="Expected date that the Grade 6 will sign-off the final plan" asp-for="@finalFinancePlan.ExpectedDateGrade6WillSignOffTheFinalPlan" href="@editlink" />
+            <govuk-summary-item label="Confirmed that the trust has provided the final plan" asp-for="@finalFinancePlan.ConfirmedTrustHasProvidedFinalPlan" href="@editlink" />
+            <govuk-summary-item label="Actual date the Grade 6 signed-off the final plan" asp-for="@finalFinancePlan.Grade6SignedOffFinalPlanDate" href="@editlink" />
             <govuk-summary-item label="Sent the final plan to the Revenue Funding mailbox" asp-for="@finalFinancePlan.SentFinalPlanToRevenueFundingMailbox" href="@editlink" />
             <govuk-summary-item label="Saved final plan in Workplaces folder" asp-for="@finalFinancePlan.SavedFinalPlanInWorkplacesFolder" href="@editlink" />
 

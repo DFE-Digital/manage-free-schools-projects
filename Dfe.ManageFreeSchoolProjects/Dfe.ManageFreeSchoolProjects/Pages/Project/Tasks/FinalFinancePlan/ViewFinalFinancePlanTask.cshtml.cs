@@ -9,21 +9,16 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
 {
-    public class ViewFinalFinancePlanTaskModel : ViewTaskBaseModel
+    public class ViewFinalFinancePlanTaskModel(
+        IGetProjectByTaskService getProjectService,
+        ILogger<ViewFinalFinancePlanTaskModel> logger,
+        IGetTaskStatusService getTaskStatusService,
+        IUpdateTaskStatusService updateTaskStatusService)
+        : ViewTaskBaseModel(getProjectService, getTaskStatusService, updateTaskStatusService)
     {
-        private readonly ILogger<ViewFinalFinancePlanTaskModel> _logger;
-
-        public ViewFinalFinancePlanTaskModel(
-            IGetProjectByTaskService getProjectService,
-            ILogger<ViewFinalFinancePlanTaskModel> logger,
-            IGetTaskStatusService getTaskStatusService, IUpdateTaskStatusService updateTaskStatusService) : base(getProjectService, getTaskStatusService, updateTaskStatusService)
-        {
-            _logger = logger;
-        }
-
         public async Task<ActionResult> OnGet()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             await GetTask(TaskName.FinalFinancePlan);
 
@@ -32,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
 
         public async Task<ActionResult> OnPost()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             await PostTask(TaskName.FinalFinancePlan);
 
