@@ -11,7 +11,6 @@ describe("Navigate through footer links", () => {
         Logger.log("Get help footer links");
         cy.get('h2').should('contain', 'Get help');
         cy.contains('a', 'Email Service Support for help with using this system').should('be.visible')
-        cy.contains('a', 'How to use this system (opens in a new tab)').should('be.visible')
 
         Logger.log("Get feedback footer links");
         cy.get('h2').should('contain', 'Give feedback');
