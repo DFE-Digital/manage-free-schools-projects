@@ -40,12 +40,24 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central
         {
             _logger.LogMethodEntered();
 
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             await LoadProject();
             return Page();
         }
 
         public async Task<ActionResult> OnPost()
         {
+            _logger.LogMethodEntered();
+
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             try
             {
                 await _deleteProjectPaymentsService.Execute(ProjectId, PaymentIndex);

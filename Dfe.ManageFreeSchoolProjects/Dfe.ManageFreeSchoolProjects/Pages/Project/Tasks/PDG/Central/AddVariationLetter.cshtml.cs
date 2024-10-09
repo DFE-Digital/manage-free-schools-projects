@@ -34,6 +34,12 @@ public class AddVariationLetter(
     public async Task<ActionResult> OnGet()
     {
         logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+
         await LoadSchoolName();
 
         return Page();
@@ -42,6 +48,11 @@ public class AddVariationLetter(
     public async Task<IActionResult> OnPost()
     {
         logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
 
         try
         {

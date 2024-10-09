@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Constants;
+using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.Models;
 using Dfe.ManageFreeSchoolProjects.Services;
 using Dfe.ManageFreeSchoolProjects.Services.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central;
 
 public class EditPDGVariationLetter(
     IGrantLettersService grantLettersService, 
     IGetProjectByTaskService getProjectService,
+    ILogger<EditPDGVariationLetter> logger,
     ErrorService errorService) : PageModel
 {
     [BindProperty(SupportsGet = true)] 
@@ -38,6 +41,13 @@ public class EditPDGVariationLetter(
 
     public async Task<IActionResult> OnGet()
     {
+        logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+
         var grantLetters = await grantLettersService.Get(ProjectId);
 
         var parsedVariation = ParseVariation(Variation);
@@ -53,6 +63,13 @@ public class EditPDGVariationLetter(
 
     public async Task<IActionResult> OnPost()
     {
+        logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
+        
         try
         {
             if (!ModelState.IsValid)

@@ -3,6 +3,7 @@
 * 178172 - Build: Iterate funding agreement health check and submission
 * 179446 - Build: Bulk edit projects
 * 182793 - Build: Set values for calculated database fields
+* 178509 - Build: Iteration of PDG task for users who must not be able edit
 * 178419 - Build: Ofsted pre-registration, actual date
 * 181757 - Build: finance plan agreed forecast date
 * 181754 - Build: readiness to open meeting (ROM) forecast date

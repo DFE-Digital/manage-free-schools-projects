@@ -48,6 +48,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
         {
             _logger.LogMethodEntered();
 
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             await LoadProject();
             return Page();
         }
@@ -63,6 +68,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Presumption
 
         public async Task<ActionResult> OnPost()
         {
+            _logger.LogMethodEntered();
+
+            if (!User.IsInRole(RolesConstants.GrantManagers))
+            {
+                return new UnauthorizedResult();
+            }
+
             var project = await _getProjectService.Execute(ProjectId, TaskName.StopPayment);
             CurrentFreeSchoolName = project.SchoolName;
 

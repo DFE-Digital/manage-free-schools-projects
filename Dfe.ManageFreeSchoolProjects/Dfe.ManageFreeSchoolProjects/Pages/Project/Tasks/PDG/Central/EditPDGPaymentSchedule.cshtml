@@ -4,11 +4,13 @@
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
 @model EditPDGPaymentScheduleModel
 @{
-    ViewData["Title"] = $"Edit Payment schedule  - {Model.CurrentFreeSchoolName}";
+    var userAuthorisedToChange = User.IsInRole(RolesConstants.GrantManagers);
+    var pageTitle = userAuthorisedToChange ? "Edit Payment schedule" : "Payment schedule";
+    ViewData["Title"] = $"{pageTitle}  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var paymentCount = Model.ProjectPayments.Payments.Count();
     var nextPaymentNumber = paymentCount + 1;
-    var editPaymentLink = RouteConstants.EditPDGPaymentCentral;
+    var editPaymentLink = userAuthorisedToChange ? RouteConstants.EditPDGPaymentCentral : "";
 }
 
 @section BeforeMain {
@@ -23,7 +25,7 @@
     <span class="govuk-caption-l" data-testid="school-name">
         @Model.CurrentFreeSchoolName
     </span>
-    Edit Payment schedule
+    @pageTitle
 </h1>
 
 @if ((bool)(TempData["paymentUpdated"] ?? false))
@@ -85,19 +87,22 @@
                 </govuk-summary-list>
             </govuk-summary-card>
         }
-        
-        <form class="govuk-form-group" method="post">
-            @if (paymentCount < 12)
-            {
-                <p>You can add up to 12 scheduled payments.</p>
-                <button class="govuk-button" data-testid="add-payment" >
-                    Add payment @nextPaymentNumber
-                </button>
-            }
-            else
-            {
-                <p>You have added 12 payments and can't add anymore.</p>
-            }
-        </form>
+        @if (userAuthorisedToChange)
+        {
+            <form class="govuk-form-group" method="post">
+                @if (paymentCount < 12)
+                {
+                    <p>You can add up to 12 scheduled payments.</p>
+                    <button class="govuk-button" data-testid="add-payment" >
+                        Add payment @nextPaymentNumber
+                    </button>
+                }
+                else
+                {
+                    <p>You have added 12 payments and can't add anymore.</p>
+                }
+
+            </form>
+        }
     </div>
 </div>

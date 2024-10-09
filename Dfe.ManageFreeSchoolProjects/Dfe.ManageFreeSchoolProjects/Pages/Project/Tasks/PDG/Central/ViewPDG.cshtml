@@ -9,19 +9,12 @@
 @{
     ViewData["Title"] = $"Project development grant (PDG) - {Model.Project.SchoolName}";
 
-    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var editTotalGrantLink = string.Format(RouteConstants.EditPDGTotalGrant, Model.ProjectId);
-    var editPaymentScheduleLink = string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId);
-    var editTrustLetterLink = string.Format(RouteConstants.EditPDGTrustLetterCentral, Model.ProjectId);
-    var editStopPaymentLink = string.Format(RouteConstants.EditStopPaymentCentral, Model.ProjectId);
-    var editRefundsLink = string.Format(RouteConstants.EditRefundsCentral, Model.ProjectId);
-    var editWriteOffLink = string.Format(RouteConstants.EditWriteOffCentral, Model.ProjectId);
-    var editGrantLetters = string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId);
+    var userAuthorisedToChange = User.IsInRole(RolesConstants.GrantManagers);
 
-    var pdgTask = Model.Project.PDGDashboard;
-
-    var totalGrantAmount = pdgTask.RevisedGrant ?? pdgTask.InitialGrant;
-    var amountDue = totalGrantAmount - pdgTask.PaymentActualAmount;
+    string BuildLink(string url)
+    {
+        return userAuthorisedToChange ? string.Format(url, Model.ProjectId) : "";
+    }
 
     var numberOfScheduledPayments = Model.PDGPaymentInfo.numberOfScheduledPayments;
     var numberOfSentPayments = Model.PDGPaymentInfo.numberOfSentPayments;
@@ -29,9 +22,24 @@
     var nextPaymentAmount = Model.PDGPaymentInfo.nextPaymentAmount;
     var amountSent = Model.PDGPaymentInfo.amountSent;
 
+    var backlink = string.Format(RouteConstants.TaskList, Model.ProjectId);
+    var editTotalGrantLink = BuildLink(RouteConstants.EditPDGTotalGrant);
+    var editProtectedLinkLabel = userAuthorisedToChange ? "Change" : "View Details";
+
+    var editPaymentScheduleLink = userAuthorisedToChange || numberOfScheduledPayments > 0 ? string.Format(RouteConstants.EditPDGPaymentScheduleCentral, Model.ProjectId) : "";
+    var editStopPaymentLink = BuildLink(RouteConstants.EditStopPaymentCentral);
+    var editRefundsLink = BuildLink(RouteConstants.EditRefundsCentral);
+    var editWriteOffLink = BuildLink(RouteConstants.EditWriteOffCentral);
+
+    var pdgTask = Model.Project.PDGDashboard;
+
+    var totalGrantAmount = pdgTask.RevisedGrant ?? pdgTask.InitialGrant;
+    var amountDue = totalGrantAmount - pdgTask.PaymentActualAmount;
+
     var grantLetters = Model.PdgGrantLetters;
     var anyGrantLetterInfoAdded = grantLetters.InitialGrantLetterDate != null || grantLetters.FinalGrantLetterDate != null; 
     var firstVariationGrantLetter = grantLetters.VariationLetters?.SingleOrDefault(x => x.Variation is GrantVariationLetter.LetterVariation.FirstVariation);
+    var editGrantLetters = userAuthorisedToChange || anyGrantLetterInfoAdded ? string.Format(RouteConstants.EditPDGGrantLetters, Model.ProjectId) : "";
 
     var initialGrantLetterSavedToWorkplaces = grantLetters.InitialGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
     var finalGrantLetterSavedToWorkplaces = grantLetters.FinalGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
@@ -65,7 +73,7 @@
             </govuk-summary-list>
         </govuk-summary-card>
 
-        <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink">
+        <govuk-summary-card id="payment-schedule" label="Payment schedule" href="@editPaymentScheduleLink" link-label="@editProtectedLinkLabel">
             <govuk-summary-list>
                 <govuk-summary-item label="Number of scheduled payments" asp-for="@numberOfScheduledPayments"/>
 
@@ -78,7 +86,7 @@
                 }
             </govuk-summary-list>
         </govuk-summary-card>
-        <govuk-summary-card id="grant-letters" label="Grant letters" href="@editGrantLetters">
+        <govuk-summary-card id="grant-letters" label="Grant letters" href="@editGrantLetters" link-label="@editProtectedLinkLabel">
             <govuk-summary-list>
                 @{
                     if (anyGrantLetterInfoAdded)
@@ -127,15 +135,17 @@
                 }
             </govuk-summary-list>
         </govuk-summary-card>
-
-        <form method="post">
-            <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
+        @if (userAuthorisedToChange)
+        {
+            <form method="post">
+                <govuk-checkbox-input label="Mark this section as complete, you can still make changes later"
                                   asp-for="MarkAsCompleted"
                                   name="mark-as-completed"
                                   id="mark-as-completed"/>
-            <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
-                Confirm and continue
-            </button>
-        </form>
+                <button class="govuk-button" data-module="govuk-button" data-testid="confirm">
+                    Confirm and continue
+                </button>
+            </form>
+        }
     </div>
 </div>
