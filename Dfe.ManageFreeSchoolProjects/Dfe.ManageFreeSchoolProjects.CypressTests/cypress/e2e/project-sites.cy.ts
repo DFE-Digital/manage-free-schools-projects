@@ -24,7 +24,7 @@ describe("Testing the setting up of project sites - presumption route", () => {
             });
     });
 
-    it.only("Should be able to configure the project sites", () => {
+    it("Should be able to configure the project sites", () => {
         Logger.log("When there are no project sites should display empty");
         projectOverviewPage
             .hasTemporarySiteAddress("Empty", "", "")
@@ -181,6 +181,7 @@ describe("Testing the setting up of project sites - central route", () => {
 
         viewSiteInformationPage
             .hasSchoolName(project.schoolName)
+            .checkInsetTextExists()
             .hasTemporarySiteAddress("Empty", "", "")
             .hasTemporarySitePostcode("Empty")
             .hasTemporarySiteDatePlanningPermissionObtained("Empty")
