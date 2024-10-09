@@ -81,7 +81,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.OfstedPreRegistration
             var project = await getProjectService.Execute(ProjectId, TaskName.OfstedInspection);
             
             SharedOutcomeWithTrust = project.OfstedInspection.SharedOutcomeWithTrust;
-                InspectionConditionsMet = project.OfstedInspection.InspectionConditionsMet;
+            InspectionConditionsMet = project.OfstedInspection.InspectionConditionsMet;
             ProposedToOpenOnGias = project.OfstedInspection.ProposedToOpenOnGias;
             SavedToWorkplaces = project.OfstedInspection.SavedToWorkplaces;
             DateInspectionsAndAnyActionsCompleted = project.OfstedInspection.DateInspectionsAndAnyActionsCompleted;
