@@ -54,7 +54,7 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             var result = validator.Validate(table);
 
             result.IsValid.Should().BeFalse();
-            result.ErrorMessage.Should().Be("File has a invalid column header: LocalPlace");
+            result.ErrorMessage.Should().Be("File has an invalid column header: LocalPlace");
         }
     }
 }
