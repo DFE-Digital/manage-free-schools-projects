@@ -1,8 +1,18 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 {
-    public interface IValidationCommand<in TDto> where TDto : IBulkEditDto
+    public interface IValidationCommand<TDto> where TDto : IBulkEditDto
     {
-        ValidationResult Execute(TDto data, string value);
+        ValidationResult Execute(ValidationCommandParameters<TDto> parameters);
+    }
+
+    public record ValidationCommandParameters<TDto>() where TDto : IBulkEditDto
+    {
+        public string Value { get; set; }
+        public BulkEditRequest Request { get; set; }
+        public int CurrentRowIndex { get; set; }
+        public TDto Data { get; set; }
     }
 
     public record ValidationResult()

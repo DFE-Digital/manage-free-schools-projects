@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
 {
-    internal record TestDto: IBulkEditDto
+    internal record TestDto : IBulkEditDto
     {
         public string ProjectId { get; set; }
         public string TestData { get; set; }
@@ -79,11 +79,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         {
             return new()
             {
-                new() { Name = ProjectId, Type = new TestProjectIdValidation(), DataInteraction = new TestInteraction(x => x.ProjectId, (x, t) => t.ProjectId = x) },
-                new() { Name = HeaderOneName, Type = new TestValidation(), DataInteraction = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
-                new() { Name = HeaderTwoName, Type = new TestValidation(), DataInteraction = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
-                new() { Name = HeaderData, Type = new DataDependencyValidation(), DataInteraction = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
-                new() { Name = FormattedName, Type = new TestValidation(), DataInteraction = new TestFormattedInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = ProjectId, Validation = new TestProjectIdValidation(), DataInteraction = new TestInteraction(x => x.ProjectId, (x, t) => t.ProjectId = x) },
+                new() { Name = HeaderOneName, Validation = new TestValidation(), DataInteraction = new TestInteraction(x => x.TestData, (x, t) => t.TestData = x) },
+                new() { Name = HeaderTwoName, Validation = new TestValidation(), DataInteraction = new TestInteraction(x => x.OtherTestData, (x, t) => t.OtherTestData = x) },
+                new() { Name = HeaderData, Validation = new DataDependencyValidation(), DataInteraction = new TestInteraction(x => x.DependantTestData, (x, t) => t.DependantTestData = x) },
+                new() { Name = FormattedName, Validation = new TestValidation(), DataInteraction = new TestFormattedInteraction(x => x.TestData, (x, t) => t.TestData = x) },
             };
         }
     }
@@ -93,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         internal const string ValidationMessage = "TriggeredValidation";
         internal const string ValidInput = "Valid";
 
-        public ValidationResult Execute(TestDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<TestDto> parameters)
         {
             return new ValidationResult()
             {
@@ -107,12 +107,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
         internal const string ValidationMessage = "TriggeredValidation";
         internal const string ValidInput = "Valid";
 
-        public ValidationResult Execute(TestDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<TestDto> parameters)
         {
             return new ValidationResult()
             {
-                IsValid = value == ValidInput,
-                ErrorMessage = value == ValidInput ? null : ValidationMessage
+                IsValid = parameters.Value == ValidInput,
+                ErrorMessage = parameters.Value == ValidInput ? null : ValidationMessage
             };
         }
     }
@@ -122,12 +122,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit
     {
         internal const string DataValidationMessage = "Triggered data validation";
 
-        public ValidationResult Execute(TestDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<TestDto> parameters)
         {
             return new ValidationResult()
             {
-                IsValid = data.DataForValidation == value,
-                ErrorMessage = data.DataForValidation == value ? null : DataValidationMessage
+                IsValid = parameters.Data.DataForValidation == parameters.Value,
+                ErrorMessage = parameters.Data.DataForValidation == parameters.Value ? null : DataValidationMessage
             };
         }
     }

@@ -20,6 +20,14 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
     {
         public FileValidationResult Validate(DataTable table)
         {
+            if(table.Columns.Count == 0)
+            {
+                return new FileValidationResult
+                {
+                    IsValid = false,
+                    ErrorMessage = "The selected file must have project data in it"
+                };
+            }
 
             foreach (DataColumn column in table.Columns)
             {
@@ -38,6 +46,15 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
                     {
                         IsValid = false,
                         ErrorMessage = $"File has an invalid column header: {column.ColumnName}"
+                    };
+                }
+
+                if (table.Rows.Count == 0)
+                {
+                    return new FileValidationResult
+                    {
+                        IsValid = false,
+                        ErrorMessage = "The selected file must have project data in it"
                     };
                 }
             }
