@@ -4,9 +4,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public class LACodeValidationCommand(ILocalAuthorityCache localAuthorityCache) : IValidationCommand<BulkEditDto>
     {
-        public ValidationResult Execute(BulkEditDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
-            if(value.Length < 3)
+            if(parameters.Value.Length < 3)
             {
                 return new ValidationResult
                 {
@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 };
             }
 
-            var isValid = localAuthorityCache.GetLocalAuthorities().Exists(x => x.LACode == value);
+            var isValid = localAuthorityCache.GetLocalAuthorities().Exists(x => x.LACode == parameters.Value);
             
             return new ValidationResult
             {

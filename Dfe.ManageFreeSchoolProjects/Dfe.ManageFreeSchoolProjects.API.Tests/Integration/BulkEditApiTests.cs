@@ -49,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         FileRowIndex = 1,
                         Columns = new List<ColumnInfo>
                         {
-                            new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate},
                         }
                     }
@@ -71,8 +71,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 new()
                 {
                     ColumnIndex = 0,
-                    CurrentValue = projectId.ToString(),
-                    NewValue = projectId.ToString()
+                    CurrentValue = projectId,
+                    NewValue = projectId
                 }
                 ,
                 new()
@@ -111,7 +111,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         FileRowIndex = 1,
                         Columns = new List<ColumnInfo>
                         {
-                            new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate.ToString("dd/MM/yyyy")},
                         }
                     }
@@ -171,7 +171,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         FileRowIndex = 2,
                         Columns = new List<ColumnInfo>
                         {
-                            new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
                             new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
                         }
                     }
@@ -212,8 +212,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 new()
                 {
                     ColumnIndex = 0,
-                    CurrentValue = projectId.ToString(),
-                    NewValue = projectId.ToString(),
+                    CurrentValue = projectId,
+                    NewValue = projectId,
                 },
                 new()
                 {
@@ -223,6 +223,130 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                 }
             });
         }
+
+
+
+        [Fact]
+        public async Task ProjectIDDuplicatedTest()
+        {
+            var project = DatabaseModelBuilder.BuildProject();
+            var correctProject = DatabaseModelBuilder.BuildProject();
+
+            var projectId = project.ProjectStatusProjectId;
+            var ExistingOpeningDate = project.ProjectStatusActualOpeningDate;
+            var NewOpeningDate = "01/01/2021";
+
+            var correctProjectId = correctProject.ProjectStatusProjectId;
+
+            using var context = _testFixture.GetContext();
+            context.Kpi.Add(project);
+            context.Kpi.Add(correctProject);
+            await context.SaveChangesAsync();
+
+            var bulkValidateRequest = new BulkEditRequest
+            {
+                Headers = new List<HeaderInfo>
+                {
+                    new HeaderInfo { Name = HeaderNames.ProjectId, Index = 0 },
+                    new HeaderInfo { Name = HeaderNames.OpeningDate, Index = 2 },
+                },
+                Rows = new List<RowInfo>
+                {
+                    new RowInfo
+                    {
+                        FileRowIndex = 1,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
+                        }
+                    },
+                    new RowInfo
+                    {
+                        FileRowIndex = 2,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = correctProjectId },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
+                        }
+                    },
+                    new RowInfo
+                    {
+                        FileRowIndex = 3,
+                        Columns = new List<ColumnInfo>
+                        {
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
+                            new ColumnInfo { ColumnIndex = 2, Value = NewOpeningDate },
+                        }
+                    }
+                }
+            };
+
+            var response = await _testFixture.Client.PostAsync($"api/v1/bulkedit/validate", bulkValidateRequest.ConvertToJson());
+
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<ApiSingleResponseV2<BulkEditValidateResponse>>();
+
+            result.Data.Headers.Should().BeEquivalentTo(bulkValidateRequest.Headers);
+
+            var resultRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 1);
+
+            resultRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId,
+                    NewValue = projectId,
+                    Error = "The project ID must be unique"
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue = ExistingOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    NewValue = NewOpeningDate
+                }
+            });
+
+            var resultValidRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 2);
+
+            resultValidRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = correctProjectId,
+                    NewValue = correctProjectId,
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue =  correctProject.ProjectStatusActualOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    NewValue = NewOpeningDate
+                }
+            });
+
+            var resultDuplicatedRow = result.Data.ValidationResultRows.FirstOrDefault(x => x.FileRowIndex == 3);
+
+            resultDuplicatedRow.Columns.Should().BeEquivalentTo(new List<ValueChangeInfo>
+            {
+                new()
+                {
+                    ColumnIndex = 0,
+                    CurrentValue = projectId,
+                    NewValue = projectId,
+                    Error = "The project ID must be unique"
+                },
+                new()
+                {
+                    ColumnIndex = 2,
+                    CurrentValue = ExistingOpeningDate.Value.ToString("dd/MM/yyyy"),
+                    NewValue = NewOpeningDate
+                }
+            });
+        }
+
 
 
         [Fact]
@@ -440,7 +564,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
                         FileRowIndex = 1,
                         Columns = new List<ColumnInfo>
                         {
-                            new ColumnInfo { ColumnIndex = 0, Value = projectId.ToString() },
+                            new ColumnInfo { ColumnIndex = 0, Value = projectId },
                             new ColumnInfo { ColumnIndex = 1, Value = string.Empty },
                         }
                     }

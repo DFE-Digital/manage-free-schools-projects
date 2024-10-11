@@ -29,9 +29,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
             });
 
             var command = new LACodeValidationCommand(localAuthorityCache);
-            
+
             // Act
-            var result = command.Execute(null, "123");
+            var result = command.Execute(new() { Data = null, Value = "123"});
 
             // Assert
             result.IsValid.Should().BeTrue();
@@ -53,7 +53,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
             var command = new LACodeValidationCommand(localAuthorityCache);
             
             // Act
-            var result = command.Execute(null, "456");
+            var result = command.Execute(new() { Data = null, Value = "456" });
 
             // Assert
             result.IsValid.Should().BeFalse();
@@ -77,7 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
             var command = new LACodeValidationCommand(localAuthorityCache);
 
             // Act
-            var result = command.Execute(null, "12");
+            var result = command.Execute(new() { Data = null, Value = "12" });
 
             // Assert
             result.IsValid.Should().BeFalse();

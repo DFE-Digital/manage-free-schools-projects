@@ -4,10 +4,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public class DateValidationCommand() : IValidationCommand<BulkEditDto>
     {
-        public ValidationResult Execute(BulkEditDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
             var culture = CultureInfo.CreateSpecificCulture("en-GB");
-            var IsValid = DateTime.TryParse(value, culture, out var date);
+            var IsValid = DateTime.TryParse(parameters.Value, culture, out var date);
 
             if (!IsValid)
             {

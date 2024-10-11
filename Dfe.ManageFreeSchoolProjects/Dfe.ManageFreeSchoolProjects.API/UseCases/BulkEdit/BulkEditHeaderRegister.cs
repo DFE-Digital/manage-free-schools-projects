@@ -14,10 +14,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
         {
             return new List<HeaderType<BulkEditDto>>
             {
-                new() { Name = HeaderNames.ProjectId, Type = new ProjectIdValidationCommand(), DataInteraction = new ProjectIdInteraction() },
-                new() { Name = HeaderNames.OpeningDate, Type = new DateValidationCommand(), DataInteraction = new OpeningDateInteraction() },
-                new() { Name = HeaderNames.ProjectStatus, Type = new ProjectStatusValidationCommand(), DataInteraction = new ProjectStatusInteraction() },
-                new() { Name = HeaderNames.LocalAuthority, Type = new LACodeValidationCommand(localAuthorityCache), DataInteraction = new LACodeInteraction(localAuthorityCache) },
+                new() { Name = HeaderNames.ProjectId, Validation = new ProjectIdValidationCommand(), DataInteraction = new ProjectIdInteraction() },
+                new() { Name = HeaderNames.OpeningDate, Validation = new DateValidationCommand(), DataInteraction = new OpeningDateInteraction() },
+                new() { Name = HeaderNames.ProjectStatus, Validation = new ProjectStatusValidationCommand(), DataInteraction = new ProjectStatusInteraction() },
+                new() { Name = HeaderNames.LocalAuthority, Validation = new LACodeValidationCommand(localAuthorityCache), DataInteraction = new LACodeInteraction(localAuthorityCache) },
 
             };
         }

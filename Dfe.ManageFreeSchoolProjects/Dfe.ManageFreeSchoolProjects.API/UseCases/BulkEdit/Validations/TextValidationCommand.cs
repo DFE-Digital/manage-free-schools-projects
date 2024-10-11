@@ -2,12 +2,12 @@
 {
     public class TextValidationCommand(int maxLength) : IValidationCommand<BulkEditDto>
     {
-        public ValidationResult Execute(BulkEditDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
             return new ValidationResult
             {
-                IsValid = value.Length <= maxLength,
-                ErrorMessage = value.Length <= maxLength ? null : $"Value exceeds maximum length of {maxLength}."
+                IsValid = parameters.Value.Length <= maxLength,
+                ErrorMessage = parameters.Value.Length <= maxLength ? null : $"Value exceeds maximum length of {maxLength}."
             };
         }
     }
