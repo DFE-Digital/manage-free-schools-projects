@@ -1,5 +1,6 @@
-import { CreatePDGGrantLettersRequest, CreatePDGPaymentScheduleRequest, ProjectDetailsRequest } from "cypress/api/domain";
+import { CreatePDGGrantLettersRequest, CreatePDGGrantVariationLetterRequest, CreatePDGPaymentScheduleRequest, ProjectDetailsRequest } from "cypress/api/domain";
 import grantLettersApi from "cypress/api/grantLettersApi";
+import grantVariationLetterApi from "cypress/api/grantVariationLetterApi";
 import paymentScheduleApi from "cypress/api/paymentScheduleApi";
 import projectApi from "cypress/api/projectApi";
 import { RequestBuilder } from "cypress/api/requestBuilder";
@@ -31,7 +32,7 @@ describe("View PDG dashboard", () => {
         it("Should hide all links", () => {
 
             cy.log("Select Project development grant (PDG)");
-            taskListPage.isTaskStatusIsNotStarted("PDG")
+            taskListPage.isTaskStatusHidden("PDG")
                 .selectPDGFromTaskList();
 
             cy.log("Confirm empty dashboard");
@@ -51,7 +52,7 @@ describe("View PDG dashboard", () => {
 
             summaryPage.clickBack();
 
-            taskListPage.isTaskStatusIsNotStarted("PDG")
+            taskListPage.isTaskStatusHidden("PDG")
 
             cy.executeAccessibilityTests();
 
@@ -83,6 +84,15 @@ describe("View PDG dashboard", () => {
                 finalGrantLetterSavedToWorkplaces : true
             }
 
+            const grantVariationLetter : CreatePDGGrantVariationLetterRequest =
+            {
+                variation: 1,
+                letterDate: "2024-01-01T00:00:00.000Z",
+                savedToWorkplacesFolder: true
+            }
+
+
+
             projectApi
                 .post({
                     projects: [project],
@@ -95,6 +105,9 @@ describe("View PDG dashboard", () => {
                     grantLettersApi.put(project.projectId, grantLetter)
                 })
                 .then(() => {
+                    grantVariationLetterApi.put(project.projectId, grantVariationLetter)
+                })
+                .then(() => {
                     cy.visit(`/projects/${project.projectId}/tasks/`);
                 });
         });
@@ -102,7 +115,7 @@ describe("View PDG dashboard", () => {
         it("Should hide most links but allow Payment schedule and Grant letters to be viewed read-only", () => {
 
             cy.log("Select Project development grant (PDG)");
-            taskListPage.isTaskStatusIsNotStarted("PDG")
+            taskListPage.isTaskStatusHidden("PDG")
                 .selectPDGFromTaskList();
 
             cy.log("Confirm empty dashboard");
@@ -144,14 +157,13 @@ describe("View PDG dashboard", () => {
                 .grantTitleIs("Grant letters")
                 .schoolNameIs(project.schoolName)
                 .addGrantLetterNotShown()
+                .changeGrantLetterNotShown()
                 .changeVariationLetterNotShown("1")
-                .changeVariationLetterNotShown("2")
-                .changeVariationLetterNotShown("3")
                 .clickBack()
                 
             summaryPage.clickBack();
 
-            taskListPage.isTaskStatusIsNotStarted("PDG")
+            taskListPage.isTaskStatusHidden("PDG")
 
             cy.executeAccessibilityTests();
 

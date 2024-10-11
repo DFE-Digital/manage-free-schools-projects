@@ -212,6 +212,11 @@ class TaskListPage {
         return this;
     }
 
+    public isTaskStatusHidden(taskName: string): this {
+        cy.get(`[data-testid="task-${taskName}-status"]`).should("not.exist");
+        return this;
+    }
+
     private getDraftGovernancePlanTask() {
         return cy.getByTestId("GovernancePlan-task");
     }

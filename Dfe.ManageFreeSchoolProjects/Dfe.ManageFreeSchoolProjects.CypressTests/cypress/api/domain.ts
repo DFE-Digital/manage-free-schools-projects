@@ -80,6 +80,13 @@ export type CreatePDGGrantLettersRequest =
     finalGrantLetterSavedToWorkplaces: boolean
 }
 
+export type CreatePDGGrantVariationLetterRequest =
+{
+    variation: number,
+    letterDate: string,
+    savedToWorkplacesFolder: boolean
+}
+
 export type ProjectRiskEntryRequest = {
     riskRating?: number;
     summary?: string;
