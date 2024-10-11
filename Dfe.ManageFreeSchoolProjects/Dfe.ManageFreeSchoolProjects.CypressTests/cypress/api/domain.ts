@@ -65,6 +65,21 @@ export type CreateProjectRiskRequest = {
     riskAppraisalFormSharepointLink?: string;
 }
 
+export type CreatePDGPaymentScheduleRequest = {
+    paymentScheduleAmount: number;
+    paymentScheduleDate: string;
+    paymentActualAmount: number;
+    paymentActualDate: string;
+}
+
+export type CreatePDGGrantLettersRequest = 
+{
+    initialGrantLetterDate: string,
+    finalGrantLetterDate: string,
+    initialGrantLetterSavedToWorkplaces: boolean,
+    finalGrantLetterSavedToWorkplaces: boolean
+}
+
 export type ProjectRiskEntryRequest = {
     riskRating?: number;
     summary?: string;

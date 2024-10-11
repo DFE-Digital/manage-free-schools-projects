@@ -6,7 +6,9 @@
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.PDG.Central.EditPDGGrantLetters
 
 @{
-    ViewData["Title"] = $"Edit Grant Letters - {Model.CurrentFreeSchoolName}";
+    var userAuthorisedToChange = User.IsInRole(RolesConstants.GrantManagers);
+    var pageTitle = userAuthorisedToChange ? "Edit Grant letters" : "Grant letters";
+    ViewData["Title"] = $"{pageTitle}  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
     var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId);
 
@@ -25,7 +27,7 @@
 
 <h1 class="govuk-heading-xl" data-testid="title">
     <span class="govuk-caption-l" data-testid="school-name">@Model.CurrentFreeSchoolName</span>
-    Edit Grant Letters
+    @pageTitle
 </h1>
 
 @{
@@ -97,19 +99,21 @@
                 }
                 else
                 {
-                    TempData["VariationLetterToAdd"] = variation;
+                    @if (userAuthorisedToChange)
+                    {
+                        TempData["VariationLetterToAdd"] = variation;
 
-                    <div class="govuk-grid-row">
-                        <div class="govuk-grid-column-two-thirds">
-                            <p>Add variations of the grant letter when needed.</p>
-                            <form class="govuk-form-group" method="post">
-                                <button class="govuk-button" name="action" value="AddVariationLetter">
-                                    Add variation @variation
-                                </button>
-                            </form>
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-two-thirds">
+                                <p>Add variations of the grant letter when needed.</p>
+                                <form class="govuk-form-group" method="post">
+                                    <button class="govuk-button" name="action" value="AddVariationLetter">
+                                        Add variation @variation
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-
+                    }
                     //Return/exit out of loop as add variation letter buttons should appear in order
                     return;
                 }
@@ -118,8 +122,10 @@
     }
     else
     {
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+        @if (userAuthorisedToChange)
+        {
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
                 <form class="govuk-form-group" method="post">
                     <button class="govuk-button" name="action" value="AddGrantLetter">
                         Add grant letter
@@ -127,6 +133,7 @@
                 </form>
             </div>
         </div>
+        }
     }
 }
 

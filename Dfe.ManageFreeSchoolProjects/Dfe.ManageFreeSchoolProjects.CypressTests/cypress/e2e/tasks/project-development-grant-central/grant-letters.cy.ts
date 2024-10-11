@@ -8,12 +8,13 @@ import editGrantLetter from "cypress/pages/tasks/project-development-grant-centr
 import addGrantLetter from "cypress/pages/tasks/project-development-grant-central/add-grant-letter";
 import addVariationLetter from "cypress/pages/tasks/project-development-grant-central/add-variation-letter";
 import editVariationLetter from "cypress/pages/tasks/project-development-grant-central/edit-variation-letter";
+import { GrantManagers } from "cypress/constants/cypressConstants";
 
 describe("Grant letters Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
         project = RequestBuilder.createProjectDetailsNonPresumption();
 
         projectApi
@@ -47,7 +48,7 @@ describe("Grant letters Task", () => {
 
         cy.log("All fields are optional");
         editGrantLetter
-            .grantTitleIs("Edit Grant Letters")
+            .grantTitleIs("Edit Grant letters")
             .schoolNameIs(project.schoolName)
             .addGrantLetter();
         cy.executeAccessibilityTests();

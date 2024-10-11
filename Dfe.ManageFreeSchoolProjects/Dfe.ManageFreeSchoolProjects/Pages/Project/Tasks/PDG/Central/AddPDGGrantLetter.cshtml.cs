@@ -46,6 +46,11 @@ public class AddPDGGrantLetter(
     public async Task<ActionResult> OnGet()
     {
         logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
         await LoadSchoolName();
         return Page();
     }
@@ -53,6 +58,11 @@ public class AddPDGGrantLetter(
     public async Task<IActionResult> OnPost()
     {
         logger.LogMethodEntered();
+
+        if (!User.IsInRole(RolesConstants.GrantManagers))
+        {
+            return new UnauthorizedResult();
+        }
 
         if (!ModelState.IsValid)
         {

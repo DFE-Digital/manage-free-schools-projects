@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
@@ -7,6 +8,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
     {
         [HtmlAttributeName("label")]
         public string Label { get; set; }
+
+        [HtmlAttributeName("link-label")]
+        public string LinkLabel { get; set; }
 
         [HtmlAttributeName("id")]
 
@@ -43,9 +47,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 
         private string GetChangeLink()
         {
-            if (href != null)
+            if (!href.IsNullOrEmpty())
                 return $@"<a class=""govuk-link"" href=""{href}"" data-testid=""change-{Id}"">
-                                Change<span class=""govuk-visually-hidden"">{Label}</span>
+                                {LinkLabel ?? "Change"}<span class=""govuk-visually-hidden"">{Label}</span>
                       </a>
             ";
 

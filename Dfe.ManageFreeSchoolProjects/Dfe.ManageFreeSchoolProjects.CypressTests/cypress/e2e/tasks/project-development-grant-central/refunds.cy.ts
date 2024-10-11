@@ -5,12 +5,13 @@ import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import pdgDashboard from "cypress/pages/tasks/project-development-grant-central/pdgDashboard";
 import refunds from "cypress/pages/tasks/project-development-grant-central/edit-refunds";
+import { GrantManagers } from "cypress/constants/cypressConstants";
 
 describe("Refunds Task", () => {
     let project: ProjectDetailsRequest;
 
     beforeEach(() => {
-        cy.login();
+        cy.login({ role: GrantManagers });
 
         project = RequestBuilder.createProjectDetailsNonPresumption();
 

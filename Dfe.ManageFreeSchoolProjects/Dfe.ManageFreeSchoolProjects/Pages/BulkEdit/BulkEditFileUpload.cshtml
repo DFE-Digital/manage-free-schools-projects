@@ -15,7 +15,7 @@
     </div>
 }
 
-@if (Model.Rows == null || Model.Rows.Any() || Model.HasErrors)
+@if (Model.Rows == null || (Model.Rows.Any() && Model.HasErrors))
 {
     @if (@Model.FileError != null)
     {

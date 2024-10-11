@@ -53,7 +53,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
         {
             logger.LogMethodEntered();
 
-            if(Upload == null)
+            if (!User.IsInRole(RolesConstants.ProjectRecordCreator))
+            {
+                return new UnauthorizedResult();
+            }
+
+            if (Upload == null)
             {
                 FileError = "Select a file";
                 SetToUpdateMultipleFields();
@@ -113,7 +118,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                 else
                 {
                     var errorCount = Rows.Count(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
-                    FileError = $"The upload tab has {errorCount} validation errors";
+                    FileError = $"The enter data tab has {errorCount} validation errors";
                     SetToUpdateMultipleFields();
                 }
             }

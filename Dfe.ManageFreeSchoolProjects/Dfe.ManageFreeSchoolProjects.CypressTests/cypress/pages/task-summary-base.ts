@@ -91,12 +91,22 @@ export class SummaryPage {
         return this;
     }
 
+    public HasNoMarkAsComplete() {
+        cy.getById("mark-as-completed").should('not.exist');
+        return this;
+    }
+
     public clickBack() {
         cy.get(".govuk-back-link").click();
     }
 
     public clickConfirmAndContinue() {
         cy.getByTestId("confirm").click();
+    }
+
+    public hasNoConfirmAndContinue() {
+        cy.getByTestId("confirm").should('not.exist');
+        return this;
     }
 
     public clickChange(): this {

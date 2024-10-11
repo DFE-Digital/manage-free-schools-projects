@@ -46,12 +46,18 @@ class editPaymentSchedule {
         cy.getByTestId("add-payment").should("exist");
     }
 
-    checkAddPaymentDoesNotExist() {
+    checkAddPaymentDoesNotExist(): this {
         cy.getByTestId("add-payment").should("not.exist");
+        return this;
     }
 
     selectEditPayment(index: string) {
         cy.getByTestId(`change-payment-${index}`).click();
+    }
+
+    editPaymentLinkNotShown(index: string): this {
+        cy.getByTestId(`change-payment-${index}`).should("not.exist");
+        return this;
     }
 
     public clickBack() : this {
