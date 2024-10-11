@@ -10,13 +10,12 @@ describe("Navigate through footer links", () => {
 
         Logger.log("Get help footer links");
         cy.get('h2').should('contain', 'Get help');
-        cy.contains('a', 'Email Service Support for help with using this system').should('be.visible')
-        cy.contains('a', 'How to use this system (opens in a new tab)').should('be.visible')
+        cy.contains('a', 'Get help with a Regions Group system').should('be.visible')
 
         Logger.log("Get feedback footer links");
         cy.get('h2').should('contain', 'Give feedback');
-        cy.contains('a', 'Give feedback (opens in a new tab)').should('be.visible')
-        cy.contains('a', 'Suggest a change (opens in a new tab)').should('be.visible')
+        cy.contains('a', 'Give feedback about a Regions Group system (opens in a new tab)').should('be.visible')
+        cy.contains('a', 'Suggest a change to a Regions Group system (opens in a new tab)').should('be.visible')
 
         Logger.log("Get accessibility and cookies link");
         cy.contains('a', 'Accessibility statement').should('be.visible').click()
