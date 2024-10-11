@@ -26,7 +26,7 @@ describe("Payment Schedule Task", () => {
     it("Should successfully set payment schedule", () => {
 
         cy.log("Select Project development grant (PDG)");
-        taskListPage.isTaskStatusIsNotStarted("PDG")
+        taskListPage.isTaskStatusHidden("PDG")
             .selectPDGFromTaskList();
 
         cy.log("Confirm empty dashboard");
@@ -45,7 +45,7 @@ describe("Payment Schedule Task", () => {
 
             summaryPage.clickBack();
 
-        taskListPage.isTaskStatusIsNotStarted("PDG")
+        taskListPage.isTaskStatusHidden("PDG")
 
         cy.executeAccessibilityTests();
 

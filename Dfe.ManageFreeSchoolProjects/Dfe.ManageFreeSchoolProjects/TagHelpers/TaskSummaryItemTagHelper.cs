@@ -19,6 +19,9 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         [HtmlAttributeName("label")]
         public string Label { get; set; }
 
+        [HtmlAttributeName("hide-status")]
+        public bool HideStatus { get; set; }
+
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
@@ -38,7 +41,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
             {
                 TaskSummary = For.Model as TaskSummaryResponse,
                 Href = Href,
-                Label = Label
+                Label = Label,
+                HideStatus = HideStatus
             };
 
             if (model.TaskSummary.IsHidden)
@@ -62,5 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         public string Href { get; set; }
 
         public string Label { get; set; }
+
+        public bool HideStatus { get; set; } = false;
     }
 }

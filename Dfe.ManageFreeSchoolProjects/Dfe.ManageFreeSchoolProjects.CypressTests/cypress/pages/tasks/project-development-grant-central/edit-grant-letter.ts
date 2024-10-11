@@ -32,6 +32,11 @@ class editGrantLetter {
         return this;
     }
 
+    public changeGrantLetterNotShown(): this {
+        cy.getByTestId(`change-grant-letter`).should("not.exist");
+        return this;
+    }
+
     public withTrustLetterDate(day: string, month: string, year: string): this {
         const key = "trust-letter-date";
         this.setDate(key, day, month, year);

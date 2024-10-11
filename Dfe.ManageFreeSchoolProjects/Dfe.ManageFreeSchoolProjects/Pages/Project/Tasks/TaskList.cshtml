@@ -51,6 +51,8 @@
     var pdgLink = (@Model.ProjectType == "Presumption") ? pdgPresumptionLink : pdgCentralLink;
     var governancePlanLink = (@Model.ProjectType == "Presumption") ? governancePlanPresumptionLink : governancePlanCentralLink;
 
+    var userAuthorisedToChangePDG = User.IsInRole(RolesConstants.GrantManagers);
+
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
 }
 
@@ -126,7 +128,7 @@
                 <h2 class="app-task-list__section">
                     Reference numbers
                 </h2>
-                <p>(This part is editable by the School Places Analysis team only)</p>
+                <div class ="govuk-inset-text">Only the School Places Analysis team should complete this task.</div>
                 <ul class="app-task-list__items">
                     <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.ReferenceNumbers" href="@referenceNumbersTaskLink" label="Reference numbers" />
                 </ul>
@@ -134,9 +136,9 @@
                 <h2 class="app-task-list__section">
                     Project development grant (PDG)
                 </h2>
-                <p>(This part is editable by Grant Management and Finance Unit only)</p>
+                <div class="govuk-inset-text">Only the Grant Management and Finance Unit can complete this task.</div>
                 <ul class="app-task-list__items">
-                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PDG" href="@pdgLink" label="Project development grant (PDG)" />
+                    <govuk-task-summary-item asp-for="@Model.ProjectTaskListSummary.PDG" href="@pdgLink" label="Project development grant (PDG)" hide-status="@(!userAuthorisedToChangePDG)" />
                 </ul>
 
                 <h2 class="app-task-list__section">

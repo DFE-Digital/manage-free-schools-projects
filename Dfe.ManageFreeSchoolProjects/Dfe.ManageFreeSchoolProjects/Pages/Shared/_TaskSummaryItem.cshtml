@@ -9,7 +9,10 @@
         </a>
     </span>
     @{
-        RenderStatus(Model.TaskSummary);
+        if(!@Model.HideStatus)
+        {
+            RenderStatus(Model.TaskSummary);
+        }
     }
 </li>
 

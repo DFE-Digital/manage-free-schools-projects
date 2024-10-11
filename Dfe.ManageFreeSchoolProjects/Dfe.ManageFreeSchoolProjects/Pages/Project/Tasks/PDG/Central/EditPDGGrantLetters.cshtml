@@ -10,7 +10,7 @@
     var pageTitle = userAuthorisedToChange ? "Edit Grant letters" : "Grant letters";
     ViewData["Title"] = $"{pageTitle}  - {Model.CurrentFreeSchoolName}";
     var backLink = string.Format(RouteConstants.ViewPDGCentral, Model.ProjectId);
-    var editGrantLetterLink = string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId);
+    var editGrantLetterLink = userAuthorisedToChange ? string.Format(RouteConstants.EditPDGGrantLetter, Model.ProjectId) : "";
 
     var grantLetters = Model.GrantLetters;
     var initialGrantLetterSavedToWorkplaces = grantLetters?.InitialGrantLetterSavedToWorkplaces == true ? "Yes" : "No";
@@ -82,7 +82,7 @@
                 
                 if (grantLetter.LetterDate != null || grantLetter.SavedToWorkplacesFolder != null)
                 {
-                    var editVariationLetterLink = string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId, variation);
+                    var editVariationLetterLink = userAuthorisedToChange ? string.Format(RouteConstants.EditPDGVariationLetter, Model.ProjectId, variation) : "";
 
                     var grantLetterSavedToWorkplaces = grantLetter.SavedToWorkplacesFolder == true ? "Yes" : "No";
 
