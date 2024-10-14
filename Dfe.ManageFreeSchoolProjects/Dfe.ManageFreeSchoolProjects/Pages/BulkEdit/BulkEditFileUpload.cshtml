@@ -7,6 +7,8 @@
     var formGroupClass = Model.FileError != null ? "govuk-form-group govuk-form-group--error" : "govuk-form-group";
     var uploadButtonClass = Model.FileError != null ? "govuk-button govuk-button--error" : "govuk-button";
     var linkToExampleSpreadsheet = _configuration["BulkEditSpreadsheetLink"];
+    var validationErrorHeading = $"Validation error{(Model.ErrorCount > 1 ? "s" : "")}";
+    var hasErrors = Model.ErrorCount > 0;
 }
 
 @section BeforeMain {
@@ -15,7 +17,7 @@
     </div>
 }
 
-@if (Model.Rows == null || (Model.Rows.Any() && Model.HasErrors))
+@if (Model.Rows == null || (Model.Rows.Any() && hasErrors))
 {
     @if (@Model.FileError != null)
     {
@@ -77,9 +79,9 @@
 
         </div>
 
-        @if (Model.HasErrors)
+        @if (hasErrors)
         {
-            <h2>Validation errors</h2>
+            <h2>@validationErrorHeading</h2>
 
             @foreach (var row in Model.Rows.Where(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error))))
             {
@@ -113,7 +115,7 @@
     </div>
 }
 
-@if (Model.Rows != null && Model.Rows.Any() && !Model.HasErrors)
+@if (Model.Rows != null && Model.Rows.Any() && !hasErrors)
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
