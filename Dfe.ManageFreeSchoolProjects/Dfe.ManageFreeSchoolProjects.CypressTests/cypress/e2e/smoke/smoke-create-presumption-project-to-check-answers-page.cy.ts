@@ -161,7 +161,7 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
                 .summaryShows("Residential or boarding").HasValue("Yes").HasChangeLink()
                 .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
-                .summaryShows("Special educational needs (specialist resource provision)").HasValue("No").HasChangeLink()
+                .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
                 .summaryShows("Age range").HasValue("2-7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
