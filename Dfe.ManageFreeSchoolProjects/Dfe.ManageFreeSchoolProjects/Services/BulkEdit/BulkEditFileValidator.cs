@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
 {
-
     public record FileValidationResult
     {
         public bool IsValid { get; init; }
         public string ErrorMessage { get; init; }
     }
+
     public interface IBulkEditFileValidator
     {
         FileValidationResult Validate(DataTable table);
@@ -20,7 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.BulkEdit
     {
         public FileValidationResult Validate(DataTable table)
         {
-            if(table.Columns.Count == 0)
+            if (table.Columns.Count == 0)
             {
                 return new FileValidationResult
                 {

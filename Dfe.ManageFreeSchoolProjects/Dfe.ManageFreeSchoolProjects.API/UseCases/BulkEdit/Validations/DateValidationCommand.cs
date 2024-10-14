@@ -33,5 +33,23 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 ErrorMessage = null
             };
         }
+
+        private static ValidationResult Validate(string actualOpeningDateString)
+        {
+            //verify what format they'll input date
+            var validDate = DateTime.TryParseExact(actualOpeningDateString, "yyyy-M-d", CultureInfo.InvariantCulture, DateTimeStyles.None, out var actualOpeningDate);
+            if (!validDate)
+                return new ValidationResult { IsValid = false, ErrorMessage = "Enter a date in the correct format" };
+            
+            
+            
+            
+            List<string> missingParts = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(dayInput)) missingParts.Add("day");
+            if (string.IsNullOrWhiteSpace(monthInput)) missingParts.Add("month");
+            if (string.IsNullOrWhiteSpace(yearInput)) missingParts.Add("year");
+
+        }
     }
 }
