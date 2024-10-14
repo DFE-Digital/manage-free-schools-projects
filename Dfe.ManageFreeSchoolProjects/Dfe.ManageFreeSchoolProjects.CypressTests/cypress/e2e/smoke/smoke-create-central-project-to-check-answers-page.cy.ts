@@ -11,7 +11,7 @@ describe("Smoke Test Create an individual Central project - (Up Until Check your
         cy.visit('/');
     });
 
-    it("Should create a central project up until Check your answers page", () => {
+    it("Should create a central project up until Check your answers page", { tags: ['smoke'] }, () => {
         const applicationNumber = dataGenerator.generateTemporaryId(10);
         const applicationWave = dataGenerator.generateTemporaryId(10);
         const temporaryProjectId = dataGenerator.generateTemporaryId(25);
