@@ -87,6 +87,7 @@
 
 	<ItemGroup>
 	  <Content Remove="Pages\Project\Tasks\Date\EditDateTask.cshtml" />
+	  <Content Remove="Pages\Shared\_Footer20241017.cshtml" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Content Update="appsettings.json">
