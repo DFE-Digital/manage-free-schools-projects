@@ -9,6 +9,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.API.Constants;
 using Microsoft.EntityFrameworkCore;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.School;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -115,6 +116,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 SchoolDetailsNursery = proj.Nursery.ToString(),
                 SchoolDetailsAlternativeProvision = proj.AlternativeProvision.ToString(),
                 SchoolDetailsSpecialEducationNeeds = proj.SpecialEducationNeeds.ToString(),
+                SchoolDetailsSpecialistResourceProvision = BuildSpecialistResourceProvision
+                                                            .GetLegacySpecialistResourceProvision(proj.SpecialEducationNeeds,
+                                                                                                  proj.AlternativeProvision),
                 SchoolDetailsResidentialOrBoardingProvision = proj.ResidentialOrBoarding.ToString(),
                 SchoolDetailsAgeRange = proj.AgeRange,
                 SchoolDetailsNumberOfFormsOfEntry = proj.FormsOfEntry,
@@ -156,5 +160,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 
             return result;
         }
+
+
     }
 }

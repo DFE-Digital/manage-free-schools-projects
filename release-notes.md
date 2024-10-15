@@ -1,3 +1,6 @@
+## 0.14.1
+* 175058 - Fixed legacy SRP field not being set in the database
+
 ## 0.14.0
 * 177717 - Build: Create central route projects
 * 178172 - Build: Iterate funding agreement health check and submission
