@@ -8,7 +8,6 @@
 * 181757 - Build: finance plan agreed forecast date
 * 181754 - Build: readiness to open meeting (ROM) forecast date
 * 183590 - BUG: Start End Year component still refers to "start date" in error message
-* 180341 - Build: MFSP team to amend the footer
 * 182832 - Build: Remove ‘section 9 letter’ from Workplaces checkbox
 * 183515 - Build: read-only site information
 
