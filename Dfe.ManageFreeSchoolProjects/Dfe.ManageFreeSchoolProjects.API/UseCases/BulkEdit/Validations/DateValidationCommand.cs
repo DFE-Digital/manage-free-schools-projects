@@ -33,13 +33,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
             //     ErrorMessage = null
             // };
 
-            return Validate(parameters.Data.OpeningDate);
+            return Validate(parameters.Value);
         }
 
         private static ValidationResult Validate(string actualOpeningDateString)
         {
             //verify what format they'll input date
-            var validDate = DateTime.TryParseExact(actualOpeningDateString, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var actualOpeningDate);
+            var validDate = DateTime.TryParse(actualOpeningDateString, CultureInfo.CreateSpecificCulture("en-GB"), DateTimeStyles.AssumeLocal, out var actualOpeningDate);
             if (!validDate)
                 return new () { IsValid = false, ErrorMessage = "Enter a valid date. For example, 27/03/2021" };
             
@@ -65,7 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
             if (actualOpeningDate.Month is < 1 or > 12)
                 return new() { IsValid = false, ErrorMessage = $"Month must be between 1 and 12" };
 
-            return new() { IsValid = false, ErrorMessage = "There was a problem processing the spreadsheet. Please try again."};
+            return new() { IsValid = true };
         }
     }
 }
