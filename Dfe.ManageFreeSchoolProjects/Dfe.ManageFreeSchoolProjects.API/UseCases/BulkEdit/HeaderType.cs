@@ -13,7 +13,7 @@
     {
             public string Name { get; set; }
 
-            public IValidationCommand<T> Type { get; set; }
+            public IValidationCommand<T> Validation { get; set; }
 
             public IHeaderDataInteraction<T> DataInteraction { get; set; }
     }

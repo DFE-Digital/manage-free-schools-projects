@@ -49,7 +49,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                     }
 
                     var header = headerMap[column.ColumnIndex];
-                    var validationResult = header.Type.Execute(currentRow, column.Value);
+                    var validationResult = header.Validation.Execute(new ValidationCommandParameters<TDto>()
+                    {
+                        Value = column.Value,
+                        Request = request,
+                        CurrentRowIndex = row.FileRowIndex,
+                        Data = currentRow
+                    });
                     var currentValue = IsNotNullOrEmpty(currentRow) ? header.DataInteraction.GetFromDto(currentRow) : "";
                     if (!validationResult.IsValid)
                     {

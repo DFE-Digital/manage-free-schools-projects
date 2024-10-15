@@ -56,5 +56,33 @@ namespace Dfe.ManageFreeSchoolProjects.Tests.Project
             result.IsValid.Should().BeFalse();
             result.ErrorMessage.Should().Be("File has an invalid column header: LocalPlace");
         }
+
+        [Fact]
+        public void FailsWhenGivenEmptyTable()
+        {
+
+            var table = new DataTable();
+
+            var validator = new BulkEditFileValidator();
+            var result = validator.Validate(table);
+
+            result.IsValid.Should().BeFalse();
+            result.ErrorMessage.Should().Be("The selected file must have project data in it");
+        }
+
+        [Fact]
+        public void FailsWhenGivenEmptyRows()
+        {
+
+            var table = new DataTable();
+            table.Columns.Add(HeaderNames.ProjectId);
+            table.Columns.Add(HeaderNames.OpeningDate);
+
+            var validator = new BulkEditFileValidator();
+            var result = validator.Validate(table);
+
+            result.IsValid.Should().BeFalse();
+            result.ErrorMessage.Should().Be("The selected file must have project data in it");
+        }
     }
 }

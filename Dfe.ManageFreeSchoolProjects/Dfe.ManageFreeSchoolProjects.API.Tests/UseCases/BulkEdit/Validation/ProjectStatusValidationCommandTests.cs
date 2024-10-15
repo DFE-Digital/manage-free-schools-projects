@@ -18,7 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         {
             var projectStatusValidation = new ProjectStatusValidationCommand();
             var dto = new BulkEditDto { ApplicationWave = "Any Wave" };
-            var validationResult = projectStatusValidation.Execute(dto, status);
+            var validationResult = projectStatusValidation.Execute(new() { Data = dto, Value = status });
 
             validationResult.IsValid.Should().BeFalse();
             validationResult.ErrorMessage.Should().Be(error);
@@ -41,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         {
             var projectStatusValidation = new ProjectStatusValidationCommand();
             var dto = new BulkEditDto { ApplicationWave = "Any Wave" };
-            var validationResult = projectStatusValidation.Execute(dto, status);
+            var validationResult = projectStatusValidation.Execute(new() { Data = dto, Value = status });
 
             validationResult.IsValid.Should().BeTrue();
             validationResult.ErrorMessage.Should().BeNull();
@@ -65,7 +65,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         {
             var projectStatusValidation = new ProjectStatusValidationCommand();
             var dto = new BulkEditDto { ApplicationWave = "FS - Presumption" };
-            var validationResult = projectStatusValidation.Execute(dto, status);
+            var validationResult = projectStatusValidation.Execute(new() { Data = dto, Value = status });
 
             validationResult.IsValid.Should().Be(pass);
 
@@ -98,7 +98,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         public void IgnoresProjectIfNotFoundCertainStatus(string status, bool pass)
         {
             var projectStatusValidation = new ProjectStatusValidationCommand();
-            var validationResult = projectStatusValidation.Execute(null, status);
+            var validationResult = projectStatusValidation.Execute(new() { Data = null, Value = status });
 
             validationResult.IsValid.Should().Be(pass);
 

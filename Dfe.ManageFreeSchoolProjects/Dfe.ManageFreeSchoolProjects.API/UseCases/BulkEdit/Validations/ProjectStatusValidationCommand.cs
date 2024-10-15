@@ -6,7 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public class ProjectStatusValidationCommand() : IValidationCommand<BulkEditDto>
     {
-        public ValidationResult Execute(BulkEditDto data, string value)
+        public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
 
             HashSet<ProjectStatus> PresumptionOnly = 
@@ -20,19 +20,19 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 
             ProjectStatus? status = null;
 
-            if(value.Equals("cancelled in pre-opening", StringComparison.OrdinalIgnoreCase))
+            if(parameters.Value.Equals("cancelled in pre-opening", StringComparison.OrdinalIgnoreCase))
             {
                 status = ProjectStatus.Cancelled;
             }
 
             if (status == null)
             {
-                status = GetStatusUsingDatabaseName(value);
+                status = GetStatusUsingDatabaseName(parameters.Value);
             }
 
             if (status == null)
             {
-                status = GetStatusFromDescription(value);
+                status = GetStatusFromDescription(parameters.Value);
             }
 
             if (status == null)
@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 };
             }
 
-            if (data != null && data.ApplicationWave == "FS - Presumption" && !PresumptionOnly.Contains(status.Value))
+            if (parameters.Data != null && parameters.Data.ApplicationWave == "FS - Presumption" && !PresumptionOnly.Contains(status.Value))
             {
                 return new ValidationResult
                 {

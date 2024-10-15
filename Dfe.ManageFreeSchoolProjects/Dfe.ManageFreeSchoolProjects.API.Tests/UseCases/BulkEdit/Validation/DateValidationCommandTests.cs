@@ -13,7 +13,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         public void DateValidationFails(string date, string error)
         {
             var dateValidation = new DateValidationCommand();
-            var validationResult = dateValidation.Execute(null, date);
+            var validationResult = dateValidation.Execute(new() { Data = null, Value = date });
 
             validationResult.IsValid.Should().BeFalse();
             validationResult.ErrorMessage.Should().Be(error);
@@ -27,7 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         public void DateValidationPasses(string date)
         {
             var dateValidation = new DateValidationCommand();
-            var validationResult = dateValidation.Execute(null, date);
+            var validationResult = dateValidation.Execute(new() { Data = null, Value = date });
 
             validationResult.IsValid.Should().BeTrue();
             validationResult.ErrorMessage.Should().BeNull();

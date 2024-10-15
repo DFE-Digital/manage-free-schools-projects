@@ -11,7 +11,7 @@ describe("Smoke Test Create an individual Central project - (Up Until Check your
         cy.visit('/');
     });
 
-    it("Should create a central project up until Check your answers page", () => {
+    it("Should create a central project up until Check your answers page", { tags: ['smoke'] }, () => {
         const applicationNumber = dataGenerator.generateTemporaryId(10);
         const applicationWave = dataGenerator.generateTemporaryId(10);
         const temporaryProjectId = dataGenerator.generateTemporaryId(25);
@@ -108,8 +108,8 @@ describe("Smoke Test Create an individual Central project - (Up Until Check your
 
         createProjectPage
             .titleIs("Confirm the trust")
-            .hasCorrectTrustName("Aurora Academies Trust")
-            .hasCorrectTrustType("MAT (multi-academy trust)")
+            .hasCorrectTrustName("The James Web School")
+            .hasCorrectTrustType("SAT (single academy trust)")
             .selectOption("Yes")
             .continue();
 
@@ -182,7 +182,7 @@ describe("Smoke Test Create an individual Central project - (Up Until Check your
             .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
             .summaryShows("Region").HasValue("East of England").HasChangeLink()
             .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-            .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+            .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
             .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
             .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
             .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()

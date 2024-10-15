@@ -29,7 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
 
         public IEnumerable<RowViewModel> Rows { get; set; }
 
-        public bool HasErrors { get; set; }
+        public int ErrorCount { get; set; }
 
         public string FileError { get; set; }
 
@@ -108,17 +108,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.BulkEdit
                     })
                 });
 
-                HasErrors = Rows.Any(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
+                ErrorCount = Rows.Count(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
 
-                if(!HasErrors)
+                if (ErrorCount == 0)
                 {
                     bulkEditCache.Update(request);
                     SetToCheckYourAnswers();
                 }
                 else
                 {
-                    var errorCount = Rows.Count(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error)));
-                    FileError = $"The enter data tab has {errorCount} validation errors";
+                    FileError = $"The enter data tab has {ErrorCount} validation error{(ErrorCount > 1 ? "s" : "")}";
                     SetToUpdateMultipleFields();
                 }
             }
