@@ -102,9 +102,10 @@
             </div>
         </main>
     </div>
-    @{var useLatestFooter = await _featureManager.IsEnabledAsync("UseLatestFooter");
+    @{
+        var releaseFooter20241017 = await _featureManager.IsEnabledAsync("ReleaseFooter20241017");
 
-        if (useLatestFooter)
+        if (releaseFooter20241017)
         {
             <partial name="Footer/_Footer20241017" />
         }
