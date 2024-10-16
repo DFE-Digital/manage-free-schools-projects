@@ -1,3 +1,6 @@
+## 0.15.0
+* 180341 - Build: Footer amended to new standard
+
 ## 0.14.1
 * 175058 - Fixed legacy SRP field not being set in the database
 
