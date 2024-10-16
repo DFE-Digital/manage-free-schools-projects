@@ -30,15 +30,14 @@
 
         private static string[] CleanAndSplitDate(string date)
         {
-            if (date.Contains('/') || date.Contains("00:00:00"))
-            {
-                var dateParts = date.Split('/');
-                if (dateParts[2].EndsWith("00:00:00"))
-                    dateParts[2] = dateParts[2].Substring(0, dateParts[2].Length - " 00:00:00".Length);
-                return dateParts;
-            }
+            if (!date.Contains('/'))
+                return [date];
 
-            return [date];
+            var dateParts = date.Split('/');
+            if (dateParts[2].EndsWith("00:00:00"))
+                dateParts[2] = dateParts[2][..^" 00:00:00".Length];
+            
+            return dateParts;
         }
 
         private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3;
@@ -65,7 +64,8 @@
 
         private static bool IsValidDay(string day, int year, int month, out int dayNumber)
         {
-            var isValid = int.TryParse(day, out dayNumber) && dayNumber >= 1 && dayNumber <= DateTime.DaysInMonth(year, month);
+            var isValid = int.TryParse(day, out dayNumber) && dayNumber >= 1 &&
+                          dayNumber <= DateTime.DaysInMonth(year, month);
             return isValid;
         }
 
