@@ -1,54 +1,75 @@
-﻿using System.Globalization;
-
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
+﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public class DateValidationCommand : IValidationCommand<BulkEditDto>
     {
         public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
-            var actualOpeningDateString = parameters.Value;
+            var dateParts = CleanAndSplitDate(parameters.Value);
 
-            var dateParts = actualOpeningDateString.Split('/');
-            if (dateParts.Length != 3)
-                return new ValidationResult
-                    { IsValid = false, ErrorMessage = "Enter a valid date. For example, 27/03/2021" };
+            if (!IsValidDateFormat(dateParts))
+                return CreateValidationResult(false, "Enter a valid date. For example, 27/03/2021");
 
-            var dateObject = new { Day = dateParts[0], Month = dateParts[1], Year = dateParts[2] };
+            var (day, month, year) = (dateParts[0], dateParts[1], dateParts[2]);
+
+            var missingPartsMessage = CheckForMissingDateParts(day, month, year);
+            if (missingPartsMessage != null)
+                return CreateValidationResult(false, missingPartsMessage);
+
+            if (!IsValidMonth(month, out var monthNumber))
+                return CreateValidationResult(false, "Month must be between 1 and 12");
+
+            if (!IsValidYear(year, out var yearNumber))
+                return CreateValidationResult(false, "Year must be between 2000 and 2050");
+
+            if (!IsValidDay(day, yearNumber, monthNumber, out _))
+                return CreateValidationResult(false,
+                    $"Day must be between 1 and {DateTime.DaysInMonth(yearNumber, monthNumber)}");
+
+            return CreateValidationResult(true, null);
+        }
+
+        private static string[] CleanAndSplitDate(string date)
+        {
+            if (!date.Contains('/'))
+                return [date];
+
+            var dateParts = date.Split('/');
+            if (dateParts[2].EndsWith("00:00:00"))
+                dateParts[2] = dateParts[2][..^" 00:00:00".Length];
             
-            var missingParts = new List<string>();
+            return dateParts;
+        }
 
-            if (string.IsNullOrEmpty(dateObject.Day)) missingParts.Add("day");
-            if (string.IsNullOrEmpty(dateObject.Month)) missingParts.Add("month");
-            if (string.IsNullOrEmpty(dateObject.Year)) missingParts.Add("year");
+        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3;
+
+        private static string CheckForMissingDateParts(string day, string month, string year)
+        {
+            var missingParts = new List<string>();
+            if (string.IsNullOrEmpty(day)) missingParts.Add("day");
+            if (string.IsNullOrEmpty(month)) missingParts.Add("month");
+            if (string.IsNullOrEmpty(year)) missingParts.Add("year");
 
             if (missingParts.Count == 3)
-                return new ValidationResult
-                    { IsValid = false, ErrorMessage = "Date must include a day, month, and year" };
-
+                return "Date must include a day, month, and year";
             if (missingParts.Count > 0)
-                return new ValidationResult
-                    { IsValid = false, ErrorMessage = $"Date must include a {string.Join(" and ", missingParts)}" };
-
-            if (!int.TryParse(dateObject.Day, out var day) || day < 1 || day > 31)
-                return new ValidationResult
-                    { IsValid = false, ErrorMessage = "Day must be a valid number between 1 and 31" };
-
-            if (!int.TryParse(dateObject.Month, out var month) || month < 1 || month > 12)
-                return new ValidationResult
-                    { IsValid = false, ErrorMessage = "Month must be a valid number between 1 and 12" };
-
-            if (!int.TryParse(dateObject.Year, out var year) || year < 2000 || year > 2050)
-                return new ValidationResult { IsValid = false, ErrorMessage = "Year must be between 2000 and 2050" };
-
-            var daysInCurrentMonth = DateTime.DaysInMonth(year, month);
-            if (day > daysInCurrentMonth)
-                return new ValidationResult
-                {
-                    IsValid = false,
-                    ErrorMessage = $"Day must be between 1 and {daysInCurrentMonth} for the given month."
-                };
-
-            return new ValidationResult { IsValid = true };
+                return $"Date must include a {string.Join(" and ", missingParts)}";
+            return null;
         }
+
+        private static bool IsValidMonth(string month, out int monthNumber) =>
+            int.TryParse(month, out monthNumber) && monthNumber is >= 1 and <= 12;
+
+        private static bool IsValidYear(string year, out int yearNumber) =>
+            int.TryParse(year, out yearNumber) && yearNumber is >= 2000 and <= 2050;
+
+        private static bool IsValidDay(string day, int year, int month, out int dayNumber)
+        {
+            var isValid = int.TryParse(day, out dayNumber) && dayNumber >= 1 &&
+                          dayNumber <= DateTime.DaysInMonth(year, month);
+            return isValid;
+        }
+
+        private static ValidationResult CreateValidationResult(bool isValid, string message) =>
+            new() { IsValid = isValid, ErrorMessage = message };
     }
 }
