@@ -22,24 +22,22 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 			if (string.IsNullOrWhiteSpace(yearInput)) missingParts.Add("year");
 
 			if (missingParts.Count == 3)
-			{
 				return (false, _messages.AllMissing(displayName));
-			}
 
 			if (missingParts.Count > 0)
-			{
 				return (false, _messages.SomeMissing(displayName, missingParts));
-			}
 
 			bool yearParsed = int.TryParse(yearInput, out int year);
 			bool monthParsed = int.TryParse(monthInput, out int month);
 			bool dayParsed = int.TryParse(dayInput, out int day);
 			
 			var validatedDateParts = ValidateDateParts(dayParsed, monthParsed, yearParsed, month, year, day);
-			if (validatedDateParts.Item1 is false) return validatedDateParts;
+			if (validatedDateParts.Item1 is false) 
+				return validatedDateParts;
 
 			(bool valid, string message) = _messages.ContextSpecificValidation(day, month, year);
-			if (!valid) return (false, message);
+			if (!valid) 
+				return (false, message);
 
 			var validDate = DateTime.TryParseExact($"{yearInput}-{monthInput}-{dayInput}", "yyyy-M-d", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
 

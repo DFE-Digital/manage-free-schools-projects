@@ -28,8 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
             var response = await bulkEditValidation.Execute(request);
 
-            return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response))
-            { StatusCode = StatusCodes.Status200OK };
+            return new ObjectResult(new ApiSingleResponseV2<BulkEditValidateResponse>(response)) { StatusCode = StatusCodes.Status200OK };
         }
 
         [HttpPost]
