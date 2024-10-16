@@ -1,3 +1,6 @@
+## 0.14.1
+* 175058 - Fixed legacy SRP field not being set in the database
+
 ## 0.14.0
 * 177717 - Build: Create central route projects
 * 178172 - Build: Iterate funding agreement health check and submission
@@ -8,7 +11,6 @@
 * 181757 - Build: finance plan agreed forecast date
 * 181754 - Build: readiness to open meeting (ROM) forecast date
 * 183590 - BUG: Start End Year component still refers to "start date" in error message
-* 180341 - Build: MFSP team to amend the footer
 * 182832 - Build: Remove ‘section 9 letter’ from Workplaces checkbox
 * 183515 - Build: read-only site information
 
