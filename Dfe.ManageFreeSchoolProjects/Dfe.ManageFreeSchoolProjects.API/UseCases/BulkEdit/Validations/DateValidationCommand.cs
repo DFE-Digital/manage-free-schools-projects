@@ -45,8 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
             return dateParts;
         }
 
-        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3 
-                                                                     && dateParts.All(input => NumbersAndForwardSlashOnlyRegex().IsMatch(input));
+        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3 && Array.TrueForAll(dateParts, NumbersAndForwardSlashOnlyRegex().IsMatch);
 
         private static string CheckForMissingDateParts(string day, string month, string year)
         {
