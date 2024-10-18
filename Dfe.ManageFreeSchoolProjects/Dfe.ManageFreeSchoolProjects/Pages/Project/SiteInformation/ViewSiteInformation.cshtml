@@ -3,32 +3,64 @@
 @using Dfe.ManageFreeSchoolProjects.Constants
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.ViewSiteInformationModel
 @{
+    var projectStatusViewModel = new ProjectStatusViewModel()
+            {
+                ProjectId = @Model.ProjectId,
+                ProjectStatus = @Model.ProjectStatus,
+                Referrer = Referrer.ProjectOverview
+            };
+
     var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var projectType = Model.SiteInformation.ProjectType;
     var editPermanentSite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditPermanentSiteInformation, Model.ProjectId);
     var editTemporarySite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);
 
     ViewData["Title"] = $"Site information - {Model.SiteInformation.SchoolName}";
+    ViewData["WidePage"] = true;
 }
 @section BeforeMain {
-    <div class="govuk-width-container">
-        <a href="@backLink" class="govuk-back-link">Back</a>
+    <div class="dfe-content-page--header">
+        <div class="dfe-width-container ">
+            <div class="govuk-grid-row ">
+                <div class="govuk-grid-column-three-quarters">
+                    <a href="/" class="govuk-back-link">Back to all projects</a>
+
+                </div>
+            </div>
+            <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
+                <div class="govuk-grid-column-three-quarters">
+                    <partial name="_ProjectStatusSuccessBanner" />
+                    <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.ProjectId</span>
+                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.SiteInformation.SchoolName</h1>
+                    <partial name="_ProjectStatus" model="@projectStatusViewModel" />
+                    <p id="header-task-list" class="govuk-!-font-size-27 govuk-!-font-weight-bold">
+                        Site information
+                    </p>
+                </div>
+            </div>
+            <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
+                <div class="govuk-grid-column-full">
+                </div>
+            </div>
+        </div>
     </div>
 }
 
-<h1 class="govuk-heading-xl" data-testid="title">
-    <span class="govuk-caption-l" data-testid="school-name">@Model.SiteInformation.SchoolName</span>
-    Site information
-</h1>
+<div class="govuk-grid-row">
+    <msfp-nav project-id="@Model.ProjectId" />
+    <div class="govuk-grid-column-three-quarters">
+        <div class="govuk-grid-column-full">
+            @{
+                if (projectType == "Central Route")
+                {
+                        <div class="govuk-inset-text govuk-!-width-two-thirds" data-testid="central-route-hint">
+                            Site information is in the Construct system for central route projects. Contact the relevant project director in Education Estates to access it.
+                        </div>
+                }
+            }
 
-@{
-    if (projectType == "Central Route")
-    {
-            <div class="govuk-inset-text govuk-!-width-two-thirds" data-testid="central-route-hint">
-                Site information is in the Construct system for central route projects. Contact the relevant project director in Education Estates to access it.
-            </div>
-    }
-}
-
-<govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="@ProjectSiteType.Temporary.ToString()" project-type="@Model.SiteInformation.ProjectType" />
-<govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="@ProjectSiteType.Permanent.ToString()" project-type="@Model.SiteInformation.ProjectType" />
+            <govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="@ProjectSiteType.Temporary.ToString()" project-type="@Model.SiteInformation.ProjectType" />
+            <govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="@ProjectSiteType.Permanent.ToString()" project-type="@Model.SiteInformation.ProjectType" />
+        </div>
+    </div>
+</div>
