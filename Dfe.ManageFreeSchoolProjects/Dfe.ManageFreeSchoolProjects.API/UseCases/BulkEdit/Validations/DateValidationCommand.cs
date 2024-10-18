@@ -1,7 +1,12 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
+﻿using System.Text.RegularExpressions;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
-    public class DateValidationCommand : IValidationCommand<BulkEditDto>
+    public partial class DateValidationCommand : IValidationCommand<BulkEditDto>
     {
+        [GeneratedRegex("^[0-9/]+$")]
+        private static partial Regex NumbersAndForwardSlashOnlyRegex();
+        
         public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
             var dateParts = CleanAndSplitDate(parameters.Value);
@@ -20,7 +25,7 @@
 
             if (!IsValidYear(year, out var yearNumber))
                 return CreateValidationResult(false, "Year must be between 2000 and 2050");
-
+            
             if (!IsValidDay(day, yearNumber, monthNumber, out _))
                 return CreateValidationResult(false,
                     $"Day must be between 1 and {DateTime.DaysInMonth(yearNumber, monthNumber)}");
@@ -40,7 +45,7 @@
             return dateParts;
         }
 
-        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3;
+        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3 && Array.TrueForAll(dateParts, NumbersAndForwardSlashOnlyRegex().IsMatch);
 
         private static string CheckForMissingDateParts(string day, string month, string year)
         {
@@ -50,7 +55,7 @@
             if (string.IsNullOrEmpty(year)) missingParts.Add("year");
 
             if (missingParts.Count == 3)
-                return "Date must include a day, month, and year";
+                return "Date must include a day, month, and year"; 
             if (missingParts.Count > 0)
                 return $"Date must include a {string.Join(" and ", missingParts)}";
             return null;
