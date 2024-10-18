@@ -1,7 +1,12 @@
-﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
+﻿using System.Text.RegularExpressions;
+
+namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
-    public class DateValidationCommand : IValidationCommand<BulkEditDto>
+    public partial class DateValidationCommand : IValidationCommand<BulkEditDto>
     {
+        [GeneratedRegex("^[0-9/]+$")]
+        private static partial Regex NumbersAndForwardSlashOnlyRegex();
+        
         public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
             var dateParts = CleanAndSplitDate(parameters.Value);
@@ -43,7 +48,8 @@
             return dateParts;
         }
 
-        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3;
+        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3 
+                                                                     && dateParts.All(input => NumbersAndForwardSlashOnlyRegex().IsMatch(input));
 
         private static string CheckForMissingDateParts(string day, string month, string year)
         {
