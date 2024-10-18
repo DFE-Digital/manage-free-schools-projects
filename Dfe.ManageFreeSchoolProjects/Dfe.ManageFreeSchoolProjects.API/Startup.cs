@@ -1,20 +1,22 @@
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.Middleware;
 using Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
+using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Dfe.ManageFreeSchoolProjects.Middleware;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry();
@@ -64,7 +66,9 @@ namespace Dfe.ManageFreeSchoolProjects.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            } else {
+            } 
+            else 
+            {
                 app.UseHsts();
             }
 
@@ -81,6 +85,20 @@ namespace Dfe.ManageFreeSchoolProjects.API
             app.UseAuthorization();
 
             app.UseManageFreeSchoolProjectsEndpoints();
+            
+            //TODO: is this correct?
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<MfspContext>();
+
+                // Automatically apply migrations at startup
+                context.Database.Migrate();
+                    
+                var randomKpi = RandomDataGenerator.GenerateRandomValues<Kpi>();
+                context.Kpi.Add(randomKpi);
+                context.SaveChanges();
+            }
+
         }
     }
 }

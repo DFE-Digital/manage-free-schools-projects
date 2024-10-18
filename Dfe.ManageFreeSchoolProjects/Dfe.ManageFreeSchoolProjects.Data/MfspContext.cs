@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 
 namespace Dfe.ManageFreeSchoolProjects.Data;
 
@@ -33,6 +34,17 @@ public partial class MfspContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
+        // SeedDevelopmentData(modelBuilder);
+
         base.OnModelCreating(modelBuilder);
+    }
+    
+    private static void SeedDevelopmentData(ModelBuilder modelBuilder)
+    {
+        var randomKpi = RandomDataGenerator.GenerateRandomValues<Kpi>();
+    
+        modelBuilder.Entity<Kpi>().HasData(
+            randomKpi
+        );
     }
 }
