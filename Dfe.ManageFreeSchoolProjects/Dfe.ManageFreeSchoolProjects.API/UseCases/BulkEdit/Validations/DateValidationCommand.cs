@@ -25,9 +25,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 
             if (!IsValidYear(year, out var yearNumber))
                 return CreateValidationResult(false, "Year must be between 2000 and 2050");
-
-            if (!int.TryParse(day, out _))
-                return CreateValidationResult(false, "Day must be a number, like 12");
             
             if (!IsValidDay(day, yearNumber, monthNumber, out _))
                 return CreateValidationResult(false,
