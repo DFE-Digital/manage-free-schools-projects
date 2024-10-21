@@ -1,25 +1,23 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
+﻿namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
 {
     public partial class DateValidationCommand : IValidationCommand<BulkEditDto>
     {
-        [GeneratedRegex("^[0-9/]+$")]
-        private static partial Regex NumbersAndForwardSlashOnlyRegex();
-        
         public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
             var dateParts = CleanAndSplitDate(parameters.Value);
-
-            if (!IsValidDateFormat(dateParts))
+            
+            if (dateParts.Length != 3)
                 return CreateValidationResult(false, "Enter a valid date. For example, 27/03/2021");
-
+            
             var (day, month, year) = (dateParts[0], dateParts[1], dateParts[2]);
 
             var missingPartsMessage = CheckForMissingDateParts(day, month, year);
             if (missingPartsMessage != null)
                 return CreateValidationResult(false, missingPartsMessage);
-
+            
+            if (!IsValidDay(day, out var dayNumber))
+                return CreateValidationResult(false, "Day must be a number, like 12");
+            
             if (!IsValidMonth(month, out var monthNumber))
                 return CreateValidationResult(false, "Month must be between 1 and 12");
 
@@ -39,14 +37,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                 return [date];
 
             var dateParts = date.Split('/');
+
+            if (dateParts.Length != 3) 
+                return dateParts;
+            
             if (dateParts[2].EndsWith("00:00:00"))
                 dateParts[2] = dateParts[2][..^" 00:00:00".Length];
             
             return dateParts;
         }
-
-        private static bool IsValidDateFormat(string[] dateParts) => dateParts.Length == 3 && Array.TrueForAll(dateParts, NumbersAndForwardSlashOnlyRegex().IsMatch);
-
+        
         private static string CheckForMissingDateParts(string day, string month, string year)
         {
             var missingParts = new List<string>();
@@ -61,6 +61,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
             return null;
         }
 
+        private static bool IsValidDay(string day, out int dayNumber) => int.TryParse(day, out dayNumber);
+        
         private static bool IsValidMonth(string month, out int monthNumber) =>
             int.TryParse(month, out monthNumber) && monthNumber is >= 1 and <= 12;
 
