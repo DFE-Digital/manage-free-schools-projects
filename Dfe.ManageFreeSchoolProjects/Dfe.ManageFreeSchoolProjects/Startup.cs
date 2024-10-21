@@ -29,6 +29,9 @@ using System.IO;
 using System.Security.Claims;
 using Dfe.ManageFreeSchoolProjects.Services.Reports;
 using Dfe.ManageFreeSchoolProjects.Services.BulkEdit;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -229,6 +232,15 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
+        const string defaultCulture = "en-GB";
+
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture(new CultureInfo(defaultCulture)),
+            SupportedCultures = GetSupportedCultures(),
+            SupportedUICultures = GetSupportedCultures(),
+        });
+
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapRazorPages();
@@ -238,6 +250,14 @@ public class Startup
         bool IsFeatureEnabled(string flag)
         {
             return (app.ApplicationServices.GetService(typeof(IFeatureManager)) as IFeatureManager)?.IsEnabledAsync(flag).Result ?? false;
+        }
+
+        List<CultureInfo> GetSupportedCultures()
+        {
+            return new List<CultureInfo>
+            {
+                {  new CultureInfo(defaultCulture) }
+            };
         }
     }
 
