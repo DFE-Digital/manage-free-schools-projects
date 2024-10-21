@@ -16,7 +16,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
         [InlineData("00/10/2025", "Day must be between 1 and 31")]  
         [InlineData("12/00/2025", "Month must be between 1 and 12")]
         [InlineData("12/13/2025", "Month must be between 1 and 12")]
-        [InlineData("hj/12/2050", "Enter a valid date. For example, 27/03/2021")]
+        [InlineData("hj/12/2050", "Day must be a number, like 12")]
         public void DateValidationFails(string date, string expectedErrorMessage)
         {
             var dateValidation = new DateValidationCommand();
@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.UseCases.BulkEdit.Validation
 
         [Theory]
         [InlineData("12/10/2025")]  
-        [InlineData("29/02/2024")]  // Leap year test
+        [InlineData("29/02/2024")]
         [InlineData("31/12/2050")]  
         [InlineData("01/01/2000")]
         public void DateValidationPasses(string date)
