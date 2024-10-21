@@ -40,6 +40,11 @@ namespace Dfe.ManageFreeSchoolProjects.Data
             {
                 return;
             }
+            
+            if (_httpContextAccessor.HttpContext == null)
+            {
+                return;
+            }
 
             var hasUserContextHeader = _httpContextAccessor.HttpContext.Request.Headers.TryGetValue(HttpHeaderConstants.UserContextName, out var userContextNameHeader);
 
