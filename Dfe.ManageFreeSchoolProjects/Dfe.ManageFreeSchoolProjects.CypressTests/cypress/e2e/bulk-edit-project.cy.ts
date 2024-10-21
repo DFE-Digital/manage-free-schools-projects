@@ -11,6 +11,7 @@ import { utils, write } from "xlsx/xlsx";
 import { RequestBuilder } from "cypress/api/requestBuilder";
 import projectApi from "cypress/api/projectApi";
 
+
 describe("Bulk editing project", () => {
 
     let project: ProjectDetailsRequest;
@@ -32,6 +33,12 @@ describe("Bulk editing project", () => {
             });
     });
 
+    it("Should validate when no file is selected", () => {
+        bulkCreateProjectPage
+          .continue()
+          .errorMessage('Select a file');
+    }); 
+
     it("Should validate an uploaded CSV file", () => {
         const completeRow: BulkEditRow = {
             projectId: v4(),
@@ -44,11 +51,12 @@ describe("Bulk editing project", () => {
         const csv = createCsv([completeRow, emptyRow]);
 
         bulkCreateProjectPage.upload(csv, "file.csv").continue();
+
     });
 
     it("Should validate an uploaded Excel file", () => {
         const completeRow: BulkEditRow = {
-            projectId: ,
+            projectId: v4(),
             localAuthority: v4(),
             actualOpeningDate: v4(),
             status: "Pre-opening",
@@ -66,10 +74,10 @@ describe("Bulk editing project", () => {
     function createTable(rows: Array<BulkEditRow>) {
         const result: BulkProjectTable<BulkEditRow> = {
             headers: [
-                "Project Id",
-                "Local authority",
+                "Project ID",
+                "Project status",
                 "Actual opening date",
-                "Project Status",
+                "Local authority"                
             ],
             rows: rows,
         };
