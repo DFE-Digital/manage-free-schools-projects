@@ -4,7 +4,7 @@
     {
         public ValidationResult Execute(ValidationCommandParameters<BulkEditDto> parameters)
         {
-            var dateParts = CleanAndSplitDate(parameters.Value);
+            var dateParts = SplitAndCleanDate(parameters.Value);
             
             if (dateParts.Length != 3)
                 return CreateValidationResult(false, "Enter a valid date. For example, 27/03/2021");
@@ -24,14 +24,14 @@
             if (!IsValidYear(year, out var yearNumber))
                 return CreateValidationResult(false, "Year must be between 2000 and 2050");
             
-            if (!IsValidDay(day, yearNumber, monthNumber, out _))
+            if (!IsValidDayRange(dayNumber, yearNumber, monthNumber))
                 return CreateValidationResult(false,
                     $"Day must be between 1 and {DateTime.DaysInMonth(yearNumber, monthNumber)}");
 
             return CreateValidationResult(true, null);
         }
 
-        private static string[] CleanAndSplitDate(string date)
+        private static string[] SplitAndCleanDate(string date)
         {
             if (!date.Contains('/'))
                 return [date];
@@ -63,20 +63,12 @@
 
         private static bool IsValidDay(string day, out int dayNumber) => int.TryParse(day, out dayNumber);
         
-        private static bool IsValidMonth(string month, out int monthNumber) =>
-            int.TryParse(month, out monthNumber) && monthNumber is >= 1 and <= 12;
+        private static bool IsValidMonth(string month, out int monthNumber) => int.TryParse(month, out monthNumber) && monthNumber is >= 1 and <= 12;
 
-        private static bool IsValidYear(string year, out int yearNumber) =>
-            int.TryParse(year, out yearNumber) && yearNumber is >= 2000 and <= 2050;
+        private static bool IsValidYear(string year, out int yearNumber) => int.TryParse(year, out yearNumber) && yearNumber is >= 2000 and <= 2050;
 
-        private static bool IsValidDay(string day, int year, int month, out int dayNumber)
-        {
-            var isValid = int.TryParse(day, out dayNumber) && dayNumber >= 1 &&
-                          dayNumber <= DateTime.DaysInMonth(year, month);
-            return isValid;
-        }
+        private static bool IsValidDayRange(int day, int year, int month) => day >= 1 && day <= DateTime.DaysInMonth(year, month);
 
-        private static ValidationResult CreateValidationResult(bool isValid, string message) =>
-            new() { IsValid = isValid, ErrorMessage = message };
+        private static ValidationResult CreateValidationResult(bool isValid, string message) => new() { IsValid = isValid, ErrorMessage = message };
     }
 }
