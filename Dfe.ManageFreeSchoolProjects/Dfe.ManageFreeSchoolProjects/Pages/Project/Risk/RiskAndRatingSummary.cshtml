@@ -24,6 +24,8 @@
     var trustContactLink = string.Format(RouteConstants.EditTrustContact, Model.ProjectId);
     var ofstedContactLink = string.Format(RouteConstants.EditOfstedContact, Model.ProjectId);
     var principalDesignateContactLink = string.Format(RouteConstants.EditPrincipalDesignateContact, Model.ProjectId);
+
+    var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "Risk rating and summary");
 }
 
 <partial name="_ErrorSummary" />
@@ -57,7 +59,7 @@
 }
 
 <div class="govuk-grid-row">
-    <msfp-nav project-id="@Model.ProjectId" />
+    <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex"/>
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-column-full">
 

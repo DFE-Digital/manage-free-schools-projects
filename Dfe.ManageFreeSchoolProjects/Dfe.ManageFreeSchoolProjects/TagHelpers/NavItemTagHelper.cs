@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Dfe.ManageFreeSchoolProjects.TagHelpers
 {
-    [HtmlTargetElement("msfp-nav-item", TagStructure = TagStructure.NormalOrSelfClosing)]
+    [HtmlTargetElement("mfsp-nav-item", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class NavItemHelper : TagHelper
 
     {

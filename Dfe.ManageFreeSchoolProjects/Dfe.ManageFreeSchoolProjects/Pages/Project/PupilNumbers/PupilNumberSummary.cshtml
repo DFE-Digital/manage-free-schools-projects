@@ -16,7 +16,9 @@
     ViewData["Title"] = $"Pupil numbers summary - {Model.SchoolName}";
     ViewData["WidePage"] = true;
 
+    var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "Pupil numbers");
 }
+
 @section BeforeMain {
     <div class="dfe-content-page--header">
         <div class="dfe-width-container ">
@@ -46,7 +48,7 @@
 }
 
 <div class="govuk-grid-row">
-    <msfp-nav project-id="@Model.ProjectId" />
+    <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex"/>
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-column-full">
             <div class="govuk-summary-card" id="pupil-numbers">

@@ -17,7 +17,10 @@
 
     ViewData["Title"] = $"Site information - {Model.SiteInformation.SchoolName}";
     ViewData["WidePage"] = true;
+
+    var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "Site information");
 }
+
 @section BeforeMain {
     <div class="dfe-content-page--header">
         <div class="dfe-width-container ">
@@ -47,7 +50,7 @@
 }
 
 <div class="govuk-grid-row">
-    <msfp-nav project-id="@Model.ProjectId" />
+    <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex" />
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-column-full">
             @{

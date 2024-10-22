@@ -52,6 +52,8 @@
 
     ViewData["Title"] = $"{Model.SchoolName} - Task list";
     ViewData["WidePage"] = true;
+
+    var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "Task list");
 }
 
 @section BeforeMain
@@ -83,7 +85,7 @@
     </div>
 }
 <div class="govuk-grid-row">
-    <msfp-nav project-id="@Model.ProjectId" />
+    <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex"/>
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-column-full">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Project progress</h2>

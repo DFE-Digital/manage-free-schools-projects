@@ -13,8 +13,10 @@
         ProjectId = @Model.ProjectId,
         ProjectStatus = @Model.Project.ProjectStatus.ProjectStatus,
         Referrer = Referrer.ProjectOverview
-            
+
     };
+
+    var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "About the project");
 }
 
 @section BeforeMain
@@ -46,7 +48,7 @@
     </div>
 }
 <div class="govuk-grid-row">
-    <msfp-nav project-id="@Model.ProjectId" />
+    <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex" />
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-row">
 
