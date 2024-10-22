@@ -1,5 +1,5 @@
 import { BulkProjectTable, BulkEditRow, ProjectDetailsRequest } from "cypress/api/domain";
-import bulkCreateProjectPage from "cypress/pages/bulkCreateProjectPage";
+import bulkEditProjectPage from "cypress/pages/bulkEditProjectPage";
 import { v4 } from "uuid";
 import { stringify } from "csv-stringify/sync";
 import { utils, write } from "xlsx/xlsx";
@@ -29,7 +29,7 @@ describe("Bulk editing project", () => {
     });
 
     it("Should validate when no file is selected", () => {
-        bulkCreateProjectPage
+        bulkEditProjectPage
           .continue()
           .errorMessage('Select a file');
     }); 
@@ -45,7 +45,7 @@ describe("Bulk editing project", () => {
 
         const csv = createCsv([completeRow, emptyRow]);
 
-        bulkCreateProjectPage.upload(csv, "file.csv").continue();
+        bulkEditProjectPage.upload(csv, "file.csv").continue();
 
     });
 
@@ -63,7 +63,7 @@ describe("Bulk editing project", () => {
 
         const buffer = createExcel([completeRow, emptyRow]);
 
-        bulkCreateProjectPage.upload(buffer, "file.xlsx").continue();
+        bulkEditProjectPage.upload(buffer, "file.xlsx").continue();
     });
 
     function createTable(rows: Array<BulkEditRow>) {
