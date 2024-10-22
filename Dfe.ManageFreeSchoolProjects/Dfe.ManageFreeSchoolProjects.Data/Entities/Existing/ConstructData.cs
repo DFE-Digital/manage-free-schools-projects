@@ -61,5 +61,26 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public DateOnly? DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired { get; set; }
 
         public DateOnly? LastRefreshDate { get; set; }
+
+
+        public string WillTheProjectOpenInTemporaryAccommodation { get; set; }
+        public string HoTsAgreedForTemporarySiteForecast { get; set; }
+        public string ContractorForTemporarySiteAppointedForecast { get; set; }
+        public string ContractorForTemporarySiteAppointedActual { get; set; }
+        public string DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast { get; set; }
+        public string DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual { get; set; }
+        public string TemporarySitePlanningDecision { get; set; }
+        public string HoTsAgreedForSiteForMainSchoolBuildingForecast { get; set; }
+        public string ContractorForSiteForMainSchoolBuildingAppointedForecast { get; set; }
+        public string ContractorForSiteForMainSchoolBuildingAppointedActual { get; set; }
+        public string DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast { get; set; }
+        public string DateOfPlanningDecisionForMainSiteMainPlanningRecordActual { get; set; }
+        public string TemporarySiteAddress { get; set; }
+        public string TemporarySitePostcode { get; set; }
+        public string TemporarySitePlanningRisk { get; set; }
+        public string DateTemporarySitePlanningApprovalGranted { get; set; }
+        public string MainSiteAddress { get; set; }
+        public string DateMainSitePlanningApprovalGranted { get; set; }
+
     }
 }
