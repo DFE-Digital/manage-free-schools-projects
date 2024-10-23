@@ -1,4 +1,4 @@
-﻿@inject Microsoft.Extensions.Configuration.IConfiguration _configuration
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
@@ -10,7 +10,7 @@
 			If you pasted the web address, check you copied the entire address.
 		</p>
 		<p class="govuk-body">
-			If the web address is correct or you selected a link or button, <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-X7F89QcWu5CjlJXwF0TVktUMTFEUVRCVVg4WlMyS1AzUEJSUDAySlhQTCQlQCN0PWcu" class="govuk-link">get help with a Regions Group System (opens in new tab).</a>
+			If the web address is correct or you selected a link or button, <a href="@Configuration["SupportLink"]" class="govuk-link" target="_blank" rel="noopener">get help with a Regions Group System (opens in a new tab).</a>
 		</p>
 	</div>
 </div>
