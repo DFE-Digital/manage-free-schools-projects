@@ -94,75 +94,75 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.WillTheProjectOpenInTemporaryAccommodation)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Will the project open in temporary accommodation?");
+                        .HasColumnName("Will the project open in temporary accommodation?");
             builder.Property(e => e.HoTsAgreedForTemporarySiteForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("HoTs agreed for temporary site [Forecast]");
+                        .HasColumnName("HoTs agreed for temporary site [Forecast]");
             builder.Property(e => e.ContractorForTemporarySiteAppointedForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Contractor for temporary site appointed [Forecast]");
+                        .HasColumnName("Contractor for temporary site appointed [Forecast]");
             builder.Property(e => e.ContractorForTemporarySiteAppointedActual)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Contractor for temporary site appointed [Actual]");
+                        .HasColumnName("Contractor for temporary site appointed [Actual]");
             builder.Property(e => e.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date of planning decision for temporary site main planning record [Forecast]");
+                        .HasColumnName("Date of planning decision for temporary site main planning record [Forecast]");
             builder.Property(e => e.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date of planning decision for temporary site main planning record [Actual]");
+                        .HasColumnName("Date of planning decision for temporary site main planning record [Actual]");
             builder.Property(e => e.TemporarySitePlanningDecision)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Temporary site planning decision");
+                        .HasColumnName("Temporary site planning decision");
             builder.Property(e => e.HoTsAgreedForSiteForMainSchoolBuildingForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("HoTs agreed for site for main school building [Forecast]");
+                        .HasColumnName("HoTs agreed for site for main school building [Forecast]");
             builder.Property(e => e.ContractorForSiteForMainSchoolBuildingAppointedForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Contractor for site for main school building appointed [Forecast]");
+                        .HasColumnName("Contractor for site for main school building appointed [Forecast]");
             builder.Property(e => e.ContractorForSiteForMainSchoolBuildingAppointedActual)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Contractor for site for main school building appointed [Actual]");
+                        .HasColumnName("Contractor for site for main school building appointed [Actual]");
             builder.Property(e => e.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date of planning decision for main site main planning record [Forecast]");
+                        .HasColumnName("Date of planning decision for main site main planning record [Forecast]");
             builder.Property(e => e.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date of planning decision for main site main planning record [Actual]");
+                        .HasColumnName("Date of planning decision for main site main planning record [Actual]");
             builder.Property(e => e.TemporarySiteAddress)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Temporary site address");
+                        .HasColumnName("Temporary site address");
             builder.Property(e => e.TemporarySitePostcode)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Temporary site postcode");
+                        .HasColumnName("Temporary site postcode");
             builder.Property(e => e.TemporarySitePlanningRisk)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Temporary site planning risk");
+                        .HasColumnName("Temporary site planning risk");
             builder.Property(e => e.DateTemporarySitePlanningApprovalGranted)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date temporary site planning approval granted");
+                        .HasColumnName("Date temporary site planning approval granted");
             builder.Property(e => e.MainSiteAddress)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Main site address");
+                        .HasColumnName("Main site address");
             builder.Property(e => e.DateMainSitePlanningApprovalGranted)
                         .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)").HasColumnName("Date main site planning approval granted");
+                        .HasColumnName("Date main site planning approval granted");
 
             AuditConfiguration.Apply(builder);
         }
