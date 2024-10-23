@@ -2,16 +2,6 @@
 
 @model Dfe.ManageFreeSchoolProjects.TagHelpers.NavViewModel
 
-@{
-    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var riskLink = string.Format(RouteConstants.ProjectRiskRatingAndSummary, Model.ProjectId);
-    var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
-    var siteInformationLink = string.Format(RouteConstants.ViewSiteInformation, Model.ProjectId);
-    var pupilNumbersLink = string.Format(RouteConstants.PupilNumbersSummary, Model.ProjectId);
-
-}
-
 <div class="govuk-grid-column-one-quarter">
 
     <nav class="mfsp-side-nav">

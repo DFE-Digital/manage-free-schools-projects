@@ -6,8 +6,6 @@
 @{
     ViewData["Title"] = $"{Model.Project.ProjectStatus.CurrentFreeSchoolName} - About the project";
     ViewData["WidePage"] = true;
-    var temporarySite = Model.Project.SiteInformation.TemporarySite;
-    var permanentSite = Model.Project.SiteInformation.PermanentSite;
     var projectStatusViewModel = new ProjectStatusViewModel()
     {
         ProjectId = @Model.ProjectId,

@@ -11,7 +11,7 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
             public string Link { get; internal set; }
         }
 
-        public static List<NavItem> NavItemList = new List<NavItem>
+        public static readonly List<NavItem> NavItemList = new List<NavItem>
         {
             new NavItem { Description = "About the project", Link = RouteConstants.ProjectOverview },
             new NavItem { Description = "Task list", Link = RouteConstants.TaskList },

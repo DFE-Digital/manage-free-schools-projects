@@ -10,7 +10,6 @@
                 Referrer = Referrer.ProjectOverview
             };
 
-    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var pupilNumbersLink = string.Format(RouteConstants.ViewPupilNumbers, Model.ProjectId);
 
     ViewData["Title"] = $"Pupil numbers summary - {Model.SchoolName}";

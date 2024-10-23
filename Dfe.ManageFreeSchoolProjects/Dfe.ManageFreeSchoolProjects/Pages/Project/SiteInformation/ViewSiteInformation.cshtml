@@ -10,7 +10,6 @@
                 Referrer = Referrer.ProjectOverview
             };
 
-    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
     var projectType = Model.SiteInformation.ProjectType;
     var editPermanentSite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditPermanentSiteInformation, Model.ProjectId);
     var editTemporarySite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);

@@ -13,9 +13,6 @@
         ProjectStatus = @Model.ProjectStatus,
         Referrer = Referrer.ContactsOverview
     };
-    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
     var projectAssignedToLink = string.Format(RouteConstants.EditProjectAssignedTo, Model.ProjectId);
     var teamLeadLink = string.Format(RouteConstants.EditTeamLead, Model.ProjectId);
     var grade6Link = string.Format(RouteConstants.EditGrade6, Model.ProjectId);
