@@ -60,10 +60,10 @@ jobs:
           ]
           include:
             - image: "web"
-              aca_name_secret: "AZURE_ACA_NAME"
+              aca_name_secret: "ACA_CONTAINERAPP_NAME"
               tag_prefix: ""
             - image: "api"
-              aca_name_secret: "AZURE_API_ACA_NAME"
+              aca_name_secret: "ACA_CONTAINERAPP_API_NAME"
               tag_prefix: "api-"
       with:
         docker-image-name: 'mfsp-app'
@@ -77,7 +77,7 @@ jobs:
         azure-acr-client-id: ${{ secrets.ACR_CLIENT_ID }}
         azure-acr-name: ${{ secrets.ACR_NAME }}
         azure-aca-client-id: ${{ secrets.ACA_CLIENT_ID }}
-        azure-aca-name: ${{ secrets.ACA_CONTAINERAPP_NAME }}
+        azure-aca-name: ${{ secrets.[matrix.aca_name_secret] }}
         azure-aca-resource-group: ${{ secrets.ACA_RESOURCE_GROUP }}
 
   create-tag:
