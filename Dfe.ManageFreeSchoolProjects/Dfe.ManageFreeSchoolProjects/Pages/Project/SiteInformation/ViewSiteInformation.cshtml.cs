@@ -20,6 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
 
         public ProjectStatusType ProjectStatus { get; set; }
 
+        public string SchoolName { get; set; }
+
         public GetProjectSitesResponse SiteInformation { get; set; }
 
         public ViewSiteInformationModel(
@@ -41,6 +43,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
             var project = await _getProjectOverviewService.Execute(ProjectId);
 
             ProjectStatus = project.ProjectStatus.ProjectStatus;
+
+            SchoolName = project.ProjectStatus.CurrentFreeSchoolName;
 
             return Page();
         }

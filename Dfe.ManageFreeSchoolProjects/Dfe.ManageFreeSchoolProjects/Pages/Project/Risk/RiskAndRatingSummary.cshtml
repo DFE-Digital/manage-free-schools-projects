@@ -1,5 +1,4 @@
 ﻿@page "/projects/{projectId}/risk-rating-and-summary"
-@using Dfe.ManageFreeSchoolProjects.Pages.Project.Contacts;
 @using Dfe.ManageFreeSchoolProjects.Pages.Project;
 @using Dfe.ManageFreeSchoolProjects.Constants;
 @using Dfe.ManageFreeSchoolProjects.Pages.Project.Risk
@@ -13,17 +12,6 @@
                 ProjectStatus = @Model.ProjectStatus,
                 Referrer = Referrer.ProjectOverview
             };
-    var projectOverviewLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
-    var taskListLink = string.Format(RouteConstants.TaskList, Model.ProjectId);
-    var contactsLink = string.Format(RouteConstants.Contacts, Model.ProjectId);
-    var projectAssignedToLink = string.Format(RouteConstants.EditProjectAssignedTo, Model.ProjectId);
-    var teamLeadLink = string.Format(RouteConstants.EditTeamLead, Model.ProjectId);
-    var grade6Link = string.Format(RouteConstants.EditGrade6, Model.ProjectId);
-    var projectManagerLink = string.Format(RouteConstants.EditProjectManager, Model.ProjectId);
-    var projectDirectorLink = string.Format(RouteConstants.EditProjectDirector, Model.ProjectId);
-    var trustContactLink = string.Format(RouteConstants.EditTrustContact, Model.ProjectId);
-    var ofstedContactLink = string.Format(RouteConstants.EditOfstedContact, Model.ProjectId);
-    var principalDesignateContactLink = string.Format(RouteConstants.EditPrincipalDesignateContact, Model.ProjectId);
 
     var currentNavIndex = NavConstants.NavItemList.FindIndex(item => item.Description == "Risk rating and summary");
 }
@@ -32,30 +20,13 @@
 
 @section BeforeMain
 {
-    <div class="dfe-content-page--header">
-        <div class="dfe-width-container ">
-            <div class="govuk-grid-row ">
-                <div class="govuk-grid-column-three-quarters">
-                    <a href="/" class="govuk-back-link">Back to all projects</a>
-                </div>
-            </div>
-            <div class="govuk-grid-row govuk-!-padding-top-5 govuk-!-padding-bottom-0">
-                <div class="govuk-grid-column-three-quarters">
-                    <partial name="_ProjectStatusSuccessBanner" />
-                    <span class="govuk-body-s" data-testid="project-id-header">Project ID: @Model.ProjectId</span>
-                    <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" data-testid="project-title-header">@Model.SchoolName</h1>
-                    <partial name="_ProjectStatus" model="@projectStatusViewModel" />
-                    <p id="header-contacts" class="govuk-!-font-size-27 govuk-!-font-weight-bold">
-                        Risk rating and summary
-                    </p>
-                </div>
-            </div>
-            <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-5">
-                <div class="govuk-grid-column-full">
-                </div>
-            </div>
-        </div>
-    </div>
+    <mfsp-project-header project-id="@Model.ProjectId"
+                         school-name="@Model.SchoolName"
+                         back-link="/"
+                         back-text="Back to all projects"
+                         page-title="Risk rating and summary"
+                         project-status="@projectStatusViewModel"
+    />
 }
 
 <div class="govuk-grid-row">
