@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 
 namespace Dfe.ManageFreeSchoolProjects.Constants
 {
@@ -11,15 +13,14 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
             public string Link { get; internal set; }
         }
 
-        public static readonly List<NavItem> NavItemList = new List<NavItem>
-        {
+        public static readonly ImmutableList<NavItem> NavItemList = [
             new NavItem { Description = "About the project", Link = RouteConstants.ProjectOverview },
             new NavItem { Description = "Task list", Link = RouteConstants.TaskList },
             new NavItem { Description = "Risk rating and summary", Link = RouteConstants.ProjectRiskRatingAndSummary },
             new NavItem { Description = "Contacts", Link = RouteConstants.Contacts },
             new NavItem { Description = "Site information", Link = RouteConstants.ViewSiteInformation },
             new NavItem { Description = "Pupil numbers", Link = RouteConstants.PupilNumbersSummary }
-        };
+        ];
 
 
     }
