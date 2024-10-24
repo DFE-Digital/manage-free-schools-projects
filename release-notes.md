@@ -1,3 +1,6 @@
+## 0.17.0
+* 184957 - Build: Add fields to construct table
+
 ## 0.16.0
 * 185225 - Uploaded file reading the date in American format
 * 179138 - Build: update 'page not found' to match RSD design pattern
