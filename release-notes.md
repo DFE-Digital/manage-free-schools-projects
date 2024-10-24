@@ -1,3 +1,12 @@
+## 0.16.0
+* 185225 - Uploaded file reading the date in American format
+* 179138 - Build: update 'page not found' to match RSD design pattern
+* 179145 - Build: update 'there is a problem with the service' content
+* 176838 - Build: update accessibility statement
+
+## 0.15.0
+* 180341 - Build: Footer amended to new standard
+
 ## 0.14.1
 * 175058 - Fixed legacy SRP field not being set in the database
 
