@@ -71,7 +71,7 @@
 
             @RenderSummaryRow("Faith status", Model.Project.FaithStatus.ToString(), RouteConstants.CreateFaithStatus)
             @RenderSummaryRow("Faith type", faithType, faithTypeLink)
-            @RenderSummaryRow("Provisional opening date agreed with trust", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
+            @RenderSummaryRow("Provisional opening date", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
             @RenderSummaryRow("Project assigned to", Model.Project.ProjectAssignedToName, RouteConstants.CreateProjectAssignedTo)
             @RenderSummaryRow("Email", Model.Project.ProjectAssignedToEmail, RouteConstants.CreateProjectAssignedTo)
 
