@@ -85,7 +85,7 @@
 
             @foreach (var row in Model.Rows.Where(x => x.Cells.Any(y => !string.IsNullOrEmpty(y.Error))))
             {
-                <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber on the enter data tab">
                     <govuk-summary-list>
                         @foreach (var cell in row.Cells)
                         {
@@ -129,7 +129,7 @@
 
                 @foreach (var row in Model.Rows)
                 {
-                    <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber">
+                    <govuk-summary-card id="row-@row.RowNumber" label="Row @row.RowNumber on the enter data tab">
                         <govuk-summary-list>
                             @foreach (var cell in row.Cells)
                             {
