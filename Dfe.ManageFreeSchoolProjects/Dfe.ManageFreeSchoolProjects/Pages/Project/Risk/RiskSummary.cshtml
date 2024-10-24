@@ -45,9 +45,9 @@
             </p>
             @if (Model.ProjectRisk.Overall.Summary != null)
             {
-                <p class="govuk-body-l" data-testid="overall-risk-summary">
-                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary"/>
-                </p>
+                <pre class="govuk-body-l" data-testid="overall-risk-summary">
+                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
+                </pre>
             }
         </div>
 
