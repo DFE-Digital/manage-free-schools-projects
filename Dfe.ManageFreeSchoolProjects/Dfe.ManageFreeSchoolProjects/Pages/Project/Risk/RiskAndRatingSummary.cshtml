@@ -23,7 +23,7 @@
     <mfsp-project-header project-id="@Model.ProjectId"
                          school-name="@Model.SchoolName"
                          back-link="/"
-                         back-text="Back to all projects"
+                         back-text="Back"
                          page-title="Risk rating and summary"
                          project-status="@projectStatusViewModel"
     />
@@ -35,7 +35,7 @@
         <div class="govuk-grid-column-full">
 
             <govuk-risk-rating-summary project-id="@Model.ProjectId"
-                                       change-link-text="Change"
+                                       change-link-text="View details"
                                        date="@Model.ProjectRisk.Date"
                                        risk-rating="@Model.ProjectRisk.Overall.RiskRating"
                                        summary="@Model.ProjectRisk.Overall.Summary" />
