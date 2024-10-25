@@ -16,7 +16,7 @@ describe("Smoke Test Create an individual Central project - (Up Until Check your
         const applicationWave = dataGenerator.generateTemporaryId(10);
         const temporaryProjectId = dataGenerator.generateTemporaryId(25);
         const schoolName = dataGenerator.generateSchoolName();
-        const TestTrn = "TR00111";
+        const TestTrn = "TR90111";
 
         homePage.createNewProjects();
 

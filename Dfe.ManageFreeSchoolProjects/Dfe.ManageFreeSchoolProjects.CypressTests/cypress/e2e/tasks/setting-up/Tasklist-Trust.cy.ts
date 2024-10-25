@@ -159,8 +159,8 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        projectOverviewPage.hasTrustId("TR03446");
-        projectOverviewPage.hasTrustName("King's Group Academies");
+        projectOverviewPage.hasTrustId("TR90123");
+        projectOverviewPage.hasTrustName("Neat Idea Trust");
         projectOverviewPage.hasTrustType("MAT (multi-academy trust)");
 
     });
