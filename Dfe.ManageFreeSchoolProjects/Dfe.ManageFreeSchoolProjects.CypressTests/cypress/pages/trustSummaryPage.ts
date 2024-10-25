@@ -25,7 +25,7 @@ class TrustSummaryPage {
 
         summaryPage.inOrder()
             .summaryShows("TRN (trust reference number)").HasValue(validTrustId).HasChangeLink()
-            .summaryShows("Trust name").HasValue("King's Group Academies").HasNoChangeLink()
+            .summaryShows("Trust name").HasValue("Neat Idea Trust").HasNoChangeLink()
             .summaryShows("Trust type").HasValue("MAT").HasNoChangeLink();
 
         cy.getById("mark-as-completed").should("not.be.checked");
