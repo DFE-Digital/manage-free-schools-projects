@@ -13,6 +13,14 @@
 
     var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" : Model.Project.FaithType.ToDescription();
     var faithTypeLink = Model.Project.FaithStatus == FaithStatus.None ? RouteConstants.CreateFaithStatus : RouteConstants.CreateFaithType;
+    
+    var ageRangeValue = string.Empty;
+    var projectAgeRange = Model.Project.AgeRange;
+    if (projectAgeRange.Contains('-'))
+    {
+        var splitAgeRange = projectAgeRange.Split('-');
+        ageRangeValue = $"{splitAgeRange[0]} to {splitAgeRange[1]}";
+    }
 }
 
 @section BeforeMain {
@@ -39,7 +47,7 @@
                 @RenderSummaryRow("Application wave", Model.Project.ApplicationWave, RouteConstants.CreateApplicationWave)
             }
 
-            @RenderSummaryRow("Temporary Project ID", Model.Project.ProjectId, RouteConstants.CreateProjectId)
+            @RenderSummaryRow("Temporary project ID", Model.Project.ProjectId, RouteConstants.CreateProjectId)
             @RenderSummaryRow("Current free school name", Model.Project.SchoolName, RouteConstants.CreateProjectSchool)
 
 
@@ -58,7 +66,7 @@
             }
 
             @RenderSummaryRow("School phase", Model.Project.SchoolPhase.ToDescription(), RouteConstants.CreateProjectSchoolPhase)
-            @RenderSummaryRow("Age range", Model.Project.AgeRange, RouteConstants.CreateProjectAgeRange)
+            @RenderSummaryRow("Age range", ageRangeValue, RouteConstants.CreateProjectAgeRange)
 
             @if (Model.Project.Nursery == Nursery.Yes)
             {
@@ -71,7 +79,7 @@
 
             @RenderSummaryRow("Faith status", Model.Project.FaithStatus.ToString(), RouteConstants.CreateFaithStatus)
             @RenderSummaryRow("Faith type", faithType, faithTypeLink)
-            @RenderSummaryRow("Provisional opening date agreed with trust", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
+            @RenderSummaryRow("Provisional opening date", Model.Project.ProvisionalOpeningDate.ToDateString(), RouteConstants.CreateProjectProvisionalOpeningDate)
             @RenderSummaryRow("Project assigned to", Model.Project.ProjectAssignedToName, RouteConstants.CreateProjectAssignedTo)
             @RenderSummaryRow("Email", Model.Project.ProjectAssignedToEmail, RouteConstants.CreateProjectAssignedTo)
 
