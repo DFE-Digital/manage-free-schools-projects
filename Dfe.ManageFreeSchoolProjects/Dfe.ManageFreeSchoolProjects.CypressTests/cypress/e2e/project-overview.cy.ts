@@ -20,9 +20,9 @@ describe("Testing project overview", () => {
 
         projectOverviewPage
           .hasProvisionalOpeningDateAgreedWithTrust("1 October 2035")
-          .hasTrustId("TR00111")
-          .hasTrustName("Aurora Academies Trust")
-          .hasTrustType("MAT (multi-academy trust)")
+          .hasTrustId("TR90111")
+          .hasTrustName("The James Web School")
+          .hasTrustType("SAT (single academy trust)")
           .hasProjectId(temporaryProjectId)
           .hasCurrentFreeSchoolName(schoolName)
           .hasSchoolType("Mainstream")
@@ -36,7 +36,7 @@ describe("Testing project overview", () => {
 
     function createProject(temporaryProjectId: string, schoolName: string) {
 
-        const testTrn = "TR00111";
+        const testTrn = "TR90111";
 
         Logger.log("Creating a new project using the individual route");
         homePage.createNewProjects();
