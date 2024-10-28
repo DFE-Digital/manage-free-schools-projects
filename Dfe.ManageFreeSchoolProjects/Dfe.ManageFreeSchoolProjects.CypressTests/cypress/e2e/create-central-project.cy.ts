@@ -66,7 +66,7 @@ describe("Testing the central route project creation journey", () => {
             const applicationWave = dataGenerator.generateTemporaryId(10);
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
-            const TestTrn = "TR00111";
+            const TestTrn = "TR90111";
 
             cy.executeAccessibilityTests();
 
@@ -175,8 +175,8 @@ describe("Testing the central route project creation journey", () => {
 
             createProjectPage
                 .titleIs("Confirm the trust")
-                .hasCorrectTrustName("Aurora Academies Trust")
-                .hasCorrectTrustType("MAT (multi-academy trust)")
+                .hasCorrectTrustName("The James Web School")
+                .hasCorrectTrustType("SAT (single academy trust)")
                 .selectOption("Yes")
                 .continue();
 
@@ -249,7 +249,7 @@ describe("Testing the central route project creation journey", () => {
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-                .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+                .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()

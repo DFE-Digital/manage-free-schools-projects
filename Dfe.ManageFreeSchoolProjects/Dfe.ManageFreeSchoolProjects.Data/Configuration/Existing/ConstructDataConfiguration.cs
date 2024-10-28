@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Net;
 using Dfe.ManageFreeSchoolProjects.Data.Entities;
 using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 {
@@ -88,6 +91,61 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
             builder.Property(e => e.TypeOfSite)
                 .IsUnicode(false)
                 .HasColumnName("Type of Site");
+            builder.Property(e => e.WillTheProjectOpenInTemporaryAccommodation)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("Will the project open in temporary accommodation?");
+            builder.Property(e => e.HoTsAgreedForTemporarySiteForecast)
+                .IsUnicode(false)
+                .HasColumnName("HoTs agreed for temporary site (Forecast)");
+            builder.Property(e => e.ContractorForTemporarySiteAppointedForecast)
+                .IsUnicode(false)
+                .HasColumnName("Contractor for temporary site appointed (Forecast)");
+            builder.Property(e => e.ContractorForTemporarySiteAppointedActual)
+                .IsUnicode(false)
+                .HasColumnName("Contractor for temporary site appointed (Actual)");
+            builder.Property(e => e.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast)
+                .IsUnicode(false)
+                .HasColumnName("Date of planning decision for temporary site main planning record (Forecast)");
+            builder.Property(e => e.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual)
+                .IsUnicode(false)
+                .HasColumnName("Date of planning decision for temporary site main planning record (Actual)");
+            builder.Property(e => e.TemporarySitePlanningDecision)
+                .IsUnicode(false)
+                .HasColumnName("Temporary site planning decision");
+            builder.Property(e => e.HoTsAgreedForSiteForMainSchoolBuildingForecast)
+                .IsUnicode(false)
+                .HasColumnName("HoTs agreed for site for main school building (Forecast)");
+            builder.Property(e => e.ContractorForSiteForMainSchoolBuildingAppointedForecast)
+                .IsUnicode(false)
+                .HasColumnName("Contractor for site for main school building appointed (Forecast)");
+            builder.Property(e => e.ContractorForSiteForMainSchoolBuildingAppointedActual)
+                .IsUnicode(false)
+                .HasColumnName("Contractor for site for main school building appointed (Actual)");
+            builder.Property(e => e.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast)
+                .IsUnicode(false)
+                .HasColumnName("Date of planning decision for main site main planning record (Forecast)");
+            builder.Property(e => e.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual)
+                .IsUnicode(false)
+                .HasColumnName("Date of planning decision for main site main planning record (Actual)");
+            builder.Property(e => e.TemporarySiteAddress)
+                .IsUnicode(false)
+                .HasColumnName("Temporary site address");
+            builder.Property(e => e.TemporarySitePostcode)
+                .IsUnicode(false)
+                .HasColumnName("Temporary site postcode");
+            builder.Property(e => e.TemporarySitePlanningRisk)
+                .IsUnicode(false)
+                .HasColumnName("Temporary site planning risk");
+            builder.Property(e => e.DateTemporarySitePlanningApprovalGranted)
+                .IsUnicode(false)
+                .HasColumnName("Date temporary site planning approval granted");
+            builder.Property(e => e.MainSiteAddress)
+                .IsUnicode(false)
+                .HasColumnName("Main site address");
+            builder.Property(e => e.DateMainSitePlanningApprovalGranted)
+                .IsUnicode(false)
+                .HasColumnName("Date main site planning approval granted");
 
             AuditConfiguration.Apply(builder);
         }

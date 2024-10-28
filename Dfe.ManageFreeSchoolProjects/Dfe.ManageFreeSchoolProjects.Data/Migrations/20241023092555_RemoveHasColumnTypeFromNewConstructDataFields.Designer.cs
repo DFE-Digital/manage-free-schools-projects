@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20241023092555_RemoveHasColumnTypeFromNewConstructDataFields")]
+    partial class RemoveHasColumnTypeFromNewConstructDataFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -810,29 +813,34 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Capital Project RAG Rating Commentary");
 
-                    b.Property<DateOnly?>("ContractorForSiteForMainSchoolBuildingAppointedActual")
+                    b.Property<string>("ContractorForSiteForMainSchoolBuildingAppointedActual")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Contractor for site for main school building appointed (Actual)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Contractor for site for main school building appointed [Actual]");
 
-                    b.Property<DateOnly?>("ContractorForSiteForMainSchoolBuildingAppointedForecast")
+                    b.Property<string>("ContractorForSiteForMainSchoolBuildingAppointedForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Contractor for site for main school building appointed (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Contractor for site for main school building appointed [Forecast]");
 
-                    b.Property<DateOnly?>("ContractorForTemporarySiteAppointedActual")
+                    b.Property<string>("ContractorForTemporarySiteAppointedActual")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Contractor for temporary site appointed (Actual)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Contractor for temporary site appointed [Actual]");
 
-                    b.Property<DateOnly?>("ContractorForTemporarySiteAppointedForecast")
+                    b.Property<string>("ContractorForTemporarySiteAppointedForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Contractor for temporary site appointed (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Contractor for temporary site appointed [Forecast]");
 
-                    b.Property<DateOnly?>("DateMainSitePlanningApprovalGranted")
+                    b.Property<string>("DateMainSitePlanningApprovalGranted")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Date main site planning approval granted");
 
                     b.Property<DateOnly?>("DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired")
@@ -840,29 +848,34 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("Date of HoT secured on temporary accommodation site, if required");
 
-                    b.Property<DateOnly?>("DateOfPlanningDecisionForMainSiteMainPlanningRecordActual")
+                    b.Property<string>("DateOfPlanningDecisionForMainSiteMainPlanningRecordActual")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Date of planning decision for main site main planning record (Actual)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Date of planning decision for main site main planning record [Actual]");
 
-                    b.Property<DateOnly?>("DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast")
+                    b.Property<string>("DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Date of planning decision for main site main planning record (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Date of planning decision for main site main planning record [Forecast]");
 
-                    b.Property<DateOnly?>("DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual")
+                    b.Property<string>("DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Date of planning decision for temporary site main planning record (Actual)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Date of planning decision for temporary site main planning record [Actual]");
 
-                    b.Property<DateOnly?>("DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast")
+                    b.Property<string>("DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("Date of planning decision for temporary site main planning record (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Date of planning decision for temporary site main planning record [Forecast]");
 
-                    b.Property<DateOnly?>("DateTemporarySitePlanningApprovalGranted")
+                    b.Property<string>("DateTemporarySitePlanningApprovalGranted")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Date temporary site planning approval granted");
 
                     b.Property<DateOnly?>("HoTAgreedForSiteForMainSchoolBuildingActual")
@@ -870,15 +883,17 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("date")
                         .HasColumnName("HoT Agreed for site for Main School Building (Actual)");
 
-                    b.Property<DateOnly?>("HoTsAgreedForSiteForMainSchoolBuildingForecast")
+                    b.Property<string>("HoTsAgreedForSiteForMainSchoolBuildingForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("HoTs agreed for site for main school building (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("HoTs agreed for site for main school building [Forecast]");
 
-                    b.Property<DateOnly?>("HoTsAgreedForTemporarySiteForecast")
+                    b.Property<string>("HoTsAgreedForTemporarySiteForecast")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("date")
-                        .HasColumnName("HoTs agreed for temporary site (Forecast)");
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("HoTs agreed for temporary site [Forecast]");
 
                     b.Property<string>("IsThisTheMainPlanningRecord")
                         .IsUnicode(false)
@@ -899,8 +914,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Main School Building first ready for occupation (Forecast)");
 
                     b.Property<string>("MainSiteAddress")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Main site address");
 
                     b.Property<string>("PlanningDecision")
@@ -985,23 +1001,27 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Temporary RAG Rating Commentary");
 
                     b.Property<string>("TemporarySiteAddress")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Temporary site address");
 
                     b.Property<string>("TemporarySitePlanningDecision")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Temporary site planning decision");
 
                     b.Property<string>("TemporarySitePlanningRisk")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Temporary site planning risk");
 
                     b.Property<string>("TemporarySitePostcode")
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Temporary site postcode");
 
                     b.Property<string>("TypeOfSite")
@@ -1013,9 +1033,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("WillTheProjectOpenInTemporaryAccommodation")
-                        .HasMaxLength(10)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Will the project open in temporary accommodation?");
 
                     b.HasIndex("UpdatedByUserId");
