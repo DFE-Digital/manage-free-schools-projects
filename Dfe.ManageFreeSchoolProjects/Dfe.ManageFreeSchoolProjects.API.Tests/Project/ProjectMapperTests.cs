@@ -100,7 +100,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
         [InlineData("Primary", SchoolPhase.Primary)]
         [InlineData("Secondary", SchoolPhase.Secondary)]
         [InlineData("16-19", SchoolPhase.SixteenToNineteen)]
+        [InlineData("16 to 19", SchoolPhase.SixteenToNineteen)]
         [InlineData("All-Through", SchoolPhase.AllThrough)]
+        [InlineData("All-through", SchoolPhase.AllThrough)]
         [InlineData("", SchoolPhase.NotSet)]
         [InlineData("Not a valid school phase", SchoolPhase.NotSet)]
         public void ToSchoolPhaseString_ReturnsExpectedEnum(string input, SchoolPhase expectedResult)
