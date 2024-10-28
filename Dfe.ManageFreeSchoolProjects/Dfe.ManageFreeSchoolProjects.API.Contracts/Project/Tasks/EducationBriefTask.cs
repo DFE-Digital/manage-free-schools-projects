@@ -3,8 +3,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 public class EducationBriefTask
 {
 
-    public bool? EducationPlanInEducationBrief { get; set; }
-    public bool? EducationPolicesInEducationBrief{ get; set; }
-    public bool? PupilAssessmentAndTrackingHistoryInPlace { get; set; }
-    public bool? EducationBriefSavedToWorkplaces { get; set; }
+    public bool? TrustConfirmedPlansAndPoliciesInPlace { get; set; }
+    public bool? CommissionedEEToReviewSafeguardingPolicy { get; set; }
+    public bool? CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy { get; set; }
+    public DateTime? DateEEReviewedEducationBrief { get; set; }
+    public bool? SavedEESpecificationAndAdviceInWorkplaces { get; set; }
+    public bool? SavedCopiesOfPlansAndPoliciesInWorkplaces { get; set; }
+    public DateTime? FSGPreOpeningMilestonesDateTrustProvidedEducationBrief { get; set; }
 }
