@@ -656,7 +656,7 @@ describe("Testing the presumption route project creation journey", () => {
                 .enterAgeRangeTo("11")
                 .continue();
             summaryPage
-                .SummaryHasValue("Age range", "4-11");
+                .SummaryHasValue("Age range", "4 to 11");
 
             Logger.log("Change School type")
             summaryPage.clickChangeFor("School type");
