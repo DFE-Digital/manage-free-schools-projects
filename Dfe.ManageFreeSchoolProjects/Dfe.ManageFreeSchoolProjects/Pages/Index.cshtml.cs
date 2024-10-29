@@ -23,6 +23,8 @@ namespace Dfe.BuildFreeSchools.Pages
 		: DashboardBasePageModel(createUserService, getDashboardService, getLocalAuthoritiesService,
 			getProjectManagersService, featureManager, dashboardFiltersCache)
 	{
+		private readonly IDashboardFiltersCache _dashboardFiltersCache = dashboardFiltersCache;
+
 		public async Task<IActionResult> OnGetAsync()
 		{
 			logger.LogMethodEntered();
@@ -31,6 +33,10 @@ namespace Dfe.BuildFreeSchools.Pages
 			{
 				await AddUser();
 				await LoadPage();
+
+				var filtersCache = _dashboardFiltersCache.Get();
+				filtersCache.NavigatedAwayFromDashboard = false;
+				_dashboardFiltersCache.Update(filtersCache);
 			}
 			catch (Exception ex)
 			{
@@ -64,10 +70,6 @@ namespace Dfe.BuildFreeSchools.Pages
 
 			try
 			{
-				var filterCache = dashboardFiltersCache.Get();
-				filterCache.NavigatedAwayFromDashboard = false;
-				dashboardFiltersCache.Update(filterCache);
-				
 				await LoadPage();
 			}
 			catch (Exception ex)
@@ -84,6 +86,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			logger.LogMethodEntered();
 			try
 			{
+				_dashboardFiltersCache.Delete();
 				await LoadPage();
 			}
 			catch (Exception ex)
