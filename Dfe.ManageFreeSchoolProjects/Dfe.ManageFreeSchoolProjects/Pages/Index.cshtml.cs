@@ -6,39 +6,26 @@ using Dfe.ManageFreeSchoolProjects.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Microsoft.FeatureManagement;
 
 namespace Dfe.BuildFreeSchools.Pages
 {
-	public class IndexModel : DashboardBasePageModel
+	public class IndexModel(
+		IGetDashboardService getDashboardService,
+		ICreateUserService createUserService,
+		IGetLocalAuthoritiesService getLocalAuthoritiesService,
+		IGetProjectManagersService getProjectManagersService,
+		IAllProjectsReportService allProjectsReportService,
+		IFeatureManager featureManager,
+		ILogger<IndexModel> logger,
+		IDashboardFiltersCache dashboardFiltersCache)
+		: DashboardBasePageModel(createUserService, getDashboardService, getLocalAuthoritiesService,
+			getProjectManagersService, featureManager, dashboardFiltersCache)
 	{
-		private readonly ILogger<IndexModel> _logger;
-		private readonly IAllProjectsReportService _allProjectsReportService;
-		
-		public IndexModel(
-			IGetDashboardService getDashboardService,
-			ICreateUserService createUserService,
-			IGetLocalAuthoritiesService getLocalAuthoritiesService,
-			IGetProjectManagersService getProjectManagersService,
-			IAllProjectsReportService allProjectsReportService,
-            IFeatureManager featureManager,
-            ILogger<IndexModel> logger, 
-			IDashboardFiltersCache dashboardFiltersCache)
-			: base(createUserService, getDashboardService, getLocalAuthoritiesService,
-			getProjectManagersService, featureManager)
-		{
-			_logger = logger;
-			_allProjectsReportService = allProjectsReportService;
-		}
-
 		public async Task<IActionResult> OnGetAsync()
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 
 			try
 			{
@@ -47,7 +34,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 
@@ -56,7 +43,7 @@ namespace Dfe.BuildFreeSchools.Pages
 
 		public async Task<IActionResult> OnGetMovePage()
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 
 			try
 			{
@@ -64,7 +51,7 @@ namespace Dfe.BuildFreeSchools.Pages
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 
@@ -73,15 +60,19 @@ namespace Dfe.BuildFreeSchools.Pages
 
 		public async Task<IActionResult> OnPostSearch()
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 
 			try
 			{
+				var filterCache = dashboardFiltersCache.Get();
+				filterCache.NavigatedAwayFromDashboard = false;
+				dashboardFiltersCache.Update(filterCache);
+				
 				await LoadPage();
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 
@@ -90,14 +81,14 @@ namespace Dfe.BuildFreeSchools.Pages
 
 		public async Task<IActionResult> OnGetClearFilters()
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 			try
 			{
 				await LoadPage();
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 
@@ -106,36 +97,36 @@ namespace Dfe.BuildFreeSchools.Pages
 
 		public async Task<IActionResult> OnGetDownloadFile()
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 			try
 			{
 				var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
 				var fileName = $"{now}-mfsp-all-projects-export.xlsx";
 
-				var stream = await _allProjectsReportService.Execute();
+				var stream = await allProjectsReportService.Execute();
 				return File(stream, "application/octet-stream", fileName);
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 		}
 		
 		public async Task<IActionResult>OnGetDownloadFilteredFile(string projectIds)
 		{
-			_logger.LogMethodEntered();
+			logger.LogMethodEntered();
 			try
 			{
 				var now = DateTime.Now.Date.ToString("yyyy-MM-dd");
 				var fileName = $"{now}-mfsp-filtered-projects-export.xlsx";
 
-				var stream = await _allProjectsReportService.ExecuteWithFilter(projectIds);
+				var stream = await allProjectsReportService.ExecuteWithFilter(projectIds);
 				return File(stream, "application/octet-stream", fileName);
 			}
 			catch (Exception ex)
 			{
-				_logger.LogErrorMsg(ex);
+				logger.LogErrorMsg(ex);
 				throw;
 			}
 		}

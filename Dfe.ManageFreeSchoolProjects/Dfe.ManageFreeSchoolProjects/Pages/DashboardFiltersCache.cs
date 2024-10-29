@@ -10,8 +10,8 @@ public interface IDashboardFiltersCache : ICookieCacheService<DashboardFiltersCa
 
 public class DashboardFiltersCache(
     IHttpContextAccessor httpContextAccessor,
-    IDataProtectionProvider dataProtectionProvider)
-    : CookieCacheService<DashboardFiltersCacheItem>(httpContextAccessor, dataProtectionProvider, "DFC1");
+    IDataProtectionProvider dataProtectionProvider) 
+    : CookieCacheService<DashboardFiltersCacheItem>(httpContextAccessor, dataProtectionProvider, "DFC1"), IDashboardFiltersCache;
 
 public class DashboardFiltersCacheItem
 {
