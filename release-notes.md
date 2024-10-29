@@ -1,3 +1,6 @@
+## 0.17.1
+* 186000 - Fixed school phase field not writing to database in the right format
+
 ## 0.17.0
 * 184957 - Build: Add fields to construct table
 
