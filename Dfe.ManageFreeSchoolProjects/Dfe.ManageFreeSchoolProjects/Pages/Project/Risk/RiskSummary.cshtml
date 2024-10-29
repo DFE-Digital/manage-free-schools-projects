@@ -5,7 +5,7 @@
 @model RiskSummaryModel
 @{
     var isPastRiskRating = Model.Entry > 1;
-    var backLink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    var backLink = string.Format(RouteConstants.ProjectRiskRatingAndSummary, Model.ProjectId);
 
     const string currentRiskRatings = "Current risk ratings";
     const string pastRiskRatings = "Past risk ratings";
@@ -17,10 +17,11 @@
     }
     
     ViewData["Title"] = $"{title} - { Model.SchoolName}";
+    ViewData["WidePage"] = true;
 }
 @section BeforeMain {
     <div class="govuk-width-container">
-        <a href="@backLink" class="govuk-back-link">Back to about the project</a>
+        <a href="@backLink" class="govuk-back-link">Back</a>
     </div>
 }
 <div class="govuk-grid-row">

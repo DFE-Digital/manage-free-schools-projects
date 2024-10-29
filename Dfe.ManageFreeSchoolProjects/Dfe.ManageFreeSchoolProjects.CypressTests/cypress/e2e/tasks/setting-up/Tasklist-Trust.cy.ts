@@ -26,7 +26,7 @@ describe("Testing project overview", () => {
     });
 
     it("Should successfully set Tasklist-trust information", () => {
-        const validTrustId = "TR03446";
+        const validTrustId = "TR90123";
 
         Logger.log("Clicking on Task list tab");
         projectOverviewPage.selectTaskListTab();
@@ -159,8 +159,8 @@ describe("Testing project overview", () => {
 
         cy.executeAccessibilityTests();
 
-        projectOverviewPage.hasTrustId("TR03446");
-        projectOverviewPage.hasTrustName("King's Group Academies");
+        projectOverviewPage.hasTrustId("TR90123");
+        projectOverviewPage.hasTrustName("Neat Idea Trust");
         projectOverviewPage.hasTrustType("MAT (multi-academy trust)");
 
     });

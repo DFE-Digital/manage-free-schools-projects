@@ -3,6 +3,7 @@
 
 ## 0.17.0
 * 184957 - Build: Add fields to construct table
+* 177222 - Build: update back link text
 
 ## 0.16.0
 * 185225 - Uploaded file reading the date in American format

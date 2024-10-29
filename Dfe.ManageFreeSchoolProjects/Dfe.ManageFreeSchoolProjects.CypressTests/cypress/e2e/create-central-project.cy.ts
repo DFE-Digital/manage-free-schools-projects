@@ -66,7 +66,7 @@ describe("Testing the central route project creation journey", () => {
             const applicationWave = dataGenerator.generateTemporaryId(10);
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
-            const TestTrn = "TR00111";
+            const TestTrn = "TR90111";
 
             cy.executeAccessibilityTests();
 
@@ -175,8 +175,8 @@ describe("Testing the central route project creation journey", () => {
 
             createProjectPage
                 .titleIs("Confirm the trust")
-                .hasCorrectTrustName("Aurora Academies Trust")
-                .hasCorrectTrustType("MAT (multi-academy trust)")
+                .hasCorrectTrustName("The James Web School")
+                .hasCorrectTrustType("SAT (single academy trust)")
                 .selectOption("Yes")
                 .continue();
 
@@ -245,11 +245,11 @@ describe("Testing the central route project creation journey", () => {
                 .summaryShows("Project type").HasValue("Central").HasChangeLink()
                 .summaryShows("Application number").HasValue(applicationNumber).HasChangeLink()
                 .summaryShows("Application wave").HasValue(applicationWave).HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-                .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+                .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
@@ -257,14 +257,14 @@ describe("Testing the central route project creation journey", () => {
                 .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 

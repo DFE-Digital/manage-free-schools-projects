@@ -14,7 +14,7 @@ import summaryPage from "cypress/pages/task-summary-base";
         it("Should create a presumption project, up until Check your answers page", { tags: ['smoke'] }, () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
-            const TestTrn = "TR00111";
+            const TestTrn = "TR90111";
 
             cy.executeAccessibilityTests();
 

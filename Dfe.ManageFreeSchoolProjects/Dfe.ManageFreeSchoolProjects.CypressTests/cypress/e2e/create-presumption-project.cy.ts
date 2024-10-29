@@ -62,7 +62,7 @@ describe("Testing the presumption route project creation journey", () => {
         it("Should create a project", () => {
             const temporaryProjectId = dataGenerator.generateTemporaryId(25);
             const schoolName = dataGenerator.generateSchoolName();
-            const TestTrn = "TR00111";
+            const TestTrn = "TR90111";
 
             cy.executeAccessibilityTests();
 
@@ -195,8 +195,8 @@ describe("Testing the presumption route project creation journey", () => {
 
             createProjectPage
                 .titleIs("Confirm the trust")
-                .hasCorrectTrustName("Aurora Academies Trust")
-                .hasCorrectTrustType("MAT (multi-academy trust)")
+                .hasCorrectTrustName("The James Web School")
+                .hasCorrectTrustType("SAT (single academy trust)")
                 .selectOption("Yes")
                 .continue();
 
@@ -390,11 +390,11 @@ describe("Testing the presumption route project creation journey", () => {
             Logger.log("Check answers");
             summaryPage.inOrder()
                 .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-                .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+                .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("Yes").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
@@ -402,14 +402,14 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
@@ -430,7 +430,7 @@ describe("Testing the presumption route project creation journey", () => {
             const updatedTemporaryProjectId = dataGenerator.generateTemporaryId(25);
             const updatedSchoolName = dataGenerator.generateSchoolName();
 
-            const TestTrn = "TR00111";
+            const TestTrn = "TR90111";
 
             homePage.createNewProjects();
 
@@ -522,11 +522,11 @@ describe("Testing the presumption route project creation journey", () => {
 
             summaryPage.inOrder()
                 .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
-                .summaryShows("Trust").HasValue("Aurora Academies Trust").HasChangeLink()
+                .summaryShows("Trust").HasValue("The James Web School").HasChangeLink()
                 .summaryShows("School type").HasValue("Mainstream").HasChangeLink()
                 .summaryShows("Nursery").HasValue("No").HasChangeLink()
                 .summaryShows("Sixth form").HasValue("Yes").HasChangeLink()
@@ -534,24 +534,24 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Alternative provision").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("None").HasChangeLink()
                 .summaryShows("Faith type").IsEmpty().HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("test person").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             Logger.log("Update Temporary Project ID")
-            summaryPage.clickChangeFor("Temporary Project ID");
+            summaryPage.clickChangeFor("Temporary project ID");
             createProjectPage
                 .hasProjectId(temporaryProjectId)
                 .enterProjectId(updatedTemporaryProjectId)
                 .continue();
 
-            summaryPage.SummaryHasValue("Temporary Project ID", updatedTemporaryProjectId);
+            summaryPage.SummaryHasValue("Temporary project ID", updatedTemporaryProjectId);
 
             Logger.log("Update Current free school name")
             summaryPage.clickChangeFor("Current free school name");

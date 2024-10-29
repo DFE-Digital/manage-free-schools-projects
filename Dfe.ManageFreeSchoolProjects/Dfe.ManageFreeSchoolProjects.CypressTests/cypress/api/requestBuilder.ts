@@ -9,7 +9,7 @@ export class RequestBuilder {
             projectId: dataGenerator.generateTemporaryId(25),
             createdBy: Cypress.env(EnvUsername),
             schoolName: dataGenerator.generateSchoolName(),
-            TRN: 'TR00111',
+            TRN: 'TR90111',
             applicationWave: "FS - Presumption",
             projectAssignedToName: "Test Person",
             projectAssignedToEmail: "test.person.education.gov.uk"
