@@ -29,11 +29,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project
             try
             {
                 var filtersCache = dashboardFiltersCache.Get();
-                filtersCache.NavigatedAwayFromDashboard = true; 
+                filtersCache.NavigatedAwayFromDashboard = true;
                 dashboardFiltersCache.Update(filtersCache);
                 
                 var projectId = RouteData.Values["projectId"] as string;
-
                 Project = await getProjectOverviewService.Execute(projectId);
             }
             catch (Exception ex)

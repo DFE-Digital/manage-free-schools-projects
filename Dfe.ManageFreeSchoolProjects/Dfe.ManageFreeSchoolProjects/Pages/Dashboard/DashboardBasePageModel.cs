@@ -19,11 +19,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         IGetDashboardService getDashboardAllService,
         IGetLocalAuthoritiesService getLocalAuthoritiesService,
         IGetProjectManagersService getProjectManagersService,
-        IFeatureManager featureManager, 
+        IFeatureManager featureManager,
         IDashboardFiltersCache dashboardFiltersCache) : PageModel
     {
-        [BindProperty(SupportsGet = true)] 
-        public int PageNumber { get; set; } = 1;
+        [BindProperty(SupportsGet = true)] public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "search-by-project", SupportsGet = true)]
         public string ProjectSearchTerm { get; set; }
@@ -37,11 +36,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
         public List<string> ProjectManagedBySearchTerm { get; set; }
 
-        [BindProperty] 
-        public bool UserCanCreateProject { get; set; }
+        [BindProperty] public bool UserCanCreateProject { get; set; }
 
-        [BindProperty] 
-        public List<string> ProjectManagers { get; set; }
+        [BindProperty] public List<string> ProjectManagers { get; set; }
 
         public DashboardModel Dashboard { get; set; } = new();
 
@@ -84,20 +81,30 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             if (!allowCentralRoute)
                 getDashboardServiceParameters.Wave = "FS - Presumption";
-            
+
             var response = await _getDashboardService.Execute(getDashboardServiceParameters);
 
             var projectIds = new List<string>();
-
-            var navigatedAwayFromDashboard = dashboardFiltersCache.Get().NavigatedAwayFromDashboard;
             
+            var filterCache = dashboardFiltersCache.Get();
+
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
                 || RegionSearchTerm.Any()
                 || LocalAuthoritySearchTerm.Any()
-                || ProjectManagedBySearchTerm.Any() 
-                && navigatedAwayFromDashboard == false)
+                || ProjectManagedBySearchTerm.Any()
+                || filterCache != null)
             {
                 projectIds = await _getDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
+                
+                if (filterCache.NavigatedAwayFromDashboard == false)
+                {
+                    filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
+                    filterCache.ProjectSearchTerm = ProjectSearchTerm;
+                    filterCache.RegionSearchTerm = RegionSearchTerm;
+                    filterCache.LocalAuthoritySearchTerm = LocalAuthoritySearchTerm;
+                
+                    dashboardFiltersCache.Update(filterCache);
+                } 
             }
 
             var projectManagersResponse = getProjectManagersService.Execute();
