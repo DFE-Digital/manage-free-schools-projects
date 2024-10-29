@@ -6,41 +6,39 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Dfe.BuildFreeSchools.Pages;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project
 {
-    public class ProjectOverviewModel : PageModel
+    public class ProjectOverviewModel(
+        IGetProjectOverviewService getProjectOverviewService,
+        ILogger<ProjectOverviewModel> logger,
+        IDashboardFiltersCache dashboardFiltersCache)
+        : PageModel
     {
-        private readonly IGetProjectOverviewService _getProjectOverviewService;
-        private readonly ILogger<ProjectOverviewModel> _logger;
-
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
         public ProjectOverviewResponse Project { get; set; }
 
-        public ProjectOverviewModel(
-            IGetProjectOverviewService getProjectOverviewService,
-            ILogger<ProjectOverviewModel> logger)
-        {
-            _getProjectOverviewService = getProjectOverviewService;
-            _logger = logger;
-        }
-
         public async Task<IActionResult> OnGet()
         {
-            _logger.LogMethodEntered();
-
+            logger.LogMethodEntered();
+            
             try
             {
+                var filtersCache = dashboardFiltersCache.Get();
+                filtersCache.NavigatedAwayFromDashboard = true; 
+                dashboardFiltersCache.Update(filtersCache);
+                
                 var projectId = RouteData.Values["projectId"] as string;
 
-                Project = await _getProjectOverviewService.Execute(projectId);
+                Project = await getProjectOverviewService.Execute(projectId);
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
             }
 
             return Page();
