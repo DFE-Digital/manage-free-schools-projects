@@ -9,5 +9,5 @@ public class EducationBriefTask
     public DateTime? DateEEReviewedEducationBrief { get; set; }
     public bool? SavedEESpecificationAndAdviceInWorkplaces { get; set; }
     public bool? SavedCopiesOfPlansAndPoliciesInWorkplaces { get; set; }
-    public DateTime? FSGPreOpeningMilestonesDateTrustProvidedEducationBrief { get; set; }
+    public DateTime? DateTrustProvidedEducationBrief { get; set; }
 }
