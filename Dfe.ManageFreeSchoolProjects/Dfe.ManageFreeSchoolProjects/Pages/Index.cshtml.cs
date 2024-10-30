@@ -33,10 +33,6 @@ namespace Dfe.BuildFreeSchools.Pages
 			{
 				await AddUser();
 				await LoadPage();
-
-				var filtersCache = _dashboardFiltersCache.Get();
-				filtersCache.NavigatedAwayFromDashboard = false;
-				_dashboardFiltersCache.Update(filtersCache);
 			}
 			catch (Exception ex)
 			{

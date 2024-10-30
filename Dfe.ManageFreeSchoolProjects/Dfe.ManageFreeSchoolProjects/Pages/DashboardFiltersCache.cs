@@ -16,7 +16,6 @@ public class DashboardFiltersCache(
 
 public class DashboardFiltersCacheItem
 {
-    public bool NavigatedAwayFromDashboard { get; set; }
     public string ProjectSearchTerm { get; set; }
     public List<string> RegionSearchTerm { get; set; }
     public List<string> LocalAuthoritySearchTerm { get; set; }
