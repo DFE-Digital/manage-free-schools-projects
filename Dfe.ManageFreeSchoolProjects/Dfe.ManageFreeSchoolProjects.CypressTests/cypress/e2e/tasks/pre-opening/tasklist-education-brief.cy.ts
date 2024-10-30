@@ -33,10 +33,10 @@ describe("Testing education plans and policies", () => {
         cy.log("Confirm empty education plans and policies");
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").IsEmpty().HasChangeLink()
+            .summaryShows("Education plan is in the education brief").IsEmpty().HasChangeLink()
+            .summaryShows("Education policies are in the education brief").IsEmpty().HasChangeLink()
             .summaryShows("Pupil assessment and tracking history are in place").IsEmpty().HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
@@ -71,10 +71,10 @@ describe("Testing education plans and policies", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").HasValue("Yes").HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").HasValue("Yes").HasChangeLink()
+            .summaryShows("Education plan is in the education brief").HasValue("Yes").HasChangeLink()
+            .summaryShows("Education policies are in the education brief").HasValue("Yes").HasChangeLink()
             .summaryShows("Pupil assessment and tracking history are in place").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete();
@@ -99,10 +99,10 @@ describe("Testing education plans and policies", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").IsEmpty().HasChangeLink()
+            .summaryShows("Education plan is in the education brief").IsEmpty().HasChangeLink()
+            .summaryShows("Education policies are in the education brief").IsEmpty().HasChangeLink()
             .summaryShows("Pupil assessment and tracking history are in place").IsEmpty().HasChangeLink()
             .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
             .isMarkedAsComplete()
