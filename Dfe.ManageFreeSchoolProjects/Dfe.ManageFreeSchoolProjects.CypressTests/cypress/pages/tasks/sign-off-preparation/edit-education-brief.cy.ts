@@ -1,4 +1,6 @@
 class EducationBriefEditPage {
+
+    private errorTracking = "";
     
     titleIs(title: string): this {
         cy.getByTestId("title").should("contains.text", title)
@@ -10,47 +12,99 @@ class EducationBriefEditPage {
         return this;
     }
 
-   
 
-
-    checkEducationPlanInBrief(): this {
-        cy.getById("education-plan-in-brief").check()
+    checkTrustConfirmedPlansAndPoliciesInPlace(): this {
+        cy.getById("trust-confirmed-education-plans-and-policies-in-place").check()
         return this
     }
 
-    checkEducationPoliciesInBrief(): this {
-        cy.getById("education-policies-in-brief").check()
+    checkCommissionedEEToReviewSafeguardingPolicy(): this {
+        cy.getById("commissioned-ee-to-review-safeguarding-policy").check()
         return this
     }
 
-    checkAssessmentAndTrackingHistoryInPlace(): this {
-        cy.getById("pupil-assessment-and-tracking-history").check()
+    checkCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy(): this {
+        cy.getById("CommissionedEEToReviewSafeguardingPolicy").check()
         return this
     }
     
-    checkCopySavedToWorkspaces(): this {
-        cy.getById("saved-in-workplaces").check()
+    checkSavedCopiesOfPlansAndPoliciesInWorkplaces(): this {
+        cy.getById("saved-copies-of-plans-and-policies-in-workplaces").check()
+        return this
+    }
+
+    checkSavedEESpecificationAndAdviceInWorkplaces(): this {
+        cy.getById("saved-ee-specification-and-advice-in-workplaces").check()
         return this
     }
     
-    uncheckEducationPlanInBrief(): this {
-        cy.getById("education-plan-in-brief").uncheck()
+    uncheckTrustConfirmedPlansAndPoliciesInPlace(): this {
+        cy.getById("trust-confirmed-education-plans-and-policies-in-place").uncheck()
         return this
     }
 
-    uncheckEducationPoliciesInBrief(): this {
-        cy.getById("education-policies-in-brief").uncheck()
+    uncheckCommissionedEEToReviewSafeguardingPolicy(): this {
+        cy.getById("commissioned-ee-to-review-safeguarding-policy").uncheck()
         return this
     }
 
-    uncheckAssessmentAndTrackingHistoryInPlace(): this {
-        cy.getById("pupil-assessment-and-tracking-history").uncheck()
+    uncheckCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy(): this {
+        cy.getById("CommissionedEEToReviewSafeguardingPolicy").uncheck()
+        return this
+    }
+    
+    uncheckSavedCopiesOfPlansAndPoliciesInWorkplaces(): this {
+        cy.getById("saved-copies-of-plans-and-policies-in-workplaces").uncheck()
         return this
     }
 
-    uncheckCopySavedToWorkspaces(): this {
-        cy.getById("saved-in-workplaces").uncheck()
+    uncheckSavedEESpecificationAndAdviceInWorkplaces(): this {
+        cy.getById("saved-ee-specification-and-advice-in-workplaces").uncheck()
         return this
+    }
+
+    public withDateTrustProvidedEducationBrief(day: string, month: string, year: string): this {
+        const key = "date-trust-provided-education-brief";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+    public withDateEEReviewedEducationBrief(day: string, month: string, year: string): this {
+        const key = "date-ee-reviewed-education-brief";
+        this.setDate(key, day, month, year);
+        return this
+    }
+
+    private setDate(key: string, day: string, month: string, year: string) {
+        cy.get('#' + `${key}-day`).typeFast(day);
+        cy.get('#' + `${key}-month`).typeFast(month);
+        cy.get('#' + `${key}-year`).typeFast(year);
+    }
+
+    errorForDateTrustProvidedEducationBrief(): this {
+        this.errorTracking = "date-trust-provided-education-brief";
+        return this;
+    }
+    
+    errorForDateEEReviewedEducationBrief(): this {
+        this.errorTracking = "date-ee-reviewed-education-brief";
+        return this;
+    }
+
+    showsError(error: string)
+    {
+        cy.get(`#${this.errorTracking}-error-link`)
+            .should("contain.text", error);
+
+        cy.get(`#${this.errorTracking}-error-link`)
+            .invoke('attr', 'href')
+            .then((href) => {
+                cy.get(href as string).should("exist");
+            });
+
+        cy.get(`#${this.errorTracking}-error`)
+            .should("contain.text", error);
+        return this;
     }
 
     public MarkAsComplete() {

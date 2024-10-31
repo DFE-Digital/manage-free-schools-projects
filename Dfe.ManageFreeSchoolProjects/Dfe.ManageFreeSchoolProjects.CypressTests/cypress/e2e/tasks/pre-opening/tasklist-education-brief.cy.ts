@@ -35,12 +35,12 @@ describe("Testing education plans and policies", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Education plans and policies")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Pupil assessment and tracking history are in place").IsEmpty().HasChangeLink()
-            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Trust confirmed it has education plans and policies in place").IsEmpty().HasChangeLink()
+            .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Commissioned an EE to review the pupil assessment, recording and reporting policy - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Date the EE reviewed the education brief - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Saved EE specification and advice in Workplaces - if applicable").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
-
 
         cy.executeAccessibilityTests();
         cy.log("Go back to task list");
@@ -63,20 +63,34 @@ describe("Testing education plans and policies", () => {
         cy.executeAccessibilityTests
 
         educationBriefEditPage
-            .checkEducationPlanInBrief()
-            .checkEducationPoliciesInBrief()
-            .checkAssessmentAndTrackingHistoryInPlace()
-            .checkCopySavedToWorkspaces()
+            .withDateEEReviewedEducationBrief("2","ds","2050")
+            .clickContinue()
+            .errorForDateEEReviewedEducationBrief().showsError("Enter a date in the correct format")
+            .withDateEEReviewedEducationBrief("2","2","2090")
+            .clickContinue()
+            .errorForDateEEReviewedEducationBrief().showsError("Year must be between 2000 and 2050")
+            .withDateEEReviewedEducationBrief("2","2","1999")
+            .clickContinue()
+            .errorForDateEEReviewedEducationBrief().showsError("Year must be between 2000 and 2050")
+            .withDateEEReviewedEducationBrief("","","")
+
+        educationBriefEditPage
+            .withDateEEReviewedEducationBrief("2", "3", "2049")
+            .checkTrustConfirmedPlansAndPoliciesInPlace()
+            .checkCommissionedEEToReviewSafeguardingPolicy()
+            .checkCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy()
+            .checkSavedEESpecificationAndAdviceInWorkplaces()
             .clickContinue()
 
         summaryPage
             .schoolNameIs(project.schoolName)
             .titleIs("Education plans and policies")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").HasValue("Yes").HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").HasValue("Yes").HasChangeLink()
-            .summaryShows("Pupil assessment and tracking history are in place").HasValue("Yes").HasChangeLink()
-            .summaryShows("Saved documents in Workplaces folder").HasValue("Yes").HasChangeLink()
+            .summaryShows("Trust confirmed it has education plans and policies in place").HasValue("Yes").HasChangeLink()
+            .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy - if applicable").HasValue("Yes").HasChangeLink()
+            .summaryShows("Commissioned an EE to review the pupil assessment, recording and reporting policy - if applicable").HasValue("Yes").HasChangeLink()
+            .summaryShows("Date the EE reviewed the education brief - if applicable").HasValue("2 March 2049").HasChangeLink()
+            .summaryShows("Saved EE specification and advice in Workplaces - if applicable").HasValue("Yes").HasChangeLink()
             .isNotMarkedAsComplete();
 
         cy.log("uncheck education plans and policies page");
@@ -86,10 +100,10 @@ describe("Testing education plans and policies", () => {
         cy.executeAccessibilityTests
 
         educationBriefEditPage
-            .uncheckEducationPlanInBrief()
-            .uncheckEducationPoliciesInBrief()
-            .uncheckAssessmentAndTrackingHistoryInPlace()
-            .uncheckCopySavedToWorkspaces()
+            .uncheckTrustConfirmedPlansAndPoliciesInPlace()
+            .uncheckCommissionedEEToReviewSafeguardingPolicy()
+            .uncheckCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy()
+            .uncheckSavedEESpecificationAndAdviceInWorkplaces()
             .clickContinue()
             .MarkAsComplete()
             .clickConfirmAndContinue()
@@ -101,10 +115,12 @@ describe("Testing education plans and policies", () => {
             .schoolNameIs(project.schoolName)
             .titleIs("Education plans and policies")
             .inOrder()
-            .summaryShows("Education plan is in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Education policies are in the education plans and policies").IsEmpty().HasChangeLink()
-            .summaryShows("Pupil assessment and tracking history are in place").IsEmpty().HasChangeLink()
-            .summaryShows("Saved documents in Workplaces folder").IsEmpty().HasChangeLink()
+            .summaryShows("Trust confirmed it has education plans and policies in place").IsEmpty().HasChangeLink()
+            .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Commissioned an EE to review the pupil assessment, recording and reporting policy - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Date the EE reviewed the education brief - if applicable").IsEmpty().HasChangeLink()
+            .summaryShows("Date the EE reviewed the education brief - if applicable").HasValue("2 March 2049").HasChangeLink()
+            .summaryShows("Saved EE specification and advice in Workplaces - if applicable").IsEmpty().HasChangeLink()
             .isMarkedAsComplete()
 
         cy.log("click on risk link");

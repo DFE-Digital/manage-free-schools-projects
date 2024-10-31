@@ -44,7 +44,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EducationBrief
         [BindProperty(Name = "saved-copies-of-plans-and-policies-in-workplaces")]
         public bool? SavedCopiesOfPlansAndPoliciesInWorkplaces { get; set; }
 
-        [BindProperty(Name = "saved-copies-of-plans-and-policies-in-workplaces")]
+        [BindProperty(Name = "saved-ee-specification-and-advice-in-workplaces")]
         public bool? SavedEESpecificationAndAdviceInWorkplaces { get; set; }
 
         public bool IsPresumptionRoute { get; set; }
