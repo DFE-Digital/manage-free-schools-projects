@@ -712,14 +712,14 @@ describe("Testing the presumption route project creation journey", () => {
             summaryPage.SummaryHasValue("Faith status", "Designation")
                 .SummaryHasValue("Faith type", "Other - Test Faith")
 
-            Logger.log("Change Provisional opening date agreed with trust")
-            summaryPage.clickChangeFor("Provisional opening date agreed with trust");
+            Logger.log("Change Provisional opening date")
+            summaryPage.clickChangeFor("Provisional opening date");
             createProjectPage
                 .hasProvisionalOpeningDate("1", "10", "2035")
                 .setProvisionalOpeningDate("12", "11", "2034")
                 .continue()
             summaryPage
-                .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
+                .SummaryHasValue("Provisional opening date", "12 November 2034");
 
             Logger.log("Change Project assigned to")
             summaryPage.clickChangeFor("Project assigned to")
