@@ -390,7 +390,7 @@ describe("Testing the presumption route project creation journey", () => {
             Logger.log("Check answers");
             summaryPage.inOrder()
                 .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
@@ -402,14 +402,14 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
@@ -522,7 +522,7 @@ describe("Testing the presumption route project creation journey", () => {
 
             summaryPage.inOrder()
                 .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
@@ -534,24 +534,24 @@ describe("Testing the presumption route project creation journey", () => {
                 .summaryShows("Alternative provision").HasValue("No").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("Yes").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("None").HasChangeLink()
                 .summaryShows("Faith type").IsEmpty().HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("test person").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
             Logger.log("Update Temporary Project ID")
-            summaryPage.clickChangeFor("Temporary Project ID");
+            summaryPage.clickChangeFor("Temporary project ID");
             createProjectPage
                 .hasProjectId(temporaryProjectId)
                 .enterProjectId(updatedTemporaryProjectId)
                 .continue();
 
-            summaryPage.SummaryHasValue("Temporary Project ID", updatedTemporaryProjectId);
+            summaryPage.SummaryHasValue("Temporary project ID", updatedTemporaryProjectId);
 
             Logger.log("Update Current free school name")
             summaryPage.clickChangeFor("Current free school name");
@@ -656,7 +656,7 @@ describe("Testing the presumption route project creation journey", () => {
                 .enterAgeRangeTo("11")
                 .continue();
             summaryPage
-                .SummaryHasValue("Age range", "4-11");
+                .SummaryHasValue("Age range", "4 to 11");
 
             Logger.log("Change School type")
             summaryPage.clickChangeFor("School type");
@@ -712,14 +712,14 @@ describe("Testing the presumption route project creation journey", () => {
             summaryPage.SummaryHasValue("Faith status", "Designation")
                 .SummaryHasValue("Faith type", "Other - Test Faith")
 
-            Logger.log("Change Provisional opening date agreed with trust")
-            summaryPage.clickChangeFor("Provisional opening date agreed with trust");
+            Logger.log("Change Provisional opening date")
+            summaryPage.clickChangeFor("Provisional opening date");
             createProjectPage
                 .hasProvisionalOpeningDate("1", "10", "2035")
                 .setProvisionalOpeningDate("12", "11", "2034")
                 .continue()
             summaryPage
-                .SummaryHasValue("Provisional opening date agreed with trust", "12 November 2034");
+                .SummaryHasValue("Provisional opening date", "12 November 2034");
 
             Logger.log("Change Project assigned to")
             summaryPage.clickChangeFor("Project assigned to")

@@ -33,7 +33,7 @@ describe("Testing education plans and policies - presumption", () => {
         cy.log("Confirm empty education plans and policies");
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
             .summaryShows("Trust confirmed it has education plans and policies in place").IsEmpty().HasChangeLink()
             .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy - if applicable").IsEmpty().HasChangeLink()
@@ -226,7 +226,7 @@ describe("Testing education plans and policies - central", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
             .summaryShows("Date the trust provided the education brief").HasValue("2 May 2049").HasChangeLink()
             .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy").HasValue("Yes").HasChangeLink()
@@ -256,7 +256,7 @@ describe("Testing education plans and policies - central", () => {
 
         summaryPage
             .schoolNameIs(project.schoolName)
-            .titleIs("Education plans and policies")
+            .titleIs("Education brief")
             .inOrder()
             .summaryShows("Date the trust provided the education brief").HasValue("2 May 2049").HasChangeLink()
             .summaryShows("Commisioned an external expert (EE) to review the safeguarding policy").IsEmpty().HasChangeLink()

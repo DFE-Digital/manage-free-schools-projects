@@ -83,5 +83,32 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Project
             var result = ProjectMapper.FromProjectStatusType(input);
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData(SchoolPhase.NotSet, "NotSet")]
+        [InlineData(SchoolPhase.Primary, "Primary")]
+        [InlineData(SchoolPhase.Secondary, "Secondary")]
+        [InlineData(SchoolPhase.SixteenToNineteen, "16-19")]
+        [InlineData(SchoolPhase.AllThrough, "All-Through")]
+        public void ToSchoolPhaseEnum_ReturnsExpectedEnum(SchoolPhase input, string expectedResult)
+        {
+            var result = ProjectMapper.ToSchoolPhase(input);
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Theory]
+        [InlineData("Primary", SchoolPhase.Primary)]
+        [InlineData("Secondary", SchoolPhase.Secondary)]
+        [InlineData("16-19", SchoolPhase.SixteenToNineteen)]
+        [InlineData("16 to 19", SchoolPhase.SixteenToNineteen)]
+        [InlineData("All-Through", SchoolPhase.AllThrough)]
+        [InlineData("All-through", SchoolPhase.AllThrough)]
+        [InlineData("", SchoolPhase.NotSet)]
+        [InlineData("Not a valid school phase", SchoolPhase.NotSet)]
+        public void ToSchoolPhaseString_ReturnsExpectedEnum(string input, SchoolPhase expectedResult)
+        {
+            var result = ProjectMapper.ToSchoolPhase(input);
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
