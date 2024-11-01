@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
-using Dfe.ManageFreeSchoolProjects.Constants;
+﻿using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
@@ -22,7 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         IFeatureManager featureManager,
         IDashboardFiltersCache dashboardFiltersCache) : PageModel
     {
-        [BindProperty(SupportsGet = true)] public int PageNumber { get; set; } = 1;
+        [BindProperty(SupportsGet = true)] 
+        public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "search-by-project", SupportsGet = true)]
         public string ProjectSearchTerm { get; set; }
@@ -36,10 +36,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
         public List<string> ProjectManagedBySearchTerm { get; set; }
 
-        [BindProperty] public bool UserCanCreateProject { get; set; }
-
-        [BindProperty] public List<string> ProjectManagers { get; set; }
-
         public DashboardModel Dashboard { get; set; } = new();
 
         protected readonly ICreateUserService CreateUserService = createUserService;
@@ -48,17 +44,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         public async Task<JsonResult> OnGetLocalAuthoritiesByRegion(string regions)
         {
             if (string.IsNullOrEmpty(regions))
-            {
                 return new JsonResult(new List<string>());
-            }
 
             var regionsToSearch = regions.Split(",").ToList();
 
             var localAuthoritiesResponse = await getLocalAuthoritiesService.Execute(regionsToSearch);
 
-            var result = new JsonResult(localAuthoritiesResponse.Regions);
-
-            return result;
+            return new JsonResult(localAuthoritiesResponse.Regions);
         }
 
         protected async Task AddUser()
@@ -83,24 +75,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 getDashboardServiceParameters.Wave = "FS - Presumption";
 
             var response = await GetDashboardService.Execute(getDashboardServiceParameters);
-            
+
             var projectIds = new List<string>();
             var filterCache = dashboardFiltersCache.Get();
-            
+
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
-                || RegionSearchTerm.Any()
-                || LocalAuthoritySearchTerm.Any()
-                || ProjectManagedBySearchTerm.Any())
+                || RegionSearchTerm.Count != 0
+                || LocalAuthoritySearchTerm.Count != 0
+                || ProjectManagedBySearchTerm.Count != 0)
             {
-                SetDashboardFilterCache(filterCache);
+                SetDashboardFilterCacheFromInput(filterCache);
                 projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
             }
-            else if (filterCache != null)
+            else
             {
-                ProjectSearchTerm = filterCache.ProjectSearchTerm;
-                RegionSearchTerm = filterCache.RegionSearchTerm;
-                LocalAuthoritySearchTerm = filterCache.LocalAuthoritySearchTerm;
-                ProjectManagedBySearchTerm = filterCache.ProjectManagedBySearchTerm;
+                SetFieldsFromCache(filterCache);
             }
 
             var projectManagersResponse = getProjectManagersService.Execute();
@@ -129,29 +118,21 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var query = new QueryString("?handler=movePage");
 
             if (!string.IsNullOrEmpty(ProjectSearchTerm))
-            {
                 query = query.Add("search-by-project", ProjectSearchTerm);
-            }
 
-            if (RegionSearchTerm.Any())
-            {
+            if (RegionSearchTerm.Count != 0)
                 RegionSearchTerm.ForEach((r => query = query.Add("search-by-region", r)));
-            }
 
-            if (LocalAuthoritySearchTerm.Any())
-            {
-                LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
-            }
+            if (LocalAuthoritySearchTerm.Count != 0)
+                LocalAuthoritySearchTerm.ForEach(l => query = query.Add("search-by-local-authority", l));
 
             if (ProjectManagedBySearchTerm.Count > 0)
-            {
-                ProjectManagedBySearchTerm.ForEach((m => query = query.Add("search-by-pmb", m)));
-            }
+                ProjectManagedBySearchTerm.ForEach(m => query = query.Add("search-by-pmb", m));
 
             return query.ToString();
         }
 
-        private void SetDashboardFilterCache(DashboardFiltersCacheItem filterCache)
+        private void SetDashboardFilterCacheFromInput(DashboardFiltersCacheItem filterCache)
         {
             filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
             filterCache.ProjectSearchTerm = ProjectSearchTerm;
@@ -159,6 +140,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             filterCache.LocalAuthoritySearchTerm = LocalAuthoritySearchTerm;
 
             dashboardFiltersCache.Update(filterCache);
+        }
+
+        private void SetFieldsFromCache(DashboardFiltersCacheItem filterCache)
+        {
+            ProjectSearchTerm = filterCache.ProjectSearchTerm ?? string.Empty;
+            RegionSearchTerm = filterCache.RegionSearchTerm ?? [];
+            LocalAuthoritySearchTerm = filterCache.LocalAuthoritySearchTerm ?? [];
+            ProjectManagedBySearchTerm = filterCache.ProjectManagedBySearchTerm ?? [];
         }
 
 
