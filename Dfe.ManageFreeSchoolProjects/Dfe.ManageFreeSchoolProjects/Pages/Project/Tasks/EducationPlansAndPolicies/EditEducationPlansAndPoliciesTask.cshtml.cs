@@ -73,6 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EducationBrief
         {
             var project = await _getProjectService.Execute(ProjectId, TaskName.EducationBrief);
             SchoolName = project.SchoolName;
+            IsPresumptionRoute = project.IsPresumptionRoute;
 
             if (!ModelState.IsValid)
             {

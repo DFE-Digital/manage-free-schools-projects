@@ -24,7 +24,7 @@ class EducationBriefEditPage {
     }
 
     checkCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy(): this {
-        cy.getById("CommissionedEEToReviewSafeguardingPolicy").check()
+        cy.getById("commissioned-ee-to-pupil-assessment-recording-and-reporting-policy").check()
         return this
     }
     
@@ -49,7 +49,7 @@ class EducationBriefEditPage {
     }
 
     uncheckCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy(): this {
-        cy.getById("CommissionedEEToReviewSafeguardingPolicy").uncheck()
+        cy.getById("commissioned-ee-to-pupil-assessment-recording-and-reporting-policy").uncheck()
         return this
     }
     
