@@ -63,34 +63,33 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
 
-            getDashboardServiceParameters.Project = ProjectSearchTerm;
-            getDashboardServiceParameters.Regions = RegionSearchTerm;
-            getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
-            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
-            getDashboardServiceParameters.Page = PageNumber;
-
-            var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
-
-            if (!allowCentralRoute)
-                getDashboardServiceParameters.Wave = "FS - Presumption";
-
-            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
-
-            var projectIds = new List<string>();
             var filterCache = dashboardFiltersCache.Get();
-
+            
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
                 || RegionSearchTerm.Count != 0
                 || LocalAuthoritySearchTerm.Count != 0
                 || ProjectManagedBySearchTerm.Count != 0)
             {
                 SetDashboardFilterCacheFromInput(filterCache);
-                projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
             }
             else
             {
-                SetFieldsFromCache(filterCache);
+                SetFieldsFromFilterCache(filterCache);
             }
+            
+            getDashboardServiceParameters.Project = ProjectSearchTerm;
+            getDashboardServiceParameters.Regions = RegionSearchTerm;
+            getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
+            getDashboardServiceParameters.Page = PageNumber;
+
+            var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
+            
+            var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
+            if (!allowCentralRoute)
+                getDashboardServiceParameters.Wave = "FS - Presumption";
+
+            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
 
             var projectManagersResponse = getProjectManagersService.Execute();
 
@@ -142,7 +141,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             dashboardFiltersCache.Update(filterCache);
         }
 
-        private void SetFieldsFromCache(DashboardFiltersCacheItem filterCache)
+        private void SetFieldsFromFilterCache(DashboardFiltersCacheItem filterCache)
         {
             ProjectSearchTerm = filterCache.ProjectSearchTerm ?? string.Empty;
             RegionSearchTerm = filterCache.RegionSearchTerm ?? [];
