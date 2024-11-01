@@ -159,6 +159,36 @@ describe("Testing the home page", () => {
                 .hasLocalAuthorityFilter("Bedford")
                 .clearFilters();
         });
+
+        it("Should be able to filter projects by project managed by", () => {
+            homePage
+                .openFilter()
+                .withProjectManagedByFilter("Test Person")
+                .applyFilters();
+
+            projectTable.allRowsHaveProjectManagedBy("Test Person");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasProjectManagedByFilter("Test Person")
+                .clearFilters();
+        });
+
+        it("Should be able to filter projects by project status", () => {
+            homePage
+                .openFilter()
+                .withProjectStatusFilter("Pre-opening")
+                .applyFilters();
+
+            projectTable.allRowsHaveProjectStatus("Pre-opening");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasProjectStatusFilter("Pre-opening")
+                .clearFilters();
+        });
     });
 
     describe("Pagination on the dashboard with filters for project", () => {
