@@ -1,6 +1,4 @@
-import projectStatusPage from "./project-status/projectStatusPage";
 import { ProjectRow } from "./projectRow";
-import viewCapacityWhenFullPage from "./pupil-numbers/viewCapacityWhenFullPage";
 
 class ProjectTable {
     public getRowByProjectId(projectId: string): Cypress.Chainable<ProjectRow> {
