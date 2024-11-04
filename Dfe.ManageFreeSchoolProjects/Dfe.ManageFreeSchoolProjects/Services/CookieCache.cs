@@ -89,7 +89,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             _item = item;
             var json = JsonConvert.SerializeObject(item);
 
-            CookieOptions options = new CookieOptions
+            var options = new CookieOptions
             {
                 IsEssential = true,
                 Expires = DateTime.Now.AddDays(1),
