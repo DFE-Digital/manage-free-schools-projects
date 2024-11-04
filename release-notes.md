@@ -1,3 +1,9 @@
+## 0.18.0
+* 182433 - Build: education brief iteration
+* 153165 - Build: Iterate 'check your answers' page
+* 177404 - Build: Iterate 'About the project' navigation
+* 185401 - Build: update bulk edit summary card titles
+
 ## 0.17.1
 * 186000 - Fixed school phase field not writing to database in the right format
 
