@@ -73,9 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
             if (!allowCentralRoute)
                 getDashboardServiceParameters.Wave = "FS - Presumption";
-
-            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
-
+            
             var filterCache = dashboardFiltersCache.Get();
 
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
@@ -96,6 +94,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
 
             var projectManagersResponse = getProjectManagersService.Execute();
+
+            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
 
             var paginationModel = PaginationMapping.ToModel(response.Paging);
             var query = BuildPaginationQuery();
@@ -145,6 +145,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             getDashboardParams.Regions = RegionSearchTerm;
             getDashboardParams.LocalAuthorities = LocalAuthoritySearchTerm;
             getDashboardParams.ProjectManagedBy = ProjectManagedBySearchTerm;
+            getDashboardParams.ProjectStatus = ProjectStatusSearchTerm;
             getDashboardParams.Page = PageNumber;
         }
 
@@ -153,6 +154,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
             filterCache.ProjectSearchTerm = ProjectSearchTerm;
             filterCache.RegionSearchTerm = RegionSearchTerm;
+            filterCache.ProjectStatusSearchTerm = ProjectStatusSearchTerm;
             filterCache.LocalAuthoritySearchTerm = LocalAuthoritySearchTerm;
 
             dashboardFiltersCache.Update(filterCache);
@@ -164,6 +166,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             RegionSearchTerm = filterCache.RegionSearchTerm ?? [];
             LocalAuthoritySearchTerm = filterCache.LocalAuthoritySearchTerm ?? [];
             ProjectManagedBySearchTerm = filterCache.ProjectManagedBySearchTerm ?? [];
+            ProjectStatusSearchTerm = filterCache.ProjectStatusSearchTerm ?? [];
         }
 
         protected class LoadDashboardParameters

@@ -20,4 +20,5 @@ public class DashboardFiltersCacheItem
     public List<string> RegionSearchTerm { get; set; }
     public List<string> LocalAuthoritySearchTerm { get; set; }
     public List<string> ProjectManagedBySearchTerm { get; set; }
+    public List<string> ProjectStatusSearchTerm { get; set; }
 }
