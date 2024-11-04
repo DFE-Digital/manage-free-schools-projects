@@ -60,8 +60,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         protected async Task LoadDashboard(LoadDashboardParameters loadDashboardParameters)
         {
-            GetDashboardServiceParameters getDashboardServiceParameters;
-
+            var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
+            
             var filterCache = dashboardFiltersCache.Get();
 
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
@@ -69,15 +69,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 || LocalAuthoritySearchTerm.Count != 0
                 || ProjectManagedBySearchTerm.Count != 0)
             {
-                SetDashboardFilterCacheFromInput(filterCache);
-                getDashboardServiceParameters = SetDashboardParamsFromFields();
+                SetDashboardFilterCacheFromFilterInput(filterCache);
             }
             else
             {
-                SetFieldsFromFilterCache(filterCache);
-                getDashboardServiceParameters = SetDashboardParamsFromFields();
+                SetFilterFieldsFromFilterCache(filterCache);
             }
-
+            
+            SetDashboardParamsFromFields(getDashboardServiceParameters);
+            
             var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
             
             var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
@@ -126,16 +126,16 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             return query.ToString();
         }
 
-        private GetDashboardServiceParameters SetDashboardParamsFromFields() => new()
+        private void SetDashboardParamsFromFields(GetDashboardServiceParameters getDashboardParams)
         {
-            Project = ProjectSearchTerm,
-            Regions = RegionSearchTerm,
-            LocalAuthorities = LocalAuthoritySearchTerm,
-            ProjectManagedBy = ProjectManagedBySearchTerm,
-            Page = PageNumber
-        };
+            getDashboardParams.Project = ProjectSearchTerm;
+            getDashboardParams.Regions = RegionSearchTerm;
+            getDashboardParams.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardParams.ProjectManagedBy = ProjectManagedBySearchTerm;
+            getDashboardParams.Page = PageNumber;
+        }
 
-        private void SetDashboardFilterCacheFromInput(DashboardFiltersCacheItem filterCache)
+        private void SetDashboardFilterCacheFromFilterInput(DashboardFiltersCacheItem filterCache)
         {
             filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
             filterCache.ProjectSearchTerm = ProjectSearchTerm;
@@ -145,7 +145,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             dashboardFiltersCache.Update(filterCache);
         }
 
-        private void SetFieldsFromFilterCache(DashboardFiltersCacheItem filterCache)
+        private void SetFilterFieldsFromFilterCache(DashboardFiltersCacheItem filterCache)
         {
             ProjectSearchTerm = filterCache.ProjectSearchTerm ?? string.Empty;
             RegionSearchTerm = filterCache.RegionSearchTerm ?? [];
