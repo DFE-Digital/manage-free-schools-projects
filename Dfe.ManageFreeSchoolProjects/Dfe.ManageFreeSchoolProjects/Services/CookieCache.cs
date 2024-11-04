@@ -23,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDataProtector _dataProtector;
         private T _item;
+        private bool _deleted;
 
         protected CookieCacheService(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider DataProtectionProvider, string key)
         {
@@ -33,11 +34,12 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public T Get()
         {
+            if (_deleted)
+                return new T();
+            
             if (_item != null)
-            {
                 return _item;
-            }
-
+            
             var data = new StringBuilder();
 
             var counter = 0;
@@ -71,6 +73,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
         public void Delete()
         {
+            _deleted = true;
+            
             _httpContextAccessor.HttpContext.Request.Cookies.Keys
                 .Where(cookie => cookie.StartsWith(_key))
                 .ToList()
@@ -80,6 +84,8 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         public void Update(T item)
         {
             Delete();
+            _deleted = false;
+            
             _item = item;
             var json = JsonConvert.SerializeObject(item);
 
@@ -95,7 +101,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
             var chunks = StringChunker.Chunk(data, 3000);
 
-            for ( int i = 0; i < chunks.Length; i++ ) { 
+            for (int i = 0; i < chunks.Length; i++) { 
                 _httpContextAccessor.HttpContext.Response.Cookies.Append(_key + $".{i}", chunks[i], options);
             }
         }

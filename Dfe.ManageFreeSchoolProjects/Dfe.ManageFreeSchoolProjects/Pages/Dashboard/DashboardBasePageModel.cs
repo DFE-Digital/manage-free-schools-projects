@@ -21,8 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         IFeatureManager featureManager,
         IDashboardFiltersCache dashboardFiltersCache) : PageModel
     {
-        [BindProperty(SupportsGet = true)] 
-        public int PageNumber { get; set; } = 1;
+        [BindProperty(SupportsGet = true)] public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "search-by-project", SupportsGet = true)]
         public string ProjectSearchTerm { get; set; }
@@ -61,27 +60,23 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         protected async Task LoadDashboard(LoadDashboardParameters loadDashboardParameters)
         {
-            var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
+            GetDashboardServiceParameters getDashboardServiceParameters;
 
             var filterCache = dashboardFiltersCache.Get();
-            
+
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
                 || RegionSearchTerm.Count != 0
                 || LocalAuthoritySearchTerm.Count != 0
                 || ProjectManagedBySearchTerm.Count != 0)
             {
                 SetDashboardFilterCacheFromInput(filterCache);
+                getDashboardServiceParameters = SetDashboardParamsFromFields();
             }
             else
             {
                 SetFieldsFromFilterCache(filterCache);
+                getDashboardServiceParameters = SetDashboardParamsFromFields();
             }
-            
-            getDashboardServiceParameters.Project = ProjectSearchTerm;
-            getDashboardServiceParameters.Regions = RegionSearchTerm;
-            getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
-            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
-            getDashboardServiceParameters.Page = PageNumber;
 
             var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
             
@@ -131,6 +126,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             return query.ToString();
         }
 
+        private GetDashboardServiceParameters SetDashboardParamsFromFields() => new()
+        {
+            Project = ProjectSearchTerm,
+            Regions = RegionSearchTerm,
+            LocalAuthorities = LocalAuthoritySearchTerm,
+            ProjectManagedBy = ProjectManagedBySearchTerm,
+            Page = PageNumber
+        };
+
         private void SetDashboardFilterCacheFromInput(DashboardFiltersCacheItem filterCache)
         {
             filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
@@ -148,7 +152,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             LocalAuthoritySearchTerm = filterCache.LocalAuthoritySearchTerm ?? [];
             ProjectManagedBySearchTerm = filterCache.ProjectManagedBySearchTerm ?? [];
         }
-
 
         protected class LoadDashboardParameters
         {
