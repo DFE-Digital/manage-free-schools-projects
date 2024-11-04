@@ -1,0 +1,62 @@
+@page "/projects/{projectId}/tasks/education-plans-and-policies/edit"
+@using Dfe.ManageFreeSchoolProjects.Constants;
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.EducationBrief.EditEducationBriefTaskModel
+@{
+    ViewData["Title"] = $"Edit Education plans and policies - {Model.SchoolName}";
+
+    var backlink = string.Format(RouteConstants.ViewEducationPlansAndPoliciesTask, Model.ProjectId);
+
+    var CommissionedEEToReviewSafeguardingPolicyText = "Commisioned an external expert (EE) to review the safeguarding policy" + (Model.IsPresumptionRoute ? " - if applicable" : "");
+    var CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicyText = "Commissioned an EE to review the pupil assessment, recording and reporting policy" + (Model.IsPresumptionRoute ? " - if applicable" : "");
+    var DateEEReviewedEducationBriefText = "Date the EE reviewed the education brief" + (Model.IsPresumptionRoute ? " - if applicable" : "");
+    var SavedEESpecificationAndAdviceInWorkplacesText = "Saved EE specification and advice in Workplaces" + (Model.IsPresumptionRoute ? " - if applicable" : "");
+}
+
+@section BeforeMain {
+    <div role="navigation" class="govuk-width-container">
+        <a href=@backlink class="govuk-back-link">Back</a>
+    </div>
+}
+
+<partial name="_ErrorSummary"/>
+
+<h1 class="govuk-heading-xl" data-testid="title">
+    <span class="govuk-caption-l" data-testid="school-name">@Model.SchoolName</span>Edit Education plans and policies
+</h1>
+
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+
+    <form method="post">
+        @{
+            if (Model.IsPresumptionRoute)
+            {
+                <govuk-checkbox-input id="trust-confirmed-education-plans-and-policies-in-place" name="trust-confirmed-education-plans-and-policies-in-place" asp-for="@Model.TrustConfirmedPlansAndPoliciesInPlace" add-margin="false" label="Trust confirmed it has education plans and policies in place" />
+            }
+
+            if (!Model.IsPresumptionRoute)
+            {
+                <govuk-date-input id="date-trust-provided-education-brief" name="date-trust-provided-education-brief" asp-for="@Model.DateTrustProvidedEducationBrief" add-margin="false" label="Date the trust provided the education brief" />
+            }
+
+            <govuk-checkbox-input id="commissioned-ee-to-review-safeguarding-policy" name="commissioned-ee-to-review-safeguarding-policy" asp-for="@Model.CommissionedEEToReviewSafeguardingPolicy" add-margin="false" label="@CommissionedEEToReviewSafeguardingPolicyText" />
+            <govuk-checkbox-input id="commissioned-ee-to-pupil-assessment-recording-and-reporting-policy" name="commissioned-ee-to-pupil-assessment-recording-and-reporting-policy" asp-for="@Model.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy" add-margin="false" label="@CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicyText" />
+            <govuk-date-input id="date-ee-reviewed-education-brief" name="date-ee-reviewed-education-brief" asp-for="@Model.DateEEReviewedEducationBrief" add-margin="false" label="@DateEEReviewedEducationBriefText" />
+
+            if (!Model.IsPresumptionRoute)
+            {
+                <govuk-checkbox-input id="saved-copies-of-plans-and-policies-in-workplaces" name="saved-copies-of-plans-and-policies-in-workplaces" asp-for="@Model.SavedCopiesOfPlansAndPoliciesInWorkplaces" add-margin="false" label="Saved copies of plans and policies in Workplaces folder" />
+            }
+
+                <govuk-checkbox-input id="saved-ee-specification-and-advice-in-workplaces" name="saved-ee-specification-and-advice-in-workplaces" asp-for="@Model.SavedEESpecificationAndAdviceInWorkplaces" add-margin="false" label="@SavedEESpecificationAndAdviceInWorkplacesText" />
+
+        }
+        
+        <button class="govuk-button" data-module="govuk-button" data-testid="continue">
+            Save and continue
+        </button>
+    </form>
+
+</div>
+</div>

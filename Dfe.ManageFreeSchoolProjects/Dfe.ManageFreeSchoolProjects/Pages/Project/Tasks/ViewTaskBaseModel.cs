@@ -28,6 +28,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
         [BindProperty(Name = "mark-as-completed")]
         public bool MarkAsCompleted { get; set; }
 
+        public bool IsPresumptionRoute { get; set; }
+
         public GetProjectByTaskResponse Project { get; set; }
 
         protected async Task GetTask(TaskName taskName)
@@ -38,6 +40,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks
 
             ProjectTaskStatus = taskStatusResponse.ProjectTaskStatus;
             MarkAsCompleted = ProjectTaskStatus == ProjectTaskStatus.Completed;
+
+            IsPresumptionRoute = Project.IsPresumptionRoute;
+
         }
 
         protected async Task PostTask(TaskName taskName)

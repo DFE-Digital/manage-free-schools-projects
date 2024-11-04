@@ -260,10 +260,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
 
             result.Rid = rid;
 
-            result.FSGPreOpeningMilestonesEducationPlanInBrief = true;
-            result.FSGPreOpeningMilestonesEducationPolicesInBrief = true;
-            result.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory = true;
-            result.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = true;
+            result.FSGPreOpeningMilestonesEPPTrustConfirmedPlansAndPoliciesInPlace = true;
+            result.FSGPreOpeningMilestonesEPPCommissionedEEToReviewSafeguardingPolicy = true;
+            result.FSGPreOpeningMilestonesEPPDateEEReviewedEducationBrief = new DateTime().AddDays(1);
+            result.FSGPreOpeningMilestonesEPPSavedEESpecificationAndAdviceInWorkplaces = true;
+
+
 
 
             return result;

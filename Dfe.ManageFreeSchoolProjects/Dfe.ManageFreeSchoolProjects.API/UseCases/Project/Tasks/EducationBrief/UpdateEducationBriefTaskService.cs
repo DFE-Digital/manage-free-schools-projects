@@ -1,4 +1,5 @@
 using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief;
@@ -31,9 +32,13 @@ public class UpdateEducationBriefTaskService : IUpdateTaskService
             _context.Add(db);
         }
 
-        db.FSGPreOpeningMilestonesEducationPlanInBrief = task.EducationPlanInEducationBrief;
-        db.FSGPreOpeningMilestonesEducationPolicesInBrief = task.EducationPolicesInEducationBrief;
-        db.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory = task.PupilAssessmentAndTrackingHistoryInPlace;
-        db.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces = task.EducationBriefSavedToWorkplaces;
+        db.FSGPreOpeningMilestonesEPPTrustConfirmedPlansAndPoliciesInPlace = task.TrustConfirmedPlansAndPoliciesInPlace;
+        db.FSGPreOpeningMilestonesEPPCommissionedEEToReviewSafeguardingPolicy = task.CommissionedEEToReviewSafeguardingPolicy;
+        db.FSGPreOpeningMilestonesEPPCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy = task.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy;
+        db.FSGPreOpeningMilestonesEPPDateEEReviewedEducationBrief = task.DateEEReviewedEducationBrief;
+        db.FSGPreOpeningMilestonesEPPSavedEESpecificationAndAdviceInWorkplaces = task.SavedEESpecificationAndAdviceInWorkplaces;
+        db.FSGPreOpeningMilestonesEPPSavedCopiesOfPlansAndPoliciesInWorkplaces = task.SavedCopiesOfPlansAndPoliciesInWorkplaces;
+        db.FSGPreOpeningMilestonesDateTrustProvidedEducationBrief = task.DateTrustProvidedEducationBrief;
+
     }
 }
