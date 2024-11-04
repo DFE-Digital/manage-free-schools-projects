@@ -61,6 +61,30 @@ class HomePage {
         return this;
     }
 
+    public withProjectManagedByFilter(projectManagedBy: string): this {
+        cy.getByTestId(`${projectManagedBy}-option`).check();
+
+        return this;
+    }
+
+    public hasProjectManagedByFilter(projectManagedBy: string): this {
+        cy.getByTestId(`${projectManagedBy}-option`).should("be.checked");
+
+        return this;
+    }
+
+    public withProjectStatusFilter(projectStatus: string): this {
+        cy.getByTestId(`${projectStatus}-option`).check();
+
+        return this;
+    }
+
+    public hasProjectStatusFilter(projectStatus: string): this {
+        cy.getByTestId(`${projectStatus}-option`).should("be.checked");
+
+        return this;
+    }
+
     public applyFilters(): this {
         cy.getByTestId("apply-filters").click();
 

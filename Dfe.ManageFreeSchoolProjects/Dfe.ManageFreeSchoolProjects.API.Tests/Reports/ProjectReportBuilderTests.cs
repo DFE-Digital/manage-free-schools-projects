@@ -87,7 +87,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(FundingAgreementHealthCheckTask.DraftedFundingAgreementHealthCheck), "Yes", project, columnHeaders);
             AssertEntry(nameof(FundingAgreementSubmissionTask.DraftedFundingAgreementSubmission), "Yes", project, columnHeaders);
             AssertEntry(nameof(GiasTask.CheckedTrustInformation), "Yes", project, columnHeaders);
-            AssertEntry(nameof(EducationBriefTask.EducationPlanInEducationBrief), "Yes", project, columnHeaders);
+            AssertEntry(nameof(EducationBriefTask.CommissionedEEToReviewSafeguardingPolicy), "Yes", project, columnHeaders);
             AssertEntry(nameof(AdmissionsArrangementsTask.TrustConfirmedAdmissionsArrangementsTemplate), "Yes", project, columnHeaders);
             AssertEntry(nameof(ImpactAssessmentTask.ImpactAssessment), "Yes", project, columnHeaders);
             AssertEntry(nameof(EqualitiesAssessmentTask.CompletedEqualitiesProcessRecord), "Yes", project, columnHeaders);
@@ -235,7 +235,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                         },
                         EducationBrief = new EducationBriefTask()
                         {
-                            EducationPlanInEducationBrief = true
+                            CommissionedEEToReviewSafeguardingPolicy = true
                         },
                         AdmissionsArrangements = new AdmissionsArrangementsTask()
                         {

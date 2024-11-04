@@ -31,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             string project,
             string wave,
             string projectManagedBy,
+            string projectStatuses,
             int? page = 1,
             int? count = 5)
         {
@@ -39,6 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             var regionsToSearch = regions?.Split(',').ToList() ?? [];
             var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? [];
             var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? [];
+            var projecStatusesToSearch = projectStatuses?.Split(",").ToList() ?? [];
 
             var parameters = new GetDashboardParameters
             {
@@ -48,6 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Wave = wave,
                 ProjectManagedBy = projectManagedByToSearch,
                 LocalAuthority = localAuthoritiesToSearch,
+                ProjectStatus = projecStatusesToSearch,
                 Page = page.Value,
                 Count = count.Value
             };
@@ -79,11 +82,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         string regions,
         string localAuthorities,
         string project,
-        string projectManagedBy){
+        string projectManagedBy,
+        string projectStatuses){
             
             var regionsToSearch = regions?.Split(',').ToList() ?? [];
             var localAuthoritiesToSearch = localAuthorities?.Split(',').ToList() ?? [];
             var projectManagedByToSearch = projectManagedBy?.Split(",").ToList() ?? [];
+            var projectStatusesToSearch = projectStatuses?.Split(",").ToList() ?? [];
 
             var parameters = new GetDashboardParameters
             {
@@ -91,6 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
                 Regions = regionsToSearch,
                 Project = project,
                 ProjectManagedBy = projectManagedByToSearch,
+                ProjectStatus = projectStatusesToSearch,
                 LocalAuthority = localAuthoritiesToSearch
             };
         

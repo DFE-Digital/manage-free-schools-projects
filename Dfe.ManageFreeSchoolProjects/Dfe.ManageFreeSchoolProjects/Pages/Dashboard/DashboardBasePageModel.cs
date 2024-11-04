@@ -21,7 +21,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         IFeatureManager featureManager,
         IDashboardFiltersCache dashboardFiltersCache) : PageModel
     {
-        [BindProperty(SupportsGet = true)] public int PageNumber { get; set; } = 1;
+        [BindProperty(SupportsGet = true)] 
+        public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "search-by-project", SupportsGet = true)]
         public string ProjectSearchTerm { get; set; }
@@ -34,6 +35,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
         public List<string> ProjectManagedBySearchTerm { get; set; }
+
+        [BindProperty(Name = "search-by-project-status", SupportsGet = true)]
+        public List<string> ProjectStatusSearchTerm { get; set; } = new();
+
+        [BindProperty] public bool UserCanCreateProject { get; set; }
+
+        [BindProperty] public List<string> ProjectManagers { get; set; }
 
         public DashboardModel Dashboard { get; set; } = new();
 
@@ -62,12 +70,19 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         {
             var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
             
+            var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
+            if (!allowCentralRoute)
+                getDashboardServiceParameters.Wave = "FS - Presumption";
+
+            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
+
             var filterCache = dashboardFiltersCache.Get();
 
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
                 || RegionSearchTerm.Count != 0
                 || LocalAuthoritySearchTerm.Count != 0
-                || ProjectManagedBySearchTerm.Count != 0)
+                || ProjectManagedBySearchTerm.Count != 0
+                || ProjectStatusSearchTerm.Count != 0)
             {
                 SetDashboardFilterCacheFromFilterInput(filterCache);
             }
@@ -75,16 +90,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             {
                 SetFilterFieldsFromFilterCache(filterCache);
             }
-            
-            SetDashboardParamsFromFields(getDashboardServiceParameters);
-            
-            var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
-            
-            var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
-            if (!allowCentralRoute)
-                getDashboardServiceParameters.Wave = "FS - Presumption";
 
-            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
+            SetDashboardParamsFromFields(getDashboardServiceParameters);
+
+            var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
 
             var projectManagersResponse = getProjectManagersService.Execute();
 
@@ -99,6 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
                 ProjectManagedBySearchTerm = ProjectManagedBySearchTerm,
+                ProjectStatusSearchTerm = ProjectStatusSearchTerm,
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
                 ProjectManagers = projectManagersResponse.Result.ProjectManagers,
@@ -122,6 +132,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             if (ProjectManagedBySearchTerm.Count > 0)
                 ProjectManagedBySearchTerm.ForEach(m => query = query.Add("search-by-pmb", m));
+
+            if (ProjectStatusSearchTerm.Count > 0)
+                ProjectStatusSearchTerm.ForEach((m => query = query.Add("search-by-project-status", m)));
 
             return query.ToString();
         }

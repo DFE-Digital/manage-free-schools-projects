@@ -37,6 +37,12 @@ export class ProjectRow {
         return this;
     }
 
+    public hasProjectManagedBy(value: string): this {
+        this.containsText("project-managed-by", value);
+
+        return this;
+    }
+
     public hasRealisticOpeningdate(value: string): this {
         this.containsText("provisional-opening-date", value);
 

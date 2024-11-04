@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
@@ -21,28 +22,35 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks;
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
             await context.SaveChangesAsync();
-            
+
+
             var request = new UpdateProjectByTaskRequest()
             {
                 EducationBrief = new EducationBriefTask()
                 {
-                    EducationPlanInEducationBrief = true,
-                    EducationPolicesInEducationBrief = null,
-                    PupilAssessmentAndTrackingHistoryInPlace = false,
-                    EducationBriefSavedToWorkplaces = true
+                    TrustConfirmedPlansAndPoliciesInPlace = true,
+                    DateTrustProvidedEducationBrief = null,
+                    CommissionedEEToReviewSafeguardingPolicy = true,
+                    CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy = null,
+                    DateEEReviewedEducationBrief = DateTime.Now.Date.AddDays(-5),
+                    SavedCopiesOfPlansAndPoliciesInWorkplaces = null,
+                    SavedEESpecificationAndAdviceInWorkplaces = true,
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.EducationBrief.ToString());
 
-            projectResponse.EducationBrief.EducationPlanInEducationBrief.Should().Be(request.EducationBrief.EducationPlanInEducationBrief);
-            projectResponse.EducationBrief.EducationPolicesInEducationBrief.Should().Be(request.EducationBrief.EducationPolicesInEducationBrief);
-            projectResponse.EducationBrief.PupilAssessmentAndTrackingHistoryInPlace.Should().Be(request.EducationBrief.PupilAssessmentAndTrackingHistoryInPlace);
-            projectResponse.EducationBrief.EducationBriefSavedToWorkplaces.Should().Be(request.EducationBrief.EducationBriefSavedToWorkplaces);
-        }
+            projectResponse.EducationBrief.TrustConfirmedPlansAndPoliciesInPlace.Should().Be(request.EducationBrief.TrustConfirmedPlansAndPoliciesInPlace);
+            projectResponse.EducationBrief.DateTrustProvidedEducationBrief.Should().Be(request.EducationBrief.DateTrustProvidedEducationBrief);
+            projectResponse.EducationBrief.CommissionedEEToReviewSafeguardingPolicy.Should().Be(request.EducationBrief.CommissionedEEToReviewSafeguardingPolicy);
+            projectResponse.EducationBrief.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy.Should().Be(request.EducationBrief.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy);
+            projectResponse.EducationBrief.DateEEReviewedEducationBrief.Should().Be(request.EducationBrief.DateEEReviewedEducationBrief);
+            projectResponse.EducationBrief.SavedCopiesOfPlansAndPoliciesInWorkplaces.Should().Be(request.EducationBrief.SavedCopiesOfPlansAndPoliciesInWorkplaces);
+            projectResponse.EducationBrief.SavedEESpecificationAndAdviceInWorkplaces.Should().Be(request.EducationBrief.SavedEESpecificationAndAdviceInWorkplaces);
+    }
 
         [Fact]
-        public async Task Patch_EducationBriefMeeting_Returns_201()
+        public async Task Patch_ExistingEducationBrief_Returns_201()
         {
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
@@ -59,18 +67,24 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks;
             {
                 EducationBrief = new EducationBriefTask()
                 {
-                    EducationPlanInEducationBrief = true,
-                    EducationPolicesInEducationBrief = null,
-                    PupilAssessmentAndTrackingHistoryInPlace = false,
-                    EducationBriefSavedToWorkplaces = true
+                    TrustConfirmedPlansAndPoliciesInPlace = true,
+                    DateTrustProvidedEducationBrief = DateTime.Now.Date.AddDays(-5),
+                    CommissionedEEToReviewSafeguardingPolicy = true,
+                    CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy = true,
+                    DateEEReviewedEducationBrief = DateTime.Now.Date.AddDays(-4),
+                    SavedCopiesOfPlansAndPoliciesInWorkplaces =true,
+                    SavedEESpecificationAndAdviceInWorkplaces = true,
                 }
             };
 
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.EducationBrief.ToString());
 
-            projectResponse.EducationBrief.EducationPlanInEducationBrief.Should().Be(request.EducationBrief.EducationPlanInEducationBrief);
-            projectResponse.EducationBrief.EducationPolicesInEducationBrief.Should().Be(request.EducationBrief.EducationPolicesInEducationBrief);
-            projectResponse.EducationBrief.PupilAssessmentAndTrackingHistoryInPlace.Should().Be(request.EducationBrief.PupilAssessmentAndTrackingHistoryInPlace);
-            projectResponse.EducationBrief.EducationBriefSavedToWorkplaces.Should().Be(request.EducationBrief.EducationBriefSavedToWorkplaces);
-        }
+            projectResponse.EducationBrief.TrustConfirmedPlansAndPoliciesInPlace.Should().Be(request.EducationBrief.TrustConfirmedPlansAndPoliciesInPlace);
+            projectResponse.EducationBrief.DateTrustProvidedEducationBrief.Should().Be(request.EducationBrief.DateTrustProvidedEducationBrief);
+            projectResponse.EducationBrief.CommissionedEEToReviewSafeguardingPolicy.Should().Be(request.EducationBrief.CommissionedEEToReviewSafeguardingPolicy);
+            projectResponse.EducationBrief.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy.Should().Be(request.EducationBrief.CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy);
+            projectResponse.EducationBrief.DateEEReviewedEducationBrief.Should().Be(request.EducationBrief.DateEEReviewedEducationBrief);
+            projectResponse.EducationBrief.SavedCopiesOfPlansAndPoliciesInWorkplaces.Should().Be(request.EducationBrief.SavedCopiesOfPlansAndPoliciesInWorkplaces);
+            projectResponse.EducationBrief.SavedEESpecificationAndAdviceInWorkplaces.Should().Be(request.EducationBrief.SavedEESpecificationAndAdviceInWorkplaces);
     }
+}

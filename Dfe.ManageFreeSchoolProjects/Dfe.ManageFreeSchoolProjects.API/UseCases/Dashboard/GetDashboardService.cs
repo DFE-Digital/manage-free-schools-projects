@@ -20,6 +20,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public List<string> Regions { get; set; }
         public List<string> LocalAuthority { get; set; }
         public List<string> ProjectManagedBy { get; set; }
+        public List<string> ProjectStatus { get; set; }
         public string Wave { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
@@ -94,6 +95,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             if (parameters.ProjectManagedBy.Count > 0)
             {
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
+            }
+
+            if (parameters.ProjectStatus.Count > 0)
+            {
+                query = query.Where(kpi => parameters.ProjectStatus.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
             }
 
             if (!string.IsNullOrEmpty(parameters.Wave))
