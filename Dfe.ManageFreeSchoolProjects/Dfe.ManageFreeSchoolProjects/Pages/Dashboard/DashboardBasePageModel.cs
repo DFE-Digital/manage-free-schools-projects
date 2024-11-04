@@ -30,6 +30,9 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-pmb", SupportsGet = true)]
         public List<string> ProjectManagedBySearchTerm { get; set; }
 
+        [BindProperty(Name = "search-by-project-status", SupportsGet = true)]
+        public List<string> ProjectStatusSearchTerm { get; set; } = new();
+
         [BindProperty]
         public bool UserCanCreateProject { get; set; }
 
@@ -87,6 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 			getDashboardServiceParameters.Regions = RegionSearchTerm;
             getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
             getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
+            getDashboardServiceParameters.ProjectStatus = ProjectStatusSearchTerm;
             getDashboardServiceParameters.Page = PageNumber;
 
             var allowCentralRoute = await _featureManager.IsEnabledAsync("AllowCentralRoute");
@@ -101,9 +105,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             List<string> projectIds = new List<string>(); 
             if (
                 !string.IsNullOrWhiteSpace(ProjectSearchTerm)
-                || RegionSearchTerm.Any()
-                || LocalAuthoritySearchTerm.Any()
-                || ProjectManagedBySearchTerm.Any())
+                || RegionSearchTerm.Count > 0
+                || LocalAuthoritySearchTerm.Count > 0
+                || ProjectManagedBySearchTerm.Count > 0
+                || ProjectStatusSearchTerm.Count > 0
+            )
             {
 
                 projectIds = await _getDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
@@ -123,6 +129,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 RegionSearchTerm = RegionSearchTerm,
                 LocalAuthoritySearchTerm = LocalAuthoritySearchTerm,
                 ProjectManagedBySearchTerm = ProjectManagedBySearchTerm,
+                ProjectStatusSearchTerm = ProjectStatusSearchTerm,
                 Pagination = paginationModel,
                 UserCanCreateProject = User.IsInRole(RolesConstants.ProjectRecordCreator),
                 ProjectManagers = projectManagersResponse.Result.ProjectManagers,
@@ -153,7 +160,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             if (ProjectManagedBySearchTerm.Count > 0)
             {
                ProjectManagedBySearchTerm.ForEach((m => query = query.Add("search-by-pmb", m)));
-            }             
+            }
+
+            if (ProjectStatusSearchTerm.Count > 0)
+            {
+                ProjectStatusSearchTerm.ForEach((m => query = query.Add("search-by-project-status", m)));
+            }
 
             return query.ToString();
         }

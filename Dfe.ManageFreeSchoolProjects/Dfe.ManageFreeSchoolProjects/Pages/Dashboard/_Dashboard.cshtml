@@ -6,6 +6,10 @@
     var regions = Enum.GetValues(typeof(ProjectRegion));
     var regionLabels = (from object region in regions select region.ToDescription()).ToList();
 
+    var projectStatuses = Enum.GetValues(typeof(ProjectStatus));
+    var projectStatusLabels = (from object status in projectStatuses select status.ToDescription()).ToList();
+    projectStatusLabels.Sort();
+
     var projectManagerLabels = Model.ProjectManagers;
 
     const string createNewProjectLink = RouteConstants.CreateProjectMethod + "?newProject=true";
@@ -171,7 +175,44 @@
                         </div>
                     }
                 }
+            </div>
+            <div class="=govuk-grid-row">
+                <div class="govuk-grid-column-one-quarter">
 
+                    <div class="govuk-form-group">
+
+                        <fieldset class="govuk-fieldset" aria-describedby="filter-project-status-hint">
+
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+                                Project status
+
+                            </legend>
+
+                            <div id="filter-project-status-hint" class="govuk-hint">
+                                Select all that apply.
+                            </div>
+
+                            <div id="search-by-project-status-container" class="govuk-checkboxes govuk-checkboxes--small mfsp-project-listing__filter" data-module="govuk-checkboxes">
+
+                                @foreach (var status in projectStatusLabels)
+                                {
+                                    var checkedStatus = Model.ProjectStatusSearchTerm.Contains(status) ? "checked" : "";
+
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="@status" data-testid="@status-option" name="search-by-project-status" type="checkbox" value="@status" @checkedStatus>
+                                        <label class="govuk-label govuk-checkboxes__label" for="@status">
+                                            @status
+                                        </label>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+                </div>
             </div>
 
             <div class="govuk-grid-row">
@@ -285,7 +326,7 @@ else
                     @{
                         if (!Model.IsMyProjectsPage)
                         {
-                            <td class="govuk-table__cell" data-testid="local-authority">
+                            <td class="govuk-table__cell" data-testid="project-managed-by">
                                 @project.ProjectManagedBy
                             </td>
                         }

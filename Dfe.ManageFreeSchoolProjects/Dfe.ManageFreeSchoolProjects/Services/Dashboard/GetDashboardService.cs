@@ -21,6 +21,7 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
         public List<string> Regions { get; set; }
         public List<string> LocalAuthorities { get; set; }
         public List<string> ProjectManagedBy { get; set; }
+        public List<string> ProjectStatus { get; set; }
         public string Wave { get; set; }
         public int Page { get; set; }
     }
@@ -95,6 +96,11 @@ namespace Dfe.ManageFreeSchoolProjects.Services.Dashboard
             if (parameters.ProjectManagedBy.Count > 0)
             {
                 query = query.Add("projectManagedBy", string.Join(",", parameters.ProjectManagedBy));
+            }
+
+            if (parameters.ProjectStatus.Count > 0)
+            {
+                query = query.Add("projectStatuses", string.Join(",", parameters.ProjectStatus));
             }
 
             return query;

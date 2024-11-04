@@ -1,5 +1,4 @@
 import { ProjectRow } from "./projectRow";
-import viewCapacityWhenFullPage from "./pupil-numbers/viewCapacityWhenFullPage";
 
 class ProjectTable {
     public getRowByProjectId(projectId: string): Cypress.Chainable<ProjectRow> {
@@ -32,6 +31,20 @@ class ProjectTable {
         cy.containsByTestId(`row-`).each((el) => {
             const projectRow = new ProjectRow(el.get(0));
             projectRow.hasRegionName(region);
+        });
+    }
+
+    public allRowsHaveProjectManagedBy(projectManagedBy: string) {
+        cy.containsByTestId(`row-`).each((el) => {
+            const projectRow = new ProjectRow(el.get(0));
+            projectRow.hasProjectManagedBy(projectManagedBy);
+        });
+    }
+
+    public allRowsHaveProjectStatus(projectStatus: string) {
+        cy.containsByTestId(`row-`).each((el) => {
+            const projectRow = new ProjectRow(el.get(0));
+            projectRow.hasStatus(projectStatus);
         });
     }
 
