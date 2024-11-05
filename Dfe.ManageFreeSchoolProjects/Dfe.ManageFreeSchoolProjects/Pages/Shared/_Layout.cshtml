@@ -80,14 +80,14 @@
         <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
         <div class="dfe-width-container dfe-header__container">
             <div class="dfe-header__logo">
-                <a class="dfe-header__link dfe-header__link--service " href="/">
+                <a class="dfe-header__link dfe-header__link--service " href="/?handler=clearFilters">
                     <img src="~/assets/dfe-logo.png" class="dfe-logo" alt="Department for Education">
                     <img src="~/assets/dfe-logo-alt.png" class="dfe-logo-hover" alt="Department for Education">
                 </a>
             </div>
         </div>
         <div class="dfe-width-container dfe-header__service-name">
-            <a href="/" class="dfe-header__link--service">Manage free school projects</a>
+            <a href="/?handler=clearFilters" class="dfe-header__link--service">Manage free school projects</a>
         </div>
         @await RenderSectionAsync("AfterHeader", required: false)
     </header>
