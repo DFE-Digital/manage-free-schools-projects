@@ -10,6 +10,9 @@
     const string currentRiskRatings = "Current risk ratings";
     const string pastRiskRatings = "Past risk ratings";
     var title = $"{@Model.RiskDate.ToDateString()} - {(isPastRiskRating ? pastRiskRatings.ToLower() : currentRiskRatings.ToLower())}";
+    var overallSummaryExceeds200Characters = (Model.ProjectRisk.Overall.Summary.Length > 200);
+    var overallSummaryDetailsAreHidden = true;
+    var detailsText = overallSummaryDetailsAreHidden ? "Show more" : "Hide";
 
     if (@Model.RiskDate == null)
     {
@@ -45,9 +48,31 @@
             </p>
             @if (Model.ProjectRisk.Overall.Summary != null)
             {
-                <pre class="govuk-body-l" data-testid="overall-risk-summary">
-                    <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
-                </pre>
+                if(overallSummaryExceeds200Characters)
+                {
+                    <pre class="govuk-body-l risk-rating__overall-summary" data-testid="overall-risk-summary">
+                        <govuk-display-value value="@Model.ProjectRisk.Overall.Summary.Substring(0, 200).Trim()..." />
+                     </pre>
+                    <details class="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                @detailsText
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <pre class="govuk-body-l risk-rating__overall-summary" data-testid="overall-risk-summary">
+                                <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
+                            </pre>
+                        </div>
+                    </details>
+                }
+                else
+                {
+                    <pre class="govuk-body-l risk-rating__overall-summary" data-testid="overall-risk-summary">
+                        <govuk-display-value value="@Model.ProjectRisk.Overall.Summary" />
+                    </pre>
+                }
+                
             }
         </div>
 
