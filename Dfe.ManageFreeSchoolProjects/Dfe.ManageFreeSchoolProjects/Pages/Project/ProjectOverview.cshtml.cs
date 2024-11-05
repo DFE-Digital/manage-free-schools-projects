@@ -6,15 +6,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Dfe.BuildFreeSchools.Pages;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project
 {
     public class ProjectOverviewModel(
         IGetProjectOverviewService getProjectOverviewService,
-        ILogger<ProjectOverviewModel> logger,
-        IDashboardFiltersCache dashboardFiltersCache)
+        ILogger<ProjectOverviewModel> logger)
         : PageModel
     {
         [BindProperty(SupportsGet = true, Name = "projectId")]
