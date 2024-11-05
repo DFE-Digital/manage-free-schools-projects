@@ -324,6 +324,12 @@ class ProjectOverviewPage {
 
     }
 
+    public backToProjectDashboard(): this {
+        cy.getByClass('govuk-back-link').click();
+
+        return this;
+    }
+
 
     private checkRagRating(selector: string, values: string[]): void {
         cy.assertChildList(selector, values);

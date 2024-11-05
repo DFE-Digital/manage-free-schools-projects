@@ -1,5 +1,4 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
-using Dfe.ManageFreeSchoolProjects.Constants;
+﻿using Dfe.ManageFreeSchoolProjects.Constants;
 using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
 using Dfe.ManageFreeSchoolProjects.Services.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Services.User;
@@ -10,12 +9,19 @@ using Microsoft.FeatureManagement;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfe.BuildFreeSchools.Pages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
-    public class DashboardBasePageModel : PageModel
+    public class DashboardBasePageModel(
+        ICreateUserService createUserService,
+        IGetDashboardService getDashboardAllService,
+        IGetLocalAuthoritiesService getLocalAuthoritiesService,
+        IGetProjectManagersService getProjectManagersService,
+        IFeatureManager featureManager,
+        IDashboardFiltersCache dashboardFiltersCache) : PageModel
     {
-        [BindProperty(SupportsGet = true)]
+        [BindProperty(SupportsGet = true)] 
         public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "search-by-project", SupportsGet = true)]
@@ -33,90 +39,63 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-project-status", SupportsGet = true)]
         public List<string> ProjectStatusSearchTerm { get; set; } = new();
 
-        [BindProperty]
-        public bool UserCanCreateProject { get; set; }
+        [BindProperty] public bool UserCanCreateProject { get; set; }
 
-        [BindProperty]
-        public List<string> ProjectManagers { get; set; }
+        [BindProperty] public List<string> ProjectManagers { get; set; }
 
         public DashboardModel Dashboard { get; set; } = new();
 
-        protected readonly ICreateUserService _createUserService;
-        protected readonly IGetDashboardService _getDashboardService;
-        private readonly IGetLocalAuthoritiesService _getLocalAuthoritiesService;
-        private readonly IGetProjectManagersService _getProjectManagersService;
-        private readonly IFeatureManager _featureManager;
-        public DashboardBasePageModel(
-            ICreateUserService createUserService,
-            IGetDashboardService getDashboardAllService,
-            IGetLocalAuthoritiesService getLocalAuthoritiesService,
-            IGetProjectManagersService getProjectManagersService,
-            IFeatureManager featureManager)
-        {
-            _createUserService = createUserService;
-            _getDashboardService = getDashboardAllService;
-            _getLocalAuthoritiesService = getLocalAuthoritiesService;
-            _getProjectManagersService = getProjectManagersService;
-            _featureManager = featureManager;
-        }
+        protected readonly ICreateUserService CreateUserService = createUserService;
+        protected readonly IGetDashboardService GetDashboardService = getDashboardAllService;
 
         public async Task<JsonResult> OnGetLocalAuthoritiesByRegion(string regions)
         {
             if (string.IsNullOrEmpty(regions))
-            {
                 return new JsonResult(new List<string>());
-            }
 
             var regionsToSearch = regions.Split(",").ToList();
 
-            var localAuthoritiesResponse = await _getLocalAuthoritiesService.Execute(regionsToSearch);
+            var localAuthoritiesResponse = await getLocalAuthoritiesService.Execute(regionsToSearch);
 
-            var result = new JsonResult(localAuthoritiesResponse.Regions);
-
-            return result;
+            return new JsonResult(localAuthoritiesResponse.Regions);
         }
 
         protected async Task AddUser()
         {
-            var username = User.Identity.Name.ToString();
-            await _createUserService.Execute(username);
+            var username = User.Identity?.Name;
+            await CreateUserService.Execute(username);
         }
 
         protected async Task LoadDashboard(LoadDashboardParameters loadDashboardParameters)
         {
             var getDashboardServiceParameters = loadDashboardParameters.GetDashboardServiceParameters;
-
-            getDashboardServiceParameters.Project = ProjectSearchTerm;
-			getDashboardServiceParameters.Regions = RegionSearchTerm;
-            getDashboardServiceParameters.LocalAuthorities = LocalAuthoritySearchTerm;
-            getDashboardServiceParameters.ProjectManagedBy = ProjectManagedBySearchTerm;
-            getDashboardServiceParameters.ProjectStatus = ProjectStatusSearchTerm;
-            getDashboardServiceParameters.Page = PageNumber;
-
-            var allowCentralRoute = await _featureManager.IsEnabledAsync("AllowCentralRoute");
-
+            
+            var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
             if (!allowCentralRoute)
-            {
                 getDashboardServiceParameters.Wave = "FS - Presumption";
-            }
+            
+            var filterCache = dashboardFiltersCache.Get();
 
-            var response = await _getDashboardService.Execute(getDashboardServiceParameters);
-
-            List<string> projectIds = new List<string>(); 
-            if (
-                !string.IsNullOrWhiteSpace(ProjectSearchTerm)
-                || RegionSearchTerm.Count > 0
-                || LocalAuthoritySearchTerm.Count > 0
-                || ProjectManagedBySearchTerm.Count > 0
-                || ProjectStatusSearchTerm.Count > 0
-            )
+            if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
+                || RegionSearchTerm.Count != 0
+                || LocalAuthoritySearchTerm.Count != 0
+                || ProjectManagedBySearchTerm.Count != 0
+                || ProjectStatusSearchTerm.Count != 0)
             {
-
-                projectIds = await _getDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
-
+                SetDashboardFilterCacheFromFilterInput(filterCache);
+            }
+            else
+            {
+                SetFilterFieldsFromFilterCache(filterCache);
             }
 
-            var projectManagersResponse = _getProjectManagersService.Execute();
+            SetDashboardParamsFromFields(getDashboardServiceParameters);
+
+            var projectIds = await GetDashboardService.ExecuteProjectIdList(getDashboardServiceParameters);
+
+            var projectManagersResponse = getProjectManagersService.Execute();
+
+            var response = await GetDashboardService.Execute(getDashboardServiceParameters);
 
             var paginationModel = PaginationMapping.ToModel(response.Paging);
             var query = BuildPaginationQuery();
@@ -135,41 +114,60 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 ProjectManagers = projectManagersResponse.Result.ProjectManagers,
                 IsMyProjectsPage = loadDashboardParameters.Url.Contains("/my"),
                 TotalProjectIds = projectIds,
-            };  
+            };
         }
 
         private string BuildPaginationQuery()
         {
-            QueryString query = new QueryString("?handler=movePage");
+            var query = new QueryString("?handler=movePage");
 
             if (!string.IsNullOrEmpty(ProjectSearchTerm))
-            {
                 query = query.Add("search-by-project", ProjectSearchTerm);
-            }
 
-            if (RegionSearchTerm.Any())
-            {
+            if (RegionSearchTerm.Count != 0)
                 RegionSearchTerm.ForEach((r => query = query.Add("search-by-region", r)));
-            }
 
-            if (LocalAuthoritySearchTerm.Any())
-            {
-                LocalAuthoritySearchTerm.ForEach((l => query = query.Add("search-by-local-authority", l)));
-            }
+            if (LocalAuthoritySearchTerm.Count != 0)
+                LocalAuthoritySearchTerm.ForEach(l => query = query.Add("search-by-local-authority", l));
 
             if (ProjectManagedBySearchTerm.Count > 0)
-            {
-               ProjectManagedBySearchTerm.ForEach((m => query = query.Add("search-by-pmb", m)));
-            }
+                ProjectManagedBySearchTerm.ForEach(m => query = query.Add("search-by-pmb", m));
 
             if (ProjectStatusSearchTerm.Count > 0)
-            {
                 ProjectStatusSearchTerm.ForEach((m => query = query.Add("search-by-project-status", m)));
-            }
 
             return query.ToString();
         }
-        
+
+        private void SetDashboardParamsFromFields(GetDashboardServiceParameters getDashboardParams)
+        {
+            getDashboardParams.Project = ProjectSearchTerm;
+            getDashboardParams.Regions = RegionSearchTerm;
+            getDashboardParams.LocalAuthorities = LocalAuthoritySearchTerm;
+            getDashboardParams.ProjectManagedBy = ProjectManagedBySearchTerm;
+            getDashboardParams.ProjectStatus = ProjectStatusSearchTerm;
+            getDashboardParams.Page = PageNumber;
+        }
+
+        private void SetDashboardFilterCacheFromFilterInput(DashboardFiltersCacheItem filterCache)
+        {
+            filterCache.ProjectManagedBySearchTerm = ProjectManagedBySearchTerm;
+            filterCache.ProjectSearchTerm = ProjectSearchTerm;
+            filterCache.RegionSearchTerm = RegionSearchTerm;
+            filterCache.ProjectStatusSearchTerm = ProjectStatusSearchTerm;
+            filterCache.LocalAuthoritySearchTerm = LocalAuthoritySearchTerm;
+
+            dashboardFiltersCache.Update(filterCache);
+        }
+
+        private void SetFilterFieldsFromFilterCache(DashboardFiltersCacheItem filterCache)
+        {
+            ProjectSearchTerm = filterCache.ProjectSearchTerm ?? string.Empty;
+            RegionSearchTerm = filterCache.RegionSearchTerm ?? [];
+            LocalAuthoritySearchTerm = filterCache.LocalAuthoritySearchTerm ?? [];
+            ProjectManagedBySearchTerm = filterCache.ProjectManagedBySearchTerm ?? [];
+            ProjectStatusSearchTerm = filterCache.ProjectStatusSearchTerm ?? [];
+        }
 
         protected class LoadDashboardParameters
         {

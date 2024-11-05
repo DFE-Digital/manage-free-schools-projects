@@ -6,27 +6,24 @@ using Microsoft.Extensions.Logging;
 using Microsoft.FeatureManagement;
 using System;
 using System.Threading.Tasks;
+using Dfe.BuildFreeSchools.Pages;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 {
-    public class DashboardGetByUserModel : DashboardBasePageModel
+    public class DashboardGetByUserModel(
+        ICreateUserService createUserService,
+        IGetDashboardService getDashboardService,
+        IGetLocalAuthoritiesService getLocalAuthoritiesService,
+        IGetProjectManagersService getProjectManagersService,
+        ILogger<DashboardGetByUserModel> logger,
+        IFeatureManager featureManager,
+        IDashboardFiltersCache dashboardFiltersCache)
+        : DashboardBasePageModel(createUserService, getDashboardService, getLocalAuthoritiesService,
+            getProjectManagersService, featureManager, dashboardFiltersCache)
     {
-        private readonly ILogger<DashboardGetByUserModel> _logger;
-
-        public DashboardGetByUserModel(
-            ICreateUserService createUserService,
-            IGetDashboardService getDashboardService,
-            IGetLocalAuthoritiesService getLocalAuthoritiesService,
-            IGetProjectManagersService getProjectManagersService,
-            ILogger<DashboardGetByUserModel> logger,
-            IFeatureManager featureManager) : base(createUserService, getDashboardService, getLocalAuthoritiesService, getProjectManagersService, featureManager)
-        {
-            _logger = logger;
-        }
-
         public async Task<IActionResult> OnGetAsync()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             try
             {
@@ -35,7 +32,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
                 throw;
             }
 
@@ -44,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         public async Task<IActionResult> OnGetMovePage()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             try
             {
@@ -52,7 +49,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
                 throw;
             }
 
@@ -61,7 +58,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         public async Task<IActionResult> OnPostSearch()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
 
             try
             {
@@ -69,7 +66,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
                 throw;
             }
 
@@ -78,14 +75,14 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
         public async Task<IActionResult> OnGetClearFilters()
         {
-            _logger.LogMethodEntered();
+            logger.LogMethodEntered();
             try
             {
                 await LoadPage();
             }
             catch (Exception ex)
             {
-                _logger.LogErrorMsg(ex);
+                logger.LogErrorMsg(ex);
                 throw;
             }
 

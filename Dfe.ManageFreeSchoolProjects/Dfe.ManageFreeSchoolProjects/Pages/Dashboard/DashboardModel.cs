@@ -1,7 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Pages.Pagination;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
