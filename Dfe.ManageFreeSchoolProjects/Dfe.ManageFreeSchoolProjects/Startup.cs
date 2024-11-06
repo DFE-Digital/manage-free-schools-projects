@@ -69,7 +69,10 @@ public class Startup
            .AddRazorPages(options =>
            {
                options.Conventions.AuthorizeFolder("/");
-           })
+               options.Conventions.AllowAnonymousToPage("/Public/AccessibilityStatement");
+               options.Conventions.AllowAnonymousToPage("/Public/Cookies");
+               options.Conventions.AllowAnonymousToPage("/Account/AccessDenied");
+           }) 
            .AddViewOptions(options =>
            {
                options.HtmlHelperOptions.ClientValidationEnabled = false;
