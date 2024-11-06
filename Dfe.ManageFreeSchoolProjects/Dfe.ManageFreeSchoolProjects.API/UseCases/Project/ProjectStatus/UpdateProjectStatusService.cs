@@ -42,7 +42,6 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
         dbProject.ProjectStatusDateCancelled = updateRequest.CancelledDate;
         dbProject.ProjectStatusDateWithdrawn = updateRequest.WithdrawnDate;
         
-        
         await _context.SaveChangesAsync();
     }
     

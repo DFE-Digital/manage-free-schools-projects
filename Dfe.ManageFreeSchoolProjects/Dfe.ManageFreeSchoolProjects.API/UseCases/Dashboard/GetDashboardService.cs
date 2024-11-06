@@ -71,14 +71,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
         {
             if (!string.IsNullOrEmpty(parameters.UserId))
-            {
                 query = query.Where(kpi => kpi.User.Email == parameters.UserId);
-            }
 
-            if (parameters.Regions.Any())
-            {
+            if (parameters.Regions.Count != 0)
                 query = query.Where(kpi => parameters.Regions.Any(region => kpi.SchoolDetailsGeographicalRegion == region));
-            }
 
             if (!string.IsNullOrEmpty(parameters.Project))
             {
@@ -87,25 +83,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 || kpi.ProjectStatusProjectId == parameters.Project);
             }
 
-            if (parameters.LocalAuthority.Any())
-            {
+            if (parameters.LocalAuthority.Count != 0)
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
-            }
 
             if (parameters.ProjectManagedBy.Count > 0)
-            {
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
-            }
-
+            
             if (parameters.ProjectStatus.Count > 0)
-            {
                 query = query.Where(kpi => parameters.ProjectStatus.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
-            }
 
             if (!string.IsNullOrEmpty(parameters.Wave))
-            {
                 query = query.Where(kpi => kpi.ProjectStatusFreeSchoolApplicationWave == parameters.Wave);
-            }
 
             return query;
         }
@@ -117,8 +105,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             query = ApplyFilters(query, parameters);
 
-            await
-                query
+            await query
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
                     .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
                     .ToListAsync();
