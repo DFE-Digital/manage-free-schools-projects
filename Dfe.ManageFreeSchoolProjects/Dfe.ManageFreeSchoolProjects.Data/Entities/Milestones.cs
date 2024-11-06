@@ -193,5 +193,14 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesMfadIncludedSignedOffImpactAssessmentFaSubmission { get; set; }
 
         public YesNo? AROMIsExpectedToHappen { get; set; }
+
+        public bool? FSGPreOpeningMilestonesEPPTrustConfirmedPlansAndPoliciesInPlace { get; set; }
+        public bool? FSGPreOpeningMilestonesEPPCommissionedEEToReviewSafeguardingPolicy { get; set; }
+        public bool? FSGPreOpeningMilestonesEPPCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy { get; set; }
+        public DateTime? FSGPreOpeningMilestonesEPPDateEEReviewedEducationBrief { get; set; }
+        public bool? FSGPreOpeningMilestonesEPPSavedEESpecificationAndAdviceInWorkplaces { get; set; }
+        public bool? FSGPreOpeningMilestonesEPPSavedCopiesOfPlansAndPoliciesInWorkplaces { get; set; }
+        public DateTime? FSGPreOpeningMilestonesDateTrustProvidedEducationBrief { get; set; }
+
     }
 }

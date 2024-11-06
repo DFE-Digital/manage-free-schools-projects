@@ -7,6 +7,7 @@ import homePage from "cypress/pages/homePage";
 import paginationComponent from "cypress/pages/paginationComponent";
 import projectTable from "cypress/pages/projectTable";
 import path from "path";
+import projectOverviewPage from "cypress/pages/projectOverviewPage";
 
 describe("Testing the home page", () => {
     beforeEach(() => {
@@ -32,7 +33,7 @@ describe("Testing the home page", () => {
             });
         });
 
-        it.only("Should be able to filter projects by project ID", () => {
+        it("Should be able to filter projects by project ID", () => {
             homePage.openFilter().withProjectFilter(projectTitlePrefix).applyFilters();
 
             projectTable
@@ -159,6 +160,36 @@ describe("Testing the home page", () => {
                 .hasLocalAuthorityFilter("Bedford")
                 .clearFilters();
         });
+
+        it("Should be able to filter projects by project managed by", () => {
+            homePage
+                .openFilter()
+                .withProjectManagedByFilter("Test Person")
+                .applyFilters();
+
+            projectTable.allRowsHaveProjectManagedBy("Test Person");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasProjectManagedByFilter("Test Person")
+                .clearFilters();
+        });
+
+        it("Should be able to filter projects by project status", () => {
+            homePage
+                .openFilter()
+                .withProjectStatusFilter("Pre-opening")
+                .applyFilters();
+
+            projectTable.allRowsHaveProjectStatus("Pre-opening");
+
+            // Filter is displayed and has the searched value
+            // clear proves its visible, as the visibility checks don't work
+            homePage
+                .hasProjectStatusFilter("Pre-opening")
+                .clearFilters();
+        });
     });
 
     describe("Pagination on the dashboard with filters for project", () => {
@@ -281,6 +312,59 @@ describe("Testing the home page", () => {
         });
     });
 
+    describe("Filter cache", () => {
+        it("Should retain filter values after navigating away from the page and back again", () => {
+            homePage
+            .openFilter()
+            .selectAllRegions()
+            .withLocalAuthorityFilter("Bedford")
+            .withLocalAuthorityFilter("City of London")
+            .withLocalAuthorityFilter("Liverpool")
+            .withLocalAuthorityFilter("Manchester")
+            .withLocalAuthorityFilter("Birmingham")
+            .withLocalAuthorityFilter("Luton")
+            .withLocalAuthorityFilter("Leeds")
+            .withLocalAuthorityFilter("Nottingham")
+            .withProjectFilter("Test Project")
+            .withAllProjectAssignedTo()
+            .applyFilters();
+            
+            homePage.viewFirstProject();
+
+            projectOverviewPage.backToProjectDashboard();
+
+            homePage
+            .allRegionsSelected()
+            .hasLocalAuthorityFilter("Bedford")
+            .hasLocalAuthorityFilter("City of London")
+            .hasLocalAuthorityFilter("Liverpool")
+            .hasLocalAuthorityFilter("Manchester")
+            .hasLocalAuthorityFilter("Birmingham")
+            .hasLocalAuthorityFilter("Luton")
+            .hasLocalAuthorityFilter("Leeds")
+            .hasLocalAuthorityFilter("Nottingham")
+            .hasProjectFilter("Test Project");
+            
+        })
+
+
+        it("Should clear filters when clicking header link", () => {
+            homePage
+            .openFilter()
+            .withRegionFilter("North West")
+            .withRegionFilter("East Midlands")
+            .withRegionFilter("East of England")
+            .withRegionFilter("London")
+            .applyFilters();
+
+            homePage.clickHeader();  
+            
+            homePage.openFilter()
+                    .regionsFilterInputCleared();
+        })
+    });
+    
+
     function hasNoSimilarElements(first: Array<string>, second: Array<string>) {
         const firstSet = new Set(first);
 
@@ -289,3 +373,4 @@ describe("Testing the home page", () => {
         expect(match).to.be.false;
     }
 });
+

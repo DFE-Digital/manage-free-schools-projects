@@ -1,7 +1,9 @@
+import { contains } from "cypress/types/jquery";
+
 class TaskListPage {
 
     public onTasklistTab(): this {
-        cy.getById(`header-task-list`).should("be.visible")
+        cy.getById(`header-contacts`).should( 'contain.text', 'Task list')
         return this;
     }
     public selectAboutTheProjectTab(): this {

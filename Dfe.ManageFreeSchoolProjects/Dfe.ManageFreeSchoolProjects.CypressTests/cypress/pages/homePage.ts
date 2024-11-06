@@ -61,6 +61,30 @@ class HomePage {
         return this;
     }
 
+    public withProjectManagedByFilter(projectManagedBy: string): this {
+        cy.getByTestId(`${projectManagedBy}-option`).check();
+
+        return this;
+    }
+
+    public hasProjectManagedByFilter(projectManagedBy: string): this {
+        cy.getByTestId(`${projectManagedBy}-option`).should("be.checked");
+
+        return this;
+    }
+
+    public withProjectStatusFilter(projectStatus: string): this {
+        cy.getByTestId(`${projectStatus}-option`).check();
+
+        return this;
+    }
+
+    public hasProjectStatusFilter(projectStatus: string): this {
+        cy.getByTestId(`${projectStatus}-option`).should("be.checked");
+
+        return this;
+    }
+
     public applyFilters(): this {
         cy.getByTestId("apply-filters").click();
 
@@ -72,6 +96,65 @@ class HomePage {
 
         return this;
     }
+
+    public viewFirstProject(): this {
+        cy.get('.govuk-table').find('td').contains('a', 'View').first().click();
+
+        return this;
+    }
+
+    public clickHeader(): this { 
+        cy.getByClass('dfe-header__link--service').click();
+
+        return this;
+    }
+
+    public regionsFilterInputCleared(): this {
+        cy.get('#search-by-region-container input')
+        .each(($input) => {
+            cy.wrap($input).should('not.be.checked');
+        });
+
+        return this;
+     }
+     
+     public selectAllRegions(): this {
+        cy.get('#search-by-region-container input')
+        .each(($input) => {
+            cy.wrap($input).check();
+        });
+
+        return this;
+     }
+
+     public selectAllLocalAuthorities(): this {
+        cy.get('#la-checkbox-container input')
+        .each(($input) => {
+            cy.wrap($input).check();
+        });
+
+        return this;
+     }
+
+     public withAllProjectAssignedTo(): this {
+        cy.get('#search-by-pmb-container input')
+        .each(($input) => {
+            cy.wrap($input).check();
+        });
+
+        return this;
+     }
+
+     public allRegionsSelected(): this {
+        cy.get('#search-by-region-container input')
+        .each(($input) => {
+            cy.wrap($input).should('be.checked');
+        });
+
+        return this;
+     }
+
+
 
     public downloadProjectDataExport() {
         cy.getByTestId("download-data-export").click();

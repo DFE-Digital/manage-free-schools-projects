@@ -31,6 +31,7 @@ using Dfe.ManageFreeSchoolProjects.Services.Reports;
 using Dfe.ManageFreeSchoolProjects.Services.BulkEdit;
 using System.Collections.Generic;
 using System.Globalization;
+using Dfe.BuildFreeSchools.Pages;
 using Microsoft.AspNetCore.Localization;
 
 namespace Dfe.ManageFreeSchoolProjects;
@@ -121,6 +122,8 @@ public class Startup
         services.AddScoped<IBulkEditValidateService, BulkEditValidateService>();
         services.AddScoped<IBulkEditCommitService, BulkEditCommitService>();
         services.AddScoped<IBulkEditCache, BulkEditCache>();
+
+        services.AddScoped<IDashboardFiltersCache, DashboardFiltersCache>();
 
         services.AddScoped(sp => sp.GetService<IHttpContextAccessor>()?.HttpContext?.Session);
         services.AddSession(options =>

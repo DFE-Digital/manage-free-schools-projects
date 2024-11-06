@@ -8,9 +8,7 @@ using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType
 
 namespace Dfe.ManageFreeSchoolProjects.Services.Project
 {
-    public interface ICreateProjectCache : ICookieCacheService<CreateProjectCacheItem>
-    {
-    }
+    public interface ICreateProjectCache : ICookieCacheService<CreateProjectCacheItem>;
 
     public class CreateProjectCache : CookieCacheService<CreateProjectCacheItem>, ICreateProjectCache
     {

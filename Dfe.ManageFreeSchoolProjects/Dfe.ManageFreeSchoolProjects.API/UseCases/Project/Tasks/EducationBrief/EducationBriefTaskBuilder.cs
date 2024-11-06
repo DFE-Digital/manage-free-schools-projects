@@ -9,11 +9,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.EducationBrief
         {
             return new EducationBriefTask()
             {
-                EducationPlanInEducationBrief = milestones?.FSGPreOpeningMilestonesEducationPlanInBrief,
-                EducationPolicesInEducationBrief = milestones?.FSGPreOpeningMilestonesEducationPolicesInBrief,
-                PupilAssessmentAndTrackingHistoryInPlace = milestones?.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory,
-                EducationBriefSavedToWorkplaces = milestones?.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces
-            };
+                TrustConfirmedPlansAndPoliciesInPlace = milestones?.FSGPreOpeningMilestonesEPPTrustConfirmedPlansAndPoliciesInPlace,
+                CommissionedEEToReviewSafeguardingPolicy = milestones?.FSGPreOpeningMilestonesEPPCommissionedEEToReviewSafeguardingPolicy,
+                CommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy = milestones?.FSGPreOpeningMilestonesEPPCommissionedEEToReviewPupilAssessmentRecordingAndReportingPolicy,
+                DateEEReviewedEducationBrief = milestones?.FSGPreOpeningMilestonesEPPDateEEReviewedEducationBrief,
+                SavedEESpecificationAndAdviceInWorkplaces = milestones?.FSGPreOpeningMilestonesEPPSavedEESpecificationAndAdviceInWorkplaces,
+                SavedCopiesOfPlansAndPoliciesInWorkplaces = milestones?.FSGPreOpeningMilestonesEPPSavedCopiesOfPlansAndPoliciesInWorkplaces,
+                DateTrustProvidedEducationBrief = milestones?.FSGPreOpeningMilestonesDateTrustProvidedEducationBrief,
+    };
         }
     }
 }

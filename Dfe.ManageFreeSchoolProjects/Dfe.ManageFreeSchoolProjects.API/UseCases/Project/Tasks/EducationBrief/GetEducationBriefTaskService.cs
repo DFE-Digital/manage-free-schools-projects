@@ -20,13 +20,7 @@ internal class GetEducationBriefTaskService : IGetTaskService
             from milestones in joinedMilestones.DefaultIfEmpty()
             select new GetProjectByTaskResponse()
             {
-                EducationBrief = new EducationBriefTask()
-                {
-                    EducationPlanInEducationBrief = milestones.FSGPreOpeningMilestonesEducationPlanInBrief,
-                    EducationPolicesInEducationBrief = milestones.FSGPreOpeningMilestonesEducationPolicesInBrief,
-                    PupilAssessmentAndTrackingHistoryInPlace = milestones.FSGPreOpeningMilestonesEducationBriefPupilAssessmentAndTrackingHistory,
-                    EducationBriefSavedToWorkplaces = milestones.FSGPreOpeningMilestonesEducationBriefSavedToWorkplaces
-                }
+               EducationBrief = EducationBriefTaskBuilder.Build(milestones)
             }).FirstOrDefaultAsync();
 
         return result ?? new GetProjectByTaskResponse() { EducationBrief = new() };
