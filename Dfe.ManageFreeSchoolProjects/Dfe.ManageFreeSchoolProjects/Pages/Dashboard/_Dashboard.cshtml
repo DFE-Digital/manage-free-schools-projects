@@ -19,7 +19,8 @@
         !string.IsNullOrWhiteSpace(Model.ProjectSearchTerm)
         || Model.RegionSearchTerm.Any()
         || Model.LocalAuthoritySearchTerm.Any()
-        || Model.ProjectManagedBySearchTerm.Any();
+        || Model.ProjectManagedBySearchTerm.Any()
+        || Model.ProjectStatusSearchTerm.Any();
 
     var openFilter = isFilterActive ? "open" : "";
 
