@@ -12,7 +12,7 @@
 
     var isPresumptionProject = Model.Project.ProjectType.Contains("Presumption");
 
-    ProjectStatus[] presumptionStatuses = [ProjectStatus.Cancelled, ProjectStatus.Closed, ProjectStatus.Open, ProjectStatus.Preopening, ProjectStatus.WithdrawnDuringPreOpening];
+    ProjectStatus[] presumptionStatuses = [ProjectStatus.Cancelled, ProjectStatus.Closed, ProjectStatus.Open, ProjectStatus.Preopening, ProjectStatus.WithdrawnInPreOpening];
 
     var projectStatusOptions = new List<ProjectStatusOption>
     {
@@ -42,7 +42,7 @@
         new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", true,
             "year-withdrawn-application", "year-withdrawn-application", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnApplicationYear),
 
-        new("project-status-withdrawn", ProjectStatus.WithdrawnDuringPreOpening, ProjectStatus.WithdrawnDuringPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
+        new("project-status-withdrawn", ProjectStatus.WithdrawnInPreOpening, ProjectStatus.WithdrawnInPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
             "year-withdrawn-preopening", "year-withdrawn-preopening", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnYear)
     };
 }

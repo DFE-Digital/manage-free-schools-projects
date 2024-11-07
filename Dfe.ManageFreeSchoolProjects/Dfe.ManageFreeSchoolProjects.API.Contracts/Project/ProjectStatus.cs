@@ -17,8 +17,12 @@ public enum ProjectStatus
     Cancelled,
     
     [Description("Withdrawn in pre-opening")]
+    WithdrawnInPreOpening,
+    
+    //Possible legacy value
+    [Description("Withdrawn during pre-opening")]
     WithdrawnDuringPreOpening,
-
+    
     [Description("Application competition stage")]
     ApplicationCompetitionStage,
 

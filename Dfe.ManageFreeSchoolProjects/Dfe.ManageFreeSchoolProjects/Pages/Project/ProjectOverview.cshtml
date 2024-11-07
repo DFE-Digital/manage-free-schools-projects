@@ -39,11 +39,11 @@
                     @if (@Model.Project.ProjectStatus.ProjectStatus is 
                             ProjectStatus.Cancelled or 
                             ProjectStatus.Closed or 
-                            ProjectStatus.WithdrawnDuringPreOpening or 
+                            ProjectStatus.WithdrawnInPreOpening or 
                             ProjectStatus.WithdrawnDuringApplication)
                     {   
                     <div class="govuk-summary-list__row">
-                        @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringPreOpening ||
+                        @if (Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnInPreOpening ||
                            Model.Project.ProjectStatus.ProjectStatus == ProjectStatus.WithdrawnDuringApplication)
                         {
                             <dt class="govuk-summary-list__key" id="overview-withdrawn-date">
