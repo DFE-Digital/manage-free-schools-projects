@@ -1,6 +1,7 @@
-type AllowedFilters = "region" | "localAuthority" | "projectManagedBy" | "projectStatus";
 
 class HomePage {
+
+    FilterData: { [key: string]: string } = {};
 
     public createNewProjects(): this { 
         cy.contains("Create a project").click();
@@ -76,7 +77,7 @@ class HomePage {
     }
 
     public withProjectStatusFilter(projectStatus: string): this {
-        cy.getByTestId(`${projectStatus}-option`).check();
+        cy.getByTestId(`${projectStatus}-option`).check({ force: true });
 
         return this;
     }
@@ -101,52 +102,57 @@ class HomePage {
 
     public tryViewProjectWithFilters(): this {
 
-        const projectData: { [key: string]: string } = {};
+        const dataTestIds = {
+            projectTitle: '[data-testid="project-title"]',
+            projectId: '[data-testid="project-id"]',
+            regionName: '[data-testid="region-name"]',
+            localAuthority: '[data-testid="local-authority"]',
+            projectManagedBy: '[data-testid="project-managed-by"]',
+            status: '[data-testid="status"]'
+        };
+
 
         cy.get('tbody')
           .find('tr')
           .filter((_, row) => {
             const $row = Cypress.$(row);
     
-            const hasProjectTitleOrId = $row.find('[data-testid="project-title"]').text().trim() !== "" ||
-                                        $row.find('[data-testid="project-id"]').text().trim() !== "";
-            const hasRegionName = $row.find('[data-testid="region-name"]').text().trim() !== "";
-            const hasLocalAuthority = $row.find('[data-testid="local-authority"]').text().trim() !== "";
-            const hasProjectManagedBy = $row.find('[data-testid="project-managed-by"]').text().trim() !== "";
-            const hasStatus = $row.find('[data-testid="status"]').text().trim() !== "";
+            const hasProjectTitleOrId = $row.find(dataTestIds.projectTitle).text().trim() !== "" ||
+                                        $row.find(dataTestIds.projectId).text().trim() !== "";
+            const hasRegionName = $row.find(dataTestIds.regionName).text().trim() !== "";
+            const hasLocalAuthority = $row.find(dataTestIds.localAuthority).text().trim() !== "";
+            const hasProjectManagedBy = $row.find(dataTestIds.projectManagedBy).text().trim() !== "";
+            const hasStatus = $row.find(dataTestIds.status).text().trim() !== "";
     
             return hasProjectTitleOrId && hasRegionName && hasLocalAuthority && hasProjectManagedBy && hasStatus;
           })
           .first()
           .then((firstRow) => {
-            // Capture values into variables
-            projectData.projectTitle = Cypress.$(firstRow).find('[data-testid="project-title"]').text().trim() ||
-                                       Cypress.$(firstRow).find('[data-testid="project-id"]').text().trim();
-            projectData.regionName = Cypress.$(firstRow).find('[data-testid="region-name"]').text().trim();
-            projectData.localAuthority = Cypress.$(firstRow).find('[data-testid="local-authority"]').text().trim();
-            projectData.projectManagedBy = Cypress.$(firstRow).find('[data-testid="project-managed-by"]').text().trim();
-            projectData.status = Cypress.$(firstRow).find('[data-testid="status"]').text().trim();     
+            this.FilterData.projectId = Cypress.$(firstRow).find(dataTestIds.projectId).text().trim();
+            this.FilterData.projectTitle = Cypress.$(firstRow).find(dataTestIds.projectTitle).text().trim() ||
+                                       Cypress.$(firstRow).find(dataTestIds.projectId).text().trim();
+            this.FilterData.regionName = Cypress.$(firstRow).find(dataTestIds.regionName).text().trim();
+            this.FilterData.localAuthority = Cypress.$(firstRow).find(dataTestIds.localAuthority).text().trim();
+            this.FilterData.projectManagedBy = Cypress.$(firstRow).find(dataTestIds.projectManagedBy).text().trim();
+            this.FilterData.status = Cypress.$(firstRow).find(dataTestIds.status).text().trim();     
+            
           }).then(() => {
 
-            this.withProjectFilter(projectData.projectTitle);
-            this.withRegionFilter(projectData.regionName);
-            this.withLocalAuthorityFilter(projectData.localAuthority);
-            this.withProjectManagedByFilter(projectData.projectManagedBy);
-            this.withProjectStatusFilter(projectData.status);
+            this.withProjectFilter(this.FilterData.projectId);
+            this.withRegionFilter(this.FilterData.regionName);
+            this.withLocalAuthorityFilter(this.FilterData.localAuthority);
+            this.withProjectManagedByFilter(this.FilterData.projectManagedBy);
+            this.withProjectStatusFilter(this.FilterData.status);
 
             this.applyFilters();
+            
+            cy.get('.govuk-table').find('td').contains('a', 'View').first().click();
 
-            // const noProjectFound = cy.find('h1').contains('0 projects found');
-
-            // if (noProjectFound) {
-            //     this.tryViewProjectWithFilters();
-            // }
           });
     
         return this;
     }
 
-    // cy.get('.govuk-table').find('td').contains('a', 'View').first().click();
 
     public clickHeader(): this { 
         cy.getByClass('dfe-header__link--service').click();
@@ -197,22 +203,6 @@ class HomePage {
         });
 
         return this;
-     }
-
-     public selectFilters(filtersToSelect: AllowedFilters[]) {
-        filtersToSelect.forEach((filter) => {
-            switch (filter) {
-                case "region":
-                    this.selectAllRegions();
-                    break;
-                case "localAuthority":
-                    this.selectAllLocalAuthorities();
-                    break;
-                case "projectManagedBy":
-                    this.withAllProjectAssignedTo();
-                    break;
-            }
-        });
      }
 
     public downloadProjectDataExport() {

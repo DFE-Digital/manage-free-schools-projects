@@ -313,41 +313,22 @@ describe("Testing the home page", () => {
     });
 
     describe("Filter cache", () => {
-        it.only("Should retain filter values after navigating away from the page and back again", () => {
-            // homePage
-            // .openFilter()
-            // .selectAllRegions()
-            // .withLocalAuthorityFilter("Bedford")
-            // .withLocalAuthorityFilter("City of London")
-            // .withLocalAuthorityFilter("Liverpool")
-            // .withLocalAuthorityFilter("Manchester")
-            // .withLocalAuthorityFilter("Birmingham")
-            // .withLocalAuthorityFilter("Luton")
-            // .withLocalAuthorityFilter("Leeds")
-            // .withLocalAuthorityFilter("Nottingham")
-            // .withProjectFilter("Test Project")
-            // .withAllProjectAssignedTo()
-            // .applyFilters();
-            
-            // homePage.tryViewProjectWithFilters();
+        it("Should retain filter values after navigating away from the page and back again", () => {
 
-            // projectOverviewPage.backToProjectDashboard();
+            homePage
+            .openFilter()
+            .tryViewProjectWithFilters();
 
-            // homePage
-            // .allRegionsSelected()
-            // .hasLocalAuthorityFilter("Bedford")
-            // .hasLocalAuthorityFilter("City of London")
-            // .hasLocalAuthorityFilter("Liverpool")
-            // .hasLocalAuthorityFilter("Manchester")
-            // .hasLocalAuthorityFilter("Birmingham")
-            // .hasLocalAuthorityFilter("Luton")
-            // .hasLocalAuthorityFilter("Leeds")
-            // .hasLocalAuthorityFilter("Nottingham")
-            // .hasProjectFilter("Test Project");
+            projectOverviewPage.backToProjectDashboard();
 
+            const filterData = homePage.FilterData;
 
-            homePage.openFilter().tryViewProjectWithFilters();
-            
+            homePage
+            .hasProjectFilter(filterData.projectId)
+            .hasRegionFilter(filterData.regionName)
+            .hasLocalAuthorityFilter(filterData.localAuthority)
+            .hasProjectManagedByFilter(filterData.projectManagedBy)
+            .hasProjectStatusFilter(filterData.status);
         })
 
 
