@@ -15,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit.Validations
                     ProjectStatus.Cancelled, 
                     ProjectStatus.Open, 
                     ProjectStatus.Closed, 
-                    ProjectStatus.WithdrawnDuringPreOpening
+                    ProjectStatus.WithdrawnInPreOpening
                 ];
 
             ProjectStatus? status = null;

@@ -31,7 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 ProjectStatus.PreopeningNotIncludedInFigures => "yellow",
                 ProjectStatus.Rejected => "orange",
                 ProjectStatus.WithdrawnDuringApplication => "orange",
-                ProjectStatus.WithdrawnDuringPreOpening => "orange",
+                ProjectStatus.WithdrawnInPreOpening => "orange",
                 _ => "grey"
             };
 

@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Data;
@@ -79,9 +80,15 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
 
             if (parameters.ProjectManagedBy.Count != 0)
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
-            
-            if (parameters.ProjectStatus.Count != 0)
-                query = query.Where(kpi => parameters.ProjectStatus.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
+
+            var projectStatuses = parameters.ProjectStatus;
+            if (projectStatuses.Count != 0)
+            {
+                if (projectStatuses.Any(x => x == ProjectStatus.WithdrawnInPreOpening.ToDescription()))
+                    projectStatuses.Add(ProjectStatus.WithdrawnDuringPreOpening.ToDescription());
+                
+                query = query.Where(kpi => projectStatuses.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
+            }
 
             if (!string.IsNullOrEmpty(parameters.Wave))
                 query = query.Where(kpi => kpi.ProjectStatusFreeSchoolApplicationWave == parameters.Wave);
