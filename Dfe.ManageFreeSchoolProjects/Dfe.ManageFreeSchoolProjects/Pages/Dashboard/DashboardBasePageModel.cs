@@ -39,10 +39,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
         [BindProperty(Name = "search-by-project-status", SupportsGet = true)]
         public List<string> ProjectStatusSearchTerm { get; set; } = new();
 
-        [BindProperty] public bool UserCanCreateProject { get; set; }
-
-        [BindProperty] public List<string> ProjectManagers { get; set; }
-
         public DashboardModel Dashboard { get; set; } = new();
 
         protected readonly ICreateUserService CreateUserService = createUserService;

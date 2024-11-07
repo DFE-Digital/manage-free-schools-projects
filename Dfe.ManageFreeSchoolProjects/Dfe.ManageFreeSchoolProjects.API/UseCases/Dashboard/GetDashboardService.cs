@@ -24,22 +24,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string Wave { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
-        
     }
 
-    public class GetDashboardService : IGetDashboardService
+    public class GetDashboardService(MfspContext context) : IGetDashboardService
     {
-        private readonly MfspContext _context;
-
-        public GetDashboardService(MfspContext context)
-        {
-            _context = context;
-        }
-
-        
         public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
         {
-            var query = _context.Kpi.AsQueryable();
+            var query = context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
@@ -71,14 +62,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         private static IQueryable<Kpi> ApplyFilters(IQueryable<Kpi> query, GetDashboardParameters parameters)
         {
             if (!string.IsNullOrEmpty(parameters.UserId))
-            {
                 query = query.Where(kpi => kpi.User.Email == parameters.UserId);
-            }
 
-            if (parameters.Regions.Any())
-            {
+            if (parameters.Regions.Count != 0)
                 query = query.Where(kpi => parameters.Regions.Any(region => kpi.SchoolDetailsGeographicalRegion == region));
-            }
 
             if (!string.IsNullOrEmpty(parameters.Project))
             {
@@ -87,38 +74,28 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                 || kpi.ProjectStatusProjectId == parameters.Project);
             }
 
-            if (parameters.LocalAuthority.Any())
-            {
+            if (parameters.LocalAuthority.Count != 0)
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
-            }
 
-            if (parameters.ProjectManagedBy.Count > 0)
-            {
+            if (parameters.ProjectManagedBy.Count != 0)
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
-            }
-
-            if (parameters.ProjectStatus.Count > 0)
-            {
+            
+            if (parameters.ProjectStatus.Count != 0)
                 query = query.Where(kpi => parameters.ProjectStatus.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
-            }
 
             if (!string.IsNullOrEmpty(parameters.Wave))
-            {
                 query = query.Where(kpi => kpi.ProjectStatusFreeSchoolApplicationWave == parameters.Wave);
-            }
 
             return query;
         }
         
-        
         public async Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters)
         {
-            var query = _context.Kpi.AsQueryable();
+            var query = context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
-            await
-                query
+            await query
                     .OrderByDescending(kpi => kpi.ProjectStatusProvisionalOpeningDateAgreedWithTrust)
                     .ThenBy(kpi => kpi.ProjectStatusCurrentFreeSchoolName)
                     .ToListAsync();
