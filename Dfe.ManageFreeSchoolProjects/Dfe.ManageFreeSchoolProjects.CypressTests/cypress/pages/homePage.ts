@@ -1,3 +1,5 @@
+type AllowedFilters = "region" | "localAuthority" | "projectManagedBy" | "projectStatus";
+
 class HomePage {
 
     public createNewProjects(): this { 
@@ -95,13 +97,56 @@ class HomePage {
         cy.getByTestId("clear-filters").click();
 
         return this;
-    }
+    } 
 
-    public viewFirstProject(): this {
-        cy.get('.govuk-table').find('td').contains('a', 'View').first().click();
+    public tryViewProjectWithFilters(): this {
 
+        const projectData: { [key: string]: string } = {};
+
+        cy.get('tbody')
+          .find('tr')
+          .filter((_, row) => {
+            const $row = Cypress.$(row);
+    
+            const hasProjectTitleOrId = $row.find('[data-testid="project-title"]').text().trim() !== "" ||
+                                        $row.find('[data-testid="project-id"]').text().trim() !== "";
+            const hasRegionName = $row.find('[data-testid="region-name"]').text().trim() !== "";
+            const hasLocalAuthority = $row.find('[data-testid="local-authority"]').text().trim() !== "";
+            const hasProjectManagedBy = $row.find('[data-testid="project-managed-by"]').text().trim() !== "";
+            const hasStatus = $row.find('[data-testid="status"]').text().trim() !== "";
+    
+            return hasProjectTitleOrId && hasRegionName && hasLocalAuthority && hasProjectManagedBy && hasStatus;
+          })
+          .first()
+          .then((firstRow) => {
+            // Capture values into variables
+            projectData.projectTitle = Cypress.$(firstRow).find('[data-testid="project-title"]').text().trim() ||
+                                       Cypress.$(firstRow).find('[data-testid="project-id"]').text().trim();
+            projectData.regionName = Cypress.$(firstRow).find('[data-testid="region-name"]').text().trim();
+            projectData.localAuthority = Cypress.$(firstRow).find('[data-testid="local-authority"]').text().trim();
+            projectData.projectManagedBy = Cypress.$(firstRow).find('[data-testid="project-managed-by"]').text().trim();
+            projectData.status = Cypress.$(firstRow).find('[data-testid="status"]').text().trim();     
+          }).then(() => {
+
+            this.withProjectFilter(projectData.projectTitle);
+            this.withRegionFilter(projectData.regionName);
+            this.withLocalAuthorityFilter(projectData.localAuthority);
+            this.withProjectManagedByFilter(projectData.projectManagedBy);
+            this.withProjectStatusFilter(projectData.status);
+
+            this.applyFilters();
+
+            // const noProjectFound = cy.find('h1').contains('0 projects found');
+
+            // if (noProjectFound) {
+            //     this.tryViewProjectWithFilters();
+            // }
+          });
+    
         return this;
     }
+
+    // cy.get('.govuk-table').find('td').contains('a', 'View').first().click();
 
     public clickHeader(): this { 
         cy.getByClass('dfe-header__link--service').click();
@@ -154,7 +199,21 @@ class HomePage {
         return this;
      }
 
-
+     public selectFilters(filtersToSelect: AllowedFilters[]) {
+        filtersToSelect.forEach((filter) => {
+            switch (filter) {
+                case "region":
+                    this.selectAllRegions();
+                    break;
+                case "localAuthority":
+                    this.selectAllLocalAuthorities();
+                    break;
+                case "projectManagedBy":
+                    this.withAllProjectAssignedTo();
+                    break;
+            }
+        });
+     }
 
     public downloadProjectDataExport() {
         cy.getByTestId("download-data-export").click();

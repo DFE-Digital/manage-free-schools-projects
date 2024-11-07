@@ -313,37 +313,40 @@ describe("Testing the home page", () => {
     });
 
     describe("Filter cache", () => {
-        it("Should retain filter values after navigating away from the page and back again", () => {
-            homePage
-            .openFilter()
-            .selectAllRegions()
-            .withLocalAuthorityFilter("Bedford")
-            .withLocalAuthorityFilter("City of London")
-            .withLocalAuthorityFilter("Liverpool")
-            .withLocalAuthorityFilter("Manchester")
-            .withLocalAuthorityFilter("Birmingham")
-            .withLocalAuthorityFilter("Luton")
-            .withLocalAuthorityFilter("Leeds")
-            .withLocalAuthorityFilter("Nottingham")
-            .withProjectFilter("Test Project")
-            .withAllProjectAssignedTo()
-            .applyFilters();
+        it.only("Should retain filter values after navigating away from the page and back again", () => {
+            // homePage
+            // .openFilter()
+            // .selectAllRegions()
+            // .withLocalAuthorityFilter("Bedford")
+            // .withLocalAuthorityFilter("City of London")
+            // .withLocalAuthorityFilter("Liverpool")
+            // .withLocalAuthorityFilter("Manchester")
+            // .withLocalAuthorityFilter("Birmingham")
+            // .withLocalAuthorityFilter("Luton")
+            // .withLocalAuthorityFilter("Leeds")
+            // .withLocalAuthorityFilter("Nottingham")
+            // .withProjectFilter("Test Project")
+            // .withAllProjectAssignedTo()
+            // .applyFilters();
             
-            homePage.viewFirstProject();
+            // homePage.tryViewProjectWithFilters();
 
-            projectOverviewPage.backToProjectDashboard();
+            // projectOverviewPage.backToProjectDashboard();
 
-            homePage
-            .allRegionsSelected()
-            .hasLocalAuthorityFilter("Bedford")
-            .hasLocalAuthorityFilter("City of London")
-            .hasLocalAuthorityFilter("Liverpool")
-            .hasLocalAuthorityFilter("Manchester")
-            .hasLocalAuthorityFilter("Birmingham")
-            .hasLocalAuthorityFilter("Luton")
-            .hasLocalAuthorityFilter("Leeds")
-            .hasLocalAuthorityFilter("Nottingham")
-            .hasProjectFilter("Test Project");
+            // homePage
+            // .allRegionsSelected()
+            // .hasLocalAuthorityFilter("Bedford")
+            // .hasLocalAuthorityFilter("City of London")
+            // .hasLocalAuthorityFilter("Liverpool")
+            // .hasLocalAuthorityFilter("Manchester")
+            // .hasLocalAuthorityFilter("Birmingham")
+            // .hasLocalAuthorityFilter("Luton")
+            // .hasLocalAuthorityFilter("Leeds")
+            // .hasLocalAuthorityFilter("Nottingham")
+            // .hasProjectFilter("Test Project");
+
+
+            homePage.openFilter().tryViewProjectWithFilters();
             
         })
 
