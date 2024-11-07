@@ -24,22 +24,13 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
         public string Wave { get; set; }
         public int Page { get; set; }
         public int Count { get; set; }
-        
     }
 
-    public class GetDashboardService : IGetDashboardService
+    public class GetDashboardService(MfspContext context) : IGetDashboardService
     {
-        private readonly MfspContext _context;
-
-        public GetDashboardService(MfspContext context)
-        {
-            _context = context;
-        }
-
-        
         public async Task<(List<GetDashboardResponse>, int)> Execute(GetDashboardParameters parameters)
         {
-            var query = _context.Kpi.AsQueryable();
+            var query = context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
@@ -86,10 +77,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             if (parameters.LocalAuthority.Count != 0)
                 query = query.Where(kpi => parameters.LocalAuthority.Any(localAuthority => kpi.LocalAuthority == localAuthority));
 
-            if (parameters.ProjectManagedBy.Count > 0)
+            if (parameters.ProjectManagedBy.Count != 0)
                 query = query.Where(kpi => parameters.ProjectManagedBy.Any(projectManagedBy => kpi.KeyContactsFsgLeadContact == projectManagedBy));
             
-            if (parameters.ProjectStatus.Count > 0)
+            if (parameters.ProjectStatus.Count != 0)
                 query = query.Where(kpi => parameters.ProjectStatus.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
 
             if (!string.IsNullOrEmpty(parameters.Wave))
@@ -98,10 +89,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             return query;
         }
         
-        
         public async Task<IEnumerable<string>> ExecuteProjectIds(GetDashboardParameters parameters)
         {
-            var query = _context.Kpi.AsQueryable();
+            var query = context.Kpi.AsQueryable();
 
             query = ApplyFilters(query, parameters);
 
