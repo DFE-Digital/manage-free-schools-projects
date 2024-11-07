@@ -131,7 +131,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
 
             if (ProjectStatusSearchTerm.Count > 0)
                 ProjectStatusSearchTerm.ForEach((m => query = query.Add("search-by-project-status", m)));
-
+            
             return query.ToString();
         }
 

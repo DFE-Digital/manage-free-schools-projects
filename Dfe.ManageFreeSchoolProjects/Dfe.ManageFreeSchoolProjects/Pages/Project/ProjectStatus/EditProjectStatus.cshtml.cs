@@ -73,7 +73,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Cancelled)
                     CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
                 
-                if(Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringPreOpening)
+                if(Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnInPreOpening)
                     WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
                 
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
@@ -93,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         {
             CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
             CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
-            CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnDuringPreOpening, WithdrawnYear);
+            CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnInPreOpening, WithdrawnYear);
             CheckErrors(WithdrawnApplicationYearId, ProjectStatusType.WithdrawnDuringApplication, WithdrawnApplicationYear);
 
             ClearNotApplicableValues();
@@ -139,7 +139,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 return;
             }
 
-            if (ProjectStatus == ProjectStatusType.WithdrawnDuringPreOpening)
+            if (ProjectStatus == ProjectStatusType.WithdrawnInPreOpening)
             {
                 ClosedYear = null;
                 CancelledYear = null;
