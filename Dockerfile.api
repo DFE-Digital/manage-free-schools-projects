@@ -15,7 +15,7 @@ RUN ["mkdir", "-p", "/app/SQL"]
 RUN ["dotnet", "restore", "Dfe.ManageFreeSchoolProjects.Data"]
 RUN ["dotnet", "build", "Dfe.ManageFreeSchoolProjects.Data", "--no-restore"]
 RUN ["dotnet", "ef", "migrations", "script", "--output", "/app/SQL/DbMigrationScript.sql", "--idempotent", "-p", "/build/Dfe.ManageFreeSchoolProjects.Data", "--no-build"]
-RUN ["touch", "/app/SQL/DbMigrationScript.sql"]
+RUN ["touch", "/app/SQL/DbMigrationScriptOutput.txt"]
 
 # Install SQL tools to allow migrations to be run
 FROM "mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-azurelinux3.0" AS base
