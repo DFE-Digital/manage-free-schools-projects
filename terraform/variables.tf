@@ -500,3 +500,9 @@ variable "health_insights_api_ipv4_allow_list" {
   type        = list(string)
   default     = []
 }
+
+variable "container_port" {
+  description = "Container port"
+  type        = number
+  default     = 8080
+}
