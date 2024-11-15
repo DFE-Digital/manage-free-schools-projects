@@ -506,3 +506,15 @@ variable "container_port" {
   type        = number
   default     = 8080
 }
+
+variable "enable_cdn_frontdoor_vdp_redirects" {
+  description = "Deploy redirects for security.txt and thanks.txt to an external Vulnerability Disclosure Program service"
+  type        = bool
+  default     = true
+}
+
+variable "cdn_frontdoor_vdp_destination_hostname" {
+  description = "Requires 'enable_cdn_frontdoor_vdp_redirects' to be set to 'true'. Hostname to redirect security.txt and thanks.txt to"
+  type        = string
+  default     = "vdp.security.education.gov.uk"
+}
