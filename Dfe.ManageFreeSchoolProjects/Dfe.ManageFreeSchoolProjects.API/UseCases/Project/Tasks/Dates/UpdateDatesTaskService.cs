@@ -22,7 +22,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.Dates
             dbKpi.ProjectStatusDateCancelled = task.ProjectCancelledDate;
             dbKpi.ProjectStatusDateWithdrawn = task.ProjectWithdrawnDate;
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
-            dbKpi.RyooWd = task.RealisticYearOfOpening.IsNullOrEmpty() ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
+            dbKpi.RyooWd = string.IsNullOrEmpty(task.RealisticYearOfOpening) ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -23,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<ProjectOverviewResponse>>> GetProjectOverview(string projectId)
         {
             _logger.LogMethodEntered();

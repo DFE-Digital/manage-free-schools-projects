@@ -21,22 +21,22 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
             {
                 var entity = await _context.Kpi.FirstOrDefaultAsync(x => x.ProjectStatusProjectId == dto.ProjectId);
 
-                if(!dto.SchoolName.IsNullOrEmpty())
+                if(!string.IsNullOrEmpty(dto.SchoolName))
                 {
                     entity.ProjectStatusCurrentFreeSchoolName = dto.SchoolName;
                 }
 
-                if(!dto.OpeningDate.IsNullOrEmpty())
+                if(!string.IsNullOrEmpty(dto.OpeningDate))
                 {
                     entity.ProjectStatusActualOpeningDate = DateTime.Parse(dto.OpeningDate, new CultureInfo("en-GB"));
                 }
 
-                if (!dto.ProjectStatus.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(dto.ProjectStatus))
                 {
                     entity.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(ProjectMapper.ToProjectStatusType(dto.ProjectStatus));
                 }
 
-                if (!dto.LocalAuthorityCode.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(dto.LocalAuthorityCode))
                 {
                     entity.SchoolDetailsLocalAuthority = dto.LocalAuthorityCode;
                     entity.LocalAuthority = dto.LocalAuthorityName;

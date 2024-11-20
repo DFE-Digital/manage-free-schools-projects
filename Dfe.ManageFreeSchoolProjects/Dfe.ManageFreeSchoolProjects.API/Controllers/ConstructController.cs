@@ -1,7 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Construct;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Construct;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Construct;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -23,6 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("projects")]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiResponseV2<ConstructProjectResponse>>> GetConstruct()
         {
             _logger.LogMethodEntered();

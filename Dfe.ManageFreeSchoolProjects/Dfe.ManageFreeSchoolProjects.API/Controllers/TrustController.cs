@@ -1,8 +1,10 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -27,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         [Route("{trn}")]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<GetTrustByRefResponse>>> getTrustByRef(string trn)
         {
             _logger.LogMethodEntered();
@@ -45,6 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         [Route("search/{searchTerm}")]
         public async Task<ActionResult<ApiResponseV2<SearchTrustByRefResponse>>> searchTrustByRef( string searchTerm)
         {

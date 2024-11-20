@@ -3,6 +3,8 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Microsoft.AspNetCore.Mvc;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Sites;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -26,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<GetProjectSitesResponse>>> GetProjectSites(string projectId)
         {
             _logger.LogMethodEntered();
@@ -42,6 +45,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPatch("{siteType}")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchProjectSite(string projectId, ProjectSiteType siteType, UpdateProjectSiteRequest request)
         {
             _logger.LogMethodEntered();

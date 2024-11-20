@@ -3,6 +3,8 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.PupilNumbers;
 using Microsoft.AspNetCore.Mvc;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -26,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<GetPupilNumbersResponse>>> GetPupilNumbers(string projectId)
         {
             _logger.LogMethodEntered();
@@ -37,6 +40,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPatch]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiSingleResponseV2<object>>> PatchPupilNumbers(string projectId, UpdatePupilNumbersRequest request)
         {
             _logger.LogMethodEntered();

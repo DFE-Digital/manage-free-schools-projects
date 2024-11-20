@@ -1,8 +1,10 @@
 using System.Net;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.GrantLetters;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers;
@@ -13,6 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers;
 public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController> logger, IProjectGrantLettersService grantLettersService) : ControllerBase
 {
     [HttpGet]
+    [Authorize(Policy = PolicyNames.CanRead)]
     public async Task<ActionResult<ApiSingleResponseV2<ProjectGrantLetters>>> GetGrantLetters(string projectId)
     {
         logger.LogMethodEntered();
@@ -24,6 +27,7 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
     }
     
     [HttpPut]
+    [Authorize(Policy = PolicyNames.CanReadWrite)]
     public async Task<ActionResult> UpdateGrantLetters(string projectId, ProjectGrantLetters updatedGrantLetters)
     {
         logger.LogMethodEntered();
@@ -34,6 +38,7 @@ public class ProjectGrantLettersController(ILogger<ProjectGrantLettersController
     }
     
     [HttpPut]
+    [Authorize(Policy = PolicyNames.CanReadWrite)]
     [Route("variation-letter")]
     public async Task<ActionResult> UpdateVariationLetter(string projectId, GrantVariationLetter newOrUpdatedVariationLetter)
     {

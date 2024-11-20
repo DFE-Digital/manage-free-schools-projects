@@ -44,6 +44,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
 			return sb.ToString();
 		}
 
-		private bool IsApiRequest(string path) => path.StartsWith("/v2/") && !path.Contains("swagger");
+		private bool IsApiRequest(string path) => path.StartsWith("/api/v1/") && !path.Contains("swagger");
 	}
 }

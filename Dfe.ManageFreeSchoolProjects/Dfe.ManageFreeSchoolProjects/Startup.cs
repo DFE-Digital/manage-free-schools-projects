@@ -32,6 +32,10 @@ using Dfe.ManageFreeSchoolProjects.Services.BulkEdit;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.UserContext;
+using DfE.CoreLibs.Security.Interfaces;
+using DfE.CoreLibs.Security;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -79,6 +83,9 @@ public class Startup
         SetupDataprotection(services);
         services.AddScoped<IGetDashboardService, GetDashboardService>();
         services.AddScoped<MfspApiClient, MfspApiClient>();
+        services.AddScoped<ICorrelationContext, CorrelationContext>();
+        services.AddScoped<IClientUserInfoService, ClientUserInfoService>();
+        services.AddUserTokenService(Configuration);
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
         services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
@@ -130,6 +137,7 @@ public class Startup
             options.Cookie.IsEssential = true;
         });
         services.AddHttpContextAccessor();
+
 
         services.AddHsts(options => {
             options.Preload = true;

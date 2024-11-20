@@ -1,7 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Dashboard;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -24,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "projectrecordcreator")]
         public async Task<ApiSingleResponseV2<GetProjectManagersResponse>> Execute()
         {
             _logger.LogMethodEntered();

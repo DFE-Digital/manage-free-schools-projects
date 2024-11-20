@@ -5,9 +5,15 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using DfE.CoreLibs.Security.Interfaces;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.UserContext;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace Dfe.ManageFreeSchoolProjects.Services
 {
@@ -18,16 +24,28 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         private string _httpClientName;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private readonly ICorrelationContext _correlationContext;
+        private readonly IClientUserInfoService _userInfoService;
+        private readonly IUserTokenService _apiTokenService;
+
+
         protected ApiClient(
-            IHttpClientFactory clientFactory, 
+            IHttpClientFactory clientFactory,
             ILogger<ApiClient> logger,
             IHttpContextAccessor httpContextAccessor,
-            string httpClientName)
+            string httpClientName,
+            ICorrelationContext correlationContext,
+            IClientUserInfoService clientUserInfoService,
+            IUserTokenService apiTokenService
+            )
         {
             _clientFactory = clientFactory;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
             _httpClientName = httpClientName;
+            _correlationContext = correlationContext;
+            _userInfoService = clientUserInfoService;
+            _apiTokenService = apiTokenService;
         }
 
         public async Task<T> Get<T>(string endpoint) where T : class
@@ -194,9 +212,32 @@ namespace Dfe.ManageFreeSchoolProjects.Services
         {
             var client = _clientFactory.CreateClient(_httpClientName);
 
-            client.DefaultRequestHeaders.Add(HttpHeaderConstants.UserContextName, _httpContextAccessor.HttpContext.User?.Identity?.Name);
+            var apiToken = _apiTokenService.GetUserTokenAsync(_httpContextAccessor.HttpContext.User).Result;
 
+            //client.DefaultRequestHeaders.Add(HttpHeaderConstants.UserContextName, _httpContextAccessor.HttpContext.User?.Identity?.Name);
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiToken);
+
+            AddDefaultRequestHeaders(client, _correlationContext, _userInfoService, _logger);
             return client;
+        }
+
+        public static void AddDefaultRequestHeaders(HttpClient httpClient, ICorrelationContext correlationContext, IClientUserInfoService userInfoService, ILogger<ApiClient> logger)
+        {
+
+            var headerAdded = httpClient.DefaultRequestHeaders.TryAddWithoutValidation(correlationContext.HeaderKey, correlationContext.CorrelationId);
+            if (!headerAdded)
+            {
+                logger?.LogWarning("Warning. Unable to add correlationId to request headers");
+            }
+
+            var userInfoHeadersAdded = userInfoService.AddUserInfoRequestHeaders(httpClient);
+
+            if (!userInfoHeadersAdded)
+            {
+                logger?.LogWarning("Warning. Attempt to call api without user info headers");
+            }
+
         }
     }
 }

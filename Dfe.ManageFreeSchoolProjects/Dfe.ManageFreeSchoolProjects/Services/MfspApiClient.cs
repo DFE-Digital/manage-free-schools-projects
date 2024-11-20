@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DfE.CoreLibs.Security.Interfaces;
+using Dfe.ManageFreeSchoolProjects.Logging;
+using Dfe.ManageFreeSchoolProjects.UserContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 
@@ -10,7 +13,10 @@ namespace Dfe.ManageFreeSchoolProjects.Services
             IHttpClientFactory clientFactory, 
             ILogger<ApiClient> logger,
             IHttpContextAccessor httpContextAccessor,
-            string httpClientName = "MfspClient") : base(clientFactory, logger, httpContextAccessor, httpClientName)
+            ICorrelationContext correlationContext,
+            IClientUserInfoService clientUserInfoService,
+            IUserTokenService apiTokenService,
+            string httpClientName = "MfspClient") : base(clientFactory, logger, httpContextAccessor, httpClientName, correlationContext, clientUserInfoService, apiTokenService)
         {
             
         }

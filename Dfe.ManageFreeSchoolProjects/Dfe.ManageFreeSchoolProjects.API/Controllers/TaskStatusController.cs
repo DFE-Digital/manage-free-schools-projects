@@ -1,7 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Task;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Tasks;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers;
@@ -25,6 +27,7 @@ public class TaskStatusController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = PolicyNames.CanRead)]
     public async Task<ActionResult<ApiSingleResponseV2<TaskStatusResponse>>> GetTaskStatus([FromRoute] string projectId,
         string taskName)
     {
@@ -59,6 +62,7 @@ public class TaskStatusController : ControllerBase
     }
 
     [HttpPatch]
+    [Authorize(Policy = PolicyNames.CanReadWrite)]
     public async Task<ActionResult> UpdateTaskStatus(string projectId, [FromBody] UpdateTaskStatusRequest request)
     {
         _logger.LogMethodEntered();
@@ -77,6 +81,7 @@ public class TaskStatusController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = PolicyNames.CanReadWrite)]
     public async Task<ActionResult> CreateTasks([FromRoute] string projectId)
     {
         _logger.LogMethodEntered();

@@ -1,7 +1,9 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -29,6 +31,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<GetProjectRiskResponse>>> GetProjectRisk(string projectId, int entry = 1)
         {
             _logger.LogMethodEntered();
@@ -45,6 +48,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiSingleResponseV2<CreateProjectRiskResponse>>> PostProjectRisk(string projectId, CreateProjectRiskRequest request)
         {
             _logger.LogMethodEntered();

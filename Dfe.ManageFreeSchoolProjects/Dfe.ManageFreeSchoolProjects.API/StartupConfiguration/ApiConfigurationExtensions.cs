@@ -1,4 +1,4 @@
-using System.Net.Mime;
+using DfE.CoreLibs.Security.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
 
@@ -22,7 +22,9 @@ public static class ApiConfigurationExtensions
 			setup.SubstituteApiVersionInUrl = true;
 		});
 
-		services.AddSwaggerGen();
+        services.AddApplicationAuthorization(configuration);
+
+        services.AddSwaggerGen();
 		services.ConfigureOptions<SwaggerOptions>();
 
 		return services;

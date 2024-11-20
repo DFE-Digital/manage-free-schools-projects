@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Payments;
 using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Payments;
+using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -32,6 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<ApiSingleResponseV2<ProjectPayments>>> GetProjectPayments(string projectId)
         {
             _logger.LogMethodEntered();
@@ -43,6 +46,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult> UpdateProjectPayments(string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
@@ -53,6 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult> AddProjectPayments(string projectId, Payment payment)
         {
             _logger.LogMethodEntered();
@@ -63,6 +68,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpDelete("{paymentIndex}")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult> DeleteProjectPayments(string projectId, int paymentIndex)
         {
             _logger.LogMethodEntered();

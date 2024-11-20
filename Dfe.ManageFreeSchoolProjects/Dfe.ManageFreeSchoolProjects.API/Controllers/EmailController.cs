@@ -1,6 +1,8 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Email;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,12 +22,13 @@ public class EmailController : ControllerBase
         _logger = logger;
     }
 
-     [HttpPost]
-     public async Task<ActionResult> SendEmail([FromBody] EmailNotifyRequest request)
+    [HttpPost]
+    [Authorize(Policy = PolicyNames.CanReadWrite)]
+    public async Task<ActionResult> SendEmail([FromBody] EmailNotifyRequest request)
      {
          _logger.LogMethodEntered();
 
-         if (request.Email.IsNullOrEmpty()) 
+         if (string.IsNullOrEmpty(request.Email)) 
              return BadRequest("Email is required.");
 
          if (!_emailService.IsEmailValid(request.Email)) 

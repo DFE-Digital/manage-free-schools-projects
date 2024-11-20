@@ -1,4 +1,6 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -22,6 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("all-projects-export")]
+        //[Authorize(Policy = PolicyNames.CanRead)]
         public async Task<FileStreamResult> GetAllProjects()
         {
             var excelStream = await _allProjectsReportService.Execute();
@@ -34,6 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
         
         [HttpGet("filtered-projects-export")]
+        //[Authorize(Policy = PolicyNames.CanRead)]
         public async Task<FileStreamResult> GetFilteredProjects(string projectIds)
         {
             var excelStream = await _allProjectsReportService.ExecuteWithFilter(projectIds);
@@ -46,6 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("sfa-export")]
+        //[Authorize(Policy = PolicyNames.CanRead)]
         public async Task<FileStreamResult> GetSfaExport()
         {
             var csvStream = await _sfaReportService.Execute();

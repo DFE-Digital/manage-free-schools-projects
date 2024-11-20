@@ -6,4 +6,9 @@
         public const string MATUnitProjects = "Other";
         public const string SponsorUnitProjects = "Free Schools (including Studio Schools)";
     }
+    public static class PolicyNames
+    {
+        public const string CanRead = "CanRead";
+        public const string CanReadWrite = "CanReadWrite";
+    }
 }

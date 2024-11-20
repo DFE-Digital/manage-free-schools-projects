@@ -43,7 +43,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
 
                 foreach (var column in row.Columns)
                 {
-                    if (column.Value.IsNullOrEmpty())
+                    if (string.IsNullOrEmpty(column.Value))
                     {
                         continue;
                     }

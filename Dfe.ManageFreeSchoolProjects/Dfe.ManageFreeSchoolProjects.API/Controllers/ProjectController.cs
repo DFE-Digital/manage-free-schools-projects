@@ -1,8 +1,10 @@
+using Dfe.ManageFreeSchoolProjects.API.Constants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -27,6 +29,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("create")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult> CreateProject(CreateProjectRequest createProjectRequest)
         {
             _logger.LogMethodEntered();

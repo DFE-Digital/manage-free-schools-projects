@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
+using System.Security.Claims;
 
 namespace Dfe.ManageFreeSchoolProjects.UserContext
 {
@@ -8,7 +9,7 @@ namespace Dfe.ManageFreeSchoolProjects.UserContext
 		public string Name { get; set; }
 		public string[] Roles { get; set; }
 
-		private const string NameHeaderKey = "x-user-context-name";
+        private const string NameHeaderKey = "x-user-context-name";
 		private const string RoleHeaderKeyPrefix = "x-user-context-role-";
 
 		public static string[] ParseRoleClaims(string[] claims)
@@ -36,13 +37,15 @@ namespace Dfe.ManageFreeSchoolProjects.UserContext
 				.Select(x => x.Value)
 				.ToArray();
 
-			if (string.IsNullOrWhiteSpace(name) || roles.Length == 0)
+            var user = headers.FirstOrDefault(x => x.Key.Equals(NameHeaderKey, StringComparison.InvariantCultureIgnoreCase)).Value;
+
+            if (string.IsNullOrWhiteSpace(name) || roles.Length == 0)
 			{
 				return null;
 			}
 			else
 			{
-				return new UserInfo() { Name = name, Roles = roles };
+				return new UserInfo() { Name = name, Roles = roles};
 			}
 		}
 

@@ -1,9 +1,11 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Constituency;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Constituency;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Constituency;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
@@ -26,6 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpGet]
         [Route("search")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiSingleResponseV2<GetSearchConstituencyResponse>>> searchConstituency(string searchTerm)
         {
             _logger.LogMethodEntered();

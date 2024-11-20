@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.KickOffMeeting
             }
 
             dbKpi.ProjectStatusRealisticYearOfOpening = task.RealisticYearOfOpening;
-            dbKpi.RyooWd = task.RealisticYearOfOpening.IsNullOrEmpty() ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
+            dbKpi.RyooWd = string.IsNullOrEmpty(task.RealisticYearOfOpening) ? ProjectConstants.RYOODefaultValue : task.RealisticYearOfOpening;
             db.FsgPreOpeningMilestonesFundingArrangementAgreedBetweenLaAndSponsor = task.FundingArrangementAgreed;
             db.FsgPreOpeningMilestonesDetailsOfFundingArrangementAgreedBetweenLaAndSponsor =
                 task.FundingArrangementDetailsAgreed;

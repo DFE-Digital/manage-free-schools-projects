@@ -1,8 +1,10 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
+﻿using Dfe.ManageFreeSchoolProjects.API.Constants;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
@@ -17,6 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("validate")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiSingleResponseV2<BulkEditValidateResponse>>> validate(BulkEditRequest request)
         {
             logger.LogMethodEntered();
@@ -33,6 +36,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 
         [HttpPost]
         [Route("commit")]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult> commit(BulkEditRequest request)
         {
             logger.LogMethodEntered();

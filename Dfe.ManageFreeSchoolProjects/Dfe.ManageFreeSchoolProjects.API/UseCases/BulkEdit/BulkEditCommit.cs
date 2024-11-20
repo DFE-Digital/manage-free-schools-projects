@@ -34,7 +34,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.BulkEdit
                         continue;
                     }
 
-                    if(column.Value.IsNullOrEmpty())
+                    if(string.IsNullOrEmpty(column.Value))
                     {
                         continue;
                     }
