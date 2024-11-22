@@ -36,6 +36,11 @@ using Dfe.ManageFreeSchoolProjects.Logging;
 using Dfe.ManageFreeSchoolProjects.UserContext;
 using DfE.CoreLibs.Security.Interfaces;
 using DfE.CoreLibs.Security;
+using DfE.CoreLibs.Security.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Threading.Tasks;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -145,9 +150,16 @@ public class Startup
             options.MaxAge = TimeSpan.FromDays(365);
         });
 
-        services.AddAuthorization(options => { options.DefaultPolicy = SetupAuthorizationPolicyBuilder().Build(); });
+        services.AddApplicationAuthorization(Configuration);
 
-        services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+        var authenticationBuilder = services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+        });
+
+        authenticationBuilder.AddMicrosoftIdentityWebApp(Configuration);
+
         services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme,
            options =>
            {
@@ -162,6 +174,30 @@ public class Startup
                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                }
            });
+
+        services.AddCustomJwtAuthentication(Configuration, "ApiScheme", authenticationBuilder, new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                logger.LogError(context.Exception, "Authentication failed.");
+                return Task.CompletedTask;
+            },
+
+            OnMessageReceived = context =>
+            {
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                logger.LogInformation("Authentication message received.");
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                logger.LogInformation("Token validated successfully.");
+                return Task.CompletedTask;
+            }
+        });
+
 
         services.AddApplicationInsightsTelemetry();
 
@@ -251,8 +287,13 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapRazorPages();
+            endpoints.MapControllers().RequireAuthorization(new AuthorizeAttribute
+            {
+                AuthenticationSchemes = "ApiScheme"
+            });
             endpoints.MapControllerRoute("default", "{controller}/{action}/");
+            endpoints.MapRazorPages();
+                //.RequireAuthorization("WebAppPolicy");
         });
 
         bool IsFeatureEnabled(string flag)
@@ -267,24 +308,5 @@ public class Startup
                 {  new CultureInfo(defaultCulture) }
             };
         }
-    }
-
-    /// <summary>
-    ///    Builds Authorization policy
-    ///    Ensure authenticated user and restrict roles if they are provided in configuration
-    /// </summary>
-    /// <returns>AuthorizationPolicyBuilder</returns>
-    private AuthorizationPolicyBuilder SetupAuthorizationPolicyBuilder()
-    {
-        AuthorizationPolicyBuilder policyBuilder = new();
-        policyBuilder.RequireAuthenticatedUser();
-
-        string allowedRoles = Configuration.GetSection("AzureAd")["AllowedRoles"];
-        if (string.IsNullOrWhiteSpace(allowedRoles) is false)
-        {
-            policyBuilder.RequireClaim(ClaimTypes.Role, allowedRoles.Split(','));
-        }
-
-        return policyBuilder;
     }
 }

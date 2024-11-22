@@ -214,8 +214,6 @@ namespace Dfe.ManageFreeSchoolProjects.Services
 
             var apiToken = _apiTokenService.GetUserTokenAsync(_httpContextAccessor.HttpContext.User).Result;
 
-            //client.DefaultRequestHeaders.Add(HttpHeaderConstants.UserContextName, _httpContextAccessor.HttpContext.User?.Identity?.Name);
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiToken);
 
             AddDefaultRequestHeaders(client, _correlationContext, _userInfoService, _logger);

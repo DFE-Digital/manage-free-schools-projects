@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Middleware;
 using Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
 using Dfe.ManageFreeSchoolProjects.Middleware;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using DfE.CoreLibs.Security;
 
 namespace Dfe.ManageFreeSchoolProjects.API
 {
