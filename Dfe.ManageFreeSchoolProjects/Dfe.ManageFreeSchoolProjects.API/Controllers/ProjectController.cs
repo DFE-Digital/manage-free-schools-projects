@@ -3,6 +3,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.RequestModels.Projects;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Project;
 using Dfe.ManageFreeSchoolProjects.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Dfe.ManageFreeSchoolProjects.API.Controllers
 {
@@ -25,6 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
             _logger = logger;
 		}
 
+        [Authorize(Policy = "CanDelete")]
         [HttpPost]
         [Route("create")]
         public async Task<ActionResult> CreateProject(CreateProjectRequest createProjectRequest)

@@ -31,8 +31,13 @@ using Dfe.ManageFreeSchoolProjects.Services.Reports;
 using Dfe.ManageFreeSchoolProjects.Services.BulkEdit;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using Dfe.BuildFreeSchools.Pages;
+using DfE.CoreLibs.Security;
+using DfE.CoreLibs.Security.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -140,9 +145,19 @@ public class Startup
             options.MaxAge = TimeSpan.FromDays(365);
         });
 
-        services.AddAuthorization(options => { options.DefaultPolicy = SetupAuthorizationPolicyBuilder().Build(); });
 
-        services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+        services.AddUserTokenService(Configuration);
+
+        services.AddApplicationAuthorization(Configuration);
+
+        var authenticationBuilder = services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+        });
+
+        authenticationBuilder.AddMicrosoftIdentityWebApp(Configuration);
+
         services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme,
            options =>
            {
@@ -157,6 +172,30 @@ public class Startup
                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                }
            });
+
+
+        services.AddCustomJwtAuthentication(Configuration, "ApiScheme", authenticationBuilder,
+            new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                    logger.LogError(context.Exception, "Authentication failed.");
+                    return Task.CompletedTask;
+                },
+                OnMessageReceived = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                    logger.LogInformation("Authentication message received.");
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = context =>
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                    logger.LogInformation("Token validated successfully.");
+                    return Task.CompletedTask;
+                }
+            });
 
         services.AddApplicationInsightsTelemetry();
 
@@ -178,6 +217,20 @@ public class Startup
         });
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+
+        services.AddLogging(logging =>
+        {
+            logging.AddConsole();
+            logging.AddDebug();
+            logging.SetMinimumLevel(LogLevel.Debug);
+        });
+
+        services.Configure<LoggerFilterOptions>(options =>
+        {
+            options.AddFilter("Microsoft.AspNetCore.Authorization", LogLevel.Debug);
+        });
+
     }
 
     private void SetupDataprotection(IServiceCollection services)
@@ -244,11 +297,17 @@ public class Startup
             SupportedUICultures = GetSupportedCultures(),
         });
 
+
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapRazorPages();
-            endpoints.MapControllerRoute("default", "{controller}/{action}/");
+            endpoints.MapRazorPages().RequireAuthorization("WebAppPolicy");
+            endpoints.MapControllerRoute("default", "{controller}/{action}/").RequireAuthorization(new AuthorizeAttribute
+            {
+                AuthenticationSchemes = "ApiScheme"
+            });
+
         });
+
 
         bool IsFeatureEnabled(string flag)
         {
