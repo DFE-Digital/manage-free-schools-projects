@@ -41,6 +41,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Threading.Tasks;
+using DfE.CoreLibs.Security.Configurations;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -90,7 +91,6 @@ public class Startup
         services.AddScoped<MfspApiClient, MfspApiClient>();
         services.AddScoped<ICorrelationContext, CorrelationContext>();
         services.AddScoped<IClientUserInfoService, ClientUserInfoService>();
-        services.AddUserTokenService(Configuration);
         services.AddScoped<ICreateUserService, CreateUserService>();
         services.AddScoped<ICreateProjectCache, CreateProjectCache>();
         services.AddScoped<IGetProjectOverviewService, GetProjectOverviewService>();
@@ -141,14 +141,14 @@ public class Startup
             options.Cookie.Name = ".ManageFreeSchoolProjects.Session";
             options.Cookie.IsEssential = true;
         });
-        services.AddHttpContextAccessor();
-
 
         services.AddHsts(options => {
             options.Preload = true;
             options.IncludeSubDomains = true;
             options.MaxAge = TimeSpan.FromDays(365);
         });
+
+        services.AddUserTokenService(Configuration);
 
         services.AddApplicationAuthorization(Configuration);
 
