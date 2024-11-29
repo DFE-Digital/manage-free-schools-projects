@@ -4,7 +4,7 @@
 		<UserSecretsId>eae6d8bd-2a58-4ed4-99e2-a82f32b0ce47</UserSecretsId>
 		<CodeAnalysisRuleSet>..\.sonarlint\dfe-digital_a2b-internalcsharp.ruleset</CodeAnalysisRuleSet>
   	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <NoWarn>0436</NoWarn>
 	</PropertyGroup>
@@ -12,7 +12,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	  <NoWarn>0436</NoWarn>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 	  <Compile Remove="ViewComponents\**" />
 	  <Content Remove="ViewComponents\**" />
@@ -66,7 +66,7 @@
 	  <PackageReference Include="Scrutor" Version="4.2.2" />
 	  <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
 	  <PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
-	  <PackageReference Include="Azure.Core" Version="1.40.0" />
+	  <PackageReference Include="Azure.Core" Version="1.42.0" />
 	  <PackageReference Include="Azure.Identity" Version="1.12.1" />
 	</ItemGroup>
 
