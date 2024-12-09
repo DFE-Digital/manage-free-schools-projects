@@ -3,6 +3,9 @@ using Dfe.ManageFreeSchoolProjects.API.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Authorization
 {

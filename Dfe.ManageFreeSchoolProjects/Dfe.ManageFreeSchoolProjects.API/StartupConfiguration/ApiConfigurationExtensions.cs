@@ -1,8 +1,13 @@
+using System.Security.Claims;
 using DfE.CoreLibs.Security;
 using DfE.CoreLibs.Security.Authorization;
+using Dfe.ManageFreeSchoolProjects.API.Authorization;
+using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
 
@@ -26,7 +31,15 @@ public static class ApiConfigurationExtensions
 			setup.SubstituteApiVersionInUrl = true;
 		});
 
-        services.AddApplicationAuthorization(configuration);
+        services.AddApplicationAuthorization(configuration, new Dictionary<string, Action<AuthorizationPolicyBuilder>>
+        {
+            { "Reports", policy =>
+                {
+                    policy.Requirements.Add(new ApiKeyOrRoleRequirement("user"));
+                    policy.AuthenticationSchemes.Add("ApiScheme");
+                }
+            }
+        });
 
         var authenticationBuilder = services.AddAuthentication(options =>
         {
@@ -66,15 +79,11 @@ public static class ApiConfigurationExtensions
             }
         });
 
+        services.AddSingleton<IAuthorizationHandler, ApiKeyOrRoleHandler>();
+
         services.AddSwaggerGen();
 		services.ConfigureOptions<SwaggerOptions>();
 
 		return services;
-	}
-	
-	public static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
-	{
-		app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-		return app;
 	}
 }

@@ -21,28 +21,16 @@ namespace Dfe.ManageFreeSchoolProjects.API
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddApplicationInsightsTelemetry();
-
+        { 
             services.AddMfspApiProject(Configuration);
+
+            services.AddApplicationInsightsTelemetry();
 
             services.AddHsts(options => {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(365);
             });
-
-            services.AddApplicationAuthorization(Configuration, new Dictionary<string, Action<AuthorizationPolicyBuilder>>
-            {
-                { "Reports", policy =>
-                    {
-                        policy.Requirements.Add(new ApiKeyOrRoleRequirement("user"));
-                        policy.AuthenticationSchemes.Add("ApiScheme");
-                    }
-                }
-            });
-
-            services.AddSingleton<IAuthorizationHandler, ApiKeyOrRoleHandler>();
 
         }
 
@@ -86,6 +74,7 @@ namespace Dfe.ManageFreeSchoolProjects.API
                 app.UseHsts();
             }
 
+
             app.UseMiddleware<ExceptionHandlerMiddleware>();
             //app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMiddleware<UrlDecoderMiddleware>();
@@ -95,6 +84,9 @@ namespace Dfe.ManageFreeSchoolProjects.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            app.UseMiddleware<UserContextTranslator>();
 
             app.UseAuthentication();
 
