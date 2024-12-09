@@ -10,5 +10,8 @@
     {
         public const string CanRead = "CanRead";
         public const string CanReadWrite = "CanReadWrite";
+        public const string GrantManager = "GrantManager";
+        public const string Reports = "Reports";
+        public const string Construct = "CanRead";
     }
 }

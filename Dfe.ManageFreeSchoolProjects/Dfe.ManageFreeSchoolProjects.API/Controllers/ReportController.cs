@@ -24,7 +24,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("all-projects-export")]
-        //[Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.Reports)]
         public async Task<FileStreamResult> GetAllProjects()
         {
             var excelStream = await _allProjectsReportService.Execute();
@@ -37,7 +37,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
         
         [HttpGet("filtered-projects-export")]
-        //[Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.Reports)]
         public async Task<FileStreamResult> GetFilteredProjects(string projectIds)
         {
             var excelStream = await _allProjectsReportService.ExecuteWithFilter(projectIds);
@@ -50,7 +50,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("sfa-export")]
-        //[Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.Reports)]
         public async Task<FileStreamResult> GetSfaExport()
         {
             var csvStream = await _sfaReportService.Execute();

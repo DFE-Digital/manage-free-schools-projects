@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public async Task<ActionResult<ApiResponseV2<GetDashboardResponse>>> GetAllProjects(
             string userId,
             string regions,
@@ -77,7 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("project-ids")]
-        //[Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.CanRead)]
         public async Task<ActionResult<IEnumerable<string>>> GetFilteredProjectIds(
         string userId,
         string regions,

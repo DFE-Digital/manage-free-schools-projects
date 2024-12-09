@@ -4,6 +4,10 @@ using Dfe.ManageFreeSchoolProjects.API.StartupConfiguration;
 using Dfe.ManageFreeSchoolProjects.Middleware;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using DfE.CoreLibs.Security;
+using Microsoft.AspNetCore.Authorization;
+using Dfe.ManageFreeSchoolProjects.API.Authorization;
+using DfE.CoreLibs.Security.Authorization;
+using System.Configuration;
 
 namespace Dfe.ManageFreeSchoolProjects.API
 {
@@ -27,6 +31,19 @@ namespace Dfe.ManageFreeSchoolProjects.API
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(365);
             });
+
+            services.AddApplicationAuthorization(Configuration, new Dictionary<string, Action<AuthorizationPolicyBuilder>>
+            {
+                { "Reports", policy =>
+                    {
+                        policy.Requirements.Add(new ApiKeyOrRoleRequirement("user"));
+                        policy.AuthenticationSchemes.Add("ApiScheme");
+                    }
+                }
+            });
+
+            services.AddSingleton<IAuthorizationHandler, ApiKeyOrRoleHandler>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
@@ -70,18 +87,28 @@ namespace Dfe.ManageFreeSchoolProjects.API
             }
 
             app.UseMiddleware<ExceptionHandlerMiddleware>();
-            app.UseMiddleware<ApiKeyMiddleware>();
+            //app.UseMiddleware<ApiKeyMiddleware>();
             app.UseMiddleware<UrlDecoderMiddleware>();
             app.UseMiddleware<CorrelationIdMiddleware>();
-			app.UseMiddleware<UserContextReceiverMiddleware>();
+			//app.UseMiddleware<UserContextReceiverMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseManageFreeSchoolProjectsEndpoints();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers().RequireAuthorization(new AuthorizeAttribute
+                {
+                    AuthenticationSchemes = "ApiScheme"
+                });
+            });
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "projectrecordcreator")]
+        [Authorize(Roles = "projectrecordcreator")]
         public async Task<ApiSingleResponseV2<GetProjectManagersResponse>> Execute()
         {
             _logger.LogMethodEntered();

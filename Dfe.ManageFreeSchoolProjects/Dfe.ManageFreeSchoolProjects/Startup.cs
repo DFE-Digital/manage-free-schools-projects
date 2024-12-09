@@ -42,6 +42,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Threading.Tasks;
 using DfE.CoreLibs.Security.Configurations;
+using System.Linq;
 
 namespace Dfe.ManageFreeSchoolProjects;
 
@@ -151,6 +152,7 @@ public class Startup
         services.AddUserTokenService(Configuration);
 
         services.AddApplicationAuthorization(Configuration);
+        //services.AddAuthorization(options => { options.DefaultPolicy = SetupAuthorizationPolicyBuilder().Build(); });
 
         var authenticationBuilder = services.AddAuthentication(options =>
         {
@@ -159,6 +161,7 @@ public class Startup
         });
 
         authenticationBuilder.AddMicrosoftIdentityWebApp(Configuration);
+        //services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
 
         services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme,
            options =>
@@ -175,28 +178,38 @@ public class Startup
                }
            });
 
-        services.AddCustomJwtAuthentication(Configuration, "ApiScheme", authenticationBuilder, new JwtBearerEvents
-        {
-            OnAuthenticationFailed = context =>
-            {
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-                logger.LogError(context.Exception, "Authentication failed.");
-                return Task.CompletedTask;
-            },
+        //services.AddCustomJwtAuthentication(Configuration, "ApiScheme", authenticationBuilder, new JwtBearerEvents
+        //{
+        //    OnAuthenticationFailed = context =>
+        //    {
+        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+        //        logger.LogError(context.Exception, "Authentication failed.");
+        //        return Task.CompletedTask;
+        //    },
 
-            OnMessageReceived = context =>
-            {
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-                logger.LogInformation("Authentication message received.");
-                return Task.CompletedTask;
-            },
-            OnTokenValidated = context =>
-            {
-                var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-                logger.LogInformation("Token validated successfully.");
-                return Task.CompletedTask;
-            }
-        });
+        //    OnMessageReceived = context =>
+        //    {
+        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+        //        logger.LogInformation("Authentication message received.");
+        //        return Task.CompletedTask;
+        //    },
+        //    OnTokenValidated = context =>
+        //    {
+        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+        //        logger.LogInformation("Token validated successfully.");
+        //        return Task.CompletedTask;
+        //    },
+        //    OnChallenge = context =>
+        //    {
+        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+        //        logger.LogWarning("Authentication challenge triggered. Scheme: {Scheme}", context.Scheme.Name);
+        //        // Suppress the default challenge behavior to prevent redirection
+        //        context.HandleResponse();
+        //        context.Response.StatusCode = 401;
+        //        context.Response.ContentType = "application/json";
+        //        return context.Response.WriteAsync("{\"error\":\"Unauthorized\"}");
+        //    }
+        //});
 
 
         services.AddApplicationInsightsTelemetry();
@@ -219,6 +232,20 @@ public class Startup
         });
 
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+
+        services.AddLogging(logging =>
+        {
+            logging.AddConsole();
+            logging.AddDebug();
+            logging.SetMinimumLevel(LogLevel.Debug);
+        });
+
+        services.Configure<LoggerFilterOptions>(options =>
+        {
+            options.AddFilter("Microsoft.AspNetCore.Authorization", LogLevel.Debug);
+        });
+
     }
 
     private void SetupDataprotection(IServiceCollection services)
@@ -276,6 +303,8 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
+        app.UseMiddleware<UserContextMiddleware>();
+
         const string defaultCulture = "en-GB";
 
         app.UseRequestLocalization(new RequestLocalizationOptions
@@ -287,13 +316,8 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllers().RequireAuthorization(new AuthorizeAttribute
-            {
-                AuthenticationSchemes = "ApiScheme"
-            });
             endpoints.MapControllerRoute("default", "{controller}/{action}/");
             endpoints.MapRazorPages();
-                //.RequireAuthorization("WebAppPolicy");
         });
 
         bool IsFeatureEnabled(string flag)
@@ -308,5 +332,19 @@ public class Startup
                 {  new CultureInfo(defaultCulture) }
             };
         }
+
+    }
+    private AuthorizationPolicyBuilder SetupAuthorizationPolicyBuilder()
+    {
+        var policyBuilder = new AuthorizationPolicyBuilder();
+        var allowedRoles = Configuration.GetSection("AzureAd")["AllowedRoles"];
+        policyBuilder.RequireAuthenticatedUser();
+        // Allows us to add in role support later.
+        if (!string.IsNullOrWhiteSpace(allowedRoles))
+        {
+            policyBuilder.RequireClaim(ClaimTypes.Role, allowedRoles.Split(','));
+        }
+
+        return policyBuilder;
     }
 }

@@ -28,7 +28,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Policy = PolicyNames.CanReadWrite)]
+        [Authorize(Policy = PolicyNames.CanReadWrite)]
         public ActionResult CreateUser(CreateUserRequest request)
         {
             _logger.LogMethodEntered();

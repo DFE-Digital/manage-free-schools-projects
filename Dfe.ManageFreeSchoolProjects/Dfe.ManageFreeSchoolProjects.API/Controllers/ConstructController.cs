@@ -25,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Controllers
         }
 
         [HttpGet("projects")]
-        [Authorize(Policy = PolicyNames.CanRead)]
+        [Authorize(Policy = PolicyNames.Construct)]
         public async Task<ActionResult<ApiResponseV2<ConstructProjectResponse>>> GetConstruct()
         {
             _logger.LogMethodEntered();
