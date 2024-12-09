@@ -36,7 +36,6 @@ public static class ApiConfigurationExtensions
             { "Reports", policy =>
                 {
                     policy.Requirements.Add(new ApiKeyOrRoleRequirement("user"));
-                    policy.AuthenticationSchemes.Add("ApiScheme");
                 }
             }
         });
@@ -44,9 +43,10 @@ public static class ApiConfigurationExtensions
         var authenticationBuilder = services.AddAuthentication(options =>
         {
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         });
 
-        services.AddCustomJwtAuthentication(configuration, "ApiScheme", authenticationBuilder, new JwtBearerEvents
+        services.AddCustomJwtAuthentication(configuration, JwtBearerDefaults.AuthenticationScheme, authenticationBuilder, new JwtBearerEvents
         {
             OnAuthenticationFailed = context =>
             {
@@ -57,6 +57,12 @@ public static class ApiConfigurationExtensions
 
             OnMessageReceived = context =>
             {
+                if (context.HttpContext.Request.Headers.TryGetValue("ApiKey", out _))
+                {
+                    context.NoResult();
+                    return Task.CompletedTask;
+                }
+
                 var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
                 logger.LogInformation("Authentication message received.");
                 return Task.CompletedTask;

@@ -96,10 +96,7 @@ namespace Dfe.ManageFreeSchoolProjects.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireAuthorization(new AuthorizeAttribute
-                {
-                    AuthenticationSchemes = "ApiScheme"
-                });
+                endpoints.MapControllers();
             });
         }
     }

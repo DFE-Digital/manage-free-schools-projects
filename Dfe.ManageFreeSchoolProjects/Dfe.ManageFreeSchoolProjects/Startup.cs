@@ -178,40 +178,6 @@ public class Startup
                }
            });
 
-        //services.AddCustomJwtAuthentication(Configuration, "ApiScheme", authenticationBuilder, new JwtBearerEvents
-        //{
-        //    OnAuthenticationFailed = context =>
-        //    {
-        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-        //        logger.LogError(context.Exception, "Authentication failed.");
-        //        return Task.CompletedTask;
-        //    },
-
-        //    OnMessageReceived = context =>
-        //    {
-        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-        //        logger.LogInformation("Authentication message received.");
-        //        return Task.CompletedTask;
-        //    },
-        //    OnTokenValidated = context =>
-        //    {
-        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-        //        logger.LogInformation("Token validated successfully.");
-        //        return Task.CompletedTask;
-        //    },
-        //    OnChallenge = context =>
-        //    {
-        //        var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
-        //        logger.LogWarning("Authentication challenge triggered. Scheme: {Scheme}", context.Scheme.Name);
-        //        // Suppress the default challenge behavior to prevent redirection
-        //        context.HandleResponse();
-        //        context.Response.StatusCode = 401;
-        //        context.Response.ContentType = "application/json";
-        //        return context.Response.WriteAsync("{\"error\":\"Unauthorized\"}");
-        //    }
-        //});
-
-
         services.AddApplicationInsightsTelemetry();
 
         services.AddHttpClient("MfspClient", (_, client) =>

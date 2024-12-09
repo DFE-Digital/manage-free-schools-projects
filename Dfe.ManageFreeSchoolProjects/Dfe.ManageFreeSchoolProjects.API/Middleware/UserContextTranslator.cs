@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Primitives;
 using System.Security.Claims;
 
 namespace Dfe.ManageFreeSchoolProjects.API.Middleware
@@ -14,7 +15,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Middleware
                     new Claim(ClaimTypes.Name, "ApiKeyUser"),
                     new Claim(ClaimTypes.Role, "user")
                 };
-                var identity = new ClaimsIdentity(claims, "ApiScheme");
+                var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
                 context.User = principal;

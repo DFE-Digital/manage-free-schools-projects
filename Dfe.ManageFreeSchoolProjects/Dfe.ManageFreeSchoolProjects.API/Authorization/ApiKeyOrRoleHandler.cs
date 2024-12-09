@@ -31,35 +31,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Authorization
                     context.Succeed(requirement);
                     return Task.CompletedTask;
                 }
-
-                if (httpContextAccessor.HttpContext.Request.Path.StartsWithSegments("/api/v1/construct"))
-                {
-                    var constructKeyExists = _configuration
-                        .GetSection("ManageFreeSchoolProjects")
-                        .GetValue<string>("ConstructApiKey");
-
-                    if(apiKeyHeader == constructKeyExists)
-                    {
-                        context.Succeed(requirement);
-                        return Task.CompletedTask;
-                    }
-                    
-                }
-
-                if (httpContextAccessor.HttpContext.Request.Path.StartsWithSegments("/api/v1/client/reports/sfa-export"))
-                {
-                    var sfaKeyExists = _configuration
-                        .GetSection("ManageFreeSchoolProjects")
-                        .GetValue<string>("ConstructApiKey");
-
-                    if (apiKeyHeader == sfaKeyExists)
-                    {
-                        context.Succeed(requirement);
-                        return Task.CompletedTask;
-                    }
-
-                }
-
             }
 
             // Check Role-based authorization
