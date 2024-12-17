@@ -13,7 +13,7 @@
 
     var faithType = Model.Project.FaithType == FaithType.Other ? $"Other - {Model.Project.OtherFaithType}" : Model.Project.FaithType.ToDescription();
     var faithTypeLink = Model.Project.FaithStatus == FaithStatus.None ? RouteConstants.CreateFaithStatus : RouteConstants.CreateFaithType;
-    
+
     var ageRangeValue = string.Empty;
     var projectAgeRange = Model.Project.AgeRange;
     if (projectAgeRange.Contains('-'))
@@ -47,7 +47,7 @@
                 @RenderSummaryRow("Application wave", Model.Project.ApplicationWave, RouteConstants.CreateApplicationWave)
             }
 
-            @RenderSummaryRow("Temporary project ID", Model.Project.ProjectId, RouteConstants.CreateProjectId)
+            @RenderSummaryRow("Temporary Project ID", Model.Project.ProjectId, RouteConstants.CreateProjectId)
             @RenderSummaryRow("Current free school name", Model.Project.SchoolName, RouteConstants.CreateProjectSchool)
 
 
