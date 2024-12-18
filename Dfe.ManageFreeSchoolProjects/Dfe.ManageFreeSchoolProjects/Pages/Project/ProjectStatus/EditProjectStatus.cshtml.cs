@@ -58,6 +58,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnApplicationYear { get; set; }
 
+        public ProjectStatusReason ProjectStatusReason { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             try
@@ -69,13 +71,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
                     ClosedYear = Project.ProjectStatus.ProjectClosedDate;
-    
+
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Cancelled)
                     CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
+                    ProjectStatusReason = Project.ProjectStatus.ProjectStatusReason;
                 
                 if(Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnInPreOpening)
                     WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
-                
+                    ProjectStatusReason = Project.ProjectStatus.ProjectStatusReason;
+
                 if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
                     WithdrawnApplicationYear = Project.ProjectStatus.ProjectWithdrawnDate;
             }

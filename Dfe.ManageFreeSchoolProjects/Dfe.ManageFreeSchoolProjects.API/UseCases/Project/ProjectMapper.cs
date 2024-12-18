@@ -1,7 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
-using Dfe.ManageFreeSchoolProjects.Data.Entities.Existing;
+using ProjectStatusReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatusReason;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -119,6 +120,38 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
                 ProjectStatusType.PreopeningNotIncludedInFigures => "Pre-opening - Not included in the figures",
                 ProjectStatusType.WithdrawnDuringApplication => "Withdrawn at application stage",
                 _ => throw new ArgumentOutOfRangeException(nameof(projectStatus), projectStatus, null)
+            };
+        }
+
+        public static ProjectStatusReasonType ToProjectStatusReasonType(string projectStatusReason)
+        {
+            return projectStatusReason?.ToLower() switch
+            {
+                "educational" => ProjectStatusReasonType.Educational,
+                "governance" => ProjectStatusReasonType.Governance,
+                "planning" => ProjectStatusReasonType.Planning,
+                "procurement / construction" => ProjectStatusReasonType.ProcurementConstruction,
+                "property" => ProjectStatusReasonType.Property,
+                "pupil numbers / viability" => ProjectStatusReasonType.PupilNumbersViability,
+                "trust not content with site option" => ProjectStatusReasonType.TrustNotContentWithSiteOption,
+                "trust not willing to open in temporary accommodation" => ProjectStatusReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
+                _ => ProjectStatusReasonType.NotSet
+            };
+        }
+
+        public static string FromProjectStatusReasonType(ProjectStatusReasonType projectStatusReason)
+        {
+            return projectStatusReason switch
+            {
+                ProjectStatusReasonType.Educational => "educational",
+                ProjectStatusReasonType.Governance => "governance",
+                ProjectStatusReasonType.Planning => "planning",
+                ProjectStatusReasonType.ProcurementConstruction => "procurement / construction",
+                ProjectStatusReasonType.Property => "property",
+                ProjectStatusReasonType.PupilNumbersViability => "pupil numbers / viability",
+                ProjectStatusReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
+                ProjectStatusReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
+                _ => ""
             };
         }
     }

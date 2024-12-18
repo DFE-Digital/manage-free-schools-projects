@@ -20,6 +20,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
     {
         public string CurrentFreeSchoolName { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
+
+        public ProjectStatusReason ProjectStatusReason { get; set; }
         
         public DateTime? ProjectClosedDate { get; set; }
         

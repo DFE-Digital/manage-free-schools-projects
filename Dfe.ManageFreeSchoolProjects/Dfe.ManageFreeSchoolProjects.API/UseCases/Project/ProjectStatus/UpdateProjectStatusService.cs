@@ -29,19 +29,17 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
             throw new NotFoundException($"Project with id {projectId} not found");
         }
 
-        var updateRequest = new UpdateProjectStatusRequest()
-        {
-            ProjectStatus = request.ProjectStatus,
-            WithdrawnDate = request.WithdrawnDate,
-            ClosedDate = request.ClosedDate,
-            CancelledDate = request.CancelledDate
-        };
+        string projectStatusReason = ProjectMapper.FromProjectStatusReasonType(request.ProjectStatusReason);
+        string projectStatusCancelledReason = request.ProjectStatus == Contracts.Project.ProjectStatus.Cancelled ? projectStatusReason : "";
+        string projectStatusWithdrawnReason = request.ProjectStatus == Contracts.Project.ProjectStatus.WithdrawnInPreOpening ? projectStatusReason : "";
 
-        dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(updateRequest.ProjectStatus);
-        dbProject.ProjectStatusDateClosed = updateRequest.ClosedDate;
-        dbProject.ProjectStatusDateCancelled = updateRequest.CancelledDate;
-        dbProject.ProjectStatusDateWithdrawn = updateRequest.WithdrawnDate;
-        
+        dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(request.ProjectStatus);
+        dbProject.ProjectStatusDateClosed = request.ClosedDate;
+        dbProject.ProjectStatusDateCancelled = request.CancelledDate;
+        dbProject.ProjectStatusDateWithdrawn = request.WithdrawnDate;
+        dbProject.ProjectStatusPrimaryReasonForCancellation = projectStatusCancelledReason;
+        dbProject.ProjectStatusPrimaryReasonForWithdrawal = projectStatusWithdrawnReason;
+
         await _context.SaveChangesAsync();
     }
     
