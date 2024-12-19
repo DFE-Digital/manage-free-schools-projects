@@ -151,7 +151,7 @@ import summaryPage from "cypress/pages/task-summary-base";
             Logger.log("Check answers");
             summaryPage.inOrder()
                 .summaryShows("Project type").HasValue("Presumption").HasChangeLink()
-                .summaryShows("Temporary Project ID").HasValue(temporaryProjectId).HasChangeLink()
+                .summaryShows("Temporary project ID").HasValue(temporaryProjectId).HasChangeLink()
                 .summaryShows("Current free school name").HasValue(schoolName).HasChangeLink()
                 .summaryShows("Region").HasValue("East of England").HasChangeLink()
                 .summaryShows("Local authority").HasValue("Luton").HasChangeLink()
@@ -163,14 +163,14 @@ import summaryPage from "cypress/pages/task-summary-base";
                 .summaryShows("Alternative provision").HasValue("Yes").HasChangeLink()
                 .summaryShows("Special educational needs").HasValue("No").HasChangeLink()
                 .summaryShows("School phase").HasValue("Secondary").HasChangeLink()
-                .summaryShows("Age range").HasValue("2-7").HasChangeLink()
+                .summaryShows("Age range").HasValue("2 to 7").HasChangeLink()
                 .summaryShows("Nursery capacity").HasValue("200").HasChangeLink()
                 .summaryShows("Reception to year 6 capacity").HasValue("0").HasChangeLink()
                 .summaryShows("Year 7 to year 11 capacity").HasValue("400").HasChangeLink()
                 .summaryShows("Year 12 to year 14 capacity").HasValue("150").HasChangeLink()
                 .summaryShows("Faith status").HasValue("Designation").HasChangeLink()
                 .summaryShows("Faith type").HasValue("Greek Orthodox").HasChangeLink()
-                .summaryShows("Provisional opening date agreed with trust").HasValue("1 October 2035").HasChangeLink()
+                .summaryShows("Provisional opening date").HasValue("1 October 2035").HasChangeLink()
                 .summaryShows("Project assigned to").HasValue("joe bloggs").HasChangeLink()
                 .summaryShows("Email").HasValue("test.person@education.gov.uk").HasChangeLink();
 
