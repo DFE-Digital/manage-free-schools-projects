@@ -15,7 +15,7 @@ using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatusDetails
 {
     public class EditProjectStatusModel(
         IGetProjectOverviewService getProjectOverviewService,
@@ -38,10 +38,20 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
         [BindProperty(Name = "project-status")]
         public ProjectStatusType ProjectStatus { get; set; }
 
-        [BindProperty(Name = ClosedYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date the school was closed")]
+        [BindProperty(Name = CancelledYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the project was cancelled")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? ClosedYear { get; set; }
+        public DateTime? CancelledYear { get; set; }
+
+        [BindProperty(Name = WithdrawnPreopeningYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the project was withdrawn")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? WithdrawnYear { get; set; }
+
+        [BindProperty(Name = WithdrawnApplicationYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the project was withdrawn")]
+        [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
+        public DateTime? WithdrawnApplicationYear { get; set; }
 
         public ProjectStatusReason ProjectStatusReason { get; set; }
 
@@ -53,10 +63,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
                 Project = await getProjectOverviewService.Execute(projectId);
                 ProjectStatus = Project.ProjectStatus.ProjectStatus;
-                
-                if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
-                    ClosedYear = Project.ProjectStatus.ProjectClosedDate;
 
+                if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Cancelled)
+                    CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
+                    ProjectStatusReason = Project.ProjectStatus.ProjectStatusReason;
+                
+                if(Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnInPreOpening)
+                    WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
+                    ProjectStatusReason = Project.ProjectStatus.ProjectStatusReason;
+
+                if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
+                    WithdrawnApplicationYear = Project.ProjectStatus.ProjectWithdrawnDate;
             }
             catch (Exception ex)
             {
@@ -70,7 +87,11 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-            CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
+            CheckErrors(CancelledYearId, ProjectStatusType.Cancelled, CancelledYear);
+            CheckErrors(WithdrawnPreopeningYearId, ProjectStatusType.WithdrawnInPreOpening, WithdrawnYear);
+            CheckErrors(WithdrawnApplicationYearId, ProjectStatusType.WithdrawnDuringApplication, WithdrawnApplicationYear);
+
+            ClearNotApplicableValues();
 
             if (!ModelState.IsValid)
             {
@@ -80,22 +101,69 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 return Page();
             }
 
-            var projectId = RouteData.Values["projectId"] as string;
-            int projectStatusIndex = (int)ProjectStatus;
-
-            if (ProjectStatus == ProjectStatusType.Cancelled || ProjectStatus == ProjectStatusType.WithdrawnInPreOpening || ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
-            {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusDetails, projectId, projectStatusIndex.ToString()));
-            }
             UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
             {
                 ProjectStatus = ProjectStatus,
-                ClosedDate = ClosedYear,
+                CancelledDate = CancelledYear,
+                WithdrawnDate = GetWithdrawnYear(),
             };
+
+            var projectId = RouteData.Values["projectId"] as string;
 
             await updateProjectStatusService.Execute(projectId, request);
             TempData["projectStatusUpdated"] = true;
             return Redirect(GetNextPage());
+        }
+
+        private void ClearNotApplicableValues()
+        {
+            if (ProjectStatus == ProjectStatusType.Closed)
+            {
+                CancelledYear = null;
+                WithdrawnYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.Cancelled)
+            {
+                WithdrawnYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.WithdrawnInPreOpening)
+            {
+                CancelledYear = null;
+                WithdrawnApplicationYear = null;
+                return;
+            }
+
+            if (ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
+            {
+                CancelledYear = null;
+                WithdrawnYear = null;
+                return;
+            }
+
+            CancelledYear = null;
+            WithdrawnYear = null;
+            WithdrawnApplicationYear = null;
+        }
+
+        private DateTime? GetWithdrawnYear()
+        {
+            if(WithdrawnYear != null)
+            {
+                return WithdrawnYear;
+            }
+
+            if (WithdrawnApplicationYear != null)
+            {
+                return WithdrawnApplicationYear;
+            }
+
+            return null;
         }
         
         public string GetNextPage()

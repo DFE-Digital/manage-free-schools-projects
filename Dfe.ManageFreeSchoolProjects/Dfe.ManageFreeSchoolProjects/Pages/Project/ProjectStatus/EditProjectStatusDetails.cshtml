@@ -1,0 +1,56 @@
+﻿@page "/projects/{projectId}/projectstatus/edit-project-status-details/{projectStatusID}"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatusDetails.EditProjectStatusModel
+
+@{
+    var backlink = string.Format(RouteConstants.ProjectOverview, Model.ProjectId);
+    ViewData["Title"] = "Provide reasons for changing the status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+
+    var isPresumptionProject = Model.Project.ProjectType.Contains("Presumption");
+
+    var labels = new List<string>();
+    var values = new List<string>();
+    var testIds = new List<string>();
+
+    foreach (var projectStatusReason in Enum.GetValues<ProjectStatusReason>().Except(new[] { ProjectStatusReason.NotSet }))
+    {
+        labels.Add(projectStatusReason.ToDescription());
+        values.Add(((int)projectStatusReason).ToString());
+        testIds.Add(projectStatusReason.ToDescription());
+    }
+
+}
+
+
+@section BeforeMain {
+    <govuk-back-link href="@backlink" xmlns="http://www.w3.org/1999/html"/>
+}
+
+<partial name="_ErrorSummary"/>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
+            Provide reasons for changing the status
+        </h1>
+        <form method="post">
+
+            <div class="govuk-form-group" id="project-status">
+                <govuk-radios-input asp-for="@Model.ProjectStatusReason"
+                                    name="school-type"
+                                    labels="@labels.ToArray()"
+                                    values="@values.ToArray()"
+                                    test-ids="@testIds.ToArray()" />
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>

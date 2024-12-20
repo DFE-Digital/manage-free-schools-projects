@@ -92,6 +92,10 @@
 	  <Content Update="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Update="Pages\Project\ProjectStatus\EditProjectStatusDetails.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 	<ItemGroup>
 	  <_ContentIncludedByDefault Remove="Pages\Project\Tasks\ReadinessToOpenMeeting\EditROM.cshtml" />

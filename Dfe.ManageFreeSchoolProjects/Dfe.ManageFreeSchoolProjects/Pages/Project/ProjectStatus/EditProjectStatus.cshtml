@@ -22,8 +22,7 @@
         new("project-status-application-stage", ProjectStatus.ApplicationStage,
             ProjectStatus.ApplicationStage.ToDescription(), "The school's application is being considered.", false),
 
-        new("project-status-cancelled", ProjectStatus.Cancelled, ProjectStatus.Cancelled.ToDescription(), "The project was cancelled in pre-opening.", true,
-            "year-cancelled", "year-cancelled", "Date the project was cancelled", "For example, 27 3 2021", Model.CancelledYear),
+        new("project-status-cancelled", ProjectStatus.Cancelled, ProjectStatus.Cancelled.ToDescription(), "The project was cancelled in pre-opening.", false),
 
         new("project-status-closed", ProjectStatus.Closed, ProjectStatus.Closed.ToDescription(), "The school has closed.", true,
             "year-closed", "year-closed", "Date the school was closed", "For example, 23 2 2021", Model.ClosedYear),
@@ -39,11 +38,9 @@
         new("project-status-rejected", ProjectStatus.Rejected,
             ProjectStatus.Rejected.ToDescription(), "A Regional Director did not approve the project to move into pre-opening.", false),
 
-        new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", true,
-            "year-withdrawn-application", "year-withdrawn-application", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnApplicationYear),
+        new("project-status-withdrawn-application", ProjectStatus.WithdrawnDuringApplication, ProjectStatus.WithdrawnDuringApplication.ToDescription(), "For example, the trust withdrew their application.", false),
 
-        new("project-status-withdrawn", ProjectStatus.WithdrawnInPreOpening, ProjectStatus.WithdrawnInPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", true,
-            "year-withdrawn-preopening", "year-withdrawn-preopening", "Date the project was withdrawn", "For example, 23 2 2021", Model.WithdrawnYear)
+        new("project-status-withdrawn", ProjectStatus.WithdrawnInPreOpening, ProjectStatus.WithdrawnInPreOpening.ToDescription(), "For example, the trust withdrew in the pre-opening stage.", false)
     };
 }
 
