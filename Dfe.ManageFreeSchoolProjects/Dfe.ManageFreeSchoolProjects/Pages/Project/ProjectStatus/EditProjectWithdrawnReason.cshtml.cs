@@ -15,106 +15,114 @@ using ProjectCancelledReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Pr
 using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectWithdrawnReason;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Microsoft.Identity.Web;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
 {
-    public class EditProjectStatusModel(
+    public class EditProjectWithdrawnModel(
         IGetProjectOverviewService getProjectOverviewService,
         IUpdateProjectStatusService updateProjectStatusService,
-        ILogger<EditProjectStatusModel> logger,
+        ILogger<EditProjectWithdrawnModel> logger,
         IHttpContextAccessor httpContextAccessor,
         ErrorService errorService)
         : PageModel
     {
-        public const string ClosedYearId = "year-closed";
+        public const string WithdrawnYearId = "year-withdrawn";
+
         public ProjectOverviewResponse Project { get; set; }
         
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
-        [BindProperty(Name = "project-status")]
-        public ProjectStatusType ProjectStatus { get; set; }
 
-        [BindProperty(Name = ClosedYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date the school was closed")]
+        [BindProperty(SupportsGet = true, Name = "projectStatusId")]
+        public int ProjectStatusId { get; set; }
+
+        [BindProperty(Name = WithdrawnYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the project was withdrawn")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? ClosedYear { get; set; }
+        public DateTime? WithdrawnYear { get; set; }
+
+        [BindProperty(Name = "project-withdrawn-reason-type")]
+        public ProjectWithdrawnReasonType ProjectWithdrawnReason { get; set; }
+
+        [BindProperty(Name = "project-withdrawn-as-a-result-of-national-review-of-pipeline")]
+        public YesNo? ProjectWithdrawnAsAResultOfNationalPipelineReview { get; set; }
+
+        [BindProperty(Name = "add-notes-about-the-withdrawal")]
+        public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
             try
             {
-                var projectId = RouteData.Values["projectId"] as string;
+                ProjectStatusType ProjectStatus = (ProjectStatusType)ProjectStatusId;
+                if (ProjectStatus != ProjectStatusType.WithdrawnInPreOpening && ProjectStatus != ProjectStatusType.WithdrawnDuringApplication)
+                {
+                    return new NotFoundResult();
+                }
 
-                Project = await getProjectOverviewService.Execute(projectId);
-                ProjectStatus = Project.ProjectStatus.ProjectStatus;
-                
-                if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
-                    ClosedYear = Project.ProjectStatus.ProjectClosedDate;
-
+                Project = await getProjectOverviewService.Execute(ProjectId);
+                WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
+                ProjectWithdrawnReason = Project.ProjectStatus.ProjectWithdrawnReason;
+                ProjectWithdrawnAsAResultOfNationalPipelineReview = Project.ProjectStatus.ProjectWithdrawnDueToNationalReviewOfPipelineProjects;
+                Notes = Project.ProjectStatus.CommentaryForWithdrawal;
             }
             catch (Exception ex)
             {
                 logger.LogErrorMsg(ex);
             }
 
-            ProjectId = Project.ProjectStatus.ProjectId;
             TempData["projectStatusUpdated"] = false;
             return Page();
         }
 
         public async Task<IActionResult> OnPost()
         {
-            CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
 
             if (!ModelState.IsValid)
             {
                 errorService.AddErrors(ModelState.Keys, ModelState);
                 Project = await getProjectOverviewService.Execute(ProjectId);
+                ProjectWithdrawnReason = Project.ProjectStatus.ProjectWithdrawnReason;
 
                 return Page();
             }
 
-            var projectId = RouteData.Values["projectId"] as string;
-            int projectStatusIndex = (int)ProjectStatus;
-
-            if (ProjectStatus == ProjectStatusType.Cancelled)
+            ProjectStatusType ProjectStatus = (ProjectStatusType)ProjectStatusId;
+            
+            if(ProjectStatus == ProjectStatusType.WithdrawnInPreOpening || ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
             {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusCancelled, projectId));
-            }
-
-            else if (ProjectStatus == ProjectStatusType.WithdrawnInPreOpening || ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
-            {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusWithdrawn, projectId, projectStatusIndex));
-            }
-
-            else
-            {
-
                 UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
                 {
-                    ProjectStatus = ProjectStatus,
-                    ClosedDate = ClosedYear,
+                    ProjectStatus = (ProjectStatusType)ProjectStatusId,
 
                     CancelledDate = null,
                     ProjectCancelledReason = ProjectCancelledReasonType.NotSet,
                     ProjectCancelledDueToNationalReviewOfPipelineProjects = null,
                     CommentaryForCancellation = null,
 
-                    WithdrawnDate = null,
-                    ProjectWithdrawnReason = ProjectWithdrawnReasonType.NotSet,
-                    ProjectWithdrawnDueToNationalReviewOfPipelineProjects = null,
-                    CommentaryForWithdrawal = null,
+                    WithdrawnDate = WithdrawnYear,
+                    ProjectWithdrawnReason = ProjectWithdrawnReason,
+                    ProjectWithdrawnDueToNationalReviewOfPipelineProjects = ProjectWithdrawnAsAResultOfNationalPipelineReview,
+                    CommentaryForWithdrawal = Notes,
+
+                    ClosedDate = null
                 };
+
+                var projectId = RouteData.Values["projectId"] as string;
 
                 await updateProjectStatusService.Execute(projectId, request);
                 TempData["projectStatusUpdated"] = true;
                 return Redirect(GetNextPage());
+            }
 
+           else
+            {
+                return new NotFoundResult();
             }
         }
+
+       
         
         public string GetNextPage()
         {
@@ -143,23 +151,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             }
 
             return string.Format(RouteConstants.ProjectOverview, ProjectId);
-        }
-
-        private void CheckErrors(string id, ProjectStatusType status, DateTime? year)
-        {
-            var yearFormatErrorMessage = "Enter a date in the correct format";
-
-            if (ModelState.IsValid && ProjectStatus == status && (year == null))
-            {
-                ModelState.AddModelError(id, yearFormatErrorMessage);
-            }
-
-            if (ProjectStatus != status)
-            {
-                ModelState.Keys.Where(errorKey => errorKey.StartsWith(id)).ToList()
-                    .ForEach(errorKey => ModelState.Remove(errorKey));
-            }
-
         }
     }
 }

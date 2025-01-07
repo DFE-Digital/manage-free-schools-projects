@@ -1,8 +1,8 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using SchoolType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.SchoolType;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
-using ProjectStatusReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatusReason;
-using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using ProjectCancelledReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectCancelledReason;
+using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectWithdrawnReason;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
 {
@@ -123,34 +123,66 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
             };
         }
 
-        public static ProjectStatusReasonType ToProjectStatusReasonType(string projectStatusReason)
+        public static ProjectCancelledReasonType ToProjectCancelledReasonType(string projectCancelledReason)
         {
-            return projectStatusReason?.ToLower() switch
+            return projectCancelledReason?.ToLower() switch
             {
-                "educational" => ProjectStatusReasonType.Educational,
-                "governance" => ProjectStatusReasonType.Governance,
-                "planning" => ProjectStatusReasonType.Planning,
-                "procurement / construction" => ProjectStatusReasonType.ProcurementConstruction,
-                "property" => ProjectStatusReasonType.Property,
-                "pupil numbers / viability" => ProjectStatusReasonType.PupilNumbersViability,
-                "trust not content with site option" => ProjectStatusReasonType.TrustNotContentWithSiteOption,
-                "trust not willing to open in temporary accommodation" => ProjectStatusReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
-                _ => ProjectStatusReasonType.NotSet
+                "educational" => ProjectCancelledReasonType.Educational,
+                "governance" => ProjectCancelledReasonType.Governance,
+                "planning" => ProjectCancelledReasonType.Planning,
+                "procurement / construction" => ProjectCancelledReasonType.ProcurementConstruction,
+                "property" => ProjectCancelledReasonType.Property,
+                "pupil numbers / viability" => ProjectCancelledReasonType.PupilNumbersViability,
+                "trust not content with site option" => ProjectCancelledReasonType.TrustNotContentWithSiteOption,
+                "trust not willing to open in temporary accommodation" => ProjectCancelledReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
+                _ => ProjectCancelledReasonType.NotSet
             };
         }
 
-        public static string FromProjectStatusReasonType(ProjectStatusReasonType projectStatusReason)
+        public static string FromProjectCancelledReasonType(ProjectCancelledReasonType projectCancelledReason)
         {
-            return projectStatusReason switch
+            return projectCancelledReason switch
             {
-                ProjectStatusReasonType.Educational => "educational",
-                ProjectStatusReasonType.Governance => "governance",
-                ProjectStatusReasonType.Planning => "planning",
-                ProjectStatusReasonType.ProcurementConstruction => "procurement / construction",
-                ProjectStatusReasonType.Property => "property",
-                ProjectStatusReasonType.PupilNumbersViability => "pupil numbers / viability",
-                ProjectStatusReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
-                ProjectStatusReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
+                ProjectCancelledReasonType.Educational => "educational",
+                ProjectCancelledReasonType.Governance => "governance",
+                ProjectCancelledReasonType.Planning => "planning",
+                ProjectCancelledReasonType.ProcurementConstruction => "procurement / construction",
+                ProjectCancelledReasonType.Property => "property",
+                ProjectCancelledReasonType.PupilNumbersViability => "pupil numbers / viability",
+                ProjectCancelledReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
+                ProjectCancelledReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
+                _ => ""
+            };
+        }
+
+        public static ProjectWithdrawnReasonType ToProjectWithdrawnReasonType(string projectWithdrawnReason)
+        {
+            return projectWithdrawnReason?.ToLower() switch
+            {
+                "educational" => ProjectWithdrawnReasonType.Educational,
+                "governance" => ProjectWithdrawnReasonType.Governance,
+                "planning" => ProjectWithdrawnReasonType.Planning,
+                "procurement / construction" => ProjectWithdrawnReasonType.ProcurementConstruction,
+                "property" => ProjectWithdrawnReasonType.Property,
+                "pupil numbers / viability" => ProjectWithdrawnReasonType.PupilNumbersViability,
+                "trust not content with site option" => ProjectWithdrawnReasonType.TrustNotContentWithSiteOption,
+                "trust not willing to open in temporary accommodation" => ProjectWithdrawnReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
+                _ => ProjectWithdrawnReasonType.NotSet
+            };
+        }
+
+        public static string FromProjectWithdrawnReasonType(ProjectWithdrawnReasonType projectWithdrawnReason)
+        {
+            return projectWithdrawnReason switch
+            {
+                ProjectWithdrawnReasonType.Educational => "educational",
+                ProjectWithdrawnReasonType.Governance => "governance",
+                ProjectWithdrawnReasonType.Planning => "planning",
+                ProjectWithdrawnReasonType.ProcurementConstruction => "procurement / construction",
+                ProjectWithdrawnReasonType.Property => "property",
+                ProjectWithdrawnReasonType.PupilNumbersViability => "pupil numbers / viability",
+                ProjectWithdrawnReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
+                ProjectWithdrawnReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
                 _ => ""
             };
         }

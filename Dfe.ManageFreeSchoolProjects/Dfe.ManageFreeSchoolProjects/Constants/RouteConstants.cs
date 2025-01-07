@@ -14,7 +14,8 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
         public const string EditTemporarySiteInformation = "/projects/{0}/site-information/temporary/edit";
 
         public const string EditProjectStatus = "/projects/{0}/projectstatus/edit-project-status";
-        public const string EditProjectStatusDetails = "/projects/{0}/projectstatus/edit-project-status-details/{1}";
+        public const string EditProjectStatusCancelled = "/projects/{0}/projectstatus/edit-project-status-cancelled";
+        public const string EditProjectStatusWithdrawn = "/projects/{0}/projectstatus/edit-project-status-withdrawn/{1}";
 
         public const string ViewSchoolTask = TaskList + "/school";
         public const string EditSchoolTask = ViewSchoolTask + "/edit";

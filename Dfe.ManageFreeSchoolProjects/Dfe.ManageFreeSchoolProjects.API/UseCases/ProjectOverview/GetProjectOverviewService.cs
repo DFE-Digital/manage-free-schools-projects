@@ -43,19 +43,16 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             GetProjectSitesResponse sites,
             PupilNumbersOverviewResponse pupilNumbers)
         {
-            ProjectStatusReason projectStatusReason = ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus) switch
-            {
-                ProjectStatus.Cancelled => ProjectMapper.ToProjectStatusReasonType(project.ProjectStatusPrimaryReasonForCancellation),
-                ProjectStatus.WithdrawnInPreOpening => ProjectMapper.ToProjectStatusReasonType(project.ProjectStatusPrimaryReasonForWithdrawal),
-                _ => ProjectStatusReason.NotSet
-            };
 
             var projectOverviewResponse = new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
                 {
                     ProjectStatus = ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus),
-                    ProjectStatusReason = projectStatusReason,
+                    ProjectCancelledReason = ProjectMapper.ToProjectCancelledReasonType(project.ProjectStatusPrimaryReasonForCancellation),
+                    ProjectWithdrawnReason = ProjectMapper.ToProjectWithdrawnReasonType(project.ProjectStatusPrimaryReasonForWithdrawal),
+                    CommentaryForCancellation = project.ProjectStatusCommentaryForCancellation,
+                    CommentaryForWithdrawal = project.ProjectStatusCommentaryForWithdrawal,
                     ProjectClosedDate = project.ProjectStatusDateClosed,
                     ProjectCancelledDate = project.ProjectStatusDateCancelled,
                     ProjectWithdrawnDate = project.ProjectStatusDateWithdrawn,

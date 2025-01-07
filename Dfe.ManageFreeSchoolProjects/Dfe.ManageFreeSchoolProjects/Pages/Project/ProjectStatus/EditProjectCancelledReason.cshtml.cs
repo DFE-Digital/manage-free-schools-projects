@@ -15,32 +15,38 @@ using ProjectCancelledReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Pr
 using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectWithdrawnReason;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Microsoft.Identity.Web;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 
-namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
+namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 {
-    public class EditProjectStatusModel(
+    public class EditProjectCancelledModel(
         IGetProjectOverviewService getProjectOverviewService,
         IUpdateProjectStatusService updateProjectStatusService,
-        ILogger<EditProjectStatusModel> logger,
+        ILogger<EditProjectCancelledModel> logger,
         IHttpContextAccessor httpContextAccessor,
         ErrorService errorService)
         : PageModel
     {
-        public const string ClosedYearId = "year-closed";
+        public const string CancelledYearId = "year-cancelled";
+
         public ProjectOverviewResponse Project { get; set; }
         
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
-        
-        [BindProperty(Name = "project-status")]
-        public ProjectStatusType ProjectStatus { get; set; }
 
-        [BindProperty(Name = ClosedYearId, BinderType = typeof(DateInputModelBinder))]
-        [Display(Name = "Date the school was closed")]
+        [BindProperty(Name = CancelledYearId, BinderType = typeof(DateInputModelBinder))]
+        [Display(Name = "Date the project was cancelled")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
-        public DateTime? ClosedYear { get; set; }
+        public DateTime? CancelledYear { get; set; }
+
+        [BindProperty(Name = "project-cancelled-reason-type")]
+        public ProjectCancelledReasonType ProjectCancelledReason { get; set; }
+
+        [BindProperty(Name = "project-cancelled-as-a-result-of-national-review-of-pipeline")]
+        public YesNo? ProjectCancelledAsAResultOfNationalPipelineReview { get; set; }
+
+        [BindProperty(Name = "add-notes-about-the-cancellation")]
+        public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -49,11 +55,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 var projectId = RouteData.Values["projectId"] as string;
 
                 Project = await getProjectOverviewService.Execute(projectId);
-                ProjectStatus = Project.ProjectStatus.ProjectStatus;
-                
-                if (Project.ProjectStatus.ProjectStatus == ProjectStatusType.Closed)
-                    ClosedYear = Project.ProjectStatus.ProjectClosedDate;
-
+                CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
+                ProjectCancelledReason = Project.ProjectStatus.ProjectCancelledReason;
+                ProjectCancelledAsAResultOfNationalPipelineReview = Project.ProjectStatus.ProjectCancelledDueToNationalReviewOfPipelineProjects;
+                Notes = Project.ProjectStatus.CommentaryForCancellation;
             }
             catch (Exception ex)
             {
@@ -67,7 +72,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
         public async Task<IActionResult> OnPost()
         {
-            CheckErrors(ClosedYearId, ProjectStatusType.Closed, ClosedYear);
 
             if (!ModelState.IsValid)
             {
@@ -77,44 +81,31 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
                 return Page();
             }
 
+            UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
+            {
+                ProjectStatus = ProjectStatusType.Cancelled,
+
+                CancelledDate = CancelledYear,
+                ProjectCancelledReason = ProjectCancelledReason,
+                ProjectCancelledDueToNationalReviewOfPipelineProjects = ProjectCancelledAsAResultOfNationalPipelineReview,
+                CommentaryForCancellation = Notes,
+
+                WithdrawnDate = null,
+                ProjectWithdrawnReason = ProjectWithdrawnReasonType.NotSet,
+                ProjectWithdrawnDueToNationalReviewOfPipelineProjects = null,
+                CommentaryForWithdrawal = null,
+
+                ClosedDate = null
+            };
+
             var projectId = RouteData.Values["projectId"] as string;
-            int projectStatusIndex = (int)ProjectStatus;
 
-            if (ProjectStatus == ProjectStatusType.Cancelled)
-            {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusCancelled, projectId));
-            }
-
-            else if (ProjectStatus == ProjectStatusType.WithdrawnInPreOpening || ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
-            {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusWithdrawn, projectId, projectStatusIndex));
-            }
-
-            else
-            {
-
-                UpdateProjectStatusRequest request = new UpdateProjectStatusRequest()
-                {
-                    ProjectStatus = ProjectStatus,
-                    ClosedDate = ClosedYear,
-
-                    CancelledDate = null,
-                    ProjectCancelledReason = ProjectCancelledReasonType.NotSet,
-                    ProjectCancelledDueToNationalReviewOfPipelineProjects = null,
-                    CommentaryForCancellation = null,
-
-                    WithdrawnDate = null,
-                    ProjectWithdrawnReason = ProjectWithdrawnReasonType.NotSet,
-                    ProjectWithdrawnDueToNationalReviewOfPipelineProjects = null,
-                    CommentaryForWithdrawal = null,
-                };
-
-                await updateProjectStatusService.Execute(projectId, request);
-                TempData["projectStatusUpdated"] = true;
-                return Redirect(GetNextPage());
-
-            }
+            await updateProjectStatusService.Execute(projectId, request);
+            TempData["projectStatusUpdated"] = true;
+            return Redirect(GetNextPage());
         }
+
+       
         
         public string GetNextPage()
         {
@@ -143,23 +134,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             }
 
             return string.Format(RouteConstants.ProjectOverview, ProjectId);
-        }
-
-        private void CheckErrors(string id, ProjectStatusType status, DateTime? year)
-        {
-            var yearFormatErrorMessage = "Enter a date in the correct format";
-
-            if (ModelState.IsValid && ProjectStatus == status && (year == null))
-            {
-                ModelState.AddModelError(id, yearFormatErrorMessage);
-            }
-
-            if (ProjectStatus != status)
-            {
-                ModelState.Keys.Where(errorKey => errorKey.StartsWith(id)).ToList()
-                    .ForEach(errorKey => ModelState.Remove(errorKey));
-            }
-
         }
     }
 }

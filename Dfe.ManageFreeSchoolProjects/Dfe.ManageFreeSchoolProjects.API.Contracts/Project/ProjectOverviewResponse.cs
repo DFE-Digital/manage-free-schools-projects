@@ -1,4 +1,5 @@
-﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 
@@ -21,13 +22,21 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string CurrentFreeSchoolName { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
 
-        public ProjectStatusReason ProjectStatusReason { get; set; }
-        
+        public ProjectCancelledReason ProjectCancelledReason { get; set; }
+
+        public ProjectWithdrawnReason ProjectWithdrawnReason { get; set; }
+
         public DateTime? ProjectClosedDate { get; set; }
         
         public DateTime? ProjectCancelledDate { get; set; }
         
         public DateTime? ProjectWithdrawnDate { get; set; }
+
+        public YesNo? ProjectCancelledDueToNationalReviewOfPipelineProjects { get; set; }
+        public YesNo? ProjectWithdrawnDueToNationalReviewOfPipelineProjects { get; set; }
+        public string CommentaryForCancellation {  get; set; }
+        public string CommentaryForWithdrawal { get; set; }
+
         public string FreeSchoolsApplicationNumber { get; set; }
         public string ProjectId { get; set; }
         public string Urn { get; set; }
