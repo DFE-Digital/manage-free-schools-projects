@@ -51,6 +51,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ProjectStatus = ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus),
                     ProjectCancelledReason = ProjectMapper.ToProjectCancelledReasonType(project.ProjectStatusPrimaryReasonForCancellation),
                     ProjectWithdrawnReason = ProjectMapper.ToProjectWithdrawnReasonType(project.ProjectStatusPrimaryReasonForWithdrawal),
+                    ProjectCancelledDueToNationalReviewOfPipelineProjects = project.ProjectStatusProjectCancelledDueToNationalReviewOfPipelineProjects,
+                    ProjectWithdrawnDueToNationalReviewOfPipelineProjects = project.ProjectStatusProjectWithdrawnDueToNationalReviewOfPipelineProjects,
                     CommentaryForCancellation = project.ProjectStatusCommentaryForCancellation,
                     CommentaryForWithdrawal = project.ProjectStatusCommentaryForWithdrawal,
                     ProjectClosedDate = project.ProjectStatusDateClosed,

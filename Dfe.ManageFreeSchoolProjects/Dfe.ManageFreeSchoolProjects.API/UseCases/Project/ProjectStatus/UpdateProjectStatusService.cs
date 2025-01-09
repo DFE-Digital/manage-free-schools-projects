@@ -30,9 +30,6 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
             throw new NotFoundException($"Project with id {projectId} not found");
         }
 
-        string projectStatusReason = 
-       
-
         dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(request.ProjectStatus);
         dbProject.ProjectStatusDateClosed = request.ClosedDate;
 
