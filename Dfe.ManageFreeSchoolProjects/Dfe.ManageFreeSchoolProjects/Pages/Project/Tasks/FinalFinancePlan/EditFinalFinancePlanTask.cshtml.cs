@@ -36,6 +36,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
         [DisplayName("Sent the final plan to the Revenue Funding mailbox")]
         public bool? SentFinalPlanToRevenueFundingMailbox { get; set; }
 
+        [BindProperty(Name = "added-any-underwritten-places-to-the-finance-plan")]
+        [DisplayName("Added any underwritten places to the finance plan")]
+        public bool? AddedAnyUnderwrittenPlacesToFinalPlan { get; set; }
+
         [BindProperty(Name = "saved-final-plan-in-workplaces-folder")]
         [DisplayName("Saved final plan in Workplaces folder")]
         public bool? SavedFinalPlanInWorkplacesFolder { get; set; }
@@ -73,6 +77,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
                     ConfirmedTrustHasProvidedFinalPlan = ConfirmedTrustHasProvidedFinalPlan,
                     Grade6SignedOffFinalPlanDate = Grade6SignedOffFinalPlanDate,
                     SentFinalPlanToRevenueFundingMailbox = SentFinalPlanToRevenueFundingMailbox,
+                    AddedAnyUnderwrittenPlacesToFinalPlan = AddedAnyUnderwrittenPlacesToFinalPlan,
                     SavedFinalPlanInWorkplacesFolder = SavedFinalPlanInWorkplacesFolder
                 }
             };
@@ -90,6 +95,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinalFinancePlan
             ConfirmedTrustHasProvidedFinalPlan = project.FinalFinancePlan.ConfirmedTrustHasProvidedFinalPlan;
             Grade6SignedOffFinalPlanDate = project.FinalFinancePlan.Grade6SignedOffFinalPlanDate;
             SentFinalPlanToRevenueFundingMailbox = project.FinalFinancePlan.SentFinalPlanToRevenueFundingMailbox;
+            AddedAnyUnderwrittenPlacesToFinalPlan = project.FinalFinancePlan.AddedAnyUnderwrittenPlacesToFinalPlan;
             SavedFinalPlanInWorkplacesFolder = project.FinalFinancePlan.SavedFinalPlanInWorkplacesFolder;
             
             SchoolName = project.SchoolName;

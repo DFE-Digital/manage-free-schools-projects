@@ -39,6 +39,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinalFinancePl
             milestone.FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan = task.ConfirmedTrustHasProvidedFinalPlan;
             milestone.FsgPreOpeningMilestonesFpaActualDateOfCompletion = task.Grade6SignedOffFinalPlanDate;
             milestone.FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox = task.SentFinalPlanToRevenueFundingMailbox;
+            milestone.FsgPreOpeningMilestonesFfpAddedAnyUnderwrittenPlacesToFinalPlan = task.AddedAnyUnderwrittenPlacesToFinalPlan;
             milestone.FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder = task.SavedFinalPlanInWorkplacesFolder;
 
             await _context.SaveChangesAsync();
