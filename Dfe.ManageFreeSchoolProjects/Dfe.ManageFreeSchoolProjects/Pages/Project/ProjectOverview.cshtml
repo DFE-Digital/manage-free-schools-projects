@@ -45,7 +45,7 @@
                     {
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Reason for cancellation</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="reason-for-cancellation">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.ProjectCancelledReason.ToDescription());
                                 }
@@ -54,7 +54,7 @@
 
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="commentary-for-cancellation">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.CommentaryForCancellation);
                                 }
@@ -66,7 +66,7 @@
                     {
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Reason for withdrawal</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="reason-for-withdrawal">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnReason.ToDescription());
                                 }
@@ -75,7 +75,7 @@
 
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="commentary-for-withdrawal">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.CommentaryForWithdrawal);
                                 }

@@ -17,6 +17,7 @@ using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.Identity.Web;
+using DocumentFormat.OpenXml.EMMA;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 {
@@ -80,14 +81,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
             var projectId = RouteData.Values["projectId"] as string;
             int projectStatusIndex = (int)ProjectStatus;
 
+            var referrerQuery = httpContextAccessor.HttpContext.Request.Query["referrer"];
+
+            var isReferred = Enum.TryParse(referrerQuery, out Referrer referrer);
+
             if (ProjectStatus == ProjectStatusType.Cancelled)
             {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusCancelled, projectId));
+                return Redirect(string.Format(RouteConstants.EditProjectStatusCancelled, projectId) + (isReferred ? $"?referrer={referrer}" : ""));
             }
 
             else if (ProjectStatus == ProjectStatusType.WithdrawnInPreOpening || ProjectStatus == ProjectStatusType.WithdrawnDuringApplication)
             {
-                return Redirect(string.Format(RouteConstants.EditProjectStatusWithdrawn, projectId, projectStatusIndex));
+                return Redirect(string.Format(RouteConstants.EditProjectStatusWithdrawn, projectId, projectStatusIndex) + (isReferred ? $"?referrer={referrer}" : ""));
             }
 
             else
@@ -111,16 +116,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
 
                 await updateProjectStatusService.Execute(projectId, request);
                 TempData["projectStatusUpdated"] = true;
-                return Redirect(GetNextPage());
+                return Redirect(GetNextPage(referrer, isReferred));
 
             }
         }
         
-        public string GetNextPage()
+        public string GetNextPage(Referrer referrer, bool isReferred)
         {
-            var referrerQuery = httpContextAccessor.HttpContext.Request.Query["referrer"];
-
-            var isReferred = Enum.TryParse(referrerQuery, out Referrer referrer);
 
             if (referrer == Referrer.ProjectOverview)
             {

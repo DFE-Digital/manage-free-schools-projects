@@ -78,6 +78,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
 
         public async Task<IActionResult> OnPost()
         {
+            var yearFormatErrorMessage = "Enter a date in the correct format";
+
+            if (ModelState.IsValid && WithdrawnYear == null)
+            {
+                ModelState.AddModelError(WithdrawnYearId, yearFormatErrorMessage);
+            }
 
             if (!ModelState.IsValid)
             {

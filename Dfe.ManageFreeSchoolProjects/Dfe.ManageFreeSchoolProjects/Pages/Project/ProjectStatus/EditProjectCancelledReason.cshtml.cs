@@ -16,6 +16,8 @@ using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Pr
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 {
@@ -72,6 +74,12 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 
         public async Task<IActionResult> OnPost()
         {
+            var yearFormatErrorMessage = "Enter a date in the correct format";
+
+            if (ModelState.IsValid && CancelledYear == null)
+            {
+                ModelState.AddModelError(CancelledYearId, yearFormatErrorMessage);
+            }
 
             if (!ModelState.IsValid)
             {

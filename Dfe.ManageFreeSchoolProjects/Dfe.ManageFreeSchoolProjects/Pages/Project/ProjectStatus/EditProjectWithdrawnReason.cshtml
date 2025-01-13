@@ -19,7 +19,7 @@
     {
         labels.Add(projectStatusReason.ToDescription());
         values.Add(projectStatusReason.ToDescription());
-        testIds.Add(projectStatusReason.ToDescription());
+        testIds.Add("project-withdrawn-reason-type-" + projectStatusReason.ToDescription().ToLower());
     }
 
 }

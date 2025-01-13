@@ -37,7 +37,7 @@ describe("Testing project overview", () => {
         projectStatusPage
             .selectCancelled()
             .addCancelledYear("1", "1", "2000")
-            .clickSaveAndContine()
+            .clickSaveAndContinue()
 
         taskListPage.isTaskStatusIsNotStarted("Dates")
             .selectDatesFromTaskList()
