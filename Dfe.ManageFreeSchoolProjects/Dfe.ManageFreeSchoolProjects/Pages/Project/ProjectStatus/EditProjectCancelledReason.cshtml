@@ -18,7 +18,7 @@
     foreach (var projectStatusReason in Enum.GetValues<ProjectCancelledReason>().Except(new[] { ProjectCancelledReason.NotSet }))
     {
         labels.Add(projectStatusReason.ToDescription());
-        values.Add((projectStatusReason).ToDescription());
+        values.Add(((int)projectStatusReason).ToString());
         testIds.Add("project-cancelled-reason-type-" + projectStatusReason.ToDescription().ToLower());
     }
 

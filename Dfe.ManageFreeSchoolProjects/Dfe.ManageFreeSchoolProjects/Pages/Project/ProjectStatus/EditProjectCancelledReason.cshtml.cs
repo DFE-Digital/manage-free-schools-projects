@@ -16,8 +16,7 @@ using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Pr
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2010.Excel;
+using Dfe.ManageFreeSchoolProjects.Extensions;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 {
@@ -42,7 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
         public DateTime? CancelledYear { get; set; }
 
         [BindProperty(Name = "project-cancelled-reason-type")]
-        public ProjectCancelledReasonType ProjectCancelledReason { get; set; }
+        public string ProjectCancelledReason { get; set; }
 
         [BindProperty(Name = "project-cancelled-as-a-result-of-national-review-of-pipeline")]
         public YesNo? ProjectCancelledAsAResultOfNationalPipelineReview { get; set; }
@@ -58,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 
                 Project = await getProjectOverviewService.Execute(projectId);
                 CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
-                ProjectCancelledReason = Project.ProjectStatus.ProjectCancelledReason;
+                ProjectCancelledReason = Project.ProjectStatus.ProjectCancelledReason.ToIntString();
                 ProjectCancelledAsAResultOfNationalPipelineReview = Project.ProjectStatus.ProjectCancelledDueToNationalReviewOfPipelineProjects;
                 Notes = Project.ProjectStatus.CommentaryForCancellation;
             }
@@ -94,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
                 ProjectStatus = ProjectStatusType.Cancelled,
 
                 CancelledDate = CancelledYear,
-                ProjectCancelledReason = ProjectCancelledReason,
+                ProjectCancelledReason = (ProjectCancelledReasonType)Enum.Parse(typeof(ProjectCancelledReasonType), ProjectCancelledReason),
                 ProjectCancelledDueToNationalReviewOfPipelineProjects = ProjectCancelledAsAResultOfNationalPipelineReview,
                 CommentaryForCancellation = Notes,
 
