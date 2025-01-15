@@ -43,11 +43,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             GetProjectSitesResponse sites,
             PupilNumbersOverviewResponse pupilNumbers)
         {
+
             var projectOverviewResponse = new ProjectOverviewResponse()
             {
                 ProjectStatus = new ProjectStatusResponse()
                 {
                     ProjectStatus = ProjectMapper.ToProjectStatusType(project.ProjectStatusProjectStatus),
+                    ProjectCancelledReason = ProjectMapper.ToProjectCancelledReasonType(project.ProjectStatusPrimaryReasonForCancellation),
+                    ProjectWithdrawnReason = ProjectMapper.ToProjectWithdrawnReasonType(project.ProjectStatusPrimaryReasonForWithdrawal),
+                    ProjectCancelledDueToNationalReviewOfPipelineProjects = project.ProjectStatusProjectCancelledDueToNationalReviewOfPipelineProjects,
+                    ProjectWithdrawnDueToNationalReviewOfPipelineProjects = project.ProjectStatusProjectWithdrawnDueToNationalReviewOfPipelineProjects,
+                    CommentaryForCancellation = project.ProjectStatusCommentaryForCancellation,
+                    CommentaryForWithdrawal = project.ProjectStatusCommentaryForWithdrawal,
                     ProjectClosedDate = project.ProjectStatusDateClosed,
                     ProjectCancelledDate = project.ProjectStatusDateCancelled,
                     ProjectWithdrawnDate = project.ProjectStatusDateWithdrawn,

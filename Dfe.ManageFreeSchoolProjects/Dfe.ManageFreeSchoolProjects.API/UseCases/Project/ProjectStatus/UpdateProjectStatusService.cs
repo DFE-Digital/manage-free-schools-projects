@@ -2,6 +2,7 @@ using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
 using Dfe.ManageFreeSchoolProjects.API.Exceptions;
 using Dfe.ManageFreeSchoolProjects.API.Extensions;
 using Dfe.ManageFreeSchoolProjects.Data;
+using Dfe.ManageFreeSchoolProjects.Data.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.ProjectStatus;
@@ -29,19 +30,19 @@ public class UpdateProjectStatusService : IUpdateProjectStatusService
             throw new NotFoundException($"Project with id {projectId} not found");
         }
 
-        var updateRequest = new UpdateProjectStatusRequest()
-        {
-            ProjectStatus = request.ProjectStatus,
-            WithdrawnDate = request.WithdrawnDate,
-            ClosedDate = request.ClosedDate,
-            CancelledDate = request.CancelledDate
-        };
+        dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(request.ProjectStatus);
+        dbProject.ProjectStatusDateClosed = request.ClosedDate;
 
-        dbProject.ProjectStatusProjectStatus = ProjectMapper.FromProjectStatusType(updateRequest.ProjectStatus);
-        dbProject.ProjectStatusDateClosed = updateRequest.ClosedDate;
-        dbProject.ProjectStatusDateCancelled = updateRequest.CancelledDate;
-        dbProject.ProjectStatusDateWithdrawn = updateRequest.WithdrawnDate;
-        
+        dbProject.ProjectStatusDateCancelled = request.CancelledDate;
+        dbProject.ProjectStatusPrimaryReasonForCancellation = ProjectMapper.FromProjectCancelledReasonType(request.ProjectCancelledReason);
+        dbProject.ProjectStatusProjectCancelledDueToNationalReviewOfPipelineProjects = request.ProjectCancelledDueToNationalReviewOfPipelineProjects;
+        dbProject.ProjectStatusCommentaryForCancellation = request.CommentaryForCancellation;
+
+        dbProject.ProjectStatusDateWithdrawn = request.WithdrawnDate;
+        dbProject.ProjectStatusPrimaryReasonForWithdrawal = ProjectMapper.FromProjectWithdrawnReasonType(request.ProjectWithdrawnReason);
+        dbProject.ProjectStatusProjectWithdrawnDueToNationalReviewOfPipelineProjects = request.ProjectWithdrawnDueToNationalReviewOfPipelineProjects;
+        dbProject.ProjectStatusCommentaryForWithdrawal = request.CommentaryForWithdrawal;
+
         await _context.SaveChangesAsync();
     }
     

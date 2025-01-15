@@ -64,6 +64,26 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public hasReasonForWithdrawal(value: string): this {
+        cy.getByTestId(`reason-for-withdrawal`).contains(value)
+        return this;
+    }
+
+    public hasCommentaryForWithdrawal(value: string): this {
+        cy.getByTestId(`commentary-for-withdrawal`).contains(value)
+        return this;
+    }
+
+    public hasReasonForCancellation(value: string): this {
+        cy.getByTestId(`reason-for-cancellation`).contains(value)
+        return this;
+    }
+
+    public hasCommentaryForCancellation(value: string): this {
+        cy.getByTestId(`commentary-for-cancellation`).contains(value)
+        return this;
+    }
+
     public hasWithdrawnDate(value: string): this {
         cy.getById(`overview-withdrawn-date`).should(`be.visible`);
         cy.getByTestId("date-of-termination").contains(value)

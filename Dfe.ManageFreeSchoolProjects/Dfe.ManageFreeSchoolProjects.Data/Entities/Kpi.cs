@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,5 +27,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string KeyContactsOfstedContactEmail { get; set; }
         public string KeyContactsOfstedContactPhone { get; set; }
         public string KeyContactsOfstedContactRole { get; set; }
+        public YesNo? ProjectStatusProjectCancelledDueToNationalReviewOfPipelineProjects { get; set; }
+        public YesNo? ProjectStatusProjectWithdrawnDueToNationalReviewOfPipelineProjects { get; set; }
     }
 }

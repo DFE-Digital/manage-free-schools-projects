@@ -95,7 +95,7 @@ class ProjectStatusPage {
         return this;
     }
     
-    public clickSaveAndContine(): this {
+    public clickSaveAndContinue(): this {
         cy.getByTestId("save-and-continue").click();
         return this;
     }

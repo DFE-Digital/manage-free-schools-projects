@@ -1,0 +1,77 @@
+﻿@page "/projects/{projectId}/projectstatus/edit-project-status-withdrawn/{projectStatusId}"
+@using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Common
+@using Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectStatus
+@using Dfe.ManageFreeSchoolProjects.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason.EditProjectWithdrawnModel
+
+@{
+    var backlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
+    ViewData["Title"] = "Provide reasons for changing the status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+
+    var labels = new List<string>();
+    var values = new List<string>();
+    var testIds = new List<string>();
+
+    foreach (var projectStatusReason in Enum.GetValues<ProjectWithdrawnReason>().Except(new[] { ProjectWithdrawnReason.NotSet }))
+    {
+        labels.Add(projectStatusReason.ToDescription());
+        values.Add(((int)projectStatusReason).ToString());
+        testIds.Add("project-withdrawn-reason-type-" + projectStatusReason.ToDescription().ToLower());
+    }
+
+}
+
+
+@section BeforeMain {
+    <govuk-back-link href="@backlink" xmlns="http://www.w3.org/1999/html"/>
+}
+
+<partial name="_ErrorSummary"/>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
+            Provide reasons for changing the status
+        </h1>
+        <form method="post">
+            <govuk-date-input id="year-withdrawn" name="year-withdrawn" asp-for="@Model.WithdrawnYear" label="When was the project withdrawn?" hint="For example, 27 3 2021" />
+            <div class="govuk-form-group" id="project-withdrawn-reason-type">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Select the reason for the withdrawal
+                </legend>
+                <govuk-radios-input asp-for="@Model.ProjectWithdrawnReason"
+                                    name="project-withdrawn-reason-type"
+                                    labels="@labels.ToArray()"
+                                    values="@values.ToArray()"
+                                    test-ids="@testIds.ToArray()" />
+            </div>
+
+            <div class="govuk-form-group" id="project-withdrawn-as-a-result-of-national-review-of-pipeline">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Was this project withdrawn as a result of the national review of pipeline projects?
+                </legend>
+                    <govuk-radios-list-item id="project-withdrawn-as-a-result-of-national-review-of-pipeline-yes"
+                                            name="project-withdrawn-as-a-result-of-national-review-of-pipeline"
+                                            value="@YesNoNotApplicable.Yes"
+                                            description="Yes"
+                                            asp-for="@Model.ProjectWithdrawnAsAResultOfNationalPipelineReview"/>
+
+                    <govuk-radios-list-item id="project-withdrawn-as-a-result-of-national-review-of-pipeline-no"
+                                            name="project-withdrawn-as-a-result-of-national-review-of-pipeline"
+                                            value="@YesNoNotApplicable.No"
+                                            description="No"
+                                            asp-for="@Model.ProjectWithdrawnAsAResultOfNationalPipelineReview"/>
+            </div>
+
+            <govuk-textarea-input id="add-notes-about-the-withdrawal" label="Add notes about the withdrawal" hint="Optional" rows="5" bold-label="true" name="add-notes-about-the-withdrawal" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-withdrawal" />
+
+            <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
+                Save and continue
+            </button>
+        </form>
+    </div>
+</div>
