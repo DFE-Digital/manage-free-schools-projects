@@ -41,6 +41,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.FinalFinancePlan.ConfirmedTrustHasProvidedFinalPlan.Should().Be(true);
             projectResponse.FinalFinancePlan.Grade6SignedOffFinalPlanDate.Should().Be(signoffDate);
             projectResponse.FinalFinancePlan.SentFinalPlanToRevenueFundingMailbox.Should().BeNull();
+            projectResponse.FinalFinancePlan.AddedAnyUnderwrittenPlacesToFinalPlan.Should().BeNull();
             projectResponse.FinalFinancePlan.SavedFinalPlanInWorkplacesFolder.Should().BeNull();
 
         }
@@ -68,6 +69,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                     ConfirmedTrustHasProvidedFinalPlan = true,
                     Grade6SignedOffFinalPlanDate = signoffDate,
                     SentFinalPlanToRevenueFundingMailbox = true,
+                    AddedAnyUnderwrittenPlacesToFinalPlan = true,
                     SavedFinalPlanInWorkplacesFolder = true
 
                 }
@@ -77,6 +79,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             projectResponse.FinalFinancePlan.ConfirmedTrustHasProvidedFinalPlan.Should().Be(true);
             projectResponse.FinalFinancePlan.Grade6SignedOffFinalPlanDate.Should().Be(signoffDate);
             projectResponse.FinalFinancePlan.SentFinalPlanToRevenueFundingMailbox.Should().Be(true);
+            projectResponse.FinalFinancePlan.AddedAnyUnderwrittenPlacesToFinalPlan.Should().Be(true);
             projectResponse.FinalFinancePlan.SavedFinalPlanInWorkplacesFolder.Should().Be(true);
         }
     }

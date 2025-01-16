@@ -47,6 +47,16 @@ class FinalFinancePlanEditPage {
         return this
     }
 
+    checkAddedAnyUnderwrittenPlacesToFinalPlan(): this {
+        cy.getById("added-any-underwritten-places-to-the-finance-plan").check()
+        return this
+    }
+
+    uncheckAddedAnyUnderwrittenPlacesToFinalPlan(): this {
+        cy.getById("added-any-underwritten-places-to-the-finance-plan").uncheck()
+        return this
+    }
+
     checkSavedFinalPlanInWorkplacesFolder(): this {
         cy.getById("saved-final-plan-in-workplaces-folder").check()
         return this

@@ -116,6 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public bool? FsgPreOpeningMilestonesFfpConfirmedTrustHasProvidedFinalPlan { get; set; }
         public DateTime? FsgPreOpeningMilestonesFfpGrade6SignedOffFinalPlanDate { get; set; }
         public bool? FsgPreOpeningMilestonesFfpSentFinalPlanToRevenueFundingMailbox { get; set; }
+        public bool? FsgPreOpeningMilestonesFfpAddedAnyUnderwrittenPlacesToFinalPlan { get; set; }
         public bool? FsgPreOpeningMilestonesFfpSavedFinalPlanInWorkplacesFolder { get; set; }
 
         public bool? FsgPreOpeningMilestonesSchoolReceivedEnoughApplications { get; set; }

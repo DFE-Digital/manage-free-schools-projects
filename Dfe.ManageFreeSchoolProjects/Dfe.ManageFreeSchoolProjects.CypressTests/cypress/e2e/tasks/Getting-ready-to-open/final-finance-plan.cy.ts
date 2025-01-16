@@ -36,9 +36,10 @@ describe("Testing Final finance plan Task", () => {
             .titleIs("Final finance plan")
             .inOrder()
             .summaryShows("Expected date that the Grade 6 will sign-off the final plan").IsEmpty().HasChangeLink()
-            .summaryShows("Confirmed that the trust has provided the final plan").IsEmpty().HasChangeLink()
             .summaryShows("Actual date the Grade 6 signed-off the final plan").IsEmpty().HasChangeLink()
+            .summaryShows("Confirmed that the trust has provided the final plan").IsEmpty().HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").IsEmpty().HasChangeLink()
+            .summaryShows("Added any underwritten places to the finance plan").IsEmpty().HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete();
 
@@ -94,6 +95,7 @@ describe("Testing Final finance plan Task", () => {
             .checkConfirmedTrustHasProvidedFinalPlan()
             .withGrade6SignedOffFinalPlanDate("2","2","2050")
             .checkSentFinalPlanToRevenueFundingMailbox()
+            .checkAddedAnyUnderwrittenPlacesToFinalPlan()
             .checkSavedFinalPlanInWorkplacesFolder()
             .clickContinue()
 
@@ -102,9 +104,10 @@ describe("Testing Final finance plan Task", () => {
             .titleIs("Final finance plan")
             .inOrder()
             .summaryShows("Expected date that the Grade 6 will sign-off the final plan").HasValue("2 February 2050").HasChangeLink()
-            .summaryShows("Confirmed that the trust has provided the final plan").HasValue("Yes").HasChangeLink()
             .summaryShows("Actual date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Confirmed that the trust has provided the final plan").HasValue("Yes").HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").HasValue("Yes").HasChangeLink()
+            .summaryShows("Added any underwritten places to the finance plan").HasValue("Yes").HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").HasValue("Yes").HasChangeLink()
 
         cy.log("Unselect checkboxes")
@@ -113,6 +116,7 @@ describe("Testing Final finance plan Task", () => {
         finalFinancePlanEditPage
             .uncheckConfirmedTrustHasProvidedFinalPlan()
             .uncheckSentFinalPlanToRevenueFundingMailbox()
+            .uncheckAddedAnyUnderwrittenPlacesToFinalPlan()
             .uncheckSavedFinalPlanInWorkplacesFolder()
             .clickContinue()
             
@@ -122,9 +126,10 @@ describe("Testing Final finance plan Task", () => {
             .titleIs("Final finance plan")
             .inOrder()
             .summaryShows("Expected date that the Grade 6 will sign-off the final plan").HasValue("2 February 2050").HasChangeLink()
+            .summaryShows("Actual date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Confirmed that the trust has provided the final plan").IsEmpty().HasChangeLink()
-            .summaryShows("ctual date the Grade 6 signed-off the final plan").HasValue("2 February 2050").HasChangeLink()
             .summaryShows("Sent the final plan to the Revenue Funding mailbox").IsEmpty().HasChangeLink()
+            .summaryShows("Added any underwritten places to the finance plan").IsEmpty().HasChangeLink()
             .summaryShows("Saved final plan in Workplaces folder").IsEmpty().HasChangeLink()
             .isNotMarkedAsComplete()
             .MarkAsComplete()
