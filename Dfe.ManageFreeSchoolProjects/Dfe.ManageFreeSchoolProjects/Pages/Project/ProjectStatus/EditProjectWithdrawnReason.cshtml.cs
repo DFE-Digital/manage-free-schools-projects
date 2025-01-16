@@ -108,7 +108,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
                     CommentaryForCancellation = null,
 
                     WithdrawnDate = WithdrawnYear,
-                    ProjectWithdrawnReason = (ProjectWithdrawnReasonType)Enum.Parse(typeof(ProjectWithdrawnReasonType), ProjectWithdrawnReason),
+                    ProjectWithdrawnReason = (ProjectWithdrawnReasonType)Enum.Parse(typeof(ProjectWithdrawnReasonType), ProjectWithdrawnReason ?? "NotSet"),
                     ProjectWithdrawnDueToNationalReviewOfPipelineProjects = ProjectWithdrawnAsAResultOfNationalPipelineReview,
                     CommentaryForWithdrawal = Notes,
 

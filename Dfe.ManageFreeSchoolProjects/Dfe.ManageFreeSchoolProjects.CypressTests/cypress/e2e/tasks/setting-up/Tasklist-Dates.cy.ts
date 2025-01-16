@@ -8,6 +8,7 @@ import summaryPage from "cypress/pages/task-summary-base";
 import taskListPage from "cypress/pages/taskListPage";
 import validationComponent from "cypress/pages/validationComponent";
 import projectStatusPage from "../../../pages/project-status/projectStatusPage";
+import projectStatusCancelledPage from "cypress/pages/project-status/projectStatusCancelledPage";
 
 describe("Testing project overview", () => {
     let project: ProjectDetailsRequest;
@@ -36,6 +37,8 @@ describe("Testing project overview", () => {
 
         projectStatusPage
             .selectCancelled()
+            .clickSaveAndContinue()
+        projectStatusCancelledPage
             .addCancelledYear("1", "1", "2000")
             .clickSaveAndContinue()
 

@@ -93,7 +93,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
                 ProjectStatus = ProjectStatusType.Cancelled,
 
                 CancelledDate = CancelledYear,
-                ProjectCancelledReason = (ProjectCancelledReasonType)Enum.Parse(typeof(ProjectCancelledReasonType), ProjectCancelledReason),
+                ProjectCancelledReason = (ProjectCancelledReasonType)Enum.Parse(typeof(ProjectCancelledReasonType), ProjectCancelledReason ?? "NotSet"),
                 ProjectCancelledDueToNationalReviewOfPipelineProjects = ProjectCancelledAsAResultOfNationalPipelineReview,
                 CommentaryForCancellation = Notes,
 
