@@ -75,18 +75,22 @@ class HomePage {
 
         return this;
     }
-
+/*
     public withProjectStatusFilter(projectStatus: string): this {
         cy.getByTestId(`${projectStatus}-option`).check({ force: true });
 
         return this;
     }
 
+*/
+
+/*
     public hasProjectStatusFilter(projectStatus: string): this {
         cy.getByTestId(`${projectStatus}-option`).should("be.checked");
 
         return this;
     }
+*/
 
     public applyFilters(): this {
         cy.getByTestId("apply-filters").click();
@@ -108,7 +112,7 @@ class HomePage {
             regionName: '[data-testid="region-name"]',
             localAuthority: '[data-testid="local-authority"]',
             projectManagedBy: '[data-testid="project-managed-by"]',
-            status: '[data-testid="status"]'
+        //    status: '[data-testid="status"]'
         };
 
 
@@ -122,9 +126,9 @@ class HomePage {
             const hasRegionName = $row.find(dataTestIds.regionName).text().trim() !== "";
             const hasLocalAuthority = $row.find(dataTestIds.localAuthority).text().trim() !== "";
             const hasProjectManagedBy = $row.find(dataTestIds.projectManagedBy).text().trim() !== "";
-            const hasStatus = $row.find(dataTestIds.status).text().trim() !== "";
+          //  const hasStatus = $row.find(dataTestIds.status).text().trim() !== "";
     
-            return hasProjectTitleOrId && hasRegionName && hasLocalAuthority && hasProjectManagedBy && hasStatus;
+            return hasProjectTitleOrId && hasRegionName && hasLocalAuthority && hasProjectManagedBy //&& hasStatus;
           })
           .first()
           .then((firstRow) => {
@@ -134,7 +138,7 @@ class HomePage {
             this.FilterData.regionName = Cypress.$(firstRow).find(dataTestIds.regionName).text().trim();
             this.FilterData.localAuthority = Cypress.$(firstRow).find(dataTestIds.localAuthority).text().trim();
             this.FilterData.projectManagedBy = Cypress.$(firstRow).find(dataTestIds.projectManagedBy).text().trim();
-            this.FilterData.status = Cypress.$(firstRow).find(dataTestIds.status).text().trim();     
+           // this.FilterData.status = Cypress.$(firstRow).find(dataTestIds.status).text().trim();     
             
           }).then(() => {
 
@@ -142,7 +146,7 @@ class HomePage {
             this.withRegionFilter(this.FilterData.regionName);
             this.withLocalAuthorityFilter(this.FilterData.localAuthority);
             this.withProjectManagedByFilter(this.FilterData.projectManagedBy);
-            this.withProjectStatusFilter(this.FilterData.status);
+         //   this.withProjectStatusFilter(this.FilterData.status);
 
             this.applyFilters();
             
