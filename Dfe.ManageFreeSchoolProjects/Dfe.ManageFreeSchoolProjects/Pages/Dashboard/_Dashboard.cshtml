@@ -7,7 +7,7 @@
     var regions = Enum.GetValues<ProjectRegion>();
     var regionLabels = (from object region in regions select region.ToDescription()).ToList();
 
-    var projectStatuses = Enum.GetValues<ProjectStatus>().Except(new[] { ProjectStatus.CancelledDuringPreOpening, ProjectStatus.WithdrawnDuringPreOpening }); ;
+    var projectStatuses = Enum.GetValues<ProjectStatus>().Except(new[] { ProjectStatus.CancelledDuringPreOpening, ProjectStatus.WithdrawnDuringPreOpening });
     var projectStatusLabels = (from ProjectStatus status in projectStatuses select status.ToDescription()).ToList();
 
     projectStatusLabels.Sort();
