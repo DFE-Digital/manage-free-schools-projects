@@ -313,7 +313,7 @@ describe("Testing the home page", () => {
     });
 
     describe("Filter cache", () => {
-        it.only("Should retain filter values after navigating away from the page and back again", () => {
+        it("Should retain filter values after navigating away from the page and back again", () => {
 
             homePage
             .openFilter()

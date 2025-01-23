@@ -88,7 +88,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
                     projectStatuses.Add(ProjectStatus.WithdrawnDuringPreOpening.ToDescription());
 
                 if (projectStatuses.Exists(x => x == ProjectStatus.Preopening.ToDescription()))
-                    projectStatuses.Add("");
+                    projectStatuses.Add(null);
 
                 if (projectStatuses.Exists(x => x == ProjectStatus.Cancelled.ToDescription()))
                     projectStatuses.Add(ProjectStatus.CancelledDuringPreOpening.ToDescription());
