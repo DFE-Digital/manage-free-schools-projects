@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using ProjectStatusType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectStatus;
 using ProjectCancelledReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectCancelledReason;
 using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectWithdrawnReason;
-using ProjectCancelledReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Project.ProjectCancelledReason;
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
@@ -45,6 +44,8 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 
         [Required (ErrorMessage = "Enter the main reason for cancellation")]
         [BindProperty(Name = "project-cancelled-reason-type")]
+        [Display(Name = "Main reason for cancellation")]
+        public ProjectCancelledReasonType ProjectCancelledReason { get; set; }
 
         [Required(ErrorMessage = "Enter whether the project was cancelled as a result of the 2024/25 national review of pipeline projects")]
         [BindProperty(Name = "project-cancelled-as-a-result-of-national-review-of-pipeline")]
