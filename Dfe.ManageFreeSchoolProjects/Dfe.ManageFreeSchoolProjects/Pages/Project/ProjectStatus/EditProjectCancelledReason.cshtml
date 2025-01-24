@@ -68,7 +68,7 @@
             <govuk-date-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="When was the project cancelled?" hint="For example, 27 3 2021" />
 
             <govuk-radios-input id="project-cancelled-reason-type"
-                                name="project-cancelled-reason-type"
+                                    name="project-cancelled-reason-type"
                                 label="What was the main reason for cancelling the project?"
                                 medium-heading-label=true
                                 values="@projectCancelledReasonValues"
@@ -78,7 +78,7 @@
                                 asp-for="@Model.ProjectCancelledReason" />
 
             <govuk-radios-input id="project-cancelled-as-a-result-of-national-review-of-pipeline"
-                                name="project-cancelled-as-a-result-of-national-review-of-pipeline"
+                                            name="project-cancelled-as-a-result-of-national-review-of-pipeline"
                                 label="Was this project cancelled as a result of the 2024/25 national review of pipeline projects?"
                                 medium-heading-label=true
                                 values="@yesNoValues"

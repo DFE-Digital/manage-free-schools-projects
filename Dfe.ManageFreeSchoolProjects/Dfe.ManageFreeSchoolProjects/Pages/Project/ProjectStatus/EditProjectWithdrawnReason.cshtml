@@ -19,34 +19,7 @@
         ProjectWithdrawnReason.PupilNumbers.ToDescription()
     };
 
-    var projectWithdrawnReasonValues = new[]
     {
-        ProjectWithdrawnReason.EducationQuality.ToString(),
-        ProjectWithdrawnReason.Governance.ToString(),
-        ProjectWithdrawnReason.SiteAndPlanningIssues.ToString(),
-        ProjectWithdrawnReason.PupilNumbers.ToString()
-    };
-
-    var projectWithdrawnReasonHints = new[]
-    {
-        "For example, there are concerns about the standard of education the trust will provide",
-        "For example, there are concerns about the financial management of the trust",
-        "For example, the cost of construction, building/land issues or procurement",
-        "For example, basic need and/or financial viability"
-    };
-
-    var projectWithdrawnReasonTestIds = new[]
-    {
-        "project-withdrawn-reason-type-" + ProjectWithdrawnReason.EducationQuality.ToDescription().ToLower(),
-        "project-withdrawn-reason-type-" + ProjectWithdrawnReason.Governance.ToDescription().ToLower(),
-        "project-withdrawn-reason-type-" + ProjectWithdrawnReason.SiteAndPlanningIssues.ToDescription().ToLower(),
-        "project-withdrawn-reason-type-" + ProjectWithdrawnReason.PupilNumbers.ToDescription().ToLower()
-    };
-
-
-
-    var yesNoLabels = new[] { "Yes", "No" };
-    var yesNoValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString() };
 
 }
 
@@ -65,25 +38,10 @@
         </h1>
         <form method="post">
             <govuk-date-input id="year-withdrawn" name="year-withdrawn" asp-for="@Model.WithdrawnYear" label="When was the project withdrawn?" hint="For example, 27 3 2021" />
-            <govuk-radios-input id="project-withdrawn-reason-type"
-                                name="project-withdrawn-reason-type"
-                                label="What was the main reason for withdrawing the project?"
-                                medium-heading-label=true
-                                values="@projectWithdrawnReasonValues"
-                                labels="@projectWithdrawnReasonLabels"
-                                hints="@projectWithdrawnReasonHints"
-                                test-ids="@projectWithdrawnReasonTestIds"
-                                asp-for="@Model.ProjectWithdrawnReason" />
+                                    name="project-withdrawn-reason-type"
 
-            <govuk-radios-input id="project-withdrawn-as-a-result-of-national-review-of-pipeline"
-                                name="project-withdrawn-as-a-result-of-national-review-of-pipeline"
-                                label="Was this project withdrawn as a result of the 2024/25 national review of pipeline projects?"
-                                medium-heading-label=true
-                                values="@yesNoValues"
-                                labels="yesNoLabels"
-                                asp-for="@Model.ProjectWithdrawnAsAResultOfNationalPipelineReview" />
+                                            name="project-withdrawn-as-a-result-of-national-review-of-pipeline"
 
-            <govuk-textarea-input id="add-notes-about-the-withdrawal" label="Add notes about the withdrawal" rows="5" bold-label="true" name="add-notes-about-the-withdrawal" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-withdrawal" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
                 Save and continue

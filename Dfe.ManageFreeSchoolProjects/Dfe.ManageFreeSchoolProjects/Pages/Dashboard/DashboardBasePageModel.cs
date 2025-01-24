@@ -69,7 +69,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var allowCentralRoute = await featureManager.IsEnabledAsync("AllowCentralRoute");
             if (!allowCentralRoute)
                 getDashboardServiceParameters.Wave = "FS - Presumption";
-            
+
+            var allowProjectStatusFilter = await featureManager.IsEnabledAsync("AllowProjectStatusFilter");
+            ProjectStatusSearchTerm = allowProjectStatusFilter ? ProjectStatusSearchTerm : new List<string>();
+
             var filterCache = dashboardFiltersCache.Get();
 
             if (!string.IsNullOrWhiteSpace(ProjectSearchTerm)
@@ -94,7 +97,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             var response = await GetDashboardService.Execute(getDashboardServiceParameters);
 
             var paginationModel = PaginationMapping.ToModel(response.Paging);
-            var query = BuildPaginationQuery();
+            var query = await BuildPaginationQuery();
             paginationModel.Url = $"{loadDashboardParameters.Url}{query}";
 
             Dashboard = new DashboardModel
@@ -113,7 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             };
         }
 
-        private string BuildPaginationQuery()
+        private async Task<string> BuildPaginationQuery()
         {
             var query = new QueryString("?handler=movePage");
 
@@ -121,7 +124,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
                 query = query.Add("search-by-project", ProjectSearchTerm);
 
             if (RegionSearchTerm.Count != 0)
-                RegionSearchTerm.ForEach((r => query = query.Add("search-by-region", r)));
+                RegionSearchTerm.ForEach(r => query = query.Add("search-by-region", r));
 
             if (LocalAuthoritySearchTerm.Count != 0)
                 LocalAuthoritySearchTerm.ForEach(l => query = query.Add("search-by-local-authority", l));
@@ -129,8 +132,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Dashboard
             if (ProjectManagedBySearchTerm.Count > 0)
                 ProjectManagedBySearchTerm.ForEach(m => query = query.Add("search-by-pmb", m));
 
-            if (ProjectStatusSearchTerm.Count > 0)
-                ProjectStatusSearchTerm.ForEach((m => query = query.Add("search-by-project-status", m)));
+            var allowProjectStatusFilter = await featureManager.IsEnabledAsync("AllowProjectStatusFilter");
+
+            if (ProjectStatusSearchTerm.Count > 0 && allowProjectStatusFilter)
+                ProjectStatusSearchTerm.ForEach(m => query = query.Add("search-by-project-status", m));
             
             return query.ToString();
         }

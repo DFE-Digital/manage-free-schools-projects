@@ -86,6 +86,12 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Dashboard
             {
                 if (projectStatuses.Exists(x => x == ProjectStatus.WithdrawnInPreOpening.ToDescription()))
                     projectStatuses.Add(ProjectStatus.WithdrawnDuringPreOpening.ToDescription());
+
+                if (projectStatuses.Exists(x => x == ProjectStatus.Preopening.ToDescription()))
+                    projectStatuses.Add(null);
+
+                if (projectStatuses.Exists(x => x == ProjectStatus.Cancelled.ToDescription()))
+                    projectStatuses.Add(ProjectStatus.CancelledDuringPreOpening.ToDescription());
                 
                 query = query.Where(kpi => projectStatuses.Any(projectStatus => kpi.ProjectStatusProjectStatus == projectStatus));
             }
