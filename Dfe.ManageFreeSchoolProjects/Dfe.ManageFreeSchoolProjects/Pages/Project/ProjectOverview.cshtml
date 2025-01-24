@@ -54,7 +54,7 @@
 
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Cancelled as part of the 2024/25 pipeline review of projects</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="project-cancelled-as-a-result-of-national-review-of-pipeline">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.ProjectCancelledDueToNationalReviewOfPipelineProjects.ToDescription());
                                 }
@@ -86,7 +86,7 @@
 
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Withdrawn as part of the 2024/25 pipeline review of projects</dt>
-                            <dd class="govuk-summary-list__value">
+                            <dd class="govuk-summary-list__value" data-testid="project-withdrawn-as-a-result-of-national-review-of-pipeline">
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDueToNationalReviewOfPipelineProjects.ToDescription());
                                 }

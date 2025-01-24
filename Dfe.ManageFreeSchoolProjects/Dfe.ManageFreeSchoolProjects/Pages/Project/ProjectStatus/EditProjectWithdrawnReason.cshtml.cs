@@ -46,17 +46,17 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
 
         [Required(ErrorMessage = "Enter the main reason for withdrawal")]
         [BindProperty(Name = "project-withdrawn-reason-type")]
-        [Display(Name = "main reason for withdrawal")]
+        [Display(Name = "Main reason for withdrawal")]
         public ProjectWithdrawnReasonType ProjectWithdrawnReason { get; set; }
 
         [Required(ErrorMessage = "Enter whether the project was withdrawn as a result of the 2024/25 national review of pipeline projects")]
         [BindProperty(Name = "project-withdrawn-as-a-result-of-national-review-of-pipeline")]
-        [Display(Name = "project withdrawn as a result of the 2024/25 national review of pipeline projects")]
+        [Display(Name = "Project withdrawn as a result of the 2024/25 national review of pipeline projects")]
         public YesNo? ProjectWithdrawnAsAResultOfNationalPipelineReview { get; set; }
 
         [Required(ErrorMessage = "Enter the notes about the withdrawal")]
         [BindProperty(Name = "add-notes-about-the-withdrawal")]
-        [Display(Name = "notes about the withdrawal")]
+        [Display(Name = "Notes about the withdrawal")]
         [ValidText(1000)]
         public string Notes { get; set; }
 

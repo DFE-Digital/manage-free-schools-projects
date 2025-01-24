@@ -44,18 +44,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 
         [Required (ErrorMessage = "Enter the main reason for cancellation")]
         [BindProperty(Name = "project-cancelled-reason-type")]
-        [Display(Name = "main reason for cancellation")]
+        [Display(Name = "Main reason for cancellation")]
         public ProjectCancelledReasonType ProjectCancelledReason { get; set; }
 
         [Required(ErrorMessage = "Enter whether the project was cancelled as a result of the 2024/25 national review of pipeline projects")]
         [BindProperty(Name = "project-cancelled-as-a-result-of-national-review-of-pipeline")]
-        [Display(Name = "project cancelled as a result of the 2024/25 national review of pipeline projects")]
+        [Display(Name = "Project cancelled as a result of the 2024/25 national review of pipeline projects")]
         public YesNo? ProjectCancelledAsAResultOfNationalPipelineReview { get; set; }
 
        
         [Required(ErrorMessage = "Enter the notes about the cancellation")]
         [BindProperty(Name = "add-notes-about-the-cancellation")]
-        [Display(Name = "notes about the cancellation")]
+        [Display(Name = "Notes about the cancellation")]
         [ValidText(1000)]
         public string Notes { get; set; }
 

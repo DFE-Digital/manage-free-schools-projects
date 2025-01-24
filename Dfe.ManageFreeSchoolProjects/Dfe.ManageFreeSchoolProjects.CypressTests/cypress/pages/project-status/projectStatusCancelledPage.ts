@@ -27,13 +27,30 @@ class ProjectStatusCancelledPage {
         return this
     }
 
-    public selectPlanning(): this {
-        cy.getByTestId("project-cancelled-reason-type-planning").click();
+    errorForReasonForCancellation(error: string): this {
+        cy.getById("project-cancelled-reason-type-error-link").contains(error)
+        return this
+    }
+
+    errorForCancelledAsAResultOFNationalPipelineReview(error: string): this {
+        cy.getById("project-cancelled-as-a-result-of-national-review-of-pipeline-error-link").contains(error)
+        return this
+    }
+
+
+    errorForNotesAboutTheCancellation(error: string): this {
+        cy.getById("add-notes-about-the-cancellation-error-link").contains(error)
+        return this
+    }
+
+
+    public selectGovernance(): this {
+        cy.getByTestId("project-cancelled-reason-type-governance").click();
         return this;
     }
 
     public selectProjectCancelledAsAResultOfNationalPipelineReviewYes(): this {
-        cy.getById("project-cancelled-as-a-result-of-national-review-of-pipeline-yes").click();
+        cy.getById("project-cancelled-as-a-result-of-national-review-of-pipeline-1").click();
         return this;
     }
 

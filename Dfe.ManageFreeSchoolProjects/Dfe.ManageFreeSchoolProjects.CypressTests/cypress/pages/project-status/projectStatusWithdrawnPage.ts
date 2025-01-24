@@ -25,15 +25,32 @@ class ProjectStatusWithdrawnPage {
     errorForWithdrawnDate(error: string): this {
         cy.getById("year-withdrawn-error-link").contains(error)
         return this
+        
     }
 
-    public selectPlanning(): this {
-        cy.getByTestId("project-withdrawn-reason-type-planning").click();
+    errorForReasonForWithdrawal(error: string): this {
+        cy.getById("project-withdrawn-reason-type-error-link").contains(error)
+        return this
+    }
+
+    errorForWithdrawnAsAResultOFNationalPipelineReview(error: string): this {
+        cy.getById("project-withdrawn-as-a-result-of-national-review-of-pipeline-error-link").contains(error)
+        return this
+    }
+
+
+    errorForNotesAboutTheWithdrawal(error: string): this {
+        cy.getById("add-notes-about-the-withdrawal-error-link").contains(error)
+        return this
+    }
+
+    public selectGovernance(): this {
+        cy.getByTestId("project-withdrawn-reason-type-governance").click();
         return this;
     }
 
     public selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes(): this {
-        cy.getById("project-withdrawn-as-a-result-of-national-review-of-pipeline-yes").click();
+        cy.getById("project-withdrawn-as-a-result-of-national-review-of-pipeline-1").click();
         return this;
     }
 

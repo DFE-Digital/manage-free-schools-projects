@@ -71,6 +71,7 @@
                                 medium-heading-label=true
                                 values="@projectWithdrawnReasonValues"
                                 labels="@projectWithdrawnReasonLabels"
+                                hints="@projectWithdrawnReasonHints"
                                 test-ids="@projectWithdrawnReasonTestIds"
                                 asp-for="@Model.ProjectWithdrawnReason" />
 
@@ -82,7 +83,7 @@
                                 labels="yesNoLabels"
                                 asp-for="@Model.ProjectWithdrawnAsAResultOfNationalPipelineReview" />
 
-            <govuk-textarea-input id="add-notes-about-the-withdrawal" label="Add notes about the withdrawal" hint="Optional" rows="5" bold-label="true" name="add-notes-about-the-withdrawal" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-withdrawal" />
+            <govuk-textarea-input id="add-notes-about-the-withdrawal" label="Add notes about the withdrawal" rows="5" bold-label="true" name="add-notes-about-the-withdrawal" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-withdrawal" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
                 Save and continue
