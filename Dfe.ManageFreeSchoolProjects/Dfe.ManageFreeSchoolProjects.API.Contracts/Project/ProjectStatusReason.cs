@@ -6,30 +6,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
     {
         NotSet,
 
-        [Description("Educational")]
-        Educational,
+        [Description("Education quality")]
+        EducationQuality,
 
         [Description("Governance")]
         Governance,
 
-        [Description("Planning")]
-        Planning,
+        [Description("Site and planning issues")]
+        SiteAndPlanningIssues,
 
-        [Description("Procurement / Construction")]
-        ProcurementConstruction,
-
-        [Description("Property")]
-        Property,
-
-        [Description("Pupil numbers / viability")]
-        PupilNumbersViability,
-
-        [Description("Trust not content with site option")]
-        TrustNotContentWithSiteOption,
-
-        [Description("Trust not willing to open in temporary accommodation")]
-        TrustNotWillingToOpenInTemporaryAccommodation
-
+        [Description("Pupil numbers")]
+        PupilNumbers,
 
     }
 
@@ -37,30 +24,17 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
     {
         NotSet,
 
-        [Description("Educational")]
-        Educational,
+        [Description("Education quality")]
+        EducationQuality,
 
         [Description("Governance")]
         Governance,
 
-        [Description("Planning")]
-        Planning,
+        [Description("Site and planning issues")]
+        SiteAndPlanningIssues,
 
-        [Description("Procurement / Construction")]
-        ProcurementConstruction,
-
-        [Description("Property")]
-        Property,
-
-        [Description("Pupil numbers / viability")]
-        PupilNumbersViability,
-
-        [Description("Trust not content with site option")]
-        TrustNotContentWithSiteOption,
-
-        [Description("Trust not willing to open in temporary accommodation")]
-        TrustNotWillingToOpenInTemporaryAccommodation
-
+        [Description("Pupil numbers")]
+        PupilNumbers,
 
     }
 }

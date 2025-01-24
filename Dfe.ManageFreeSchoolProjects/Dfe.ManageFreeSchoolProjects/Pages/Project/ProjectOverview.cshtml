@@ -53,11 +53,22 @@
                         </div>
 
                         <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Cancelled as part of the 2024/25 pipeline review of projects</dt>
+                            <dd class="govuk-summary-list__value">
+                                @{
+                                    RenderValue(Model.Project.ProjectStatus.ProjectCancelledDueToNationalReviewOfPipelineProjects.ToDescription());
+                                }
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
                             <dd class="govuk-summary-list__value" data-testid="commentary-for-cancellation">
+                                <div class="govuk-body dfe-text-area-display" >
                                 @{
                                     RenderValue(Model.Project.ProjectStatus.CommentaryForCancellation);
                                 }
+                                </div>
                             </dd>
                         </div>
                     }
@@ -74,11 +85,22 @@
                         </div>
 
                         <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Withdrawn as part of the 2024/25 pipeline review of projects</dt>
+                            <dd class="govuk-summary-list__value">
+                                @{
+                                    RenderValue(Model.Project.ProjectStatus.ProjectWithdrawnDueToNationalReviewOfPipelineProjects.ToDescription());
+                                }
+                            </dd>
+                        </div>
+
+                        <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
                             <dd class="govuk-summary-list__value" data-testid="commentary-for-withdrawal">
-                                @{
-                                    RenderValue(Model.Project.ProjectStatus.CommentaryForWithdrawal);
-                                }
+                                <div class="govuk-body dfe-text-area-display">
+                                    @{
+                                        RenderValue(Model.Project.ProjectStatus.CommentaryForWithdrawal);
+                                    }
+                                </div>
                             </dd>
                         </div>
                     }

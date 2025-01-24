@@ -127,14 +127,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             return projectCancelledReason?.ToLower() switch
             {
-                "educational" => ProjectCancelledReasonType.Educational,
+                "education quality" => ProjectCancelledReasonType.EducationQuality,
                 "governance" => ProjectCancelledReasonType.Governance,
-                "planning" => ProjectCancelledReasonType.Planning,
-                "procurement / construction" => ProjectCancelledReasonType.ProcurementConstruction,
-                "property" => ProjectCancelledReasonType.Property,
-                "pupil numbers / viability" => ProjectCancelledReasonType.PupilNumbersViability,
-                "trust not content with site option" => ProjectCancelledReasonType.TrustNotContentWithSiteOption,
-                "trust not willing to open in temporary accommodation" => ProjectCancelledReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
+                "site and planning issues" => ProjectCancelledReasonType.SiteAndPlanningIssues,
+                "pupil numbers" => ProjectCancelledReasonType.PupilNumbers,
                 _ => ProjectCancelledReasonType.NotSet
             };
         }
@@ -143,14 +139,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             return projectCancelledReason switch
             {
-                ProjectCancelledReasonType.Educational => "educational",
+                ProjectCancelledReasonType.EducationQuality => "education quality",
                 ProjectCancelledReasonType.Governance => "governance",
-                ProjectCancelledReasonType.Planning => "planning",
-                ProjectCancelledReasonType.ProcurementConstruction => "procurement / construction",
-                ProjectCancelledReasonType.Property => "property",
-                ProjectCancelledReasonType.PupilNumbersViability => "pupil numbers / viability",
-                ProjectCancelledReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
-                ProjectCancelledReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
+                ProjectCancelledReasonType.SiteAndPlanningIssues => "site and planning issues",
+                ProjectCancelledReasonType.PupilNumbers => "pupil numbers",
                 _ => ""
             };
         }
@@ -159,14 +151,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             return projectWithdrawnReason?.ToLower() switch
             {
-                "educational" => ProjectWithdrawnReasonType.Educational,
+                "education quality" => ProjectWithdrawnReasonType.EducationQuality,
                 "governance" => ProjectWithdrawnReasonType.Governance,
-                "planning" => ProjectWithdrawnReasonType.Planning,
-                "procurement / construction" => ProjectWithdrawnReasonType.ProcurementConstruction,
-                "property" => ProjectWithdrawnReasonType.Property,
-                "pupil numbers / viability" => ProjectWithdrawnReasonType.PupilNumbersViability,
-                "trust not content with site option" => ProjectWithdrawnReasonType.TrustNotContentWithSiteOption,
-                "trust not willing to open in temporary accommodation" => ProjectWithdrawnReasonType.TrustNotWillingToOpenInTemporaryAccommodation,
+                "site and planning issues" => ProjectWithdrawnReasonType.SiteAndPlanningIssues,
+                "pupil numbers" => ProjectWithdrawnReasonType.PupilNumbers,
                 _ => ProjectWithdrawnReasonType.NotSet
             };
         }
@@ -175,14 +163,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project
         {
             return projectWithdrawnReason switch
             {
-                ProjectWithdrawnReasonType.Educational => "educational",
+                ProjectWithdrawnReasonType.EducationQuality => "education quality",
                 ProjectWithdrawnReasonType.Governance => "governance",
-                ProjectWithdrawnReasonType.Planning => "planning",
-                ProjectWithdrawnReasonType.ProcurementConstruction => "procurement / construction",
-                ProjectWithdrawnReasonType.Property => "property",
-                ProjectWithdrawnReasonType.PupilNumbersViability => "pupil numbers / viability",
-                ProjectWithdrawnReasonType.TrustNotContentWithSiteOption => "trust not content with site option",
-                ProjectWithdrawnReasonType.TrustNotWillingToOpenInTemporaryAccommodation => "trust not willing to open in temporary accommodation",
+                ProjectWithdrawnReasonType.SiteAndPlanningIssues => "site and planning issues",
+                ProjectWithdrawnReasonType.PupilNumbers => "pupil numbers",
                 _ => ""
             };
         }
