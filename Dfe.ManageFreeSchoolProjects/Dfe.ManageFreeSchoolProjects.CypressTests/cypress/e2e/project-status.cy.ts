@@ -8,6 +8,7 @@ import taskListPage from "../pages/taskListPage";
 import contactsPage from "../pages/contacts/contactsPage";
 import projectStatusWithdrawnPage from "cypress/pages/project-status/projectStatusWithdrawnPage";
 import projectStatusCancelledPage from "cypress/pages/project-status/projectStatusCancelledPage";
+import dataGenerator from "cypress/fixtures/dataGenerator";
 
 describe("Testing that we can change the project status", () => {
     let project: ProjectDetailsRequest;
@@ -92,6 +93,9 @@ describe("Testing that we can change the project status", () => {
                 .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
                 .selectGovernance()
                 .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                 .withAddNotesAboutTheWithdrawal("Some notes")
                 .clickSaveAndContinue();
 
@@ -135,6 +139,9 @@ describe("Testing that we can change the project status", () => {
                 .errorForNotesAboutTheCancellation("Enter the notes about the cancellation")
                 .selectGovernance()
                 .selectProjectCancelledAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheCancellation(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheCancellation("Notes about the cancellation must be 500 characters or less")
                 .withAddNotesAboutTheCancellation("Some notes")
                 .clickSaveAndContinue();
             
@@ -216,6 +223,9 @@ describe("Testing that we can change the project status", () => {
                 .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
                 .selectGovernance()
                 .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                 .withAddNotesAboutTheWithdrawal("Some notes")
                 .clickSaveAndContinue();
 
@@ -329,6 +339,9 @@ describe("Testing that we can change the project status", () => {
                     .errorForNotesAboutTheCancellation("Enter the notes about the cancellation")
                     .selectGovernance()
                     .selectProjectCancelledAsAResultOfNationalPipelineReviewYes()
+                    .withAddNotesAboutTheCancellation(dataGenerator.generateAlphaNumeric(501))
+                    .clickSaveAndContinue()
+                    .errorForNotesAboutTheCancellation("Notes about the cancellation must be 500 characters or less")
                     .withAddNotesAboutTheCancellation("Some notes")
                     .clickSaveAndContinue();
   
@@ -412,6 +425,9 @@ describe("Testing that we can change the project status", () => {
                     .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
                     .selectGovernance()
                     .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                    .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                    .clickSaveAndContinue()
+                    .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                     .withAddNotesAboutTheWithdrawal("Some notes")
                     .clickSaveAndContinue();
 

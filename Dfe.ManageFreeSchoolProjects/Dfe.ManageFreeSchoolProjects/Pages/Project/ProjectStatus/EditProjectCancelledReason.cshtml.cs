@@ -56,7 +56,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
         [Required(ErrorMessage = "Enter the notes about the cancellation")]
         [BindProperty(Name = "add-notes-about-the-cancellation")]
         [Display(Name = "Notes about the cancellation")]
-        [ValidText(1000)]
+        [ValidText(500)]
         public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()

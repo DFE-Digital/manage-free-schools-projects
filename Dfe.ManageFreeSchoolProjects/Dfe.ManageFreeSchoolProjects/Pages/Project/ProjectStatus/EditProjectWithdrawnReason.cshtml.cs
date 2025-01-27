@@ -57,7 +57,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
         [Required(ErrorMessage = "Enter the notes about the withdrawal")]
         [BindProperty(Name = "add-notes-about-the-withdrawal")]
         [Display(Name = "Notes about the withdrawal")]
-        [ValidText(1000)]
+        [ValidText(500)]
         public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()
