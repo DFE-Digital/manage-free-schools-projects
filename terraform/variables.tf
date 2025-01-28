@@ -159,6 +159,7 @@ variable "mssql_managed_identity_assign_role" {
 variable "enable_cdn_frontdoor" {
   description = "Enable Azure CDN FrontDoor. This will use the Container Apps endpoint as the origin."
   type        = bool
+  default     = false
 }
 
 variable "cdn_frontdoor_origin_fqdn_override" {
@@ -177,6 +178,7 @@ variable "cdn_frontdoor_origin_host_header_override" {
 variable "cdn_frontdoor_enable_rate_limiting" {
   description = "Enable CDN Front Door Rate Limiting. This will create a WAF policy, and CDN security policy. For pricing reasons, there will only be one WAF policy created."
   type        = bool
+  default     = false
 }
 
 variable "cdn_frontdoor_waf_custom_rules" {
@@ -198,16 +200,19 @@ variable "cdn_frontdoor_waf_custom_rules" {
 variable "cdn_frontdoor_rate_limiting_duration_in_minutes" {
   description = "CDN Front Door rate limiting duration in minutes"
   type        = number
+  default     = 5
 }
 
 variable "cdn_frontdoor_rate_limiting_threshold" {
   description = "CDN Front Door rate limiting duration in minutes"
   type        = number
+  default     = 200
 }
 
 variable "cdn_frontdoor_host_add_response_headers" {
   description = "List of response headers to add at the CDN Front Door `[{ \"name\" = \"Strict-Transport-Security\", \"value\" = \"max-age=31536000\" }]`"
   type        = list(map(string))
+  default     = []
 }
 
 variable "enable_event_hub" {
@@ -258,11 +263,13 @@ variable "container_health_probe_path" {
 variable "cdn_frontdoor_health_probe_path" {
   description = "Specifies the path relative to the origin that is used to determine the health of the origin."
   type        = string
+  default     = "/"
 }
 
 variable "cdn_frontdoor_custom_domains" {
   description = "Azure CDN Front Door custom domains. If they are within the DNS zone (optionally created), the Validation TXT records and ALIAS/CNAME records will be created"
   type        = list(string)
+  default     = []
 }
 
 variable "monitor_endpoint_healthcheck" {
@@ -510,11 +517,28 @@ variable "container_port" {
 variable "enable_cdn_frontdoor_vdp_redirects" {
   description = "Deploy redirects for security.txt and thanks.txt to an external Vulnerability Disclosure Program service"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "cdn_frontdoor_vdp_destination_hostname" {
   description = "Requires 'enable_cdn_frontdoor_vdp_redirects' to be set to 'true'. Hostname to redirect security.txt and thanks.txt to"
   type        = string
   default     = "vdp.security.education.gov.uk"
+}
+
+variable "dns_alias_records" {
+  description = "DNS ALIAS records to add to the DNS Zone"
+  type = map(
+    object({
+      ttl : optional(number, 300),
+      target_resource_id : string
+    })
+  )
+  default = {}
+}
+
+variable "monitor_http_availability_fqdn" {
+  description = "Specify a FQDN to monitor for HTTP Availability. Leave unset to dynamically calculate the correct FQDN"
+  type        = string
+  default     = ""
 }
