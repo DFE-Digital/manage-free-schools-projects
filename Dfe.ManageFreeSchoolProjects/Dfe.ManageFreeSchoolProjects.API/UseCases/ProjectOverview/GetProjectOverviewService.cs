@@ -105,8 +105,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                 },
                 SiteInformation = new SiteInformationResponse
                 {
-                    PermanentSite = sites.PermanentSite,
-                    TemporarySite = sites.TemporarySite
+                    //PermanentSite = sites.PermanentSite,
+                    //TemporarySite = sites.TemporarySite
                 },
                 PupilNumbers = pupilNumbers
             };

@@ -70,22 +70,22 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         public async Task<IActionResult> OnGet()
         {
 
-            var sites = await _getProjectSitesService.Execute(ProjectId);
+            //var sites = await _getProjectSitesService.Execute(ProjectId);
 
-            if(sites.ProjectType == "Central Route")
-            {
-                    return new NotFoundResult();
-            }
+            //if(sites.ProjectType == "Central Route")
+            //{
+            //        return new NotFoundResult();
+            //}
 
-            var site = GetProjectSite(sites);
+            //var site = GetProjectSite(sites);
 
-            AddressLine1 = site.Address.AddressLine1;
-            AddressLine2 = site.Address.AddressLine2;
-            TownOrCity = site.Address.TownOrCity;
-            Postcode = site.Address.Postcode;
-            StartDateOfSiteOccupation = site.StartDateOfSiteOccupation;
-            DatePlanningPermissionObtained = site.DatePlanningPermissionObtained;
-            SchoolName = sites.SchoolName;
+            //AddressLine1 = site.Address.AddressLine1;
+            //AddressLine2 = site.Address.AddressLine2;
+            //TownOrCity = site.Address.TownOrCity;
+            //Postcode = site.Address.Postcode;
+            //StartDateOfSiteOccupation = site.StartDateOfSiteOccupation;
+            //DatePlanningPermissionObtained = site.DatePlanningPermissionObtained;
+            //SchoolName = sites.SchoolName;
 
             return Page();
         }
@@ -125,15 +125,15 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation
         /// <exception cref="ArgumentException"></exception>
         private ProjectSite GetProjectSite(GetProjectSitesResponse sites)
         {
-            if (SiteType == ProjectSiteType.Permanent)
-            {
-                return sites.PermanentSite;
-            }
+            //if (SiteType == ProjectSiteType.Permanent)
+            //{
+            //    return sites.PermanentSite;
+            //}
 
-            if (SiteType == ProjectSiteType.Temporary)
-            {
-                return sites.TemporarySite;
-            }
+            //if (SiteType == ProjectSiteType.Temporary)
+            //{
+            //    return sites.TemporarySite;
+            //}
 
             throw new ArgumentException($"Invalid site type");
         }
