@@ -69,6 +69,11 @@ class ProjectOverviewPage {
         return this;
     }
 
+    public hasProjectWithdrawnAsPartOfThePipelineReview(value: string): this {
+        cy.getByTestId(`project-withdrawn-as-a-result-of-national-review-of-pipeline`).contains(value)
+        return this;
+    }
+
     public hasCommentaryForWithdrawal(value: string): this {
         cy.getByTestId(`commentary-for-withdrawal`).contains(value)
         return this;
@@ -76,6 +81,11 @@ class ProjectOverviewPage {
 
     public hasReasonForCancellation(value: string): this {
         cy.getByTestId(`reason-for-cancellation`).contains(value)
+        return this;
+    }
+
+    public hasProjectCancelledAsPartOfThePipelineReview(value: string): this {
+        cy.getByTestId(`project-cancelled-as-a-result-of-national-review-of-pipeline`).contains(value)
         return this;
     }
 

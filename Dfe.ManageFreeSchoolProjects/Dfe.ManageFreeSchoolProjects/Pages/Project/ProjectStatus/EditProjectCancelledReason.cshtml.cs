@@ -17,6 +17,7 @@ using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Validators;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 {
@@ -35,18 +36,27 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
         [BindProperty(SupportsGet = true, Name = "projectId")]
         public string ProjectId { get; set; }
 
+        [Required]
         [BindProperty(Name = CancelledYearId, BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Date the project was cancelled")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? CancelledYear { get; set; }
 
+        [Required (ErrorMessage = "Enter the main reason for cancellation")]
         [BindProperty(Name = "project-cancelled-reason-type")]
-        public string ProjectCancelledReason { get; set; }
+        [Display(Name = "Main reason for cancellation")]
+        public ProjectCancelledReasonType ProjectCancelledReason { get; set; }
 
+        [Required(ErrorMessage = "Enter whether the project was cancelled as a result of the 2024/25 national review of pipeline projects")]
         [BindProperty(Name = "project-cancelled-as-a-result-of-national-review-of-pipeline")]
+        [Display(Name = "Project cancelled as a result of the 2024/25 national review of pipeline projects")]
         public YesNo? ProjectCancelledAsAResultOfNationalPipelineReview { get; set; }
 
+       
+        [Required(ErrorMessage = "Enter the notes about the cancellation")]
         [BindProperty(Name = "add-notes-about-the-cancellation")]
+        [Display(Name = "Notes about the cancellation")]
+        [ValidText(500)]
         public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -57,7 +67,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
 
                 Project = await getProjectOverviewService.Execute(projectId);
                 CancelledYear = Project.ProjectStatus.ProjectCancelledDate;
-                ProjectCancelledReason = Project.ProjectStatus.ProjectCancelledReason.ToIntString();
+                ProjectCancelledReason = Project.ProjectStatus.ProjectCancelledReason;
                 ProjectCancelledAsAResultOfNationalPipelineReview = Project.ProjectStatus.ProjectCancelledDueToNationalReviewOfPipelineProjects;
                 Notes = Project.ProjectStatus.CommentaryForCancellation;
             }
@@ -93,9 +103,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectCancelledReason
                 ProjectStatus = ProjectStatusType.Cancelled,
 
                 CancelledDate = CancelledYear,
-
-                ProjectCancelledReason = (ProjectCancelledReasonType)Enum.Parse(typeof(ProjectCancelledReasonType), ProjectCancelledReason ?? "NotSet"),
-                
+                ProjectCancelledReason = ProjectCancelledReason,
                 ProjectCancelledDueToNationalReviewOfPipelineProjects = ProjectCancelledAsAResultOfNationalPipelineReview,
                 CommentaryForCancellation = Notes,
 
