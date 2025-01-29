@@ -39,7 +39,7 @@
             <dl class="govuk-summary-list">
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-address">
                         Address
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="temporary-site-address">
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-postcode">
                         Postcode
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="temporary-site-postcode">
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-site-risk-rating">
                         Temporary site risk rating
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="temporary-site-risk-rating">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-planning-decision">
                         Planning decision
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="temporary-site-planning-decision">
@@ -81,22 +81,22 @@
                 </div>
             </dl>
             <dl class="govuk-summary-list">
-                <h2 class="govuk-heading-m govuk-!-font-size-24" id="temporary-key-dates">Key dates</h2>
+                <h2 class="govuk-heading-m govuk-!-font-size-24" id="temporary-key-dates-heading">Key dates</h2>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-key-dates">
                         Key dates
                     </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right">
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-forecast-dates">
                         Forecast
                     </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right">
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-actual-dates">
                         Actual
                     </dt>
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-heads-of-terms-agreed">
                         Heads of terms agreed
                     </dt>
                     <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-heads-of-terms-agreed-forecast">
@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-contractor-appointed">
                         Contractor appointed
                     </dt>
                     <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-contractor-appointed-forecast">
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-planning-decision-date">
                         Planning decision
                         <span class="govuk-visually-hidden">Date of planning decision</span>
                     </dt>
@@ -145,10 +145,10 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="temporary-accomodation-first-ready-for-occupation">
                         Temporary accommodation first ready for occupation
                     </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-forecasy">
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-forecast">
                         @{
                             RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationForecast.ToDateString());
                         }
@@ -167,7 +167,7 @@
             <dl class="govuk-summary-list">
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-address">
                         Address
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="permanent-site-address">
@@ -178,7 +178,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-postcode">
                         Postcode
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="permanent-site-postcode">
@@ -189,7 +189,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-site-risk-rating">
                         Permanent site risk rating
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="permanent-site-risk-rating">
@@ -198,7 +198,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-planning-decision">
                         Planning decision
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="permanent-site-planning-decision">
@@ -211,22 +211,22 @@
                 
             </dl>
             <dl class="govuk-summary-list">
-                <h2 class="govuk-heading-m govuk-!-font-size-24" id="permanent-key-dates">Key dates</h2>
+                <h2 class="govuk-heading-m govuk-!-font-size-24" id="permanent-key-dates-heading">Key dates</h2>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-key-dates">
                         Key dates
                     </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right">
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-forecast-dates">
                         Forecast
                     </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right">
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-actual-dates">
                         Actual
                     </dt>
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-heads-of-terms-agreed">
                         Heads of terms agreed
                     </dt>
                     <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-heads-of-terms-agreed-forecast">
@@ -242,7 +242,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-contractor-appointed">
                         Contractor appointed
                     </dt>
                     <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-contractor-appointed-forecast">
@@ -258,7 +258,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-planning-decision-date">
                         Planning decision
                         <span class="govuk-visually-hidden">Date of planning decision</span>
                     </dt>
@@ -275,10 +275,10 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="permanent-accomodation-first-ready-for-occupation">
                         Permanent accommodation first ready for occupation
                     </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-forecasy">
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-forecast">
                         @{
                             RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationForecast.ToDateString());
                         }
@@ -296,7 +296,7 @@
             <dl class="govuk-summary-list">
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="capital-rating">
                         Capital rating
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="capital-rating">
@@ -305,7 +305,7 @@
                 </div>
 
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
+                    <dt class="govuk-summary-list__key" id="risk-summary">
                         Risk summary
                     </dt>
                     <dd class="govuk-summary-list__value" data-testid="capital-rating-commentary">
