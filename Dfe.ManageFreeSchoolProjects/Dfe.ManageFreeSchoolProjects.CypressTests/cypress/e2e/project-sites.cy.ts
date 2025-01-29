@@ -4,7 +4,6 @@ import { RequestBuilder } from "cypress/api/requestBuilder";
 import { Logger } from "cypress/common/logger";
 import projectOverviewPage from "cypress/pages/projectOverviewPage";
 import viewSiteInformationPage from "cypress/pages/siteInformation/viewSiteInformationPage";
-import validationComponent from "cypress/pages/validationComponent";
 
 describe("Testing the setting up of project sites - presumption route", () => {
     let project: ProjectDetailsRequest;
