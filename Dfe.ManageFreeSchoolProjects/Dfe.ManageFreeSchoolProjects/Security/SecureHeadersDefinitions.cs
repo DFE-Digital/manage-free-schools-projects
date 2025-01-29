@@ -6,6 +6,7 @@ namespace Dfe.ManageFreeSchoolProjects.Security
 	{
 		static string GoogleTagManagerUri => "https://www.googletagmanager.com";
 		static string GoogleAnalyticsUri => "https://www.google-analytics.com/";
+		static string ApplicationInsightsUri => "https://js.monitor.azure.com/";
 
 		public static HeaderPolicyCollection GetHeaderPolicyCollection(bool isDev)
 		{
@@ -39,8 +40,10 @@ namespace Dfe.ManageFreeSchoolProjects.Security
 					builder.AddFontSrc().Self();
 					builder.AddStyleSrc().Self();
 					builder.AddBaseUri().Self();
-					builder.AddScriptSrc().From(GoogleTagManagerUri).UnsafeInline().WithNonce();
-               builder.AddFrameAncestors().None();
+					builder.AddScriptSrc()
+						.From(GoogleTagManagerUri).From(ApplicationInsightsUri)
+							.UnsafeInline().WithNonce();
+					builder.AddFrameAncestors().None();
 				})
 				.RemoveServerHeader()
 				.AddPermissionsPolicy(builder =>
