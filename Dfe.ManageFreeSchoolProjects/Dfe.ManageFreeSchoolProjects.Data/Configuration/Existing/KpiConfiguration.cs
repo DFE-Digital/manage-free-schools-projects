@@ -499,7 +499,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .HasColumnType("date")
                 .HasColumnName("Project Status.Actual opening date");
             builder.Property(e => e.ProjectStatusCommentaryForCancellation)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("Project Status.Commentary for cancellation");
             builder.Property(e => e.ProjectStatusCommentaryForFirstDeferral)
@@ -515,7 +515,7 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
                 .IsUnicode(false)
                 .HasColumnName("Project Status.Commentary for third deferral");
             builder.Property(e => e.ProjectStatusCommentaryForWithdrawal)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("Project Status.Commentary for withdrawal");
             builder.Property(e => e.ProjectStatusCurrentFreeSchoolName)

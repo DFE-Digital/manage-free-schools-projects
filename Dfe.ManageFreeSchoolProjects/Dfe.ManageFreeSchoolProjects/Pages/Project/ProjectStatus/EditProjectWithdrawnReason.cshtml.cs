@@ -16,7 +16,7 @@ using ProjectWithdrawnReasonType = Dfe.ManageFreeSchoolProjects.API.Contracts.Pr
 using Dfe.ManageFreeSchoolProjects.Models;
 using System.ComponentModel.DataAnnotations;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
-using Dfe.ManageFreeSchoolProjects.Extensions;
+using Dfe.ManageFreeSchoolProjects.Validators;
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
 {
@@ -38,18 +38,26 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
         [BindProperty(SupportsGet = true, Name = "projectStatusId")]
         public int ProjectStatusId { get; set; }
 
+        [Required]
         [BindProperty(Name = WithdrawnYearId, BinderType = typeof(DateInputModelBinder))]
         [Display(Name = "Date the project was withdrawn")]
         [DateValidation(DateRangeValidationService.DateRange.PastOrFuture)]
         public DateTime? WithdrawnYear { get; set; }
 
+        [Required(ErrorMessage = "Enter the main reason for withdrawal")]
         [BindProperty(Name = "project-withdrawn-reason-type")]
-        public string ProjectWithdrawnReason { get; set; }
+        [Display(Name = "Main reason for withdrawal")]
+        public ProjectWithdrawnReasonType ProjectWithdrawnReason { get; set; }
 
+        [Required(ErrorMessage = "Enter whether the project was withdrawn as a result of the 2024/25 national review of pipeline projects")]
         [BindProperty(Name = "project-withdrawn-as-a-result-of-national-review-of-pipeline")]
+        [Display(Name = "Project withdrawn as a result of the 2024/25 national review of pipeline projects")]
         public YesNo? ProjectWithdrawnAsAResultOfNationalPipelineReview { get; set; }
 
+        [Required(ErrorMessage = "Enter the notes about the withdrawal")]
         [BindProperty(Name = "add-notes-about-the-withdrawal")]
+        [Display(Name = "Notes about the withdrawal")]
+        [ValidText(500)]
         public string Notes { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -64,7 +72,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
 
                 Project = await getProjectOverviewService.Execute(ProjectId);
                 WithdrawnYear = Project.ProjectStatus.ProjectWithdrawnDate;
-                ProjectWithdrawnReason = Project.ProjectStatus.ProjectWithdrawnReason.ToIntString();
+                ProjectWithdrawnReason = Project.ProjectStatus.ProjectWithdrawnReason;
                 ProjectWithdrawnAsAResultOfNationalPipelineReview = Project.ProjectStatus.ProjectWithdrawnDueToNationalReviewOfPipelineProjects;
                 Notes = Project.ProjectStatus.CommentaryForWithdrawal;
             }
@@ -108,9 +116,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.ProjectWithdrawnReason
                     CommentaryForCancellation = null,
 
                     WithdrawnDate = WithdrawnYear,
-
-                    ProjectWithdrawnReason = (ProjectWithdrawnReasonType)Enum.Parse(typeof(ProjectWithdrawnReasonType), ProjectWithdrawnReason ?? "NotSet"),
-
+                    ProjectWithdrawnReason = ProjectWithdrawnReason,
                     ProjectWithdrawnDueToNationalReviewOfPipelineProjects = ProjectWithdrawnAsAResultOfNationalPipelineReview,
                     CommentaryForWithdrawal = Notes,
 

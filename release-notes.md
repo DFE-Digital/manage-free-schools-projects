@@ -1,3 +1,8 @@
+## 0.19.0
+* 193200 - Design/UCD - Add Confirmation - Final Finance Plan Submission
+* 193476 - Implement - Display Reasons for Cancellation or Withdrawl
+* 193472 - Implement - Record Reasons for Cancellation or Withdrawl
+
 ## 0.18.0
 * 182433 - Build: education brief iteration
 * 153165 - Build: Iterate 'check your answers' page

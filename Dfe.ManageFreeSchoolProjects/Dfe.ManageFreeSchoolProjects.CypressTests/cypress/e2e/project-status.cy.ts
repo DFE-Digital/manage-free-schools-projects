@@ -8,6 +8,7 @@ import taskListPage from "../pages/taskListPage";
 import contactsPage from "../pages/contacts/contactsPage";
 import projectStatusWithdrawnPage from "cypress/pages/project-status/projectStatusWithdrawnPage";
 import projectStatusCancelledPage from "cypress/pages/project-status/projectStatusCancelledPage";
+import dataGenerator from "cypress/fixtures/dataGenerator";
 
 describe("Testing that we can change the project status", () => {
     let project: ProjectDetailsRequest;
@@ -76,7 +77,7 @@ describe("Testing that we can change the project status", () => {
                 .clickSaveAndContinue()
             projectStatusWithdrawnPage                
                 .clickSaveAndContinue()
-                .errorForWithdrawnDate("Enter a date in the correct format")
+                .errorForWithdrawnDate("Enter a date for the date the project was withdrawn")
                 .addWithdrawnYear("1", "1", "error")
                 .clickSaveAndContinue()
                 .errorForWithdrawnDate("Enter a date in the correct format")
@@ -87,15 +88,22 @@ describe("Testing that we can change the project status", () => {
                 .addWithdrawnYear("1", "1", "2051")
                 .errorForWithdrawnDate("Year must be between 2000 and 2050")
                 .addWithdrawnYear("1", "1", "2045")
-                .selectPlanning()
+                .errorForReasonForWithdrawal("Enter the main reason for withdrawal")
+                .errorForWithdrawnAsAResultOFNationalPipelineReview("Enter whether the project was withdrawn as a result of the 2024/25 national review of pipeline projects")
+                .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
+                .selectGovernance()
                 .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                 .withAddNotesAboutTheWithdrawal("Some notes")
                 .clickSaveAndContinue();
 
             Logger.log("user is sent back to projects overview page");
 
             projectOverviewPage
-                .hasReasonForWithdrawal("Planning")
+                .hasReasonForWithdrawal("Governance")
+                .hasProjectWithdrawnAsPartOfThePipelineReview("Yes")
                 .hasCommentaryForWithdrawal("Some notes")
                 .hasWithdrawnDate("1 January 2045")
                 .clickChangeProjectStatus();
@@ -115,7 +123,7 @@ describe("Testing that we can change the project status", () => {
                 .clickSaveAndContinue()
             projectStatusCancelledPage                
                 .clickSaveAndContinue()
-                .errorForCancelledDate("Enter a date in the correct format")
+                .errorForCancelledDate("Enter a date for the date the project was cancelled")
                 .addCancelledYear("1", "1", "error")
                 .clickSaveAndContinue()
                 .errorForCancelledDate("Enter a date in the correct format")
@@ -126,8 +134,14 @@ describe("Testing that we can change the project status", () => {
                 .addCancelledYear("1", "1", "2051")
                 .errorForCancelledDate("Year must be between 2000 and 2050")
                 .addCancelledYear("1", "1", "2045")
-                .selectPlanning()
+                .errorForReasonForCancellation("Enter the main reason for cancellation")
+                .errorForCancelledAsAResultOFNationalPipelineReview("Enter whether the project was cancelled as a result of the 2024/25 national review of pipeline projects")
+                .errorForNotesAboutTheCancellation("Enter the notes about the cancellation")
+                .selectGovernance()
                 .selectProjectCancelledAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheCancellation(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheCancellation("Notes about the cancellation must be 500 characters or less")
                 .withAddNotesAboutTheCancellation("Some notes")
                 .clickSaveAndContinue();
             
@@ -139,7 +153,8 @@ describe("Testing that we can change the project status", () => {
                 .selectAboutTheProjectTab();
 
             projectOverviewPage
-                .hasReasonForCancellation("Planning")
+                .hasReasonForCancellation("Governance")
+                .hasProjectCancelledAsPartOfThePipelineReview("Yes")
                 .hasCommentaryForCancellation("Some notes")
                 .hasCancelledDate("1 January 2045")
                 .selectContactsTab();
@@ -192,7 +207,7 @@ describe("Testing that we can change the project status", () => {
 
             projectStatusWithdrawnPage                
                 .clickSaveAndContinue()
-                .errorForWithdrawnDate("Enter a date in the correct format")
+                .errorForWithdrawnDate("Enter a date for the date the project was withdrawn")
                 .addWithdrawnYear("1", "1", "error")
                 .clickSaveAndContinue()
                 .errorForWithdrawnDate("Enter a date in the correct format")
@@ -203,15 +218,22 @@ describe("Testing that we can change the project status", () => {
                 .addWithdrawnYear("1", "1", "2051")
                 .errorForWithdrawnDate("Year must be between 2000 and 2050")
                 .addWithdrawnYear("1", "1", "2045")
-                .selectPlanning()
+                .errorForReasonForWithdrawal("Enter the main reason for withdrawal")
+                .errorForWithdrawnAsAResultOFNationalPipelineReview("Enter whether the project was withdrawn as a result of the 2024/25 national review of pipeline projects")
+                .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
+                .selectGovernance()
                 .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                .clickSaveAndContinue()
+                .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                 .withAddNotesAboutTheWithdrawal("Some notes")
                 .clickSaveAndContinue();
 
             Logger.log("user is sent back to projects overview page");
 
             projectOverviewPage
-                .hasReasonForWithdrawal("Planning")
+                .hasReasonForWithdrawal("Governance")
+                .hasProjectWithdrawnAsPartOfThePipelineReview("Yes")
                 .hasCommentaryForWithdrawal("Some notes")
                 .hasWithdrawnDate("1 January 2045")
         
@@ -301,7 +323,7 @@ describe("Testing that we can change the project status", () => {
 
                 projectStatusCancelledPage                
                     .clickSaveAndContinue()
-                    .errorForCancelledDate("Enter a date in the correct format")
+                    .errorForCancelledDate("Enter a date for the date the project was cancelled")
                     .addCancelledYear("1", "1", "error")
                     .clickSaveAndContinue()
                     .errorForCancelledDate("Enter a date in the correct format")
@@ -312,8 +334,14 @@ describe("Testing that we can change the project status", () => {
                     .addCancelledYear("1", "1", "2051")
                     .errorForCancelledDate("Year must be between 2000 and 2050")
                     .addCancelledYear("1", "1", "2045")
-                    .selectPlanning()
+                    .errorForReasonForCancellation("Enter the main reason for cancellation")
+                    .errorForCancelledAsAResultOFNationalPipelineReview("Enter whether the project was cancelled as a result of the 2024/25 national review of pipeline projects")
+                    .errorForNotesAboutTheCancellation("Enter the notes about the cancellation")
+                    .selectGovernance()
                     .selectProjectCancelledAsAResultOfNationalPipelineReviewYes()
+                    .withAddNotesAboutTheCancellation(dataGenerator.generateAlphaNumeric(501))
+                    .clickSaveAndContinue()
+                    .errorForNotesAboutTheCancellation("Notes about the cancellation must be 500 characters or less")
                     .withAddNotesAboutTheCancellation("Some notes")
                     .clickSaveAndContinue();
   
@@ -327,7 +355,8 @@ describe("Testing that we can change the project status", () => {
                 Logger.log("cancelled date is shown on project overview");
               
                 projectOverviewPage
-                    .hasReasonForCancellation("Planning")
+                    .hasReasonForCancellation("Governance")
+                    .hasProjectCancelledAsPartOfThePipelineReview("Yes")
                     .hasCommentaryForCancellation("Some notes")
                     .hasCancelledDate("1 January 2045")
                     .selectContactsTab()
@@ -380,7 +409,7 @@ describe("Testing that we can change the project status", () => {
                 
                 projectStatusWithdrawnPage                
                     .clickSaveAndContinue()
-                    .errorForWithdrawnDate("Enter a date in the correct format")
+                    .errorForWithdrawnDate("Enter a date for the date the project was withdrawn")
                     .addWithdrawnYear("1", "1", "error")
                     .clickSaveAndContinue()
                     .errorForWithdrawnDate("Enter a date in the correct format")
@@ -391,15 +420,22 @@ describe("Testing that we can change the project status", () => {
                     .addWithdrawnYear("1", "1", "2051")
                     .errorForWithdrawnDate("Year must be between 2000 and 2050")
                     .addWithdrawnYear("1", "1", "2045")
-                    .selectPlanning()
+                    .errorForReasonForWithdrawal("Enter the main reason for withdrawal")
+                    .errorForWithdrawnAsAResultOFNationalPipelineReview("Enter whether the project was withdrawn as a result of the 2024/25 national review of pipeline projects")
+                    .errorForNotesAboutTheWithdrawal("Enter the notes about the withdrawal")
+                    .selectGovernance()
                     .selectProjectWithdrawnAsAResultOfNationalPipelineReviewYes()
+                    .withAddNotesAboutTheWithdrawal(dataGenerator.generateAlphaNumeric(501))
+                    .clickSaveAndContinue()
+                    .errorForNotesAboutTheWithdrawal("Notes about the withdrawal must be 500 characters or less")
                     .withAddNotesAboutTheWithdrawal("Some notes")
                     .clickSaveAndContinue();
 
             Logger.log("user is sent back to projects overview page");
 
             projectOverviewPage
-                .hasReasonForWithdrawal("Planning")
+                .hasReasonForWithdrawal("Governance")
+                .hasProjectWithdrawnAsPartOfThePipelineReview("Yes")
                 .hasCommentaryForWithdrawal("Some notes")
                 .hasWithdrawnDate("1 January 2045")
         });
