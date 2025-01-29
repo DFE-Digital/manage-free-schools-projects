@@ -90,7 +90,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var updateStatusRequest = new UpdateProjectStatusRequest()
             {
                 ProjectStatus = ProjectStatus.Cancelled,
-                ProjectCancelledReason = ProjectCancelledReason.Planning,
+                ProjectCancelledReason = ProjectCancelledReason.Governance,
                 ProjectWithdrawnReason = ProjectWithdrawnReason.NotSet,
                 CancelledDate = cancelledDate,
                 ClosedDate = null,
@@ -118,7 +118,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             // Project status
             var projectStatus = result.Data.ProjectStatus;
             projectStatus.ProjectStatus.Should().Be(ProjectStatus.Cancelled);
-            projectStatus.ProjectCancelledReason.Should().Be(ProjectCancelledReason.Planning);
+            projectStatus.ProjectCancelledReason.Should().Be(ProjectCancelledReason.Governance);
             projectStatus.ProjectWithdrawnReason.Should().Be(ProjectWithdrawnReason.NotSet);
             projectStatus.ProjectCancelledDate.Should().Be(cancelledDate);
             projectStatus.ProjectClosedDate.Should().BeNull();

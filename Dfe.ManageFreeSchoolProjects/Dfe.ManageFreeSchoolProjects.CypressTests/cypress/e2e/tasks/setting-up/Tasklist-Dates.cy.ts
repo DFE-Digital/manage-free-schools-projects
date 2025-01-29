@@ -40,6 +40,9 @@ describe("Testing project overview", () => {
             .clickSaveAndContinue()
         projectStatusCancelledPage
             .addCancelledYear("1", "1", "2000")
+            .selectGovernance()
+            .selectProjectCancelledAsAResultOfNationalPipelineReviewYes()
+            .withAddNotesAboutTheCancellation("Some notes")
             .clickSaveAndContinue()
 
         taskListPage.isTaskStatusIsNotStarted("Dates")

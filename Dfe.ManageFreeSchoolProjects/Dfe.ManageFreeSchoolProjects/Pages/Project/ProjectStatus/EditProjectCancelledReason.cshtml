@@ -11,16 +11,43 @@
     var backlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
     ViewData["Title"] = "Provide reasons for changing the status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
-    var labels = new List<string>();
-    var values = new List<string>();
-    var testIds = new List<string>();
-
-    foreach (var projectStatusReason in Enum.GetValues<ProjectCancelledReason>().Except(new[] { ProjectCancelledReason.NotSet }))
+    var projectCancelledReasonLabels = new[]
     {
-        labels.Add(projectStatusReason.ToDescription());
-        values.Add(((int)projectStatusReason).ToString());
-        testIds.Add("project-cancelled-reason-type-" + projectStatusReason.ToDescription().ToLower());
-    }
+        ProjectCancelledReason.EducationQuality.ToDescription(),
+        ProjectCancelledReason.Governance.ToDescription(),
+        ProjectCancelledReason.SiteAndPlanningIssues.ToDescription(),
+        ProjectCancelledReason.PupilNumbers.ToDescription()
+    };
+
+    var projectCancelledReasonValues = new[]
+    {
+        ProjectCancelledReason.EducationQuality.ToString(),
+        ProjectCancelledReason.Governance.ToString(),
+        ProjectCancelledReason.SiteAndPlanningIssues.ToString(),
+        ProjectCancelledReason.PupilNumbers.ToString()
+    };
+
+    var projectCancelledReasonHints = new[]
+    {
+        "For example, there are concerns about the standard of education the trust will provide",
+        "For example, there are concerns about the financial management of the trust",
+        "For example, the cost of construction, building/land issues or procurement",
+        "For example, basic need and/or financial viability"
+    };
+
+    var projectCancelledReasonTestIds = new[]
+    {
+        "project-cancelled-reason-type-" + ProjectCancelledReason.EducationQuality.ToDescription().ToLower(),
+        "project-cancelled-reason-type-" + ProjectCancelledReason.Governance.ToDescription().ToLower(),
+        "project-cancelled-reason-type-" + ProjectCancelledReason.SiteAndPlanningIssues.ToDescription().ToLower(),
+        "project-cancelled-reason-type-" + ProjectCancelledReason.PupilNumbers.ToDescription().ToLower()
+    };
+
+
+
+    var yesNoLabels = new[] { "Yes", "No" };
+    var yesNoValues = new[] { YesNoNotApplicable.Yes.ToString(), YesNoNotApplicable.No.ToString() };
+
 
 }
 
@@ -39,33 +66,26 @@
         </h1>
         <form method="post">
             <govuk-date-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="When was the project cancelled?" hint="For example, 27 3 2021" />
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                    Select the reason for the cancellation
-                </legend>
-                <govuk-radios-input asp-for="@Model.ProjectCancelledReason"
+
+            <govuk-radios-input id="project-cancelled-reason-type"
                                     name="project-cancelled-reason-type"
-                                    labels="@labels.ToArray()"
-                                    values="@values.ToArray()"
-                                    test-ids="@testIds.ToArray()" />
+                                label="What was the main reason for cancelling the project?"
+                                medium-heading-label=true
+                                values="@projectCancelledReasonValues"
+                                labels="@projectCancelledReasonLabels"
+                                hints="@projectCancelledReasonHints"
+                                test-ids="@projectCancelledReasonTestIds"
+                                asp-for="@Model.ProjectCancelledReason" />
 
-            <div class="govuk-form-group" id="project-cancelled-as-a-result-of-national-review-of-pipeline">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                    Was this project cancelled as a result of the national review of pipeline projects?
-                </legend>
-                    <govuk-radios-list-item id="project-cancelled-as-a-result-of-national-review-of-pipeline-yes"
+            <govuk-radios-input id="project-cancelled-as-a-result-of-national-review-of-pipeline"
                                             name="project-cancelled-as-a-result-of-national-review-of-pipeline"
-                                            value="@YesNoNotApplicable.Yes"
-                                            description="Yes"
-                                            asp-for="@Model.ProjectCancelledAsAResultOfNationalPipelineReview"/>
+                                label="Was this project cancelled as a result of the 2024/25 national review of pipeline projects?"
+                                medium-heading-label=true
+                                values="@yesNoValues"
+                                labels="yesNoLabels"
+                                asp-for="@Model.ProjectCancelledAsAResultOfNationalPipelineReview" />
 
-                    <govuk-radios-list-item id="project-cancelled-as-a-result-of-national-review-of-pipeline-no"
-                                            name="project-cancelled-as-a-result-of-national-review-of-pipeline"
-                                            value="@YesNoNotApplicable.No"
-                                            description="No"
-                                            asp-for="@Model.ProjectCancelledAsAResultOfNationalPipelineReview"/>
-            </div>
-
-            <govuk-textarea-input id="add-notes-about-the-cancellation" label="Add notes about the cancellation" hint="Optional" rows="5" bold-label="true" name="add-notes-about-the-cancellation" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-cancellation" />
+            <govuk-textarea-input id="add-notes-about-the-cancellation" label="Add notes about the cancellation" rows="5" bold-label="true" name="add-notes-about-the-cancellation" asp-for="@Model.Notes" add-margin="true" data-testid="add-notes-about-the-cancellation" />
 
             <button class="govuk-button" data-module="govuk-button" data-testid="save-and-continue">
                 Save and continue
