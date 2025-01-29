@@ -627,5 +627,51 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Helpers
                 PFACMWhyAMeetingWasNotHeld = whyMeetingWasNotHeld,
             };
         }
+
+        public static ConstructData BuildSiteInformation(string projectID)
+        {
+            return new ConstructData
+            {
+                ProjectId = projectID,
+
+                TemporarySiteAddress = "123 High Street",
+                TemporarySitePostcode = "AA1 2BB",
+                TemporaryRagRating = "Green",
+                TemporarySitePlanningDecision = "Granted",
+
+                HoTsAgreedForTemporarySiteForecast = new DateOnly().AddDays(1),
+                DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired = new DateOnly().AddDays(2),
+
+                ContractorForTemporarySiteAppointedForecast = new DateOnly().AddDays(3),
+                ContractorForTemporarySiteAppointedActual = new DateOnly().AddDays(4),
+
+                DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast = new DateOnly().AddDays(5),
+                DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual = new DateOnly().AddDays(6),
+
+                TemporaryAccommodationFirstReadyForOccupationForecast = new DateOnly().AddDays(7),
+                TemporaryAccommodationFirstReadyForOccupationActual = new DateOnly().AddDays(8),
+
+
+                MainSiteAddress = "124 High Street",
+                PostcodeOfSite = "AA1 2BC",
+                PlanningRisk = "Red",
+                PlanningDecision = "Refused",
+
+                HoTsAgreedForSiteForMainSchoolBuildingForecast = new DateOnly().AddDays(9),
+                HoTAgreedForSiteForMainSchoolBuildingActual = new DateOnly().AddDays(10),
+
+                ContractorForSiteForMainSchoolBuildingAppointedForecast = new DateOnly().AddDays(11),
+                ContractorForSiteForMainSchoolBuildingAppointedActual = new DateOnly().AddDays(12),
+
+                DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast = new DateOnly().AddDays(13),
+                DateOfPlanningDecisionForMainSiteMainPlanningRecordActual = new DateOnly().AddDays(14),
+
+                MainSchoolBuildingFirstReadyForOccupationForecast = new DateOnly().AddDays(15),
+                MainSchoolBuildingFirstReadyForOccupationActual = new DateOnly().AddDays(16),
+
+                CapitalProjectRag = "Amber/Green",
+                CapitalProjectRagRatingCommentary = "Capital Risk RAG commentary"
+            };
+        }
     }
 }

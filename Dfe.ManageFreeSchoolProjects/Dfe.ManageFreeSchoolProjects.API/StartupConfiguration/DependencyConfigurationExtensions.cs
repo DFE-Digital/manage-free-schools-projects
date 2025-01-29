@@ -133,7 +133,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.StartupConfiguration
 			services.AddScoped<IUpdateTaskService, UpdateAdmissionsArrangementsTaskService>();
 			services.AddScoped<ISfaApiKeyValidationService, SfaApiKeyValidationService>();
 			services.AddScoped<IGetProjectSitesService, GetProjectSitesService>();
-			services.AddScoped<IUpdateProjectSiteService,  UpdateProjectSiteService>();
 			services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
 			services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
 			services.AddScoped<IUpdateCapacityWhenFullService, UpdateCapacityWhenFullService>();

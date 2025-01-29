@@ -1,4 +1,5 @@
 ﻿using Dfe.ManageFreeSchoolProjects.API.Contracts.Project;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Grants;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.ResponseModels;
 using Dfe.ManageFreeSchoolProjects.API.Tests.Fixtures;
@@ -23,33 +24,55 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
 
-            project.ProjectStatusFreeSchoolApplicationWave = DatabaseModelBuilder.CreateProjectWave(ProjectType.PresumptionRoute);
-
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+
             await context.SaveChangesAsync();
 
-            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
-            updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var getSiteInformationResponse =
+                await _client.GetAsync($"/api/v1.0/client/projects/{projectId}/sites");
+            getSiteInformationResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
-            updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var siteInformationData = await getSiteInformationResponse.Content
+                .ReadResponseFromWrapper<GetProjectSitesResponse>();
 
-            var getProjectSitesResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/sites");
-            getProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            siteInformationData.TemporarySiteAddress.Should().BeNull();
+            siteInformationData.TemporarySitePostcode.Should().BeNull();
+            siteInformationData.TemporaryRagRating.Should().BeNull();
+            siteInformationData.TemporarySitePlanningDecision.Should().BeNull();
 
-            var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
+            siteInformationData.HoTsAgreedForTemporarySiteForecast.Should().BeNull();
+            siteInformationData.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired.Should().BeNull();
 
-            var actualPermanentSite = content.Data.PermanentSite;
-            var actualTemporarySite = content.Data.TemporarySite;
+            siteInformationData.ContractorForTemporarySiteAppointedForecast.Should().BeNull();
+            siteInformationData.ContractorForTemporarySiteAppointedActual.Should().BeNull();
 
-            AssertionHelper.AssertProjectSite(actualPermanentSite, updatePermanentSiteRequest);
-            AssertionHelper.AssertProjectSite(actualTemporarySite, updateTemporarySiteRequest);
+            siteInformationData.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast.Should().BeNull();
+            siteInformationData.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual.Should().BeNull();
 
-            content.Data.SchoolName.Should().Be(project.ProjectStatusCurrentFreeSchoolName);
-            content.Data.ProjectType.Should().Be("Presumption");
+            siteInformationData.TemporaryAccommodationFirstReadyForOccupationForecast.Should().BeNull();
+            siteInformationData.TemporaryAccommodationFirstReadyForOccupationActual.Should().BeNull();
+
+
+            siteInformationData.MainSiteAddress.Should().BeNull();
+            siteInformationData.PostcodeOfSite.Should().BeNull();
+            siteInformationData.PlanningRisk.Should().BeNull();
+            siteInformationData.PlanningDecision.Should().BeNull();
+
+            siteInformationData.HoTsAgreedForSiteForMainSchoolBuildingForecast.Should().BeNull();
+            siteInformationData.HoTAgreedForSiteForMainSchoolBuildingActual.Should().BeNull();
+
+            siteInformationData.ContractorForSiteForMainSchoolBuildingAppointedForecast.Should().BeNull();
+            siteInformationData.ContractorForSiteForMainSchoolBuildingAppointedActual.Should().BeNull();
+
+            siteInformationData.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast.Should().BeNull();
+            siteInformationData.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual.Should().BeNull();
+
+            siteInformationData.MainSchoolBuildingFirstReadyForOccupationForecast.Should().BeNull();
+            siteInformationData.MainSchoolBuildingFirstReadyForOccupationActual.Should().BeNull();
+
+            siteInformationData.CapitalProjectRag.Should().BeNull();
+            siteInformationData.CapitalProjectRagRatingCommentary.Should().BeNull();
         }
 
         [Fact]
@@ -58,57 +81,58 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var project = DatabaseModelBuilder.BuildProject();
             var projectId = project.ProjectStatusProjectId;
 
-            project.ProjectStatusFreeSchoolApplicationWave = DatabaseModelBuilder.CreateProjectWave(ProjectType.PresumptionRoute);
-
             using var context = _testFixture.GetContext();
             context.Kpi.Add(project);
+
+            var siteInformation = DatabaseModelBuilder.BuildSiteInformation(project.ProjectStatusProjectId);
+            context.ConstructData.Add(siteInformation);
+
             await context.SaveChangesAsync();
 
-            await SetSites(projectId);
+            var getSiteInformationResponse =
+                await _client.GetAsync($"/api/v1.0/client/projects/{projectId}/sites");
+            getSiteInformationResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
-            updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            var siteInformationData = await getSiteInformationResponse.Content
+                .ReadResponseFromWrapper<GetProjectSitesResponse>();
 
-            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
-            updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            siteInformationData.TemporarySiteAddress.Should().Be(siteInformation.TemporarySiteAddress);
+            siteInformationData.TemporarySitePostcode.Should().Be(siteInformation.TemporarySitePostcode);
+            siteInformationData.TemporaryRagRating.Should().Be(siteInformation.TemporaryRagRating);
+            siteInformationData.TemporarySitePlanningDecision.Should().Be(siteInformation.TemporarySitePlanningDecision);
 
-            var getProjectSitesResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/sites");
-            getProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            siteInformationData.HoTsAgreedForTemporarySiteForecast.Should().Be(siteInformation.HoTsAgreedForTemporarySiteForecast);
+            siteInformationData.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired.Should().Be(siteInformation.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired);
 
-            var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
+            siteInformationData.ContractorForTemporarySiteAppointedForecast.Should().Be(siteInformation.ContractorForTemporarySiteAppointedForecast);
+            siteInformationData.ContractorForTemporarySiteAppointedActual.Should().Be(siteInformation.ContractorForTemporarySiteAppointedActual);
 
-            var actualPermanentSite = content.Data.PermanentSite;
-            var actualTemporarySite = content.Data.TemporarySite;
+            siteInformationData.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast.Should().Be(siteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast);
+            siteInformationData.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual.Should().Be(siteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual);
 
-            AssertionHelper.AssertProjectSite(actualPermanentSite, updatePermanentSiteRequest);
-            AssertionHelper.AssertProjectSite(actualTemporarySite, updateTemporarySiteRequest);
+            siteInformationData.TemporaryAccommodationFirstReadyForOccupationForecast.Should().Be(siteInformation.TemporaryAccommodationFirstReadyForOccupationForecast);
+            siteInformationData.TemporaryAccommodationFirstReadyForOccupationActual.Should().Be(siteInformation.TemporaryAccommodationFirstReadyForOccupationActual);
 
-            content.Data.ProjectType.Should().Be("Presumption");
-        }
 
-        [Fact]
-        public async Task When_SiteNotConfigured_Returns_200()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
+            siteInformationData.MainSiteAddress.Should().Be(siteInformation.MainSiteAddress);
+            siteInformationData.PostcodeOfSite.Should().Be(siteInformation.PostcodeOfSite);
+            siteInformationData.PlanningRisk.Should().Be(siteInformation.PlanningRisk);
+            siteInformationData.PlanningDecision.Should().Be(siteInformation.PlanningDecision);
 
-            project.ProjectStatusFreeSchoolApplicationWave = DatabaseModelBuilder.CreateProjectWave(ProjectType.PresumptionRoute);
+            siteInformationData.HoTsAgreedForSiteForMainSchoolBuildingForecast.Should().Be(siteInformation.HoTsAgreedForSiteForMainSchoolBuildingForecast);
+            siteInformationData.HoTAgreedForSiteForMainSchoolBuildingActual.Should().Be(siteInformation.HoTAgreedForSiteForMainSchoolBuildingActual);
 
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
+            siteInformationData.ContractorForSiteForMainSchoolBuildingAppointedForecast.Should().Be(siteInformation.ContractorForSiteForMainSchoolBuildingAppointedForecast);
+            siteInformationData.ContractorForSiteForMainSchoolBuildingAppointedActual.Should().Be(siteInformation.ContractorForSiteForMainSchoolBuildingAppointedActual);
 
-            var getProjectSitesResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/sites");
-            getProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+            siteInformationData.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast.Should().Be(siteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast);
+            siteInformationData.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual.Should().Be(siteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual);
 
-            var content = await getProjectSitesResponse.Content.ReadFromJsonAsync<ApiSingleResponseV2<GetProjectSitesResponse>>();
+            siteInformationData.MainSchoolBuildingFirstReadyForOccupationForecast.Should().Be(siteInformation.MainSchoolBuildingFirstReadyForOccupationForecast);
+            siteInformationData.MainSchoolBuildingFirstReadyForOccupationActual.Should().Be(siteInformation.MainSchoolBuildingFirstReadyForOccupationActual);
 
-            AssertBlankSite(content.Data.PermanentSite);
-            AssertBlankSite(content.Data.TemporarySite);
-
-            content.Data.ProjectType.Should().Be("Presumption");
+            siteInformationData.CapitalProjectRag.Should().Be(siteInformation.CapitalProjectRag);
+            siteInformationData.CapitalProjectRagRatingCommentary.Should().Be(siteInformation.CapitalProjectRagRatingCommentary);
         }
 
         [Fact]
@@ -118,51 +142,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             var getProjectSitesResponse = await _client.GetAsync($"/api/v1/client/projects/{projectId}/sites");
             getProjectSitesResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        [Fact]
-        public async Task When_Patch_ProjectDoesNotExist_Returns_404()
-        {
-            var projectId = Guid.NewGuid().ToString();
-            var updateSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-
-            var updateSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updateSiteRequest.ConvertToJson());
-            updateSiteResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
-        }
-
-        [Fact]
-        public async Task When_Patch_SiteTypeInvalid_Returns_400()
-        {
-            var project = DatabaseModelBuilder.BuildProject();
-            var projectId = project.ProjectStatusProjectId;
-            var updateSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-
-            using var context = _testFixture.GetContext();
-            context.Kpi.Add(project);
-            await context.SaveChangesAsync();
-
-            var updateSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/invalid", updateSiteRequest.ConvertToJson());
-            updateSiteResponse.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
-        private async Task SetSites(string projectId)
-        {
-            var setPermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var setPermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", setPermanentSiteRequest.ConvertToJson());
-            setPermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var setTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var setTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", setTemporarySiteRequest.ConvertToJson());
-            setTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        private static void AssertBlankSite(ProjectSite actual)
-        {
-            actual.Address.AddressLine1.Should().BeNull();
-            actual.Address.AddressLine2.Should().BeNull();
-            actual.Address.Postcode.Should().BeNull();
-            actual.Address.TownOrCity.Should().BeNull();
-            actual.StartDateOfSiteOccupation.Should().BeNull();
         }
     }
 }

@@ -103,11 +103,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ChairOfGovernors = project.KeyContactsChairOfGovernorsName,
                     SchoolChairOfGovernors = project.KeyContactsChairOfGovernorsMat
                 },
-                SiteInformation = new SiteInformationResponse
-                {
-                    //PermanentSite = sites.PermanentSite,
-                    //TemporarySite = sites.TemporarySite
-                },
                 PupilNumbers = pupilNumbers
             };
 

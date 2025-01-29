@@ -10,7 +10,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public ProjectStatusResponse ProjectStatus { get; set; }
         public SchoolDetailsResponse SchoolDetails { get; set; }
         public KeyContactsResponse KeyContacts { get; set; }
-        public SiteInformationResponse SiteInformation { get; set; }
         public ProjectRiskOverviewResponse Risk { get; set; }
         public PupilNumbersOverviewResponse PupilNumbers { get; set; }
 
@@ -79,14 +78,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Contracts.Project
         public string Grade6 { get; set; }
         public string ProjectDirector { get; set; }
         public string ProjectManager { get; set; }
-        public string ChairOfGovernors { get; set; }
+        public string ChairOfGovernors { get; set; } 
         public string SchoolChairOfGovernors { get; set; }
-    }
-
-    public record SiteInformationResponse
-    {
-        public ProjectSite TemporarySite { get; set; }
-        public ProjectSite PermanentSite { get; set; }
     }
 
     public record ProjectRiskOverviewResponse

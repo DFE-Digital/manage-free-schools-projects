@@ -110,7 +110,6 @@ public class Startup
         services.AddScoped<IAnalyticsConsentService, AnalyticsConsentService>();
         services.AddScoped<IAllProjectsReportService, AllProjectsReportService>();
         services.AddScoped<IGetProjectSitesService, GetProjectSitesService>();
-        services.AddScoped<IUpdateProjectSitesService, UpdateProjectSitesService>();
         services.AddScoped<IGetPupilNumbersService, GetPupilNumbersService>();
         services.AddScoped<IUpdatePupilNumbersService, UpdatePupilNumbersService>();
         services.AddScoped<IGetProjectPaymentsService, GetProjectPaymentsService>();

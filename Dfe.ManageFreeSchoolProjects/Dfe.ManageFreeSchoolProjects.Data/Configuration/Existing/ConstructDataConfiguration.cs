@@ -15,8 +15,8 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Configuration.Existing
 		public void Configure(EntityTypeBuilder<ConstructData> builder)
 		{
             builder
-                .HasNoKey()
-                .ToTable("constructData", "dbo");
+                .ToTable("constructData", "dbo")
+                .HasKey(e => e.ProjectId);
 
             builder.Property(e => e.CapitalProjectRag)
                 .IsUnicode(false)
