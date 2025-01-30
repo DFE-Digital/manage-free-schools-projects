@@ -41,7 +41,16 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			return ToDateString(dateTime.Value, includeDayOfWeek, truncateMonth);
 		}
 
-		public static string ToDateString(this DateTime dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
+        public static string ToDateString(this DateOnly? dateOnly, bool includeDayOfWeek = false, bool truncateMonth = false)
+        {
+            if (!dateOnly.HasValue)
+            {
+                return string.Empty;
+            }
+            return ToDateString(dateOnly.Value, includeDayOfWeek, truncateMonth);
+        }
+
+        public static string ToDateString(this DateTime dateTime, bool includeDayOfWeek = false, bool truncateMonth = false)
 		{
 			if (includeDayOfWeek)
 			{
@@ -51,7 +60,17 @@ namespace Dfe.ManageFreeSchoolProjects.Extensions
 			return truncateMonth ? dateTime.ToString("d MMM yyyy"): dateTime.ToString("d MMMM yyyy");
 		}
 
-		public static DateTime FirstOfMonth(this DateTime thisMonth, int monthsToAdd)
+        public static string ToDateString(this DateOnly dateOnly, bool includeDayOfWeek = false, bool truncateMonth = false)
+        {
+            if (includeDayOfWeek)
+            {
+                return truncateMonth ? dateOnly.ToString("dddd d MMM yyyy") : dateOnly.ToString("dddd d MMMM yyyy");
+            }
+
+            return truncateMonth ? dateOnly.ToString("d MMM yyyy") : dateOnly.ToString("d MMMM yyyy");
+        }
+
+        public static DateTime FirstOfMonth(this DateTime thisMonth, int monthsToAdd)
 		{
 			var month = (thisMonth.Month + monthsToAdd) % 12;
 			if (month == 0) month = 12;

@@ -1,6 +1,8 @@
 ﻿@page "/projects/{projectId}/site-information"
 @using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Sites
 @using Dfe.ManageFreeSchoolProjects.Constants
+@using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Risk;
+
 @model Dfe.ManageFreeSchoolProjects.Pages.Project.SiteInformation.ViewSiteInformationModel
 @{
     var projectStatusViewModel = new ProjectStatusViewModel()
@@ -9,10 +11,6 @@
                 ProjectStatus = @Model.ProjectStatus,
                 Referrer = Referrer.ProjectOverview
             };
-
-    var projectType = Model.SiteInformation.ProjectType;
-    var editPermanentSite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditPermanentSiteInformation, Model.ProjectId);
-    var editTemporarySite = projectType == "Central Route" ? "" : string.Format(RouteConstants.EditTemporarySiteInformation, Model.ProjectId);
 
     ViewData["Title"] = $"Site information - {Model.SiteInformation.SchoolName}";
     ViewData["WidePage"] = true;
@@ -33,17 +31,332 @@
     <mfsp-nav project-id="@Model.ProjectId" current-index="@currentNavIndex" />
     <div class="govuk-grid-column-three-quarters">
         <div class="govuk-grid-column-full">
-            @{
-                if (projectType == "Central Route")
-                {
-                        <div class="govuk-inset-text" data-testid="central-route-hint">
-                            Site information is in the Construct system for central route projects. Contact the relevant project director in Education Estates to access it.
-                        </div>
-                }
-            }
+            <div class="govuk-inset-text" data-testid="central-route-hint">
+                            Site information imported from Construct
+            </div>
 
-            <govuk-site-details site="@Model.SiteInformation.TemporarySite" edit-link="@editTemporarySite" site-type="@ProjectSiteType.Temporary.ToString()" project-type="@Model.SiteInformation.ProjectType" />
-            <govuk-site-details site="@Model.SiteInformation.PermanentSite" edit-link="@editPermanentSite" site-type="@ProjectSiteType.Permanent.ToString()" project-type="@Model.SiteInformation.ProjectType" />
+            <h2 class="govuk-heading-m govuk-!-font-size-27" id="temporary-site">Temporary site</h2>
+            <dl class="govuk-summary-list">
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-address">
+                        Address
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="temporary-site-address">
+                        @{
+                            RenderValue(@Model.SiteInformation.TemporarySiteAddress);
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-postcode">
+                        Postcode
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="temporary-site-postcode">
+                        @{
+                            RenderValue(@Model.SiteInformation.TemporarySitePostcode);
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-site-risk-rating">
+                        Temporary site risk rating
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="temporary-site-risk-rating">
+                        <govuk-risk-rating-label risk-rating="@ToRiskRating(Model.SiteInformation.TemporaryRagRating)" />
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-planning-decision">
+                        Planning decision
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="temporary-site-planning-decision">
+                        @{
+                            RenderValue(@Model.SiteInformation.TemporarySitePlanningDecision);
+                        }
+                    </dd>
+                </div>
+            </dl>
+            <dl class="govuk-summary-list">
+                <h2 class="govuk-heading-m govuk-!-font-size-24" id="temporary-key-dates-heading">Key dates</h2>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-key-dates">
+                        Key dates
+                    </dt>
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-forecast-dates">
+                        Forecast
+                    </dt>
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-actual-dates">
+                        Actual
+                    </dt>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-heads-of-terms-agreed">
+                        Heads of terms agreed
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-heads-of-terms-agreed-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.HoTsAgreedForTemporarySiteForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-heads-of-terms-agreed-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-contractor-appointed">
+                        Contractor appointed
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-contractor-appointed-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-contractor-appointed-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-planning-decision-date">
+                        Planning decision
+                        <span class="govuk-visually-hidden">Date of planning decision</span>
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-planning-decision-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-planning-decision-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="temporary-accomodation-first-ready-for-occupation">
+                        Temporary accommodation first ready for occupation
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+            </dl>
+
+
+            <h2 class="govuk-heading-m govuk-!-font-size-27" id="temporary-site">Permanent site</h2>
+            <dl class="govuk-summary-list">
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-address">
+                        Address
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="permanent-site-address">
+                        @{
+                            RenderValue(@Model.SiteInformation.MainSiteAddress);
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-postcode">
+                        Postcode
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="permanent-site-postcode">
+                        @{
+                            RenderValue(@Model.SiteInformation.PostcodeOfSite);
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-site-risk-rating">
+                        Permanent site risk rating
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="permanent-site-risk-rating">
+                        <govuk-risk-rating-label risk-rating="@ToRiskRating(Model.SiteInformation.PlanningRisk)" />
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-planning-decision">
+                        Planning decision
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="permanent-site-planning-decision">
+                        @{
+                            RenderValue(@Model.SiteInformation.PlanningDecision);
+                        }
+                    </dd>
+                </div>
+
+                
+            </dl>
+            <dl class="govuk-summary-list">
+                <h2 class="govuk-heading-m govuk-!-font-size-24" id="permanent-key-dates-heading">Key dates</h2>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-key-dates">
+                        Key dates
+                    </dt>
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-forecast-dates">
+                        Forecast
+                    </dt>
+                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-actual-dates">
+                        Actual
+                    </dt>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-heads-of-terms-agreed">
+                        Heads of terms agreed
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-heads-of-terms-agreed-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.HoTsAgreedForSiteForMainSchoolBuildingForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-heads-of-terms-agreed-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.HoTAgreedForSiteForMainSchoolBuildingActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-contractor-appointed">
+                        Contractor appointed
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-contractor-appointed-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-contractor-appointed-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-planning-decision-date">
+                        Planning decision
+                        <span class="govuk-visually-hidden">Date of planning decision</span>
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-planning-decision-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-planning-decision-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="permanent-accomodation-first-ready-for-occupation">
+                        Permanent accommodation first ready for occupation
+                    </dt>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-forecast">
+                        @{
+                            RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationForecast.ToDateString());
+                        }
+                    </dd>
+                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-actual">
+                        @{
+                            RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationActual.ToDateString());
+                        }
+                    </dd>
+                </div>
+
+            </dl>
+
+            <h2 class="govuk-heading-m govuk-!-font-size-27" id="capital-risk-information">Capital risk information</h2>
+            <dl class="govuk-summary-list">
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="capital-rating">
+                        Capital rating
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="capital-rating">
+                        <govuk-risk-rating-label risk-rating="@ToRiskRating(Model.SiteInformation.CapitalProjectRag)" />
+                    </dd>
+                </div>
+
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" id="risk-summary">
+                        Risk summary
+                    </dt>
+                    <dd class="govuk-summary-list__value" data-testid="capital-rating-commentary">
+                        @{
+                            RenderValue(@Model.SiteInformation.CapitalProjectRagRatingCommentary);
+                        }
+                    </dd>
+                </div>
+            </dl>
+            </div>
         </div>
     </div>
-</div>
+
+@functions {
+
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+
+    public static ProjectRiskRating? ToRiskRating(string value)
+    {
+        if (value == "Green")
+        {
+            return ProjectRiskRating.Green;
+        }
+
+        if (value == "Amber/Green")
+        {
+            return ProjectRiskRating.AmberGreen;
+        }
+
+        if (value == "Amber/Red")
+        {
+            return ProjectRiskRating.AmberRed;
+        }
+
+        if (value == "Red")
+        {
+            return ProjectRiskRating.Red;
+        }
+
+        return null;
+    }
+}
+
+}

@@ -43,14 +43,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             var createProjectRiskResponse = await _client.PostAsync($"/api/v1/client/projects/{projectId}/risk", createProjectRiskRequest.ConvertToJson());
             createProjectRiskResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-            var updatePermanentSiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updatePermanentSiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/permanent", updatePermanentSiteRequest.ConvertToJson());
-            updatePermanentSiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
-            var updateTemporarySiteRequest = _autoFixture.Create<UpdateProjectSiteRequest>();
-            var updateTemporarySiteResponse = await _client.PatchAsync($"/api/v1/client/projects/{projectId}/sites/temporary", updateTemporarySiteRequest.ConvertToJson());
-            updateTemporarySiteResponse.StatusCode.Should().Be(HttpStatusCode.OK);
-
             await UpdatePupilNumbers(projectId);
 
             var overviewResponse = await _client.GetAsync($"/api/v1/client/projects/{project.ProjectStatusProjectId}/overview");
@@ -109,10 +101,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
             result.Data.KeyContacts.ProjectDirector.Should().Be(project.KeyContactsEsfaCapitalProjectDirector);
             result.Data.KeyContacts.ProjectManager.Should().Be(project.KeyContactsFsgLeadContact);
 
-            // Site
-            AssertionHelper.AssertProjectSite(result.Data.SiteInformation.PermanentSite, updatePermanentSiteRequest);
-            AssertionHelper.AssertProjectSite(result.Data.SiteInformation.TemporarySite, updateTemporarySiteRequest);
-
             // Pupil numbers
             var pupilNumbers = result.Data.PupilNumbers;
             pupilNumbers.TotalCapacity.Should().Be(300);
@@ -159,9 +147,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration
 
             // Key contacts
             result.Data.KeyContacts.Should().NotBeNull();
-
-            // Site information
-            result.Data.SiteInformation.Should().NotBeNull();
 
             // Pupil numbers
             var pupilNumbers = result.Data.PupilNumbers;
