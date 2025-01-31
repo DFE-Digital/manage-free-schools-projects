@@ -19,7 +19,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
         public Task<ProjectOverviewResponse> Execute(string projectId);
     }
 
-    public class GetProjectOverviewService(MfspContext context, IGetProjectSitesService getProjectSitesService) : IGetProjectOverviewService
+    public class GetProjectOverviewService(MfspContext context) : IGetProjectOverviewService
     {
         public async Task<ProjectOverviewResponse> Execute(string projectId)
         {
@@ -31,16 +31,14 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
             }
 
             var risk = await GetRisk(project.Rid);
-            var sites = await getProjectSitesService.Execute(project);
             var pupilNumbers = await GetPupilNumbers(project.Rid);
 
-            return BuildOverviewResponse(project, risk, sites, pupilNumbers);
+            return BuildOverviewResponse(project, risk, pupilNumbers);
         }
 
         private static ProjectOverviewResponse BuildOverviewResponse(
             Kpi project,
             ProjectRiskOverviewResponse risk,
-            GetProjectSitesResponse sites,
             PupilNumbersOverviewResponse pupilNumbers)
         {
 
@@ -102,11 +100,6 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.ProjectOverview
                     ProjectManager = project.KeyContactsFsgLeadContact,
                     ChairOfGovernors = project.KeyContactsChairOfGovernorsName,
                     SchoolChairOfGovernors = project.KeyContactsChairOfGovernorsMat
-                },
-                SiteInformation = new SiteInformationResponse
-                {
-                    PermanentSite = sites.PermanentSite,
-                    TemporarySite = sites.TemporarySite
                 },
                 PupilNumbers = pupilNumbers
             };

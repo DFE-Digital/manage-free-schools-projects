@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20250129104046_AddedKeyToConstructData")]
+    partial class AddedKeyToConstructData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4408,9 +4411,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Project Status.Actual opening date");
 
                     b.Property<string>("ProjectStatusCommentaryForCancellation")
-                        .HasMaxLength(500)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Project Status.Commentary for cancellation");
 
                     b.Property<string>("ProjectStatusCommentaryForFirstDeferral")
@@ -4432,9 +4435,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Project Status.Commentary for third deferral");
 
                     b.Property<string>("ProjectStatusCommentaryForWithdrawal")
-                        .HasMaxLength(500)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Project Status.Commentary for withdrawal");
 
                     b.Property<string>("ProjectStatusCurrentFreeSchoolName")
@@ -8827,12 +8830,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("RID");
 
-                    b.Property<string>("CommentsAboutUnderwrittenPlaces")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("ConfirmationFromLocalAuthoritySavedInWorkplacesFolder")
-                        .HasColumnType("bit");
-
                     b.Property<string>("FinancialPlanningOptInToRpa")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -10645,51 +10642,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(4)")
                         .HasColumnName("Pupil numbers and capacity.YR-Y6 capacity");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesPrimaryYear7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSecondaryYear1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSecondaryYear2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSecondaryYear3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSecondaryYear4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSecondaryYear5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSixteenToNineteenYear1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSixteenToNineteenYear2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UnderwrittenPlacesSixteenToNineteenYear3")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UpdatedByUserId")
                         .HasColumnType("int");
