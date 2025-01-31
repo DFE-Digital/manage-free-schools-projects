@@ -64,10 +64,7 @@
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
                             <dd class="govuk-summary-list__value" data-testid="commentary-for-cancellation">
-                                <div class="govuk-body dfe-text-area-display" >
-                                @{
-                                    RenderValue(Model.Project.ProjectStatus.CommentaryForCancellation);
-                                }
+                                <div class="govuk-body dfe-text-area-display">@{RenderValue(Model.Project.ProjectStatus.CommentaryForCancellation);}
                                 </div>
                             </dd>
                         </div>
@@ -96,10 +93,7 @@
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">Comments</dt>
                             <dd class="govuk-summary-list__value" data-testid="commentary-for-withdrawal">
-                                <div class="govuk-body dfe-text-area-display">
-                                    @{
-                                        RenderValue(Model.Project.ProjectStatus.CommentaryForWithdrawal);
-                                    }
+                                <div class="govuk-body dfe-text-area-display">@{RenderValue(Model.Project.ProjectStatus.CommentaryForWithdrawal);}
                                 </div>
                             </dd>
                         </div>
