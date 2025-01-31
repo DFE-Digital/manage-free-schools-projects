@@ -14,6 +14,7 @@ using Dfe.ManageFreeSchoolProjects.Validators;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using System.ComponentModel;
 using System.Linq;
+using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 
 
 namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
@@ -22,6 +23,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
     {
         private readonly IGetProjectByTaskService _getProjectService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
+        private readonly IUpdateFinancePlanCache _updateFinancePlanCache;
         private readonly ILogger<EditFinancePlanTaskModel> _logger;
         private readonly ErrorService _errorService;
 
@@ -66,11 +68,13 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         public EditFinancePlanTaskModel(
             IGetProjectByTaskService getProjectService,
             IUpdateProjectByTaskService updateProjectTaskService,
+            IUpdateFinancePlanCache updateFinancePlanCache,
             ILogger<EditFinancePlanTaskModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
             _updateProjectTaskService = updateProjectTaskService;
+            _updateFinancePlanCache = updateFinancePlanCache;
             _logger = logger;
             _errorService = errorService;
         }
@@ -101,18 +105,37 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
                 return Page();
             }
 
+            var project = await _getProjectService.Execute(ProjectId, TaskName.FinancePlan);
+
             var updateTaskRequest = new UpdateProjectByTaskRequest()
             {
                 FinancePlan = new()
                 {
                     FinancePlanAgreed = FinancePlanAgreed == true ? YesNo.Yes : YesNo.No,
                     DateAgreed = DateAgreed,
-                    PlanSavedInWorksplacesFolder = PlanSavedInWorkplacesFolder == true ? YesNo.Yes : YesNo.No,
-                    Comments = Comments,
+                    PlanSavedInWorkplacesFolder = PlanSavedInWorkplacesFolder == true ? YesNo.Yes : YesNo.No,
                     LocalAuthorityAgreedPupilNumbers = ConvertYesNoNotApplicable(LocalAuthorityAgreedToPupilNumbers),
                     TrustWillOptIntoRpa = ConvertYesNo(TrustOptIntoRpa),
                     RpaStartDate =  null,
-                    RpaCoverType = null
+                    RpaCoverType = null,
+
+                    UnderwrittenPlacesPrimaryYear1 = project.FinancePlan.UnderwrittenPlacesPrimaryYear1,
+                    UnderwrittenPlacesPrimaryYear2 = project.FinancePlan.UnderwrittenPlacesPrimaryYear2,
+                    UnderwrittenPlacesPrimaryYear3 = project.FinancePlan.UnderwrittenPlacesPrimaryYear3,
+                    UnderwrittenPlacesPrimaryYear4 = project.FinancePlan.UnderwrittenPlacesPrimaryYear4,
+                    UnderwrittenPlacesPrimaryYear5 = project.FinancePlan.UnderwrittenPlacesPrimaryYear5,
+                    UnderwrittenPlacesPrimaryYear6 = project.FinancePlan.UnderwrittenPlacesPrimaryYear6,
+                    UnderwrittenPlacesPrimaryYear7 = project.FinancePlan.UnderwrittenPlacesPrimaryYear7,
+                    UnderwrittenPlacesSecondaryYear1 = project.FinancePlan.UnderwrittenPlacesSecondaryYear1,
+                    UnderwrittenPlacesSecondaryYear2 = project.FinancePlan.UnderwrittenPlacesSecondaryYear2,
+                    UnderwrittenPlacesSecondaryYear3 = project.FinancePlan.UnderwrittenPlacesSecondaryYear3,
+                    UnderwrittenPlacesSecondaryYear4 = project.FinancePlan.UnderwrittenPlacesSecondaryYear4,
+                    UnderwrittenPlacesSecondaryYear5 = project.FinancePlan.UnderwrittenPlacesSecondaryYear5,
+                    UnderwrittenPlacesSixteenToNineteenYear1 = project.FinancePlan.UnderwrittenPlacesSixteenToNineteenYear1,
+                    UnderwrittenPlacesSixteenToNineteenYear2 = project.FinancePlan.UnderwrittenPlacesSixteenToNineteenYear2,
+                    UnderwrittenPlacesSixteenToNineteenYear3 = project.FinancePlan.UnderwrittenPlacesSixteenToNineteenYear3,
+                    ConfirmationFromLocalAuthoritySavedInWorkplacesFolder = project.FinancePlan.ConfirmationFromLocalAuthoritySavedInWorkplacesFolder,
+                    CommentsAboutUnderwrittenPlaces = project.FinancePlan.CommentsAboutUnderwrittenPlaces,
                 }
             };
 
@@ -122,7 +145,18 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
                 updateTaskRequest.FinancePlan.RpaCoverType = RpaCoverType;
             }
 
-            await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
+            if (ConvertYesNoNotApplicable(LocalAuthorityAgreedToPupilNumbers) == YesNoNotApplicable.Yes)
+            {
+                var existingCacheItem = _updateFinancePlanCache.Get();
+
+                existingCacheItem.FinancePlan = updateTaskRequest.FinancePlan;
+
+                _updateFinancePlanCache.Update(existingCacheItem);
+
+                return Redirect(string.Format(RouteConstants.EditUnderwrittenPlaces, ProjectId));
+            }
+
+        await _updateProjectTaskService.Execute(ProjectId, updateTaskRequest);
 
             return Redirect(string.Format(RouteConstants.ViewFinancePlanTask, ProjectId));
         }
@@ -133,8 +167,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
 
             FinancePlanAgreed = project.FinancePlan.FinancePlanAgreed == YesNo.Yes;
             DateAgreed = project.FinancePlan.DateAgreed;
-            PlanSavedInWorkplacesFolder = project.FinancePlan.PlanSavedInWorksplacesFolder == YesNo.Yes;
-            Comments = project.FinancePlan.Comments;
+            PlanSavedInWorkplacesFolder = project.FinancePlan.PlanSavedInWorkplacesFolder == YesNo.Yes;
             LocalAuthorityAgreedToPupilNumbers = project.FinancePlan.LocalAuthorityAgreedPupilNumbers?.ToString();
             TrustOptIntoRpa = project.FinancePlan.TrustWillOptIntoRpa?.ToString();
             RpaStartDate = project.FinancePlan.RpaStartDate;

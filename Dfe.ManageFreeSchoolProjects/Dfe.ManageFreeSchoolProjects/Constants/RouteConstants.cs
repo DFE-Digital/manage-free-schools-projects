@@ -52,6 +52,7 @@ namespace Dfe.ManageFreeSchoolProjects.Constants
 
         public const string ViewFinancePlanTask = TaskList + "/finance-plan";
         public const string EditFinancePlanTask = ViewFinancePlanTask + "/edit";
+        public const string EditUnderwrittenPlaces = ViewFinancePlanTask + "/underwritten-places/edit";
         
         public const string ViewPrincipalDesignateTask = TaskList + "/principal-designate";
         public const string EditPrincipalDesignateTask = ViewPrincipalDesignateTask + "/edit";

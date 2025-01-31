@@ -98,6 +98,7 @@ public class Startup
         services.AddScoped<IGetProjectRiskService, GetProjectRiskService>();
         services.AddScoped<ICreateProjectRiskCache, CreateProjectRiskCache>();
         services.AddScoped<ICreateProjectRiskService, CreateProjectRiskService>();
+        services.AddScoped<IUpdateFinancePlanCache, UpdateFinancePlanCache>();
         services.AddScoped<IGetTrustByRefService, GetTrustByRefService>();
         services.AddScoped<ISearchTrustByRefService, SearchTrustByRefService>();
         services.AddScoped<IGetContactsService, GetContactsService>();

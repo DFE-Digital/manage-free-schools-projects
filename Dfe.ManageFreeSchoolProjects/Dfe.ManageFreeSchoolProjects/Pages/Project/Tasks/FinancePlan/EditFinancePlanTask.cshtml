@@ -39,7 +39,6 @@
                                 values="@yesNoNotApplicableValues"
                                 labels="@yesNoNotApplicableLabels"
                                 test-ids="@localAuthorityAgreedTestIds"/>
-            <govuk-textarea-input id="comments" name="comments" bold-label="true" label="Comments" rows="5" asp-for="@Model.Comments" add-margin="true" test-id="comments" />
             <govuk-conditional-radio id="trust-opt-into-rpa" label="Trust will opt-in to RPA (risk protection arrangement)" asp-for="@Model.TrustOptIntoRpa">
                 <govuk-date-input id="rpa-start-date" name="rpa-start-date" asp-for="@Model.RpaStartDate" label="Start date" hint="For example, 27 3 2021" small-label="true" />
                 <govuk-text-input id="rpa-cover-type" name="rpa-cover-type" asp-for="@Model.RpaCoverType" label="Type of RPA cover" small-label="true" />

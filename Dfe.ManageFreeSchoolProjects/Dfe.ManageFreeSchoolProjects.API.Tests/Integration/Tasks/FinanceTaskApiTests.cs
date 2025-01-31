@@ -33,10 +33,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 FinancePlan = new FinancePlanTask()
                 {
                     FinancePlanAgreed = YesNo.Yes,
-                    Comments = "CommentsOnDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.Yes,
                     DateAgreed = dateAgreed,
-                    PlanSavedInWorksplacesFolder = YesNo.Yes,
+                    PlanSavedInWorkplacesFolder = YesNo.Yes,
                     TrustWillOptIntoRpa = YesNo.Yes,
                     RpaCoverType = "RpaCoverType",
                     RpaStartDate = rpaStartDate
@@ -46,10 +45,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
 
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.Yes);
-            projectResponse.FinancePlan.Comments.Should().Be("CommentsOnDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.Yes);
             projectResponse.FinancePlan.DateAgreed.Should().Be(dateAgreed);
-            projectResponse.FinancePlan.PlanSavedInWorksplacesFolder.Should().Be(YesNo.Yes);
+            projectResponse.FinancePlan.PlanSavedInWorkplacesFolder.Should().Be(YesNo.Yes);
             projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.Yes);
             projectResponse.FinancePlan.RpaCoverType.Should().Be("RpaCoverType");
             projectResponse.FinancePlan.RpaStartDate.Should().Be(rpaStartDate);
@@ -77,10 +75,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
                 FinancePlan = new FinancePlanTask()
                 {
                     FinancePlanAgreed = YesNo.No,
-                    Comments = "ChangedDecisionToApprove",
                     LocalAuthorityAgreedPupilNumbers = YesNoNotApplicable.NotApplicable,
                     DateAgreed = dateAgreed,
-                    PlanSavedInWorksplacesFolder = YesNo.No,
+                    PlanSavedInWorkplacesFolder = YesNo.No,
                     TrustWillOptIntoRpa = YesNo.No,
                     RpaCoverType = "a new RpaCoverType",
                     RpaStartDate = rpaStartDate
@@ -90,10 +87,9 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Integration.Tasks
             var projectResponse = await _client.UpdateProjectTask(projectId, request, TaskName.FinancePlan.ToString());
 
             projectResponse.FinancePlan.FinancePlanAgreed.Should().Be(YesNo.No);
-            projectResponse.FinancePlan.Comments.Should().Be("ChangedDecisionToApprove");
             projectResponse.FinancePlan.LocalAuthorityAgreedPupilNumbers.Should().Be(YesNoNotApplicable.NotApplicable);
             projectResponse.FinancePlan.DateAgreed.Should().Be(dateAgreed);
-            projectResponse.FinancePlan.PlanSavedInWorksplacesFolder.Should().Be(YesNo.No);
+            projectResponse.FinancePlan.PlanSavedInWorkplacesFolder.Should().Be(YesNo.No);
             projectResponse.FinancePlan.TrustWillOptIntoRpa.Should().Be(YesNo.No);
             projectResponse.FinancePlan.RpaCoverType.Should().Be("a new RpaCoverType");
             projectResponse.FinancePlan.RpaStartDate.Should().Be(rpaStartDate);
