@@ -15,7 +15,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.inputs.environment }}
 
 env:
-  NODE_VERSION: 20.x
+  IMAGE_NAME: mfsp-app
 
 jobs:
   set-env:
@@ -24,6 +24,7 @@ jobs:
     outputs:
       environment: ${{ steps.var.outputs.environment }}
       release: ${{ steps.var.outputs.release }}
+      image-name: ${{ steps.var.outputs.image-name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,6 +36,7 @@ jobs:
           RELEASE=${ENVIRONMENT,,}-`date +%Y-%m-%d`.${{ github.run_number }}
           echo "environment=${ENVIRONMENT,,}" >> $GITHUB_OUTPUT
           echo "release=${RELEASE}" >> $GITHUB_OUTPUT
+          echo "image-name=${{ env.IMAGE_NAME }}" >> $GITHUB_OUTPUT
 
   build:
     name: Build
@@ -55,10 +57,9 @@ jobs:
             tag-prefix: "api-"
     with:
       environment: ${{ needs.set-env.outputs.environment }}
-      docker-image-name: 'mfsp-app'
+      docker-image-name: ${{ needs.set-env.outputs.image-name }}
+      docker-build-args: CI=true
       docker-build-file-name: ./Dockerfile.${{ matrix.image }}
-      docker-build-context: ${{ inputs.docker-build-context }}
-      docker-build-args: ${{ inputs.docker-build-args }}
       docker-tag-prefix: ${{ matrix.tag-prefix }}
 
   import:
@@ -80,7 +81,7 @@ jobs:
             tag-prefix: "api-"
     with:
       environment: ${{ needs.set-env.outputs.environment }}
-      docker-image-name: 'mfsp-app'
+      docker-image-name: ${{ needs.set-env.outputs.image-name }}
       docker-tag-prefix: ${{ matrix.tag-prefix }}
     secrets:
       azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -109,7 +110,7 @@ jobs:
             aca_name_secret: "ACA_CONTAINERAPP_API_NAME"
     with:
       environment: ${{ needs.set-env.outputs.environment }}
-      docker-image-name: 'mfsp-app'
+      docker-image-name: ${{ needs.set-env.outputs.image-name }}
       docker-tag-prefix: ${{ matrix.tag-prefix }}
       annotate-release: ${{ matrix.image == 'web' }}
     secrets:
