@@ -17,16 +17,20 @@ RUN ["dotnet", "build", "Dfe.ManageFreeSchoolProjects.Data", "--no-restore"]
 RUN ["dotnet", "ef", "migrations", "script", "--output", "/app/SQL/DbMigrationScript.sql", "--idempotent", "-p", "/build/Dfe.ManageFreeSchoolProjects.Data", "--no-build"]
 RUN ["touch", "/app/SQL/DbMigrationScriptOutput.txt"]
 
-# Install SQL tools to allow migrations to be run
-FROM "mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-azurelinux3.0" AS base
-RUN curl "https://packages.microsoft.com/config/rhel/9/prod.repo" | tee /etc/yum.repos.d/mssql-release.repo
-ENV ACCEPT_EULA=Y
-RUN ["tdnf", "update", "-y", "--security"]
-RUN ["tdnf", "install", "-y", "mssql-tools18"]
-RUN ["tdnf", "clean", "all"]
-
 # Build a runtime environment
-FROM base AS runtime
+FROM "mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-azurelinux3.0" AS runtime
+
+# Install SQL tools to allow migrations to be run
+RUN curl -fsSL https://packages.microsoft.com/config/rhel/8/prod.repo -o /tmp/mssql.repo \
+    && cat /tmp/mssql.repo | sed 's/\[packages-microsoft-com-prod\]/[mssql-release]/; s/repo_gpgcheck=1//' > /etc/yum.repos.d/mssql-release.repo \
+    && rm /tmp/mssql.repo \
+    && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
+    && tdnf clean all \
+    && tdnf update -y --security
+RUN ACCEPT_EULA=Y tdnf install -y mssql-tools18
+RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+RUN source ~/.bashrc
+
 WORKDIR /app
 LABEL org.opencontainers.image.source="https://github.com/DFE-Digital/manage-free-school-projects"
 LABEL org.opencontainers.image.description="Manage Free School Projects - API"
