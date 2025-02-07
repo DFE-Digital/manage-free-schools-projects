@@ -4414,9 +4414,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Project Status.Commentary for cancellation");
 
                     b.Property<string>("ProjectStatusCommentaryForFirstDeferral")
-                        .HasMaxLength(500)
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(500)")
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("Project Status.Commentary for first deferral");
 
                     b.Property<string>("ProjectStatusCommentaryForSecondDeferral")
@@ -4432,9 +4432,9 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnName("Project Status.Commentary for third deferral");
 
                     b.Property<string>("ProjectStatusCommentaryForWithdrawal")
-                        .HasMaxLength(100)
+                        .HasMaxLength(500)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(500)")
                         .HasColumnName("Project Status.Commentary for withdrawal");
 
                     b.Property<string>("ProjectStatusCurrentFreeSchoolName")
