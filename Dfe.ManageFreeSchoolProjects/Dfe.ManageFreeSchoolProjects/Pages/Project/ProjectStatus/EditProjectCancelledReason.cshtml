@@ -9,7 +9,7 @@
 
 @{
     var backlink = string.Format(RouteConstants.EditProjectStatus, Model.ProjectId);
-    ViewData["Title"] = "Provide reasons for changing the status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
+    ViewData["Title"] = "Provide a reason for changing the status - " + $"{Model.Project.ProjectStatus.CurrentFreeSchoolName}";
 
     var projectCancelledReasonLabels = new[]
     {
@@ -62,7 +62,7 @@
     <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-xl">
             <span class="govuk-caption-l" data-testid="school-name">@Model.Project.ProjectStatus.CurrentFreeSchoolName</span>
-            Provide reasons for changing the status
+            Provide a reason for changing the status
         </h1>
         <form method="post">
             <govuk-date-input id="year-cancelled" name="year-cancelled" asp-for="@Model.CancelledYear" label="When was the project cancelled?" hint="For example, 27 3 2021" />
