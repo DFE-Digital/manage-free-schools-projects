@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Dfe.ManageFreeSchoolProjects.Validators;
 using Dfe.ManageFreeSchoolProjects.Constants;
 using System.ComponentModel;
-using System.Linq;
 using Dfe.ManageFreeSchoolProjects.Services.Tasks;
 using Dfe.ManageFreeSchoolProjects.Extensions;
 
@@ -26,7 +25,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
         private readonly IGetProjectOverviewService _getProjectOverviewService;
         private readonly IUpdateProjectByTaskService _updateProjectTaskService;
         private readonly IUpdateFinancePlanCache _updateFinancePlanCache;
-        private readonly ILogger<EditFinancePlanTaskModel> _logger;
+        private readonly ILogger<EditUnderwrittenPlacesModel> _logger;
         private readonly ErrorService _errorService;
 
         [BindProperty(SupportsGet = true, Name = "projectId")]
@@ -129,7 +128,7 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
             IGetProjectOverviewService getProjectOverviewService,
             IUpdateProjectByTaskService updateProjectTaskService,
             IUpdateFinancePlanCache updateFinancePlanCache,
-            ILogger<EditFinancePlanTaskModel> logger,
+            ILogger<EditUnderwrittenPlacesModel> logger,
             ErrorService errorService)
         {
             _getProjectService = getProjectService;
@@ -235,11 +234,6 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
             {
                 _logger.LogErrorMsg(ex);
             }
-        }
-
-        private static YesNoNotApplicable? ConvertYesNoNotApplicable(string value)
-        {
-            return Enum.TryParse<YesNoNotApplicable>(value, true, out var result) ? result : null;
         }
 
         public static YesNo? ConvertYesNo(string value)
