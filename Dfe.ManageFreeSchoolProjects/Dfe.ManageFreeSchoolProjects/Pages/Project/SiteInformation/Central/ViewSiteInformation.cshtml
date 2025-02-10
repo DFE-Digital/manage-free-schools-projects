@@ -80,88 +80,71 @@
                     </dd>
                 </div>
             </dl>
-            <dl class="govuk-summary-list">
-                <h2 class="govuk-heading-m govuk-!-font-size-24" id="temporary-key-dates-heading">Key dates</h2>
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="temporary-key-dates">
-                        Key dates
-                    </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-forecast-dates">
-                        Forecast
-                    </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right" id="temporary-actual-dates">
-                        Actual
-                    </dt>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="temporary-heads-of-terms-agreed">
-                        Heads of terms agreed
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-heads-of-terms-agreed-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.HoTsAgreedForTemporarySiteForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-heads-of-terms-agreed-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="temporary-contractor-appointed">
-                        Contractor appointed
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-contractor-appointed-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-contractor-appointed-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="temporary-planning-decision-date">
-                        Planning decision
-                        <span class="govuk-visually-hidden">Date of planning decision</span>
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-planning-decision-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-planning-decision-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="temporary-accomodation-first-ready-for-occupation">
-                        Temporary accommodation first ready for occupation
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="temporary-accommodation-first-ready-for-occupation-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-            </dl>
-
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m" id="temporary-key-dates-heading">Key dates</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-third" id="temporary-key-dates">Key dates</th>
+                        <th scope="col" class="govuk-table__header govuk-table__header--numeric govuk-!-width-one-third" id="temporary-forecast-dates">Forecast</th>
+                        <th scope="col" class="govuk-table__header govuk-table__header--numeric govuk-!-width-one-third" id="temporary-actual-dates">Actual</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="temporary-heads-of-terms-agreed">Heads of terms agreed</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-heads-of-terms-agreed-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.HoTsAgreedForTemporarySiteForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-heads-of-terms-agreed-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.DateOfHoTSecuredOnTemporaryAccommodationSiteIfRequired.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="temporary-contractor-appointed">Contractor appointed</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-contractor-appointed-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-contractor-appointed-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.ContractorForTemporarySiteAppointedActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="temporary-planning-decision-date">Date of planning decision</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-planning-decision-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-planning-decision-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForTemporarySiteMainPlanningRecordActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="temporary-accomodation-first-ready-for-occupation">Temporary accommodation first ready for occupation</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-accommodation-first-ready-for-occupation-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="temporary-accommodation-first-ready-for-occupation-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.TemporaryAccommodationFirstReadyForOccupationActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <h2 class="govuk-heading-m govuk-!-font-size-27" id="temporary-site">Permanent site</h2>
             <dl class="govuk-summary-list">
@@ -207,90 +190,72 @@
                         }
                     </dd>
                 </div>
-
-                
             </dl>
-            <dl class="govuk-summary-list">
-                <h2 class="govuk-heading-m govuk-!-font-size-24" id="permanent-key-dates-heading">Key dates</h2>
 
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="permanent-key-dates">
-                        Key dates
-                    </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-forecast-dates">
-                        Forecast
-                    </dt>
-                    <dt class="govuk-summary-list__key mfsp-align-right" id="permanent-actual-dates">
-                        Actual
-                    </dt>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="permanent-heads-of-terms-agreed">
-                        Heads of terms agreed
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-heads-of-terms-agreed-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.HoTsAgreedForSiteForMainSchoolBuildingForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-heads-of-terms-agreed-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.HoTAgreedForSiteForMainSchoolBuildingActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="permanent-contractor-appointed">
-                        Contractor appointed
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-contractor-appointed-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-contractor-appointed-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="permanent-planning-decision-date">
-                        Planning decision
-                        <span class="govuk-visually-hidden">Date of planning decision</span>
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-planning-decision-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-planning-decision-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key" id="permanent-accomodation-first-ready-for-occupation">
-                        Permanent accommodation first ready for occupation
-                    </dt>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-forecast">
-                        @{
-                            RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationForecast.ToDateString());
-                        }
-                    </dd>
-                    <dd class="govuk-summary-list__value mfsp-align-right" data-testid="permanent-accommodation-first-ready-for-occupation-actual">
-                        @{
-                            RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationActual.ToDateString());
-                        }
-                    </dd>
-                </div>
-
-            </dl>
+            <table class="govuk-table">
+                <caption class="govuk-table__caption govuk-table__caption--m" id="permanent-key-dates-heading">Key dates</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header govuk-!-width-one-third" id="permanent-key-dates">Key dates</th>
+                        <th scope="col" class="govuk-table__header govuk-table__header--numeric govuk-!-width-one-third" id="permanent-forecast-dates">Forecast</th>
+                        <th scope="col" class="govuk-table__header govuk-table__header--numeric govuk-!-width-one-third" id="permanent-actual-dates">Actual</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="permanent-heads-of-terms-agreed">Heads of terms agreed</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-heads-of-terms-agreed-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.HoTsAgreedForSiteForMainSchoolBuildingForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-heads-of-terms-agreed-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.HoTAgreedForSiteForMainSchoolBuildingActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="permanent-contractor-appointed">Contractor appointed</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-contractor-appointed-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-contractor-appointed-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.ContractorForSiteForMainSchoolBuildingAppointedActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="permanent-planning-decision-date">Date of planning decision</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-planning-decision-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-planning-decision-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.DateOfPlanningDecisionForMainSiteMainPlanningRecordActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header govuk-!-width-one-third" id="permanent-accomodation-first-ready-for-occupation">Permanent accommodation first ready for occupation</th>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-accommodation-first-ready-for-occupation-forecast">
+                            @{
+                                RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationForecast.ToDateString());
+                            }
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-width-one-third" data-testid="permanent-accommodation-first-ready-for-occupation-actual">
+                            @{
+                                RenderValue(@Model.SiteInformation.MainSchoolBuildingFirstReadyForOccupationActual.ToDateString());
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <h2 class="govuk-heading-m govuk-!-font-size-27" id="capital-risk-information">Capital risk information</h2>
             <dl class="govuk-summary-list">
@@ -357,6 +322,4 @@
 
         return null;
     }
-}
-
 }
