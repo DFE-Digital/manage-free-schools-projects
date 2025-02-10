@@ -36,9 +36,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
             milestone.Rid = dbKpi.Rid;
             milestone.FsgPreOpeningMilestonesBefpApplicable = task.FinancePlanAgreed?.ToString();
             milestone.FsgPreOpeningMilestonesBefpActualDateOfCompletion = task.DateAgreed?.Date;
-            milestone.FinancePlanSavedInWorkplacesFolder = task.PlanSavedInWorksplacesFolder;
+            milestone.FinancePlanSavedInWorkplacesFolder = task.PlanSavedInWorkplacesFolder;
             milestone.LAAgreedPupilNumbers = task.LocalAuthorityAgreedPupilNumbers;
-            milestone.FsgPreOpeningMilestonesMi72CommentsOnDecisionToApproveIfApplicable = task.Comments;
 
             var po = await _context.Po.FirstOrDefaultAsync(r => r.Rid == dbKpi.Rid);
 
@@ -52,6 +51,27 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Project.Tasks.FinancePlan
             po.FinancialPlanningOptInToRpa = task.TrustWillOptIntoRpa?.ToString();
             po.FinancialPlanningStartDateOfRpa = task.RpaStartDate;
             po.FinancialPlanningTypeOfRpaCover = task.RpaCoverType;
+
+            po.UnderwrittenPlacesPrimaryYear1 = task.UnderwrittenPlacesPrimaryYear1.ToString();
+            po.UnderwrittenPlacesPrimaryYear2 = task.UnderwrittenPlacesPrimaryYear2.ToString();
+            po.UnderwrittenPlacesPrimaryYear3 = task.UnderwrittenPlacesPrimaryYear3.ToString();
+            po.UnderwrittenPlacesPrimaryYear4 = task.UnderwrittenPlacesPrimaryYear4.ToString();
+            po.UnderwrittenPlacesPrimaryYear5 = task.UnderwrittenPlacesPrimaryYear5.ToString();
+            po.UnderwrittenPlacesPrimaryYear6 = task.UnderwrittenPlacesPrimaryYear6.ToString();
+            po.UnderwrittenPlacesPrimaryYear7 = task.UnderwrittenPlacesPrimaryYear7.ToString();
+
+            po.UnderwrittenPlacesSecondaryYear1 = task.UnderwrittenPlacesSecondaryYear1.ToString();
+            po.UnderwrittenPlacesSecondaryYear2 = task.UnderwrittenPlacesSecondaryYear2.ToString();
+            po.UnderwrittenPlacesSecondaryYear3 = task.UnderwrittenPlacesSecondaryYear3.ToString();
+            po.UnderwrittenPlacesSecondaryYear4 = task.UnderwrittenPlacesSecondaryYear4.ToString();
+            po.UnderwrittenPlacesSecondaryYear5 = task.UnderwrittenPlacesSecondaryYear5.ToString();
+            
+            po.UnderwrittenPlacesSixteenToNineteenYear1 = task.UnderwrittenPlacesSixteenToNineteenYear1.ToString();
+            po.UnderwrittenPlacesSixteenToNineteenYear2 = task.UnderwrittenPlacesSixteenToNineteenYear2.ToString();
+            po.UnderwrittenPlacesSixteenToNineteenYear3 = task.UnderwrittenPlacesSixteenToNineteenYear3.ToString();
+
+            po.ConfirmationFromLocalAuthoritySavedInWorkplacesFolder = task.ConfirmationFromLocalAuthoritySavedInWorkplacesFolder;
+            po.CommentsAboutUnderwrittenPlaces = task.CommentsAboutUnderwrittenPlaces;
 
             await _context.SaveChangesAsync();
         }

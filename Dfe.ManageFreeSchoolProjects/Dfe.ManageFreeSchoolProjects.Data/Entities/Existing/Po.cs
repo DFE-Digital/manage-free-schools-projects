@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dfe.ManageFreeSchoolProjects.Data
@@ -637,5 +638,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Entities.Existing
         public string ProjectDevelopmentGrantFundingAmountRealised { get; set; }
 
         public string ProjectDevelopmentGrantFundingAmountCleared { get; set; }
+        
     }
 }

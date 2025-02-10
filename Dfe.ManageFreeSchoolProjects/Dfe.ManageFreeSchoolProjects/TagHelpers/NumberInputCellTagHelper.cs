@@ -31,7 +31,8 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
                 TestId = TestId,
                 Name = Name,
                 Value = For.Model?.ToString(),
-                Label = Label
+                Label = Label,
+                Suffix = Suffix,
             };
 
             if (ViewContext.ModelState.TryGetValue(Name, out var entry) && entry.Errors.Count > 0)
@@ -51,5 +52,6 @@ namespace Dfe.ManageFreeSchoolProjects.TagHelpers
         public string Value { get; set; }
         public string ErrorMessage { get; set; }
         public string Label { get; set; }
+        public string Suffix { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Dfe.ManageFreeSchoolProjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 {
     [DbContext(typeof(MfspContext))]
-    partial class MfspContextModelSnapshot : ModelSnapshot
+    [Migration("20250131212937_UnderwritingPlaces")]
+    partial class UnderwritingPlaces
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -800,11 +803,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
 
             modelBuilder.Entity("Dfe.ManageFreeSchoolProjects.Data.Entities.Existing.ConstructData", b =>
                 {
-                    b.Property<string>("ProjectId")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(900)")
-                        .HasColumnName("Project ID");
-
                     b.Property<string>("CapitalProjectRag")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
@@ -938,6 +936,12 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("Project Director");
 
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("Project ID");
+
                     b.Property<string>("ProjectManager")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
@@ -1016,8 +1020,6 @@ namespace Dfe.ManageFreeSchoolProjects.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("Will the project open in temporary accommodation?");
-
-                    b.HasKey("ProjectId");
 
                     b.HasIndex("UpdatedByUserId");
 

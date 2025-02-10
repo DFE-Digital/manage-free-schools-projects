@@ -3,13 +3,36 @@
 @{
     var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
 }
+@{
+    if(Model.Label.Length > 0)
+    {
+        <div class="govuk-heading-s">@Model.Label</div>
+    }
+}
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
-    <input 
-        class="govuk-input govuk-input--width-3 @(showError ? "govuk-input--error" : "")" 
-        id="@Model.Id" 
-        name="@Model.Name" 
-        type="text" 
-        value="@Model.Value" 
-        aria-label="@Model.Label"
-        data-testid="@Model.TestId"/>
+    @{
+        if (Model.Suffix.Length > 0)
+        {
+            <div class="govuk-input__wrapper">
+                <input class="govuk-input govuk-input--width-3 @(showError ? "govuk-input--error" : "")"
+                       id="@Model.Id"
+                       name="@Model.Name"
+                       type="text"
+                       value="@Model.Value"
+                       aria-label="@Model.Label"
+                       data-testid="@Model.TestId" />
+                <div class="govuk-input__suffix" aria-hidden="true">@Model.Suffix</div>
+            </div>
+        }
+        else
+        {
+            <input class="govuk-input govuk-input--width-3 @(showError ? "govuk-input--error" : "")"
+                   id="@Model.Id"
+                   name="@Model.Name"
+                   type="text"
+                   value="@Model.Value"
+                   aria-label="@Model.Label"
+                   data-testid="@Model.TestId" />
+        }
+    }
 </div>
