@@ -1,3 +1,8 @@
+## 0.20.0
+* 193658 - Front End: Make Site Information Visible
+* 172770 - Backend Design: Make Site Information Available
+* 200174 - BUG: Copy Title & Headings Should Read "Provide a reason for changing the status"
+
 ## 0.19.0
 * 193200 - Design/UCD - Add Confirmation - Final Finance Plan Submission
 * 193476 - Implement - Display Reasons for Cancellation or Withdrawl
