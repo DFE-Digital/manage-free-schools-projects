@@ -3,10 +3,9 @@
 @{
     var showError = !string.IsNullOrWhiteSpace(Model.ErrorMessage);
     var showSuffix = !string.IsNullOrWhiteSpace(Model.Suffix);
-    var showLabel = !string.IsNullOrWhiteSpace(Model.Label);
 }
 <div class="govuk-form-group @(showError ? "govuk-form-group--error" : "")">
-    @if (showLabel)
+    @if (Model.ShowLabel)
     {
     <div class="govuk-heading-s">@Model.Label</div>
     }
@@ -25,7 +24,7 @@
                        name="@Model.Name"
                        type="text"
                        value="@Model.Value"
-                       aria-label="@Model.Name"
+                       aria-label="@Model.Label"
                        data-testid="@Model.TestId" />
                 <div class="govuk-input__suffix" aria-hidden="true">@Model.Suffix</div>
             </div>
@@ -37,7 +36,7 @@
                    name="@Model.Name"
                    type="text"
                    value="@Model.Value"
-                   aria-label="@Model.Name"
+                   aria-label="@Model.Label"
                    data-testid="@Model.TestId" />
         }
     }
