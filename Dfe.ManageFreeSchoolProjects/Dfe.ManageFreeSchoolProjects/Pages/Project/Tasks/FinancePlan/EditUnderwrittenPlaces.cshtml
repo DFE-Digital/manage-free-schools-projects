@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = $"Local authority underwriting pupil numbers - {Model.SchoolName}";
 
-    var backlink = string.Format(RouteConstants.EditFinancePlanTask, Model.ProjectId);
+    var backlink = string.Format(RouteConstants.EditFinancePlanTask, Model.ProjectId) + "?referrer=" + Referrer.EditUnderwrittenPlaces;
 
 }
 @section BeforeMain {
@@ -28,7 +28,9 @@
             School phase
         </dt>
         <dd class="govuk-summary-list__value">
-            @Model.SchoolPhase.ToDescription()
+            @{
+                RenderValue(Model.SchoolPhase.ToDescription());
+            }
         </dd>
     </div>
 </govuk-summary-list>
@@ -127,3 +129,19 @@
 
     </div>
 </div>
+
+@functions {
+
+    public void RenderValue(string value)
+    {
+        if (string.IsNullOrEmpty(value) || value == "NotSet")
+        {
+            <span class="empty">Empty</span>
+        }
+        else
+        {
+            @value
+        }
+    }
+
+}
