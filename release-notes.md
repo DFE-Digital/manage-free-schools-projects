@@ -1,5 +1,5 @@
-## 0.21.0
-* 182430 - Build: Finance Plan changes - Supporting Underwritting Aggreements
+## 1.0.0
+* 182430 - Build: Finance Plan changes - Supporting Underwriting Agreements
 * 200711 - Front End: Bug fix for null references and label changes on Pupil Numbers page
 
 
