@@ -149,6 +149,10 @@ namespace Dfe.ManageFreeSchoolProjects.Pages.Project.Tasks.FinancePlan
 
         public async Task<ActionResult> OnPost()
         {
+            var projectId = RouteData.Values["projectId"] as string;
+            var projectOverview = await _getProjectOverviewService.Execute(projectId);
+
+            SchoolPhase = projectOverview.SchoolDetails.SchoolPhase;
 
             if (!ModelState.IsValid)
             {
