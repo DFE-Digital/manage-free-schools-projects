@@ -2,6 +2,7 @@
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks;
 using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Tasks.PDG;
 using Dfe.ManageFreeSchoolProjects.API.UseCases.Reports;
+using Dfe.ManageFreeSchoolProjects.API.Contracts.Project.Contacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,8 +50,10 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             taskHeaders.Should().Contain("Accepted offers evidence");
             taskHeaders.Should().Contain("Due diligence checks");
             taskHeaders.Should().Contain("Readiness to open meeting");
+            taskHeaders.Should().Contain("Project assigned to");
+            taskHeaders.Should().Contain("Grade 6");
             taskHeaders.Should().Contain("Project development grant");
-            
+
             sectionHeaders.Should().Contain("About the project");
             sectionHeaders.Should().Contain("Setting-up");
             sectionHeaders.Should().Contain("Reference numbers");
@@ -60,6 +63,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             sectionHeaders.Should().Contain("Getting ready to open");
             sectionHeaders.Should().Contain("After opening");
             sectionHeaders.Should().Contain("Project development grant schedule");
+            sectionHeaders.Should().Contain("Contacts");
 
             result.Projects.Count.Should().Be(1);
 
@@ -100,7 +104,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
             AssertEntry(nameof(PrincipalDesignateTask.CommissionedExternalExpertVisitToSchool), "Yes" , project, columnHeaders);
             AssertEntry(nameof(DueDiligenceChecks.RequestedCounterExtremismChecks), "Yes", project, columnHeaders);
             AssertEntry(nameof(ReadinessToOpenMeetingTask.SavedTheInternalRomReportToWorkplacesFolder), "Yes", project, columnHeaders);
-            
+            AssertEntry(nameof(ContactsData.ProjectAssignedTo.ProjectAssignedToName), "Test Person", project, columnHeaders);
+            AssertEntry(nameof(ContactsData.Grade6.Grade6Name), "Anothertest Person", project, columnHeaders);
             AssertEntry(nameof(PaymentData.DateOf1stPaymentDue), "01/01/2021", project, columnHeaders);
             AssertEntry(nameof(PaymentData.DateOf2ndPaymentDue), "02/01/2021", project, columnHeaders);
             AssertEntry(nameof(PaymentData.DateOf3rdPaymentDue), "03/01/2021", project, columnHeaders);
@@ -294,6 +299,18 @@ namespace Dfe.ManageFreeSchoolProjects.API.Tests.Reports
                             SavedTheInternalRomReportToWorkplacesFolder = true
                         }, 
                     }, 
+                    Contacts = new ContactsData()
+                    {
+                        ProjectAssignedTo = new ProjectAssignedToContact
+                        {
+                            ProjectAssignedToName = "Test Person",
+                        },
+                        Grade6 = new Grade6Contact
+                        {
+                            Grade6Name = "Anothertest Person"
+                        }
+
+                    },
                     Payments = new PaymentData()
                     {
                         DateOf1stPaymentDue = new DateTime(2021, 1, 1),
