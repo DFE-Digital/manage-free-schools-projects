@@ -173,6 +173,11 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                                       Urn = kpi.ProjectStatusUrnWhenGivenOne,
                                       ApplicationWave = kpi.ProjectStatusFreeSchoolApplicationWave,
                                   },
+                                  Contacts = new ContactsData()
+                                  {
+                                      ProjectAssignedTo = new ProjectAssignedToContact() { ProjectAssignedToName = kpi.KeyContactsFsgLeadContact, ProjectAssignedToEmail = kpi.KeyContactsFsgLeadContactEmail },
+                                      Grade6 = new Grade6Contact() { Grade6Name = kpi.KeyContactsFsgGrade6, Grade6Email = kpi.KeyContactsFsgGrade6Email },
+                                  },
                                   Payments = new PaymentData()
                                   {
                                       DateOf1stPaymentDue = po.ProjectDevelopmentGrantFundingDateOf1stPaymentDue,
@@ -305,6 +310,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
     {
         public ProjectReferenceData ProjectReferenceData { get; set; }
         public GetProjectByTaskResponse TaskInformation { get; set; }
+        public ContactsData Contacts { get; set; }
         public PaymentData Payments { get; set; }
 
     }
@@ -317,6 +323,27 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
         public string ProjectStatus  { get; set; }
         public string ApplicationNumber { get; set; }
         public string ApplicationWave { get; set; }
+    }
+
+    public class ContactsData
+    {
+        public ProjectAssignedToContact ProjectAssignedTo { get; set; }
+
+        public Grade6Contact Grade6 { get; set; }
+    }
+
+    public record ProjectAssignedToContact
+    {
+        public string ProjectAssignedToName { get; set; }
+        public string ProjectAssignedToEmail { get; set; }
+
+    }
+
+    public record Grade6Contact
+    {
+        public string Grade6Name { get; set; }
+        public string Grade6Email { get; set; }
+
     }
 
     public class PaymentData
