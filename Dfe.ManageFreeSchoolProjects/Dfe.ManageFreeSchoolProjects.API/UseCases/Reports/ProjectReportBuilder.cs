@@ -18,6 +18,7 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
             const string signOffPreparationSection = "Sign-off preparation";
             const string gettingReadyToOpenSection = "Getting ready to open";
             const string afterOpeningSection = "After opening";
+            const string contactsSection = "Contacts";
             
             foreach (var project in projectReportSourceData)
             {
@@ -56,6 +57,8 @@ namespace Dfe.ManageFreeSchoolProjects.API.UseCases.Reports
                     new() { Task = project.TaskInformation.CommissionedExternalExpert, TaskName = "External expert visit", Section = afterOpeningSection },
                     new() { Task = project.TaskInformation.DueDiligenceChecks, TaskName = "Due diligence checks", Section = gettingReadyToOpenSection },
                     new() { Task = project.TaskInformation.ReadinessToOpenMeetingTask, TaskName = "Readiness to open meeting", Section = gettingReadyToOpenSection },
+                    new() { Task = project.Contacts.ProjectAssignedTo, TaskName = "Project assigned to", Section = contactsSection},
+                    new() { Task = project.Contacts.Grade6, TaskName = "Grade 6", Section = contactsSection},
                     new() { Task = project.Payments, TaskName = "Project development grant", Section = pdgScheduleSection }
                 };
 
