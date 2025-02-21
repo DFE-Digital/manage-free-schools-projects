@@ -22,6 +22,14 @@ In a console window:
 1. Navigate to ```ManageFreeSchoolProjects.Data``` project root
 1. Run migrations ```dotnet ef database update --connection "enter connection string to database here" ```
 
+***
+If you have a backup file for inserting data:
+
+In a terminal:
+- Run `docker cp [PATH_TO_BACKUP_FILE] [DOCKER_CONTAINER_ID]:/var/opt/mssql/data/` and replace the path to backup file and Docker container ID.
+
+In SQL:
+- Run `RESTORE DATABASE mfsp from DISK = '/var/opt/mssql/data/mfsp.bak' WITH MOVE 'mfsp' TO '/var/opt/mssql/data/mfsp.mdf', MOVE 'mfsp_log' TO '/var/opt/mssql/data/mfsp_log.ldf', REPLACE, RECOVERY`
 
 ## Accessing the API
 
