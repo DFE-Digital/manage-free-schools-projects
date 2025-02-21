@@ -1,3 +1,6 @@
+## 1.0.1
+* 200388 - Build: Add ProjectAssignedTo and Grade6 data fields to MFSP all projects download sheet
+
 ## 1.0.0
 * 182430 - Build: Finance Plan changes - Supporting Underwriting Agreements
 * 200711 - Front End: Bug fix for null references and label changes on Pupil Numbers page
